@@ -1,0 +1,34 @@
+name: Verify published Echos of Gaia downloads
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag, for example v0.1.0'
+        required: true
+        default: 'v0.1.0'
+
+permissions:
+  contents: read
+
+jobs:
+  published-downloads:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download release assets
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ github.event.release.tag_name || inputs.tag }}
+        run: |
+          if ($env:RELEASE_TAG -cnotmatch '^v\d+\.\d+\.\d+$') { throw 'Unexpected release tag' }
+          gh release download $env:RELEASE_TAG --repo $env:GITHUB_REPOSITORY --dir downloaded --pattern '*.zip' --pattern 'SHA256SUMS.txt'
+          if ($LASTEXITCODE -ne 0) { throw 'Release download failed' }
+          python tools/verify_echos_release.py --directory downloaded --version $env:RELEASE_TAG.Substring(1)
+          if ($LASTEXITCODE -ne 0) { throw 'Release verification failed' }

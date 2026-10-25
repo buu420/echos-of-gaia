@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup><Compile Include="*.cs" /><Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Core/*.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Core/*.cs" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Fixtures/field611-object-b.json" LogicalName="Field611.ObjectB.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Fixtures/field611-object-a.json" LogicalName="Field611.ObjectA.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Fixtures/field150-door-script.json" LogicalName="Field150.DoorScript.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Fixtures/field2950-forest.json" LogicalName="Field2950.Forest.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Fixtures/field2950-after-mene.json" LogicalName="Field2950.AfterMene.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Fixtures/field2950-exit-script.json" LogicalName="Field2950.ExitScript.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Fixtures/field2850-story-guard.json" LogicalName="Field2850.StoryGuard.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../docs/accessibility/story-navigation.json" LogicalName="StoryNavigation.json" /></ItemGroup>
+  <ItemGroup><Compile Include="../../Memoria.XInputDotNetPure/GamePad.cs" /><Compile Include="../../Memoria.XInputDotNetPure/Utils.cs" /><Compile Include="../../Memoria.XInputDotNetPure/JoyShockLibrary.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../Memoria.ScreenReader/*.cs" /></ItemGroup>
+  <ItemGroup>
+    <Compile Include="../../Memoria.Prime/Ini/*.cs" />
+    <Compile Include="../../Memoria.Prime/Text/*.cs" />
+    <Compile Include="../../Memoria.Prime/Exceptions/*.cs" />
+    <Compile Include="../../Memoria.Prime/ExtensionMethodsArray.cs" />
+    <Compile Include="../../Memoria.Prime/ExtensionMethodsIList.cs" />
+    <Compile Include="../../Memoria.Prime/ExtensionMethodsIEnumerable.cs" />
+  </ItemGroup>
+</Project>

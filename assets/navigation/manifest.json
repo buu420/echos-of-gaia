@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "source": "Blind Soldier field_zone_transition.wav, port authorized by the owner",
+  "sourcePath": "C:\\Users\\buu42\\Documents\\FFVII-ActiveBuild\\controller-compat-20260917\\source\\Ff7.Accessibility.Reloaded\\Assets\\navigation\\field_zone_transition.wav",
+  "original": {
+    "file": "field-exit-original.wav",
+    "bytes": 528328,
+    "sha256": "57821dc0ee9ab16ba15114044bce67393eab0f7e30ed1cc5963651df789c0c76"
+  },
+  "playback": {
+    "file": "field-exit.wav",
+    "bytes": 143046,
+    "sha256": "6de6494a2e074401942c358035a96ad2ce0b9c70f58a7d6a0016101283f28924",
+    "duration": 2.9792083333333332,
+    "format": "24 kHz mono PCM16 WAV"
+  },
+  "conversion": "FFmpeg resampling and mono mix only; no trimming, pitch, gain or tempo change."
+}

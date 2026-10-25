@@ -1,0 +1,37 @@
+{
+  "Schema": 1,
+  "SteamAppId": "377840",
+  "SteamBuildId": "5378074",
+  "Files": [
+    {
+      "Path": "x86/FF9.exe",
+      "SHA256": "09b36e0488a3a39e00d3c55036cd54d44b87629068e3669a1905602ae3180958",
+      "Bytes": 16180224
+    },
+    {
+      "Path": "x64/FF9.exe",
+      "SHA256": "aedfd04154bfe2555fa07753e5c8caae3a57d7adba48e737c6859a2f3880d1bd",
+      "Bytes": 19411456
+    },
+    {
+      "Path": "x86/FF9_Data/Managed/UnityEngine.dll",
+      "SHA256": "bd2654b3fb27fccbde655510aa95d58c6b4bf11d07c396138243b7d62ccbe69f",
+      "Bytes": 848384
+    },
+    {
+      "Path": "x64/FF9_Data/Managed/UnityEngine.dll",
+      "SHA256": "e72c5876300da3e218e6bdb2b026ec382b15df17fd4f7eafd32e37c09afdd422",
+      "Bytes": 848384
+    },
+    {
+      "Path": "x86/FF9_Data/Managed/Assembly-CSharp-firstpass.dll",
+      "SHA256": "43f3ea6239a3cb407aa2bb3adac644fb358df59485ffb4a534cd468d9b74f146",
+      "Bytes": 78848
+    },
+    {
+      "Path": "x64/FF9_Data/Managed/Assembly-CSharp-firstpass.dll",
+      "SHA256": "7fd3968710eda825a98f30406a977a7793cb6bcb3492efe04b173308a34cbef9",
+      "Bytes": 78848
+    }
+  ]
+}

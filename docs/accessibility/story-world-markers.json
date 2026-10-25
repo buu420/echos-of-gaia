@@ -1,0 +1,241 @@
+{
+  "schema": 1,
+  "source": "Installed US MES_WORLD table0 and native WorldHUD/NativeWorldTargets locId+1; marker63 aliases textId49",
+  "asset": "embeddedasset/text/us/field/68.mes",
+  "pathId": 694,
+  "textSHA256": "116435c64b2a857a8460ce79ed0d5ec6684d46a1c89277fd4c188fb49e91c890",
+  "markers": [
+    {
+      "id": 0,
+      "name": "Alexandria Harbor"
+    },
+    {
+      "id": 1,
+      "name": "Alexandria"
+    },
+    {
+      "id": 2,
+      "name": "Evil Forest"
+    },
+    {
+      "id": 3,
+      "name": "Ice Cavern"
+    },
+    {
+      "id": 4,
+      "name": "Quan’s Dwelling"
+    },
+    {
+      "id": 5,
+      "name": "Treno"
+    },
+    {
+      "id": 6,
+      "name": "South Gate"
+    },
+    {
+      "id": 7,
+      "name": "South Gate"
+    },
+    {
+      "id": 8,
+      "name": "South Gate"
+    },
+    {
+      "id": 9,
+      "name": "South Gate"
+    },
+    {
+      "id": 10,
+      "name": "South Gate"
+    },
+    {
+      "id": 11,
+      "name": "Ice Cavern"
+    },
+    {
+      "id": 12,
+      "name": "Observatory Mountain"
+    },
+    {
+      "id": 13,
+      "name": "Dali"
+    },
+    {
+      "id": 14,
+      "name": "North Gate"
+    },
+    {
+      "id": 15,
+      "name": "North Gate"
+    },
+    {
+      "id": 16,
+      "name": "Gizamaluke’s Grotto"
+    },
+    {
+      "id": 17,
+      "name": "Burmecia"
+    },
+    {
+      "id": 18,
+      "name": "Cleyra"
+    },
+    {
+      "id": 19,
+      "name": "Chocobo’s Forest"
+    },
+    {
+      "id": 20,
+      "name": "Gizamaluke’s Grotto"
+    },
+    {
+      "id": 21,
+      "name": "Qu’s Marsh"
+    },
+    {
+      "id": 22,
+      "name": "Pinnacle Rocks"
+    },
+    {
+      "id": 23,
+      "name": "Lindblum Dragon’s Gate"
+    },
+    {
+      "id": 24,
+      "name": "Lindblum"
+    },
+    {
+      "id": 25,
+      "name": "Lindblum Harbor"
+    },
+    {
+      "id": 26,
+      "name": "Earth Shrine"
+    },
+    {
+      "id": 27,
+      "name": "Desert Palace"
+    },
+    {
+      "id": 28,
+      "name": "Mognet Central"
+    },
+    {
+      "id": 29,
+      "name": "Qu’s Marsh"
+    },
+    {
+      "id": 30,
+      "name": "Black Mage Village"
+    },
+    {
+      "id": 31,
+      "name": "Fossil Roo"
+    },
+    {
+      "id": 32,
+      "name": "Conde Petie"
+    },
+    {
+      "id": 33,
+      "name": "Madain Sari"
+    },
+    {
+      "id": 34,
+      "name": "Conde Petie Mountain Path"
+    },
+    {
+      "id": 35,
+      "name": "Conde Petie Mountain Path"
+    },
+    {
+      "id": 36,
+      "name": "Iifa Tree"
+    },
+    {
+      "id": 37,
+      "name": "Chocobo’s Lagoon"
+    },
+    {
+      "id": 38,
+      "name": "Wind Shrine"
+    },
+    {
+      "id": 39,
+      "name": "Daguerreo"
+    },
+    {
+      "id": 40,
+      "name": "Qu’s Marsh"
+    },
+    {
+      "id": 41,
+      "name": "Oeilvert"
+    },
+    {
+      "id": 42,
+      "name": "Landing Site"
+    },
+    {
+      "id": 43,
+      "name": "Water Shrine"
+    },
+    {
+      "id": 44,
+      "name": "Ipsen’s Castle"
+    },
+    {
+      "id": 45,
+      "name": "Qu’s Marsh"
+    },
+    {
+      "id": 46,
+      "name": "Shimmering Island"
+    },
+    {
+      "id": 47,
+      "name": "Esto Gaza"
+    },
+    {
+      "id": 48,
+      "name": "Fire Shrine"
+    },
+    {
+      "id": 49,
+      "name": "Chocobo’s Paradise"
+    },
+    {
+      "id": 53,
+      "name": "Memoria"
+    },
+    {
+      "id": 54,
+      "name": "Chocobo’s Air Garden"
+    },
+    {
+      "id": 55,
+      "name": "Chocobo’s Air Garden"
+    },
+    {
+      "id": 56,
+      "name": "Chocobo’s Air Garden"
+    },
+    {
+      "id": 57,
+      "name": "Chocobo’s Air Garden"
+    },
+    {
+      "id": 58,
+      "name": "Chocobo’s Air Garden"
+    },
+    {
+      "id": 59,
+      "name": "Gizamaluke’s Grotto"
+    },
+    {
+      "id": 63,
+      "name": "Chocobo’s Paradise"
+    }
+  ]
+}

@@ -1,0 +1,2597 @@
+{
+  "schema": 1,
+  "reviewDate": "2026-10-24",
+  "completeDiscOneCoverage": false,
+  "description": "Exact-site additions to the retained generic field and FMV descriptions. Reference timestamps are editorial evidence only and never run against user-paced dialogue.",
+  "sources": {
+    "referenceVideo": "https://www.youtube.com/watch?v=PKML_rC1JoA",
+    "installedNativeIndexSha256": "5626ea3494cbf1e48145e8f58457f26ec36677fd9d9ce142464589585b357962",
+    "method": "Native script entry, executing SID, instruction, model and actual clip matched to sampled video and installed pose sheets. Customized scenery colors are not inferred from the reference."
+  },
+  "validation": {
+    "nativeBindingsChecked": true,
+    "visibleProgressRequired": true,
+    "liveGameplayTested": false,
+    "scope": "Selected verified actions and significant objects throughout Disc One. Some props and coordinated sequences, unrecorded branches and unreviewed partial animations remain gaps."
+  },
+  "fieldBanks": [
+    {
+      "id": "disc1-alexandria",
+      "fields": [
+        100,
+        104,
+        150
+      ],
+      "clips": [
+        "disc1-early-100-19-1-893",
+        "disc1-early-100-19-1-1712",
+        "disc1-early-104-7-1-932",
+        "disc1-early-150-3-1-476"
+      ]
+    },
+    {
+      "id": "disc1-burmecia",
+      "fields": [
+        750,
+        760,
+        767,
+        768
+      ],
+      "clips": [
+        "disc1-late-palace-swordswoman-hair",
+        "disc1-late-palace-swordswoman-spreads-hands",
+        "disc1-late-supp-rain-gate-bows",
+        "disc1-late-supp-rain-gate-head-lowers",
+        "disc1-late-supp-rescue-boy-springs",
+        "disc1-late-supp-palace-silver-haired-man-looks-up",
+        "disc1-late-supp-palace-silver-haired-man-folds-arms",
+        "disc1-late-supp-palace-silver-haired-man-hand-mouth",
+        "disc1-late-supp-palace-silver-haired-man-bows",
+        "disc1-late-supp-palace-silver-haired-man-arms-crossed",
+        "disc1-late-supp-palace-swordswoman-stance",
+        "disc1-late-supp-flashback-spear"
+      ]
+    },
+    {
+      "id": "disc1-cargo",
+      "fields": [
+        500,
+        502,
+        503,
+        506
+      ],
+      "clips": [
+        "disc1-middle-cargo-turns-wheel",
+        "disc1-middle-cargo-knight-punches",
+        "disc1-middle-cargo-leaps-to-pipe",
+        "disc1-middle-cargo-knight-swings-upward",
+        "disc1-middle-cargo-drops-from-pipe",
+        "disc1-middle-cargo-reaches-for-small-mage",
+        "disc1-middle-cargo-winged-mage-spreads-wings",
+        "disc1-middle-cargo-blue-jester-tilts-head",
+        "disc1-middle-cargo-winged-mage-grasps-wheel",
+        "disc1-middle-cargo-knight-kneels",
+        "disc1-middle-cargo-woman-steps-back",
+        "disc1-middle-cargo-winged-mage-lands-cockpit"
+      ]
+    },
+    {
+      "id": "disc1-dali",
+      "fields": [
+        351,
+        352,
+        358,
+        400,
+        402,
+        403,
+        451,
+        454
+      ],
+      "clips": [
+        "disc1-middle-dali-knocks-on-desk",
+        "disc1-middle-dali-gets-out-of-bed",
+        "disc1-middle-dali-morning-stretch",
+        "disc1-middle-dali-small-mage-lifted",
+        "disc1-middle-dali-kneels-on-barrel",
+        "disc1-middle-dali-knight-falls-back",
+        "disc1-middle-dali-ladder-grab",
+        "disc1-middle-dali-knight-levels-sword",
+        "disc1-major-factory-hanging-figure",
+        "disc1-major-factory-running-bird",
+        "disc1-major-factory-moving-egg"
+      ]
+    },
+    {
+      "id": "disc1-forest",
+      "fields": [
+        204,
+        207,
+        208,
+        251,
+        257,
+        261,
+        262
+      ],
+      "clips": [
+        "disc1-early-251-16-42-272",
+        "disc1-early-208-13-20-587",
+        "disc1-early-208-13-21-626",
+        "disc1-early-208-13-22-636",
+        "disc1-early-207-16-42-508",
+        "disc1-early-207-16-16-936",
+        "disc1-early-207-16-15-920",
+        "disc1-early-204-12-21-850",
+        "disc1-early-207-16-22-830",
+        "disc1-early-261-6-11-485",
+        "disc1-early-261-6-12-501",
+        "disc1-early-262-12-20-302",
+        "disc1-early-262-13-19-658",
+        "disc1-major-plant-captive-girl",
+        "disc1-major-plant-collapse",
+        "disc1-major-flower-plant-limbs"
+      ]
+    },
+    {
+      "id": "disc1-grotto",
+      "fields": [
+        707
+      ],
+      "clips": [
+        "disc1-late-grotto-soldier-head-droops",
+        "disc1-late-grotto-red-coated-figure-bows"
+      ]
+    },
+    {
+      "id": "disc1-ice",
+      "fields": [
+        307,
+        312
+      ],
+      "clips": [
+        "disc1-middle-ice-small-mage-tumbles",
+        "disc1-middle-ice-knight-sways",
+        "disc1-middle-ice-kicks-fallen-knight",
+        "disc1-middle-ice-tailed-man-collapses",
+        "disc1-middle-ice-raises-dagger",
+        "disc1-middle-ice-examines-dagger",
+        "disc1-middle-ice-woman-collapses-side",
+        "disc1-middle-ice-knight-topples-backward"
+      ]
+    },
+    {
+      "id": "disc1-lindblum",
+      "fields": [
+        554,
+        555,
+        565,
+        571,
+        600,
+        615,
+        618
+      ],
+      "clips": [
+        "disc1-late-banquet-boy-falls",
+        "disc1-late-banquet-pointed-hat-slumps",
+        "disc1-late-banquet-red-coated-figure-falls",
+        "disc1-late-banquet-knight-sinks",
+        "disc1-late-banquet-knight-recovers",
+        "disc1-late-messenger-kneels",
+        "disc1-late-messenger-collapses",
+        "disc1-late-inn-boy-stretches",
+        "disc1-late-market-knight-droops",
+        "disc1-late-pub-boy-scratches-head",
+        "disc1-late-pub-boy-spreads-hands",
+        "disc1-late-hideout-boy-leans-back",
+        "disc1-late-supp-balcony-girl-chin-up",
+        "disc1-late-supp-balcony-girl-hands-head",
+        "disc1-late-supp-balcony-boy-slumps",
+        "disc1-late-supp-balcony-boy-recoils",
+        "disc1-late-supp-market-knight-sinks",
+        "disc1-late-supp-throne-knight-swings-arm",
+        "disc1-late-supp-throne-knight-hands-up",
+        "disc1-late-supp-throne-knight-kneels"
+      ]
+    },
+    {
+      "id": "disc1-northgate",
+      "fields": [
+        850
+      ],
+      "clips": [
+        "disc1-late-gate-burly-sneeze",
+        "disc1-late-gate-burly-moustache-first",
+        "disc1-late-gate-burly-moustache-again",
+        "disc1-late-gate-bandana-raises-arms",
+        "disc1-late-gate-burly-looks-back",
+        "disc1-late-gate-burly-lifts-left-fist",
+        "disc1-late-gate-burly-raises-fist",
+        "disc1-late-gate-bandana-extends-arm",
+        "disc1-late-gate-short-man-hammer"
+      ]
+    },
+    {
+      "id": "disc1-southgate",
+      "fields": [
+        801,
+        813,
+        814
+      ],
+      "clips": [
+        "disc1-late-alley-girl-stretches",
+        "disc1-late-tram-conductor-points",
+        "disc1-late-tram-worker-raises-hands",
+        "disc1-late-tram-knight-open-hands",
+        "disc1-late-tram-knight-palms-up",
+        "disc1-late-tram-seated-girl-hands",
+        "disc1-late-tram-knight-fists",
+        "disc1-late-tram-knight-hands-on-hips"
+      ]
+    },
+    {
+      "id": "disc1-theater",
+      "fields": [
+        50,
+        51,
+        52,
+        54,
+        66,
+        67
+      ],
+      "clips": [
+        "disc1-early-50-15-1-248",
+        "disc1-early-50-15-1-270",
+        "disc1-early-52-13-1-275",
+        "disc1-early-52-14-1-422",
+        "disc1-early-54-4-1-241",
+        "disc1-early-54-9-1-265",
+        "disc1-early-51-13-1-1619",
+        "disc1-early-66-10-1-1195",
+        "disc1-early-66-14-1-1453",
+        "disc1-early-67-15-1-209"
+      ]
+    }
+  ],
+  "cues": [
+    {
+      "field": 50,
+      "executorSid": 15,
+      "entrySha256": "78eefef31ae944df36b1da8fb4bf376d9e0bde6ffb519717de5180814a1a8e3d",
+      "instruction": 248,
+      "model": 5464,
+      "clip": "ANH_SUB_F0_BAK_PONPON",
+      "cueId": "disc1-early-50-15-1-248",
+      "voiceText": "The burly man reaches forward with one hand.",
+      "bank": "disc1-theater",
+      "evidence": {
+        "referenceStartSeconds": 175,
+        "referenceEndSeconds": 177,
+        "nativeAnimationId": 1017,
+        "opcode": "ANIM",
+        "targetSid": 15,
+        "siteKey": "50:15:1@248",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 50,
+      "executorSid": 15,
+      "entrySha256": "78eefef31ae944df36b1da8fb4bf376d9e0bde6ffb519717de5180814a1a8e3d",
+      "instruction": 270,
+      "model": 5464,
+      "clip": "ANH_SUB_F0_BAK_GAHAHA",
+      "cueId": "disc1-early-50-15-1-270",
+      "voiceText": "The burly man throws his head back, his belly shaking.",
+      "bank": "disc1-theater",
+      "evidence": {
+        "referenceStartSeconds": 180,
+        "referenceEndSeconds": 183,
+        "nativeAnimationId": 12599,
+        "opcode": "ANIM",
+        "targetSid": 15,
+        "siteKey": "50:15:1@270",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 52,
+      "executorSid": 13,
+      "entrySha256": "7999d6a142af034de75688ffc48e2ab9129bf75b679143c87b9b4a81d46d6e55",
+      "instruction": 275,
+      "model": 107,
+      "clip": "ANH_SUB_F0_CNA_NAP_TO_BOX",
+      "cueId": "disc1-early-52-13-1-275",
+      "voiceText": "The short man with the hammer sits up and gets to his feet.",
+      "bank": "disc1-theater",
+      "evidence": {
+        "referenceStartSeconds": 204,
+        "referenceEndSeconds": 208,
+        "nativeAnimationId": 1063,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "52:13:1@275",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 52,
+      "executorSid": 14,
+      "entrySha256": "fc58d2f00c3023ccdf27d974300d6a766913a3a4349fc8f29021f56ee421ad08",
+      "instruction": 422,
+      "model": 109,
+      "clip": "ANH_SUB_F0_MRC_SIT_TO_STAND",
+      "cueId": "disc1-early-52-14-1-422",
+      "voiceText": "The stocky man rises from his seat.",
+      "bank": "disc1-theater",
+      "evidence": {
+        "referenceStartSeconds": 218,
+        "referenceEndSeconds": 221,
+        "nativeAnimationId": 1090,
+        "opcode": "ANIM",
+        "targetSid": 14,
+        "siteKey": "52:14:1@422",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 100,
+      "executorSid": 19,
+      "entrySha256": "39ced54a6e82a75105072ab03246b54d2569f151f371de55451bea9ae30b5bbf",
+      "instruction": 893,
+      "model": 8,
+      "clip": "ANH_MAIN_F0_VIV_KOKE_5_1",
+      "cueId": "disc1-early-100-19-1-893",
+      "voiceText": "The small figure in the pointed hat tumbles onto the ground.",
+      "bank": "disc1-alexandria",
+      "evidence": {
+        "referenceStartSeconds": 315,
+        "referenceEndSeconds": 319,
+        "nativeAnimationId": 11966,
+        "opcode": "ANIM",
+        "targetSid": 19,
+        "siteKey": "100:19:1@893",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 100,
+      "executorSid": 19,
+      "entrySha256": "39ced54a6e82a75105072ab03246b54d2569f151f371de55451bea9ae30b5bbf",
+      "instruction": 1712,
+      "model": 8,
+      "clip": "ANH_MAIN_F0_VIV_KOKE_5_3",
+      "cueId": "disc1-early-100-19-1-1712",
+      "voiceText": "The small figure in the pointed hat pushes himself up onto his feet.",
+      "bank": "disc1-alexandria",
+      "evidence": {
+        "referenceStartSeconds": 324,
+        "referenceEndSeconds": 328,
+        "nativeAnimationId": 11974,
+        "opcode": "ANIM",
+        "targetSid": 19,
+        "siteKey": "100:19:1@1712",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 104,
+      "executorSid": 7,
+      "entrySha256": "802456aa29a6aabecc4894a2c1273e1658b02b2b3db2358f67ceda9fe6925733",
+      "instruction": 932,
+      "model": 8,
+      "clip": "ANH_MAIN_F0_VIV_GAKKARI1",
+      "cueId": "disc1-early-104-7-1-932",
+      "voiceText": "The small figure in the pointed hat slumps forward, his head hanging.",
+      "bank": "disc1-alexandria",
+      "evidence": {
+        "referenceStartSeconds": 389,
+        "referenceEndSeconds": 392,
+        "nativeAnimationId": 2334,
+        "opcode": "ANIM",
+        "targetSid": 7,
+        "siteKey": "104:7:1@932",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 150,
+      "executorSid": 3,
+      "entrySha256": "faa8af532be49438d6e68e2bb845841e78ce104860fe53994d0ed92491a6e5dd",
+      "instruction": 476,
+      "model": 190,
+      "clip": "ANH_SUB_F1_BLN_HELMET_1",
+      "cueId": "disc1-early-150-3-1-476",
+      "voiceText": "The helmeted youth adjusts his armor.",
+      "bank": "disc1-alexandria",
+      "evidence": {
+        "referenceStartSeconds": 916,
+        "referenceEndSeconds": 919,
+        "nativeAnimationId": 279,
+        "opcode": "ANIM",
+        "targetSid": 3,
+        "siteKey": "150:3:1@476",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 54,
+      "executorSid": 4,
+      "entrySha256": "abbcb40ea3b5a39a7e44643353850bd5945d883262edaaa284134f1089fe50e5",
+      "instruction": 241,
+      "model": 48,
+      "clip": "ANH_SUB_F0_RBY_PRATFALL_1",
+      "cueId": "disc1-early-54-4-1-241",
+      "voiceText": "The woman in the bonnet falls backward into a sitting position.",
+      "bank": "disc1-theater",
+      "evidence": {
+        "referenceStartSeconds": 1237,
+        "referenceEndSeconds": 1240,
+        "nativeAnimationId": 6966,
+        "opcode": "ANIM",
+        "targetSid": 4,
+        "siteKey": "54:4:1@241",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 54,
+      "executorSid": 9,
+      "entrySha256": "a5f80b30014c4401834b572745d3930f44a3c88ecb5953c634a34c81556ab78a",
+      "instruction": 265,
+      "model": 202,
+      "clip": "ANH_MAIN_F4_GRN_SORRY",
+      "cueId": "disc1-early-54-9-1-265",
+      "voiceText": "The cloaked girl brings her hands together and bows her head.",
+      "bank": "disc1-theater",
+      "evidence": {
+        "referenceStartSeconds": 1250,
+        "referenceEndSeconds": 1252,
+        "nativeAnimationId": 3387,
+        "opcode": "ANIM",
+        "targetSid": 9,
+        "siteKey": "54:9:1@265",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 51,
+      "executorSid": 13,
+      "entrySha256": "3765fcf6ec46ceac5caa94a00f24fbb4af440bb2277c3937208688a72640fbe3",
+      "instruction": 1619,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_HIZA_OJIGI_1",
+      "cueId": "disc1-early-51-13-1-1619",
+      "voiceText": "The kneeling tailed boy bows his head.",
+      "bank": "disc1-theater",
+      "evidence": {
+        "referenceStartSeconds": 1321,
+        "referenceEndSeconds": 1324,
+        "nativeAnimationId": 5879,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "51:13:1@1619",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 66,
+      "executorSid": 10,
+      "entrySha256": "0a4da3738988c7b9a7ef17fafd17b6c0a94d5df9daf4317e52bc49698690c0d7",
+      "instruction": 1195,
+      "model": 202,
+      "clip": "ANH_MAIN_F4_GRN_GUARD_DOWN_1",
+      "cueId": "disc1-early-66-10-1-1195",
+      "voiceText": "The cloaked girl sinks to her knees and collapses onto her side.",
+      "bank": "disc1-theater",
+      "evidence": {
+        "referenceStartSeconds": 1616,
+        "referenceEndSeconds": 1619,
+        "nativeAnimationId": 3378,
+        "opcode": "ANIM",
+        "targetSid": 10,
+        "siteKey": "66:10:1@1195",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 66,
+      "executorSid": 14,
+      "entrySha256": "f9e99fb16685e557c8e561cf0cedeadd1f52f2e059d62bbccd3f30df32c31afb",
+      "instruction": 1453,
+      "model": 109,
+      "clip": "ANH_SUB_F0_MRC_SWORD_HARAKIRI",
+      "cueId": "disc1-early-66-14-1-1453",
+      "voiceText": "The stocky man doubles over and collapses onto his side.",
+      "bank": "disc1-theater",
+      "evidence": {
+        "referenceStartSeconds": 1639,
+        "referenceEndSeconds": 1643,
+        "nativeAnimationId": 3308,
+        "opcode": "ANIM",
+        "targetSid": 14,
+        "siteKey": "66:14:1@1453",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 67,
+      "executorSid": 15,
+      "entrySha256": "e1b222d0bdb47e98ed59af819af233e1c9cdea1da160fa88c7006ba5f3eebbe6",
+      "instruction": 209,
+      "model": 185,
+      "clip": "ANH_MAIN_F0_GRN_HOOD_FIRE_3",
+      "cueId": "disc1-early-67-15-1-209",
+      "voiceText": "The long-haired girl jumps up with her arms raised.",
+      "bank": "disc1-theater",
+      "evidence": {
+        "referenceStartSeconds": 1703,
+        "referenceEndSeconds": 1706,
+        "nativeAnimationId": 7540,
+        "opcode": "ANIM",
+        "targetSid": 15,
+        "siteKey": "67:15:1@209",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 251,
+      "executorSid": 16,
+      "entrySha256": "ec2112d568d9d3b49414250f4c24002331918b1aeaa0a99fb38ef38ba460ae00",
+      "instruction": 272,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_POISON_GET",
+      "cueId": "disc1-early-251-16-42-272",
+      "voiceText": "The armored knight drops to one knee, leaning heavily to one side.",
+      "bank": "disc1-forest",
+      "evidence": {
+        "referenceStartSeconds": 2097,
+        "referenceEndSeconds": 2100,
+        "nativeAnimationId": 2743,
+        "opcode": "ANIM",
+        "targetSid": 16,
+        "siteKey": "251:16:42@272",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 208,
+      "executorSid": 13,
+      "entrySha256": "13749847af3b40c8b0602b5b87910275e7cf68fcab2f48a48a4c0024d0cf3614",
+      "instruction": 587,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_TIRED_1",
+      "cueId": "disc1-early-208-13-20-587",
+      "voiceText": "The armored knight bends forward with his hands on his knees.",
+      "bank": "disc1-forest",
+      "evidence": {
+        "referenceStartSeconds": 2236,
+        "referenceEndSeconds": 2240,
+        "nativeAnimationId": 7238,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "208:13:20@587",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 208,
+      "executorSid": 13,
+      "entrySha256": "13749847af3b40c8b0602b5b87910275e7cf68fcab2f48a48a4c0024d0cf3614",
+      "instruction": 626,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_SIT_CHAIR_1_1",
+      "cueId": "disc1-early-208-13-21-626",
+      "voiceText": "The armored knight lowers himself into a sitting position.",
+      "bank": "disc1-forest",
+      "evidence": {
+        "referenceStartSeconds": 2243,
+        "referenceEndSeconds": 2246,
+        "nativeAnimationId": 6617,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "208:13:21@626",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 208,
+      "executorSid": 13,
+      "entrySha256": "13749847af3b40c8b0602b5b87910275e7cf68fcab2f48a48a4c0024d0cf3614",
+      "instruction": 636,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_DOLL",
+      "cueId": "disc1-early-208-13-22-636",
+      "voiceText": "The seated armored knight turns his head from side to side.",
+      "bank": "disc1-forest",
+      "evidence": {
+        "referenceStartSeconds": 2245,
+        "referenceEndSeconds": 2249,
+        "nativeAnimationId": 6971,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "208:13:22@636",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 207,
+      "executorSid": 16,
+      "entrySha256": "ba8f8ea7e0cd60c97c4f87a1e3fad673645418a7772455c8eb3e8a6fa4d2543f",
+      "instruction": 508,
+      "model": 8,
+      "clip": "ANH_MAIN_F0_VIV_WAKEUP",
+      "cueId": "disc1-early-207-16-42-508",
+      "voiceText": "The small figure in the pointed hat sits up.",
+      "bank": "disc1-forest",
+      "evidence": {
+        "referenceStartSeconds": 2315,
+        "referenceEndSeconds": 2317,
+        "nativeAnimationId": 2396,
+        "opcode": "ANIM",
+        "targetSid": 16,
+        "siteKey": "207:16:42@508",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 207,
+      "executorSid": 16,
+      "entrySha256": "ba8f8ea7e0cd60c97c4f87a1e3fad673645418a7772455c8eb3e8a6fa4d2543f",
+      "instruction": 936,
+      "model": 8,
+      "clip": "ANH_MAIN_F0_VIV_WAKEUP_SHY_1",
+      "cueId": "disc1-early-207-16-16-936",
+      "voiceText": "The seated figure in the pointed hat draws his hands together in his lap.",
+      "bank": "disc1-forest",
+      "evidence": {
+        "referenceStartSeconds": 2325,
+        "referenceEndSeconds": 2327,
+        "nativeAnimationId": 12409,
+        "opcode": "ANIM",
+        "targetSid": 16,
+        "siteKey": "207:16:16@936",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 207,
+      "executorSid": 16,
+      "entrySha256": "ba8f8ea7e0cd60c97c4f87a1e3fad673645418a7772455c8eb3e8a6fa4d2543f",
+      "instruction": 920,
+      "model": 8,
+      "clip": "ANH_MAIN_F0_VIV_WAKEUP_SAD_1",
+      "cueId": "disc1-early-207-16-15-920",
+      "voiceText": "The seated figure in the pointed hat lowers his head.",
+      "bank": "disc1-forest",
+      "evidence": {
+        "referenceStartSeconds": 2337,
+        "referenceEndSeconds": 2340,
+        "nativeAnimationId": 12397,
+        "opcode": "ANIM",
+        "targetSid": 16,
+        "siteKey": "207:16:15@920",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 204,
+      "executorSid": 12,
+      "entrySha256": "a6deb4a9a6b904968103a430d79c0fadfdae8b422f7cd711804490ccd911737c",
+      "instruction": 850,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_KANGAERU_DAME",
+      "cueId": "disc1-early-204-12-21-850",
+      "voiceText": "With his arms crossed, the tailed boy turns his head aside.",
+      "bank": "disc1-forest",
+      "evidence": {
+        "referenceStartSeconds": 2399,
+        "referenceEndSeconds": 2402,
+        "nativeAnimationId": 2618,
+        "opcode": "ANIM",
+        "targetSid": 12,
+        "siteKey": "204:12:21@850",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 207,
+      "executorSid": 16,
+      "entrySha256": "ba8f8ea7e0cd60c97c4f87a1e3fad673645418a7772455c8eb3e8a6fa4d2543f",
+      "instruction": 830,
+      "model": 8,
+      "clip": "ANH_MAIN_F0_VIV_OFF_BED",
+      "cueId": "disc1-early-207-16-22-830",
+      "voiceText": "The small figure in the pointed hat slides down and lands on his feet.",
+      "bank": "disc1-forest",
+      "evidence": {
+        "referenceStartSeconds": 2579,
+        "referenceEndSeconds": 2582,
+        "nativeAnimationId": 2401,
+        "opcode": "ANIM",
+        "targetSid": 16,
+        "siteKey": "207:16:22@830",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 261,
+      "executorSid": 6,
+      "entrySha256": "ae0e327b1e92d3796af26e8090276451ba07c255ab39ee454d913bed354385cd",
+      "instruction": 485,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_KNOCK_DOOR_1",
+      "cueId": "disc1-early-261-6-11-485",
+      "voiceText": "The tailed boy lifts both arms in front of him, his hands clenched.",
+      "bank": "disc1-forest",
+      "evidence": {
+        "referenceStartSeconds": 2892,
+        "referenceEndSeconds": 2895,
+        "nativeAnimationId": 11734,
+        "opcode": "ANIM",
+        "targetSid": 6,
+        "siteKey": "261:6:11@485",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 261,
+      "executorSid": 6,
+      "entrySha256": "ae0e327b1e92d3796af26e8090276451ba07c255ab39ee454d913bed354385cd",
+      "instruction": 501,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_SAD_WITH_MAP",
+      "cueId": "disc1-early-261-6-12-501",
+      "voiceText": "The tailed boy raises his hands to his face, then lets his shoulders droop.",
+      "bank": "disc1-forest",
+      "evidence": {
+        "referenceStartSeconds": 2897,
+        "referenceEndSeconds": 2901,
+        "nativeAnimationId": 9794,
+        "opcode": "ANIM",
+        "targetSid": 6,
+        "siteKey": "261:6:12@501",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 262,
+      "executorSid": 12,
+      "entrySha256": "2bf49d165461a536568f02827696793b7e3f1c49a92a8dc8687a3799d3d4f2fd",
+      "instruction": 302,
+      "model": 185,
+      "clip": "ANH_MAIN_F0_GRN_SLEEP_GROUND_3",
+      "cueId": "disc1-early-262-12-20-302",
+      "voiceText": "The long-haired girl pushes herself up into a sitting position.",
+      "bank": "disc1-forest",
+      "evidence": {
+        "referenceStartSeconds": 2913,
+        "referenceEndSeconds": 2916,
+        "nativeAnimationId": 7691,
+        "opcode": "ANIM",
+        "targetSid": 12,
+        "siteKey": "262:12:20@302",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 262,
+      "executorSid": 13,
+      "entrySha256": "d5f846b13def3ff9b91a6e6e6047a1a101bc147507c36ed1cc98103e7a300409",
+      "instruction": 658,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_KNEEL_1",
+      "cueId": "disc1-early-262-13-19-658",
+      "voiceText": "The armored knight kneels on one knee.",
+      "bank": "disc1-forest",
+      "evidence": {
+        "referenceStartSeconds": 2917,
+        "referenceEndSeconds": 2922,
+        "nativeAnimationId": 2747,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "262:13:19@658",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 307,
+      "executorSid": 12,
+      "entrySha256": "8a6bf8b6ead9cb203b596e4eef4eacf0503dd29ca0d83508fb3171afff54d0a9",
+      "instruction": 248,
+      "model": 8,
+      "clip": "ANH_MAIN_F0_VIV_COLD_FALL",
+      "cueId": "disc1-middle-ice-small-mage-tumbles",
+      "voiceText": "The small mage tumbles headfirst off the ledge.",
+      "bank": "disc1-ice",
+      "evidence": {
+        "referenceStartSeconds": 3263,
+        "referenceEndSeconds": 3267,
+        "nativeAnimationId": 3798,
+        "opcode": "ANIM",
+        "targetSid": 12,
+        "siteKey": "307:12:37@248",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 307,
+      "executorSid": 14,
+      "entrySha256": "2053dd26f061669bc284338886df8b39996b25f709193d8e1b06511bc8a695f9",
+      "instruction": 283,
+      "model": 658,
+      "clip": "ANH_MAIN_F0_STN_COLD_FALL_1",
+      "cueId": "disc1-middle-ice-knight-sways",
+      "voiceText": "The armored knight sways on his feet.",
+      "bank": "disc1-ice",
+      "evidence": {
+        "referenceStartSeconds": 3267,
+        "referenceEndSeconds": 3271,
+        "nativeAnimationId": 8471,
+        "opcode": "ANIM",
+        "targetSid": 14,
+        "siteKey": "307:14:38@283",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 307,
+      "executorSid": 11,
+      "entrySha256": "e06644469b3f1545187d91cabecb06f7313b11abcfbf450bbfa3ef03c4084d76",
+      "instruction": 934,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_KICK_STEINER_1",
+      "cueId": "disc1-middle-ice-kicks-fallen-knight",
+      "voiceText": "The tailed young man kicks at the fallen knight.",
+      "bank": "disc1-ice",
+      "evidence": {
+        "referenceStartSeconds": 3283,
+        "referenceEndSeconds": 3285,
+        "nativeAnimationId": 2597,
+        "opcode": "ANIM",
+        "targetSid": 11,
+        "siteKey": "307:11:15@934",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 307,
+      "executorSid": 11,
+      "entrySha256": "e06644469b3f1545187d91cabecb06f7313b11abcfbf450bbfa3ef03c4084d76",
+      "instruction": 1395,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_COLD_FAINT_1",
+      "cueId": "disc1-middle-ice-tailed-man-collapses",
+      "voiceText": "The tailed young man crumples onto the ice.",
+      "bank": "disc1-ice",
+      "evidence": {
+        "referenceStartSeconds": 3299,
+        "referenceEndSeconds": 3303,
+        "nativeAnimationId": 2572,
+        "opcode": "ANIM",
+        "targetSid": 11,
+        "siteKey": "307:11:15@1395",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 312,
+      "executorSid": 7,
+      "entrySha256": "566696d49d324578884f1c7572dd284027f18d302480ff68b7af1feb5ce06c72",
+      "instruction": 956,
+      "model": 185,
+      "clip": "ANH_MAIN_F0_GRN_RECEIVE_1_1",
+      "cueId": "disc1-middle-ice-raises-dagger",
+      "voiceText": "The long-haired woman raises the dagger.",
+      "bank": "disc1-ice",
+      "evidence": {
+        "referenceStartSeconds": 3466,
+        "referenceEndSeconds": 3469,
+        "nativeAnimationId": 8292,
+        "opcode": "ANIM",
+        "targetSid": 7,
+        "siteKey": "312:7:41@956",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 312,
+      "executorSid": 7,
+      "entrySha256": "566696d49d324578884f1c7572dd284027f18d302480ff68b7af1feb5ce06c72",
+      "instruction": 1002,
+      "model": 185,
+      "clip": "ANH_MAIN_F0_GRN_AH_HUH_DAGGER",
+      "cueId": "disc1-middle-ice-examines-dagger",
+      "voiceText": "The long-haired woman turns the dagger in her hand.",
+      "bank": "disc1-ice",
+      "evidence": {
+        "referenceStartSeconds": 3478,
+        "referenceEndSeconds": 3480,
+        "nativeAnimationId": 224,
+        "opcode": "ANIM",
+        "targetSid": 7,
+        "siteKey": "312:7:21@1002",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 351,
+      "executorSid": 19,
+      "entrySha256": "95124dd73344ce5919e22d41bf998f90dab4aa6ed274293321a689a878531961",
+      "instruction": 631,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_DESK_KNOCK",
+      "cueId": "disc1-middle-dali-knocks-on-desk",
+      "voiceText": "The tailed young man raps on the innkeeper's desk.",
+      "bank": "disc1-dali",
+      "evidence": {
+        "referenceStartSeconds": 3573,
+        "referenceEndSeconds": 3576,
+        "nativeAnimationId": 3517,
+        "opcode": "ANIM",
+        "targetSid": 19,
+        "siteKey": "351:19:1@631",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 352,
+      "executorSid": 17,
+      "entrySha256": "87adbfdf4f9e6201adc50ddfb38e403b82d5146037b426318937c944472929be",
+      "instruction": 2923,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_ON_BED_WAKEUP",
+      "cueId": "disc1-middle-dali-gets-out-of-bed",
+      "voiceText": "The tailed young man sits up and gets out of bed.",
+      "bank": "disc1-dali",
+      "evidence": {
+        "referenceStartSeconds": 3718,
+        "referenceEndSeconds": 3721,
+        "nativeAnimationId": 3523,
+        "opcode": "ANIM",
+        "targetSid": 17,
+        "siteKey": "352:17:1@2923",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 352,
+      "executorSid": 17,
+      "entrySha256": "87adbfdf4f9e6201adc50ddfb38e403b82d5146037b426318937c944472929be",
+      "instruction": 2951,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_BREAK1_STRCH",
+      "cueId": "disc1-middle-dali-morning-stretch",
+      "voiceText": "The tailed young man stretches both arms overhead.",
+      "bank": "disc1-dali",
+      "evidence": {
+        "referenceStartSeconds": 3720,
+        "referenceEndSeconds": 3723,
+        "nativeAnimationId": 209,
+        "opcode": "ANIM",
+        "targetSid": 17,
+        "siteKey": "352:17:1@2951",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 358,
+      "executorSid": 13,
+      "entrySha256": "c69532548dcc0e8dba49ab34fa12fb2edb802f68fd3f4c483edc161c0ea47824",
+      "instruction": 277,
+      "model": 8,
+      "clip": "ANH_MAIN_F0_VIV_KIDNAP",
+      "cueId": "disc1-middle-dali-small-mage-lifted",
+      "voiceText": "The small mage is lifted off his feet.",
+      "bank": "disc1-dali",
+      "evidence": {
+        "referenceStartSeconds": 3897.65,
+        "referenceEndSeconds": 3898.4,
+        "nativeAnimationId": 3800,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "358:13:1@277",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 403,
+      "executorSid": 15,
+      "entrySha256": "2409b62cdb6f496c774cab0b60f6df0a880dd7ab75b321c31c1b68bf8075adc2",
+      "instruction": 1034,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_HIZA_1",
+      "cueId": "disc1-middle-dali-kneels-on-barrel",
+      "voiceText": "The tailed young man kneels on top of the barrel.",
+      "bank": "disc1-dali",
+      "evidence": {
+        "referenceStartSeconds": 4422.5,
+        "referenceEndSeconds": 4424.5,
+        "nativeAnimationId": 2607,
+        "opcode": "ANIM",
+        "targetSid": 15,
+        "siteKey": "403:15:1@1034",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 451,
+      "executorSid": 13,
+      "entrySha256": "f1fd353b2c52c1e5dec5c0f23268baca69adb35ac2f6f4d693cbe5d53a373f7b",
+      "instruction": 1937,
+      "model": 658,
+      "clip": "ANH_MAIN_F0_STN_FALL_DOWN",
+      "cueId": "disc1-middle-dali-knight-falls-back",
+      "voiceText": "The armored knight falls flat on his back.",
+      "bank": "disc1-dali",
+      "evidence": {
+        "referenceStartSeconds": 4732,
+        "referenceEndSeconds": 4735,
+        "nativeAnimationId": 8353,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "451:13:1@1937",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 454,
+      "executorSid": 3,
+      "entrySha256": "e2da501ed18e844e4e3da31846c38745ee50bf1e7dcc08deb6220166b121eeec",
+      "instruction": 1835,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_LADDER_TOUCH",
+      "cueId": "disc1-middle-dali-ladder-grab",
+      "voiceText": "The tailed young man grabs the woman's bottom as she climbs.",
+      "bank": "disc1-dali",
+      "evidence": {
+        "referenceStartSeconds": 4929,
+        "referenceEndSeconds": 4931,
+        "nativeAnimationId": 6224,
+        "opcode": "ANIM",
+        "targetSid": 3,
+        "siteKey": "454:3:1@1835",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 502,
+      "executorSid": 12,
+      "entrySha256": "c3f962e3a8b25e8d512d37401457e076873e1f38e005f532865081e7b0b3c214",
+      "instruction": 450,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_STEER",
+      "cueId": "disc1-middle-cargo-turns-wheel",
+      "voiceText": "The tailed young man turns the ship's wheel.",
+      "bank": "disc1-cargo",
+      "evidence": {
+        "referenceStartSeconds": 5150,
+        "referenceEndSeconds": 5154,
+        "nativeAnimationId": 8396,
+        "opcode": "ANIM",
+        "targetSid": 12,
+        "siteKey": "502:12:1@450",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 502,
+      "executorSid": 15,
+      "entrySha256": "625ada2721d59816796d5d0b8dc102fe36db53d0f2b1f80bb9b13300122e214f",
+      "instruction": 451,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_SWING_1",
+      "cueId": "disc1-middle-cargo-knight-punches",
+      "voiceText": "The armored knight swings a fist forward.",
+      "bank": "disc1-cargo",
+      "evidence": {
+        "referenceStartSeconds": 5163,
+        "referenceEndSeconds": 5165,
+        "nativeAnimationId": 7373,
+        "opcode": "ANIM",
+        "targetSid": 15,
+        "siteKey": "502:15:1@451",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 502,
+      "executorSid": 12,
+      "entrySha256": "c3f962e3a8b25e8d512d37401457e076873e1f38e005f532865081e7b0b3c214",
+      "instruction": 564,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_YOKE_STN_1",
+      "cueId": "disc1-middle-cargo-leaps-to-pipe",
+      "voiceText": "The tailed young man leaps up and hangs from an overhead pipe.",
+      "bank": "disc1-cargo",
+      "proof": {
+        "minimumSampleFraction": 0.7,
+        "sequenceInstruction": 590,
+        "sequenceId": 5,
+        "minimumDisplacement": 0.5,
+        "companionSid": -1,
+        "companionModel": -1
+      },
+      "evidence": {
+        "referenceStartSeconds": 5163,
+        "referenceEndSeconds": 5166,
+        "nativeAnimationId": 8403,
+        "opcode": "ANIM",
+        "targetSid": 12,
+        "siteKey": "502:12:1@564",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 502,
+      "executorSid": 15,
+      "entrySha256": "625ada2721d59816796d5d0b8dc102fe36db53d0f2b1f80bb9b13300122e214f",
+      "instruction": 558,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_SWING_2",
+      "cueId": "disc1-middle-cargo-knight-swings-upward",
+      "voiceText": "The armored knight swings a fist overhead.",
+      "bank": "disc1-cargo",
+      "evidence": {
+        "referenceStartSeconds": 5165,
+        "referenceEndSeconds": 5167,
+        "nativeAnimationId": 7371,
+        "opcode": "ANIM",
+        "targetSid": 15,
+        "siteKey": "502:15:1@558",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 502,
+      "executorSid": 12,
+      "entrySha256": "c3f962e3a8b25e8d512d37401457e076873e1f38e005f532865081e7b0b3c214",
+      "instruction": 673,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_TENJYOU_END",
+      "cueId": "disc1-middle-cargo-drops-from-pipe",
+      "voiceText": "The tailed young man drops from the overhead pipe.",
+      "bank": "disc1-cargo",
+      "evidence": {
+        "referenceStartSeconds": 5169,
+        "referenceEndSeconds": 5171,
+        "nativeAnimationId": 8397,
+        "opcode": "ANIM",
+        "targetSid": 12,
+        "siteKey": "502:12:1@673",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 500,
+      "executorSid": 11,
+      "entrySha256": "00ba90f37edde70e3ff6551c73693d6154151fffeeda9ed0f2c82cfb76aad7a1",
+      "instruction": 242,
+      "model": 185,
+      "clip": "ANH_MAIN_F0_GRN_PULL_1",
+      "cueId": "disc1-middle-cargo-reaches-for-small-mage",
+      "voiceText": "The long-haired woman reaches around the small mage.",
+      "bank": "disc1-cargo",
+      "proof": {
+        "minimumSampleFraction": 0,
+        "sequenceInstruction": -1,
+        "sequenceId": -1,
+        "minimumDisplacement": 0,
+        "companionSid": 10,
+        "companionModel": 8
+      },
+      "evidence": {
+        "referenceStartSeconds": 5215,
+        "referenceEndSeconds": 5217,
+        "nativeAnimationId": 12788,
+        "opcode": "ANIM",
+        "targetSid": 11,
+        "siteKey": "500:11:1@242",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 500,
+      "executorSid": 4,
+      "entrySha256": "b18c8e19fe0995b24845e972cd9b77cf206f74bc417f905606df6aed0a4122c3",
+      "instruction": 872,
+      "model": 167,
+      "clip": "ANH_SUB_F0_BW3_THUNDER_1",
+      "cueId": "disc1-middle-cargo-winged-mage-spreads-wings",
+      "voiceText": "The winged mage spreads his wings.",
+      "bank": "disc1-cargo",
+      "evidence": {
+        "referenceStartSeconds": 5223,
+        "referenceEndSeconds": 5226,
+        "nativeAnimationId": 8393,
+        "opcode": "ANIM",
+        "targetSid": 4,
+        "siteKey": "500:4:1@872",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 506,
+      "executorSid": 4,
+      "entrySha256": "dbd1ea4c7674681724e162a85303f16eca54665d6a621fe6f16ca17d41b34804",
+      "instruction": 336,
+      "model": 172,
+      "clip": "ANH_SUB_F0_ZON_TILT_HEAD_1",
+      "cueId": "disc1-middle-cargo-blue-jester-tilts-head",
+      "voiceText": "The blue-clad jester tilts his head to one side.",
+      "bank": "disc1-cargo",
+      "evidence": {
+        "referenceStartSeconds": 5426.5,
+        "referenceEndSeconds": 5428.5,
+        "nativeAnimationId": 12195,
+        "opcode": "ANIM",
+        "targetSid": 4,
+        "siteKey": "506:4:1@336",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 506,
+      "executorSid": 9,
+      "entrySha256": "2ad4c4f5a7722575709ab6b4f984e3d5695a6e7e60754f7c47f349747e82e2fd",
+      "instruction": 439,
+      "model": 167,
+      "clip": "ANH_SUB_F0_BW3_STEER_1",
+      "cueId": "disc1-middle-cargo-winged-mage-grasps-wheel",
+      "voiceText": "The winged mage grasps the steering wheel.",
+      "bank": "disc1-cargo",
+      "evidence": {
+        "referenceStartSeconds": 5443.5,
+        "referenceEndSeconds": 5445,
+        "nativeAnimationId": 13228,
+        "opcode": "ANIM",
+        "targetSid": 9,
+        "siteKey": "506:9:1@439",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 503,
+      "executorSid": 14,
+      "entrySha256": "fb45d65cba1d585fb26faf041087aaefc51b4004eddc41c6fcc3851e4391a8be",
+      "instruction": 1687,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_KNEEL_1",
+      "cueId": "disc1-middle-cargo-knight-kneels",
+      "voiceText": "The armored knight kneels beside the long-haired woman.",
+      "bank": "disc1-cargo",
+      "evidence": {
+        "referenceStartSeconds": 5619,
+        "referenceEndSeconds": 5621,
+        "nativeAnimationId": 2747,
+        "opcode": "ANIM",
+        "targetSid": 14,
+        "siteKey": "503:14:1@1687",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 618,
+      "executorSid": 15,
+      "entrySha256": "3d26a69374f622281a3a2699e2ce1ff6364123bfddfe13264bf780974427496f",
+      "instruction": 854,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_DINE_SLEEP_3",
+      "cueId": "disc1-late-banquet-boy-falls",
+      "voiceText": "The tailed boy falls onto his back.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 7627,
+        "referenceEndSeconds": 7631,
+        "nativeAnimationId": 497,
+        "opcode": "ANIM",
+        "targetSid": 15,
+        "siteKey": "618:15:27@854",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 618,
+      "executorSid": 16,
+      "entrySha256": "4ff01658dfb7a690bb1242fd063af9d07b8f33f4f3ef48b15022dac5fdf0f807",
+      "instruction": 248,
+      "model": 8,
+      "clip": "ANH_MAIN_F0_VIV_DINE_SLEEP_3",
+      "cueId": "disc1-late-banquet-pointed-hat-slumps",
+      "voiceText": "The small figure in the pointed hat slumps forward.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 7623,
+        "referenceEndSeconds": 7626,
+        "nativeAnimationId": 6114,
+        "opcode": "ANIM",
+        "targetSid": 16,
+        "siteKey": "618:16:26@248",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 618,
+      "executorSid": 19,
+      "entrySha256": "b6c23919131176d271723babee669ac75b99b3d0517cf3f4caf8533d757f1c5e",
+      "instruction": 218,
+      "model": 192,
+      "clip": "ANH_MAIN_F0_FRJ_DINE_SLEEP_3",
+      "cueId": "disc1-late-banquet-red-coated-figure-falls",
+      "voiceText": "The red-coated figure sways, then collapses onto her side.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 7626,
+        "referenceEndSeconds": 7630,
+        "nativeAnimationId": 7842,
+        "opcode": "ANIM",
+        "targetSid": 19,
+        "siteKey": "618:19:25@218",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 618,
+      "executorSid": 18,
+      "entrySha256": "511a2eb66a644f1c1787e094f2bd65d34bfddebcdcd009ea9452696896db1d9d",
+      "instruction": 454,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_DINE_PANIC_4",
+      "cueId": "disc1-late-banquet-knight-sinks",
+      "voiceText": "The armored knight sinks to his knees, his head bowed.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 7633,
+        "referenceEndSeconds": 7636,
+        "nativeAnimationId": 9570,
+        "opcode": "ANIM",
+        "targetSid": 18,
+        "siteKey": "618:18:29@454",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 618,
+      "executorSid": 18,
+      "entrySha256": "511a2eb66a644f1c1787e094f2bd65d34bfddebcdcd009ea9452696896db1d9d",
+      "instruction": 464,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_DINE_PANIC_6",
+      "cueId": "disc1-late-banquet-knight-recovers",
+      "voiceText": "The armored knight pushes himself upright.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 7640,
+        "referenceEndSeconds": 7643,
+        "nativeAnimationId": 9578,
+        "opcode": "ANIM",
+        "targetSid": 18,
+        "siteKey": "618:18:30@464",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 600,
+      "executorSid": 13,
+      "entrySha256": "09bfe1c744421447f88d228051762d2ab5ec777b87394dbe2bcb3516b8e891a5",
+      "instruction": 125,
+      "model": 66,
+      "clip": "ANH_NPC_F0_RAS_HURT_HIZA_1",
+      "cueId": "disc1-late-messenger-kneels",
+      "voiceText": "The long-snouted soldier drops to one knee.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 7442,
+        "referenceEndSeconds": 7444,
+        "nativeAnimationId": 14715,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "600:13:15@125",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 600,
+      "executorSid": 13,
+      "entrySha256": "09bfe1c744421447f88d228051762d2ab5ec777b87394dbe2bcb3516b8e891a5",
+      "instruction": 147,
+      "model": 66,
+      "clip": "ANH_NPC_F0_RAS_HURT_DOWN_1",
+      "cueId": "disc1-late-messenger-collapses",
+      "voiceText": "The kneeling soldier topples onto his side.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 7467,
+        "referenceEndSeconds": 7470,
+        "nativeAnimationId": 1414,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "600:13:86@147",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 554,
+      "executorSid": 0,
+      "entrySha256": "83fbf3800d358e9384e98b37b3bb913b73399938db2e133f41733b6af3be63e2",
+      "instruction": 923,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_BREAK1_STRCH",
+      "cueId": "disc1-late-inn-boy-stretches",
+      "voiceText": "The tailed boy stretches both arms up and out.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 6282,
+        "referenceEndSeconds": 6286,
+        "nativeAnimationId": 209,
+        "opcode": "DANIM",
+        "targetSid": 12,
+        "siteKey": "554:0:1@923",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 555,
+      "executorSid": 27,
+      "entrySha256": "8235cf85537b44dfd4cf28eb458c0aa0fbd6c95fcbcaad76c850819075d73456",
+      "instruction": 146,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_TIRED_1",
+      "cueId": "disc1-late-market-knight-droops",
+      "voiceText": "The armored knight bends forward, his head hanging.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 6397,
+        "referenceEndSeconds": 6400,
+        "nativeAnimationId": 7238,
+        "opcode": "ANIM",
+        "targetSid": 27,
+        "siteKey": "555:27:18@146",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 801,
+      "executorSid": 23,
+      "entrySha256": "372ff40bb2369d0e08d2745a2224e7f58d64c256ab45cea2940a8f5db966b018",
+      "instruction": 776,
+      "model": 185,
+      "clip": "ANH_MAIN_F0_GRN_BREAK_3",
+      "cueId": "disc1-late-alley-girl-stretches",
+      "voiceText": "The long-haired girl stretches her arms forward.",
+      "bank": "disc1-southgate",
+      "evidence": {
+        "referenceStartSeconds": 8218,
+        "referenceEndSeconds": 8222,
+        "nativeAnimationId": 4429,
+        "opcode": "ANIM",
+        "targetSid": 23,
+        "siteKey": "801:23:1@776",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 707,
+      "executorSid": 4,
+      "entrySha256": "904bc560aa895dfa17e1604a280577ad90260a8c8640550010a676635ae58fec",
+      "instruction": 183,
+      "model": 66,
+      "clip": "ANH_NPC_F0_RAS_DEAD_2",
+      "cueId": "disc1-late-grotto-soldier-head-droops",
+      "voiceText": "The seated soldier's head drops to one side.",
+      "bank": "disc1-grotto",
+      "evidence": {
+        "referenceStartSeconds": 8335,
+        "referenceEndSeconds": 8338,
+        "nativeAnimationId": 4692,
+        "opcode": "ANIM",
+        "targetSid": 4,
+        "siteKey": "707:4:1@183",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 707,
+      "executorSid": 13,
+      "entrySha256": "7388e275e955cf77355feb264a7a8d90ea059a7cdd900a97c5db0d09422237f3",
+      "instruction": 4210,
+      "model": 192,
+      "clip": "ANH_MAIN_F0_FRJ_HIZA_UTUMUKI_1",
+      "cueId": "disc1-late-grotto-red-coated-figure-bows",
+      "voiceText": "The kneeling red-coated figure bows her head.",
+      "bank": "disc1-grotto",
+      "evidence": {
+        "referenceStartSeconds": 8338,
+        "referenceEndSeconds": 8341,
+        "nativeAnimationId": 8383,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "707:13:1@4210",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 768,
+      "executorSid": 23,
+      "entrySha256": "7e1c56061d555ef993b5a944111a2876e16e7f6fa4c01aa4722892b80cea5607",
+      "instruction": 836,
+      "model": 204,
+      "clip": "ANH_SUB_F0_BTX_HAIR",
+      "cueId": "disc1-late-palace-swordswoman-hair",
+      "voiceText": "The brown-haired swordswoman brushes her hair back.",
+      "bank": "disc1-burmecia",
+      "evidence": {
+        "referenceStartSeconds": 8909,
+        "referenceEndSeconds": 8912,
+        "nativeAnimationId": 5369,
+        "opcode": "ANIM",
+        "targetSid": 23,
+        "siteKey": "768:23:1@836",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 768,
+      "executorSid": 23,
+      "entrySha256": "7e1c56061d555ef993b5a944111a2876e16e7f6fa4c01aa4722892b80cea5607",
+      "instruction": 850,
+      "model": 204,
+      "clip": "ANH_SUB_F0_BTX_SCORNFUL",
+      "cueId": "disc1-late-palace-swordswoman-spreads-hands",
+      "voiceText": "The swordswoman spreads her hands and shakes her head.",
+      "bank": "disc1-burmecia",
+      "evidence": {
+        "referenceStartSeconds": 8912,
+        "referenceEndSeconds": 8915,
+        "nativeAnimationId": 5365,
+        "opcode": "ANIM",
+        "targetSid": 23,
+        "siteKey": "768:23:1@850",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 571,
+      "executorSid": 0,
+      "entrySha256": "5f82f8016419be315226a1eb8726b8621a2648b54871a6a2e27c287f333768b2",
+      "instruction": 1227,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_BREAK1_HEAD",
+      "cueId": "disc1-late-pub-boy-scratches-head",
+      "voiceText": "The tailed boy scratches the side of his head.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 6019,
+        "referenceEndSeconds": 6022,
+        "nativeAnimationId": 14587,
+        "opcode": "DANIM",
+        "targetSid": 16,
+        "siteKey": "571:0:1@1227",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 571,
+      "executorSid": 16,
+      "entrySha256": "46f4b3b4330d27c1cc95d9530427b95504f8e55bff8da5591afe23b44bf492c3",
+      "instruction": 906,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_TALK_5_1",
+      "cueId": "disc1-late-pub-boy-spreads-hands",
+      "voiceText": "The tailed boy raises both hands, palms out.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 6069,
+        "referenceEndSeconds": 6072,
+        "nativeAnimationId": 3450,
+        "opcode": "ANIM",
+        "targetSid": 16,
+        "siteKey": "571:16:39@906",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 565,
+      "executorSid": 17,
+      "entrySha256": "2db6ec0bb58bf08f998e51cb9b8aa116d4aa4f3038b82744dc0b0539f1002082",
+      "instruction": 625,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_UDE_MOTARE",
+      "cueId": "disc1-late-hideout-boy-leans-back",
+      "voiceText": "The tailed boy leans back with his arms folded.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 6588,
+        "referenceEndSeconds": 6592,
+        "nativeAnimationId": 1150,
+        "opcode": "ANIM",
+        "targetSid": 17,
+        "siteKey": "565:17:12@625",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 850,
+      "executorSid": 2,
+      "entrySha256": "98f777d7b724560dd4c0cbc2ed760ceff4691c7520f771870605aa835a8e1c95",
+      "instruction": 162,
+      "model": 5464,
+      "clip": "ANH_SUB_F0_BAK_HEBUSYON",
+      "cueId": "disc1-late-gate-burly-sneeze",
+      "voiceText": "The burly man jerks back with a sneeze.",
+      "bank": "disc1-northgate",
+      "evidence": {
+        "referenceStartSeconds": 6707,
+        "referenceEndSeconds": 6709,
+        "nativeAnimationId": 1014,
+        "opcode": "ANIM",
+        "targetSid": 2,
+        "siteKey": "850:2:1@162",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 850,
+      "executorSid": 2,
+      "entrySha256": "98f777d7b724560dd4c0cbc2ed760ceff4691c7520f771870605aa835a8e1c95",
+      "instruction": 257,
+      "model": 5464,
+      "clip": "ANH_SUB_F0_BAK_HIGE_TALK",
+      "cueId": "disc1-late-gate-burly-moustache-first",
+      "voiceText": "The burly man strokes his moustache.",
+      "bank": "disc1-northgate",
+      "evidence": {
+        "referenceStartSeconds": 6724,
+        "referenceEndSeconds": 6727,
+        "nativeAnimationId": 2076,
+        "opcode": "ANIM",
+        "targetSid": 2,
+        "siteKey": "850:2:1@257",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 850,
+      "executorSid": 2,
+      "entrySha256": "98f777d7b724560dd4c0cbc2ed760ceff4691c7520f771870605aa835a8e1c95",
+      "instruction": 310,
+      "model": 5464,
+      "clip": "ANH_SUB_F0_BAK_HIGE_TALK",
+      "cueId": "disc1-late-gate-burly-moustache-again",
+      "voiceText": "The burly man strokes his moustache.",
+      "bank": "disc1-northgate",
+      "evidence": {
+        "referenceStartSeconds": 6731,
+        "referenceEndSeconds": 6734,
+        "nativeAnimationId": 2076,
+        "opcode": "ANIM",
+        "targetSid": 2,
+        "siteKey": "850:2:1@310",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 850,
+      "executorSid": 16,
+      "entrySha256": "722a45e469831aa70229621bf3a6833a31fc14e7295f04cda01fea67ad65af90",
+      "instruction": 225,
+      "model": 109,
+      "clip": "ANH_SUB_F0_MRC_EMBRACE_MRC_1",
+      "cueId": "disc1-late-gate-bandana-raises-arms",
+      "voiceText": "The bandana-wearing man raises his bent arms in front of his chest.",
+      "bank": "disc1-northgate",
+      "evidence": {
+        "referenceStartSeconds": 6733,
+        "referenceEndSeconds": 6735,
+        "nativeAnimationId": 2940,
+        "opcode": "ANIM",
+        "targetSid": 16,
+        "siteKey": "850:16:1@225",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 850,
+      "executorSid": 2,
+      "entrySha256": "98f777d7b724560dd4c0cbc2ed760ceff4691c7520f771870605aa835a8e1c95",
+      "instruction": 343,
+      "model": 5464,
+      "clip": "ANH_SUB_F0_BAK_LOOKB_1",
+      "cueId": "disc1-late-gate-burly-looks-back",
+      "voiceText": "The burly man looks back over his shoulder.",
+      "bank": "disc1-northgate",
+      "evidence": {
+        "referenceStartSeconds": 6735,
+        "referenceEndSeconds": 6737,
+        "nativeAnimationId": 6244,
+        "opcode": "ANIM",
+        "targetSid": 2,
+        "siteKey": "850:2:1@343",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 850,
+      "executorSid": 2,
+      "entrySha256": "98f777d7b724560dd4c0cbc2ed760ceff4691c7520f771870605aa835a8e1c95",
+      "instruction": 407,
+      "model": 5464,
+      "clip": "ANH_SUB_F0_BAK_DOLL_BRAHNE_0",
+      "cueId": "disc1-late-gate-burly-lifts-left-fist",
+      "voiceText": "The burly man lifts one fist in front of him.",
+      "bank": "disc1-northgate",
+      "evidence": {
+        "referenceStartSeconds": 6742,
+        "referenceEndSeconds": 6744,
+        "nativeAnimationId": 1018,
+        "opcode": "ANIM",
+        "targetSid": 2,
+        "siteKey": "850:2:1@407",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 850,
+      "executorSid": 2,
+      "entrySha256": "98f777d7b724560dd4c0cbc2ed760ceff4691c7520f771870605aa835a8e1c95",
+      "instruction": 446,
+      "model": 5464,
+      "clip": "ANH_SUB_F0_BAK_DECIDE",
+      "cueId": "disc1-late-gate-burly-raises-fist",
+      "voiceText": "The burly man raises a fist beside his face.",
+      "bank": "disc1-northgate",
+      "evidence": {
+        "referenceStartSeconds": 6748,
+        "referenceEndSeconds": 6750,
+        "nativeAnimationId": 2063,
+        "opcode": "ANIM",
+        "targetSid": 2,
+        "siteKey": "850:2:1@446",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 850,
+      "executorSid": 16,
+      "entrySha256": "722a45e469831aa70229621bf3a6833a31fc14e7295f04cda01fea67ad65af90",
+      "instruction": 340,
+      "model": 109,
+      "clip": "ANH_SUB_F0_MRC_SWITCH",
+      "cueId": "disc1-late-gate-bandana-extends-arm",
+      "voiceText": "The bandana-wearing man extends one arm, then lowers it.",
+      "bank": "disc1-northgate",
+      "evidence": {
+        "referenceStartSeconds": 6754,
+        "referenceEndSeconds": 6757,
+        "nativeAnimationId": 12623,
+        "opcode": "ANIM",
+        "targetSid": 16,
+        "siteKey": "850:16:1@340",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 850,
+      "executorSid": 3,
+      "entrySha256": "13c868ef5900c57270cbcf2a92ad44d5ce16ae3bfe8a1408c98ed5ce6d514d6e",
+      "instruction": 553,
+      "model": 107,
+      "clip": "ANH_SUB_F0_CNA_TALK_2_1",
+      "cueId": "disc1-late-gate-short-man-hammer",
+      "voiceText": "The short man lifts his hammer and bends his knees.",
+      "bank": "disc1-northgate",
+      "evidence": {
+        "referenceStartSeconds": 6774.75,
+        "referenceEndSeconds": 6776.25,
+        "nativeAnimationId": 7797,
+        "opcode": "ANIM",
+        "targetSid": 3,
+        "siteKey": "850:3:1@553",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 813,
+      "executorSid": 3,
+      "entrySha256": "38f6eb05be0e6593ad8fb7c06c329c4d75504c715e42f1faeec2533fcd037d68",
+      "instruction": 1138,
+      "model": 71,
+      "clip": "ANH_NPC_F1_CSO_SAFETY_CHECK",
+      "cueId": "disc1-late-tram-conductor-points",
+      "voiceText": "The conductor points ahead and looks down.",
+      "bank": "disc1-southgate",
+      "evidence": {
+        "referenceStartSeconds": 8265,
+        "referenceEndSeconds": 8268,
+        "nativeAnimationId": 12893,
+        "opcode": "ANIM",
+        "targetSid": 3,
+        "siteKey": "813:3:13@1138",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 813,
+      "executorSid": 2,
+      "entrySha256": "16a1297b6d8c8b21c143ad9ed6c365a6d041e11ffc5433cee1533cecbbc471f7",
+      "instruction": 295,
+      "model": 72,
+      "clip": "ANH_NPC_F2_HUF_HELLO",
+      "cueId": "disc1-late-tram-worker-raises-hands",
+      "voiceText": "The woman in green raises both hands.",
+      "bank": "disc1-southgate",
+      "evidence": {
+        "referenceStartSeconds": 8278,
+        "referenceEndSeconds": 8280,
+        "nativeAnimationId": 6594,
+        "opcode": "ANIM",
+        "targetSid": 2,
+        "siteKey": "813:2:18@295",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 814,
+      "executorSid": 7,
+      "entrySha256": "cb68011ef66ce1342ce28da258aa0aa4803d3b88da0365c5cd5517f267f75406",
+      "instruction": 367,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_TALK_1_1",
+      "cueId": "disc1-late-tram-knight-open-hands",
+      "voiceText": "The armored knight raises his open hands at his waist.",
+      "bank": "disc1-southgate",
+      "evidence": {
+        "referenceStartSeconds": 8295.5,
+        "referenceEndSeconds": 8297,
+        "nativeAnimationId": 7352,
+        "opcode": "ANIM",
+        "targetSid": 7,
+        "siteKey": "814:7:1@367",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 814,
+      "executorSid": 7,
+      "entrySha256": "cb68011ef66ce1342ce28da258aa0aa4803d3b88da0365c5cd5517f267f75406",
+      "instruction": 428,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_TALK_2_1",
+      "cueId": "disc1-late-tram-knight-palms-up",
+      "voiceText": "The armored knight raises both hands, palms up.",
+      "bank": "disc1-southgate",
+      "evidence": {
+        "referenceStartSeconds": 8303.5,
+        "referenceEndSeconds": 8305,
+        "nativeAnimationId": 7356,
+        "opcode": "ANIM",
+        "targetSid": 7,
+        "siteKey": "814:7:1@428",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 814,
+      "executorSid": 6,
+      "entrySha256": "521a649b2a738aefad787e140cd29c4568205d4be192a753310a2a6433de529c",
+      "instruction": 229,
+      "model": 185,
+      "clip": "ANH_MAIN_F0_GRN_SIT_TALK_1",
+      "cueId": "disc1-late-tram-seated-girl-hands",
+      "voiceText": "The seated girl lifts both hands from her lap, palms out.",
+      "bank": "disc1-southgate",
+      "evidence": {
+        "referenceStartSeconds": 8309,
+        "referenceEndSeconds": 8311.5,
+        "nativeAnimationId": 2857,
+        "opcode": "ANIM",
+        "targetSid": 6,
+        "siteKey": "814:6:1@229",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 814,
+      "executorSid": 7,
+      "entrySha256": "cb68011ef66ce1342ce28da258aa0aa4803d3b88da0365c5cd5517f267f75406",
+      "instruction": 486,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_TALK_3_1",
+      "cueId": "disc1-late-tram-knight-fists",
+      "voiceText": "The armored knight raises his clenched fists in front of him.",
+      "bank": "disc1-southgate",
+      "evidence": {
+        "referenceStartSeconds": 8315.5,
+        "referenceEndSeconds": 8317,
+        "nativeAnimationId": 7354,
+        "opcode": "ANIM",
+        "targetSid": 7,
+        "siteKey": "814:7:1@486",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 814,
+      "executorSid": 7,
+      "entrySha256": "cb68011ef66ce1342ce28da258aa0aa4803d3b88da0365c5cd5517f267f75406",
+      "instruction": 523,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_TALK_4_1",
+      "cueId": "disc1-late-tram-knight-hands-on-hips",
+      "voiceText": "The armored knight puts his hands on his hips.",
+      "bank": "disc1-southgate",
+      "evidence": {
+        "referenceStartSeconds": 8320,
+        "referenceEndSeconds": 8322,
+        "nativeAnimationId": 1358,
+        "opcode": "ANIM",
+        "targetSid": 7,
+        "siteKey": "814:7:1@523",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 750,
+      "executorSid": 26,
+      "entrySha256": "bc55e29eb5ef79260462571ccaaf91c8c82a424f77d3ddfe2fa78944807ccfc6",
+      "instruction": 311,
+      "model": 192,
+      "clip": "ANH_MAIN_F0_FRJ_HIZA_UTUMUKI_1",
+      "cueId": "disc1-late-supp-rain-gate-bows",
+      "voiceText": "The kneeling red-coated figure bows her head.",
+      "bank": "disc1-burmecia",
+      "evidence": {
+        "referenceStartSeconds": 8365.5,
+        "referenceEndSeconds": 8367,
+        "nativeAnimationId": 8383,
+        "opcode": "ANIM",
+        "targetSid": 26,
+        "siteKey": "750:26:1@311",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 750,
+      "executorSid": 26,
+      "entrySha256": "bc55e29eb5ef79260462571ccaaf91c8c82a424f77d3ddfe2fa78944807ccfc6",
+      "instruction": 396,
+      "model": 192,
+      "clip": "ANH_MAIN_F0_FRJ_THINK_2_1",
+      "cueId": "disc1-late-supp-rain-gate-head-lowers",
+      "voiceText": "The red-coated figure lowers her head.",
+      "bank": "disc1-burmecia",
+      "evidence": {
+        "referenceStartSeconds": 8387,
+        "referenceEndSeconds": 8389,
+        "nativeAnimationId": 6639,
+        "opcode": "ANIM",
+        "targetSid": 26,
+        "siteKey": "750:26:1@396",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 760,
+      "executorSid": 9,
+      "entrySha256": "9ca4a66a9478f3e1b14663785425dbf402b3e4fbb4d417ca58d00b1638330f23",
+      "instruction": 717,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_HELP",
+      "cueId": "disc1-late-supp-rescue-boy-springs",
+      "voiceText": "The tailed boy springs up from a crouch and lands on his knees.",
+      "bank": "disc1-burmecia",
+      "evidence": {
+        "referenceStartSeconds": 8543,
+        "referenceEndSeconds": 8545,
+        "nativeAnimationId": 11951,
+        "opcode": "ANIM",
+        "targetSid": 9,
+        "siteKey": "760:9:1@717",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 768,
+      "executorSid": 13,
+      "entrySha256": "8467def130897baa70db8027dceef119ca8a960292c9afd190b232a815f58aec",
+      "instruction": 201,
+      "model": 267,
+      "clip": "ANH_SUB_F0_KJA_RAIN_1",
+      "cueId": "disc1-late-supp-palace-silver-haired-man-looks-up",
+      "voiceText": "The silver-haired man spreads his hands and tilts his face upward.",
+      "bank": "disc1-burmecia",
+      "evidence": {
+        "referenceStartSeconds": 8780.5,
+        "referenceEndSeconds": 8782,
+        "nativeAnimationId": 4317,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "768:13:1@201",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 768,
+      "executorSid": 13,
+      "entrySha256": "8467def130897baa70db8027dceef119ca8a960292c9afd190b232a815f58aec",
+      "instruction": 262,
+      "model": 267,
+      "clip": "ANH_SUB_F0_KJA_ARMS_CROSS_1_1",
+      "cueId": "disc1-late-supp-palace-silver-haired-man-folds-arms",
+      "voiceText": "The silver-haired man folds his arms across his chest.",
+      "bank": "disc1-burmecia",
+      "evidence": {
+        "referenceStartSeconds": 8806,
+        "referenceEndSeconds": 8808,
+        "nativeAnimationId": 4270,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "768:13:1@262",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 768,
+      "executorSid": 13,
+      "entrySha256": "8467def130897baa70db8027dceef119ca8a960292c9afd190b232a815f58aec",
+      "instruction": 349,
+      "model": 267,
+      "clip": "ANH_SUB_F0_KJA_LAUGH_1_1",
+      "cueId": "disc1-late-supp-palace-silver-haired-man-hand-mouth",
+      "voiceText": "The silver-haired man raises a hand to his mouth and tilts his head.",
+      "bank": "disc1-burmecia",
+      "evidence": {
+        "referenceStartSeconds": 8813,
+        "referenceEndSeconds": 8815,
+        "nativeAnimationId": 4294,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "768:13:1@349",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 768,
+      "executorSid": 13,
+      "entrySha256": "8467def130897baa70db8027dceef119ca8a960292c9afd190b232a815f58aec",
+      "instruction": 395,
+      "model": 267,
+      "clip": "ANH_SUB_F0_KJA_OJIGI_1",
+      "cueId": "disc1-late-supp-palace-silver-haired-man-bows",
+      "voiceText": "The silver-haired man sweeps one arm forward and bows.",
+      "bank": "disc1-burmecia",
+      "evidence": {
+        "referenceStartSeconds": 8835,
+        "referenceEndSeconds": 8837,
+        "nativeAnimationId": 3095,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "768:13:1@395",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 768,
+      "executorSid": 13,
+      "entrySha256": "8467def130897baa70db8027dceef119ca8a960292c9afd190b232a815f58aec",
+      "instruction": 424,
+      "model": 267,
+      "clip": "ANH_SUB_F0_KJA_ARMS_CROSS_2_1",
+      "cueId": "disc1-late-supp-palace-silver-haired-man-arms-crossed",
+      "voiceText": "The silver-haired man folds his arms and leans back.",
+      "bank": "disc1-burmecia",
+      "evidence": {
+        "referenceStartSeconds": 8839,
+        "referenceEndSeconds": 8841,
+        "nativeAnimationId": 4282,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "768:13:1@424",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 768,
+      "executorSid": 23,
+      "entrySha256": "7e1c56061d555ef993b5a944111a2876e16e7f6fa4c01aa4722892b80cea5607",
+      "instruction": 486,
+      "model": 204,
+      "clip": "ANH_SUB_F0_BTX_KAMAE_1",
+      "cueId": "disc1-late-supp-palace-swordswoman-stance",
+      "voiceText": "The swordswoman bends her knees and raises her arms into a fighting stance.",
+      "bank": "disc1-burmecia",
+      "evidence": {
+        "referenceStartSeconds": 8903.5,
+        "referenceEndSeconds": 8905,
+        "nativeAnimationId": 8204,
+        "opcode": "ANIM",
+        "targetSid": 23,
+        "siteKey": "768:23:1@486",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 615,
+      "executorSid": 9,
+      "entrySha256": "08cb061f04f84f314d4b011667b03e604a7a3388a43c01c4c6caefc8d6ac2473",
+      "instruction": 800,
+      "model": 185,
+      "clip": "ANH_MAIN_F0_GRN_SING_1",
+      "cueId": "disc1-late-supp-balcony-girl-chin-up",
+      "voiceText": "The long-haired girl lifts her chin and raises one hand before her chest.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 7111,
+        "referenceEndSeconds": 7113.5,
+        "nativeAnimationId": 5964,
+        "opcode": "ANIM",
+        "targetSid": 9,
+        "siteKey": "615:9:40@800",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 615,
+      "executorSid": 0,
+      "entrySha256": "49feb1ef54f27d735c3c9c8462b90edd726b30407ea6a029c4cc80403955a004",
+      "instruction": 2001,
+      "model": 185,
+      "clip": "ANH_MAIN_F0_GRN_BREAK_2",
+      "cueId": "disc1-late-supp-balcony-girl-hands-head",
+      "voiceText": "The long-haired girl lifts both hands to her head, then spreads them.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 7211,
+        "referenceEndSeconds": 7214,
+        "nativeAnimationId": 4425,
+        "opcode": "DANIM",
+        "targetSid": 9,
+        "siteKey": "615:0:1@2001",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 615,
+      "executorSid": 7,
+      "entrySha256": "cd462a2e4063c8d6b106576fafcd6797821c45cab535fefeebb569065f844a8f",
+      "instruction": 1066,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_DISAPPOINTED_1",
+      "cueId": "disc1-late-supp-balcony-boy-slumps",
+      "voiceText": "The tailed boy slumps forward, his head hanging.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 7214.5,
+        "referenceEndSeconds": 7216,
+        "nativeAnimationId": 3672,
+        "opcode": "ANIM",
+        "targetSid": 7,
+        "siteKey": "615:7:43@1066",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 615,
+      "executorSid": 7,
+      "entrySha256": "cd462a2e4063c8d6b106576fafcd6797821c45cab535fefeebb569065f844a8f",
+      "instruction": 805,
+      "model": 98,
+      "clip": "ANH_MAIN_F0_ZDN_CLEYRA_OTTOTTO_B_1",
+      "cueId": "disc1-late-supp-balcony-boy-recoils",
+      "voiceText": "The tailed boy throws his arms out and jerks backward.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 7217,
+        "referenceEndSeconds": 7218,
+        "nativeAnimationId": 5185,
+        "opcode": "ANIM",
+        "targetSid": 7,
+        "siteKey": "615:7:46@805",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 767,
+      "executorSid": 4,
+      "entrySha256": "3e0f663885af9496ae98cb787e0135187045d1bdcb06cab0040ee79dfee33d1d",
+      "instruction": 411,
+      "model": 380,
+      "clip": "ANH_SUB_F0_FLT_YARI_SEE_1",
+      "cueId": "disc1-late-supp-flashback-spear",
+      "voiceText": "The long-snouted warrior raises his spear upright.",
+      "bank": "disc1-burmecia",
+      "evidence": {
+        "referenceStartSeconds": 8724,
+        "referenceEndSeconds": 8726,
+        "nativeAnimationId": 12278,
+        "opcode": "ANIM",
+        "targetSid": 4,
+        "siteKey": "767:4:1@411",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 555,
+      "executorSid": 27,
+      "entrySha256": "8235cf85537b44dfd4cf28eb458c0aa0fbd6c95fcbcaad76c850819075d73456",
+      "instruction": 258,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_CAUTION_2",
+      "cueId": "disc1-late-supp-market-knight-sinks",
+      "voiceText": "The armored knight sinks down, then flings one hand upward.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 6417,
+        "referenceEndSeconds": 6419,
+        "nativeAnimationId": 10036,
+        "opcode": "ANIM",
+        "targetSid": 27,
+        "siteKey": "555:27:29@258",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 600,
+      "executorSid": 18,
+      "entrySha256": "611c59ade40510c7dc51b4242e3af16cac1822c81c2922f207cbd17d598bfe60",
+      "instruction": 515,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_SWING_1",
+      "cueId": "disc1-late-supp-throne-knight-swings-arm",
+      "voiceText": "The armored knight twists his body and swings one arm across his chest.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 5909.8,
+        "referenceEndSeconds": 5911,
+        "nativeAnimationId": 7373,
+        "opcode": "ANIM",
+        "targetSid": 18,
+        "siteKey": "600:18:28@515",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 600,
+      "executorSid": 18,
+      "entrySha256": "611c59ade40510c7dc51b4242e3af16cac1822c81c2922f207cbd17d598bfe60",
+      "instruction": 640,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_ATTACK_CID_1",
+      "cueId": "disc1-late-supp-throne-knight-hands-up",
+      "voiceText": "The armored knight bends his knees and throws both hands up.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 5930.5,
+        "referenceEndSeconds": 5931.5,
+        "nativeAnimationId": 8439,
+        "opcode": "ANIM",
+        "targetSid": 18,
+        "siteKey": "600:18:37@640",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 600,
+      "executorSid": 18,
+      "entrySha256": "611c59ade40510c7dc51b4242e3af16cac1822c81c2922f207cbd17d598bfe60",
+      "instruction": 685,
+      "model": 5489,
+      "clip": "ANH_MAIN_F0_STN_KNEEL_1",
+      "cueId": "disc1-late-supp-throne-knight-kneels",
+      "voiceText": "The armored knight lowers himself onto one knee.",
+      "bank": "disc1-lindblum",
+      "evidence": {
+        "referenceStartSeconds": 5942,
+        "referenceEndSeconds": 5943.5,
+        "nativeAnimationId": 2747,
+        "opcode": "ANIM",
+        "targetSid": 18,
+        "siteKey": "600:18:43@685",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 307,
+      "executorSid": 13,
+      "entrySha256": "cb71c41c94c19a5e6ce18e91fa2c427235ba90c588ff15cdf144e3bea23d4c0f",
+      "instruction": 307,
+      "model": 185,
+      "clip": "ANH_MAIN_F0_GRN_COLD_SLEEP",
+      "cueId": "disc1-middle-ice-woman-collapses-side",
+      "voiceText": "The long-haired woman collapses onto her side.",
+      "bank": "disc1-ice",
+      "firstFrame": 39,
+      "lastFrame": 59,
+      "expectedNativeFrameCount": 60,
+      "evidence": {
+        "referenceStartSeconds": 3289.25,
+        "referenceEndSeconds": 3290.125,
+        "nativeAnimationId": 10328,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "307:13:40@307",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 307,
+      "executorSid": 14,
+      "entrySha256": "2053dd26f061669bc284338886df8b39996b25f709193d8e1b06511bc8a695f9",
+      "instruction": 295,
+      "model": 658,
+      "clip": "ANH_MAIN_F0_STN_COLD_FALL_2",
+      "cueId": "disc1-middle-ice-knight-topples-backward",
+      "voiceText": "The armored knight topples backward.",
+      "bank": "disc1-ice",
+      "proof": {
+        "minimumSampleFraction": 0.7,
+        "sequenceInstruction": -1,
+        "sequenceId": -1,
+        "minimumDisplacement": 0,
+        "companionSid": -1,
+        "companionModel": -1
+      },
+      "firstFrame": 0,
+      "lastFrame": 66,
+      "expectedNativeFrameCount": 80,
+      "evidence": {
+        "referenceStartSeconds": 3270.625,
+        "referenceEndSeconds": 3272.75,
+        "nativeAnimationId": 8469,
+        "opcode": "ANIM",
+        "targetSid": 14,
+        "siteKey": "307:14:38@295",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 451,
+      "executorSid": 13,
+      "entrySha256": "f1fd353b2c52c1e5dec5c0f23268baca69adb35ac2f6f4d693cbe5d53a373f7b",
+      "instruction": 1659,
+      "model": 658,
+      "clip": "ANH_MAIN_F0_STN_SWORD",
+      "cueId": "disc1-middle-dali-knight-levels-sword",
+      "voiceText": "The armored knight levels his sword at the barrel.",
+      "bank": "disc1-dali",
+      "firstFrame": 12,
+      "lastFrame": 41,
+      "expectedNativeFrameCount": 116,
+      "evidence": {
+        "referenceStartSeconds": 4721.125,
+        "referenceEndSeconds": 4722.125,
+        "nativeAnimationId": 446,
+        "opcode": "ANIM",
+        "targetSid": 13,
+        "siteKey": "451:13:1@1659",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 500,
+      "executorSid": 11,
+      "entrySha256": "00ba90f37edde70e3ff6551c73693d6154151fffeeda9ed0f2c82cfb76aad7a1",
+      "instruction": 274,
+      "model": 185,
+      "clip": "ANH_MAIN_F0_GRN_PULL_2",
+      "cueId": "disc1-middle-cargo-woman-steps-back",
+      "voiceText": "The long-haired woman steps backward with her arms outstretched.",
+      "bank": "disc1-cargo",
+      "firstFrame": 15,
+      "lastFrame": 33,
+      "expectedNativeFrameCount": 34,
+      "evidence": {
+        "referenceStartSeconds": 5217.375,
+        "referenceEndSeconds": 5218.125,
+        "nativeAnimationId": 12792,
+        "opcode": "ANIM",
+        "targetSid": 11,
+        "siteKey": "500:11:1@274",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 506,
+      "executorSid": 9,
+      "entrySha256": "2ad4c4f5a7722575709ab6b4f984e3d5695a6e7e60754f7c47f349747e82e2fd",
+      "instruction": 419,
+      "model": 167,
+      "clip": "ANH_SUB_F0_BW3_FLY_DOWN",
+      "cueId": "disc1-middle-cargo-winged-mage-lands-cockpit",
+      "voiceText": "The winged mage lands in the cockpit.",
+      "bank": "disc1-cargo",
+      "firstFrame": 17,
+      "lastFrame": 49,
+      "expectedNativeFrameCount": 50,
+      "evidence": {
+        "referenceStartSeconds": 5443.5,
+        "referenceEndSeconds": 5444.625,
+        "nativeAnimationId": 8410,
+        "opcode": "ANIM",
+        "targetSid": 9,
+        "siteKey": "506:9:1@419",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 251,
+      "executorSid": 9,
+      "entrySha256": "b2155bca802bf58711d8fe2e6cfce311bff51467a48a82918634b8df73ea10ba",
+      "instruction": 265,
+      "model": 33,
+      "clip": "ANH_MON_F0_EFM_HUNG_UP",
+      "cueId": "disc1-major-plant-captive-girl",
+      "voiceText": "The plant lowers its tendrils. The long-haired girl is inside its cage-like body.",
+      "bank": "disc1-forest",
+      "proof": {
+        "minimumSampleFraction": 0.75,
+        "sequenceInstruction": -1,
+        "sequenceId": -1,
+        "minimumDisplacement": 0,
+        "companionSid": 15,
+        "companionModel": 185,
+        "attachmentBone": 55
+      },
+      "evidence": {
+        "referenceStartSeconds": 2061.8,
+        "referenceEndSeconds": 2063.0,
+        "nativeAnimationId": 798,
+        "opcode": "ANIM",
+        "targetSid": 9,
+        "siteKey": "251:9:29@265",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 251,
+      "executorSid": 9,
+      "entrySha256": "b2155bca802bf58711d8fe2e6cfce311bff51467a48a82918634b8df73ea10ba",
+      "instruction": 360,
+      "model": 33,
+      "clip": "ANH_MON_F0_EFM_DEATH",
+      "cueId": "disc1-major-plant-collapse",
+      "voiceText": "The cage-shaped plant rears up, then collapses flat.",
+      "bank": "disc1-forest",
+      "proof": {
+        "minimumSampleFraction": 0.9,
+        "sequenceInstruction": -1,
+        "sequenceId": -1,
+        "minimumDisplacement": 0,
+        "companionSid": -1,
+        "companionModel": -1
+      },
+      "evidence": {
+        "referenceStartSeconds": 2095.5,
+        "referenceEndSeconds": 2097.8,
+        "nativeAnimationId": 8027,
+        "opcode": "ANIM",
+        "targetSid": 9,
+        "siteKey": "251:9:42@360",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    },
+    {
+      "field": 257,
+      "executorSid": 0,
+      "entrySha256": "64c4f8bc3f3a522f40701dee514c9fd0a2154f3c6c479b455d57a53fd05bed01",
+      "instruction": 1068,
+      "model": 201,
+      "clip": "ANH_MON_F2_EFM_BATTLE",
+      "cueId": "disc1-major-flower-plant-limbs",
+      "voiceText": "The enormous, flower-headed plant raises its thick limbs and curls its tendrils upward.",
+      "bank": "disc1-forest",
+      "proof": {
+        "minimumSampleFraction": 0.6,
+        "sequenceInstruction": -1,
+        "sequenceId": -1,
+        "minimumDisplacement": 0,
+        "companionSid": -1,
+        "companionModel": -1
+      },
+      "evidence": {
+        "referenceStartSeconds": 2734,
+        "referenceEndSeconds": 2735.8,
+        "nativeAnimationId": 2798,
+        "opcode": "DANIM",
+        "targetSid": 9,
+        "siteKey": "257:0:1@1068",
+        "review": "Actual reference frames and installed actor/animation pose samples; full forward visible progression required at runtime."
+      }
+    }
+  ],
+  "presentedObjects": [
+    {
+      "field": 400,
+      "actorSid": 3,
+      "entrySha256": "d4d1c495da0b864e08a894eb01c920cd030cfdf38f052079ce881ccfa6719e6e",
+      "model": 5468,
+      "clip": "ANH_NPC_F0_BMG_HANG",
+      "cueId": "disc1-major-factory-hanging-figure",
+      "voiceText": "A figure in a pointed hat hangs limply, its feet dangling.",
+      "bank": "disc1-dali",
+      "mode": "Static",
+      "evidence": {
+        "instruction": 52,
+        "opcode": "AIDLE",
+        "nativeAnimationId": 3332,
+        "referenceStartSeconds": 4533.5,
+        "referenceEndSeconds": 4558,
+        "review": "Actual original-speed reference and installed object/pose asset; runtime must earn positive visible presentation, and animation or movement proof for the selected mode."
+      }
+    },
+    {
+      "field": 400,
+      "actorSid": 5,
+      "entrySha256": "5046e6f96af4b712bc01b12e56d08a465beefbe6c5f919609f6444e0fc6fb932",
+      "model": 5468,
+      "clip": "ANH_NPC_F0_BMG_HANG",
+      "cueId": "disc1-major-factory-hanging-figure",
+      "voiceText": "A figure in a pointed hat hangs limply, its feet dangling.",
+      "bank": "disc1-dali",
+      "mode": "Static",
+      "evidence": {
+        "instruction": 52,
+        "opcode": "AIDLE",
+        "nativeAnimationId": 3332,
+        "referenceStartSeconds": 4533.5,
+        "referenceEndSeconds": 4558,
+        "review": "Actual original-speed reference and installed object/pose asset; runtime must earn positive visible presentation, and animation or movement proof for the selected mode."
+      }
+    },
+    {
+      "field": 400,
+      "actorSid": 7,
+      "entrySha256": "815b1e9ad7b21248c85a3bba00701151f31f81d54bd99482cafdd49509540580",
+      "model": 5468,
+      "clip": "ANH_NPC_F0_BMG_HANG",
+      "cueId": "disc1-major-factory-hanging-figure",
+      "voiceText": "A figure in a pointed hat hangs limply, its feet dangling.",
+      "bank": "disc1-dali",
+      "mode": "Static",
+      "evidence": {
+        "instruction": 52,
+        "opcode": "AIDLE",
+        "nativeAnimationId": 3332,
+        "referenceStartSeconds": 4533.5,
+        "referenceEndSeconds": 4558,
+        "review": "Actual original-speed reference and installed object/pose asset; runtime must earn positive visible presentation, and animation or movement proof for the selected mode."
+      }
+    },
+    {
+      "field": 402,
+      "actorSid": 5,
+      "entrySha256": "41e73fdd1134bf9a323406bcd4c0efe11dd768bf7ce383c0c5e4fccfdee5e2ca",
+      "model": 259,
+      "clip": "ANH_NPC_F0_CHO_RUN_IN_CAGE",
+      "cueId": "disc1-major-factory-running-bird",
+      "voiceText": "A yellow chocobo runs on a wooden treadmill.",
+      "bank": "disc1-dali",
+      "mode": "Animated",
+      "evidence": {
+        "instruction": 121,
+        "opcode": "AIDLE",
+        "nativeAnimationId": 1107,
+        "referenceStartSeconds": 4499.5,
+        "referenceEndSeconds": 4507,
+        "review": "Actual original-speed reference and installed object/pose asset; runtime must earn positive visible presentation, and animation or movement proof for the selected mode."
+      }
+    },
+    {
+      "field": 402,
+      "actorSid": 4,
+      "entrySha256": "ec9b88d092eda272e3a5b907bc27004ee145da2590d294fe44b720d2532310c2",
+      "model": 538,
+      "clip": "ANH_ACC_F0_EGG_B",
+      "cueId": "disc1-major-factory-moving-egg",
+      "voiceText": "A large, mottled egg moves along the conveyor.",
+      "bank": "disc1-dali",
+      "mode": "Moving",
+      "evidence": {
+        "instruction": 112,
+        "opcode": "AIDLE",
+        "nativeAnimationId": 71,
+        "referenceStartSeconds": 4499.5,
+        "referenceEndSeconds": 4529,
+        "review": "Actual original-speed reference and installed object/pose asset; runtime must earn positive visible presentation, and animation or movement proof for the selected mode."
+      }
+    }
+  ]
+}

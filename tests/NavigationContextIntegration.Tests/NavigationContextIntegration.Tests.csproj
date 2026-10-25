@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><Nullable>disable</Nullable></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="*.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeNavigationContext.cs" Link="Runtime/NativeNavigationContext.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Core/*.cs" Link="Runtime/Core/%(Filename).cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,2304 @@
+{
+ "schema": 1,
+ "description": "Field (in-engine) visual-action descriptions. Pose cues fire only when the reviewed clip for the exact actor model is actually sampled and progresses while the actor is rendered on screen; motion cues come from observed native engine state. Subjects are appearance phrases from rendered proof, never names.",
+ "source": "Native field models and animation clips reviewed in orthographic pose sheets, 2026-10-15. Compiled bindings and public captions are verified together.",
+ "subjects": [
+  {
+   "model": 8,
+   "key": "main-f0-viv",
+   "subject": "The small figure in the pointed hat",
+   "evidence": "proof/viv_yes_no_break_lookup.png: wide-brimmed pointed hat over a small body"
+  },
+  {
+   "model": 98,
+   "key": "main-f0-zdn",
+   "subject": "The boy with the tail",
+   "evidence": "proof/zdn_sit_test.png: tail visible in every frame"
+  },
+  {
+   "model": 185,
+   "key": "main-f0-grn",
+   "subject": "The long-haired girl",
+   "evidence": "proof/grn_hiza_kamae_lookup.png: waist-length hair"
+  },
+  {
+   "model": 192,
+   "key": "main-f0-frj",
+   "subject": "The figure in the tall hat",
+   "evidence": "proof/frj_hiza_kamae_think.png: tall hat, long coat and tail"
+  },
+  {
+   "model": 443,
+   "key": "main-f0-eik",
+   "subject": "The little girl",
+   "evidence": "proof/eik_angry_yes_no_kamae.png: small child-sized figure"
+  },
+  {
+   "model": 5464,
+   "key": "sub-f0-bak",
+   "subject": "The burly man",
+   "evidence": "proof/bak_field50.png: heavy, broad figure"
+  },
+  {
+   "model": 5489,
+   "key": "main-f0-stn",
+   "subject": "The armored knight",
+   "evidence": "proof/stn_angry_salute.png: armored body and helmet silhouette"
+  },
+  {
+   "model": 48,
+   "key": "sub-f0-rby",
+   "subject": "The woman in the bonnet",
+   "evidence": "proof/x2_rby.png: rounded bonnet, dress"
+  },
+  {
+   "model": 53,
+   "key": "npc-f1-bmg",
+   "subject": "The tall figure in the pointed hat",
+   "evidence": "proof/x3_bmgf1.png: tall pointed hat, long coat"
+  },
+  {
+   "model": 75,
+   "key": "acc-f0-tbx",
+   "subject": "The chest",
+   "evidence": "proof/x2_tbx.png: lidded box"
+  },
+  {
+   "model": 91,
+   "key": "acc-f1-tbx",
+   "subject": "The chest",
+   "evidence": "proof/x2_tbxf1.png: large lidded box"
+  },
+  {
+   "model": 107,
+   "key": "sub-f0-cna",
+   "subject": "The short man with the hammer",
+   "evidence": "proof/x3_cna.png: short figure carrying a hammer"
+  },
+  {
+   "model": 109,
+   "key": "sub-f0-mrc",
+   "subject": "The stocky man",
+   "evidence": "proof/x2_mrc.png: stocky build"
+  },
+  {
+   "model": 118,
+   "key": "npc-f0-off",
+   "subject": "The soldier with the shield",
+   "evidence": "proof/x3_off.png: round shield and sword"
+  },
+  {
+   "model": 129,
+   "key": "npc-f1-mog",
+   "subject": "The small winged creature",
+   "evidence": "proof/x3_mogf1.png: same silhouette as model 220"
+  },
+  {
+   "model": 171,
+   "key": "sub-f0-tot",
+   "subject": "The figure in the top hat",
+   "evidence": "proof/x3_tot.png: tall top hat"
+  },
+  {
+   "model": 204,
+   "key": "sub-f0-btx",
+   "subject": "The swordswoman in the long coat",
+   "evidence": "proof/x2_btx.png: long coat, sword at the hip"
+  },
+  {
+   "model": 220,
+   "key": "npc-f0-mog",
+   "subject": "The small winged creature",
+   "evidence": "proof/x2_mog.png: small body, wings, pompom on a stalk"
+  },
+  {
+   "model": 273,
+   "key": "main-f0-kui",
+   "subject": "The large, round figure",
+   "evidence": "proof/x2_kui.png: broad rounded body, small hat"
+  },
+  {
+   "model": 509,
+   "key": "main-f0-slm",
+   "subject": "The tall man with the wild mane",
+   "evidence": "proof/x2_slm.png: tall frame, large mane of hair"
+  },
+  {
+   "model": 658,
+   "key": "main-f1-stn",
+   "subject": "The armored knight",
+   "evidence": "proof/x2_stnf1.png: same armored silhouette as model 5489"
+  },
+  {
+   "model": 5467,
+   "key": "sub-f0-bln",
+   "subject": "The spiky-haired youth",
+   "evidence": "proof/x2_bln.png: spiky hair, sword strapped on the back"
+  },
+  {
+   "model": 5468,
+   "key": "npc-f0-bmg",
+   "subject": "The round figure in the pointed hat",
+   "evidence": "proof/x3_bmg.png: round body, pointed hat"
+  },
+  {
+   "model": 5488,
+   "key": "sub-f0-ssb",
+   "subject": "The soldier in the round helmet",
+   "evidence": "proof/x3_ssb.png: round helmet, frame on the back"
+  },
+  {
+   "model": 5500,
+   "key": "sub-f0-znr",
+   "subject": "The squat, big-eared figure",
+   "evidence": "proof/x3_znr.png: squat body, large ears"
+  }
+ ],
+ "cues": [
+  {
+   "cueId": "field-main-f0-eik-angry-1",
+   "kind": "pose",
+   "model": 443,
+   "geo": "GEO_MAIN_F0_EIK",
+   "clip": "ANH_MAIN_F0_EIK_ANGRY_1",
+   "aliases": [
+    14488,
+    14489
+   ],
+   "role": "single",
+   "voiceText": "The little girl hops up with their arms raised and lands leaning forward.",
+   "proof": "proof/eik_angry_yes_no_kamae.png",
+   "kinematicClasses": [
+    "DIPS_AND_RECOVERS",
+    "AIRBORNE",
+    "REACHES_ABOVE_HEAD",
+    "HAND_ABOVE_HEAD"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-eik-no-1",
+   "kind": "pose",
+   "model": 443,
+   "geo": "GEO_MAIN_F0_EIK",
+   "clip": "ANH_MAIN_F0_EIK_NO_1",
+   "aliases": [
+    14492,
+    14493
+   ],
+   "role": "single",
+   "voiceText": "The little girl shakes their head.",
+   "proof": "proof/eik_angry_yes_no_kamae.png",
+   "kinematicClasses": [
+    "HEAD_SHAKE"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-eik-yes-1",
+   "kind": "pose",
+   "model": 443,
+   "geo": "GEO_MAIN_F0_EIK",
+   "clip": "ANH_MAIN_F0_EIK_YES_1",
+   "aliases": [
+    14490,
+    14491
+   ],
+   "role": "single",
+   "voiceText": "The little girl nods.",
+   "proof": "proof/eik_angry_yes_no_kamae.png",
+   "kinematicClasses": [
+    "HEAD_NOD"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-frj-hiza-1",
+   "kind": "pose",
+   "model": 192,
+   "geo": "GEO_MAIN_F0_FRJ",
+   "clip": "ANH_MAIN_F0_FRJ_HIZA_1",
+   "aliases": [
+    6479,
+    6480
+   ],
+   "role": "enter",
+   "voiceText": "The figure in the tall hat kneels on one knee.",
+   "proof": "proof/frj_hiza_kamae_think.png",
+   "kinematicClasses": [
+    "LOWERS_BODY"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-frj-hiza-3",
+   "kind": "pose",
+   "model": 192,
+   "geo": "GEO_MAIN_F0_FRJ",
+   "clip": "ANH_MAIN_F0_FRJ_HIZA_3",
+   "aliases": [
+    6481,
+    6482
+   ],
+   "role": "exit",
+   "voiceText": "The figure in the tall hat rises to their feet.",
+   "proof": "proof/frj_hiza_kamae_think.png",
+   "kinematicClasses": [
+    "RAISES_BODY"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-frj-kamae-1",
+   "kind": "pose",
+   "model": 192,
+   "geo": "GEO_MAIN_F0_FRJ",
+   "clip": "ANH_MAIN_F0_FRJ_KAMAE_1",
+   "aliases": [
+    12865,
+    12866
+   ],
+   "role": "enter",
+   "voiceText": "The figure in the tall hat takes a wide, crouched fighting stance.",
+   "proof": "proof/frj_hiza_kamae_think.png",
+   "kinematicClasses": [
+    "SHIFTS_POSITION"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-grn-hiza-1",
+   "kind": "pose",
+   "model": 185,
+   "geo": "GEO_MAIN_F0_GRN",
+   "clip": "ANH_MAIN_F0_GRN_HIZA_1",
+   "aliases": [
+    4629,
+    4630
+   ],
+   "role": "enter",
+   "voiceText": "The long-haired girl kneels down.",
+   "proof": "proof/grn_hiza_kamae_lookup.png",
+   "kinematicClasses": [
+    "LOWERS_BODY_DEEP"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-grn-hiza-3",
+   "kind": "pose",
+   "model": 185,
+   "geo": "GEO_MAIN_F0_GRN",
+   "clip": "ANH_MAIN_F0_GRN_HIZA_3",
+   "aliases": [
+    4633,
+    4634
+   ],
+   "role": "exit",
+   "voiceText": "The long-haired girl gets back to their feet.",
+   "proof": "proof/grn_hiza_kamae_lookup.png",
+   "kinematicClasses": [
+    "RAISES_BODY_FROM_LOW"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-grn-look-up-1",
+   "kind": "pose",
+   "model": 185,
+   "geo": "GEO_MAIN_F0_GRN",
+   "clip": "ANH_MAIN_F0_GRN_LOOK_UP_1",
+   "aliases": [
+    3737,
+    3740
+   ],
+   "role": "enter",
+   "voiceText": "The long-haired girl looks up.",
+   "proof": "proof/grn_hiza_kamae_lookup.png",
+   "kinematicClasses": [
+    "HEAD_TILTS_UP"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-grn-no",
+   "kind": "pose",
+   "model": 185,
+   "geo": "GEO_MAIN_F0_GRN",
+   "clip": "ANH_MAIN_F0_GRN_NO",
+   "aliases": [
+    477,
+    528
+   ],
+   "role": "single",
+   "voiceText": "The long-haired girl shakes their head.",
+   "proof": "proof/grn_yes_no_metric.png",
+   "kinematicClasses": [
+    "HEAD_SHAKE"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-grn-think-3-1",
+   "kind": "pose",
+   "model": 185,
+   "geo": "GEO_MAIN_F0_GRN",
+   "clip": "ANH_MAIN_F0_GRN_THINK_3_1",
+   "aliases": [
+    150,
+    183
+   ],
+   "role": "enter",
+   "voiceText": "The long-haired girl clasps their hands in front of them and lowers their head.",
+   "proof": "proof/grn_yes_no_think.png",
+   "kinematicClasses": [
+    "HEAD_TILTS_DOWN",
+    "HANDS_TOGETHER_HELD"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-grn-yes",
+   "kind": "pose",
+   "model": 185,
+   "geo": "GEO_MAIN_F0_GRN",
+   "clip": "ANH_MAIN_F0_GRN_YES",
+   "aliases": [
+    827,
+    828
+   ],
+   "role": "single",
+   "voiceText": "The long-haired girl nods.",
+   "proof": "proof/grn_yes_no_metric.png",
+   "kinematicClasses": [
+    "HEAD_NOD"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-stn-angry-1-1",
+   "kind": "pose",
+   "model": 5489,
+   "geo": "GEO_MAIN_F0_STN",
+   "clip": "ANH_MAIN_F0_STN_ANGRY_1_1",
+   "aliases": [
+    6993,
+    6994
+   ],
+   "role": "enter",
+   "voiceText": "The armored knight raises a fist.",
+   "proof": "proof/stn_angry_salute.png",
+   "kinematicClasses": [
+    "HAND_TO_HEAD_BRIEF",
+    "HAND_ABOVE_HEAD"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-stn-salute",
+   "kind": "pose",
+   "model": 5489,
+   "geo": "GEO_MAIN_F0_STN",
+   "clip": "ANH_MAIN_F0_STN_SALUTE",
+   "aliases": [
+    1983,
+    1984
+   ],
+   "role": "single",
+   "voiceText": "The armored knight salutes.",
+   "proof": "proof/stn_angry_salute.png",
+   "kinematicClasses": [
+    "HAND_TO_HEAD_BRIEF",
+    "HAND_ABOVE_HEAD"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-viv-hiza-1",
+   "kind": "pose",
+   "model": 8,
+   "geo": "GEO_MAIN_F0_VIV",
+   "clip": "ANH_MAIN_F0_VIV_HIZA_1",
+   "aliases": [
+    7019,
+    7020
+   ],
+   "role": "enter",
+   "voiceText": "The small figure in the pointed hat crouches down.",
+   "proof": "proof/viv_hiza_koke_kamae.png",
+   "kinematicClasses": [
+    "LOWERS_BODY"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-viv-hiza-3",
+   "kind": "pose",
+   "model": 8,
+   "geo": "GEO_MAIN_F0_VIV",
+   "clip": "ANH_MAIN_F0_VIV_HIZA_3",
+   "aliases": [
+    7021,
+    7022
+   ],
+   "role": "exit",
+   "voiceText": "The small figure in the pointed hat stands back up.",
+   "proof": "proof/viv_hiza_koke_kamae.png",
+   "kinematicClasses": [
+    "RAISES_BODY",
+    "HANDS_PART"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-viv-koke-2-1",
+   "kind": "pose",
+   "model": 8,
+   "geo": "GEO_MAIN_F0_VIV",
+   "clip": "ANH_MAIN_F0_VIV_KOKE_2_1",
+   "aliases": [
+    7097,
+    7098
+   ],
+   "role": "enter",
+   "voiceText": "The small figure in the pointed hat falls backward onto the ground.",
+   "proof": "proof/viv_hiza_koke_kamae.png",
+   "kinematicClasses": [
+    "LOWERS_BODY",
+    "REACHES_ABOVE_HEAD",
+    "SHIFTS_POSITION"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-viv-koke-2-3",
+   "kind": "pose",
+   "model": 8,
+   "geo": "GEO_MAIN_F0_VIV",
+   "clip": "ANH_MAIN_F0_VIV_KOKE_2_3",
+   "aliases": [
+    7105,
+    7106
+   ],
+   "role": "exit",
+   "voiceText": "The small figure in the pointed hat gets back up.",
+   "proof": "proof/viv_hiza_koke_kamae.png",
+   "kinematicClasses": [
+    "RAISES_BODY_FROM_LOW",
+    "SHIFTS_POSITION"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-viv-look-up-1",
+   "kind": "pose",
+   "model": 8,
+   "geo": "GEO_MAIN_F0_VIV",
+   "clip": "ANH_MAIN_F0_VIV_LOOK_UP_1",
+   "aliases": [
+    3081,
+    3084
+   ],
+   "role": "enter",
+   "voiceText": "The small figure in the pointed hat looks up.",
+   "proof": "proof/viv_yes_no_break_lookup.png",
+   "kinematicClasses": [
+    "LOWERS_BODY"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-viv-no",
+   "kind": "pose",
+   "model": 8,
+   "geo": "GEO_MAIN_F0_VIV",
+   "clip": "ANH_MAIN_F0_VIV_NO",
+   "aliases": [
+    901,
+    910
+   ],
+   "role": "single",
+   "voiceText": "The small figure in the pointed hat shakes their head.",
+   "proof": "proof/viv_yes_no_break_lookup.png",
+   "kinematicClasses": [
+    "HEAD_SHAKE"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-viv-yes",
+   "kind": "pose",
+   "model": 8,
+   "geo": "GEO_MAIN_F0_VIV",
+   "clip": "ANH_MAIN_F0_VIV_YES",
+   "aliases": [
+    905,
+    914
+   ],
+   "role": "single",
+   "voiceText": "The small figure in the pointed hat nods.",
+   "proof": "proof/viv_yes_no_break_lookup.png",
+   "kinematicClasses": [
+    "HEAD_NOD"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-hiza-1",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_HIZA_1",
+   "aliases": [
+    2606,
+    2607
+   ],
+   "role": "enter",
+   "voiceText": "The boy with the tail crouches down.",
+   "proof": "proof/zdn_hiza_drop.png",
+   "kinematicClasses": [
+    "LOWERS_BODY_DEEP"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-hiza-3",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_HIZA_3",
+   "aliases": [
+    2590,
+    2591
+   ],
+   "role": "exit",
+   "voiceText": "The boy with the tail stands back up.",
+   "proof": "proof/zdn_hiza_drop.png",
+   "kinematicClasses": [
+    "RAISES_BODY_FROM_LOW"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-jump",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_JUMP",
+   "aliases": [
+    106,
+    206
+   ],
+   "role": "single",
+   "voiceText": "The boy with the tail jumps.",
+   "proof": "proof/zdn_fieldonly_kamae_angry_drop_jump.png",
+   "kinematicClasses": [
+    "AIRBORNE",
+    "REACHES_ABOVE_HEAD"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-kamae-1",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_KAMAE_1",
+   "aliases": [
+    8197,
+    8198
+   ],
+   "role": "enter",
+   "voiceText": "The boy with the tail drops into a crouched fighting stance.",
+   "proof": "proof/zdn_fieldonly_kamae_angry_drop_jump.png",
+   "kinematicClasses": [
+    "LOWERS_BODY",
+    "SHIFTS_POSITION"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-kamae-3",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_KAMAE_3",
+   "aliases": [
+    8193,
+    8194
+   ],
+   "role": "exit",
+   "voiceText": "The boy with the tail straightens up out of their stance.",
+   "proof": "proof/zdn_kamae_think.png",
+   "kinematicClasses": [
+    "RAISES_BODY",
+    "SHIFTS_POSITION"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-look-up-1",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_LOOK_UP_1",
+   "aliases": [
+    3626,
+    3628
+   ],
+   "role": "enter",
+   "voiceText": "The boy with the tail looks up.",
+   "proof": "proof/zdn_lookup_surprised.png",
+   "kinematicClasses": [
+    "HEAD_TILTS_UP"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-match1",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_MATCH1",
+   "aliases": [
+    2716,
+    2717
+   ],
+   "role": "single",
+   "voiceText": "The boy with the tail brings their hands together in front of their chest.",
+   "proof": "proof/zdn_field50.png",
+   "kinematicClasses": [
+    "HEAD_NOD",
+    "HANDS_TOGETHER_HELD"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-match7",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_MATCH7",
+   "aliases": [
+    2718,
+    2719
+   ],
+   "role": "single",
+   "voiceText": "The boy with the tail looks around.",
+   "proof": "proof/zdn_field50.png",
+   "kinematicClasses": [
+    "LOOKS_AROUND"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-no",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_NO",
+   "aliases": [
+    108,
+    201
+   ],
+   "role": "single",
+   "voiceText": "The boy with the tail shakes their head, spreading their arms.",
+   "proof": "proof/zdn_yes_no_test.png",
+   "kinematicClasses": [
+    "HEAD_SHAKE"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-sit-1",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_SIT_1",
+   "aliases": [
+    3003,
+    3005
+   ],
+   "role": "enter",
+   "voiceText": "The boy with the tail sits down.",
+   "proof": "proof/zdn_sit_test.png",
+   "kinematicClasses": [
+    "LOWERS_BODY",
+    "HANDS_TOGETHER_HELD",
+    "SHIFTS_POSITION"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-sit-3",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_SIT_3",
+   "aliases": [
+    3010,
+    3013
+   ],
+   "role": "exit",
+   "voiceText": "The boy with the tail stands up.",
+   "proof": "proof/zdn_sit_test.png",
+   "kinematicClasses": null
+  },
+  {
+   "cueId": "field-main-f0-zdn-surprised-2-1",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_SURPRISED_2_1",
+   "aliases": [
+    3367,
+    3397
+   ],
+   "role": "enter",
+   "voiceText": "The boy with the tail jumps back, throwing up their arms.",
+   "proof": "proof/zdn_lookup_surprised.png",
+   "kinematicClasses": [
+    "SHIFTS_POSITION"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-think-1-1",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_THINK_1_1",
+   "aliases": [
+    587,
+    588
+   ],
+   "role": "enter",
+   "voiceText": "The boy with the tail raises a hand to their chin.",
+   "proof": "proof/zdn_kamae_think.png",
+   "kinematicClasses": [
+    "HEAD_TILTS_UP",
+    "HAND_TO_HEAD_HELD"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-tired-to-idle",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_TIRED_TO_IDLE",
+   "aliases": [
+    2616,
+    2617
+   ],
+   "role": "exit",
+   "voiceText": "The boy with the tail straightens up.",
+   "proof": "proof/zdn_field50.png",
+   "kinematicClasses": [
+    "RAISES_BODY_FROM_LOW"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-xarm-1",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_XARM_1",
+   "aliases": [
+    9706,
+    9707
+   ],
+   "role": "enter",
+   "voiceText": "The boy with the tail crosses their arms.",
+   "proof": "proof/zdn_angry_xarm_fuman.png",
+   "kinematicClasses": [
+    "HEAD_TILTS_UP",
+    "HAND_TO_HEAD_HELD",
+    "HANDS_TOGETHER_HELD"
+   ]
+  },
+  {
+   "cueId": "field-main-f0-zdn-yes",
+   "kind": "pose",
+   "model": 98,
+   "geo": "GEO_MAIN_F0_ZDN",
+   "clip": "ANH_MAIN_F0_ZDN_YES",
+   "aliases": [
+    111,
+    188
+   ],
+   "role": "single",
+   "voiceText": "The boy with the tail nods.",
+   "proof": "proof/zdn_yes_no_test.png",
+   "kinematicClasses": [
+    "HEAD_NOD"
+   ]
+  },
+  {
+   "cueId": "field-sub-f0-bak-open-door-foot",
+   "kind": "pose",
+   "model": 5464,
+   "geo": "GEO_SUB_F0_BAK",
+   "clip": "ANH_SUB_F0_BAK_OPEN_DOOR_FOOT",
+   "aliases": [
+    1004,
+    1015
+   ],
+   "role": "single",
+   "voiceText": "The burly man kicks out with one foot.",
+   "proof": "proof/bak_field50.png",
+   "kinematicClasses": [
+    "UNCLASSIFIED_MOTION"
+   ]
+  },
+  {
+   "cueId": "field-sub-f0-bak-start-meeting",
+   "kind": "pose",
+   "model": 5464,
+   "geo": "GEO_SUB_F0_BAK",
+   "clip": "ANH_SUB_F0_BAK_START_MEETING",
+   "aliases": [
+    1001,
+    1012
+   ],
+   "role": "single",
+   "voiceText": "The burly man throws their arms wide.",
+   "proof": "proof/bak_field50.png",
+   "kinematicClasses": [
+    "HAND_TO_HEAD_BRIEF",
+    "HAND_ABOVE_HEAD",
+    "ARMS_SPREAD"
+   ]
+  },
+  {
+   "cueId": "field-motion-main-f0-eik-walk-into-view",
+   "kind": "motion",
+   "model": 443,
+   "motion": "WalkIntoView",
+   "voiceText": "The little girl walks into view."
+  },
+  {
+   "cueId": "field-motion-main-f0-eik-run-into-view",
+   "kind": "motion",
+   "model": 443,
+   "motion": "RunIntoView",
+   "voiceText": "The little girl runs into view."
+  },
+  {
+   "cueId": "field-motion-main-f0-eik-walk-out-of-view",
+   "kind": "motion",
+   "model": 443,
+   "motion": "WalkOutOfView",
+   "voiceText": "The little girl walks out of view."
+  },
+  {
+   "cueId": "field-motion-main-f0-eik-run-out-of-view",
+   "kind": "motion",
+   "model": 443,
+   "motion": "RunOutOfView",
+   "voiceText": "The little girl runs out of view."
+  },
+  {
+   "cueId": "field-motion-main-f0-eik-jump-up",
+   "kind": "motion",
+   "model": 443,
+   "motion": "JumpUp",
+   "voiceText": "The little girl jumps up."
+  },
+  {
+   "cueId": "field-motion-main-f0-eik-jump-down",
+   "kind": "motion",
+   "model": 443,
+   "motion": "JumpDown",
+   "voiceText": "The little girl jumps down."
+  },
+  {
+   "cueId": "field-motion-main-f0-eik-jump",
+   "kind": "motion",
+   "model": 443,
+   "motion": "Jump",
+   "voiceText": "The little girl jumps."
+  },
+  {
+   "cueId": "field-motion-main-f0-eik-turn-around",
+   "kind": "motion",
+   "model": 443,
+   "motion": "TurnAround",
+   "voiceText": "The little girl turns around."
+  },
+  {
+   "cueId": "field-motion-main-f0-frj-walk-into-view",
+   "kind": "motion",
+   "model": 192,
+   "motion": "WalkIntoView",
+   "voiceText": "The figure in the tall hat walks into view."
+  },
+  {
+   "cueId": "field-motion-main-f0-frj-run-into-view",
+   "kind": "motion",
+   "model": 192,
+   "motion": "RunIntoView",
+   "voiceText": "The figure in the tall hat runs into view."
+  },
+  {
+   "cueId": "field-motion-main-f0-frj-walk-out-of-view",
+   "kind": "motion",
+   "model": 192,
+   "motion": "WalkOutOfView",
+   "voiceText": "The figure in the tall hat walks out of view."
+  },
+  {
+   "cueId": "field-motion-main-f0-frj-run-out-of-view",
+   "kind": "motion",
+   "model": 192,
+   "motion": "RunOutOfView",
+   "voiceText": "The figure in the tall hat runs out of view."
+  },
+  {
+   "cueId": "field-motion-main-f0-frj-jump-up",
+   "kind": "motion",
+   "model": 192,
+   "motion": "JumpUp",
+   "voiceText": "The figure in the tall hat jumps up."
+  },
+  {
+   "cueId": "field-motion-main-f0-frj-jump-down",
+   "kind": "motion",
+   "model": 192,
+   "motion": "JumpDown",
+   "voiceText": "The figure in the tall hat jumps down."
+  },
+  {
+   "cueId": "field-motion-main-f0-frj-jump",
+   "kind": "motion",
+   "model": 192,
+   "motion": "Jump",
+   "voiceText": "The figure in the tall hat jumps."
+  },
+  {
+   "cueId": "field-motion-main-f0-frj-turn-around",
+   "kind": "motion",
+   "model": 192,
+   "motion": "TurnAround",
+   "voiceText": "The figure in the tall hat turns around."
+  },
+  {
+   "cueId": "field-motion-main-f0-grn-walk-into-view",
+   "kind": "motion",
+   "model": 185,
+   "motion": "WalkIntoView",
+   "voiceText": "The long-haired girl walks into view."
+  },
+  {
+   "cueId": "field-motion-main-f0-grn-run-into-view",
+   "kind": "motion",
+   "model": 185,
+   "motion": "RunIntoView",
+   "voiceText": "The long-haired girl runs into view."
+  },
+  {
+   "cueId": "field-motion-main-f0-grn-walk-out-of-view",
+   "kind": "motion",
+   "model": 185,
+   "motion": "WalkOutOfView",
+   "voiceText": "The long-haired girl walks out of view."
+  },
+  {
+   "cueId": "field-motion-main-f0-grn-run-out-of-view",
+   "kind": "motion",
+   "model": 185,
+   "motion": "RunOutOfView",
+   "voiceText": "The long-haired girl runs out of view."
+  },
+  {
+   "cueId": "field-motion-main-f0-grn-jump-up",
+   "kind": "motion",
+   "model": 185,
+   "motion": "JumpUp",
+   "voiceText": "The long-haired girl jumps up."
+  },
+  {
+   "cueId": "field-motion-main-f0-grn-jump-down",
+   "kind": "motion",
+   "model": 185,
+   "motion": "JumpDown",
+   "voiceText": "The long-haired girl jumps down."
+  },
+  {
+   "cueId": "field-motion-main-f0-grn-jump",
+   "kind": "motion",
+   "model": 185,
+   "motion": "Jump",
+   "voiceText": "The long-haired girl jumps."
+  },
+  {
+   "cueId": "field-motion-main-f0-grn-turn-around",
+   "kind": "motion",
+   "model": 185,
+   "motion": "TurnAround",
+   "voiceText": "The long-haired girl turns around."
+  },
+  {
+   "cueId": "field-motion-main-f0-stn-walk-into-view",
+   "kind": "motion",
+   "model": 5489,
+   "motion": "WalkIntoView",
+   "voiceText": "The armored knight walks into view."
+  },
+  {
+   "cueId": "field-motion-main-f0-stn-run-into-view",
+   "kind": "motion",
+   "model": 5489,
+   "motion": "RunIntoView",
+   "voiceText": "The armored knight runs into view."
+  },
+  {
+   "cueId": "field-motion-main-f0-stn-walk-out-of-view",
+   "kind": "motion",
+   "model": 5489,
+   "motion": "WalkOutOfView",
+   "voiceText": "The armored knight walks out of view."
+  },
+  {
+   "cueId": "field-motion-main-f0-stn-run-out-of-view",
+   "kind": "motion",
+   "model": 5489,
+   "motion": "RunOutOfView",
+   "voiceText": "The armored knight runs out of view."
+  },
+  {
+   "cueId": "field-motion-main-f0-stn-jump-up",
+   "kind": "motion",
+   "model": 5489,
+   "motion": "JumpUp",
+   "voiceText": "The armored knight jumps up."
+  },
+  {
+   "cueId": "field-motion-main-f0-stn-jump-down",
+   "kind": "motion",
+   "model": 5489,
+   "motion": "JumpDown",
+   "voiceText": "The armored knight jumps down."
+  },
+  {
+   "cueId": "field-motion-main-f0-stn-jump",
+   "kind": "motion",
+   "model": 5489,
+   "motion": "Jump",
+   "voiceText": "The armored knight jumps."
+  },
+  {
+   "cueId": "field-motion-main-f0-stn-turn-around",
+   "kind": "motion",
+   "model": 5489,
+   "motion": "TurnAround",
+   "voiceText": "The armored knight turns around."
+  },
+  {
+   "cueId": "field-motion-main-f0-viv-walk-into-view",
+   "kind": "motion",
+   "model": 8,
+   "motion": "WalkIntoView",
+   "voiceText": "The small figure in the pointed hat walks into view."
+  },
+  {
+   "cueId": "field-motion-main-f0-viv-run-into-view",
+   "kind": "motion",
+   "model": 8,
+   "motion": "RunIntoView",
+   "voiceText": "The small figure in the pointed hat runs into view."
+  },
+  {
+   "cueId": "field-motion-main-f0-viv-walk-out-of-view",
+   "kind": "motion",
+   "model": 8,
+   "motion": "WalkOutOfView",
+   "voiceText": "The small figure in the pointed hat walks out of view."
+  },
+  {
+   "cueId": "field-motion-main-f0-viv-run-out-of-view",
+   "kind": "motion",
+   "model": 8,
+   "motion": "RunOutOfView",
+   "voiceText": "The small figure in the pointed hat runs out of view."
+  },
+  {
+   "cueId": "field-motion-main-f0-viv-jump-up",
+   "kind": "motion",
+   "model": 8,
+   "motion": "JumpUp",
+   "voiceText": "The small figure in the pointed hat jumps up."
+  },
+  {
+   "cueId": "field-motion-main-f0-viv-jump-down",
+   "kind": "motion",
+   "model": 8,
+   "motion": "JumpDown",
+   "voiceText": "The small figure in the pointed hat jumps down."
+  },
+  {
+   "cueId": "field-motion-main-f0-viv-jump",
+   "kind": "motion",
+   "model": 8,
+   "motion": "Jump",
+   "voiceText": "The small figure in the pointed hat jumps."
+  },
+  {
+   "cueId": "field-motion-main-f0-viv-turn-around",
+   "kind": "motion",
+   "model": 8,
+   "motion": "TurnAround",
+   "voiceText": "The small figure in the pointed hat turns around."
+  },
+  {
+   "cueId": "field-motion-main-f0-zdn-walk-into-view",
+   "kind": "motion",
+   "model": 98,
+   "motion": "WalkIntoView",
+   "voiceText": "The boy with the tail walks into view."
+  },
+  {
+   "cueId": "field-motion-main-f0-zdn-run-into-view",
+   "kind": "motion",
+   "model": 98,
+   "motion": "RunIntoView",
+   "voiceText": "The boy with the tail runs into view."
+  },
+  {
+   "cueId": "field-motion-main-f0-zdn-walk-out-of-view",
+   "kind": "motion",
+   "model": 98,
+   "motion": "WalkOutOfView",
+   "voiceText": "The boy with the tail walks out of view."
+  },
+  {
+   "cueId": "field-motion-main-f0-zdn-run-out-of-view",
+   "kind": "motion",
+   "model": 98,
+   "motion": "RunOutOfView",
+   "voiceText": "The boy with the tail runs out of view."
+  },
+  {
+   "cueId": "field-motion-main-f0-zdn-jump-up",
+   "kind": "motion",
+   "model": 98,
+   "motion": "JumpUp",
+   "voiceText": "The boy with the tail jumps up."
+  },
+  {
+   "cueId": "field-motion-main-f0-zdn-jump-down",
+   "kind": "motion",
+   "model": 98,
+   "motion": "JumpDown",
+   "voiceText": "The boy with the tail jumps down."
+  },
+  {
+   "cueId": "field-motion-main-f0-zdn-jump",
+   "kind": "motion",
+   "model": 98,
+   "motion": "Jump",
+   "voiceText": "The boy with the tail jumps."
+  },
+  {
+   "cueId": "field-motion-main-f0-zdn-turn-around",
+   "kind": "motion",
+   "model": 98,
+   "motion": "TurnAround",
+   "voiceText": "The boy with the tail turns around."
+  },
+  {
+   "cueId": "field-motion-sub-f0-bak-walk-into-view",
+   "kind": "motion",
+   "model": 5464,
+   "motion": "WalkIntoView",
+   "voiceText": "The burly man walks into view."
+  },
+  {
+   "cueId": "field-motion-sub-f0-bak-run-into-view",
+   "kind": "motion",
+   "model": 5464,
+   "motion": "RunIntoView",
+   "voiceText": "The burly man runs into view."
+  },
+  {
+   "cueId": "field-motion-sub-f0-bak-walk-out-of-view",
+   "kind": "motion",
+   "model": 5464,
+   "motion": "WalkOutOfView",
+   "voiceText": "The burly man walks out of view."
+  },
+  {
+   "cueId": "field-motion-sub-f0-bak-run-out-of-view",
+   "kind": "motion",
+   "model": 5464,
+   "motion": "RunOutOfView",
+   "voiceText": "The burly man runs out of view."
+  },
+  {
+   "cueId": "field-motion-sub-f0-bak-jump-up",
+   "kind": "motion",
+   "model": 5464,
+   "motion": "JumpUp",
+   "voiceText": "The burly man jumps up."
+  },
+  {
+   "cueId": "field-motion-sub-f0-bak-jump-down",
+   "kind": "motion",
+   "model": 5464,
+   "motion": "JumpDown",
+   "voiceText": "The burly man jumps down."
+  },
+  {
+   "cueId": "field-motion-sub-f0-bak-jump",
+   "kind": "motion",
+   "model": 5464,
+   "motion": "Jump",
+   "voiceText": "The burly man jumps."
+  },
+  {
+   "cueId": "field-motion-sub-f0-bak-turn-around",
+   "kind": "motion",
+   "model": 5464,
+   "motion": "TurnAround",
+   "voiceText": "The burly man turns around."
+  },
+  {
+   "cueId": "field-acc-f0-tbx-to-open",
+   "kind": "pose",
+   "model": 75,
+   "geo": "acc-f0-tbx",
+   "clip": "ANH_ACC_F0_TBX_TO_OPEN",
+   "role": "single",
+   "voiceText": "The chest opens.",
+   "proof": "proof/x2_tbx.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-acc-f1-tbx-to-open",
+   "kind": "pose",
+   "model": 91,
+   "geo": "acc-f1-tbx",
+   "clip": "ANH_ACC_F1_TBX_TO_OPEN",
+   "role": "single",
+   "voiceText": "The chest opens.",
+   "proof": "proof/x2_tbxf1.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-main-f0-kui-no-1",
+   "kind": "pose",
+   "model": 273,
+   "geo": "main-f0-kui",
+   "clip": "ANH_MAIN_F0_KUI_NO_1",
+   "role": "single",
+   "voiceText": "The large, round figure shakes their head.",
+   "proof": "proof/x2_kui.png + head metric HEAD_SHAKE",
+   "round": 2
+  },
+  {
+   "cueId": "field-main-f0-kui-yes-1",
+   "kind": "pose",
+   "model": 273,
+   "geo": "main-f0-kui",
+   "clip": "ANH_MAIN_F0_KUI_YES_1",
+   "role": "single",
+   "voiceText": "The large, round figure nods.",
+   "proof": "proof/x2_kui.png + head metric HEAD_NOD",
+   "round": 2
+  },
+  {
+   "cueId": "field-main-f0-slm-kamae-1",
+   "kind": "pose",
+   "model": 509,
+   "geo": "main-f0-slm",
+   "clip": "ANH_MAIN_F0_SLM_KAMAE_1",
+   "role": "enter",
+   "voiceText": "The tall man with the wild mane drops into a low, wide stance.",
+   "proof": "proof/x2_slm.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-main-f0-slm-kamae-3",
+   "kind": "pose",
+   "model": 509,
+   "geo": "main-f0-slm",
+   "clip": "ANH_MAIN_F0_SLM_KAMAE_3",
+   "role": "exit",
+   "voiceText": "The tall man with the wild mane straightens up out of their stance.",
+   "proof": "proof/x2_slm.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-main-f0-slm-look-up-1",
+   "kind": "pose",
+   "model": 509,
+   "geo": "main-f0-slm",
+   "clip": "ANH_MAIN_F0_SLM_LOOK_UP_1",
+   "role": "enter",
+   "voiceText": "The tall man with the wild mane looks up.",
+   "proof": "proof/x2_slm.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-main-f1-stn-gakkuri",
+   "kind": "pose",
+   "model": 658,
+   "geo": "main-f1-stn",
+   "clip": "ANH_MAIN_F0_STN_GAKKURI",
+   "role": "single",
+   "voiceText": "The armored knight hangs their head.",
+   "proof": "proof/x2_stnf1.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-main-f1-stn-salute",
+   "kind": "pose",
+   "model": 658,
+   "geo": "main-f1-stn",
+   "clip": "ANH_MAIN_F0_STN_SALUTE",
+   "role": "single",
+   "voiceText": "The armored knight salutes.",
+   "proof": "proof/x2_stnf1.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-main-f1-stn-yes",
+   "kind": "pose",
+   "model": 658,
+   "geo": "main-f1-stn",
+   "clip": "ANH_MAIN_F0_STN_YES",
+   "role": "single",
+   "voiceText": "The armored knight nods.",
+   "proof": "proof/x2_stnf1.png + head metric HEAD_NOD",
+   "round": 2
+  },
+  {
+   "cueId": "field-npc-f0-bmg-glad",
+   "kind": "pose",
+   "model": 5468,
+   "geo": "npc-f0-bmg",
+   "clip": "ANH_NPC_F0_BMG_GLAD",
+   "role": "single",
+   "voiceText": "The round figure in the pointed hat throws both arms up.",
+   "proof": "proof/x3_bmg.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-npc-f0-bmg-magic",
+   "kind": "pose",
+   "model": 5468,
+   "geo": "npc-f0-bmg",
+   "clip": "ANH_NPC_F0_BMG_MAGIC",
+   "role": "single",
+   "voiceText": "The round figure in the pointed hat crouches, then raises both arms high.",
+   "proof": "proof/x3_bmg.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-npc-f0-bmg-no",
+   "kind": "pose",
+   "model": 5468,
+   "geo": "npc-f0-bmg",
+   "clip": "ANH_NPC_F0_BMG_NO",
+   "role": "single",
+   "voiceText": "The round figure in the pointed hat shakes their head.",
+   "proof": "proof/x3_bmg.png + head metric HEAD_SHAKE",
+   "round": 2
+  },
+  {
+   "cueId": "field-npc-f0-bmg-yes",
+   "kind": "pose",
+   "model": 5468,
+   "geo": "npc-f0-bmg",
+   "clip": "ANH_NPC_F0_BMG_YES",
+   "role": "single",
+   "voiceText": "The round figure in the pointed hat nods.",
+   "proof": "proof/x3_bmg.png + head metric HEAD_NOD",
+   "round": 2
+  },
+  {
+   "cueId": "field-npc-f0-mog-from-fly",
+   "kind": "pose",
+   "model": 220,
+   "geo": "npc-f0-mog",
+   "clip": "ANH_NPC_F0_MOG_FROM_FLY",
+   "role": "single",
+   "voiceText": "The small winged creature flutters down and lands.",
+   "proof": "proof/x2_mog.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-npc-f0-mog-save-jump",
+   "kind": "pose",
+   "model": 220,
+   "geo": "npc-f0-mog",
+   "clip": "ANH_NPC_F0_MOG_SAVE_JUMP",
+   "role": "single",
+   "voiceText": "The small winged creature hops up into the air.",
+   "proof": "proof/x2_mog.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-npc-f0-mog-to-fly",
+   "kind": "pose",
+   "model": 220,
+   "geo": "npc-f0-mog",
+   "clip": "ANH_NPC_F0_MOG_TO_FLY",
+   "role": "single",
+   "voiceText": "The small winged creature flutters up into the air.",
+   "proof": "proof/x2_mog.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-npc-f0-off-kamae-1",
+   "kind": "pose",
+   "model": 118,
+   "geo": "npc-f0-off",
+   "clip": "ANH_NPC_F0_OFF_KAMAE_1",
+   "role": "enter",
+   "voiceText": "The soldier with the shield raises their shield into a guarded stance.",
+   "proof": "proof/x3_off.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-npc-f0-off-salute",
+   "kind": "pose",
+   "model": 118,
+   "geo": "npc-f0-off",
+   "clip": "ANH_NPC_F0_OFF_SALUTE",
+   "role": "single",
+   "voiceText": "The soldier with the shield salutes.",
+   "proof": "proof/x3_off.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-npc-f1-bmg-glad",
+   "kind": "pose",
+   "model": 53,
+   "geo": "npc-f1-bmg",
+   "clip": "ANH_NPC_F1_BMG_GLAD",
+   "role": "single",
+   "voiceText": "The tall figure in the pointed hat throws both arms up.",
+   "proof": "proof/x3_bmgf1.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-npc-f1-bmg-yes",
+   "kind": "pose",
+   "model": 53,
+   "geo": "npc-f1-bmg",
+   "clip": "ANH_NPC_F1_BMG_YES",
+   "role": "single",
+   "voiceText": "The tall figure in the pointed hat nods.",
+   "proof": "proof/x3_bmgf1.png + head metric HEAD_NOD",
+   "round": 2
+  },
+  {
+   "cueId": "field-npc-f1-mog-from-fly",
+   "kind": "pose",
+   "model": 129,
+   "geo": "npc-f1-mog",
+   "clip": "ANH_NPC_F0_MOG_FROM_FLY",
+   "role": "single",
+   "voiceText": "The small winged creature flutters down and lands.",
+   "proof": "proof/x3_mogf1.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-npc-f1-mog-save-jump",
+   "kind": "pose",
+   "model": 129,
+   "geo": "npc-f1-mog",
+   "clip": "ANH_NPC_F0_MOG_SAVE_JUMP",
+   "role": "single",
+   "voiceText": "The small winged creature hops up into the air.",
+   "proof": "proof/x3_mogf1.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-npc-f1-mog-to-fly",
+   "kind": "pose",
+   "model": 129,
+   "geo": "npc-f1-mog",
+   "clip": "ANH_NPC_F0_MOG_TO_FLY",
+   "role": "single",
+   "voiceText": "The small winged creature flutters up into the air.",
+   "proof": "proof/x3_mogf1.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-bln-hiza-1",
+   "kind": "pose",
+   "model": 5467,
+   "geo": "sub-f0-bln",
+   "clip": "ANH_SUB_F0_BLN_HIZA_1",
+   "role": "enter",
+   "voiceText": "The spiky-haired youth kneels on one knee.",
+   "proof": "proof/x2_bln.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-bln-hiza-3",
+   "kind": "pose",
+   "model": 5467,
+   "geo": "sub-f0-bln",
+   "clip": "ANH_SUB_F0_BLN_HIZA_3",
+   "role": "exit",
+   "voiceText": "The spiky-haired youth rises to their feet.",
+   "proof": "proof/x2_bln.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-btx-hiza-1",
+   "kind": "pose",
+   "model": 204,
+   "geo": "sub-f0-btx",
+   "clip": "ANH_SUB_F0_BTX_HIZA_1",
+   "role": "enter",
+   "voiceText": "The swordswoman in the long coat kneels on one knee.",
+   "proof": "proof/x2_btx.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-btx-salute",
+   "kind": "pose",
+   "model": 204,
+   "geo": "sub-f0-btx",
+   "clip": "ANH_SUB_F0_BTX_SALUTE",
+   "role": "single",
+   "voiceText": "The swordswoman in the long coat salutes.",
+   "proof": "proof/x2_btx.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-cna-angry-1",
+   "kind": "pose",
+   "model": 107,
+   "geo": "sub-f0-cna",
+   "clip": "ANH_SUB_F0_CNA_ANGRY_1",
+   "role": "single",
+   "voiceText": "The short man with the hammer raises their hammer overhead.",
+   "proof": "proof/x3_cna.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-cna-sword-sit-1",
+   "kind": "pose",
+   "model": 107,
+   "geo": "sub-f0-cna",
+   "clip": "ANH_SUB_F0_CNA_SWORD_SIT_1",
+   "role": "exit",
+   "voiceText": "The short man with the hammer gets to their feet.",
+   "proof": "proof/x3_cna.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-cna-tired-to-idle",
+   "kind": "pose",
+   "model": 107,
+   "geo": "sub-f0-cna",
+   "clip": "ANH_SUB_F0_CNA_TIRED_TO_IDLE",
+   "role": "exit",
+   "voiceText": "The short man with the hammer gets up off the ground.",
+   "proof": "proof/x3_cna.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-mrc-hiza-1",
+   "kind": "pose",
+   "model": 109,
+   "geo": "sub-f0-mrc",
+   "clip": "ANH_SUB_F0_MRC_HIZA_1",
+   "role": "enter",
+   "voiceText": "The stocky man crouches down.",
+   "proof": "proof/x2_mrc.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-mrc-hiza-3",
+   "kind": "pose",
+   "model": 109,
+   "geo": "sub-f0-mrc",
+   "clip": "ANH_SUB_F0_MRC_HIZA_3",
+   "role": "exit",
+   "voiceText": "The stocky man stands back up.",
+   "proof": "proof/x2_mrc.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-mrc-kamae-1",
+   "kind": "pose",
+   "model": 109,
+   "geo": "sub-f0-mrc",
+   "clip": "ANH_SUB_F0_MRC_KAMAE_1",
+   "role": "enter",
+   "voiceText": "The stocky man drops into a fighting stance.",
+   "proof": "proof/x2_mrc.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-mrc-naguru",
+   "kind": "pose",
+   "model": 109,
+   "geo": "sub-f0-mrc",
+   "clip": "ANH_SUB_F0_MRC_NAGURU",
+   "role": "single",
+   "voiceText": "The stocky man lunges forward, swinging their arms.",
+   "proof": "proof/x2_mrc.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-rby-nozoki-1",
+   "kind": "pose",
+   "model": 48,
+   "geo": "sub-f0-rby",
+   "clip": "ANH_SUB_F0_RBY_NOZOKI_1",
+   "role": "enter",
+   "voiceText": "The woman in the bonnet leans forward with their hands on their hips.",
+   "proof": "proof/x2_rby.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-rby-nozoki-3",
+   "kind": "pose",
+   "model": 48,
+   "geo": "sub-f0-rby",
+   "clip": "ANH_SUB_F0_RBY_NOZOKI_3",
+   "role": "exit",
+   "voiceText": "The woman in the bonnet straightens back up.",
+   "proof": "proof/x2_rby.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-ssb-gakkari-1",
+   "kind": "pose",
+   "model": 5488,
+   "geo": "sub-f0-ssb",
+   "clip": "ANH_SUB_F0_SSB_GAKKARI_1",
+   "role": "enter",
+   "voiceText": "The soldier in the round helmet hangs their head.",
+   "proof": "proof/x3_ssb.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-ssb-hiza-1",
+   "kind": "pose",
+   "model": 5488,
+   "geo": "sub-f0-ssb",
+   "clip": "ANH_SUB_F0_SSB_HIZA_1",
+   "role": "enter",
+   "voiceText": "The soldier in the round helmet kneels down.",
+   "proof": "proof/x3_ssb.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-ssb-salute",
+   "kind": "pose",
+   "model": 5488,
+   "geo": "sub-f0-ssb",
+   "clip": "ANH_SUB_F0_SSB_SALUTE",
+   "role": "single",
+   "voiceText": "The soldier in the round helmet salutes.",
+   "proof": "proof/x3_ssb.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-tot-think",
+   "kind": "pose",
+   "model": 171,
+   "geo": "sub-f0-tot",
+   "clip": "ANH_SUB_F0_TOT_THINK",
+   "role": "single",
+   "voiceText": "The figure in the top hat raises a hand to their chin.",
+   "proof": "proof/x3_tot.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-tot-welcome",
+   "kind": "pose",
+   "model": 171,
+   "geo": "sub-f0-tot",
+   "clip": "ANH_SUB_F0_TOT_WELCOME",
+   "role": "single",
+   "voiceText": "The figure in the top hat spreads their arms wide.",
+   "proof": "proof/x3_tot.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-znr-nagurareru",
+   "kind": "pose",
+   "model": 5500,
+   "geo": "sub-f0-znr",
+   "clip": "ANH_SUB_F0_ZNR_NAGURARERU",
+   "role": "single",
+   "voiceText": "The squat, big-eared figure staggers back, arms flung out.",
+   "proof": "proof/x3_znr.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-znr-push-steiner",
+   "kind": "pose",
+   "model": 5500,
+   "geo": "sub-f0-znr",
+   "clip": "ANH_SUB_F0_ZNR_PUSH_STEINER",
+   "role": "single",
+   "voiceText": "The squat, big-eared figure pushes forward with both hands.",
+   "proof": "proof/x3_znr.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-sub-f0-znr-threten",
+   "kind": "pose",
+   "model": 5500,
+   "geo": "sub-f0-znr",
+   "clip": "ANH_SUB_F0_ZNR_THRETEN",
+   "role": "single",
+   "voiceText": "The squat, big-eared figure raises both arms high.",
+   "proof": "proof/x3_znr.png",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-kui-walk-into-view",
+   "kind": "motion",
+   "model": 273,
+   "motion": "WalkIntoView",
+   "voiceText": "The large, round figure walks into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-kui-run-into-view",
+   "kind": "motion",
+   "model": 273,
+   "motion": "RunIntoView",
+   "voiceText": "The large, round figure runs into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-kui-walk-out-of-view",
+   "kind": "motion",
+   "model": 273,
+   "motion": "WalkOutOfView",
+   "voiceText": "The large, round figure walks out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-kui-run-out-of-view",
+   "kind": "motion",
+   "model": 273,
+   "motion": "RunOutOfView",
+   "voiceText": "The large, round figure runs out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-kui-jump-up",
+   "kind": "motion",
+   "model": 273,
+   "motion": "JumpUp",
+   "voiceText": "The large, round figure jumps up.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-kui-jump-down",
+   "kind": "motion",
+   "model": 273,
+   "motion": "JumpDown",
+   "voiceText": "The large, round figure jumps down.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-kui-jump",
+   "kind": "motion",
+   "model": 273,
+   "motion": "Jump",
+   "voiceText": "The large, round figure jumps.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-kui-turn-around",
+   "kind": "motion",
+   "model": 273,
+   "motion": "TurnAround",
+   "voiceText": "The large, round figure turns around.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-slm-walk-into-view",
+   "kind": "motion",
+   "model": 509,
+   "motion": "WalkIntoView",
+   "voiceText": "The tall man with the wild mane walks into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-slm-run-into-view",
+   "kind": "motion",
+   "model": 509,
+   "motion": "RunIntoView",
+   "voiceText": "The tall man with the wild mane runs into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-slm-walk-out-of-view",
+   "kind": "motion",
+   "model": 509,
+   "motion": "WalkOutOfView",
+   "voiceText": "The tall man with the wild mane walks out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-slm-run-out-of-view",
+   "kind": "motion",
+   "model": 509,
+   "motion": "RunOutOfView",
+   "voiceText": "The tall man with the wild mane runs out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-slm-jump-up",
+   "kind": "motion",
+   "model": 509,
+   "motion": "JumpUp",
+   "voiceText": "The tall man with the wild mane jumps up.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-slm-jump-down",
+   "kind": "motion",
+   "model": 509,
+   "motion": "JumpDown",
+   "voiceText": "The tall man with the wild mane jumps down.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-slm-jump",
+   "kind": "motion",
+   "model": 509,
+   "motion": "Jump",
+   "voiceText": "The tall man with the wild mane jumps.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f0-slm-turn-around",
+   "kind": "motion",
+   "model": 509,
+   "motion": "TurnAround",
+   "voiceText": "The tall man with the wild mane turns around.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f1-stn-walk-into-view",
+   "kind": "motion",
+   "model": 658,
+   "motion": "WalkIntoView",
+   "voiceText": "The armored knight walks into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f1-stn-run-into-view",
+   "kind": "motion",
+   "model": 658,
+   "motion": "RunIntoView",
+   "voiceText": "The armored knight runs into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f1-stn-walk-out-of-view",
+   "kind": "motion",
+   "model": 658,
+   "motion": "WalkOutOfView",
+   "voiceText": "The armored knight walks out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f1-stn-run-out-of-view",
+   "kind": "motion",
+   "model": 658,
+   "motion": "RunOutOfView",
+   "voiceText": "The armored knight runs out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f1-stn-jump-up",
+   "kind": "motion",
+   "model": 658,
+   "motion": "JumpUp",
+   "voiceText": "The armored knight jumps up.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f1-stn-jump-down",
+   "kind": "motion",
+   "model": 658,
+   "motion": "JumpDown",
+   "voiceText": "The armored knight jumps down.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f1-stn-jump",
+   "kind": "motion",
+   "model": 658,
+   "motion": "Jump",
+   "voiceText": "The armored knight jumps.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-main-f1-stn-turn-around",
+   "kind": "motion",
+   "model": 658,
+   "motion": "TurnAround",
+   "voiceText": "The armored knight turns around.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-bln-walk-into-view",
+   "kind": "motion",
+   "model": 5467,
+   "motion": "WalkIntoView",
+   "voiceText": "The spiky-haired youth walks into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-bln-run-into-view",
+   "kind": "motion",
+   "model": 5467,
+   "motion": "RunIntoView",
+   "voiceText": "The spiky-haired youth runs into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-bln-walk-out-of-view",
+   "kind": "motion",
+   "model": 5467,
+   "motion": "WalkOutOfView",
+   "voiceText": "The spiky-haired youth walks out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-bln-run-out-of-view",
+   "kind": "motion",
+   "model": 5467,
+   "motion": "RunOutOfView",
+   "voiceText": "The spiky-haired youth runs out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-bln-jump-up",
+   "kind": "motion",
+   "model": 5467,
+   "motion": "JumpUp",
+   "voiceText": "The spiky-haired youth jumps up.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-bln-jump-down",
+   "kind": "motion",
+   "model": 5467,
+   "motion": "JumpDown",
+   "voiceText": "The spiky-haired youth jumps down.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-bln-jump",
+   "kind": "motion",
+   "model": 5467,
+   "motion": "Jump",
+   "voiceText": "The spiky-haired youth jumps.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-bln-turn-around",
+   "kind": "motion",
+   "model": 5467,
+   "motion": "TurnAround",
+   "voiceText": "The spiky-haired youth turns around.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-btx-walk-into-view",
+   "kind": "motion",
+   "model": 204,
+   "motion": "WalkIntoView",
+   "voiceText": "The swordswoman in the long coat walks into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-btx-run-into-view",
+   "kind": "motion",
+   "model": 204,
+   "motion": "RunIntoView",
+   "voiceText": "The swordswoman in the long coat runs into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-btx-walk-out-of-view",
+   "kind": "motion",
+   "model": 204,
+   "motion": "WalkOutOfView",
+   "voiceText": "The swordswoman in the long coat walks out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-btx-run-out-of-view",
+   "kind": "motion",
+   "model": 204,
+   "motion": "RunOutOfView",
+   "voiceText": "The swordswoman in the long coat runs out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-btx-jump-up",
+   "kind": "motion",
+   "model": 204,
+   "motion": "JumpUp",
+   "voiceText": "The swordswoman in the long coat jumps up.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-btx-jump-down",
+   "kind": "motion",
+   "model": 204,
+   "motion": "JumpDown",
+   "voiceText": "The swordswoman in the long coat jumps down.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-btx-jump",
+   "kind": "motion",
+   "model": 204,
+   "motion": "Jump",
+   "voiceText": "The swordswoman in the long coat jumps.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-btx-turn-around",
+   "kind": "motion",
+   "model": 204,
+   "motion": "TurnAround",
+   "voiceText": "The swordswoman in the long coat turns around.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-cna-walk-into-view",
+   "kind": "motion",
+   "model": 107,
+   "motion": "WalkIntoView",
+   "voiceText": "The short man with the hammer walks into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-cna-run-into-view",
+   "kind": "motion",
+   "model": 107,
+   "motion": "RunIntoView",
+   "voiceText": "The short man with the hammer runs into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-cna-walk-out-of-view",
+   "kind": "motion",
+   "model": 107,
+   "motion": "WalkOutOfView",
+   "voiceText": "The short man with the hammer walks out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-cna-run-out-of-view",
+   "kind": "motion",
+   "model": 107,
+   "motion": "RunOutOfView",
+   "voiceText": "The short man with the hammer runs out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-cna-jump-up",
+   "kind": "motion",
+   "model": 107,
+   "motion": "JumpUp",
+   "voiceText": "The short man with the hammer jumps up.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-cna-jump-down",
+   "kind": "motion",
+   "model": 107,
+   "motion": "JumpDown",
+   "voiceText": "The short man with the hammer jumps down.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-cna-jump",
+   "kind": "motion",
+   "model": 107,
+   "motion": "Jump",
+   "voiceText": "The short man with the hammer jumps.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-cna-turn-around",
+   "kind": "motion",
+   "model": 107,
+   "motion": "TurnAround",
+   "voiceText": "The short man with the hammer turns around.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-mrc-walk-into-view",
+   "kind": "motion",
+   "model": 109,
+   "motion": "WalkIntoView",
+   "voiceText": "The stocky man walks into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-mrc-run-into-view",
+   "kind": "motion",
+   "model": 109,
+   "motion": "RunIntoView",
+   "voiceText": "The stocky man runs into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-mrc-walk-out-of-view",
+   "kind": "motion",
+   "model": 109,
+   "motion": "WalkOutOfView",
+   "voiceText": "The stocky man walks out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-mrc-run-out-of-view",
+   "kind": "motion",
+   "model": 109,
+   "motion": "RunOutOfView",
+   "voiceText": "The stocky man runs out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-mrc-jump-up",
+   "kind": "motion",
+   "model": 109,
+   "motion": "JumpUp",
+   "voiceText": "The stocky man jumps up.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-mrc-jump-down",
+   "kind": "motion",
+   "model": 109,
+   "motion": "JumpDown",
+   "voiceText": "The stocky man jumps down.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-mrc-jump",
+   "kind": "motion",
+   "model": 109,
+   "motion": "Jump",
+   "voiceText": "The stocky man jumps.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-mrc-turn-around",
+   "kind": "motion",
+   "model": 109,
+   "motion": "TurnAround",
+   "voiceText": "The stocky man turns around.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-rby-walk-into-view",
+   "kind": "motion",
+   "model": 48,
+   "motion": "WalkIntoView",
+   "voiceText": "The woman in the bonnet walks into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-rby-run-into-view",
+   "kind": "motion",
+   "model": 48,
+   "motion": "RunIntoView",
+   "voiceText": "The woman in the bonnet runs into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-rby-walk-out-of-view",
+   "kind": "motion",
+   "model": 48,
+   "motion": "WalkOutOfView",
+   "voiceText": "The woman in the bonnet walks out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-rby-run-out-of-view",
+   "kind": "motion",
+   "model": 48,
+   "motion": "RunOutOfView",
+   "voiceText": "The woman in the bonnet runs out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-rby-jump-up",
+   "kind": "motion",
+   "model": 48,
+   "motion": "JumpUp",
+   "voiceText": "The woman in the bonnet jumps up.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-rby-jump-down",
+   "kind": "motion",
+   "model": 48,
+   "motion": "JumpDown",
+   "voiceText": "The woman in the bonnet jumps down.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-rby-jump",
+   "kind": "motion",
+   "model": 48,
+   "motion": "Jump",
+   "voiceText": "The woman in the bonnet jumps.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-rby-turn-around",
+   "kind": "motion",
+   "model": 48,
+   "motion": "TurnAround",
+   "voiceText": "The woman in the bonnet turns around.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-tot-walk-into-view",
+   "kind": "motion",
+   "model": 171,
+   "motion": "WalkIntoView",
+   "voiceText": "The figure in the top hat walks into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-tot-run-into-view",
+   "kind": "motion",
+   "model": 171,
+   "motion": "RunIntoView",
+   "voiceText": "The figure in the top hat runs into view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-tot-walk-out-of-view",
+   "kind": "motion",
+   "model": 171,
+   "motion": "WalkOutOfView",
+   "voiceText": "The figure in the top hat walks out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-tot-run-out-of-view",
+   "kind": "motion",
+   "model": 171,
+   "motion": "RunOutOfView",
+   "voiceText": "The figure in the top hat runs out of view.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-tot-jump-up",
+   "kind": "motion",
+   "model": 171,
+   "motion": "JumpUp",
+   "voiceText": "The figure in the top hat jumps up.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-tot-jump-down",
+   "kind": "motion",
+   "model": 171,
+   "motion": "JumpDown",
+   "voiceText": "The figure in the top hat jumps down.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-tot-jump",
+   "kind": "motion",
+   "model": 171,
+   "motion": "Jump",
+   "voiceText": "The figure in the top hat jumps.",
+   "round": 2
+  },
+  {
+   "cueId": "field-motion-sub-f0-tot-turn-around",
+   "kind": "motion",
+   "model": 171,
+   "motion": "TurnAround",
+   "voiceText": "The figure in the top hat turns around.",
+   "round": 2
+  }
+ ]
+}

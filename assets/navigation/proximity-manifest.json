@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "source": "User-supplied effects, category assignments confirmed in chat on 2026-10-21",
+  "conversion": "FFmpeg mono mix and resampling only; no gain, trim, pitch or tempo changes. Canonical 24 kHz mono PCM16.",
+  "cues": [
+    {
+      "kind": "npc",
+      "source": "FL_GFX_UI_SciFi_Interface_04.wav",
+      "original": {
+        "file": "field-npc-original.wav",
+        "bytes": 132380,
+        "sha256": "ba30801b341b4f6b3c9bb7ad8d3fa1c292ed697a3d7b378108189b2ef88a220b"
+      },
+      "playback": {
+        "file": "field-npc.wav",
+        "bytes": 24044,
+        "sha256": "4dd8dd5db53b171794cecd82f034c1b41026f22ef1346a69e9bd582db3d5abb4",
+        "duration": 0.5
+      }
+    },
+    {
+      "kind": "interactable",
+      "source": "FL_GFX_UI_Game_Interface_29.wav",
+      "original": {
+        "file": "field-interactable-original.wav",
+        "bytes": 264680,
+        "sha256": "42302f636b8184259d3233ee39117f5804f8acd6ecaec26d20fc5955c6df3c1c"
+      },
+      "playback": {
+        "file": "field-interactable.wav",
+        "bytes": 48044,
+        "sha256": "6d7d573a5e2d9dcd8546690c40ab0708adda2c36d6a09393132518031110c5ed",
+        "duration": 1.0
+      }
+    }
+  ]
+}

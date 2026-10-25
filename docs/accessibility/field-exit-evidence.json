@@ -1,0 +1,374 @@
+{
+  "schema": 3,
+  "reviewed": [],
+  "boundaryReviewed": [
+    {
+      "sceneKey": "field:503:FBG_N09_CSHP_MAP144_CA_COP_1",
+      "scriptId": 9,
+      "camera": 0,
+      "sourceFingerprint": "83f07cd2c2c81a6920de6427b269714e91db11524c92ce4b6c888bdbbd5342b8",
+      "backgroundFingerprint": "f87e10b4288f4fe1808390cbec90e780c75df5272bb5d1ff3df4d8dd86fb4b5b",
+      "walkmeshFingerprint": "ad329fefa689670d92e92b310cfc5605c052634079e1b22bb6ed838ac8a4a67c",
+      "visibleCue": "Visible left screen-edge passage",
+      "imageFingerprint": "1e67d3ceaf6661f4681f0252a1455a618b5e92c3c33fa3abb60ddf034e8f8d7a",
+      "imageEvidence": "images/503_e9_t2_cam0.png",
+      "review": "Native touch transition; root inspected reconstructed native art. Runtime rendering, viewport, permissions and safe approach required."
+    },
+    {
+      "sceneKey": "field:503:FBG_N09_CSHP_MAP144_CA_COP_1",
+      "scriptId": 10,
+      "camera": 0,
+      "sourceFingerprint": "b84802834403d5381aae6f83ac84254f891652003e78a4c7a1ec3aaba516739b",
+      "backgroundFingerprint": "f87e10b4288f4fe1808390cbec90e780c75df5272bb5d1ff3df4d8dd86fb4b5b",
+      "walkmeshFingerprint": "ad329fefa689670d92e92b310cfc5605c052634079e1b22bb6ed838ac8a4a67c",
+      "visibleCue": "Visible right screen-edge passage",
+      "imageFingerprint": "22a53fc92b9554b4ab044c056ee20167d527e99ce4dae6cb7a37e34de7b153ec",
+      "imageEvidence": "images/503_e10_t2_cam0.png",
+      "review": "Native touch transition; root inspected reconstructed native art. Runtime rendering, viewport, permissions and safe approach required."
+    },
+    {
+      "sceneKey": "field:2509:FBG_N43_IPSN_MAP747_IP_ST2_0",
+      "scriptId": 3,
+      "camera": 0,
+      "sourceFingerprint": "c79313c783a673993e866739e6b4ee420498c1273fc5db67906ff32b699165cb",
+      "backgroundFingerprint": "f22644a68fc91a2aad95b0105aa10ddc314d6ca2178fb10ff5fb7d0cefb9d172",
+      "walkmeshFingerprint": "0eb2b132fe35f2ce0988214596820bdb89eaca3f0dc5187c8e7479ccf789553f",
+      "visibleCue": "Visible passage between pillars",
+      "imageFingerprint": "61ae93a45f474ef68af2ef737e114294c2c0fbf47b38eda375a0f754636b8679",
+      "imageEvidence": "images/2509_e3_t2_cam0.png",
+      "review": "Native touch transition; root inspected reconstructed native art. Runtime rendering, viewport, permissions and safe approach required."
+    },
+    {
+      "sceneKey": "field:615:FBG_N11_LDBM_MAP190_LB_OBS_0",
+      "scriptId": 5,
+      "camera": 0,
+      "sourceFingerprint": "ce0a094269c1a0695188630af58d97ad23294247ab6ff8c1d78dd5e1ac9cc5d0",
+      "backgroundFingerprint": "a18798c26bbd78e708241d3e6c5f7a5a0f320f687ab545c41d8b29da5735c54e",
+      "walkmeshFingerprint": "aa8f0f37a2f20e621a1df694535c76369957b1a72d7b6d20ef1a442d5b681bf3",
+      "visibleCue": "Visible staircase",
+      "imageFingerprint": "57d1e0c8ee9c599345fba4ccebe90848d71647a9f62cef7020a2783f66984695",
+      "imageEvidence": "images/615_e5_t2_cam0.png",
+      "review": "Native touch transition; root inspected reconstructed native art. Runtime rendering, viewport, permissions and safe approach required."
+    },
+    {
+      "sceneKey": "field:3100:FBG_N56_MGNT_MAP810_MN_MOG_0",
+      "scriptId": 19,
+      "camera": 0,
+      "sourceFingerprint": "62af9e38944f1c8eafca2a4db4f1ff65f2d7d06981aa0efa0617bcda6186e869",
+      "backgroundFingerprint": "e9ae1221e5e902fab1785a8d1217daee8fab7b47f1db05598844fdaceb99d6a9",
+      "walkmeshFingerprint": "81173f29b36bcf598d4bebf5f79690f42e866e51130e062332fb087d65176d8d",
+      "visibleCue": "Visible foreground passage",
+      "imageFingerprint": "9e015bc071a2d456c19d666ee34a77ab966751ac857ee639f5c78e5bf0c1c973",
+      "imageEvidence": "images/3100_e19_t2_cam0.png",
+      "review": "Native touch transition; root inspected reconstructed native art. Runtime rendering, viewport, permissions and safe approach required."
+    }
+  ],
+  "automaticCue": "Native walk-out region with an enabled outer edge in the current view; animated doors additionally require their own currently rendered tile.",
+  "unresolvedPolicy": "Unseen, ambiguous or unsupported entrances remain diagnostic candidates. Destination labels are never derived from scripts.",
+  "surfaceReviewed": [
+    {
+      "sceneKey": "field:503:FBG_N09_CSHP_MAP144_CA_COP_1",
+      "scriptId": 9,
+      "camera": 0,
+      "sourceFingerprint": "83f07cd2c2c81a6920de6427b269714e91db11524c92ce4b6c888bdbbd5342b8",
+      "backgroundFingerprint": "f87e10b4288f4fe1808390cbec90e780c75df5272bb5d1ff3df4d8dd86fb4b5b",
+      "walkmeshFingerprint": "ad329fefa689670d92e92b310cfc5605c052634079e1b22bb6ed838ac8a4a67c",
+      "visibleCue": "Visible left screen-edge passage",
+      "imageFingerprint": "1e67d3ceaf6661f4681f0252a1455a618b5e92c3c33fa3abb60ddf034e8f8d7a",
+      "imageEvidence": "images/503_e9_t2_cam0.png",
+      "review": "Authored visible physical zone; native trigger surface, current rendered background, exact live polygon, script/BGS/BGI hashes, permissions and safe approach required. Departure may include native dialogue; no Confirm is automated.",
+      "triggerPolygon": [
+        [
+          -982,
+          -562
+        ],
+        [
+          -1004,
+          -854
+        ],
+        [
+          -622,
+          -831
+        ],
+        [
+          -622,
+          -531
+        ]
+      ],
+      "overlayIds": []
+    },
+    {
+      "sceneKey": "field:503:FBG_N09_CSHP_MAP144_CA_COP_1",
+      "scriptId": 10,
+      "camera": 0,
+      "sourceFingerprint": "b84802834403d5381aae6f83ac84254f891652003e78a4c7a1ec3aaba516739b",
+      "backgroundFingerprint": "f87e10b4288f4fe1808390cbec90e780c75df5272bb5d1ff3df4d8dd86fb4b5b",
+      "walkmeshFingerprint": "ad329fefa689670d92e92b310cfc5605c052634079e1b22bb6ed838ac8a4a67c",
+      "visibleCue": "Visible right screen-edge passage",
+      "imageFingerprint": "22a53fc92b9554b4ab044c056ee20167d527e99ce4dae6cb7a37e34de7b153ec",
+      "imageEvidence": "images/503_e10_t2_cam0.png",
+      "review": "Authored visible physical zone; native trigger surface, current rendered background, exact live polygon, script/BGS/BGI hashes, permissions and safe approach required. Departure may include native dialogue; no Confirm is automated.",
+      "triggerPolygon": [
+        [
+          1096,
+          -540
+        ],
+        [
+          1096,
+          -809
+        ],
+        [
+          587,
+          -754
+        ],
+        [
+          587,
+          -514
+        ]
+      ],
+      "overlayIds": []
+    },
+    {
+      "sceneKey": "field:2508:FBG_N43_IPSN_MAP746_IP_ST1_0",
+      "scriptId": 4,
+      "camera": 0,
+      "sourceFingerprint": "4a0f472cbbf32c92ffa6f41af2f91ba4cfbd6e3a64ec4e893b8f9d1b669245a3",
+      "backgroundFingerprint": "d8072de5d130ad5ad98dd3aa6b0f18b71c12b7578714a6aa7970b29095d70aa9",
+      "walkmeshFingerprint": "0a4264fdb94a8719ff7b56fefbb4d7658db2c080727734ae3c94089332c6420c",
+      "visibleCue": "Visible staircase and archway",
+      "imageFingerprint": "55d232e59629475da038a358086ad2cf5c195d359b7b3ecd57bb9becfcf58b3b",
+      "imageEvidence": "images/2508_e4_t2_cam0.png",
+      "review": "Authored visible physical zone; native trigger surface, current rendered background, exact live polygon, script/BGS/BGI hashes, permissions and safe approach required. Departure may include native dialogue; no Confirm is automated.",
+      "triggerPolygon": [
+        [
+          -30,
+          2756
+        ],
+        [
+          120,
+          2756
+        ],
+        [
+          98,
+          2031
+        ],
+        [
+          -22,
+          2031
+        ]
+      ],
+      "overlayIds": [
+        16
+      ]
+    },
+    {
+      "sceneKey": "field:2509:FBG_N43_IPSN_MAP747_IP_ST2_0",
+      "scriptId": 3,
+      "camera": 0,
+      "sourceFingerprint": "c79313c783a673993e866739e6b4ee420498c1273fc5db67906ff32b699165cb",
+      "backgroundFingerprint": "f22644a68fc91a2aad95b0105aa10ddc314d6ca2178fb10ff5fb7d0cefb9d172",
+      "walkmeshFingerprint": "0eb2b132fe35f2ce0988214596820bdb89eaca3f0dc5187c8e7479ccf789553f",
+      "visibleCue": "Visible passage between pillars",
+      "imageFingerprint": "61ae93a45f474ef68af2ef737e114294c2c0fbf47b38eda375a0f754636b8679",
+      "imageEvidence": "images/2509_e3_t2_cam0.png",
+      "review": "Authored visible physical zone; native trigger surface, current rendered background, exact live polygon, script/BGS/BGI hashes, permissions and safe approach required. Departure may include native dialogue; no Confirm is automated.",
+      "triggerPolygon": [
+        [
+          177,
+          92
+        ],
+        [
+          -183,
+          92
+        ],
+        [
+          -98,
+          -423
+        ],
+        [
+          109,
+          -429
+        ]
+      ],
+      "overlayIds": []
+    },
+    {
+      "sceneKey": "field:615:FBG_N11_LDBM_MAP190_LB_OBS_0",
+      "scriptId": 5,
+      "camera": 0,
+      "sourceFingerprint": "ce0a094269c1a0695188630af58d97ad23294247ab6ff8c1d78dd5e1ac9cc5d0",
+      "backgroundFingerprint": "a18798c26bbd78e708241d3e6c5f7a5a0f320f687ab545c41d8b29da5735c54e",
+      "walkmeshFingerprint": "aa8f0f37a2f20e621a1df694535c76369957b1a72d7b6d20ef1a442d5b681bf3",
+      "visibleCue": "Visible staircase",
+      "imageFingerprint": "57d1e0c8ee9c599345fba4ccebe90848d71647a9f62cef7020a2783f66984695",
+      "imageEvidence": "images/615_e5_t2_cam0.png",
+      "review": "Authored visible physical zone; native trigger surface, current rendered background, exact live polygon, script/BGS/BGI hashes, permissions and safe approach required. Departure may include native dialogue; no Confirm is automated.",
+      "triggerPolygon": [
+        [
+          -1028,
+          -827
+        ],
+        [
+          -801,
+          -1070
+        ],
+        [
+          -1072,
+          -1409
+        ],
+        [
+          -1410,
+          -1089
+        ]
+      ],
+      "overlayIds": []
+    },
+    {
+      "sceneKey": "field:3100:FBG_N56_MGNT_MAP810_MN_MOG_0",
+      "scriptId": 19,
+      "camera": 0,
+      "sourceFingerprint": "62af9e38944f1c8eafca2a4db4f1ff65f2d7d06981aa0efa0617bcda6186e869",
+      "backgroundFingerprint": "e9ae1221e5e902fab1785a8d1217daee8fab7b47f1db05598844fdaceb99d6a9",
+      "walkmeshFingerprint": "81173f29b36bcf598d4bebf5f79690f42e866e51130e062332fb087d65176d8d",
+      "visibleCue": "Visible foreground passage",
+      "imageFingerprint": "9e015bc071a2d456c19d666ee34a77ab966751ac857ee639f5c78e5bf0c1c973",
+      "imageEvidence": "images/3100_e19_t2_cam0.png",
+      "review": "Authored visible physical zone; native trigger surface, current rendered background, exact live polygon, script/BGS/BGI hashes, permissions and safe approach required. Departure may include native dialogue; no Confirm is automated.",
+      "triggerPolygon": [
+        [
+          325,
+          -2450
+        ],
+        [
+          858,
+          -2364
+        ],
+        [
+          635,
+          -1616
+        ],
+        [
+          226,
+          -1725
+        ]
+      ],
+      "overlayIds": []
+    },
+    {
+      "sceneKey": "field:1608:FBG_N34_MDSR_MAP580_MS_SCR_0",
+      "scriptId": 6,
+      "camera": 0,
+      "sourceFingerprint": "d668beb1dc3372706be25f6f846859aa196ead15c814df34aecb3e8cb1e27919",
+      "backgroundFingerprint": "09e04d167e7ad93198189fc1b83e3282db9a2c011cad3f5a57101837b50bf5c4",
+      "walkmeshFingerprint": "5ff3f5c2c7f9dab0aeeb3854c9898ee89f7b9eb0fb42417ea0240b7baf3c2766",
+      "visibleCue": "Visible steps through the arched opening",
+      "triggerPolygon": [
+        [
+          65,
+          -157
+        ],
+        [
+          -153,
+          -157
+        ],
+        [
+          -153,
+          -300
+        ],
+        [
+          90,
+          -300
+        ]
+      ],
+      "imageEvidence": "1608_e6_cam0_marked.png",
+      "imageFingerprint": "72e387b09d76f5f087748a372f0462e42be448cf81b17541caeee57cdc5ed849",
+      "review": "Root and independent reviewer inspected native art and hotfixed native trigger; only camera0. Runtime rendering, exact live polygon and source hashes, permissions and safe approach required.",
+      "overlayIds": [
+        2
+      ]
+    },
+    {
+      "sceneKey": "field:1707:FBG_N34_MDSR_MAP580B_MS_SCR_2",
+      "scriptId": 3,
+      "camera": 0,
+      "sourceFingerprint": "674a067591c301d2c8dcb82a51194a584a681cfd8007b2658d7b002545ea29c9",
+      "backgroundFingerprint": "cf11b998ee15ec6739d992938541ef0ba8c04f6b3a2e5e0cff2c73d1bfe5e6c5",
+      "walkmeshFingerprint": "5ff3f5c2c7f9dab0aeeb3854c9898ee89f7b9eb0fb42417ea0240b7baf3c2766",
+      "visibleCue": "Visible steps through the arched opening",
+      "triggerPolygon": [
+        [
+          65,
+          -157
+        ],
+        [
+          -153,
+          -157
+        ],
+        [
+          -153,
+          -300
+        ],
+        [
+          90,
+          -300
+        ]
+      ],
+      "imageEvidence": "1707_e3_cam0_marked.png",
+      "imageFingerprint": "f0d6378df433af77c1bc5a07c335e405cb49ac088730669801b45baba58a9010",
+      "review": "Root and independent reviewer inspected native art and hotfixed native trigger; only camera0. Runtime rendering, exact live polygon and source hashes, permissions and safe approach required.",
+      "overlayIds": [
+        2
+      ]
+    }
+  ],
+  "excludedReviewed": [
+    {
+      "sceneKey": "field:1607:FBG_N34_MDSR_MAP579_MS_KTN_0",
+      "scriptId": 29,
+      "sourceFingerprint": "e0dbd8b089078d4394e01662f30b1928cc41f1ed96bb7ac526059bf6c2524537",
+      "reason": "Unresolved conditional opening on vertically separated floors; current unobstructed presentation not established."
+    },
+    {
+      "sceneKey": "field:1706:FBG_N34_MDSR_MAP579A_MS_KTN_1",
+      "scriptId": 11,
+      "sourceFingerprint": "f26687c30d0d8b6d44322167618b045572ca8df7306e70da78caef7ff618974d",
+      "reason": "Unresolved conditional opening on vertically separated floors; current unobstructed presentation not established."
+    },
+    {
+      "sceneKey": "field:2209:FBG_N38_SDPL_MAP646_SP_KKR_0",
+      "scriptId": 7,
+      "sourceFingerprint": "45f634b6b693afe07b933ece3578688e74eca6f0843cd081ab8651ccf67cb6da",
+      "reason": "Blocking requested dialogue and party selection; retain ordinary interaction behavior."
+    },
+    {
+      "sceneKey": "field:2504:FBG_N43_IPSN_MAP743_IP_RM1_0",
+      "scriptId": 8,
+      "sourceFingerprint": "ecd07cb03680cc2c0b65ae5064ff63ef7f406717d27b2afb9f00a8eb352cbd9f",
+      "reason": "Falling-floor scripted outcome; an undiscovered floor panel is not a visible walking exit."
+    },
+    {
+      "sceneKey": "field:2504:FBG_N43_IPSN_MAP743_IP_RM1_0",
+      "scriptId": 9,
+      "sourceFingerprint": "d3304017668da9f79aeff390de35a58d92b4a2e184a76a329a159bb8d28ddce8",
+      "reason": "Falling-floor scripted outcome; an undiscovered floor panel is not a visible walking exit."
+    },
+    {
+      "sceneKey": "field:350:FBG_N06_VGDL_MAP099_DL_WHL_0",
+      "scriptId": 24,
+      "sourceFingerprint": "b8edcd0f4448739c2bd3d957503f4b5639fe736e6ca7175d719ed10a6ff6c481",
+      "reason": "Earlier requested function contains blocking dialogue before the map transition."
+    },
+    {
+      "sceneKey": "field:1423:FBG_N27_FSLR_MAP466_FR_TRP_0",
+      "scriptId": 12,
+      "sourceFingerprint": "9a0a63d38093a32be866634153a4a8d71c8679e38717543585e33487ce59fe05",
+      "reason": "Scripted bridge traversal and jump sequence; no identifiable walking opening at trigger."
+    },
+    {
+      "sceneKey": "field:2201:FBG_N38_SDPL_MAP641_SP_RPW_0",
+      "scriptId": 8,
+      "sourceFingerprint": "b860db6fceb528c4ce433d31ed56e5aa580f2923b5ab5845e65767cfa51c898b",
+      "reason": "Requested blocking dialogue and scripted portal sequence; no ordinary walking passage established."
+    }
+  ]
+}

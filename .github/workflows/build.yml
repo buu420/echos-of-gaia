@@ -1,0 +1,34 @@
+name: Verify Echos of Gaia source
+
+on:
+  push:
+    branches: ['main']
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-checks:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Navigation and content regressions
+        run: dotnet run --project tests/FF9Access.Tests/FF9Access.Tests.csproj --configuration Release
+      - name: Narration runtime integration
+        run: dotnet run --project tests/AudioDescriptionIntegration.Tests/AudioDescriptionIntegration.Tests.csproj --configuration Release
+      - name: Native navigation context integration
+        run: dotnet run --project tests/NavigationContextIntegration.Tests/NavigationContextIntegration.Tests.csproj --configuration Release
+      - name: Read-only installation preflight
+        shell: powershell
+        run: .\tests\ReleasePreflight.Tests.ps1
+      - name: Release archive regression tests
+        run: python -m unittest discover -s tests -p test_release_archives.py -v

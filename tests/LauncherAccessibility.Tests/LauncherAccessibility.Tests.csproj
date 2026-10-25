@@ -1,0 +1,7 @@
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup><OutputType>Exe</OutputType><AssemblyName>LauncherAccessibility.Tests</AssemblyName><TargetFrameworkVersion>v4.8</TargetFrameworkVersion><PlatformTarget>x86</PlatformTarget><OutputPath>bin\$(Configuration)\</OutputPath><LangVersion>latest</LangVersion></PropertyGroup>
+  <ItemGroup><Reference Include="System"/><Reference Include="System.Core"/><Reference Include="WindowsBase"/><Reference Include="PresentationFramework"/><Reference Include="PresentationCore"/><Reference Include="UIAutomationTypes"/><Reference Include="UIAutomationProvider"/><Reference Include="UIAutomationClient"/><Reference Include="System.Xaml"/></ItemGroup>
+  <ItemGroup><Compile Include="Program.cs"/><Compile Include="..\FF9Access.Tests\TestAssert.cs"><Link>TestAssert.cs</Link></Compile></ItemGroup>
+  <ItemGroup><ProjectReference Include="..\..\Memoria.Launcher\Memoria.Launcher.csproj"><Name>Memoria.Launcher</Name></ProjectReference></ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+</Project>

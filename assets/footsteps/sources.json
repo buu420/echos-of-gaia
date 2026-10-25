@@ -1,0 +1,59 @@
+{
+  "Source": "https://github.com/buu420/blind-soldier",
+  "SourceCommit": "84fae238d6aecd68e3eed12dcfefbe3f1c3b90da",
+  "SourceDirectory": "Ff7.Accessibility.Reloaded/Assets/footsteps/cosmo",
+  "SourceWorldTrack": "wm_footsteps_0_0_159",
+  "Adaptation": "Unmodified world walking samples; generic ground-movement feedback in FFIX. Terrain IDs are not shared between games.",
+  "Files": [
+    {
+      "File": "5020.ogg",
+      "SHA256": "ADC9139901296225A0B4B7DA7276B84E52B127A1E6EBFF3C6DFFAEF97FB06315",
+      "Bytes": 9071
+    },
+    {
+      "File": "5021.ogg",
+      "SHA256": "58BA75E682DEAC4A1E17DE7235FDC1A18AFEE495F5908CC0D2EB6137036C4FF7",
+      "Bytes": 7987
+    },
+    {
+      "File": "5022.ogg",
+      "SHA256": "0B447CDC0CFC0DC4AF5FCB798548E0434B4BA23399C3270DDA4AF71811CDB47B",
+      "Bytes": 8556
+    },
+    {
+      "File": "5023.ogg",
+      "SHA256": "FC99B0FFA2DE9D5CBA65EF047DBCCBE8BF34CE909B72238937553A5D90EF3E8A",
+      "Bytes": 8030
+    },
+    {
+      "File": "5024.ogg",
+      "SHA256": "FE3CE9F3E1A4CB57420F41429592C4EABBAAE34C0C3BD48C60341A67AFED6ED4",
+      "Bytes": 7793
+    },
+    {
+      "File": "5025.ogg",
+      "SHA256": "EDC7FC220BDE0C1ED907D066FCF1B1F571CC337BB0E1FEF01DCEEB707286EC4D",
+      "Bytes": 7972
+    },
+    {
+      "File": "5026.ogg",
+      "SHA256": "1D1975B508E65E6725D15F2F1C728AD7675B81A6CD755C7B52F1D6AC9A931344",
+      "Bytes": 7958
+    },
+    {
+      "File": "5027.ogg",
+      "SHA256": "49B9FCEAC03861DA2E36CDB71D994642D696D3EB6CFB6704BD68E44F85934ACE",
+      "Bytes": 7644
+    },
+    {
+      "File": "5028.ogg",
+      "SHA256": "317ADFDD8A2E7D18F775796AC4FADB96BA3365FACD78492E6FDD555A320C1CFA",
+      "Bytes": 8418
+    },
+    {
+      "File": "5029.ogg",
+      "SHA256": "11E4303ECC0A81DA8EA01A5F295D0F6A78B10EDDF7732E1FB3B8DFD58EF3E090",
+      "Bytes": 7938
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+# Final Fantasy IX navigation
+
+The world destination list follows the area reachable with the current transport. On foot, towns on disconnected land or beyond impassable mountains are omitted. Passing through a field passage and returning to a different world area updates the list. Parked vehicles remain listed when a boarding approach is reachable. Visited regions use reachable observation points. Boats and Chocobos use their native terrain restrictions; flying transport can approach the available world markers. Ordinary marker availability and vehicle visibility still apply, and each selected route receives its normal movement validation.
+
+In fields, an actor you have already seen remains selectable when the camera scrolls away while its native presentation stays enabled. The list announces "last seen" and guidance uses the last observed position and approach. Seeing it again refreshes that point. Hidden, removed or replaced actors, a new scene, a different controlled character, or a different save clear the observation.
+
+Run FF9_Launcher.exe. The Accessibility tab has keyboard-reachable bindings, guidance interval, region announcements, controller button names, menu trigger and a Test speech button. Save changes, then restart the game. Tab moves through controls; Enter or Space activates buttons; arrows change lists and sliders.
+
+Continue loads the automatic save. Use Load to choose a manual save. Testing a new game can replace the automatic checkpoint without changing your manual saves.
+
+| Keyboard | Action |
+| --- | --- |
+| U / O | Previous / next category |
+| K / ; | Previous / next target |
+| L | Current location, region, transport and selected target |
+| I | Toggle spoken direction guidance |
+| P | Start automatic walking or travel; press again to stop |
+| R | Repeat the last accepted speech |
+| Shift+I / Shift+P | Decrease / increase guidance interval |
+
+R3 opens the spoken controller navigation menu by default; L3 can be chosen in the launcher. In that menu, LB/RB select categories, D-pad up/down selects targets, left reads status, right repeats speech, A starts guidance, X starts automatic walking, and B closes/stops. These inputs and their release tails are captured by navigation. Xbox, PlayStation and generic names describe the same physical controls.
+
+During Chocobo Hot and Cold, L reads the shown time, last cry meaning, current depth when shown, and found count. R repeats speech. The configured navigation stick click reads this status directly during the minigame, if that button is available under the game's bindings. Use the ordinary movement and dig controls. Short cry meanings and changing depth are spoken; item, bonus, point and beak-level results read their displayed text. Automatic navigation stays gated during the round. See [Hot and Cold controls](chocobo-hot-and-cold.md).
+
+Audio descriptions are enabled by default. The launcher's Accessibility tab has an Audio descriptions checkbox and Description volume from 0 to 200; zero mutes narration. The recorded personal voice describes all 42 FMVs and 212 reviewed field actions/movements, with 112 additional Disc 1 recordings. Field coverage remains selective. Original game audio keeps its own volume. See [description coverage and playback](audio-descriptions.md) for behavior and remaining limits.
+
+Field categories are Story, Exits, People, Objects and Items. World categories are Story, Towns, Regions and Vehicles. From Exits or Towns, U selects Story; O returns to the ordinary category. Story stays selected across maps and updates its objective as the plot advances. Starting movement to each new objective remains your choice. See [Story guidance](story-navigation.md).
+
+Labels remain neutral when the game does not present a name; a displayed name attributed to that native dialogue speaker can become its label. Pickups enter Items after an ordinary interaction cue has been shown, without announcing unopened contents. NPC gifts remain with People. Towns come from available world-map markers; regions use the actual current region label and positions observed during play; vehicles use their current visible positions. A parked airship can therefore be selected where it is now. Previously observed names and region points are stored with successfully saved game state.
+
+Guidance and automatic movement are independent. Manual movement releases automatic control and can keep guidance enabled. Menus, choices, dialogue that disables native walking, focus loss, disconnect, scene changes and unverified context stop owned movement. A visible instruction such as the opening candle prompt allows navigation while the game permits ordinary walking. Resume explicitly with I for guidance or P for automatic movement. Verified random-battle returns can replan the previous route; focus loss or disconnect during that battle revokes automatic resumption, and uncertain returns require explicit resume. The ordinary game's configured Confirm pauses travel, even when its controller button has been remapped.
+
+Spoken guidance follows each part of the walking route: for example, "left 2", then "up 5" at the turn. The number is the remaining distance along that part, rather than the distance to the final target. Straight connected parts share one count; bends retain their own instructions. Turns speak promptly without waiting for the repeat interval. L reads the selected target and its current instruction. A short remaining distance says "a little"; reaching the final validated approach says "Route approach reached". Interaction still uses the ordinary controls.
+
+The numbers are navigation distance counts, not key presses, literal footsteps or seconds. One count is 240 native field units or 4 world units. Field directions follow the current field controls; world ground directions follow the current camera when the game uses directional movement. Boats, airships and turning Chocobos use compass directions. "Bearing only" means no walking route has been verified; it is a direction to the target, not a safe path. The adjustable guidance interval controls reminders on the same route part. New turns wait for unrelated speech, and can replace the previous navigation instruction.
+
+Automatic movement follows the native field path or transport-valid world terrain. An active airship can use the game's town autopilot. Movement stops at an interaction approach and speaks the remaining ordinary action. Turn, Confirm, boarding and landing remain under player control. If a target or route cannot be established from current native state, the mod explains why.
+
+A visible entrance can remain listed when no safe walking approach is available. Status and direction information remain usable; automatic walking reports the limitation. World map data prepares during native map loading. On reload or battle return, matching geometry is reused after every block's contents are checked. A request made before complete geometry is available reports loading. While a search is pending, L reads status and a second P cancels the request. A failed route keeps direction guidance available.
+
+In combat, the ordinary target menu reads the displayed enemy name. Displayed Scan/Libra messages retain their normal speech. The encounter swirl has no enemy-name label. Navigation controls pass through to combat, and a navigation key held across the battle must be released before it can start a new navigation action.
+
+The lower navigation row is Blind Soldier's J/K/L row shifted right to K/L/semicolon. J retains the ordinary game's camera control: "Bird's eye view" means the overhead world-camera view. The exact previous default navigation profile upgrades automatically; custom bindings are preserved. The launcher accepts either `;` or `Semicolon` for that key and saves the word `Semicolon`, which keeps the game's INI comment syntax from truncating the setting. Cancelling the ordinary quit prompt keeps menu and navigation speech active.
+
+Prism is preferred, with a reported Tolk/SAPI fallback. Speech and navigation diagnostics are in `%LOCALAPPDATA%\FF9Access`. See [entrance coverage](field-exit-coverage.md) and [validation evidence](live-validation.md) for tested contexts and limits. Field walking has been exercised in both architectures. Physical controller delivery, live airship travel and complete entrance coverage still need broader live validation. Background-only entrances require presentation evidence; a map-jump script alone does not establish a visible doorway.
+
+World-map ground travel uses Blind Soldier's world walking samples. Steps follow actual accepted movement, including automatic walking, at a 300 ms walking cadence or 500 ms on a grounded Chocobo. They stop when stationary or blocked, in fields, menus, dialogue, battles, loading and background windows, and aboard boats or airships. Swimming and flying Chocobos remain silent. These are generic ground-movement cues; FFVII terrain IDs are not reused as FFIX terrain labels.
+
+Footsteps are enabled by default and follow the game's sound-effect volume and mute setting. Optional `[Accessibility]` values in `Memoria.ini` are `WorldMapFootsteps = 0` to disable them and `WorldMapFootstepVolume = 200` for their default gain; the supported range is 0 to 400. Restart after editing. The current SaXAudio backend (Audio Backend 1) supplies the cached playback interface. Ten samples load once and remain cached across battle returns; only the mod's own footstep voices are stopped.
+
+In fields, nearby NPCs, interactable objects/items and exits have distinct positional sounds. NPCs use your sci-fi interface effect; interactables use your game-interface effect; exits retain Blind Soldier's recording. All three use Steam Audio HRTF, including front/back and elevation cues. Use headphones for positioning. Direction follows the field controls and spoken navigation.
+
+The nearest currently presented, usable target of each kind sounds within 400 native units along a clear floor segment. Sound grows louder toward 80 units, and each target repeats at most once every 3.2 seconds. Starts are spaced to avoid a burst. Position updates while the recording plays. Cycle the navigation categories to read each target's identity. Remembered targets outside the current view remain listed as last seen and do not emit a cue. A visible target without a clear approach can remain listed with an explanation.
+
+NPC, interactable and exit proximity sounds are enabled by default in the launcher's Accessibility tab, with independent volume controls from 0–200 percent (default 100). The game's sound-effects volume and mute also apply. INI pairs are `FieldNpcSounds` / `FieldNpcSoundVolume`, `FieldInteractableSounds` / `FieldInteractableSoundVolume`, and `FieldExitSounds` / `FieldExitSoundVolume`. Restart after changing settings. Cues stop during native menus, blocking dialogue, battles, Hot and Cold, loading and loss of focus. Walkable prompts keep them available. Audio loading and HRTF processing run on a separate worker; cues never perform an interaction or replace game sound, footsteps, speech or descriptions.

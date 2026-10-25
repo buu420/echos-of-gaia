@@ -1,0 +1,1962 @@
+{
+ "schema": 1,
+ "method": "Original descriptions from Descript review and native-frame sheets; no plot-memory additions",
+ "films": [
+  {
+   "movie": "FMV000",
+   "duration": 49.266667,
+   "cues": [
+    {
+     "id": "ff9-fmv000-001",
+     "start": 1.2,
+     "end": 6.2,
+     "text": "The Squaresoft logo appears against black."
+    },
+    {
+     "id": "ff9-fmv000-002",
+     "start": 9.0,
+     "end": 14.7,
+     "text": "Map lettering overlays ornate towers and rounded stone structures."
+    },
+    {
+     "id": "ff9-fmv000-003",
+     "start": 16.5,
+     "end": 21.5,
+     "text": "The map sweeps over giant roots and green vines."
+    },
+    {
+     "id": "ff9-fmv000-004",
+     "start": 23.0,
+     "end": 28.2,
+     "text": "A many-spired wooden airship emerges through orange mist."
+    },
+    {
+     "id": "ff9-fmv000-005",
+     "start": 32.0,
+     "end": 35.5,
+     "text": "Blue energy erupts beneath a violet moon."
+    },
+    {
+     "id": "ff9-fmv000-006",
+     "start": 36.0,
+     "end": 39.1,
+     "text": "Blue rings spiral over clouds."
+    },
+    {
+     "id": "ff9-fmv000-007",
+     "start": 40.0,
+     "end": 44.3,
+     "text": "A map overlays golden cliffs and stone arches."
+    },
+    {
+     "id": "ff9-fmv000-008",
+     "start": 45.0,
+     "end": 47.0,
+     "text": "Blue crystal."
+    },
+    {
+     "id": "ff9-fmv000-009",
+     "start": 47.0,
+     "end": 49.24,
+     "text": "Final Fantasy Nine."
+    }
+   ]
+  },
+  {
+   "movie": "FMV001",
+   "duration": 120.333333,
+   "cues": [
+    {
+     "id": "ff9-fmv001-001",
+     "start": 3.0,
+     "end": 7.8,
+     "text": "Opening credits appear against darkness."
+    },
+    {
+     "id": "ff9-fmv001-002",
+     "start": 8.4,
+     "end": 15.5,
+     "text": "A small sailboat pitches on a rain-lashed sea."
+    },
+    {
+     "id": "ff9-fmv001-003",
+     "start": 16.4,
+     "end": 23.8,
+     "text": "Hooded figures huddle inside the wooden boat."
+    },
+    {
+     "id": "ff9-fmv001-004",
+     "start": 24.3,
+     "end": 31.8,
+     "text": "Waves surge around its torn sail and mast."
+    },
+    {
+     "id": "ff9-fmv001-005",
+     "start": 32.3,
+     "end": 39.0,
+     "text": "Spray crashes over the boat."
+    },
+    {
+     "id": "ff9-fmv001-006",
+     "start": 40.3,
+     "end": 47.7,
+     "text": "A dark-haired girl opens her eyes in a sunlit room."
+    },
+    {
+     "id": "ff9-fmv001-007",
+     "start": 48.4,
+     "end": 55.5,
+     "text": "She wipes her eyes and approaches the curtains."
+    },
+    {
+     "id": "ff9-fmv001-008",
+     "start": 56.3,
+     "end": 63.5,
+     "text": "She peers outside, wearing a jeweled hair ornament."
+    },
+    {
+     "id": "ff9-fmv001-009",
+     "start": 64.3,
+     "end": 71.4,
+     "text": "Orange rooftops surround a castle beside a bay."
+    },
+    {
+     "id": "ff9-fmv001-010",
+     "start": 72.3,
+     "end": 79.3,
+     "text": "White birds sweep through the sky."
+    },
+    {
+     "id": "ff9-fmv001-011",
+     "start": 80.3,
+     "end": 87.4,
+     "text": "A winged stone figure overlooks the city."
+    },
+    {
+     "id": "ff9-fmv001-012",
+     "start": 88.3,
+     "end": 95.3,
+     "text": "A lantern-topped tower rises from an ornate wooden airship."
+    },
+    {
+     "id": "ff9-fmv001-013",
+     "start": 96.3,
+     "end": 103.5,
+     "text": "The airship sails above the mist."
+    },
+    {
+     "id": "ff9-fmv001-014",
+     "start": 104.3,
+     "end": 111.2,
+     "text": "A white bird glides alongside its glowing windows."
+    },
+    {
+     "id": "ff9-fmv001-015",
+     "start": 112.3,
+     "end": 120.0,
+     "text": "Inside, a blond boy carries a candle down a wooden passage."
+    }
+   ]
+  },
+  {
+   "movie": "FMV002",
+   "duration": 69.866667,
+   "cues": [
+    {
+     "id": "ff9-fmv002-001",
+     "start": 4.9,
+     "end": 10.0,
+     "text": "A pointed-hat figure watches an airship from a crowded street."
+    },
+    {
+     "id": "ff9-fmv002-002",
+     "start": 14.3,
+     "end": 19.0,
+     "text": "The small figure looks up, two yellow eyes glowing."
+    },
+    {
+     "id": "ff9-fmv002-003",
+     "start": 23.5,
+     "end": 29.8,
+     "text": "People hurry over the sunlit cobblestones."
+    },
+    {
+     "id": "ff9-fmv002-004",
+     "start": 32.8,
+     "end": 38.0,
+     "text": "The ornate airship rises above the rooftops."
+    },
+    {
+     "id": "ff9-fmv002-005",
+     "start": 42.0,
+     "end": 47.5,
+     "text": "White castle towers overlook the sprawling city."
+    },
+    {
+     "id": "ff9-fmv002-006",
+     "start": 51.2,
+     "end": 57.5,
+     "text": "The title appears: Final Fantasy Nine."
+    },
+    {
+     "id": "ff9-fmv002-007",
+     "start": 64.0,
+     "end": 69.7,
+     "text": "Conceived and produced by Hironobu Sakaguchi."
+    }
+   ]
+  },
+  {
+   "movie": "FMV003",
+   "duration": 83.6,
+   "cues": [
+    {
+     "id": "ff9-fmv003-001",
+     "start": 0.7,
+     "end": 7.0,
+     "text": "Blue and red moons hang above a candlelit castle."
+    },
+    {
+     "id": "ff9-fmv003-002",
+     "start": 11.5,
+     "end": 17.0,
+     "text": "A glowing theater faces rows of spectators."
+    },
+    {
+     "id": "ff9-fmv003-003",
+     "start": 17.1,
+     "end": 23.8,
+     "text": "The small pointed-hat figure peers over the audience."
+    },
+    {
+     "id": "ff9-fmv003-004",
+     "start": 28.1,
+     "end": 33.2,
+     "text": "A heavily jeweled, crowned woman grins."
+    },
+    {
+     "id": "ff9-fmv003-005",
+     "start": 33.6,
+     "end": 39.2,
+     "text": "The dark-haired girl lowers her eyes beside an armored knight."
+    },
+    {
+     "id": "ff9-fmv003-006",
+     "start": 44.7,
+     "end": 50.4,
+     "text": "The stage lights brighten before the crowd."
+    },
+    {
+     "id": "ff9-fmv003-007",
+     "start": 50.5,
+     "end": 56.5,
+     "text": "Green and gold fireworks shower around the theater."
+    },
+    {
+     "id": "ff9-fmv003-008",
+     "start": 61.4,
+     "end": 67.0,
+     "text": "The pointed-hat figure leans forward to watch."
+    },
+    {
+     "id": "ff9-fmv003-009",
+     "start": 67.1,
+     "end": 73.1,
+     "text": "The knight folds his arms; the girl looks down."
+    },
+    {
+     "id": "ff9-fmv003-010",
+     "start": 78.0,
+     "end": 83.4,
+     "text": "Glittering fireworks frame the crowned woman's balcony."
+    }
+   ]
+  },
+  {
+   "movie": "FMV004",
+   "duration": 44.866667,
+   "cues": [
+    {
+     "id": "ff9-fmv004-001",
+     "start": 0.6,
+     "end": 6.2,
+     "text": "On the battlements, a white-hooded girl faces the blond boy."
+    },
+    {
+     "id": "ff9-fmv004-002",
+     "start": 6.3,
+     "end": 12.0,
+     "text": "Red diamonds edge her hood; she smiles at him."
+    },
+    {
+     "id": "ff9-fmv004-003",
+     "start": 15.2,
+     "end": 20.4,
+     "text": "The armored knight reaches out over the parapet."
+    },
+    {
+     "id": "ff9-fmv004-004",
+     "start": 21.1,
+     "end": 26.4,
+     "text": "The girl leaps outward, her cloak billowing."
+    },
+    {
+     "id": "ff9-fmv004-005",
+     "start": 26.9,
+     "end": 31.8,
+     "text": "The boy springs after her."
+    },
+    {
+     "id": "ff9-fmv004-006",
+     "start": 33.0,
+     "end": 38.3,
+     "text": "They slide down a line toward the theater ship."
+    },
+    {
+     "id": "ff9-fmv004-007",
+     "start": 41.5,
+     "end": 44.7,
+     "text": "The knight's armored boot follows along the line."
+    }
+   ]
+  },
+  {
+   "movie": "FMV005",
+   "duration": 66.8,
+   "cues": [
+    {
+     "id": "ff9-fmv005-001",
+     "start": 0.8,
+     "end": 7.5,
+     "text": "The wooden theater ship hangs beside ornate castle towers."
+    },
+    {
+     "id": "ff9-fmv005-002",
+     "start": 9.3,
+     "end": 15.8,
+     "text": "A winged stone statue stands beneath glowing windows."
+    },
+    {
+     "id": "ff9-fmv005-003",
+     "start": 18.2,
+     "end": 24.8,
+     "text": "The crowned woman raises an arm toward the ship."
+    },
+    {
+     "id": "ff9-fmv005-004",
+     "start": 27.0,
+     "end": 32.0,
+     "text": "Heavy chains pull taut around the airship."
+    },
+    {
+     "id": "ff9-fmv005-005",
+     "start": 35.8,
+     "end": 42.0,
+     "text": "Bursts of fire and smoke erupt across its deck."
+    },
+    {
+     "id": "ff9-fmv005-006",
+     "start": 44.7,
+     "end": 50.0,
+     "text": "The crowned woman leans forward, watching it burn."
+    },
+    {
+     "id": "ff9-fmv005-007",
+     "start": 53.5,
+     "end": 58.7,
+     "text": "The blond boy and knight brace beside a railing."
+    },
+    {
+     "id": "ff9-fmv005-008",
+     "start": 62.2,
+     "end": 66.5,
+     "text": "Orange flame swells into a blinding explosion."
+    }
+   ]
+  },
+  {
+   "movie": "FMV006A",
+   "duration": 59.6,
+   "cues": [
+    {
+     "id": "ff9-fmv006a-001",
+     "start": 0.8,
+     "end": 6.5,
+     "text": "Smoke trails over the castle and the damaged theater ship."
+    },
+    {
+     "id": "ff9-fmv006a-002",
+     "start": 8.3,
+     "end": 14.5,
+     "text": "The crowned woman watches from her balcony."
+    },
+    {
+     "id": "ff9-fmv006a-003",
+     "start": 16.3,
+     "end": 22.0,
+     "text": "The smoking airship drifts between the towers."
+    },
+    {
+     "id": "ff9-fmv006a-004",
+     "start": 24.1,
+     "end": 30.0,
+     "text": "Fire pours from its glowing wooden cabin."
+    },
+    {
+     "id": "ff9-fmv006a-005",
+     "start": 31.9,
+     "end": 37.5,
+     "text": "The dark-haired girl clings beside broken railings."
+    },
+    {
+     "id": "ff9-fmv006a-006",
+     "start": 39.8,
+     "end": 45.0,
+     "text": "The crowned woman's eyes widen beneath her jeweled crown."
+    },
+    {
+     "id": "ff9-fmv006a-007",
+     "start": 47.7,
+     "end": 54.7,
+     "text": "The ship vanishes into low storm clouds."
+    },
+    {
+     "id": "ff9-fmv006a-008",
+     "start": 55.5,
+     "end": 59.4,
+     "text": "It lurches past the city towers."
+    }
+   ]
+  },
+  {
+   "movie": "FMV006B",
+   "duration": 17.6,
+   "cues": [
+    {
+     "id": "ff9-fmv006b-001",
+     "start": 0.8,
+     "end": 6.0,
+     "text": "The smoking airship descends toward a dark forest."
+    },
+    {
+     "id": "ff9-fmv006b-002",
+     "start": 6.2,
+     "end": 11.5,
+     "text": "Its hull drops between the treetops."
+    },
+    {
+     "id": "ff9-fmv006b-003",
+     "start": 13.0,
+     "end": 17.4,
+     "text": "An orange explosion flares behind silhouetted pines."
+    }
+   ]
+  },
+  {
+   "movie": "FMV008",
+   "duration": 75.666667,
+   "cues": [
+    {
+     "id": "ff9-fmv008-001",
+     "start": 0.8,
+     "end": 7.0,
+     "text": "Figures run between enormous moss-covered trunks."
+    },
+    {
+     "id": "ff9-fmv008-002",
+     "start": 10.6,
+     "end": 16.0,
+     "text": "Huge red blossoms fill the dark canopy."
+    },
+    {
+     "id": "ff9-fmv008-003",
+     "start": 16.3,
+     "end": 22.0,
+     "text": "The armored knight runs, carrying the dark-haired girl."
+    },
+    {
+     "id": "ff9-fmv008-004",
+     "start": 22.4,
+     "end": 28.0,
+     "text": "Thorny vines lash across the path."
+    },
+    {
+     "id": "ff9-fmv008-005",
+     "start": 30.6,
+     "end": 36.3,
+     "text": "Vines trap the red-haired man against a trunk."
+    },
+    {
+     "id": "ff9-fmv008-006",
+     "start": 39.4,
+     "end": 45.2,
+     "text": "A rolled scroll flies toward the blond boy."
+    },
+    {
+     "id": "ff9-fmv008-007",
+     "start": 47.9,
+     "end": 55.3,
+     "text": "He leaps past grasping vines."
+    },
+    {
+     "id": "ff9-fmv008-008",
+     "start": 55.6,
+     "end": 60.1,
+     "text": "He crawls out onto the grass."
+    },
+    {
+     "id": "ff9-fmv008-009",
+     "start": 60.5,
+     "end": 65.4,
+     "text": "The knight carries the girl behind him."
+    },
+    {
+     "id": "ff9-fmv008-010",
+     "start": 65.6,
+     "end": 71.0,
+     "text": "Thick vines and trunks turn pale and rigid."
+    },
+    {
+     "id": "ff9-fmv008-011",
+     "start": 71.2,
+     "end": 75.4,
+     "text": "Dust hangs over the gray, motionless forest."
+    }
+   ]
+  },
+  {
+   "movie": "FMV011",
+   "duration": 16.0,
+   "cues": [
+    {
+     "id": "ff9-fmv011-001",
+     "start": 0.7,
+     "end": 7.8,
+     "text": "A balloon airship cruises above mist-filled canyons."
+    },
+    {
+     "id": "ff9-fmv011-002",
+     "start": 9.5,
+     "end": 13.0,
+     "text": "A dark winged figure watches it pass."
+    },
+    {
+     "id": "ff9-fmv011-003",
+     "start": 13.1,
+     "end": 15.9,
+     "text": "Orange eyes glow beneath the hat."
+    }
+   ]
+  },
+  {
+   "movie": "FMV012",
+   "duration": 44.8,
+   "cues": [
+    {
+     "id": "ff9-fmv012-001",
+     "start": 0.8,
+     "end": 6.0,
+     "text": "Blue lightning lashes the balloon airship."
+    },
+    {
+     "id": "ff9-fmv012-002",
+     "start": 6.4,
+     "end": 12.0,
+     "text": "Small hatted figures are hurled across its shattered deck."
+    },
+    {
+     "id": "ff9-fmv012-003",
+     "start": 15.3,
+     "end": 21.2,
+     "text": "Lightning crackles around a dark, feathered figure."
+    },
+    {
+     "id": "ff9-fmv012-004",
+     "start": 24.1,
+     "end": 29.5,
+     "text": "A limp, gloved hand falls past the rail."
+    },
+    {
+     "id": "ff9-fmv012-005",
+     "start": 29.9,
+     "end": 35.0,
+     "text": "The small blue-coated figure raises both hands."
+    },
+    {
+     "id": "ff9-fmv012-006",
+     "start": 35.8,
+     "end": 41.0,
+     "text": "The blond boy grips the wheel beside the dark-haired girl."
+    },
+    {
+     "id": "ff9-fmv012-007",
+     "start": 41.5,
+     "end": 44.6,
+     "text": "The winged figure folds its arms."
+    }
+   ]
+  },
+  {
+   "movie": "FMV013",
+   "duration": 75.0,
+   "cues": [
+    {
+     "id": "ff9-fmv013-001",
+     "start": 0.9,
+     "end": 7.4,
+     "text": "The airship speeds through a narrow rocky gorge."
+    },
+    {
+     "id": "ff9-fmv013-002",
+     "start": 10.5,
+     "end": 17.0,
+     "text": "The pointed-hat figure faces its winged pursuer."
+    },
+    {
+     "id": "ff9-fmv013-003",
+     "start": 20.4,
+     "end": 25.0,
+     "text": "The dark-haired girl grips the wheel beside the knight."
+    },
+    {
+     "id": "ff9-fmv013-004",
+     "start": 25.4,
+     "end": 31.0,
+     "text": "The pursuer gathers a brilliant ball of blue light."
+    },
+    {
+     "id": "ff9-fmv013-005",
+     "start": 35.3,
+     "end": 41.5,
+     "text": "The blond boy braces himself against the wooden rail."
+    },
+    {
+     "id": "ff9-fmv013-006",
+     "start": 45.2,
+     "end": 51.2,
+     "text": "He climbs up as the ship rushes toward enormous gates."
+    },
+    {
+     "id": "ff9-fmv013-007",
+     "start": 55.1,
+     "end": 61.0,
+     "text": "The winged figure hurtles through the stone passage."
+    },
+    {
+     "id": "ff9-fmv013-008",
+     "start": 64.9,
+     "end": 70.4,
+     "text": "Flames engulf its outstretched wings."
+    },
+    {
+     "id": "ff9-fmv013-009",
+     "start": 70.5,
+     "end": 74.8,
+     "text": "The airship bursts from the gateway trailing smoke."
+    }
+   ]
+  },
+  {
+   "movie": "FMV015",
+   "duration": 43.8,
+   "cues": [
+    {
+     "id": "ff9-fmv015-001",
+     "start": 0.9,
+     "end": 7.0,
+     "text": "A sprawling fortress city crowns a rocky peak."
+    },
+    {
+     "id": "ff9-fmv015-002",
+     "start": 9.2,
+     "end": 15.0,
+     "text": "Airships weave between its tall cylindrical towers."
+    },
+    {
+     "id": "ff9-fmv015-003",
+     "start": 17.9,
+     "end": 23.5,
+     "text": "Huge clock faces overlook crowded streets and bridges."
+    },
+    {
+     "id": "ff9-fmv015-004",
+     "start": 26.5,
+     "end": 32.1,
+     "text": "A small yellow airship slips past the buildings."
+    },
+    {
+     "id": "ff9-fmv015-005",
+     "start": 35.1,
+     "end": 41.0,
+     "text": "The balloon ship passes a vast clockwork tower."
+    }
+   ]
+  },
+  {
+   "movie": "FMV016",
+   "duration": 43.0,
+   "cues": [
+    {
+     "id": "ff9-fmv016-001",
+     "start": 0.8,
+     "end": 6.5,
+     "text": "Stone columns border a sunlit terrace."
+    },
+    {
+     "id": "ff9-fmv016-002",
+     "start": 8.9,
+     "end": 14.2,
+     "text": "The blond boy steps onto the terrace and stops."
+    },
+    {
+     "id": "ff9-fmv016-003",
+     "start": 17.5,
+     "end": 23.0,
+     "text": "White birds gather around the dark-haired girl's hands."
+    },
+    {
+     "id": "ff9-fmv016-004",
+     "start": 23.2,
+     "end": 28.1,
+     "text": "She turns from the wall toward him."
+    },
+    {
+     "id": "ff9-fmv016-005",
+     "start": 31.6,
+     "end": 36.6,
+     "text": "She looks upward as the birds take flight."
+    },
+    {
+     "id": "ff9-fmv016-006",
+     "start": 37.3,
+     "end": 42.8,
+     "text": "The flock circles through the bright blue sky."
+    }
+   ]
+  },
+  {
+   "movie": "FMV017",
+   "duration": 63.0,
+   "cues": [
+    {
+     "id": "ff9-fmv017-001",
+     "start": 0.8,
+     "end": 7.6,
+     "text": "Rain falls across ornate, deserted stone terraces."
+    },
+    {
+     "id": "ff9-fmv017-002",
+     "start": 9.0,
+     "end": 15.4,
+     "text": "Boots step over carved stonework."
+    },
+    {
+     "id": "ff9-fmv017-003",
+     "start": 17.2,
+     "end": 23.8,
+     "text": "The blond boy sits slumped; a red-coated figure lies nearby."
+    },
+    {
+     "id": "ff9-fmv017-004",
+     "start": 25.5,
+     "end": 31.6,
+     "text": "A long, silver-haired figure raises a gloved hand."
+    },
+    {
+     "id": "ff9-fmv017-005",
+     "start": 33.8,
+     "end": 40.0,
+     "text": "The red-coated figure pushes up from the ground."
+    },
+    {
+     "id": "ff9-fmv017-006",
+     "start": 42.1,
+     "end": 48.3,
+     "text": "A huge white bird lowers its long beak."
+    },
+    {
+     "id": "ff9-fmv017-007",
+     "start": 50.5,
+     "end": 56.5,
+     "text": "The red-coated figure raises a hand toward it."
+    },
+    {
+     "id": "ff9-fmv017-008",
+     "start": 58.8,
+     "end": 62.8,
+     "text": "The white bird rises into the glowing sky."
+    }
+   ]
+  },
+  {
+   "movie": "FMV019",
+   "duration": 31.4,
+   "cues": [
+    {
+     "id": "ff9-fmv019-001",
+     "start": 0.8,
+     "end": 6.0,
+     "text": "A blue light blazes above a cloud-wrapped tree."
+    },
+    {
+     "id": "ff9-fmv019-002",
+     "start": 6.7,
+     "end": 11.8,
+     "text": "A leafy platform supports a small, vine-covered pavilion."
+    },
+    {
+     "id": "ff9-fmv019-003",
+     "start": 12.9,
+     "end": 18.4,
+     "text": "Bright fragments whirl around a brilliant blue beam."
+    },
+    {
+     "id": "ff9-fmv019-004",
+     "start": 18.9,
+     "end": 24.5,
+     "text": "Luminous rings spiral down around the treetop."
+    },
+    {
+     "id": "ff9-fmv019-005",
+     "start": 27.2,
+     "end": 31.2,
+     "text": "The light fades, leaving a green crown above the clouds."
+    }
+   ]
+  },
+  {
+   "movie": "FMV021",
+   "duration": 57.0,
+   "cues": [
+    {
+     "id": "ff9-fmv021-001",
+     "start": 0.8,
+     "end": 7.0,
+     "text": "A violet orb flares before the crowned woman."
+    },
+    {
+     "id": "ff9-fmv021-002",
+     "start": 8.1,
+     "end": 14.1,
+     "text": "A beam pierces a dark red cloud above the sea."
+    },
+    {
+     "id": "ff9-fmv021-003",
+     "start": 15.6,
+     "end": 21.9,
+     "text": "A rider on a black horse emerges in brilliant light."
+    },
+    {
+     "id": "ff9-fmv021-004",
+     "start": 23.1,
+     "end": 29.6,
+     "text": "The black horse plunges forward, its rider's cloak streaming."
+    },
+    {
+     "id": "ff9-fmv021-005",
+     "start": 30.7,
+     "end": 36.9,
+     "text": "They descend toward a round, densely wooded city."
+    },
+    {
+     "id": "ff9-fmv021-006",
+     "start": 38.1,
+     "end": 44.1,
+     "text": "Buildings shatter in a spreading golden explosion."
+    },
+    {
+     "id": "ff9-fmv021-007",
+     "start": 45.7,
+     "end": 51.4,
+     "text": "The mounted silhouette rises against the burning sky."
+    },
+    {
+     "id": "ff9-fmv021-008",
+     "start": 53.1,
+     "end": 56.7,
+     "text": "The crowned woman grins broadly."
+    }
+   ]
+  },
+  {
+   "movie": "FMV023",
+   "duration": 58.466667,
+   "cues": [
+    {
+     "id": "ff9-fmv023-001",
+     "start": 4.4,
+     "end": 10.5,
+     "text": "Airships bombard a city of towers and bridges."
+    },
+    {
+     "id": "ff9-fmv023-002",
+     "start": 15.9,
+     "end": 22.0,
+     "text": "Explosions light the city behind the crowned woman."
+    },
+    {
+     "id": "ff9-fmv023-003",
+     "start": 23.7,
+     "end": 29.8,
+     "text": "Armored guards hold a gateway beneath glowing lamps."
+    },
+    {
+     "id": "ff9-fmv023-004",
+     "start": 31.4,
+     "end": 37.5,
+     "text": "Pointed-hat figures advance, their yellow eyes glowing."
+    },
+    {
+     "id": "ff9-fmv023-005",
+     "start": 38.0,
+     "end": 44.0,
+     "text": "Purple bolts and bright blasts cross the street."
+    },
+    {
+     "id": "ff9-fmv023-006",
+     "start": 46.8,
+     "end": 52.2,
+     "text": "A hatted figure raises a gloved hand amid the flames."
+    },
+    {
+     "id": "ff9-fmv023-007",
+     "start": 54.5,
+     "end": 58.2,
+     "text": "Fire engulfs buildings and packed crowds below."
+    }
+   ]
+  },
+  {
+   "movie": "FMV024",
+   "duration": 61.266667,
+   "cues": [
+    {
+     "id": "ff9-fmv024-001",
+     "start": 4.5,
+     "end": 10.8,
+     "text": "The blond boy and dark-haired girl watch from tall grass."
+    },
+    {
+     "id": "ff9-fmv024-002",
+     "start": 12.6,
+     "end": 18.8,
+     "text": "A vast wooden airship hangs beside the city."
+    },
+    {
+     "id": "ff9-fmv024-003",
+     "start": 20.7,
+     "end": 26.8,
+     "text": "Walls and machinery crumble into the storm."
+    },
+    {
+     "id": "ff9-fmv024-004",
+     "start": 28.8,
+     "end": 34.9,
+     "text": "Broken masonry spirals toward a bright red vortex."
+    },
+    {
+     "id": "ff9-fmv024-005",
+     "start": 36.8,
+     "end": 43.0,
+     "text": "The crowned woman watches from her ship."
+    },
+    {
+     "id": "ff9-fmv024-006",
+     "start": 44.9,
+     "end": 51.2,
+     "text": "On the hillside, the dark-haired girl lowers her head."
+    },
+    {
+     "id": "ff9-fmv024-007",
+     "start": 53.1,
+     "end": 59.8,
+     "text": "The blond boy puts an arm around her shoulders."
+    }
+   ]
+  },
+  {
+   "movie": "FMV027",
+   "duration": 39.6,
+   "cues": [
+    {
+     "id": "ff9-fmv027-001",
+     "start": 0.8,
+     "end": 7.5,
+     "text": "Huge tangled roots support a tree's domed crown."
+    },
+    {
+     "id": "ff9-fmv027-002",
+     "start": 8.4,
+     "end": 14.0,
+     "text": "The view draws back across the root-covered landscape."
+    },
+    {
+     "id": "ff9-fmv027-003",
+     "start": 16.2,
+     "end": 22.7,
+     "text": "Dense green forest stretches beneath drifting clouds."
+    },
+    {
+     "id": "ff9-fmv027-004",
+     "start": 24.0,
+     "end": 30.5,
+     "text": "The mist clears beside a bright castle on rocky cliffs."
+    },
+    {
+     "id": "ff9-fmv027-005",
+     "start": 34.4,
+     "end": 39.4,
+     "text": "Beyond the cliffs, the domed tree stands alone."
+    }
+   ]
+  },
+  {
+   "movie": "FMV029",
+   "duration": 45.6,
+   "cues": [
+    {
+     "id": "ff9-fmv029-001",
+     "start": 0.8,
+     "end": 6.0,
+     "text": "Wind blows the dark-haired girl's hair across her face."
+    },
+    {
+     "id": "ff9-fmv029-002",
+     "start": 6.3,
+     "end": 11.8,
+     "text": "Craggy cliffs tower above the wooded coast."
+    },
+    {
+     "id": "ff9-fmv029-003",
+     "start": 12.5,
+     "end": 17.5,
+     "text": "A red eye glows above burning ships."
+    },
+    {
+     "id": "ff9-fmv029-004",
+     "start": 18.5,
+     "end": 24.0,
+     "text": "Smoke and drifting embers engulf the shoreline."
+    },
+    {
+     "id": "ff9-fmv029-005",
+     "start": 24.6,
+     "end": 29.6,
+     "text": "A tremendous wave surges over a small boat."
+    },
+    {
+     "id": "ff9-fmv029-006",
+     "start": 30.6,
+     "end": 35.8,
+     "text": "A hooded child's face appears in the rain."
+    },
+    {
+     "id": "ff9-fmv029-007",
+     "start": 36.5,
+     "end": 42.2,
+     "text": "Fire spreads beneath the eye suspended in the smoke."
+    }
+   ]
+  },
+  {
+   "movie": "FMV031",
+   "duration": 53.2,
+   "cues": [
+    {
+     "id": "ff9-fmv031-001",
+     "start": 0.8,
+     "end": 6.4,
+     "text": "A glowing ring expands into a whirlpool of flame."
+    },
+    {
+     "id": "ff9-fmv031-002",
+     "start": 7.5,
+     "end": 13.6,
+     "text": "A brilliant streak plunges toward a tree-covered island."
+    },
+    {
+     "id": "ff9-fmv031-003",
+     "start": 14.6,
+     "end": 20.5,
+     "text": "A silver-haired figure stands between a pale bird and dragon."
+    },
+    {
+     "id": "ff9-fmv031-004",
+     "start": 21.6,
+     "end": 27.5,
+     "text": "The dragon opens its fanged mouth around a glowing light."
+    },
+    {
+     "id": "ff9-fmv031-005",
+     "start": 28.6,
+     "end": 34.4,
+     "text": "Magenta light strikes the shore in a huge explosion."
+    },
+    {
+     "id": "ff9-fmv031-006",
+     "start": 35.6,
+     "end": 42.0,
+     "text": "The dark dragon wheels over the sea."
+    },
+    {
+     "id": "ff9-fmv031-007",
+     "start": 46.1,
+     "end": 52.9,
+     "text": "The silver-haired figure brushes windblown hair from their face."
+    }
+   ]
+  },
+  {
+   "movie": "FMV032",
+   "duration": 63.8,
+   "cues": [
+    {
+     "id": "ff9-fmv032-001",
+     "start": 0.8,
+     "end": 6.8,
+     "text": "The silver-haired figure looks upward; a vast red eye glows."
+    },
+    {
+     "id": "ff9-fmv032-002",
+     "start": 8.9,
+     "end": 15.8,
+     "text": "Purple tendrils stream from the eye around the ships."
+    },
+    {
+     "id": "ff9-fmv032-003",
+     "start": 17.4,
+     "end": 23.9,
+     "text": "A pointed-hat figure stands amid the violet light."
+    },
+    {
+     "id": "ff9-fmv032-004",
+     "start": 25.8,
+     "end": 32.0,
+     "text": "The crowned woman faces the enormous dragon."
+    },
+    {
+     "id": "ff9-fmv032-005",
+     "start": 34.2,
+     "end": 40.4,
+     "text": "Her mouth falls open as golden sparks surround it."
+    },
+    {
+     "id": "ff9-fmv032-006",
+     "start": 42.6,
+     "end": 49.1,
+     "text": "A blast tears through the deck behind fleeing soldiers."
+    },
+    {
+     "id": "ff9-fmv032-007",
+     "start": 51.1,
+     "end": 56.8,
+     "text": "Wreckage burns in a roaring orange fireball."
+    },
+    {
+     "id": "ff9-fmv032-008",
+     "start": 59.5,
+     "end": 63.6,
+     "text": "The silver-haired figure rides the pale bird away."
+    }
+   ]
+  },
+  {
+   "movie": "FMV033",
+   "duration": 38.0,
+   "cues": [
+    {
+     "id": "ff9-fmv033-001",
+     "start": 2.9,
+     "end": 9.0,
+     "text": "The dark-haired girl descends sunlit stone steps."
+    },
+    {
+     "id": "ff9-fmv033-002",
+     "start": 10.5,
+     "end": 17.2,
+     "text": "She pauses beside the lake, gazing across the water."
+    },
+    {
+     "id": "ff9-fmv033-003",
+     "start": 20.5,
+     "end": 26.5,
+     "text": "Castle towers shimmer in the rippling reflection."
+    },
+    {
+     "id": "ff9-fmv033-004",
+     "start": 27.9,
+     "end": 33.7,
+     "text": "Slender white spires rise into the morning sky."
+    }
+   ]
+  },
+  {
+   "movie": "FMV034",
+   "duration": 30.0,
+   "cues": [
+    {
+     "id": "ff9-fmv034-001",
+     "start": 2.5,
+     "end": 8.0,
+     "text": "A dark dragon launches fire through the night."
+    },
+    {
+     "id": "ff9-fmv034-002",
+     "start": 10.3,
+     "end": 16.0,
+     "text": "Buildings explode; the dark-haired girl watches from the palace."
+    },
+    {
+     "id": "ff9-fmv034-003",
+     "start": 18.2,
+     "end": 23.0,
+     "text": "Her eyes widen as flames light her face."
+    },
+    {
+     "id": "ff9-fmv034-004",
+     "start": 24.0,
+     "end": 29.8,
+     "text": "The dragon towers above the rooftops, wreathed in embers."
+    }
+   ]
+  },
+  {
+   "movie": "FMV035",
+   "duration": 32.6,
+   "cues": [
+    {
+     "id": "ff9-fmv035-001",
+     "start": 0.9,
+     "end": 6.5,
+     "text": "Dark castle spires frame the stormy sky."
+    },
+    {
+     "id": "ff9-fmv035-002",
+     "start": 6.9,
+     "end": 12.8,
+     "text": "A small blue-haired girl floats downward in green light."
+    },
+    {
+     "id": "ff9-fmv035-003",
+     "start": 13.3,
+     "end": 19.1,
+     "text": "The dark-haired girl's pendant glows brilliantly."
+    },
+    {
+     "id": "ff9-fmv035-004",
+     "start": 19.7,
+     "end": 25.3,
+     "text": "The blue-haired girl reaches toward her through the light."
+    },
+    {
+     "id": "ff9-fmv035-005",
+     "start": 26.1,
+     "end": 31.9,
+     "text": "Green radiance envelops them beneath the violet moon."
+    }
+   ]
+  },
+  {
+   "movie": "FMV036",
+   "duration": 68.866667,
+   "cues": [
+    {
+     "id": "ff9-fmv036-001",
+     "start": 0.9,
+     "end": 7.5,
+     "text": "A beam rises from the city beneath a purple moon."
+    },
+    {
+     "id": "ff9-fmv036-002",
+     "start": 13.1,
+     "end": 19.1,
+     "text": "Enormous feathered wings unfold from the castle."
+    },
+    {
+     "id": "ff9-fmv036-003",
+     "start": 19.3,
+     "end": 25.4,
+     "text": "People stare upward from the streets below."
+    },
+    {
+     "id": "ff9-fmv036-004",
+     "start": 27.8,
+     "end": 33.9,
+     "text": "A stream of fire pours down toward the towers."
+    },
+    {
+     "id": "ff9-fmv036-005",
+     "start": 36.9,
+     "end": 42.7,
+     "text": "Blue points of light spread across the winged fortress."
+    },
+    {
+     "id": "ff9-fmv036-006",
+     "start": 43.0,
+     "end": 49.0,
+     "text": "The small blue-haired girl closes her eyes."
+    },
+    {
+     "id": "ff9-fmv036-007",
+     "start": 50.6,
+     "end": 56.7,
+     "text": "Lances of blue energy converge on the flying dragon."
+    },
+    {
+     "id": "ff9-fmv036-008",
+     "start": 59.7,
+     "end": 66.2,
+     "text": "A brilliant blue explosion expands between the feathered wings."
+    }
+   ]
+  },
+  {
+   "movie": "FMV038",
+   "duration": 24.266667,
+   "cues": [
+    {
+     "id": "ff9-fmv038-001",
+     "start": 0.8,
+     "end": 6.2,
+     "text": "The winged castle sends a blue beam into the clouds."
+    },
+    {
+     "id": "ff9-fmv038-002",
+     "start": 6.8,
+     "end": 12.2,
+     "text": "A fiery red eye opens, then becomes a patterned disc."
+    },
+    {
+     "id": "ff9-fmv038-003",
+     "start": 13.1,
+     "end": 18.7,
+     "text": "Giant pale wings curl around the castle towers."
+    },
+    {
+     "id": "ff9-fmv038-004",
+     "start": 20.1,
+     "end": 24.1,
+     "text": "A glowing sphere emerges through mist."
+    }
+   ]
+  },
+  {
+   "movie": "FMV039",
+   "duration": 81.266667,
+   "cues": [
+    {
+     "id": "ff9-fmv039-001",
+     "start": 0.9,
+     "end": 6.4,
+     "text": "A red mechanical eye faces the castle's glowing wings."
+    },
+    {
+     "id": "ff9-fmv039-002",
+     "start": 11.3,
+     "end": 17.4,
+     "text": "The two girls stand together beneath the stormy sky."
+    },
+    {
+     "id": "ff9-fmv039-003",
+     "start": 21.9,
+     "end": 28.0,
+     "text": "Blue lightning crawls around the dark-haired girl's pendant."
+    },
+    {
+     "id": "ff9-fmv039-004",
+     "start": 32.8,
+     "end": 38.7,
+     "text": "She clutches her chest as the light intensifies."
+    },
+    {
+     "id": "ff9-fmv039-005",
+     "start": 43.5,
+     "end": 49.5,
+     "text": "A blue beam tears through the castle tower."
+    },
+    {
+     "id": "ff9-fmv039-006",
+     "start": 50.2,
+     "end": 56.4,
+     "text": "Stone bridges crack and crumble into the smoke."
+    },
+    {
+     "id": "ff9-fmv039-007",
+     "start": 58.3,
+     "end": 64.3,
+     "text": "The blond boy leaps across the broken bridge to the girl."
+    },
+    {
+     "id": "ff9-fmv039-008",
+     "start": 66.3,
+     "end": 72.1,
+     "text": "He springs away from the falling stones, carrying her."
+    },
+    {
+     "id": "ff9-fmv039-009",
+     "start": 72.4,
+     "end": 76.2,
+     "text": "She closes her eyes against his shoulder."
+    },
+    {
+     "id": "ff9-fmv039-010",
+     "start": 76.5,
+     "end": 81.0,
+     "text": "Above them, the small blue-haired girl clings to a rope."
+    }
+   ]
+  },
+  {
+   "movie": "FMV040",
+   "duration": 17.6,
+   "cues": [
+    {
+     "id": "ff9-fmv040-001",
+     "start": 0.8,
+     "end": 5.4,
+     "text": "Intricate white circles form around the blazing red eye."
+    },
+    {
+     "id": "ff9-fmv040-002",
+     "start": 6.1,
+     "end": 11.5,
+     "text": "A violet beam engulfs the winged castle."
+    },
+    {
+     "id": "ff9-fmv040-003",
+     "start": 13.9,
+     "end": 17.3,
+     "text": "Fire swallows the city."
+    }
+   ]
+  },
+  {
+   "movie": "FMV042",
+   "duration": 70.266667,
+   "cues": [
+    {
+     "id": "ff9-fmv042-001",
+     "start": 0.8,
+     "end": 7.4,
+     "text": "The dark-haired girl raises a dagger behind her head."
+    },
+    {
+     "id": "ff9-fmv042-002",
+     "start": 8.7,
+     "end": 14.5,
+     "text": "She slices through her long hair."
+    },
+    {
+     "id": "ff9-fmv042-003",
+     "start": 17.1,
+     "end": 22.6,
+     "text": "The severed ponytail slips from her hand."
+    },
+    {
+     "id": "ff9-fmv042-004",
+     "start": 23.8,
+     "end": 29.9,
+     "text": "Sunlight washes over the castle beside the lake."
+    },
+    {
+     "id": "ff9-fmv042-005",
+     "start": 33.0,
+     "end": 37.3,
+     "text": "The blond boy watches, mouth open."
+    },
+    {
+     "id": "ff9-fmv042-006",
+     "start": 37.8,
+     "end": 43.0,
+     "text": "With her hair now short, she smiles at him."
+    },
+    {
+     "id": "ff9-fmv042-007",
+     "start": 47.0,
+     "end": 53.3,
+     "text": "A massive airship waits in a cavernous hangar."
+    },
+    {
+     "id": "ff9-fmv042-008",
+     "start": 56.3,
+     "end": 62.5,
+     "text": "It glides outward past hanging cranes."
+    },
+    {
+     "id": "ff9-fmv042-009",
+     "start": 65.5,
+     "end": 70.1,
+     "text": "The airship flies away between pale castle towers."
+    }
+   ]
+  },
+  {
+   "movie": "FMV045",
+   "duration": 44.8,
+   "cues": [
+    {
+     "id": "ff9-fmv045-001",
+     "start": 0.8,
+     "end": 6.4,
+     "text": "An airship hovers above an icy island."
+    },
+    {
+     "id": "ff9-fmv045-002",
+     "start": 6.7,
+     "end": 13.0,
+     "text": "Green and gold lights form a vast, swirling passage."
+    },
+    {
+     "id": "ff9-fmv045-003",
+     "start": 15.3,
+     "end": 21.5,
+     "text": "The ship tilts downward into the glowing shaft."
+    },
+    {
+     "id": "ff9-fmv045-004",
+     "start": 21.8,
+     "end": 27.6,
+     "text": "The short-haired girl reaches toward another falling figure."
+    },
+    {
+     "id": "ff9-fmv045-005",
+     "start": 30.0,
+     "end": 36.0,
+     "text": "Figures tumble through a bright, swirling tunnel."
+    },
+    {
+     "id": "ff9-fmv045-006",
+     "start": 38.9,
+     "end": 44.5,
+     "text": "Streams of colored light dissolve into white."
+    }
+   ]
+  },
+  {
+   "movie": "FMV046",
+   "duration": 41.666667,
+   "cues": [
+    {
+     "id": "ff9-fmv046-001",
+     "start": 0.8,
+     "end": 6.1,
+     "text": "The short-haired girl approaches a railing above a blue city."
+    },
+    {
+     "id": "ff9-fmv046-002",
+     "start": 8.7,
+     "end": 15.0,
+     "text": "An ornate purple and gold airship floats before them."
+    },
+    {
+     "id": "ff9-fmv046-003",
+     "start": 17.0,
+     "end": 23.3,
+     "text": "The blond boy looks up beside her."
+    },
+    {
+     "id": "ff9-fmv046-004",
+     "start": 25.1,
+     "end": 31.1,
+     "text": "A giant red eye looms, then burning ships appear."
+    },
+    {
+     "id": "ff9-fmv046-005",
+     "start": 33.4,
+     "end": 39.6,
+     "text": "The image returns to the girl's face; her eyes close."
+    }
+   ]
+  },
+  {
+   "movie": "FMV052",
+   "duration": 56.866667,
+   "cues": [
+    {
+     "id": "ff9-fmv052-001",
+     "start": 0.9,
+     "end": 6.5,
+     "text": "A figure floats before a giant pink sphere."
+    },
+    {
+     "id": "ff9-fmv052-002",
+     "start": 8.0,
+     "end": 14.5,
+     "text": "Red hair and feathers frame their pale face."
+    },
+    {
+     "id": "ff9-fmv052-003",
+     "start": 15.6,
+     "end": 21.8,
+     "text": "Purple streaks slash through the blue city's towers."
+    },
+    {
+     "id": "ff9-fmv052-004",
+     "start": 23.1,
+     "end": 29.7,
+     "text": "Beams tear apart bridges and floating platforms."
+    },
+    {
+     "id": "ff9-fmv052-005",
+     "start": 30.6,
+     "end": 36.7,
+     "text": "Explosions spread between mushroom-shaped towers."
+    },
+    {
+     "id": "ff9-fmv052-006",
+     "start": 41.8,
+     "end": 48.0,
+     "text": "Fire and falling debris engulf the enormous pink sphere."
+    },
+    {
+     "id": "ff9-fmv052-007",
+     "start": 49.4,
+     "end": 55.8,
+     "text": "The red-haired figure spreads their arms amid the flames."
+    }
+   ]
+  },
+  {
+   "movie": "FMV053",
+   "duration": 50.666667,
+   "cues": [
+    {
+     "id": "ff9-fmv053-001",
+     "start": 0.9,
+     "end": 6.4,
+     "text": "An orange eye glows on the prow of a dark airship."
+    },
+    {
+     "id": "ff9-fmv053-002",
+     "start": 7.2,
+     "end": 13.7,
+     "text": "The ship dives between burning towers and falling wreckage."
+    },
+    {
+     "id": "ff9-fmv053-003",
+     "start": 20.6,
+     "end": 26.8,
+     "text": "The ornate blue airship weaves through the shattered city."
+    },
+    {
+     "id": "ff9-fmv053-004",
+     "start": 30.6,
+     "end": 36.6,
+     "text": "It plunges into a white ring of light."
+    },
+    {
+     "id": "ff9-fmv053-005",
+     "start": 37.2,
+     "end": 43.0,
+     "text": "A glowing sphere erupts from the storm-tossed sea."
+    },
+    {
+     "id": "ff9-fmv053-006",
+     "start": 43.9,
+     "end": 50.4,
+     "text": "The blue airship bursts from the light and skims the waves."
+    }
+   ]
+  },
+  {
+   "movie": "FMV055A",
+   "duration": 55.133333,
+   "cues": [
+    {
+     "id": "ff9-fmv055a-001",
+     "start": 4.1,
+     "end": 10.6,
+     "text": "A pink vortex glows over a craggy mass in the clouds."
+    },
+    {
+     "id": "ff9-fmv055a-002",
+     "start": 11.5,
+     "end": 17.6,
+     "text": "Pale dragons pour from the swirling light."
+    },
+    {
+     "id": "ff9-fmv055a-003",
+     "start": 18.7,
+     "end": 24.8,
+     "text": "They surround a small, brightly colored airship."
+    },
+    {
+     "id": "ff9-fmv055a-004",
+     "start": 26.0,
+     "end": 32.4,
+     "text": "Through its curved window, countless dragons fill the sky."
+    },
+    {
+     "id": "ff9-fmv055a-005",
+     "start": 36.9,
+     "end": 43.2,
+     "text": "A fleet of larger airships emerges from the clouds."
+    },
+    {
+     "id": "ff9-fmv055a-006",
+     "start": 44.2,
+     "end": 50.4,
+     "text": "Cannons flash; orange explosions tear through the swarm."
+    },
+    {
+     "id": "ff9-fmv055a-007",
+     "start": 51.4,
+     "end": 55.0,
+     "text": "Dragons wheel between the firing ships."
+    }
+   ]
+  },
+  {
+   "movie": "FMV055B",
+   "duration": 23.666667,
+   "cues": [
+    {
+     "id": "ff9-fmv055b-001",
+     "start": 0.9,
+     "end": 6.7,
+     "text": "An enormous hull pushes through the clouds."
+    },
+    {
+     "id": "ff9-fmv055b-002",
+     "start": 8.2,
+     "end": 13.5,
+     "text": "Airships fire their cannons into swarms of pale dragons."
+    },
+    {
+     "id": "ff9-fmv055b-003",
+     "start": 15.9,
+     "end": 21.7,
+     "text": "Fireballs burst among the diving creatures."
+    }
+   ]
+  },
+  {
+   "movie": "FMV055C",
+   "duration": 16.8,
+   "cues": [
+    {
+     "id": "ff9-fmv055c-001",
+     "start": 0.9,
+     "end": 6.3,
+     "text": "The colorful airship speeds toward the glowing pink vortex."
+    },
+    {
+     "id": "ff9-fmv055c-002",
+     "start": 7.1,
+     "end": 12.3,
+     "text": "Pale dragons close in around its tail."
+    },
+    {
+     "id": "ff9-fmv055c-003",
+     "start": 13.5,
+     "end": 16.65,
+     "text": "A wooden airship blocks their path."
+    }
+   ]
+  },
+  {
+   "movie": "FMV055D",
+   "duration": 16.0,
+   "cues": [
+    {
+     "id": "ff9-fmv055d-001",
+     "start": 0.8,
+     "end": 6.2,
+     "text": "The ornate airship flies through purple clouds."
+    },
+    {
+     "id": "ff9-fmv055d-002",
+     "start": 6.7,
+     "end": 11.5,
+     "text": "It dives into the brilliant pink vortex."
+    },
+    {
+     "id": "ff9-fmv055d-003",
+     "start": 12.0,
+     "end": 15.8,
+     "text": "Other airships follow into the blinding light."
+    }
+   ]
+  },
+  {
+   "movie": "FMV056",
+   "duration": 38.0,
+   "cues": [
+    {
+     "id": "ff9-fmv056-001",
+     "start": 0.9,
+     "end": 6.6,
+     "text": "The blond boy stands beneath an airship at sunset."
+    },
+    {
+     "id": "ff9-fmv056-002",
+     "start": 8.0,
+     "end": 14.2,
+     "text": "The short-haired girl looks down from its open doorway."
+    },
+    {
+     "id": "ff9-fmv056-003",
+     "start": 15.5,
+     "end": 21.5,
+     "text": "The ship rises above the rocky clearing, leaving him below."
+    },
+    {
+     "id": "ff9-fmv056-004",
+     "start": 22.9,
+     "end": 29.1,
+     "text": "Figures watch from the railing as it pulls away."
+    },
+    {
+     "id": "ff9-fmv056-005",
+     "start": 30.5,
+     "end": 37.7,
+     "text": "The boy turns away beneath a fiery orange sky."
+    }
+   ]
+  },
+  {
+   "movie": "FMV059",
+   "duration": 119.866667,
+   "cues": [
+    {
+     "id": "ff9-fmv059-001",
+     "start": 0.8,
+     "end": 7.0,
+     "text": "The dark-haired girl, wearing a white gown, leaves the balcony."
+    },
+    {
+     "id": "ff9-fmv059-002",
+     "start": 10.4,
+     "end": 16.5,
+     "text": "The knight and a long-haired swordswoman stand aside."
+    },
+    {
+     "id": "ff9-fmv059-003",
+     "start": 20.5,
+     "end": 26.6,
+     "text": "The swordswoman bows her head; the girl runs through the doorway."
+    },
+    {
+     "id": "ff9-fmv059-004",
+     "start": 30.7,
+     "end": 37.1,
+     "text": "She hurries down the stone stairs toward a crowded square."
+    },
+    {
+     "id": "ff9-fmv059-005",
+     "start": 40.8,
+     "end": 47.1,
+     "text": "She pushes between the spectators, her long skirt streaming."
+    },
+    {
+     "id": "ff9-fmv059-006",
+     "start": 50.9,
+     "end": 57.1,
+     "text": "She squeezes past an armored figure and looks ahead."
+    },
+    {
+     "id": "ff9-fmv059-007",
+     "start": 61.1,
+     "end": 67.5,
+     "text": "Her jeweled pendant falls onto the cobblestones."
+    },
+    {
+     "id": "ff9-fmv059-008",
+     "start": 70.3,
+     "end": 76.2,
+     "text": "Leaving it behind, she rushes toward the stage."
+    },
+    {
+     "id": "ff9-fmv059-009",
+     "start": 76.7,
+     "end": 82.5,
+     "text": "She throws her arms around the blond boy."
+    },
+    {
+     "id": "ff9-fmv059-010",
+     "start": 83.3,
+     "end": 89.2,
+     "text": "She pounds his chest, then clings to him."
+    },
+    {
+     "id": "ff9-fmv059-011",
+     "start": 93.1,
+     "end": 99.0,
+     "text": "He holds her close as the crowd applauds."
+    },
+    {
+     "id": "ff9-fmv059-012",
+     "start": 99.6,
+     "end": 105.4,
+     "text": "A red-haired man and masked figures clap from a balcony."
+    },
+    {
+     "id": "ff9-fmv059-013",
+     "start": 106.2,
+     "end": 112.3,
+     "text": "The knight puts an arm around the swordswoman."
+    },
+    {
+     "id": "ff9-fmv059-014",
+     "start": 115.9,
+     "end": 119.7,
+     "text": "The couple embrace before the cheering city."
+    }
+   ]
+  },
+  {
+   "movie": "FMV060",
+   "duration": 451.733333,
+   "cues": [
+    {
+     "id": "ff9-fmv060-001",
+     "start": 0.3,
+     "end": 6.4,
+     "text": "Words appear: Our song. I sang your song."
+    },
+    {
+     "id": "ff9-fmv060-002",
+     "start": 7.6,
+     "end": 13.5,
+     "text": "Restored castle towers rise above the sunlit city."
+    },
+    {
+     "id": "ff9-fmv060-003",
+     "start": 16.3,
+     "end": 22.6,
+     "text": "The sunlit city spreads beside the lake and mountains."
+    },
+    {
+     "id": "ff9-fmv060-004",
+     "start": 27.0,
+     "end": 34.0,
+     "text": "Closing credits appear beside still images from the adventure."
+    },
+    {
+     "id": "ff9-fmv060-005",
+     "start": 395.4,
+     "end": 402.0,
+     "text": "The embracing couple reappears beside the final credits."
+    },
+    {
+     "id": "ff9-fmv060-006",
+     "start": 421.4,
+     "end": 427.4,
+     "text": "Blue and red worlds merge in a dazzling white glow."
+    },
+    {
+     "id": "ff9-fmv060-007",
+     "start": 432.6,
+     "end": 438.8,
+     "text": "Streams of light converge into a sparkling crystal."
+    },
+    {
+     "id": "ff9-fmv060-008",
+     "start": 445.9,
+     "end": 451.4,
+     "text": "The crystal becomes the title: Final Fantasy Nine."
+    }
+   ]
+  }
+ ]
+}

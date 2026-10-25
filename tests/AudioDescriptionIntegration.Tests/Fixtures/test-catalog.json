@@ -1,0 +1,56 @@
+{
+ "schema": 1,
+ "clips": [
+  {
+   "id": "field-main-f0-zdn-hiza-1",
+   "file": "field-main-f0-zdn-hiza-1.wav",
+   "sha256": "0778d54b449291377cac6c86abe24e07bd1053f7ab9217444554755330c8e03b",
+   "bytes": 48044,
+   "duration": 1.0,
+   "text": "The boy with the tail crouches down."
+  },
+  {
+   "id": "field-main-f0-grn-yes",
+   "file": "field-main-f0-grn-yes.wav",
+   "sha256": "3da8b96338cc9835018843d3a922f84a123a024f81ce27b95fb7fde5e3d21461",
+   "bytes": 48044,
+   "duration": 1.0,
+   "text": "The long-haired girl nods."
+  },
+  {
+   "id": "fmv001-001",
+   "file": "fmv001-001.wav",
+   "sha256": "ea1b72b6a6e1eb6b0201a01a898acc45daab7f70852579ad1038a3e9b4f8f368",
+   "bytes": 48044,
+   "duration": 1.0,
+   "text": "A ship sails through clouds."
+  },
+  {
+   "id": "fmv001-002",
+   "file": "fmv001-002.wav",
+   "sha256": "613d0f73ab93baa2f2e6a3c3f8eb53fe00bbcedea0aa523dd9fce3f35a29ca29",
+   "bytes": 48044,
+   "duration": 1.0,
+   "text": "Lights flicker below."
+  }
+ ],
+ "films": [
+  {
+   "movie": "FMV001",
+   "sourceSHA256": "d67c656e01756650d77717b0839985a056ec28ffe174601d690fc407a2ceffca",
+   "sourceBytes": 4096,
+   "cues": [
+    {
+     "id": "fmv001-001",
+     "start": 2.0,
+     "end": 4.0
+    },
+    {
+     "id": "fmv001-002",
+     "start": 6.0,
+     "end": 8.0
+    }
+   ]
+  }
+ ]
+}

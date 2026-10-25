@@ -1,0 +1,1264 @@
+{
+  "source": "installed US p0data7.bin sha256 1404f0244bf069acb0cab059684c9603589ba9ae070222447b644f9150ca9690",
+  "chest": {
+    "field": 57,
+    "entry": 5,
+    "entrySha256": "9b143afa3d201c6a33d1257a84a2b3cc4d310cde46282d3c3e802cc08a0c23e5",
+    "tag": 2,
+    "note": "GEO_ACC_F0_TBX push handler: SYS2 guard, then (!GLOB1[7172] && LOC5[0]) else return; FICON(1) + Confirm key",
+    "Push": [
+      {
+        "Offset": 106,
+        "NextOffset": 110,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            122,
+            2,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 110,
+        "NextOffset": 113,
+        "Opcode": 3,
+        "Arguments": [
+          1
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 113,
+        "NextOffset": 114,
+        "Opcode": 4,
+        "Arguments": [],
+        "ArgumentExpressions": []
+      },
+      {
+        "Offset": 114,
+        "NextOffset": 123,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            228,
+            4,
+            28,
+            14,
+            214,
+            0,
+            39,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 123,
+        "NextOffset": 126,
+        "Opcode": 2,
+        "Arguments": [
+          435
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 126,
+        "NextOffset": 129,
+        "Opcode": 104,
+        "Arguments": [
+          1
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 129,
+        "NextOffset": 137,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            126,
+            0,
+            0,
+            10,
+            0,
+            79,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 137,
+        "NextOffset": 140,
+        "Opcode": 2,
+        "Arguments": [
+          421
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 140,
+        "NextOffset": 148,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            197,
+            158,
+            125,
+            0,
+            0,
+            44,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 148,
+        "NextOffset": 156,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            197,
+            159,
+            125,
+            1,
+            0,
+            32,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 156,
+        "NextOffset": 159,
+        "Opcode": 2,
+        "Arguments": [
+          19
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 159,
+        "NextOffset": 160,
+        "Opcode": 45,
+        "Arguments": [],
+        "ArgumentExpressions": []
+      },
+      {
+        "Offset": 160,
+        "NextOffset": 168,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            197,
+            144,
+            125,
+            0,
+            0,
+            32,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 168,
+        "NextOffset": 171,
+        "Opcode": 2,
+        "Arguments": [
+          4
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 171,
+        "NextOffset": 172,
+        "Opcode": 171,
+        "Arguments": [],
+        "ArgumentExpressions": []
+      },
+      {
+        "Offset": 172,
+        "NextOffset": 175,
+        "Opcode": 1,
+        "Arguments": [
+          3
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 175,
+        "NextOffset": 178,
+        "Opcode": 34,
+        "Arguments": [
+          1
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 178,
+        "NextOffset": 181,
+        "Opcode": 39,
+        "Arguments": [
+          127
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 181,
+        "NextOffset": 193,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            213,
+            16,
+            95,
+            250,
+            96,
+            125,
+            128,
+            0,
+            21,
+            44,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 193,
+        "NextOffset": 198,
+        "Opcode": 20,
+        "Arguments": [
+          2,
+          250,
+          14
+        ],
+        "ArgumentExpressions": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 198,
+        "NextOffset": 202,
+        "Opcode": 63,
+        "Arguments": [
+          1,
+          0
+        ],
+        "ArgumentExpressions": [
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 202,
+        "NextOffset": 213,
+        "Opcode": 200,
+        "Arguments": [
+          53248,
+          637,
+          0,
+          128,
+          125
+        ],
+        "ArgumentExpressions": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 213,
+        "NextOffset": 224,
+        "Opcode": 200,
+        "Arguments": [
+          53248,
+          638,
+          0,
+          128,
+          125
+        ],
+        "ArgumentExpressions": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 224,
+        "NextOffset": 228,
+        "Opcode": 64,
+        "Arguments": [
+          7336
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 228,
+        "NextOffset": 229,
+        "Opcode": 65,
+        "Arguments": [],
+        "ArgumentExpressions": []
+      },
+      {
+        "Offset": 229,
+        "NextOffset": 234,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            125,
+            0,
+            0,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 234,
+        "NextOffset": 237,
+        "Opcode": 2,
+        "Arguments": [
+          80
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 237,
+        "NextOffset": 240,
+        "Opcode": 34,
+        "Arguments": [
+          2
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 240,
+        "NextOffset": 251,
+        "Opcode": 200,
+        "Arguments": [
+          53248,
+          108,
+          0,
+          128,
+          125
+        ],
+        "ArgumentExpressions": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 251,
+        "NextOffset": 259,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            216,
+            228,
+            125,
+            8,
+            253,
+            44,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 259,
+        "NextOffset": 272,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            216,
+            228,
+            122,
+            6,
+            20,
+            126,
+            127,
+            150,
+            152,
+            0,
+            25,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 272,
+        "NextOffset": 275,
+        "Opcode": 2,
+        "Arguments": [
+          13
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 275,
+        "NextOffset": 288,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            216,
+            228,
+            126,
+            127,
+            150,
+            152,
+            0,
+            122,
+            6,
+            21,
+            44,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 288,
+        "NextOffset": 293,
+        "Opcode": 206,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            216,
+            228,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 293,
+        "NextOffset": 299,
+        "Opcode": 102,
+        "Arguments": [
+          0,
+          null
+        ],
+        "ArgumentExpressions": [
+          null,
+          [
+            216,
+            228,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 299,
+        "NextOffset": 305,
+        "Opcode": 31,
+        "Arguments": [
+          7,
+          0,
+          6
+        ],
+        "ArgumentExpressions": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 305,
+        "NextOffset": 314,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            228,
+            4,
+            28,
+            125,
+            1,
+            0,
+            44,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 314,
+        "NextOffset": 317,
+        "Opcode": 1,
+        "Arguments": [
+          193
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 317,
+        "NextOffset": 342,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            125,
+            240,
+            0,
+            100,
+            125,
+            99,
+            0,
+            24,
+            125,
+            1,
+            0,
+            39,
+            125,
+            0,
+            0,
+            122,
+            19,
+            125,
+            100,
+            0,
+            24,
+            39,
+            40,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 342,
+        "NextOffset": 345,
+        "Opcode": 2,
+        "Arguments": [
+          112
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 345,
+        "NextOffset": 348,
+        "Opcode": 34,
+        "Arguments": [
+          2
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 348,
+        "NextOffset": 357,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            228,
+            4,
+            28,
+            125,
+            0,
+            0,
+            32,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 357,
+        "NextOffset": 360,
+        "Opcode": 2,
+        "Arguments": [
+          94
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 360,
+        "NextOffset": 371,
+        "Opcode": 200,
+        "Arguments": [
+          53248,
+          108,
+          0,
+          128,
+          125
+        ],
+        "ArgumentExpressions": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 371,
+        "NextOffset": 380,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            228,
+            4,
+            28,
+            125,
+            1,
+            0,
+            44,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 380,
+        "NextOffset": 385,
+        "Opcode": 102,
+        "Arguments": [
+          0,
+          240
+        ],
+        "ArgumentExpressions": [
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 385,
+        "NextOffset": 390,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            125,
+            1,
+            0,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 390,
+        "NextOffset": 393,
+        "Opcode": 2,
+        "Arguments": [
+          14
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 393,
+        "NextOffset": 398,
+        "Opcode": 72,
+        "Arguments": [
+          240,
+          1
+        ],
+        "ArgumentExpressions": [
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 398,
+        "NextOffset": 404,
+        "Opcode": 31,
+        "Arguments": [
+          7,
+          0,
+          4
+        ],
+        "ArgumentExpressions": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 404,
+        "NextOffset": 407,
+        "Opcode": 1,
+        "Arguments": [
+          47
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 407,
+        "NextOffset": 412,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            125,
+            1,
+            0,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 412,
+        "NextOffset": 415,
+        "Opcode": 2,
+        "Arguments": [
+          14
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 415,
+        "NextOffset": 420,
+        "Opcode": 72,
+        "Arguments": [
+          240,
+          1
+        ],
+        "ArgumentExpressions": [
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 420,
+        "NextOffset": 426,
+        "Opcode": 31,
+        "Arguments": [
+          7,
+          0,
+          5
+        ],
+        "ArgumentExpressions": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 426,
+        "NextOffset": 429,
+        "Opcode": 1,
+        "Arguments": [
+          25
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 429,
+        "NextOffset": 434,
+        "Opcode": 206,
+        "Arguments": [
+          16776456
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 434,
+        "NextOffset": 442,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            216,
+            224,
+            125,
+            8,
+            253,
+            44,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 442,
+        "NextOffset": 448,
+        "Opcode": 102,
+        "Arguments": [
+          0,
+          null
+        ],
+        "ArgumentExpressions": [
+          null,
+          [
+            216,
+            224,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 448,
+        "NextOffset": 454,
+        "Opcode": 31,
+        "Arguments": [
+          7,
+          0,
+          6
+        ],
+        "ArgumentExpressions": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 454,
+        "NextOffset": 457,
+        "Opcode": 1,
+        "Arguments": [
+          53
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 457,
+        "NextOffset": 462,
+        "Opcode": 102,
+        "Arguments": [
+          0,
+          240
+        ],
+        "ArgumentExpressions": [
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 462,
+        "NextOffset": 467,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            125,
+            1,
+            0,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 467,
+        "NextOffset": 470,
+        "Opcode": 2,
+        "Arguments": [
+          9
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 470,
+        "NextOffset": 476,
+        "Opcode": 31,
+        "Arguments": [
+          7,
+          0,
+          8
+        ],
+        "ArgumentExpressions": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 476,
+        "NextOffset": 479,
+        "Opcode": 1,
+        "Arguments": [
+          6
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 479,
+        "NextOffset": 485,
+        "Opcode": 31,
+        "Arguments": [
+          7,
+          0,
+          9
+        ],
+        "ArgumentExpressions": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 485,
+        "NextOffset": 497,
+        "Opcode": 61,
+        "Arguments": [
+          null,
+          0
+        ],
+        "ArgumentExpressions": [
+          [
+            125,
+            168,
+            28,
+            106,
+            125,
+            1,
+            0,
+            21,
+            127
+          ],
+          null
+        ]
+      },
+      {
+        "Offset": 497,
+        "NextOffset": 501,
+        "Opcode": 63,
+        "Arguments": [
+          0,
+          0
+        ],
+        "ArgumentExpressions": [
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 501,
+        "NextOffset": 505,
+        "Opcode": 64,
+        "Arguments": [
+          7336
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 505,
+        "NextOffset": 506,
+        "Opcode": 65,
+        "Arguments": [],
+        "ArgumentExpressions": []
+      },
+      {
+        "Offset": 506,
+        "NextOffset": 510,
+        "Opcode": 61,
+        "Arguments": [
+          0,
+          255
+        ],
+        "ArgumentExpressions": [
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 510,
+        "NextOffset": 515,
+        "Opcode": 20,
+        "Arguments": [
+          2,
+          250,
+          15
+        ],
+        "ArgumentExpressions": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "Offset": 515,
+        "NextOffset": 523,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            197,
+            158,
+            125,
+            1,
+            0,
+            44,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 523,
+        "NextOffset": 531,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            197,
+            159,
+            125,
+            1,
+            0,
+            32,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 531,
+        "NextOffset": 534,
+        "Opcode": 2,
+        "Arguments": [
+          27
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 534,
+        "NextOffset": 542,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            197,
+            156,
+            125,
+            0,
+            0,
+            32,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 542,
+        "NextOffset": 545,
+        "Opcode": 2,
+        "Arguments": [
+          16
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 545,
+        "NextOffset": 546,
+        "Opcode": 46,
+        "Arguments": [],
+        "ArgumentExpressions": []
+      },
+      {
+        "Offset": 546,
+        "NextOffset": 549,
+        "Opcode": 39,
+        "Arguments": [
+          255
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 549,
+        "NextOffset": 557,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            197,
+            144,
+            125,
+            0,
+            0,
+            32,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 557,
+        "NextOffset": 560,
+        "Opcode": 2,
+        "Arguments": [
+          1
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 560,
+        "NextOffset": 561,
+        "Opcode": 170,
+        "Arguments": [],
+        "ArgumentExpressions": []
+      },
+      {
+        "Offset": 561,
+        "NextOffset": 562,
+        "Opcode": 4,
+        "Arguments": [],
+        "ArgumentExpressions": []
+      }
+    ],
+    "openedFlagGlobalBit": 7172,
+    "readyInstanceByte": 0
+  },
+  "ticketListener": {
+    "field": 104,
+    "entry": 4,
+    "entrySha256": "cd021ee4b7483b7b783e7477c5c9ffac67b67e5de29476232ff3f0bab7cf3c9c",
+    "tag": 3,
+    "note": "Actor intentionally returns; reviewed playerSid7 script owns dialogue.",
+    "Talk": [
+      {
+        "Offset": 280,
+        "NextOffset": 284,
+        "Opcode": 5,
+        "Arguments": [
+          null
+        ],
+        "ArgumentExpressions": [
+          [
+            122,
+            2,
+            127
+          ]
+        ]
+      },
+      {
+        "Offset": 284,
+        "NextOffset": 287,
+        "Opcode": 3,
+        "Arguments": [
+          1
+        ],
+        "ArgumentExpressions": [
+          null
+        ]
+      },
+      {
+        "Offset": 287,
+        "NextOffset": 288,
+        "Opcode": 4,
+        "Arguments": [],
+        "ArgumentExpressions": []
+      },
+      {
+        "Offset": 288,
+        "NextOffset": 289,
+        "Opcode": 4,
+        "Arguments": [],
+        "ArgumentExpressions": []
+      }
+    ]
+  }
+}

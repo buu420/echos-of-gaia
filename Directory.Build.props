@@ -1,0 +1,13 @@
+<Project>
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <EnableDefaultItems>false</EnableDefaultItems>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <Prefer32Bit>false</Prefer32Bit>
+        <EnableGameDeployment Condition="'$(EnableGameDeployment)' == ''">false</EnableGameDeployment>
+        <GameReferenceRoot Condition="'$(GameReferenceRoot)' == ''">$(MSBuildThisFileDirectory)References</GameReferenceRoot>
+        <FF9BuildTaskAssembly Condition="'$(FF9BuildTaskAssembly)' == ''">$(MSBuildThisFileDirectory)References\Memoria.MSBuild.dll</FF9BuildTaskAssembly>
+        <BaseIntermediateOutputPath Condition="'$(FF9StageRoot)' != ''">$(FF9StageRoot)\obj\$(FF9Architecture)\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+        <IntermediateOutputPath Condition="'$(FF9StageRoot)' != ''">$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
+    </PropertyGroup>
+</Project>

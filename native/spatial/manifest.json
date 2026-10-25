@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "version": "4.6.1",
+  "source": "SteamAudio.NET.Natives 4.6.1, Valve Steam Audio",
+  "url": "https://api.nuget.org/v3-flatcontainer/steamaudio.net.natives/4.6.1/steamaudio.net.natives.4.6.1.nupkg",
+  "packageSha256": "50322d2fa5e561c46217f4e778486bb2df3c4ff1ef57793205b2de2311f00b72",
+  "files": [
+    {
+      "architecture": "x86",
+      "file": "x86/Memoria.SpatialAudio.dll",
+      "bytes": 16537600,
+      "sha256": "b4ac8eb6e0e06d63d25daca9e6c37ab7748431833ad4706bbcf813d7b2ace9a7"
+    },
+    {
+      "architecture": "x64",
+      "file": "x64/Memoria.SpatialAudio.dll",
+      "bytes": 29447776,
+      "sha256": "45bd778a10e909b926c20a1ed55f08255fd573d11c05c625bacd4d6ef368eed5"
+    }
+  ]
+}

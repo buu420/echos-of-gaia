@@ -1,0 +1,11 @@
+# FFIX navigation readiness and battle overhead
+
+The player wants autowalk ready when a new map grants control and reports a pause entering battle. Preserve normal scene/control timing, current keys, native terrain checks and player control. Enemy identity is announced only from the game's visible labels/messages; raw enemy records and hidden HP/MP are not presentation evidence.
+
+Observed cause of the remaining world wait: geometry capture begins after CanControl and takes 20 frames; a fresh native world after battle triggers another whole-world rebuild. The 131,072-face regression fixture allocates 270,933,112 bytes using formatted edge keys. Actual live worlds have 268,573 faces. The combat log gap includes battle time and does not measure a freeze. Native input also does unnecessary binding/polling work on battle frames.
+
+Prepare detached triangle batches while the native loader loads the blocks. One cancellable worker incrementally indexes those batches; it publishes only after every block and the current native identity are validated. Reuse one retained pure topology after exact block-content comparison on reload. Never retain destroyed Unity objects through the battle or publish partially loaded/obsolete geometry. Native object/transform access stays on the Unity thread. Fresh rules, native cache, generation and target state remain private to each request. Use numeric quantized edge keys, preserving periodic coordinates, rounded shared-edge identity and nonmanifold adjacency. No navigation work polls battle input.
+
+Record bounded transition timings to distinguish the encounter effect, synchronous scene load, battle initialization and geometry costs. Do not alter battle loading, animation, graphics, combat state or random encounters. Keep existing native target-label speech; remove enemy numeric speech that bypasses displayed Libra/Scan messages.
+
+Acceptance: allocation regression RED/GREEN, incremental readiness/cancellation/reload/private-context tests, exact original Mono x86/x64, native emitted loader/input/target-reader checks, complete build, reviewed package and backed-up deployment. Measure cold-map readiness relative to actual control and one transition when feasible. Do not call a freeze fixed without timing evidence, and state any remaining limitation.

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Integration harness for the central audio-description runtime. It compiles root's ACTUAL runtime
+       sources unchanged and replaces only Unity, game UI, the waveOut device, speech backends and the
+       file-writing log/diagnostic classes with narrow controllable fakes (Fakes/*.cs). -->
+  <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><Nullable>disable</Nullable><NoWarn>CS0067;CS0414;CS0169;CS0649;CS8632</NoWarn></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="*.cs;Fakes/*.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Native/NativeAudioDescriptions.cs" Link="Runtime/NativeAudioDescriptions.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Native/NativeDescriptionPlayback.cs" Link="Runtime/NativeDescriptionPlayback.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Native/NativeDescriptionCatalog.cs" Link="Runtime/NativeDescriptionCatalog.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Core/DescriptionAudioBank.cs" Link="Runtime/DescriptionAudioBank.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Core/MovieDescriptionSession.cs" Link="Runtime/MovieDescriptionSession.cs" />
+    <Compile Include="../../Memoria.ScreenReader/ScreenReaderManager.cs" Link="Runtime/ScreenReaderManager.cs" />
+    <Compile Include="../../Memoria.ScreenReader/ISpeechBackend.cs" Link="Runtime/ISpeechBackend.cs" />
+    <Compile Include="../../Memoria.Prime/GameLoopManager.cs" Link="Runtime/GameLoopManager.cs" />
+    <Compile Include="../../Assembly-CSharp/SimpleJSON/*.cs" Link="Runtime/SimpleJSON/%(Filename).cs" />
+    <Compile Include="../../Memoria.Prime/Text/*.cs;../../Memoria.Prime/Exceptions/*.cs;../../Memoria.Prime/ExtensionMethodsArray.cs;../../Memoria.Prime/ExtensionMethodsIList.cs;../../Memoria.Prime/ExtensionMethodsIEnumerable.cs" Link="Runtime/Prime/%(Filename).cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures/test-catalog.json" LogicalName="Memoria.Accessibility.AudioDescriptions.json" />
+    <None Include="Fixtures/*.wav;Fixtures/*.movie" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
