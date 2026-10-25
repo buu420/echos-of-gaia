@@ -29,6 +29,10 @@ int main(int argc, char** argv) {
     if (!assembly) { fprintf(stderr, "Mono probe assembly could not load\n"); return 2; }
     if (getenv("FF9ACCESS_PROBE_WAIT_TRACE")) Sleep(5000);
     int result = Bind<int(__cdecl*)(void*, void*, int, char**)>(module, "mono_jit_exec")(domain, assembly, argc - 4, argv + 4);
+    // Match Mono's executable host: join foreground threads, stop its thread
+    // pool and finish background-thread detachment before freeing the runtime.
+    // Keep Main's result and the real domain/JIT cleanup, including failures.
+    Bind<void(__cdecl*)(void)>(module, "mono_thread_manage")();
     if (domain != rootDomain) {
         Bind<int(__cdecl*)(void*, int)>(module, "mono_domain_set")(rootDomain, 0);
         Bind<void(__cdecl*)(void*)>(module, "mono_domain_unload")(domain);

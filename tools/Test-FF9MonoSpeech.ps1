@@ -12,6 +12,8 @@ $csc='C:\Windows\Microsoft.NET\Framework64\v3.5\csc.exe'
 if(!(Test-Path -LiteralPath $vcvars) -or !(Test-Path -LiteralPath $csc)){throw 'MSVC and .NET 3.5 compiler required for the exact-runtime probe'}
 & $csc /nologo /target:exe ("/out:"+(Join-Path $probeRoot 'SpeechProbe.exe')) (Join-Path $probeSource 'SpeechProbe.cs') (Join-Path $probeSource 'WorldPlanningProbe.cs') (Join-Path $probeSource 'AudioDescriptionProbe.cs') (Join-Path $probeSource 'SpatialAudioProbe.cs')
 if($LASTEXITCODE -ne 0){throw 'Managed Mono probe did not compile'}
+& $csc /nologo /target:exe ("/out:"+(Join-Path $probeRoot 'ForegroundShutdownProbe.exe')) (Join-Path $probeSource 'ForegroundShutdownProbe.cs')
+if($LASTEXITCODE -ne 0){throw 'Managed Mono foreground shutdown probe did not compile'}
 foreach($arch in @('x86','x64')) {
     $fixture=Join-Path $probeRoot $arch;[void](New-Item -ItemType Directory -Path $fixture)
     Copy-Item -LiteralPath (Join-Path $StageRoot "Game/$arch/Memoria.ScreenReader.dll") -Destination $fixture
@@ -32,6 +34,13 @@ exit /b %errorlevel%
 "@ | Set-Content -LiteralPath $script -Encoding ASCII
     & $env:ComSpec /d /c ('"'+$script+'"')
     if($LASTEXITCODE -ne 0){throw "Native Mono host did not compile: $arch"}
+    $shutdownOutput=@(& (Join-Path $probeRoot "MonoHost-$arch.exe") (Join-Path $GameRoot "$arch/FF9_Data/Mono/mono.dll") (Join-Path $GameRoot "$arch/FF9_Data/Managed") (Join-Path $GameRoot "$arch/FF9_Data/Mono/etc") (Join-Path $probeRoot 'ForegroundShutdownProbe.exe'))
+    $shutdownExit=$LASTEXITCODE
+    $shutdownOutput | ForEach-Object { Write-Output $_ }
+    if($shutdownExit -ne 37 -or $shutdownOutput -cnotcontains 'PASS Mono foreground shutdown: worker completed'){
+        throw "Exact Mono foreground shutdown failed: $arch; managed exit=$shutdownExit (expected 37); foreground completion is required before runtime cleanup"
+    }
+    Write-Output "PASS ExactMonoForegroundShutdown $arch; foreground completion and managed exit 37 preserved"
     & (Join-Path $probeRoot "MonoHost-$arch.exe") (Join-Path $GameRoot "$arch/FF9_Data/Mono/mono.dll") (Join-Path $GameRoot "$arch/FF9_Data/Managed") (Join-Path $GameRoot "$arch/FF9_Data/Mono/etc") (Join-Path $probeRoot 'SpeechProbe.exe') (Join-Path $fixture 'Memoria.ScreenReader.dll') $arch
     if($LASTEXITCODE -ne 0){throw "Exact installed Mono speech probe failed: $arch"}
 }

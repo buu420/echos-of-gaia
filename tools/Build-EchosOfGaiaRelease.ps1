@@ -44,8 +44,17 @@ $null=Assert-EchosOfGaiaRelease $GameRoot $standalone
 $null=Assert-EchosOfGaiaRelease $GameRoot $manager
 $standaloneZip=Join-Path $ReleaseRoot "EchosOfGaia-v$Version-beta-windows.zip"
 $managerZip=Join-Path $ReleaseRoot "EchosOfGaia-v$Version-beta-amm.zip"
+Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-[IO.Compression.ZipFile]::CreateFromDirectory($standalone,$standaloneZip,[IO.Compression.CompressionLevel]::Optimal,$false)
+$standaloneArchive=[IO.Compression.ZipFile]::Open($standaloneZip,[IO.Compression.ZipArchiveMode]::Create)
+try{
+    foreach($file in Get-ChildItem -LiteralPath $standalone -File -Recurse){
+        # Windows PowerShell's Framework ZipFile helper can emit backslashes.
+        # Use canonical ZIP paths explicitly for portable, unambiguous extraction.
+        $relative=$file.FullName.Substring($standalone.Length+1).Replace('\','/')
+        [void][IO.Compression.ZipFileExtensions]::CreateEntryFromFile($standaloneArchive,$file.FullName,$relative,[IO.Compression.CompressionLevel]::Optimal)
+    }
+}finally{$standaloneArchive.Dispose()}
 & $AuthorCli package build --source $manager --game final-fantasy-ix --version $Version --target-platform windows --output $managerZip --project $CatalogRoot --json
 if($LASTEXITCODE -ne 0){throw 'Amethyst package build failed.'}
 $archive=[IO.Compression.ZipFile]::Open($managerZip,[IO.Compression.ZipArchiveMode]::Update)
