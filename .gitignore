@@ -25,6 +25,7 @@ obj/
 /Memoria.Injection/Release/
 /Memoria.Injection/x64/
 .claude/
+.superpowers/
 build.bat
 __pycache__/
 *.py[cod]

@@ -1,8 +1,16 @@
-param([string]$StageRoot='D:\FF9Access\staging\development', [string]$InstalledGameRoot='D:\SteamLibrary\steamapps\common\FINAL FANTASY IX')
+param(
+    [string]$StageRoot='D:\FF9Access\staging\development',
+    [string]$InstalledGameRoot='D:\SteamLibrary\steamapps\common\FINAL FANTASY IX',
+    [string]$FixtureRoot=(Join-Path ([IO.Path]::GetTempPath()) ('ff9dep-'+[guid]::NewGuid().ToString('N').Substring(0,12)))
+)
 $ErrorActionPreference = 'Stop'
 $source = Split-Path $PSScriptRoot -Parent
 . (Join-Path $source 'tools/FF9Access.Deployment.ps1')
-$owned = Join-Path $source ('.superpowers/sdd/2026-10-10-ffix-accessible-navigation/DeploymentFixture-' + [guid]::NewGuid().ToString('N'))
+if($FixtureRoot -notmatch '^(?:[A-Za-z]:[\\/]|\\\\[^\\/]+[\\/][^\\/]+(?:[\\/]|$))'){throw 'FixtureRoot must be a fully qualified absolute directory path'}
+$owned = Resolve-FF9Path $FixtureRoot
+foreach($protectedRoot in @($source,$StageRoot,$InstalledGameRoot)){Assert-FF9SeparatePaths -GameRoot $protectedRoot -OtherRoot $owned}
+if(Test-Path -LiteralPath $owned){throw 'FixtureRoot must be a new directory; retained evidence must not be reused'}
+[void](New-Item -ItemType Directory -Path $owned)
 $game = Join-Path $owned 'game'
 $package = Join-Path $owned 'package'
 $backup = Join-Path $owned 'backups'
@@ -33,6 +41,8 @@ try {RunScript 'Package-FF9Access.ps1' @{StageRoot=$wrongStage;PackageRoot=(Join
 Require $rejected 'Partial build provenance was accepted';Write-Host 'PASS PartialBuildProvenanceRejected'
 # A complete build stamp must also match the actual staged payload bytes.
 $buildManifest.Mode='All';Write-FF9Json (Join-Path $wrongStage 'build-manifest.json') $buildManifest
+$wrongScripts=Join-Path $wrongStage 'Scripts';[void](New-Item -ItemType Directory -Path $wrongScripts)
+Copy-Item -LiteralPath (Join-Path $StageRoot 'Scripts/Memoria.Scripts.dll') -Destination (Join-Path $wrongScripts 'Memoria.Scripts.dll')
 $wrongManaged=Join-Path $wrongStage 'Game/x86';[void](New-Item -ItemType Directory -Path $wrongManaged -Force)
 $coreBytes=[IO.File]::ReadAllBytes((Join-Path $StageRoot 'Game/x86/Assembly-CSharp.dll'))
 $coreBytes[$coreBytes.Length-1]=$coreBytes[$coreBytes.Length-1] -bxor 1
