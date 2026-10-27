@@ -27,6 +27,8 @@ jobs:
         run: dotnet run --project tests/AudioDescriptionIntegration.Tests/AudioDescriptionIntegration.Tests.csproj --configuration Release
       - name: Native navigation context integration
         run: dotnet run --project tests/NavigationContextIntegration.Tests/NavigationContextIntegration.Tests.csproj --configuration Release
+      - name: Ordinary main-menu speech integration
+        run: dotnet run --project tests/MenuSpeechIntegration.Tests/MenuSpeechIntegration.Tests.csproj --configuration Release
       - name: Read-only installation preflight
         shell: powershell
         run: .\tests\ReleasePreflight.Tests.ps1

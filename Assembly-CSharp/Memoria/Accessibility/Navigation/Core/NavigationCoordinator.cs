@@ -13,7 +13,7 @@ namespace Memoria.Accessibility.Navigation
     public sealed class NavigationUpdate
     {
         public NavigationContext Context;public RouteDecision Session;public NavigationTarget Selected;
-        public NavigationCategory Category;public RouteOperation RouteOperation;public bool RequestStatus,RequestRepeat,GuidanceEnabled,MenuOpened,IsPlanning;
+        public NavigationCategory Category;public RouteOperation RouteOperation;public bool RequestStatus,RequestRepeat,GuidanceEnabled,ModifierOpened,IsPlanning;
         public MovementObservation Movement;public string ControllerNaming="Xbox";
         public readonly IList<string> Messages=new List<string>();public readonly IList<string> Diagnostics=new List<string>();
     }
@@ -77,9 +77,10 @@ namespace Memoria.Accessibility.Navigation
                 }else if(command==NavigationCommand.Stop)signal=NavigationSignal.Stop;
                 else if(command==NavigationCommand.ManualMovement)signal=NavigationSignal.ManualMovement;
                 else if(command==NavigationCommand.Confirm)signal=NavigationSignal.Confirm;
-                else if(command==NavigationCommand.MenuOpened){
+                else if(command==NavigationCommand.ModifierOpened){
                     if(_hasSelection && catalog.Find(_selected)==null){_hasSelection=false;SelectFirst(catalog);update.Selected=_hasSelection?catalog.Find(_selected):null;_lost=false;}
-                    signal=NavigationSignal.OpenMenu;update.MenuOpened=true;update.Messages.Add("Navigation menu. "+SelectionText(catalog)+" "+MenuHelp(update.ControllerNaming));
+                    signal=NavigationSignal.OpenMenu;update.ModifierOpened=true;
+                    update.Messages.Add("Navigation. "+SelectionText(catalog)+" "+ModifierHelp(update.ControllerNaming));
                 }
                 else if(command==NavigationCommand.Disconnected) {var disconnected=new NavigationContext{Generation=context.Generation,Foreground=context.Foreground,GateReason=GateReason.Disconnected};Merge(ref decision,Session.Update(disconnected,NavigationSignal.None));update.Messages.Add("Controller disconnected. Navigation paused.");}
                 else if(command==NavigationCommand.Status)update.RequestStatus=true;
@@ -106,7 +107,7 @@ namespace Memoria.Accessibility.Navigation
         public static string SelectionLabel(NavigationTarget target){return target.Label+(target.Evidence==VisibilityEvidence.ObservedFieldLandmark?", last seen":"");}
         private static string Label(NavigationTarget target){return target==null?"the selected target":target.Label;}
         private static NavigationCategory[] Categories(NavigationContext context){return context.LogicalMapKey!=null && context.LogicalMapKey.StartsWith("world:")?new[]{NavigationCategory.Story,NavigationCategory.Towns,NavigationCategory.Regions,NavigationCategory.Vehicles}:new[]{NavigationCategory.Story,NavigationCategory.Exits,NavigationCategory.People,NavigationCategory.Objects,NavigationCategory.Items};}
-        public static string MenuHelp(string naming){return naming=="PlayStation"?"L1 and R1 categories; up and down targets; left status; right repeat; Cross guidance; Square auto-walk; Circle stop; stick-click closes.":naming=="Generic"?"Left and right shoulder categories; up and down targets; left status; right repeat; bottom face button guidance; left face button auto-walk; right face button stop; stick-click closes.":"LB and RB categories; up and down targets; left status; right repeat; A guidance; X auto-walk; B stop; stick-click closes.";}
+        public static string ModifierHelp(string naming){return "D-pad left and right categories; up and down targets; L3 guidance; R3 automatic travel; "+(naming=="PlayStation"?"Circle":naming=="Generic"?"right face button":"B")+" stop. Release the trigger after choosing.";}
         private static void Merge(ref RouteDecision previous,RouteDecision next){next.ReleaseMovement|=previous.ReleaseMovement;next.RequireReplan|=previous.RequireReplan;previous=next;}
         private static bool OnlyInformationalCommands(NavigationCommand[] commands)
         {

@@ -19,7 +19,6 @@ namespace Memoria.Accessibility.Navigation
         private static long _pendingGeneration;
         public static string Diagnostic { get; private set; }
         public static PhysicalInputSnapshot Physical { get; private set; }
-        public static bool MenuOpen { get { EnsureUpdated(); return _broker != null && _broker.MenuOpen; } }
         public static bool IsCapturingController { get { EnsureUpdated(); return _unavailable || (_broker != null && (_broker.CapturedButtons != 0 || _broker.CapturedAxes != 0)); } }
         [DllImport("user32.dll")] private static extern short GetAsyncKeyState(int key);
         public static void EnsureUpdated()
@@ -57,9 +56,9 @@ namespace Memoria.Accessibility.Navigation
                         Log.Message("[FF9Access] {0}", _conflictDiagnostic);
                     }
                 }
-                _broker.MenuButton = Configuration.Accessibility.ControllerMenuButton == "L3" ? NavigationButton.L3 : NavigationButton.R3;
+                _broker.InspectionButton = Configuration.Accessibility.ControllerMenuButton == "L3" ? NavigationButton.L3 : NavigationButton.R3;
                 Diagnostic=_bindingDiagnostic??_conflictDiagnostic;
-                foreach(string key in input.JoystickKeysPrimary)if(_broker.MenuButton!=NavigationButton.None && ControllerKeyBindings.Button(key)==_broker.MenuButton){_broker.MenuButton=NavigationButton.None;Diagnostic="Controller navigation menu conflicts with a game control. Keyboard navigation remains available.";}
+                foreach(string key in input.JoystickKeysPrimary)if(_broker.InspectionButton!=NavigationButton.None && ControllerKeyBindings.Button(key)==_broker.InspectionButton){_broker.InspectionButton=NavigationButton.None;Diagnostic="Hot and Cold status button conflicts with a game control. Keyboard status remains available.";}
                 Physical = ReadPhysical();
                 NavigationContext context = NativeNavigationContext.Read();
                 if (context.Generation != _pendingGeneration) { _pending.Clear(); _pendingGeneration = context.Generation; }
@@ -69,7 +68,7 @@ namespace Memoria.Accessibility.Navigation
                 foreach (NavigationCommand command in commands) {
                     if (command == NavigationCommand.ManualMovement) NavigationLifecycleBridge.Release(StopReason.ManualMovement);
                     else if (command == NavigationCommand.Confirm) NavigationLifecycleBridge.Release(StopReason.Confirm);
-                    else if (command == NavigationCommand.MenuOpened) NavigationLifecycleBridge.Release(StopReason.Menu);
+                    else if (command == NavigationCommand.ModifierOpened) NavigationLifecycleBridge.Release(StopReason.Menu);
                     else if (command == NavigationCommand.Disconnected) NavigationLifecycleBridge.Release(StopReason.Disconnected);
                     else if (command == NavigationCommand.Stop || command == NavigationCommand.PreviousCategory || command == NavigationCommand.NextCategory || command == NavigationCommand.PreviousTarget || command == NavigationCommand.NextTarget) NavigationLifecycleBridge.Release(StopReason.TargetChanged);
                 }
@@ -115,6 +114,8 @@ namespace Memoria.Accessibility.Navigation
                 foreach (KeyCode key in input.InputKeys3) keys.Add(key);
                 snapshot.KeyboardConfirm = RawKey(input.InputKeysPrimary[0]) || RawKey(input.InputKeys2[0]) || RawKey(input.InputKeys3[0]);
                 string confirm=input.JoystickKeysPrimary[(int)Control.Confirm];
+                snapshot.LeftNavigationModifier=ControllerKeyBindings.TriggerAvailable("LeftTrigger",input.JoystickKeysPrimary);
+                snapshot.RightNavigationModifier=ControllerKeyBindings.TriggerAvailable("RightTrigger",input.JoystickKeysPrimary);
                 snapshot.GameConfirmButton=ControllerKeyBindings.Button(confirm);
                 snapshot.GameConfirmExtra=ControllerKeyBindings.TriggerConfirm(confirm,snapshot.LeftTrigger,snapshot.RightTrigger);
                 MarkMovementKey(snapshot,ControlKey(input.InputKeysPrimary,Control.Special));MarkMovementKey(snapshot,ControlKey(input.InputKeys2,Control.Special));MarkMovementKey(snapshot,ControlKey(input.InputKeys3,Control.Special));

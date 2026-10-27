@@ -4,7 +4,7 @@
 Tab = "Accessibility"
 Interval = "Guidance interval"
 ControllerNaming = "Controller button names"
-MenuTrigger = "Controller navigation menu"
+HotColdStatusButton = "Hot and Cold status button"
 Regions = "Announce region changes"
 Save = "Save accessibility settings"
 TestSpeech = "Test speech"

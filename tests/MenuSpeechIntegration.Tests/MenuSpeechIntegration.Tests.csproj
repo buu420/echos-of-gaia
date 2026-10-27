@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Compile the actual main-menu runtime. Only Unity/game services and native speech output
+       are replaced; menu selection, lifecycle gates, and text formatting remain production code. -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <Nullable>disable</Nullable>
+    <NoWarn>CS0067;CS0414;CS0169;CS0649</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="*.cs" />
+    <Compile Include="../../Assembly-CSharp/Global/UI/UIScene.cs" Link="Runtime/UIScene.cs" />
+    <Compile Include="../../Assembly-CSharp/Global/MainMenuUI.cs" Link="Runtime/MainMenuUI.cs" />
+    <Compile Include="../../Assembly-CSharp/Assets/Sources/Scripts/UI/Common/CharacterDetailHUD.cs" Link="Runtime/CharacterDetailHUD.cs" />
+    <Compile Include="../../Memoria.ScreenReader/ScreenReaderManager.cs" Link="Runtime/ScreenReaderManager.cs" />
+    <Compile Include="../../Memoria.ScreenReader/ISpeechBackend.cs" Link="Runtime/ISpeechBackend.cs" />
+  </ItemGroup>
+</Project>

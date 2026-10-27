@@ -55,7 +55,7 @@ namespace Memoria.Accessibility.Navigation
                         Configuration.Accessibility.SaveValues();update.Messages.Add("Guidance interval "+(Configuration.Accessibility.NavigationIntervalMilliseconds/1000f).ToString("0.0")+" seconds.");
                     }
                 }
-                if(update.MenuOpened) {update.Messages.Clear();update.Messages.Add("Navigation menu. "+update.Category+". "+(update.Selected==null?(catalog.UnavailableReason??"No target currently presented."):NavigationCoordinator.SelectionLabel(update.Selected)+".")+" "+NavigationCoordinator.MenuHelp(update.ControllerNaming));}
+                if(update.ModifierOpened) {update.Messages.Clear();update.Messages.Add("Navigation. "+update.Category+". "+(update.Selected==null?(catalog.UnavailableReason??"No target currently presented."):NavigationCoordinator.SelectionLabel(update.Selected)+".")+" "+NavigationCoordinator.ModifierHelp(update.ControllerNaming));}
                 if(update.Session.ReleaseMovement)DetachScene(update.Session.Reason);
                 if(!String.IsNullOrEmpty(NativeNavigationInput.Diagnostic))update.Diagnostics.Add(NativeNavigationInput.Diagnostic);
                 if(_exitReached && context.CanControl){update.Messages.Add("Selected exit reached. "+context.CurrentLocation+".");_exitReached=false;}

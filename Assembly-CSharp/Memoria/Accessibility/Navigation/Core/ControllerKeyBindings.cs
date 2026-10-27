@@ -3,6 +3,15 @@ namespace Memoria.Accessibility.Navigation
 {
     public static class ControllerKeyBindings
     {
+        public static bool TriggerAvailable(string trigger,string[] nativeBindings)
+        {
+            if(nativeBindings==null)return false;
+            // Native face actions and Pause/Select must remain usable when remapped.
+            // Shoulder camera controls are deliberately reserved while browsing.
+            for(int i=0;i<nativeBindings.Length;i++)
+                if((i<4 || i==8 || i==9) && String.Equals(trigger,nativeBindings[i],StringComparison.OrdinalIgnoreCase))return false;
+            return true;
+        }
         public static bool TriggerConfirm(string name,float left,float right) { return name=="LeftTrigger"?left!=0:name=="RightTrigger"?right!=0:false; }
         public static NavigationButton Button(string name)
         {

@@ -131,8 +131,16 @@ internal static class WorldPlanningProbe
         object parse=Type("NavigationBindings").GetMethod("Parse").Invoke(null,new object[]{null});object broker=Create("NavigationInputBroker",Get(parse,"Bindings"));
         Array commands=(Array)broker.GetType().GetMethod("Update").Invoke(broker,new object[]{context,physical});
         Require(commands.Length==1 && commands.GetValue(0).ToString()=="Status","Mono minigame stick click did not read only status");
-        Require(!(bool)broker.GetType().GetProperty("MenuOpen").GetValue(broker,null) && (bool)broker.GetType().GetMethod("FilterButton").Invoke(broker,new object[]{Enum.Parse(Type("NavigationButton"),"Automatic"),true}),"Mono minigame captured digging");
+        Require(!(bool)broker.GetType().GetMethod("FilterButton").Invoke(broker,new object[]{Enum.Parse(Type("NavigationButton"),"R3"),true}),"Mono minigame status click leaked to the game");
+        Require((bool)broker.GetType().GetMethod("FilterButton").Invoke(broker,new object[]{Enum.Parse(Type("NavigationButton"),"Automatic"),true}),"Mono minigame captured digging");
         Require((float)broker.GetType().GetMethod("FilterAxis").Invoke(broker,new object[]{Enum.Parse(Type("NavigationAxis"),"MoveX"),1f})==1f,"Mono minigame captured movement");
+        Set(context,"MinigameInspection",false);Set(context,"CanControl",true);
+        foreach(string click in new[]{"R3","L3"}) {
+            broker=Create("NavigationInputBroker",Get(parse,"Bindings"));physical=Create("PhysicalInputSnapshot");
+            Set(physical,"ControllerConnected",true);Set(physical,"Buttons",Enum.Parse(Type("NavigationButton"),click));
+            commands=(Array)broker.GetType().GetMethod("Update").Invoke(broker,new object[]{context,physical});
+            Require(commands.Length==0 && (bool)broker.GetType().GetMethod("FilterButton").Invoke(broker,new object[]{Enum.Parse(Type("NavigationButton"),click),true}),"Mono standalone stick click opened or captured navigation");
+        }
         Console.WriteLine("PASS Mono Hot and Cold: shown status, UTF-8 cry meaning, visible result, reset and stick-click inspection with dig/movement pass-through; no Unity/input access");
     }
     private static void CheckFieldLandmarks()

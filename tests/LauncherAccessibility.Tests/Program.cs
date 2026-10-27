@@ -34,6 +34,10 @@ internal static class Program
             var tab=(TabItem)window.FindName("AccessibilityTab");TestAssert.True(tab!=null && tab.IsTabStop);tab.IsSelected=true;Pump();
             TestAssert.Equal("Accessibility",UIElementAutomationPeer.CreatePeerForElement(tab).GetName());Pass("AccessibilityTabUsesItsVisibleHeader");
             var panel=(AccessibilitySettingsPanel)window.FindName("AccessibilitySettings");
+            var statusButtonPeer=UIElementAutomationPeer.CreatePeerForElement(panel.HotColdStatusButton);
+            TestAssert.Equal("Hot and Cold status button",statusButtonPeer.GetName());
+            TestAssert.True(statusButtonPeer.GetPattern(PatternInterface.Selection) is ISelectionProvider);
+            Pass("HotColdStatusShortcutHasAnAccurateAccessibleLabel");
             var numericIni=new IniFile("Memoria.ini");numericIni.SetSetting("Accessibility","AnnounceRegionChanges","0");panel.Load(numericIni);
             TestAssert.False(panel.RegionChanges.IsChecked==true);Pass("NativeZeroLoadsRegionAnnouncementsDisabled");
             numericIni.SetSetting("Accessibility","AnnounceRegionChanges","1");panel.Load(numericIni);

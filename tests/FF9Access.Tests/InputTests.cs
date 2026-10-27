@@ -15,46 +15,46 @@ namespace FF9Access.Tests
             TestAssert.False(broker.IsKeyCaptured("P"));
             TestAssert.True(broker.IsKeyCaptured("L"));TestAssert.True(broker.IsKeyCaptured("R"));
             TestAssert.True(broker.FilterButton(NavigationButton.Automatic,true));TestAssert.True(broker.FilterButton(NavigationButton.DpadUp,true));
-            TestAssert.False(broker.MenuOpen);
+
         }
         public static void MinigameStickClickReadsStatusWithoutCapturingDigOrMovement()
         {
             var broker=Broker();var context=TestFixtures.Context();context.CanControl=false;context.CanInspect=true;context.MinigameInspection=true;
             var raw=Pad(NavigationButton.R3|NavigationButton.Automatic|NavigationButton.DpadUp);raw.MoveX=1;
             var commands=broker.Update(context,raw);
-            TestAssert.True(Array.IndexOf(commands,NavigationCommand.Status)>=0);TestAssert.False(broker.MenuOpen);
+            TestAssert.True(Array.IndexOf(commands,NavigationCommand.Status)>=0);
             TestAssert.False(broker.FilterButton(NavigationButton.R3,true));
             TestAssert.True(broker.FilterButton(NavigationButton.Automatic,true));TestAssert.True(broker.FilterButton(NavigationButton.DpadUp,true));
             TestAssert.Near(1,broker.FilterAxis(NavigationAxis.MoveX,1),0);
             TestAssert.False(Array.IndexOf(broker.Update(context,raw),NavigationCommand.Status)>=0);
         }
-        public static void MinigameEntryReleasesMenuMovementCaptureAndDoesNotReplayHeldClick()
+        public static void MinigameEntryReleasesNavigationCaptureAndDoesNotReplayHeldClick()
         {
             var broker=Broker();Open(broker);
-            var raw=Pad(NavigationButton.R3|NavigationButton.Automatic|NavigationButton.DpadUp);raw.MoveX=1;raw.KeysHeld.Add("P");
+            var raw=BrowsePad(NavigationButton.R3|NavigationButton.Automatic|NavigationButton.DpadUp);raw.MoveX=1;raw.KeysHeld.Add("P");
             broker.Update(TestFixtures.Context(),raw);
             var context=TestFixtures.Context();context.CanControl=false;context.CanInspect=true;context.MinigameInspection=true;
             var commands=broker.Update(context,raw);
-            TestAssert.False(broker.MenuOpen);TestAssert.False(Array.IndexOf(commands,NavigationCommand.Status)>=0);
+            TestAssert.False(Array.IndexOf(commands,NavigationCommand.Status)>=0);
             TestAssert.True(broker.FilterButton(NavigationButton.Automatic,true));TestAssert.True(broker.FilterButton(NavigationButton.DpadUp,true));
             TestAssert.Near(1,broker.FilterAxis(NavigationAxis.MoveX,1),0);TestAssert.False(broker.IsKeyCaptured("P"));
         }
         public static void MinigameStatusRespectsConfiguredClickAndForeground()
         {
-            var broker=Broker();broker.MenuButton=NavigationButton.L3;
+            var broker=Broker();broker.InspectionButton=NavigationButton.L3;
             var context=TestFixtures.Context();context.CanControl=false;context.CanInspect=true;context.MinigameInspection=true;
             var commands=broker.Update(context,Pad(NavigationButton.L3));
             TestAssert.True(Array.IndexOf(commands,NavigationCommand.Status)>=0);
             broker.Update(context,Pad());context.Foreground=false;
             TestAssert.False(Array.IndexOf(broker.Update(context,Pad(NavigationButton.R3)),NavigationCommand.Status)>=0);
-            context.Foreground=true;broker.MenuButton=NavigationButton.None;broker.Update(context,Pad());
+            context.Foreground=true;broker.InspectionButton=NavigationButton.None;broker.Update(context,Pad());
             TestAssert.False(Array.IndexOf(broker.Update(context,Pad(NavigationButton.R3|NavigationButton.L3)),NavigationCommand.Status)>=0);
         }
-        public static void MinigameInspectionAlwaysKeepsTheFullNavigationMenuClosed()
+        public static void MinigameInspectionNeverStartsNavigation()
         {
             var broker=Broker();var context=TestFixtures.Context();context.CanInspect=true;context.MinigameInspection=true;
             var commands=broker.Update(context,Pad(NavigationButton.R3|NavigationButton.Automatic));
-            TestAssert.False(broker.MenuOpen);TestAssert.True(Array.IndexOf(commands,NavigationCommand.Status)>=0);
+            TestAssert.True(Array.IndexOf(commands,NavigationCommand.Status)>=0);
             TestAssert.False(Array.IndexOf(commands,NavigationCommand.StartAutomatic)>=0);
             TestAssert.True(broker.FilterButton(NavigationButton.Automatic,true));
         }
@@ -71,15 +71,16 @@ namespace FF9Access.Tests
         }
         private static NavigationInputBroker Broker() { return new NavigationInputBroker(NavigationBindings.Parse(null).Bindings); }
         private static PhysicalInputSnapshot Pad(NavigationButton buttons = NavigationButton.None) { return new PhysicalInputSnapshot { Buttons = buttons, ControllerConnected = true }; }
-        private static void Open(NavigationInputBroker broker) { broker.Update(TestFixtures.Context(), Pad(NavigationButton.R3)); broker.Update(TestFixtures.Context(), Pad()); }
+        private static PhysicalInputSnapshot BrowsePad(NavigationButton buttons=NavigationButton.None) {var raw=Pad(buttons);raw.LeftTrigger=0.8f;return raw;}
+        private static void Open(NavigationInputBroker broker) { broker.Update(TestFixtures.Context(), Pad()); broker.Update(TestFixtures.Context(), BrowsePad()); }
         public static void BattleSuspensionPassesControlsAndSuppressesHeldNavigationOnReturn()
         {
             var broker=Broker();Open(broker);var held=Pad(NavigationButton.R3|NavigationButton.Confirm);held.MoveX=1;held.KeysHeld.Add("P");
             broker.Update(TestFixtures.Context(),held);broker.Suspend();
-            TestAssert.False(broker.MenuOpen);TestAssert.False(broker.CaptureTail);TestAssert.True(broker.FilterButton(NavigationButton.Confirm,true));
+            TestAssert.False(broker.CaptureTail);TestAssert.True(broker.FilterButton(NavigationButton.Confirm,true));
             TestAssert.Near(1,broker.FilterAxis(NavigationAxis.MoveX,1),0);TestAssert.False(broker.IsKeyCaptured("P"));
             var commands=broker.Update(TestFixtures.Context("world:1",2),held);
-            TestAssert.False(Array.IndexOf(commands,NavigationCommand.MenuOpened)>=0);
+            TestAssert.False(Array.IndexOf(commands,NavigationCommand.ModifierOpened)>=0);
             TestAssert.False(Array.IndexOf(commands,NavigationCommand.StartGuidance)>=0);
             TestAssert.False(Array.IndexOf(commands,NavigationCommand.ToggleAutomatic)>=0);
             TestAssert.True(Array.IndexOf(commands,NavigationCommand.ManualMovement)>=0);
@@ -103,12 +104,12 @@ namespace FF9Access.Tests
             TestAssert.Equal(NavigationButton.Confirm,ControllerKeyBindings.Button("JoystickButton0"));
             TestAssert.Equal(NavigationButton.None,ControllerKeyBindings.Button("OtherButton9"));
         }
-        public static void HeldMenuAutoButtonDoesNotCancelItsOwnTravel()
+        public static void HeldModifiedAutoClickDoesNotCancelItsOwnTravel()
         {
-            var broker=Broker();Open(broker);broker.Update(TestFixtures.Context(),Pad(NavigationButton.Automatic));
-            var commands=broker.Update(TestFixtures.Context(),Pad(NavigationButton.Automatic));
+            var broker=Broker();Open(broker);broker.Update(TestFixtures.Context(),BrowsePad(NavigationButton.R3));
+            var commands=broker.Update(TestFixtures.Context(),BrowsePad(NavigationButton.R3));
             TestAssert.False(Array.IndexOf(commands,NavigationCommand.ManualMovement)>=0);
-            commands=broker.Update(TestFixtures.Context(),Pad(NavigationButton.Automatic|NavigationButton.DpadUp));
+            commands=broker.Update(TestFixtures.Context(),Pad(NavigationButton.R3|NavigationButton.DpadUp));
             TestAssert.True(Array.IndexOf(commands,NavigationCommand.ManualMovement)>=0);
         }
         public static void ShiftIntervalDoesNotStartMovement()
@@ -118,23 +119,29 @@ namespace FF9Access.Tests
             TestAssert.Equal(1, commands.Length); TestAssert.Equal(NavigationCommand.IncreaseInterval, commands[0]);
             raw.Shift = false; TestAssert.Equal(0, broker.Update(TestFixtures.Context(), raw).Length);
         }
-        public static void R3IsStickClickNotTilt()
+        public static void R3AutomaticTravelRequiresTheHeldTrigger()
         {
             var broker = Broker(); var raw = Pad(); raw.LookX = 1;
-            broker.Update(TestFixtures.Context(), raw); TestAssert.False(broker.MenuOpen);
-            raw.Buttons = NavigationButton.R3; broker.Update(TestFixtures.Context(), raw); TestAssert.True(broker.MenuOpen);
+            TestAssert.False(Array.IndexOf(broker.Update(TestFixtures.Context(),raw),NavigationCommand.ModifierOpened)>=0);
+            TestAssert.Equal(0,broker.Update(TestFixtures.Context(),Pad(NavigationButton.R3)).Length);
+            broker.Update(TestFixtures.Context(),BrowsePad());
+            TestAssert.True(Array.IndexOf(broker.Update(TestFixtures.Context(),BrowsePad(NavigationButton.R3)),NavigationCommand.StartAutomatic)>=0);
         }
-        public static void CrossReleaseCannotConfirm()
+        public static void ModifiedClickReleaseCannotConfirm()
         {
-            var broker = Broker(); Open(broker); var raw = Pad(NavigationButton.Confirm);
-            TestAssert.True(Array.IndexOf(broker.Update(TestFixtures.Context(), raw), NavigationCommand.StartGuidance) >= 0);
-            TestAssert.False(broker.MenuOpen); TestAssert.False(broker.FilterButton(NavigationButton.Confirm, true)); TestAssert.True(raw.ConfirmPressed);
-            broker.Update(TestFixtures.Context(), Pad()); TestAssert.False(broker.FilterButton(NavigationButton.Confirm, true));
-            broker.Update(TestFixtures.Context(), Pad()); TestAssert.True(broker.FilterButton(NavigationButton.Confirm, true));
+            var broker=Broker();Open(broker);var raw=BrowsePad(NavigationButton.L3);raw.GameConfirmButton=NavigationButton.L3;
+            var commands=broker.Update(TestFixtures.Context(),raw);
+            TestAssert.True(Array.IndexOf(commands,NavigationCommand.StartGuidance)>=0);
+            TestAssert.False(Array.IndexOf(commands,NavigationCommand.Confirm)>=0);TestAssert.False(broker.FilterButton(NavigationButton.L3,true));
+            raw=Pad(NavigationButton.L3);raw.GameConfirmButton=NavigationButton.L3;
+            TestAssert.False(Array.IndexOf(broker.Update(TestFixtures.Context(),raw),NavigationCommand.Confirm)>=0);
+            TestAssert.False(broker.FilterButton(NavigationButton.L3,true));
+            broker.Update(TestFixtures.Context(),Pad());broker.Update(TestFixtures.Context(),Pad());
+            TestAssert.True(broker.FilterButton(NavigationButton.L3,true));
         }
         public static void DirectFieldDpadIsCaptured()
         {
-            var broker = Broker(); Open(broker); broker.Update(TestFixtures.Context(), Pad(NavigationButton.DpadUp));
+            var broker = Broker(); Open(broker); broker.Update(TestFixtures.Context(), BrowsePad(NavigationButton.DpadUp));
             TestAssert.False(broker.FilterButton(NavigationButton.DpadUp, true));
             var raw = new GamePadState.RawState(); raw.Gamepad.wButtons = 0x0001;
             var state = new GamePadState(true, raw, GamePadDeadZone.None);
@@ -155,19 +162,21 @@ namespace FF9Access.Tests
         }
         public static void FocusLossWithAlwaysCaptureRetainsReleaseMask()
         {
-            var broker = Broker(); Open(broker); var raw = Pad(NavigationButton.Confirm); raw.MoveX = 1;
+            var broker = Broker(); Open(broker); var raw = BrowsePad(NavigationButton.Confirm); raw.MoveX = 1;
+            broker.Update(TestFixtures.Context(),raw);
             var context = TestFixtures.Context(); context.Foreground = false;
-            broker.Update(context, raw); TestAssert.False(broker.MenuOpen);
+            broker.Update(context, raw);
             TestAssert.False(broker.FilterButton(NavigationButton.Confirm, true)); TestAssert.Near(0, broker.FilterAxis(NavigationAxis.MoveX, 1), 0);
             context.Foreground = true; broker.Update(context, raw); TestAssert.False(broker.FilterButton(NavigationButton.Confirm, true));
         }
-        public static void HeldKeyboardMovementCannotLeakAfterMenuClose()
+        public static void HeldTriggerDoesNotCaptureUnboundKeyboardMovement()
         {
-            var broker = Broker(); Open(broker); var raw = Pad(NavigationButton.Confirm); raw.KeysHeld.Add("W");
-            broker.Update(TestFixtures.Context(), raw); TestAssert.True(broker.IsKeyCaptured("W"));
-            broker.Update(TestFixtures.Context(), raw); TestAssert.True(broker.IsKeyCaptured("W"));
-            raw.KeysHeld.Clear(); broker.Update(TestFixtures.Context(), raw); TestAssert.True(broker.IsKeyCaptured("W"));
-            broker.Update(TestFixtures.Context(), raw); TestAssert.False(broker.IsKeyCaptured("W"));
+            var broker=Broker();Open(broker);var raw=BrowsePad();raw.KeysHeld.Add("W");raw.MovementKeysHeld.Add("W");raw.KeyboardMovement=true;
+            TestAssert.True(Array.IndexOf(broker.Update(TestFixtures.Context(),raw),NavigationCommand.ManualMovement)>=0);
+            TestAssert.False(broker.IsKeyCaptured("W"));
+            raw.LeftTrigger=0;
+            TestAssert.True(Array.IndexOf(broker.Update(TestFixtures.Context(),raw),NavigationCommand.ManualMovement)>=0);
+            TestAssert.False(broker.IsKeyCaptured("W"));
         }
         public static void ButtonMaskPreservesUncapturedCameraAndPacket()
         {
@@ -191,13 +200,14 @@ namespace FF9Access.Tests
             TestAssert.True(ControllerKeyBindings.TriggerConfirm("RightTrigger",0,0.01f));
             TestAssert.False(ControllerKeyBindings.TriggerConfirm("RightTrigger",0.1f,0));
         }
-        public static void SceneGenerationClosesMenuAndKeepsHeldButtonCapture()
+        public static void SceneGenerationClosesBrowsingAndKeepsHeldButtonCapture()
         {
             var broker = Broker(); Open(broker);
+            broker.Update(TestFixtures.Context(),BrowsePad(NavigationButton.Confirm));
             var next = TestFixtures.Context(generation: 2);
-            var commands = broker.Update(next, Pad(NavigationButton.Confirm));
+            var commands = broker.Update(next, BrowsePad(NavigationButton.Confirm));
             TestAssert.False(Array.IndexOf(commands, NavigationCommand.StartGuidance) >= 0);
-            TestAssert.False(broker.MenuOpen); TestAssert.False(broker.FilterButton(NavigationButton.Confirm, true));
+             TestAssert.False(broker.FilterButton(NavigationButton.Confirm, true));
         }
     }
 }

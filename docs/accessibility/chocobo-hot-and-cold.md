@@ -9,7 +9,7 @@ Move Choco and dig with the game's ordinary controls. The reader speaks the mean
 
 Once the game shows depth, updates say "Depth 80", for example. Rapid pecks keep the latest displayed depth pending instead of queuing old numbers. The found counter is read when it changes. Repeated cries with the same meaning stay quiet after that meaning has been spoken.
 
-Press L for status: shown time remaining, the last displayed cry meaning, depth while its window is shown, and the found count. Press R to repeat the last accepted announcement. These are the normal navigation Status and Repeat bindings and can be changed in the launcher. During this minigame, the configured navigation stick click (R3 by default, optionally L3) reads status directly when it does not conflict with the game's own bindings.
+Press L for status: shown time remaining, the last displayed cry meaning, depth while its window is shown, and the found count. Press R to repeat the last accepted announcement. These are the normal navigation Status and Repeat bindings and can be changed in the launcher. During this minigame, the launcher's Hot and Cold status button (R3 by default, optionally L3) reads status directly when it does not conflict with the game's own bindings.
 
 The ordinary timer, music, sound effects, movement and digging continue normally. Sparse warnings occur when the shown running clock crosses 10 and 5 seconds. Native bonus time rearms those warnings. Item names, inventory-full messages, bonuses, points, totals and beak-level changes are read only after their result dialogs are shown. Results and requested status get priority over passive digging feedback.
 

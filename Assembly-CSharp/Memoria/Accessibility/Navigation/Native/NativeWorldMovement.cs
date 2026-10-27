@@ -23,7 +23,7 @@ namespace Memoria.Accessibility.Navigation
         {
             NativeNavigationInput.EnsureUpdated();if(_owned.Owner==0)return;
             var context=NativeNavigationContext.Read();
-            if(!context.CanControl || ff9.w_frameMenuon || ff9.w_naviMode==2 || !ff9.w_blockReady || ff9.w_cameraInter || NativeNavigationInput.MenuOpen) {ReleaseCurrent(StopReason.UnknownContext);_outcome=new WorldMovementOutcome{Outcome=WorldOutcome.Interrupted,Reason=StopReason.UnknownContext};return;}
+            if(!context.CanControl || ff9.w_frameMenuon || ff9.w_naviMode==2 || !ff9.w_blockReady || ff9.w_cameraInter) {ReleaseCurrent(StopReason.UnknownContext);_outcome=new WorldMovementOutcome{Outcome=WorldOutcome.Interrupted,Reason=StopReason.UnknownContext};return;}
             if(_route.GeometryFingerprint!=NativeWorldGeometry.CurrentFingerprint()){ReleaseCurrent(StopReason.PathInvalid);_outcome=new WorldMovementOutcome{Outcome=WorldOutcome.Interrupted,Reason=StopReason.PathInvalid,Evidence="World terrain form changed"};return;}
             NavigationTarget fresh=_target;
             if(_target.PhysicalIdentity.Kind==TargetKind.Vehicle) {

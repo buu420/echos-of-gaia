@@ -21,7 +21,7 @@ namespace Memoria.Launcher
         public readonly TextBox ExitSoundVolume = new TextBox { MinWidth = 150, MaxLength = 3 };
         public readonly CheckBox NpcSounds,InteractableSounds;
         public readonly TextBox NpcSoundVolume = new TextBox { MinWidth = 150, MaxLength = 3 },InteractableSoundVolume = new TextBox { MinWidth = 150, MaxLength = 3 };
-        public readonly ComboBox Interval = new ComboBox(), ControllerNaming = new ComboBox(), MenuTrigger = new ComboBox();
+        public readonly ComboBox Interval = new ComboBox(), ControllerNaming = new ComboBox(), HotColdStatusButton = new ComboBox();
         public readonly AccessibleStatus Status = new AccessibleStatus();
         private static readonly string[] Labels = { "Previous category", "Next category", "Previous target", "Next target", "Navigation status", "Toggle spoken guidance", "Toggle automatic walking", "Repeat speech", "Decrease guidance interval", "Increase guidance interval" };
 
@@ -40,8 +40,8 @@ namespace Memoria.Launcher
             AddRow(Text("Interval", "Guidance interval"), Interval, "GuidanceInterval");
             foreach (string value in new[] { "Xbox", "PlayStation", "Generic" }) ControllerNaming.Items.Add(value);
             AddRow(Text("ControllerNaming", "Controller button names"), ControllerNaming, "ControllerNaming");
-            foreach (string value in new[] { "R3", "L3" }) MenuTrigger.Items.Add(value);
-            AddRow(Text("MenuTrigger", "Controller navigation menu"), MenuTrigger, "ControllerMenuButton");
+            foreach (string value in new[] { "R3", "L3" }) HotColdStatusButton.Items.Add(value);
+            AddRow(Text("HotColdStatusButton", "Hot and Cold status button"), HotColdStatusButton, "ControllerMenuButton");
             RegionChanges = new CheckBox { Content = Text("Regions", "Announce region changes"), Margin = new Thickness(0, 8, 0, 8) };
             AutomationProperties.SetName(RegionChanges, RegionChanges.Content.ToString());
             AutomationProperties.SetAutomationId(RegionChanges, "AnnounceRegionChanges");
@@ -123,8 +123,8 @@ namespace Memoria.Launcher
             InteractableSoundVolume.Text = ini.GetSetting("Accessibility", "FieldInteractableSoundVolume", "100");
             ControllerNaming.SelectedItem = ini.GetSetting("Accessibility", "ControllerNaming", "Xbox");
             if (ControllerNaming.SelectedIndex < 0) ControllerNaming.SelectedIndex = 0;
-            MenuTrigger.SelectedItem = ini.GetSetting("Accessibility", "ControllerMenuButton", "R3");
-            if (MenuTrigger.SelectedIndex < 0) MenuTrigger.SelectedIndex = 0;
+            HotColdStatusButton.SelectedItem = ini.GetSetting("Accessibility", "ControllerMenuButton", "R3");
+            if (HotColdStatusButton.SelectedIndex < 0) HotColdStatusButton.SelectedIndex = 0;
             if (!parsed.Success) Status.Report(parsed.Error + ". The saved bindings were preserved; defaults are displayed for editing.", true);
         }
 
@@ -135,7 +135,7 @@ namespace Memoria.Launcher
             if (!parsed.Success) { validationMessage = parsed.Error; return false; }
             var conflicts = parsed.Bindings.FindConflicts(DefaultGameBindings());
             if (conflicts.Count > 0) { validationMessage = conflicts[0].ToString() + ". Choose a different key."; return false; }
-            if (Interval.SelectedIndex < 0 || ControllerNaming.SelectedIndex < 0 || MenuTrigger.SelectedIndex < 0)
+            if (Interval.SelectedIndex < 0 || ControllerNaming.SelectedIndex < 0 || HotColdStatusButton.SelectedIndex < 0)
             { validationMessage = "Choose a guidance interval and controller options."; return false; }
             int descriptionVolume;
             if (!Int32.TryParse(DescriptionVolume.Text, NumberStyles.Integer, CultureInfo.InvariantCulture, out descriptionVolume) || descriptionVolume < 0 || descriptionVolume > 200)
@@ -162,7 +162,7 @@ namespace Memoria.Launcher
                     { "FieldInteractableSounds", InteractableSounds.IsChecked == true ? "1" : "0" },
                     { "FieldInteractableSoundVolume", interactableVolume.ToString(CultureInfo.InvariantCulture) },
                     { "ControllerNaming", (string)ControllerNaming.SelectedItem },
-                    { "ControllerMenuButton", (string)MenuTrigger.SelectedItem }
+                    { "ControllerMenuButton", (string)HotColdStatusButton.SelectedItem }
                 };
                 ini.SaveSection("Accessibility", values);
                 validationMessage = "Accessibility settings saved. Restart the game to apply changed bindings. Custom game controls are checked again in the game.";

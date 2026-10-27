@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 namespace Memoria.Accessibility.Navigation
 {
-    public enum NavigationCommand { PreviousCategory, NextCategory, PreviousTarget, NextTarget, Status, ToggleGuidance, ToggleAutomatic, Repeat, DecreaseInterval, IncreaseInterval, MenuOpened, MenuClosed, StartGuidance, StartAutomatic, Stop, ManualMovement, Confirm, Disconnected }
+    // Values 10 and 11 belonged to the removed standalone controller menu.
+    public enum NavigationCommand { PreviousCategory, NextCategory, PreviousTarget, NextTarget, Status, ToggleGuidance, ToggleAutomatic, Repeat, DecreaseInterval, IncreaseInterval, StartGuidance=12, StartAutomatic, Stop, ManualMovement, Confirm, Disconnected, ModifierOpened }
     [Flags]
     public enum NavigationButton : uint { None = 0, DpadUp = 1, DpadDown = 2, DpadLeft = 4, DpadRight = 8, Start = 16, Back = 32, L3 = 64, R3 = 128, L1 = 256, R1 = 512, Guide = 1024, Confirm = 4096, Cancel = 8192, Automatic = 16384, OtherFace = 32768, All = 0xffff }
     [Flags]
@@ -17,6 +18,7 @@ namespace Memoria.Accessibility.Navigation
         public readonly HashSet<string> MovementKeysHeld = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         public bool Shift, Control, Alt, ControllerConnected, KeyboardMovement, KeyboardConfirm;
         public float MoveX, MoveY, LookX, LookY, LeftTrigger, RightTrigger;
+        public bool LeftNavigationModifier=true,RightNavigationModifier=true;
         public bool ConfirmPressed { get { return (Buttons & NavigationButton.Confirm) != 0; } }
         public string Gesture(string key) { return (Control ? "Ctrl+" : "") + (Alt ? "Alt+" : "") + (Shift ? "Shift+" : "") + NavigationBindings.NormalizeKey(key); }
         public uint ActiveAxes {

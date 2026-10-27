@@ -5,7 +5,9 @@ using Assets.Sources.Scripts.UI.Common;
 using Memoria;
 using Memoria.Assets;
 using Memoria.Data;
+using Memoria.Prime;
 using Memoria.Scenes;
+using Memoria.ScreenReader;
 using UnityEngine;
 
 public class MainMenuUI : UIScene
@@ -37,9 +39,18 @@ public class MainMenuUI : UIScene
 
     public override void Show(UIScene.SceneVoidDelegate afterFinished = null)
     {
+        Int32 speechPresentation = ++this.screenReaderPresentation;
+        this.screenReaderOpen = true;
+        this.screenReaderBuilding = true;
+        this.screenReaderSelectionPending = true;
+        this.screenReaderFadeReady = false;
+        this.screenReaderCharactersReady = !this.isNeedCharacterTween;
+        this.screenReaderNextRetryAt = 0f;
         UIScene.SceneVoidDelegate afterShowAction = delegate
         {
             this.AfterShowCharacter();
+            if (speechPresentation == this.screenReaderPresentation)
+                this.screenReaderFadeReady = true;
         };
         if (afterFinished != null)
             afterShowAction += afterFinished;
@@ -59,6 +70,8 @@ public class MainMenuUI : UIScene
             this.characterTransition.TweenIn([0, 1, 2, 3], delegate
             {
                 base.Loading = false;
+                if (speechPresentation == this.screenReaderPresentation)
+                    this.screenReaderCharactersReady = true;
             });
         }
         this.ItemSubMenu.GetComponentInChildren<UILabel>().color = IsSubMenuEnabled(SubMenu.Item) ? FF9TextTool.White : FF9TextTool.Gray;
@@ -72,10 +85,15 @@ public class MainMenuUI : UIScene
             this.PartySubMenu.GetComponentInChildren<UILabel>().color = IsSubMenuEnabled(SubMenu.Party) ? FF9TextTool.White : FF9TextTool.Gray;
         if (!UIManager.IsUIStateMenu(PersistenSingleton<UIManager>.Instance.PreviousState))
             ImpactfulActionCount = 0;
+        this.screenReaderBuilding = false;
+        Log.Message($"[FF9Access] Main-menu opening: presentation={speechPresentation}; characterTween={this.isNeedCharacterTween}");
     }
 
     public override void Hide(UIScene.SceneVoidDelegate afterFinished = null)
     {
+        this.screenReaderOpen = false;
+        this.screenReaderSelectionPending = false;
+        ++this.screenReaderPresentation;
         UIScene.SceneVoidDelegate afterHideAction = delegate
         {
             MainMenuUI.UIControlPanel?.ExitMenu();
@@ -337,6 +355,11 @@ public class MainMenuUI : UIScene
 
     public override Boolean OnItemSelect(GameObject go)
     {
+        if (this.screenReaderOpen && this.IsCurrentMainMenu() && this.IsMainMenuSpeechSelection(go))
+        {
+            this.screenReaderSelectionPending = true;
+            Log.Message($"[FF9Access] Main-menu selection: presentation={this.screenReaderPresentation}; group={ButtonGroupState.ActiveGroup}; object={go.name}; loading={base.Loading}; ready={this.IsMainMenuSpeechReady()}");
+        }
         if (base.OnItemSelect(go))
         {
             if (ButtonGroupState.ActiveGroup == MainMenuUI.CharacterGroupButton)
@@ -353,6 +376,147 @@ public class MainMenuUI : UIScene
             }
         }
         return true;
+    }
+
+    // The menu fade and character bars finish independently. Loading can be cleared by either
+    // callback, so it cannot establish that the whole menu is ready to read.
+    private Boolean IsMainMenuSpeechReady()
+    {
+        return this.screenReaderOpen && !this.screenReaderBuilding && this.screenReaderFadeReady
+            && this.screenReaderCharactersReady && !base.Loading && this.isActiveAndEnabled
+            && HonoInputManager.ApplicationIsActivated() && this.IsCurrentMainMenu();
+    }
+
+    private Boolean IsCurrentMainMenu()
+    {
+        UIManager manager = PersistenSingleton<UIManager>.Instance;
+        return manager.State == UIManager.UIState.MainMenu && manager.GetSceneFromState(manager.State) == this;
+    }
+
+    private Boolean IsMainMenuSpeechSelection(GameObject go)
+    {
+        if (go == null || !go.activeInHierarchy || go != ButtonGroupState.ActiveButton)
+            return false;
+        if (this.GetSubMenuFromGameObject(go) != SubMenu.None)
+            return true;
+        for (Int32 i = 0; i < this.CharacterHUDList.Count; i++)
+            if (go == this.CharacterHUDList[i].Self || (i < this.CharacterOrderGameObjectList.Count && go == this.CharacterOrderGameObjectList[i]))
+                return true;
+        return false;
+    }
+
+    protected override void AnnounceButtonForScreenReader(GameObject go)
+    {
+        if (!this.screenReaderOpen || !this.IsCurrentMainMenu() || !this.IsMainMenuSpeechSelection(go))
+            return;
+        if (!this.IsMainMenuSpeechReady() || Time.realtimeSinceStartup < this.screenReaderNextRetryAt)
+        {
+            this.screenReaderSelectionPending = true;
+            return;
+        }
+        try
+        {
+            String announcement = this.GetButtonText(go);
+            if (String.IsNullOrEmpty(announcement))
+            {
+                this.screenReaderSelectionPending = true;
+                this.screenReaderNextRetryAt = Time.realtimeSinceStartup + 1f;
+                Log.Message($"[FF9Access] Main-menu speech: presentation={this.screenReaderPresentation}; group={ButtonGroupState.ActiveGroup}; object={go.name}; textLength=0");
+                return;
+            }
+            if (this.IsButtonDisabled(go))
+                announcement += ", disabled";
+            Boolean accepted = ScreenReaderManager.Instance.TrySpeak(announcement, false);
+            this.screenReaderSelectionPending = !accepted;
+            this.screenReaderNextRetryAt = accepted ? 0f : Time.realtimeSinceStartup + 1f;
+            Log.Message($"[FF9Access] Main-menu speech: presentation={this.screenReaderPresentation}; group={ButtonGroupState.ActiveGroup}; object={go.name}; textLength={announcement.Length}; accepted={accepted}; backend={ScreenReaderManager.Instance.BackendDiagnostic}");
+        }
+        catch (Exception error)
+        {
+            this.screenReaderSelectionPending = true;
+            this.screenReaderNextRetryAt = Time.realtimeSinceStartup + 1f;
+            Log.Error("Main-menu screen reader announcement failed: " + error.Message);
+        }
+    }
+
+    protected override String GetButtonText(GameObject go)
+    {
+        if (go == null)
+            return null;
+        UIWidget selectedWidget = go.GetComponent<UIWidget>();
+        if (selectedWidget != null && (!selectedWidget.isActiveAndEnabled || selectedWidget.CalculateFinalAlpha(Time.frameCount) <= 0f))
+            return null;
+        if (this.GetSubMenuFromGameObject(go) != SubMenu.None)
+            return GetDisplayedLabelText(go.GetComponentInChildren<UILabel>());
+        for (Int32 i = 0; i < this.CharacterHUDList.Count; i++)
+        {
+            CharacterDetailHUD hud = this.CharacterHUDList[i];
+            if (go != hud.Self && (i >= this.CharacterOrderGameObjectList.Count || go != this.CharacterOrderGameObjectList[i]))
+                continue;
+            // Order targets are siblings of Content, not ancestors of its labels. Empty slots
+            // have their entire Content object hidden; never read the stale labels under it.
+            if (!hud.Content.activeInHierarchy)
+                return "Empty slot";
+            List<String> parts = new List<String>();
+            AddDisplayedLabel(parts, null, hud.NameLabel);
+            AddDisplayedLabel(parts, "Level ", hud.LvLabel);
+            AddDisplayedPoint(parts, "HP", hud.HPLabel, hud.HPMaxLabel);
+            AddDisplayedPoint(parts, "MP", hud.MPLabel, hud.MPMaxLabel);
+            AddDisplayedPoint(parts, "Magic stones", hud.MagicStoneLabel, hud.MagicStoneMaxLabel);
+            if (hud.AvatarSprite != null && hud.AvatarSprite.isActiveAndEnabled && hud.AvatarSprite.CalculateFinalAlpha(Time.frameCount) > 0f)
+            {
+                Single rowX = hud.AvatarSprite.transform.localPosition.x;
+                if (Math.Abs(rowX - this.FrontRowPosition.x) < 0.01f)
+                    parts.Add("front row");
+                else if (Math.Abs(rowX - this.BackRowPosition.x) < 0.01f)
+                    parts.Add("back row");
+            }
+            if (hud.StatusesSpriteList != null && BattleHUD.DebuffIconNames != null)
+                foreach (UISprite sprite in hud.StatusesSpriteList)
+                {
+                    if (sprite == null || !sprite.isActiveAndEnabled || sprite.CalculateFinalAlpha(Time.frameCount) <= 0f)
+                        continue;
+                    foreach (KeyValuePair<BattleStatusId, String> statusIcon in BattleHUD.DebuffIconNames)
+                        if (statusIcon.Value == sprite.spriteName)
+                        {
+                            parts.Add(statusIcon.Key.ToString());
+                            break;
+                        }
+                }
+            return String.Join(", ", parts.ToArray());
+        }
+        return null;
+    }
+
+    protected override Boolean IsButtonDisabled(GameObject go)
+    {
+        SubMenu subMenu = this.GetSubMenuFromGameObject(go);
+        return subMenu != SubMenu.None ? !this.IsSubMenuEnabled(subMenu) : base.IsButtonDisabled(go);
+    }
+
+    private static String GetDisplayedLabelText(UILabel label)
+    {
+        if (label == null || !label.isActiveAndEnabled || label.CalculateFinalAlpha(Time.frameCount) <= 0f)
+            return null;
+        // Resolve variable/name tags through the same parser as the visible label. Do not look
+        // up UILocalize.key again: OnLocalize and interface patches have already set this text.
+        label.Parser.Parse(TextParser.ParseStep.VariableReplaceTags);
+        return FF9TextTool.RemoveOpCode(label.Parser.ParsedText).Trim();
+    }
+
+    private static void AddDisplayedLabel(List<String> parts, String prefix, UILabel label)
+    {
+        String text = GetDisplayedLabelText(label);
+        if (!String.IsNullOrEmpty(text))
+            parts.Add(prefix + text);
+    }
+
+    private static void AddDisplayedPoint(List<String> parts, String caption, UILabel current, UILabel maximum)
+    {
+        String currentText = GetDisplayedLabelText(current);
+        String maximumText = GetDisplayedLabelText(maximum);
+        if (!String.IsNullOrEmpty(currentText) && !String.IsNullOrEmpty(maximumText))
+            parts.Add($"{caption} {currentText} of {maximumText}");
     }
 
     public Boolean IsSubMenuEnabled(MainMenuUI.SubMenu subMenu)
@@ -661,6 +825,13 @@ public class MainMenuUI : UIScene
     {
         FF9StateSystem.Settings.UpdateTickTime();
         this.DisplayTime(false);
+        if (this.screenReaderSelectionPending)
+        {
+            if (!this.screenReaderOpen || !this.isActiveAndEnabled || !this.IsCurrentMainMenu())
+                this.screenReaderSelectionPending = false;
+            else if (this.IsMainMenuSpeechReady())
+                this.AnnounceButtonForScreenReader(ButtonGroupState.ActiveButton);
+        }
     }
 
     private void OnGUI()
@@ -799,6 +970,14 @@ public class MainMenuUI : UIScene
 
     private Boolean isNeedCharacterTween = true;
     private Boolean isNeedHideSubMenu = true;
+
+    [NonSerialized] private Int32 screenReaderPresentation;
+    [NonSerialized] private Boolean screenReaderOpen;
+    [NonSerialized] private Boolean screenReaderBuilding;
+    [NonSerialized] private Boolean screenReaderSelectionPending;
+    [NonSerialized] private Boolean screenReaderFadeReady;
+    [NonSerialized] private Boolean screenReaderCharactersReady;
+    [NonSerialized] private Single screenReaderNextRetryAt;
 
     private MainMenuUI.SubMenu currentMenu;
     private Int32 currentCharacterIndex = -1;

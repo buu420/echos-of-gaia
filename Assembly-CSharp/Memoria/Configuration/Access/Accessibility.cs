@@ -10,6 +10,7 @@ namespace Memoria
             public static Int32 NavigationIntervalMilliseconds { get => Memoria.Accessibility.Navigation.NavigationControls.IntervalMilliseconds(Instance._accessibility.NavigationIntervalMilliseconds, Instance._accessibility.NavigationUpdateInterval); set => Instance._accessibility.NavigationIntervalMilliseconds.Value = Memoria.Accessibility.Navigation.NavigationControls.IntervalMilliseconds(value, 1); }
             public static Boolean AnnounceRegionChanges { get => Memoria.Accessibility.Navigation.NavigationControls.RegionAnnouncements(Instance._accessibility.AnnounceRegionChanges); set => Instance._accessibility.AnnounceRegionChanges.Value = value ? "1" : "0"; }
             public static String ControllerNaming { get => Instance._accessibility.ControllerNaming; set => Instance._accessibility.ControllerNaming.Value = value; }
+            // Retain the existing INI key for the Hot and Cold status shortcut only.
             public static String ControllerMenuButton { get => Instance._accessibility.ControllerMenuButton; set => Instance._accessibility.ControllerMenuButton.Value = value; }
             public static Boolean WorldMapFootsteps { get => Instance._accessibility.WorldMapFootsteps; set => Instance._accessibility.WorldMapFootsteps.Value = value; }
             public static Int32 WorldMapFootstepVolume { get => Math.Max(0, Math.Min(400, Instance._accessibility.WorldMapFootstepVolume.Value)); set => Instance._accessibility.WorldMapFootstepVolume.Value = Math.Max(0, Math.Min(400, value)); }

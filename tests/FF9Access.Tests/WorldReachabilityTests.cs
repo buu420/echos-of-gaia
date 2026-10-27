@@ -75,7 +75,7 @@ namespace FF9Access.Tests
         {
             var result=WorldTargetCatalog.Filter(Context(),Catalog(Target(1,4)),Strip(complete:false),null);
             TestAssert.Equal(0,result.Targets.Count);TestAssert.True(!string.IsNullOrEmpty(result.UnavailableReason));
-            var update=new NavigationCoordinator().Tick(Context(),new[]{NavigationCommand.MenuOpened},result,null);
+            var update=new NavigationCoordinator().Tick(Context(),new[]{NavigationCommand.ModifierOpened},result,null);
             TestAssert.True(update.Messages[0].Contains(result.UnavailableReason));
         }
         public static void OldVehicleRulesCannotBeAppliedToNewTransport()
@@ -129,8 +129,8 @@ namespace FF9Access.Tests
         public static void MenuReopenedInAnotherAreaSelectsAnEligibleDestination()
         {
             var coordinator=new NavigationCoordinator();var geometry=Strip();
-            coordinator.Tick(Context(),new[]{NavigationCommand.MenuOpened},Filter(Context(),geometry,Target(1,4),Target(2,36)),null);
-            var update=coordinator.Tick(Context(36),new[]{NavigationCommand.MenuOpened},Filter(Context(36),geometry,Target(1,4),Target(2,36)),null);
+            coordinator.Tick(Context(),new[]{NavigationCommand.ModifierOpened},Filter(Context(),geometry,Target(1,4),Target(2,36)),null);
+            var update=coordinator.Tick(Context(36),new[]{NavigationCommand.ModifierOpened},Filter(Context(36),geometry,Target(1,4),Target(2,36)),null);
             TestAssert.True(update.Selected!=null);TestAssert.Equal(2,update.Selected.Id.NativeId);
         }
         public static void TownMarkerOnExcludedBuildingKeepsItsGroundApproach()

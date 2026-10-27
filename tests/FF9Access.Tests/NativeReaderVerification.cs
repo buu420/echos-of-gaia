@@ -461,6 +461,7 @@ namespace FF9Access.Tests
                     "Dialog|AnnounceDialogForScreenReader|NativeDisplayedIdentity.Observe",
                     "Memoria.Accessibility.Navigation.NativeNavigationInput|ReadPhysical|ControllerKeyBindings.Button",
                     "Memoria.Accessibility.Navigation.NativeNavigationInput|ReadPhysical|ControllerKeyBindings.TriggerConfirm",
+                    "Memoria.Accessibility.Navigation.NativeNavigationInput|ReadPhysical|ControllerKeyBindings.TriggerAvailable",
                     "Memoria.Accessibility.Navigation.NavigationRuntime|ReadMovement|GuidanceRouteValidation.Check",
                     "Memoria.Accessibility.Navigation.NavigationRuntime|ReadMovement|GuidanceRouteValidation.WorldLeg",
                     "WMPad|CollectInput|NativeNavigationInput.get_IsCapturingController",

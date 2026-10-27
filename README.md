@@ -5,12 +5,12 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.0 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.0)**
+**[Download 0.1.1 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.1)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
 
-This first public beta includes the current navigation, screen reader and
+This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing; this release does not establish a complete accessible playthrough.
 
@@ -62,7 +62,7 @@ Use the manager to update or uninstall a manager installation.
 
 For a standalone installation:
 
-1. Download and extract EchosOfGaia-v0.1.0-beta-windows.zip into a separate
+1. Download and extract EchosOfGaia-v0.1.1-beta-windows.zip into a separate
    folder outside the game directory.
 2. Open PowerShell there and run:
 
@@ -103,10 +103,15 @@ or the manager.
 | R | Repeat the last accepted speech |
 | Shift+I / Shift+P | Decrease / increase guidance interval |
 
-R3 opens the controller navigation menu by default; L3 can be selected in the
-launcher. LB/RB change categories, D-pad up/down select targets, left reads
-status, right repeats, A starts guidance, X starts automatic travel, and B
-closes/stops. Existing native battle controls retain their normal meaning.
+Hold either L2/LT or R2/RT for Blind Soldier's navigation controls: D-pad
+left/right changes category, up/down selects a target, L3 starts spoken guidance,
+R3 starts automatic travel, and Circle/B stops. Release the trigger after choosing.
+If a trigger is assigned to a core game action, use the other trigger or the
+keyboard navigation controls.
+
+Controller navigation uses the held-trigger controls. L3 and R3 are stick clicks.
+In Hot and Cold, R3 reads status; its status button can be changed to L3 in the
+launcher. Existing native battle controls retain their normal meaning.
 
 **Continue loads the automatic checkpoint.** Use **Load** for a manual save;
 testing New Game can replace the automatic checkpoint. Full controls and
