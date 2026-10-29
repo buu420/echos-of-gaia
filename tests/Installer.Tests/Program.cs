@@ -16,12 +16,14 @@ internal static class Program
     private static int count;
     private static int failures;
     private static string root;
+    private static string parentModulePath;
 
     [STAThread]
     private static int Main(string[] args)
     {
         if (args.Length == 3 && args[0] == "--service-fixture")
             return Finish(InstallerService.RunAsync(args[1], args[2], Console.WriteLine));
+        if (args.Length == 2 && args[0] == "--parent-modules") parentModulePath = args[1];
         Application.EnableVisualStyles();
         Control.CheckForIllegalCrossThreadCalls = true;
         root = Path.Combine(Path.GetTempPath(), "Gaia installer é & $ ` (test)'s " + Guid.NewGuid().ToString("N"));
@@ -31,6 +33,7 @@ internal static class Program
             Run("literal selected folder and both output streams", LiteralPath);
             Run("smart Unicode apostrophes stay literal", SmartQuotes);
             Run("nonzero child exit stays a failure", FailureExit);
+            Run("parent module paths cannot override installer commands", BuiltinModules);
             Run("large concurrent output drains without deadlock", LargeOutput);
             Run("missing installer refuses before execution", MissingInstaller);
             Run("nonexistent selected folder refuses before execution", MissingGame);
@@ -74,6 +77,7 @@ internal static class Program
         Check(lines.Contains("selected=" + root), "The selected path was changed, truncated, interpreted or misdecoded");
         Check(lines.Contains("fixture diagnostic"), "stderr was lost");
         Check(lines.Contains("host progress") && lines.Contains("pipeline progress"), "Installer progress was serialized instead of readable text: " + string.Join(" | ", lines));
+        Check(!lines.Any(line => line.Contains("<Objs") || line.StartsWith("#< CLIXML", StringComparison.Ordinal)), "Host progress leaked serialized PowerShell objects into the readable log");
     }
     private static void FailureExit()
     {
@@ -81,6 +85,21 @@ internal static class Program
         var lines = new List<string>();
         Check(Finish(InstallerService.RunAsync(package, root, lines.Add)) == 17, "Nonzero child exit was hidden");
         Check(lines.Contains("fixture failure"), "Failure details were lost");
+    }
+    private static void BuiltinModules()
+    {
+        string package = Fixture("$hash=Get-FileHash -LiteralPath $PSCommandPath -Algorithm SHA256\r\n[Console]::WriteLine('hash='+$hash.Hash)\r\nexit 0");
+        string inherited = Environment.GetEnvironmentVariable("PSModulePath");
+        try
+        {
+            // Preserve the originating shell's paths as explicit test input;
+            // PowerShell can normalize its environment when launching a Framework EXE.
+            Environment.SetEnvironmentVariable("PSModulePath", parentModulePath ?? inherited);
+            var lines = new List<string>();
+            Check(Finish(InstallerService.RunAsync(package, root, lines.Add)) == 0 && lines.Any(line => line.StartsWith("hash=", StringComparison.Ordinal) && line.Length == 69),
+                "Installer inherited incompatible parent-shell modules: " + string.Join(" | ", lines));
+        }
+        finally { Environment.SetEnvironmentVariable("PSModulePath", inherited); }
     }
     private static void SmartQuotes()
     {

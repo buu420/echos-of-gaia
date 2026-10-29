@@ -49,11 +49,12 @@ namespace EchosOfGaia.Installer
                     "[Console]::OutputEncoding=New-Object System.Text.UTF8Encoding($false); " +
                     "$gaiaScript=[Text.Encoding]::Unicode.GetString([Convert]::FromBase64String('" + scriptValue + "')); " +
                     "$gaiaGame=[Text.Encoding]::Unicode.GetString([Convert]::FromBase64String('" + gameValue + "')); " +
-                    "try { & $gaiaScript -GameFolder $gaiaGame; $ok=$?; if (!$ok) { if ($LASTEXITCODE) { exit $LASTEXITCODE }; exit 1 }; exit 0 } catch { [Console]::Error.WriteLine($_.Exception.Message); exit 1 }";
+                    "try { & $gaiaScript -GameFolder $gaiaGame 6>&1 | ForEach-Object { [Console]::Out.WriteLine($_.ToString()) }; " +
+                    "$ok=$?; if ($LASTEXITCODE) { exit $LASTEXITCODE }; if (!$ok) { exit 1 }; exit 0 } catch { [Console]::Error.WriteLine($_.Exception.Message); exit 1 }";
                 var start = new ProcessStartInfo
                 {
                     FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"WindowsPowerShell\v1.0\powershell.exe"),
-                    Arguments = "-NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -EncodedCommand " +
+                    Arguments = "-NoLogo -NoProfile -NonInteractive -InputFormat Text -OutputFormat Text -ExecutionPolicy Bypass -EncodedCommand " +
                         Convert.ToBase64String(Encoding.Unicode.GetBytes(command)),
                     WorkingDirectory = Path.GetFullPath(packageRoot),
                     UseShellExecute = false,
@@ -65,6 +66,9 @@ namespace EchosOfGaia.Installer
                     StandardOutputEncoding = Encoding.UTF8,
                     StandardErrorEncoding = Encoding.UTF8
                 };
+                // A PowerShell 7 parent can pass its incompatible module directories
+                // through this native .NET launcher. Use Windows' own modules only.
+                start.EnvironmentVariables["PSModulePath"] = Path.Combine(Path.GetDirectoryName(start.FileName), "Modules");
                 object outputLock = new object();
                 DataReceivedEventHandler receive = (sender, args) =>
                 {

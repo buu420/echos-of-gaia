@@ -8,5 +8,5 @@ if(!$msbuild){throw 'Windows MSBuild and .NET Framework 4.8 desktop tools are re
 [void](New-Item -ItemType Directory -Path $OutputRoot -Force)
 & $msbuild (Join-Path $sourceRoot 'tests/Installer.Tests/Installer.Tests.csproj') /restore /nologo /v:minimal /m:1 /p:Configuration=Release ("/p:OutDir="+[IO.Path]::GetFullPath($OutputRoot)+'\')
 if($LASTEXITCODE -ne 0){throw 'Installer tests did not compile.'}
-& (Join-Path $OutputRoot 'Installer.Tests.exe')
+& (Join-Path $OutputRoot 'Installer.Tests.exe') --parent-modules $env:PSModulePath
 if($LASTEXITCODE -ne 0){throw 'Installer checks failed.'}
