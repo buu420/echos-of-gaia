@@ -1,0 +1,11 @@
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType><AssemblyName>Install-EchosOfGaia</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion><PlatformTarget>AnyCPU</PlatformTarget><Prefer32Bit>false</Prefer32Bit>
+    <OutputPath>bin\$(Configuration)\</OutputPath><LangVersion>latest</LangVersion>
+    <ApplicationManifest>app.manifest</ApplicationManifest><Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup><Reference Include="System"/><Reference Include="System.Core"/><Reference Include="System.Drawing"/><Reference Include="System.Windows.Forms"/></ItemGroup>
+  <ItemGroup><Compile Include="Program.cs"/><Compile Include="InstallerForm.cs"/><Compile Include="InstallerService.cs"/><Compile Include="SteamLocator.cs"/><Compile Include="AssemblyInfo.cs"/></ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+</Project>

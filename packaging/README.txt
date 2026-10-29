@@ -1,4 +1,4 @@
-Echos of Gaia 0.1.2 beta
+Echos of Gaia 0.1.3 beta
 Final Fantasy IX accessibility mod by buu420
 
 Supported: 64-bit Windows 10/11, Windows Steam FFIX app 377840 build 5378074.
@@ -7,10 +7,16 @@ Official Microsoft prerequisite downloads (install both C++ architectures):
 https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
 https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48
 
-Close FFIX and its launcher. Extract this ZIP outside the game folder. Open
-PowerShell here and run:
-
-powershell -NoProfile -ExecutionPolicy Bypass -File .\Install-EchosOfGaia.ps1 -GameFolder 'YOUR FINAL FANTASY IX FOLDER'
+Close FFIX and its launcher. Extract all of this ZIP outside the game folder.
+Open Install-EchosOfGaia.exe. Check the detected game folder or choose Browse;
+select the FINAL FANTASY IX folder containing x86 and x64. Choose Install and
+wait for "Echos of Gaia is installed." This can take several minutes.
+No PowerShell window or typed commands are needed. Tab moves between the folder,
+buttons, read-only status and log. Completion and errors focus the status field.
+If installation reports access denied, close the installer and use Windows'
+Run as administrator on Install-EchosOfGaia.exe, then install again.
+Open log opens the saved installation log. Logs are also available under:
+%LOCALAPPDATA%\EchosOfGaia\Installer
 
 Start your screen reader, then launch normally through Steam. The Memoria
 launcher's Accessibility tab contains speech testing, navigation bindings,
@@ -26,7 +32,7 @@ Use the other trigger or keyboard if a trigger is mapped to a core game action.
 In Hot and Cold, the configured status stick click reads the minigame's status.
 Use normal game controls to interact, choose dialogue and confirm actions.
 
-The installer prints a rollback manifest under:
+The installation log includes a rollback manifest under:
 %LOCALAPPDATA%\EchosOfGaia\Backups
 Keep that path and this extracted release. To undo one standalone deployment,
 close the game and run:
@@ -63,7 +69,7 @@ Alt-Tab cutoff still need listener confirmation.
 
 Source, current releases, prerequisite links and reports:
 https://github.com/buu420/echos-of-gaia
-https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.2
+https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.3
 
 Based on BlindGuyNW/Memoria and Albeoris/Memoria. The code retains the MIT
 license; dependency and supplied sound notices remain separate. Final Fantasy

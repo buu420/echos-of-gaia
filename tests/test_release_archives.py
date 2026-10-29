@@ -27,6 +27,7 @@ class ReleaseArchiveTests(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
         self.directory = Path(self.temporary.name)
+        self.version = VERSION
         self.names = [f'EchosOfGaia-v{VERSION}-beta-{kind}.zip'
                       for kind in ('windows', 'amm')]
         self.payload = {
@@ -92,7 +93,37 @@ class ReleaseArchiveTests(unittest.TestCase):
 
     def run_verifier(self):
         return subprocess.run([sys.executable, str(VERIFIER), '--directory',
-            str(self.directory), '--version', VERSION], capture_output=True, text=True)
+            str(self.directory), '--version', self.version], capture_output=True, text=True)
+
+    def use_double_click_release(self):
+        self.version = '0.1.3'
+        self.names = ['EchosOfGaia-v0.1.3-beta-windows.zip',
+                      'EchosOfGaia-v0.1.3-beta-amm.zip']
+        self.release['Version'] = self.version
+        self.windows['release.json'] = encoded(self.release)
+        self.amm['files/release.json'] = encoded(self.release)
+        self.amm_manifest['modVersion'] = self.version
+        self.amm['manifest.json'] = encoded(self.amm_manifest)
+
+    def test_double_click_release_accepts_root_installer(self):
+        self.use_double_click_release()
+        self.windows['Install-EchosOfGaia.exe'] = b'MZ synthetic installer fixture'
+        self.write_pair()
+        result = self.run_verifier()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_double_click_release_requires_installer(self):
+        self.use_double_click_release()
+        self.assert_rejected('missing archive file: install-echosofgaia.exe')
+
+    def test_double_click_release_rejects_empty_installer(self):
+        self.use_double_click_release()
+        self.windows['Install-EchosOfGaia.exe'] = b''
+        self.assert_rejected('empty required archive file: install-echosofgaia.exe')
+
+    def test_installer_is_never_a_runtime_payload(self):
+        self.add_payload('Install-EchosOfGaia.exe')
+        self.assert_rejected('forbidden payload path')
 
     def assert_rejected(self, reason):
         self.write_pair()

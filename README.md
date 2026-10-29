@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.2 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.2)**
+**[Download 0.1.3 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.3)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -14,7 +14,12 @@ This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing; this release does not establish a complete accessible playthrough.
 
-0.1.2 repairs recovery when Prism is detected but rejects speech output. The
+0.1.3 adds a double-click installer to the standalone Windows ZIP. Extract the
+ZIP and open **Install-EchosOfGaia.exe**; the installer finds Steam libraries,
+offers a labelled game-folder field and Browse button, and displays progress
+and a readable log. Users do not need to open PowerShell or type commands.
+
+This release retains 0.1.2's recovery when Prism is detected but rejects speech output. The
 same announcement is retried through the bundled compatibility backend, and
 native Prism error codes are logged. Listening on affected tester PCs and
 the reported Alt-Tab speech cutoff still need confirmation.
@@ -67,18 +72,23 @@ Use the manager to update or uninstall a manager installation.
 
 For a standalone installation:
 
-1. Download and extract EchosOfGaia-v0.1.2-beta-windows.zip into a separate
+1. Download and extract EchosOfGaia-v0.1.3-beta-windows.zip into a separate
    folder outside the game directory.
-2. Open PowerShell there and run:
-
-   ```powershell
-   powershell -NoProfile -ExecutionPolicy Bypass -File .\Install-EchosOfGaia.ps1 -GameFolder 'YOUR FINAL FANTASY IX FOLDER'
-   ```
-
-3. Keep the printed backup manifest path and extracted release for rollback.
+2. Open **Install-EchosOfGaia.exe** from the extracted folder. Check the detected
+   game folder, or use **Browse** or the editable field to choose the folder
+   containing the game's `x86` and `x64` folders.
+3. Choose **Install** and wait for **Echos of Gaia is installed**. Installation
+   can take several minutes. Tab moves between the folder, buttons, read-only
+   status and log; the installer remains open for errors and completion. Keep
+   the backup manifest path in the log and extracted release for rollback.
 4. Start your screen reader, then launch the game normally through Steam.
    The launcher retains the Memoria name; its **Accessibility** tab contains
    bindings, narration and positional-sound settings.
+
+The installer runs the existing transactional script in the background. If it
+reports access denied, close it and use Windows' **Run as administrator** on
+Install-EchosOfGaia.exe. Saved installer logs are under
+`%LOCALAPPDATA%\EchosOfGaia\Installer`; **Open log** opens the current log.
 
 The standalone installer stores recoverable originals under
 %LOCALAPPDATA%\EchosOfGaia\Backups. Close the game, then run:

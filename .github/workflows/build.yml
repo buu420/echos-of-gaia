@@ -32,5 +32,8 @@ jobs:
       - name: Read-only installation preflight
         shell: powershell
         run: .\tests\ReleasePreflight.Tests.ps1
+      - name: Accessible standalone installer
+        shell: powershell
+        run: .\tools\Test-FF9Installer.ps1 -OutputRoot "$env:RUNNER_TEMP\gaia-installer-tests"
       - name: Release archive regression tests
         run: python -m unittest discover -s tests -p test_release_archives.py -v

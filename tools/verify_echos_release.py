@@ -129,10 +129,12 @@ def allowed_payload(path):
             f'Forbidden payload path outside mod ownership: {path}')
 
 
-def check_layout(archive, prefix, manager):
+def check_layout(archive, prefix, manager, version):
     fixed = {'package-manifest.json', 'release.json', 'compatibility.json'}
     fixed |= ({'Manager-PreInstall.ps1'} if manager else
               {'README.txt', 'Install-EchosOfGaia.ps1', 'Restore-EchosOfGaia.ps1'})
+    if not manager and tuple(map(int, version.split('.'))) >= (0, 1, 3):
+        fixed.add('Install-EchosOfGaia.exe')
     for name in fixed:
         require(prefix + name in archive.files, f'Missing archive file: {prefix + name}')
         require(archive.files[prefix + name][1] > 0, f'Empty required archive file: {prefix + name}')
@@ -268,8 +270,8 @@ def verify(directory, version):
     check_checksums(directory, names)
     with ExitStack() as stack:
         windows, amm = [Archive(directory / name, stack) for name in names]
-        check_layout(windows, '', manager=False)
-        check_layout(amm, 'files/', manager=True)
+        check_layout(windows, '', manager=False, version=version)
+        check_layout(amm, 'files/', manager=True, version=version)
         left, release, compatibility = check_package(windows, '', version)
         right, manager_release, manager_compatibility = check_package(amm, 'files/', version)
         require(windows.read('package-manifest.json') == amm.read('files/package-manifest.json'),

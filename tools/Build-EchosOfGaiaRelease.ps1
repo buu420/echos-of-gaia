@@ -39,6 +39,12 @@ foreach($destination in @($standalone,$manager)){
 foreach($name in @('Install-EchosOfGaia.ps1','Restore-EchosOfGaia.ps1','README.txt')){
     Copy-Item -LiteralPath (Join-Path $sourceRoot "packaging/$name") -Destination (Join-Path $standalone $name)
 }
+if([version]$Version -ge [version]'0.1.3'){
+    $installerBuild=Join-Path $ReleaseRoot 'installer-build'
+    & (Join-Path $PSScriptRoot 'Build-FF9Installer.ps1') -OutputRoot $installerBuild
+    if(!$?){throw 'Standalone installer did not build from release source.'}
+    Copy-Item -LiteralPath (Join-Path $installerBuild 'Install-EchosOfGaia.exe') -Destination (Join-Path $standalone 'Install-EchosOfGaia.exe')
+}
 Copy-Item -LiteralPath (Join-Path $sourceRoot 'packaging/Manager-PreInstall.ps1') -Destination (Join-Path $manager 'Manager-PreInstall.ps1')
 $null=Assert-EchosOfGaiaRelease $GameRoot $standalone
 $null=Assert-EchosOfGaiaRelease $GameRoot $manager
