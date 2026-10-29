@@ -104,6 +104,7 @@ namespace Memoria.ScreenReader
     }
     public sealed class PrismSpeechBackend : ISpeechBackend
     {
+        public int LastError { get { return FakeSpeech.Accept ? 0 : 6; } }
         public string Name { get { return "FakePrism"; } }
         public bool Initialize() { return true; }
         public bool Output(string text, bool interrupt) { if (!FakeSpeech.Accept) return false; FakeSpeech.Outputs.Add(new KeyValuePair<string, bool>(text, interrupt)); return true; }

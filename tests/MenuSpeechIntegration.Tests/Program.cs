@@ -32,6 +32,7 @@ internal static class Program
             ("world opening uses the same menu lifecycle", WorldOpening),
             ("unrelated and inactive selections stay silent", UnrelatedSelection),
             ("rejected opening speech retries after backend cooldown", RejectedOpening),
+            ("rejected primary opening reads once through compatibility", CompatibilityOpening),
             ("retry reads latest selection without per-frame retry logs", RetryLatestSelection),
             ("hide cancels rejected delivery", HideCancelsRetry),
             ("scene change cancels rejected delivery", SceneChangeCancelsRetry),
@@ -173,6 +174,17 @@ internal static class Program
         f.Buttons["Item"].SetActive(false); f.Menu.OnItemSelect(f.Buttons["Item"]);
         Equal(0,SpeechOutput.Text.Count,"Only shown main-menu selections are spoken");
     }
+    private static void CompatibilityOpening()
+    {
+        var f=new Fixture(); SpeechOutput.Accept=false; SpeechOutput.CompatibilityAccept=true;
+        f.Ready(); Sequence("Item");
+        Equal(2,SpeechOutput.Attempts,"Preferred rejection must retry compatibility once");
+        f.Tick(); f.Advance(2); f.Tick();
+        Equal(2,SpeechOutput.Attempts,"Accepted opening must not keep retrying");
+        ButtonGroupState.ActiveButton=f.Buttons["Ability"];
+        Sequence("Item","Ability");
+        Equal(3,SpeechOutput.Attempts,"Later selections must keep the working compatibility backend");
+    }
     private static void RejectedOpening()
     {
         var f=new Fixture(); SpeechOutput.Accept=false; f.Ready();
@@ -251,7 +263,7 @@ internal static class Program
         private DateTime now = new DateTime(2026,10,26,0,0,0,DateTimeKind.Utc);
         public Fixture()
         {
-            SpeechOutput.Text.Clear(); SpeechOutput.Accept=true; SpeechOutput.Attempts=0;
+            SpeechOutput.Text.Clear(); SpeechOutput.Accept=true; SpeechOutput.CompatibilityAccept=false; SpeechOutput.Attempts=0;
             Memoria.Prime.Log.Errors.Clear(); Memoria.Prime.Log.Messages.Clear(); ButtonGroupState.Reset();
             Time.realtimeSinceStartup=0; Time.frameCount=0; HonoInputManager.Activated=true;
             // Control the actual speech facade's clock/backoff at the native-output boundary.

@@ -296,13 +296,19 @@ namespace Memoria.Scenes
 }
 namespace Memoria.ScreenReader
 {
-    public static class SpeechOutput { public static readonly List<string> Text = new List<string>(); public static bool Accept=true; public static int Attempts; }
+    public static class SpeechOutput { public static readonly List<string> Text = new List<string>(); public static bool Accept=true, CompatibilityAccept; public static int Attempts; }
     public class PrismSpeechBackend : ISpeechBackend
     {
+        public int LastError=>SpeechOutput.Accept?0:6;
         public string Name=>"Fixture"; public bool Initialize()=>true;
         public bool Output(string text,bool interrupt) { SpeechOutput.Attempts++; if(!SpeechOutput.Accept)return false; SpeechOutput.Text.Add(text); return true; }
         public bool IsSpeaking()=>false; public void Stop() { } public void Dispose() { }
     }
-    public class TolkSpeechBackend : PrismSpeechBackend { }
+    public class TolkSpeechBackend : ISpeechBackend
+    {
+        public string Name=>"Compatibility fixture"; public bool Initialize()=>SpeechOutput.CompatibilityAccept;
+        public bool Output(string text,bool interrupt) { SpeechOutput.Attempts++; if(!SpeechOutput.CompatibilityAccept)return false; SpeechOutput.Text.Add(text); return true; }
+        public bool IsSpeaking()=>false; public void Stop() { } public void Dispose() { }
+    }
     public static class SpeechDiagnostics { public static string LastWriteFailure=>null; public static string LogPath=>null; public static void Write(string text) { } }
 }

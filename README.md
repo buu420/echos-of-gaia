@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.1 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.1)**
+**[Download 0.1.2 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.2)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,11 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing; this release does not establish a complete accessible playthrough.
+
+0.1.2 repairs recovery when Prism is detected but rejects speech output. The
+same announcement is retried through the bundled compatibility backend, and
+native Prism error codes are logged. Listening on affected tester PCs and
+the reported Alt-Tab speech cutoff still need confirmation.
 
 ## Features
 
@@ -62,7 +67,7 @@ Use the manager to update or uninstall a manager installation.
 
 For a standalone installation:
 
-1. Download and extract EchosOfGaia-v0.1.1-beta-windows.zip into a separate
+1. Download and extract EchosOfGaia-v0.1.2-beta-windows.zip into a separate
    folder outside the game directory.
 2. Open PowerShell there and run:
 

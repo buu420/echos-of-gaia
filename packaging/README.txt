@@ -1,4 +1,4 @@
-Echos of Gaia 0.1.1 beta
+Echos of Gaia 0.1.2 beta
 Final Fantasy IX accessibility mod by buu420
 
 Supported: 64-bit Windows 10/11, Windows Steam FFIX app 377840 build 5378074.
@@ -51,11 +51,16 @@ in-game listening/synchronization remain unverified.
 Other mods replacing the same managed assemblies need compatibility testing.
 Modified FMVs can fail the original-footage narration hash checks. Use Echos
 of Gaia releases to update this engine; its stock Memoria updater is disabled.
-Diagnostics: %LOCALAPPDATA%\FF9Access
+Diagnostics: %LOCALAPPDATA%\FF9Access (speech.log and navigation.log).
+Open that path with Windows+R. Memoria.log is in the main game folder.
+For speech problems, include speech.log and Memoria.log in your report.
+0.1.2 retries rejected Prism output through the bundled compatibility backend
+and records its native error code. Affected-PC speech and the reported
+Alt-Tab cutoff still need listener confirmation.
 
 Source, current releases, prerequisite links and reports:
 https://github.com/buu420/echos-of-gaia
-https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.1
+https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.2
 
 Based on BlindGuyNW/Memoria and Albeoris/Memoria. The code retains the MIT
 license; dependency and supplied sound notices remain separate. Final Fantasy
