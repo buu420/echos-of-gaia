@@ -1,0 +1,7 @@
+# Quiet map and controller announcements
+
+The tester hears Memoria's debug window title on map changes and a complete controller tutorial every time navigation opens. Keep the Windows title stable while screen-reader output is enabled. Preserve the debug title when screen-reader output is disabled. Announce the game's localized field/location name through the existing speech gates and region-announcement preference, without raw IDs or fabricated labels.
+
+Opening held-trigger navigation reads its category, selected target and position in the list. Controls help becomes explicit: hold an available navigation trigger and press the top face button (Triangle/Y). Bare Triangle/Y retains its normal action. Help must not start movement, activate Confirm, leak a held button, or bypass native menu/battle/dialogue/focus gates. Pause messages become device-neutral. Existing route directions, arrival and failure messages remain.
+
+Use the existing C#/.NET 3.5-compatible runtime, core tests and state-backed integration fixture. No game launches or input into a live game are necessary for the code/package checks. Preserve saves, settings, unrelated files and narration when deploying both architectures. Public source receives only reviewed leaf changes; private repository history stays private. Existing authorization covers packaging and publication of a tester update, with live recipient/controller/speech validation reported separately.

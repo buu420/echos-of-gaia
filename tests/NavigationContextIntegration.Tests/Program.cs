@@ -13,7 +13,13 @@ internal static class Program
         Action[] tests={WalkingWithCandleHintAcceptsAllNavigationKeys,WalkingWithDismissibleHintAcceptsNavigation,
             ChoiceKeepsNavigationBlocked,NativeMovementPermissionsStillGateNavigation,
             TutorialPauseLoadingAndFocusKeepNavigationBlocked,HeldTutorialKeyNeedsReleaseBeforeNavigation,
-            WorldHintUsesTheSameNativeControlRule,BattleAndUnknownActorStayBlocked};
+            WorldHintUsesTheSameNativeControlRule,BattleAndUnknownActorStayBlocked,
+            QuietPresentationTests.ScreenReaderKeepsTitleStableAcrossMapCameraAndMovie,
+            QuietPresentationTests.DisabledSpeechPreservesDebugTitleWithoutDuplicateWrites,
+            QuietPresentationTests.EnablingSpeechRestoresStableTitleOnce,
+            QuietPresentationTests.FailedTitleWriteCanRetry,
+            FieldLocationUsesNativeLocalizedName,FieldLocationPreferenceKeepsStatusButDisablesAutomaticSpeech,
+            MissingLocationStaysEmptyAndLateTextCanAppear};
         int failed=0;
         foreach(var test in tests)try { Reset();test();Console.WriteLine("PASS "+test.Method.Name); }
         catch(Exception error) { failed++;Console.WriteLine("FAIL "+test.Method.Name+": "+error.Message); }
@@ -27,6 +33,31 @@ internal static class Program
         UnityEngine.Object.Set(state);UnityEngine.Object.Set(engine);UnityEngine.Object.Set(ui);UnityEngine.Object.Set(dialogs);
         HonoInputManager.Active=true;EventInput.IsMovementControl=true;EventHUD.CurrentHUD=MinigameHUD.None;
         FF9StateSystem.Field.FF9Field.loc.map.nextMode=0;FF9StateSystem.World.FF9World.map.nextMode=0;
+        Memoria.Configuration.Accessibility.AnnounceRegionChanges=true;
+        Assets.Sources.Scripts.UI.Common.FF9TextTool.Names.Clear();
+        FF9StateSystem.Common.FF9.fldMapNo=50;
+    }
+    private static void FieldLocationUsesNativeLocalizedName()
+    {
+        FF9StateSystem.Common.FF9.fldMapNo=2950;
+        Assets.Sources.Scripts.UI.Common.FF9TextTool.Names[2950]="Forêt des Chocobo[ENDN]";
+        var context=NativeNavigationContext.Read();
+        Require(context.CurrentLocation=="Forêt des Chocobo" && context.CurrentRegion=="Forêt des Chocobo","field announcement is missing the actual localized location name");
+        Require(Assets.Sources.Scripts.UI.Common.FF9TextTool.LastLookup==2950,"location lookup did not use the active field ID");
+    }
+    private static void FieldLocationPreferenceKeepsStatusButDisablesAutomaticSpeech()
+    {
+        Assets.Sources.Scripts.UI.Common.FF9TextTool.Names[50]="Cargo Room";
+        Memoria.Configuration.Accessibility.AnnounceRegionChanges=false;
+        var context=NativeNavigationContext.Read();
+        Require(context.CurrentLocation=="Cargo Room" && String.IsNullOrEmpty(context.CurrentRegion),"disabled automatic announcements must retain the readable location for status");
+    }
+    private static void MissingLocationStaysEmptyAndLateTextCanAppear()
+    {
+        var context=NativeNavigationContext.Read();
+        Require(String.IsNullOrEmpty(context.CurrentLocation) && String.IsNullOrEmpty(context.CurrentRegion),"missing location exposed a fabricated/raw-ID fallback");
+        Assets.Sources.Scripts.UI.Common.FF9TextTool.Names[50]="Cargo Room";
+        context=NativeNavigationContext.Read();Require(context.CurrentRegion=="Cargo Room","late native location text was permanently lost");
     }
     private static void WalkingWithCandleHintAcceptsAllNavigationKeys()
     {

@@ -3,6 +3,7 @@
   <ItemGroup>
     <Compile Include="*.cs" />
     <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeNavigationContext.cs" Link="Runtime/NativeNavigationContext.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Application/PlayerWindow.cs" Link="Runtime/PlayerWindow.cs" />
     <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Core/*.cs" Link="Runtime/Core/%(Filename).cs" />
   </ItemGroup>
 </Project>

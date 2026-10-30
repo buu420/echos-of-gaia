@@ -6,6 +6,8 @@ using Memoria.Accessibility.Navigation;
 // They do not implement navigation gates or synthesize game input.
 namespace UnityEngine
 {
+    public enum RuntimePlatform { WindowsPlayer,Other }
+    public static class Application { public static RuntimePlatform platform=RuntimePlatform.WindowsPlayer; }
     public class Object
     {
         private static readonly Dictionary<Type, object> Objects = new Dictionary<Type, object>();
@@ -14,6 +16,47 @@ namespace UnityEngine
     }
     public sealed class GameObject { }
     public struct Vector3 { public float x,y,z; public Vector3(float x,float y,float z) { this.x=x;this.y=y;this.z=z; } }
+}
+namespace Memoria.Prime
+{
+    public static class Log { public static void Error(Exception exception,string message) { } }
+}
+namespace Memoria.Prime.WinAPI
+{
+    public static class User32
+    {
+        public static string Title="FINAL FANTASY IX";
+        public static int Writes;
+        public static bool Accept=true;
+        public static IntPtr FindWindow(string name,string title) { return new IntPtr(1); }
+        public static bool SetWindowText(IntPtr handle,string text) { Writes++;if(Accept)Title=text;return Accept; }
+        public static void Reset() { Title="FINAL FANTASY IX";Writes=0;Accept=true; }
+    }
+}
+namespace Memoria.ScreenReader
+{
+    public sealed class ScreenReaderManager
+    {
+        public static readonly ScreenReaderManager Instance=new ScreenReaderManager();
+        public bool Enabled=true;
+    }
+}
+namespace Memoria
+{
+    public sealed class Configuration
+    {
+        public static class Accessibility { public static bool AnnounceRegionChanges=true; }
+    }
+}
+namespace Assets.Sources.Scripts.UI.Common
+{
+    public static class FF9TextTool
+    {
+        public static readonly Dictionary<int,string> Names=new Dictionary<int,string>();
+        public static int LastLookup;
+        public static string LocationName(int id) { LastLookup=id;string name;return Names.TryGetValue(id,out name)?name:String.Empty; }
+        public static string RemoveOpCode(string value) { return value==null?null:value.Replace("[ENDN]",""); }
+    }
 }
 public static class HonoInputManager { public static bool Active; public static bool ApplicationIsActivated() { return Active; } }
 public sealed class FF9StateSystem

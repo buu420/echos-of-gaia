@@ -1,4 +1,5 @@
 using UnityEngine;
+using Assets.Sources.Scripts.UI.Common;
 namespace Memoria.Accessibility.Navigation
 {
     public static class NativeNavigationContext
@@ -54,6 +55,10 @@ namespace Memoria.Accessibility.Navigation
             else if (!nativeControl) context.GateReason = GateReason.NoControl;
             else context.GateReason = context.Position.IsFinite ? GateReason.None : GateReason.UnknownActor;
             context.CanControl = context.GateReason == GateReason.None;
+            if (!world) {
+                context.CurrentLocation = FF9TextTool.RemoveOpCode(FF9TextTool.LocationName(FF9StateSystem.Common.FF9.fldMapNo));
+                if (Configuration.Accessibility.AnnounceRegionChanges) context.CurrentRegion = context.CurrentLocation;
+            }
             return context;
         }
     }

@@ -14,17 +14,19 @@ namespace Memoria.Accessibility.Navigation
             public NavigationAnnouncement Announcement;public string Identity,Direction,Text;public int EndWaypoint;public RoutePlan Route;public double Time;
         }
         private GuidanceDelivery _offered;
+        private NavigationAnnouncement _offeredRegion;private string _offeredRegionIdentity;
         public void Acknowledge(NavigationAnnouncement announcement,bool accepted)
         {
+            if(announcement==_offeredRegion) {if(accepted)_lastRegion=_offeredRegionIdentity;_offeredRegion=null;}
             var delivery=_offered;if(delivery==null || delivery.Announcement!=announcement)return;_offered=null;
             if(!accepted)return;
             _lastGuidance=delivery.Time;_lastGuidanceIdentity=delivery.Identity;_lastDirection=delivery.Direction;_lastEndWaypoint=delivery.EndWaypoint;_lastRoute=delivery.Route;_lastGuidanceText=delivery.Text;
         }
-        public void ResetPending(){_pending.Clear();ResetGuidance();}
+        public void ResetPending(){_pending.Clear();_offeredRegion=null;ResetGuidance();}
         private void ResetGuidance(){_lastGuidance=-10000;_lastGuidanceIdentity=_lastDirection=_lastGuidanceText=null;_lastEndWaypoint=-1;_lastRoute=null;_offered=null;}
         public IList<NavigationAnnouncement> Format(NavigationUpdate update,int intervalMilliseconds,SpeechState speech)
         {
-            _offered=null;var result=new List<NavigationAnnouncement>();if(update==null)return result;speech=speech??new SpeechState();
+            _offered=null;_offeredRegion=null;var result=new List<NavigationAnnouncement>();if(update==null)return result;speech=speech??new SpeechState();
             foreach(string text in update.Messages)if(!_pending.Contains(text))_pending.Add(text);
             if(_pending.Count>4)_pending.RemoveRange(0,_pending.Count-4);
             bool guiding=update.Context.CanControl && update.GuidanceEnabled && (update.Session.Mode==RouteMode.Guiding || update.Session.Mode==RouteMode.Moving) && update.Selected!=null;
@@ -41,7 +43,7 @@ namespace Memoria.Accessibility.Navigation
             if(!speech.Busy && update.Diagnostics.Count>0) {string diagnostic=String.Join(" ",new List<string>(update.Diagnostics).ToArray());if(diagnostic!=_lastDiagnostic){_lastDiagnostic=diagnostic;result.Add(Announcement(diagnostic,60,false));return result;}}
             if(!speech.Busy && update.Context.CanControl && !String.IsNullOrEmpty(update.Context.CurrentRegion)) {
                 string region=update.Context.LogicalMapKey+":"+update.Context.CurrentRegion;
-                if(region!=_lastRegion){_lastRegion=region;result.Add(Announcement(update.Context.CurrentRegion,40,false));return result;}
+                if(region!=_lastRegion){_offeredRegionIdentity=region;_offeredRegion=Announcement(update.Context.CurrentRegion,40,false);result.Add(_offeredRegion);return result;}
             }
             if(guiding && (changed || speech.NowMilliseconds<_lastGuidance || speech.NowMilliseconds-_lastGuidance>=NavigationControls.IntervalMilliseconds(intervalMilliseconds,1))) {
                 string text=Guidance(update);result.Add(Offer(update,instruction,speech.NowMilliseconds,text,20,speech.Busy && replaceOwn));

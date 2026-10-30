@@ -31,6 +31,7 @@ namespace Memoria.Accessibility.Navigation
             } else if(_active && !(left && right)) {
                 NavigationCommand? command=
                     Has(pressed,NavigationButton.Cancel)?NavigationCommand.Stop:
+                    Has(pressed,NavigationButton.OtherFace)?NavigationCommand.Help:
                     Has(pressed,NavigationButton.L3)?NavigationCommand.StartGuidance:
                     Has(pressed,NavigationButton.R3)?NavigationCommand.StartAutomatic:
                     Has(pressed,NavigationButton.DpadLeft)?NavigationCommand.PreviousCategory:

@@ -1,4 +1,4 @@
-Echos of Gaia 0.1.3 beta
+Echos of Gaia 0.1.4 beta
 Final Fantasy IX accessibility mod by buu420
 
 Supported: 64-bit Windows 10/11, Windows Steam FFIX app 377840 build 5378074.
@@ -28,6 +28,9 @@ P: automatic walking on/off. R: repeat. Shift+I/Shift+P: guidance interval.
 Hold either L2/LT or R2/RT for controller navigation: D-pad left/right changes
 categories, up/down selects targets, L3 starts spoken guidance, R3 starts
 automatic travel, and Circle/B stops. Release the trigger after choosing.
+Opening navigation reads the category and target. Hold a navigation trigger
+and press Triangle/Y for controls help. Bare Triangle/Y keeps the game menu.
+Map announcements use readable native names; debug title numbers stay quiet.
 Use the other trigger or keyboard if a trigger is mapped to a core game action.
 In Hot and Cold, the configured status stick click reads the minigame's status.
 Use normal game controls to interact, choose dialogue and confirm actions.
@@ -69,7 +72,7 @@ Alt-Tab cutoff still need listener confirmation.
 
 Source, current releases, prerequisite links and reports:
 https://github.com/buu420/echos-of-gaia
-https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.3
+https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.4
 
 Based on BlindGuyNW/Memoria and Albeoris/Memoria. The code retains the MIT
 license; dependency and supplied sound notices remain separate. Final Fantasy

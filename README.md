@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.3 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.3)**
+**[Download 0.1.4 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.4)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -14,7 +14,14 @@ This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing; this release does not establish a complete accessible playthrough.
 
-0.1.3 adds a double-click installer to the standalone Windows ZIP. Extract the
+0.1.4 quiets map changes and controller navigation. Windows titles no longer
+read debug map/camera/script numbers during screen-reader use. Field names
+and world regions use native localized text, with the existing announcement
+setting and dialogue/narration gates. Opening controller navigation reads the
+category and target; hold a navigation trigger and press Triangle/Y for the
+full controls. Route directions and arrival messages remain available.
+
+The standalone Windows ZIP includes a double-click installer. Extract the
 ZIP and open **Install-EchosOfGaia.exe**; the installer finds Steam libraries,
 offers a labelled game-folder field and Browse button, and displays progress
 and a readable log. Users do not need to open PowerShell or type commands.
@@ -72,7 +79,7 @@ Use the manager to update or uninstall a manager installation.
 
 For a standalone installation:
 
-1. Download and extract EchosOfGaia-v0.1.3-beta-windows.zip into a separate
+1. Download and extract EchosOfGaia-v0.1.4-beta-windows.zip into a separate
    folder outside the game directory.
 2. Open **Install-EchosOfGaia.exe** from the extracted folder. Check the detected
    game folder, or use **Browse** or the editable field to choose the folder

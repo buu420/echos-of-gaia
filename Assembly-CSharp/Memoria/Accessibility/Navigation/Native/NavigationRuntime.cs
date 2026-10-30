@@ -45,9 +45,8 @@ namespace Memoria.Accessibility.Navigation
                 NativeFieldExitCues.Tick(context,catalog);
                 NativeStoryTargets.Append(context,catalog);
                 var movement=ReadMovement(context,catalog);
-                var commands=NativeNavigationInput.TakeCommands();var update=_coordinator.Tick(context,commands,catalog,movement);
+                var commands=NativeNavigationInput.TakeCommands();var update=_coordinator.Tick(context,commands,catalog,movement,Configuration.Accessibility.ControllerNaming);
                 if(_pending==movement && update.Session.Mode!=RouteMode.Moving)_pending=null;
-                update.ControllerNaming=Configuration.Accessibility.ControllerNaming;
                 foreach(var command in commands) {
                     Trace("Command "+command+"; map="+context.LogicalMapKey+"; generation="+context.Generation+"; mode="+update.Session.Mode);
                     if(command==NavigationCommand.DecreaseInterval || command==NavigationCommand.IncreaseInterval) {
@@ -55,7 +54,6 @@ namespace Memoria.Accessibility.Navigation
                         Configuration.Accessibility.SaveValues();update.Messages.Add("Guidance interval "+(Configuration.Accessibility.NavigationIntervalMilliseconds/1000f).ToString("0.0")+" seconds.");
                     }
                 }
-                if(update.ModifierOpened) {update.Messages.Clear();update.Messages.Add("Navigation. "+update.Category+". "+(update.Selected==null?(catalog.UnavailableReason??"No target currently presented."):NavigationCoordinator.SelectionLabel(update.Selected)+".")+" "+NavigationCoordinator.ModifierHelp(update.ControllerNaming));}
                 if(update.Session.ReleaseMovement)DetachScene(update.Session.Reason);
                 if(!String.IsNullOrEmpty(NativeNavigationInput.Diagnostic))update.Diagnostics.Add(NativeNavigationInput.Diagnostic);
                 if(_exitReached && context.CanControl){update.Messages.Add("Selected exit reached. "+context.CurrentLocation+".");_exitReached=false;}
@@ -88,7 +86,6 @@ namespace Memoria.Accessibility.Navigation
                 int id;string label;if(NativeRegionReader.TryRead(out id,out label)){context.CurrentLocation=FF9TextTool.RemoveOpCode(label);if(Configuration.Accessibility.AnnounceRegionChanges)context.CurrentRegion=context.CurrentLocation;}
             }
             else if(context.LogicalMapKey!=null && context.LogicalMapKey.StartsWith("field:")) {
-                context.CurrentLocation=FF9TextTool.RemoveOpCode(FF9TextTool.LocationName(FF9StateSystem.Common.FF9.fldMapNo));
                 bool analog=Configuration.AnalogControl.Enabled;
                 bool stick=NativeNavigationInput.Physical!=null && (Math.Abs(NativeNavigationInput.Physical.MoveX)>NavigationControls.StickDeadZone || Math.Abs(NativeNavigationInput.Physical.MoveY)>NavigationControls.StickDeadZone);
                 context.InputOrientationDegrees=analog && (stick?Configuration.AnalogControl.UseAbsoluteOrientationStick:Configuration.AnalogControl.UseAbsoluteOrientationKeys)?FF9StateSystem.Field.twist.x:FF9StateSystem.Field.twist.y;

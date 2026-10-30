@@ -22,6 +22,10 @@ Controller navigation also uses Blind Soldier's held-trigger layout. While ordin
 
 Controller navigation uses the held-trigger layout. Stick clicks without a held trigger keep their ordinary game action during exploration. Xbox, PlayStation and generic names describe the same physical controls. Triangle/Y without a navigation modifier retains the game's ordinary menu action.
 
+Opening navigation reads only the current category and target. For the full controls, hold a navigation trigger and press Triangle/Y (the top face button). Help does not start travel. Pause messages are brief; resume with the same guidance or walking controls when ready.
+
+During screen-reader use the Windows title stays "FINAL FANTASY IX", so map, camera and movie changes do not expose Memoria's debug numbers through title announcements. Readable field names and world regions use the game's localized text and the existing region-announcement setting. They wait for dialogue/narration and ordinary player control. Missing location text stays silent until available; L can still read the location on request.
+
 If a trigger is assigned to the game's Confirm, Cancel, Menu, Special, Pause or Select action, that trigger keeps its ordinary action and does not activate navigation. Use the other trigger or keyboard navigation. This preserves interaction with custom game bindings. Default trigger camera actions are captured while navigation browsing is active.
 
 During Chocobo Hot and Cold, L reads the shown time, last cry meaning, current depth when shown, and found count. R repeats speech. The launcher's Hot and Cold status button selects R3 (default) or L3 for reading this status directly during the minigame, if that button is available under the game's bindings. Existing ControllerMenuButton INI values are retained for this status shortcut only. Use the ordinary movement and dig controls. Short cry meanings and changing depth are spoken; item, bonus, point and beak-level results read their displayed text. Automatic navigation stays gated during the round. See [Hot and Cold controls](chocobo-hot-and-cold.md).

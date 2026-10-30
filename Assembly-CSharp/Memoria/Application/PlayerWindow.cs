@@ -1,5 +1,6 @@
 ﻿using Memoria.Prime;
 using Memoria.Prime.WinAPI;
+using Memoria.ScreenReader;
 using System;
 using System.ComponentModel;
 using UnityEngine;
@@ -28,6 +29,7 @@ namespace Memoria
 
         private const String OriginalTitle = "FINAL FANTASY IX";
         private readonly IntPtr _windowHandle;
+        private String _lastTitle = OriginalTitle;
 
         public PlayerWindow()
         {
@@ -48,8 +50,11 @@ namespace Memoria
 
         public void SetTitle(String message)
         {
-            if (_windowHandle != IntPtr.Zero)
-                User32.SetWindowText(_windowHandle, OriginalTitle + " - " + message);
+            // Debug map/camera/script details belong outside screen-reader output.
+            // NVDA can announce title changes independently of the speech facade.
+            String title = ScreenReaderManager.Instance.Enabled ? OriginalTitle : OriginalTitle + " - " + message;
+            if (_windowHandle != IntPtr.Zero && title != _lastTitle && User32.SetWindowText(_windowHandle, title))
+                _lastTitle = title;
         }
     }
 }

@@ -22,10 +22,10 @@ namespace Memoria.Accessibility.Navigation
         public readonly NavigationSession Session;private TargetIdentity _selected;private bool _hasSelection,_lost;
         private NavigationCategory _category;private string _map,_save;private TransportIdentity _transport;
         public NavigationCoordinator():this(new NavigationSession()){}public NavigationCoordinator(NavigationSession session){Session=session;}
-        public NavigationUpdate Tick(NavigationContext context,NavigationCommand[] commands,CatalogResult catalog,MovementObservation movement)
+        public NavigationUpdate Tick(NavigationContext context,NavigationCommand[] commands,CatalogResult catalog,MovementObservation movement,string controllerNaming="Xbox")
         {
             context=context??new NavigationContext();catalog=catalog??new CatalogResult();commands=commands??new NavigationCommand[0];
-            var update=new NavigationUpdate{Context=context,Category=_category,Movement=movement,IsPlanning=movement!=null && movement.IsPlanning};
+            var update=new NavigationUpdate{Context=context,Category=_category,Movement=movement,IsPlanning=movement!=null && movement.IsPlanning,ControllerNaming=controllerNaming};
             RouteMode old=Session.Mode;var decision=Session.Update(context,NavigationSignal.None);
             if(context.CanControl && (_map!=context.LogicalMapKey || _save!=context.SaveIdentity || !_transport.Equals(context.Transport))) {bool followStory=_map!=null && _category==NavigationCategory.Story;_map=context.LogicalMapKey;_save=context.SaveIdentity;_transport=context.Transport;_category=followStory?NavigationCategory.Story:_map.StartsWith("world:")?NavigationCategory.Towns:NavigationCategory.Exits;_hasSelection=_lost=false;}
             if(!_hasSelection)SelectFirst(catalog);
@@ -39,7 +39,7 @@ namespace Memoria.Accessibility.Navigation
                 Merge(ref decision,Session.Update(context,NavigationSignal.TargetLost));
                 if(!_lost)update.Messages.Add("Selected target is no longer presented. Choose another target.");_lost=true;
             }else if(update.Selected!=null)_lost=false;
-            if(old!=RouteMode.Paused && Session.Mode==RouteMode.Paused)update.Messages.Add("Navigation paused. I resumes guidance; P resumes automatic movement.");
+            if(old!=RouteMode.Paused && Session.Mode==RouteMode.Paused)update.Messages.Add("Navigation paused.");
             if(decision.RequireReplan && update.Selected!=null)update.RouteOperation=Session.Mode==RouteMode.Moving?RouteOperation.ReplanAutomatic:RouteOperation.PlanGuidance;
             if(movement!=null && old==RouteMode.Guiding && Session.Mode==RouteMode.Guiding && OnlyInformationalCommands(commands) && !movement.IsPlanning && (movement.Outcome==MovementOutcome.TargetMoved || movement.Outcome==MovementOutcome.RouteChanged)) {
                 update.RouteOperation=RouteOperation.PlanGuidance;
@@ -80,8 +80,9 @@ namespace Memoria.Accessibility.Navigation
                 else if(command==NavigationCommand.ModifierOpened){
                     if(_hasSelection && catalog.Find(_selected)==null){_hasSelection=false;SelectFirst(catalog);update.Selected=_hasSelection?catalog.Find(_selected):null;_lost=false;}
                     signal=NavigationSignal.OpenMenu;update.ModifierOpened=true;
-                    update.Messages.Add("Navigation. "+SelectionText(catalog)+" "+ModifierHelp(update.ControllerNaming));
+                    update.Messages.Add("Navigation. "+SelectionText(catalog));
                 }
+                else if(command==NavigationCommand.Help)update.Messages.Add(ModifierHelp(update.ControllerNaming));
                 else if(command==NavigationCommand.Disconnected) {var disconnected=new NavigationContext{Generation=context.Generation,Foreground=context.Foreground,GateReason=GateReason.Disconnected};Merge(ref decision,Session.Update(disconnected,NavigationSignal.None));update.Messages.Add("Controller disconnected. Navigation paused.");}
                 else if(command==NavigationCommand.Status)update.RequestStatus=true;
                 else if(command==NavigationCommand.Repeat)update.RequestRepeat=true;
@@ -103,7 +104,7 @@ namespace Memoria.Accessibility.Navigation
         }
         private void SelectFirst(CatalogResult catalog){foreach(var target in catalog.Targets)if(target.Category==_category){_selected=target.Id;_hasSelection=true;break;}}
         private List<NavigationTarget> Choices(CatalogResult catalog){var result=new List<NavigationTarget>();foreach(var target in catalog.Targets)if(target.Category==_category)result.Add(target);return result;}
-        private string SelectionText(CatalogResult catalog){var choices=Choices(catalog);if(choices.Count==0)return catalog.UnavailableReason??("No "+_category.ToString().ToLowerInvariant()+" currently presented.");for(int i=0;i<choices.Count;i++)if(choices[i].Id.Equals(_selected))return _category+". "+SelectionLabel(choices[i])+", "+(i+1)+" of "+choices.Count+".";return "Selected target unavailable.";}
+        private string SelectionText(CatalogResult catalog){var choices=Choices(catalog);if(choices.Count==0)return _category+". "+(catalog.UnavailableReason??("No "+_category.ToString().ToLowerInvariant()+" currently presented."));for(int i=0;i<choices.Count;i++)if(choices[i].Id.Equals(_selected))return _category+". "+SelectionLabel(choices[i])+", "+(i+1)+" of "+choices.Count+".";return "Selected target unavailable.";}
         public static string SelectionLabel(NavigationTarget target){return target.Label+(target.Evidence==VisibilityEvidence.ObservedFieldLandmark?", last seen":"");}
         private static string Label(NavigationTarget target){return target==null?"the selected target":target.Label;}
         private static NavigationCategory[] Categories(NavigationContext context){return context.LogicalMapKey!=null && context.LogicalMapKey.StartsWith("world:")?new[]{NavigationCategory.Story,NavigationCategory.Towns,NavigationCategory.Regions,NavigationCategory.Vehicles}:new[]{NavigationCategory.Story,NavigationCategory.Exits,NavigationCategory.People,NavigationCategory.Objects,NavigationCategory.Items};}
