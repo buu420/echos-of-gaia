@@ -1176,6 +1176,7 @@ public partial class EventEngine : PersistenSingleton<EventEngine>
 
     public void Return(Obj obj)
     {
+        Memoria.Accessibility.Navigation.NativeObservedFieldExits.Returned(obj);
         if (obj.sx > 1)
         {
             Int32 btlIndex = 0;

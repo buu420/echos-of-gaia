@@ -12,6 +12,7 @@ namespace Memoria.Accessibility.Navigation
             var engine = Object.FindObjectOfType<EventEngine>();
             var ui = Object.FindObjectOfType<UIManager>();
             if (state == null || engine == null || ui == null) return context;
+            context.MenuOpen = UIManager.IsUIStateMenu(ui.State) || ui.IsPause;
             bool world = state.mode == 3;
             bool hud = ui.State == (world ? UIManager.UIState.WorldHUD : UIManager.UIState.FieldHUD);
             var dialogs = Object.FindObjectOfType<DialogManager>();

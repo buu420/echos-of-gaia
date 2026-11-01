@@ -45,6 +45,7 @@ namespace Memoria.Accessibility.Navigation
         public TransportIdentity Transport;
         public bool CanControl, Foreground, CanInspect;
         public bool MinigameInspection;
+        public bool MenuOpen;
         public string CurrentLocation, CurrentRegion;
         public int StoryProgress=-1;
         public float InputOrientationDegrees;

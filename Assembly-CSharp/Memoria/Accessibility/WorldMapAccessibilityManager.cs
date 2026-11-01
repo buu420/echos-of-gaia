@@ -16,6 +16,7 @@ namespace Memoria.Accessibility
         public void Shutdown() { _enabled=false;NavigationLifecycleBridge.Release(StopReason.NativeClear); }
         public CatalogResult ReadTargets(NavigationContext context)
         {
+            if(context==null || !context.Foreground || (!context.CanInspect && !context.CanControl))return new CatalogResult();
             int id;string label;
             if(context.CanControl && NativeRegionReader.TryRead(out id,out label))Regions.Observe(context.SaveIdentity,context.LogicalMapKey,id,label,context.Position,context.Transport);
             var catalog=_catalog.Build(context,NativeWorldTargets.Read(context),Regions);

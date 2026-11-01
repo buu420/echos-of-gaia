@@ -284,6 +284,7 @@ public class EventCollision
             Boolean flag2 = EventCollision.CheckQuadPush(po, obj) && instance.Request(obj, 1, 2, false);
             if (flag2)
             {
+                Memoria.Accessibility.Navigation.NativeObservedFieldExits.Triggered(instance,po,obj);
                 if (instance.GetIP((Int32)obj.sid, 8, obj.ebData) != instance.nil)
                 {
                     EIcon.PollFIcon(BubbleUI.IconType.ExclamationAndDuel);

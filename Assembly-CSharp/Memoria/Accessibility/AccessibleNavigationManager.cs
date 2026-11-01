@@ -9,7 +9,11 @@ namespace Memoria.Accessibility
         public static event Action<NavigationContext,CatalogResult> Frame;
         public void Initialize() { NativeStoryTargets.Initialize();_enabled = true; }
         public void Shutdown() { _enabled = false; NavigationLifecycleBridge.Release(StopReason.NativeClear); }
-        public CatalogResult ReadTargets(NavigationContext context) { return _catalog.Build(context,NativeFieldTargets.Read(context),NavigationSaveIdentity.Identities); }
+        public CatalogResult ReadTargets(NavigationContext context) {
+            // Suspended frames are not observations of an empty field. Preserve last-seen targets.
+            if(context==null || !context.Foreground || (!context.CanInspect && !context.CanControl))return new CatalogResult();
+            return _catalog.Build(context,NativeFieldTargets.Read(context),NavigationSaveIdentity.Identities);
+        }
         public void Update()
         {
             if(!_enabled)return;

@@ -21,7 +21,7 @@ namespace Memoria.Accessibility.Navigation
                 if(NpcConsumesConfirm(engine,player,selected as Actor,distance))return result;
                 result.SelectedCollision=engine.TreadQuad(player,4)==presentedQuad;
                 result.InRange=result.SelectedCollision && engine.NavigationContainsQuad(presentedQuad,controller.curPos.x,controller.curPos.z);
-                result.Talkable=engine.IsActuallyTalkable(presentedQuad) && EventCollision.NavigationCanTalkQuad(player,presentedQuad) && EIcon.NavigationPresentedUid==presentedQuad.uid;
+                result.Talkable=NativeFieldTalkability.IsTalkable(presentedQuad) && EventCollision.NavigationCanTalkQuad(player,presentedQuad) && EIcon.NavigationPresentedUid==presentedQuad.uid;
                 result.FacingWithinArc=result.Talkable;result.Evidence="Selected native interaction region and presented bubble; Confirm remains player controlled";return result;
             }
             var npc = engine.GetObjUID(target.PhysicalIdentity.NativeId) as Actor;
@@ -35,14 +35,14 @@ namespace Memoria.Accessibility.Navigation
                 if(NpcConsumesConfirm(engine,player,selected as Actor,distance))return result;
                 result.SelectedCollision=engine.TreadQuad(player,4)==region;
                 result.InRange=result.SelectedCollision && engine.NavigationContainsQuad(region,controller.curPos.x,controller.curPos.z);
-                result.Talkable=engine.IsActuallyTalkable(region) && EventCollision.NavigationCanTalkQuad(player,region) && EIcon.NavigationPresentedUid==region.uid;
+                result.Talkable=NativeFieldTalkability.IsTalkable(region) && EventCollision.NavigationCanTalkQuad(player,region) && EIcon.NavigationPresentedUid==region.uid;
                 result.FacingWithinArc=result.Talkable;
                 result.Evidence=(forest?"Native Forest talking region":"Reviewed native talking region of this speaker")+", selected quad, request level and presented interaction bubble; Confirm remains player controlled";
                 return result;
             }
             result.SelectedCollision = selected == npc;
             result.InRange = result.SelectedCollision && distance < 0;
-            result.Talkable = npc.level > 1 && (npc.flags & EventEngine.flagTalkInh) == 0 && (engine.IsActuallyTalkable(npc) || NativeFieldTargets.IsReviewedListener(context,engine,npc)) && NativeTalkGuard(engine, npc);
+            result.Talkable = npc.level > 1 && (npc.flags & EventEngine.flagTalkInh) == 0 && (NativeFieldTalkability.IsTalkable(npc) || NativeFieldTargets.IsReviewedListener(context,engine,npc)) && NativeTalkGuard(engine, npc);
             if (result.SelectedCollision) {
                 result.FacingError = EventCollision.CollisionAngle(player, npc);
                 result.FacingWithinArc = result.FacingError > -1024 && result.FacingError < 1024;

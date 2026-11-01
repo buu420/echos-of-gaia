@@ -6,15 +6,17 @@ namespace Memoria.Accessibility.Navigation
     {
         private readonly Dictionary<TargetIdentity, string> _labels = new Dictionary<TargetIdentity, string>();
         private readonly Dictionary<TargetIdentity, NavigationCategory> _labelCategories=new Dictionary<TargetIdentity, NavigationCategory>();
+        private readonly Dictionary<TargetIdentity,string> _labelDescriptions=new Dictionary<TargetIdentity,string>();
+        private readonly Dictionary<TargetIdentity,string> _labelSuffixes=new Dictionary<TargetIdentity,string>();
         private readonly Dictionary<NavigationCategory, int> _counts = new Dictionary<NavigationCategory, int>();
-        private sealed class ObservedTarget {public NavigationTarget Target;public int PresentationIdentity;}
+        private sealed class ObservedTarget {public NavigationTarget Target;public int PresentationIdentity;public string Scope;}
         private readonly Dictionary<TargetIdentity, ObservedTarget> _lastSeen = new Dictionary<TargetIdentity, ObservedTarget>();
         private string _map;
         private long _generation;private int _player;private string _save;
         public CatalogResult Build(NavigationContext context, IList<FieldTargetObservation> observations, ObservedIdentityStore identities)
         {
             var result = new CatalogResult();
-            if (_map != context.LogicalMapKey) { _labels.Clear();_labelCategories.Clear(); _counts.Clear(); _lastSeen.Clear(); _map = context.LogicalMapKey; }
+            if (_map != context.LogicalMapKey) { _labels.Clear();_labelCategories.Clear();_labelDescriptions.Clear();_labelSuffixes.Clear(); _counts.Clear(); _lastSeen.Clear(); _map = context.LogicalMapKey; }
             if (_generation != context.Generation || _player != context.PlayerIdentity || _save != context.SaveIdentity) {
                 _lastSeen.Clear();_generation=context.Generation;_player=context.PlayerIdentity;_save=context.SaveIdentity;
             }
@@ -27,7 +29,7 @@ namespace Memoria.Accessibility.Navigation
                 bool presented=exit?observation.Exit!=null && observation.Exit.Visible:observation.Visible || observation.ShowsIcon;
                 if(!presented) {
                     ObservedTarget seen;
-                    if(observation.OutOfView && _lastSeen.TryGetValue(observation.Id,out seen) && seen.PresentationIdentity==observation.NativePresentationIdentity) {
+                    if(observation.OutOfView && _lastSeen.TryGetValue(observation.Id,out seen) && seen.PresentationIdentity==observation.NativePresentationIdentity && seen.Scope==observation.LabelIdentity) {
                         var remembered=Copy(seen.Target);remembered.Generation=context.Generation;remembered.Evidence=VisibilityEvidence.ObservedFieldLandmark;
                         // Preserve only the observed position. Story outcomes
                         // must use today's native guards, even outside the view.
@@ -43,7 +45,7 @@ namespace Memoria.Accessibility.Navigation
                         }
                         else if(observation.Exit!=null){remembered.ApproachCandidates=observation.Exit.ApproachEnabled?observation.Exit.ApproachCandidates??new[]{observation.Exit.Approach}:new NavigationPoint[0];availability=observation.Exit.Availability;}
                         remembered.Availability=(String.IsNullOrEmpty(availability)?"":availability+"; ")+"last seen, outside the current view";
-                        string known;if(identities!=null && identities.TryGetLabel(observation.Id,out known))remembered.Label=known;
+                        string known;if(identities!=null && identities.TryGetLabel(observation.Id,observation.LabelIdentity,out known))remembered.Label=known;
                         result.Targets.Add(remembered);
                     }else {
                         _lastSeen.Remove(observation.Id);
@@ -52,10 +54,10 @@ namespace Memoria.Accessibility.Navigation
                     continue;
                 }
                 var category=Category(observation);string label=Label(observation,category);
-                string observed; if (identities != null && identities.TryGetLabel(observation.Id, out observed)) label = observed;
+                string observed; if (identities != null && identities.TryGetLabel(observation.Id,observation.LabelIdentity, out observed)) label = observed;
                 result.Targets.Add(new NavigationTarget { Id = observation.Id, Category = category, Label = label, Position = observation.Position, Generation = context.Generation, Evidence = exit ? observation.Exit.Evidence : observation.ShowsIcon?VisibilityEvidence.NativeInteractionIcon:VisibilityEvidence.RenderedActor, IsInteractive = exit || observation.HasInteraction, Availability = exit ? observation.Exit.Availability : observation.HasInteraction ? null : "interaction unavailable", ApproachCandidates = exit?(observation.Exit.ApproachEnabled?observation.Exit.ApproachCandidates??new[]{observation.Exit.Approach}:new NavigationPoint[0]):observation.ApproachCandidates??new[]{observation.Position},InteractionUid=observation.InteractionUid,InteractionRegion=observation.InteractionRegion==null?null:(NavigationPoint[])observation.InteractionRegion.Clone(),UseViewingPoint=observation.UseViewingPoint });
                 var added=result.Targets[result.Targets.Count-1];if(!exit && !observation.HasInteraction)added.UseViewingPoint=true;added.StoryMilestones=observation.StoryMilestones==null?null:(int[])observation.StoryMilestones.Clone();added.NextFields=observation.NextFields==null?null:(int[])observation.NextFields.Clone();added.StoryAction=observation.StoryAction;
-                _lastSeen[observation.Id]=new ObservedTarget{Target=Copy(added),PresentationIdentity=observation.NativePresentationIdentity};
+                _lastSeen[observation.Id]=new ObservedTarget{Target=Copy(added),PresentationIdentity=observation.NativePresentationIdentity,Scope=observation.LabelIdentity};
             }
             var removed=new List<TargetIdentity>();foreach(var seen in _lastSeen)if(!active.Contains(seen.Key))removed.Add(seen.Key);foreach(var id in removed)_lastSeen.Remove(id);
             return result;
@@ -67,10 +69,12 @@ namespace Memoria.Accessibility.Navigation
         private static NavigationCategory Category(FieldTargetObservation observation){return observation.Id.Kind==TargetKind.FieldExit?NavigationCategory.Exits:observation.IsPerson?NavigationCategory.People:observation.IsItem?NavigationCategory.Items:NavigationCategory.Objects;}
         private string Label(FieldTargetObservation observation,NavigationCategory category)
         {
-            string label;NavigationCategory previous;
-            if(!_labels.TryGetValue(observation.Id,out label) || !_labelCategories.TryGetValue(observation.Id,out previous) || previous!=category) {
-                int count;_counts.TryGetValue(category,out count);_counts[category]=count+1;
-                label=(category==NavigationCategory.Exits?"Exit ":category==NavigationCategory.People?"Person ":category==NavigationCategory.Items?"Item ":"Object ")+Letters(count);_labels[observation.Id]=label;_labelCategories[observation.Id]=category;
+            string label,description;NavigationCategory previous;
+            if(!_labels.TryGetValue(observation.Id,out label) || !_labelCategories.TryGetValue(observation.Id,out previous) || previous!=category || !_labelDescriptions.TryGetValue(observation.Id,out description) || description!=observation.VisibleLabel) {
+                string suffix;if(!_labelSuffixes.TryGetValue(observation.Id,out suffix) || !_labelCategories.TryGetValue(observation.Id,out previous) || previous!=category) {
+                    int count;_counts.TryGetValue(category,out count);_counts[category]=count+1;suffix=Letters(count);_labelSuffixes[observation.Id]=suffix;
+                }
+                label=(string.IsNullOrEmpty(observation.VisibleLabel)?category==NavigationCategory.Exits?"Exit":category==NavigationCategory.People?"Person":category==NavigationCategory.Items?"Item":"Object":observation.VisibleLabel)+" "+suffix;_labels[observation.Id]=label;_labelCategories[observation.Id]=category;_labelDescriptions[observation.Id]=observation.VisibleLabel;
             }return label;
         }
         private static string Letters(int value) { string result = ""; do { result = (char)('A' + value % 26) + result; value = value / 26 - 1; } while (value >= 0); return result; }

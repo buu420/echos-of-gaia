@@ -4,6 +4,10 @@
     <Compile Include="*.cs" />
     <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeNavigationContext.cs" Link="Runtime/NativeNavigationContext.cs" />
     <Compile Include="../../Assembly-CSharp/Memoria/Application/PlayerWindow.cs" Link="Runtime/PlayerWindow.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AccessibleNavigationManager.cs" Link="Runtime/AccessibleNavigationManager.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/WorldMapAccessibilityManager.cs" Link="Runtime/WorldMapAccessibilityManager.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeDisplayedIdentity.cs" Link="Runtime/NativeDisplayedIdentity.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeObservedFieldExits.cs" Link="Runtime/NativeObservedFieldExits.cs" />
     <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Core/*.cs" Link="Runtime/Core/%(Filename).cs" />
   </ItemGroup>
 </Project>

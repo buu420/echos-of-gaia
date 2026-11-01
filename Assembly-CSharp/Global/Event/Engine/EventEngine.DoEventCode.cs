@@ -993,8 +993,10 @@ public partial class EventEngine
             }
             case EBin.event_code_binary.MAPJUMP: // 0x2B, "Field", "Change the field scene",
             {
-                this.SetNextMap(this.getv2()); //arg1: field scene destination
+                Int32 observedDestination=this.getv2();
+                this.SetNextMap(observedDestination); //arg1: field scene destination
                 Memoria.Accessibility.Navigation.NativeFieldMovement.NotifyExitTransition(this.gExec.uid);
+                Memoria.Accessibility.Navigation.NativeObservedFieldExits.Executed(this,this.gCur,this.gExec,observedDestination);
                 return 4;
             }
             case EBin.event_code_binary.CC: // 0x2C, "DefinePlayerCharacter", "Apply the player's control over the entry's object"

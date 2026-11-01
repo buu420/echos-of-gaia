@@ -10,6 +10,8 @@ namespace Memoria.Accessibility.Navigation
     {
         private static long _generation;
         private static readonly Dictionary<byte[],string> _hashes = new Dictionary<byte[],string>();
+        private sealed class ActorLabelIdentity {public int Model,Sid;public byte[] Script;public string Signature;}
+        private static readonly Dictionary<Actor,ActorLabelIdentity> _labelIdentities=new Dictionary<Actor,ActorLabelIdentity>();
         private static readonly Dictionary<byte[],Dictionary<int,List<ScriptInstruction>>> _decoded=new Dictionary<byte[],Dictionary<int,List<ScriptInstruction>>>();
         private static readonly Dictionary<byte[],DoorBinding> _doors=new Dictionary<byte[],DoorBinding>();
         private sealed class RegionSurface {public string Geometry,Polygon;public NavigationPoint[] Region,Approaches,Boundaries,Presentation;}
@@ -36,7 +38,7 @@ namespace Memoria.Accessibility.Navigation
             // Battle/loading contexts retain the previous field ID. They are
             // not observations of that field and must not prepare its surfaces.
             if(context.GateReason==GateReason.Battle || context.GateReason==GateReason.MapTransition)return result;
-            if (_generation != context.Generation) { _hashes.Clear();_decoded.Clear();_doors.Clear();_surfaces.Clear();_cueLogs.Clear();_seenExits.Clear();_walkmeshHash=null; _generation = context.Generation; }
+            if (_generation != context.Generation) { _hashes.Clear();_labelIdentities.Clear();_decoded.Clear();_doors.Clear();_surfaces.Clear();_cueLogs.Clear();_seenExits.Clear();_walkmeshHash=null; _generation = context.Generation; }
             var engine = UnityEngine.Object.FindObjectOfType<EventEngine>();
             var field = UnityEngine.Object.FindObjectOfType<FieldMap>();
             if (engine == null || field == null) return result;
@@ -57,7 +59,8 @@ namespace Memoria.Accessibility.Navigation
                     bool icon=EIcon.NavigationPresentedUid==obj.uid && OnScreen(field,Vector(context.Position));
                     float collision=player==null?0:Math.Max(player.fieldMapActorController==null?0:player.fieldMapActorController.radius,4*player.collRad)+4*actor.collRad;
                     float talkRadius=player==null?0:4*(player.talkRad+actor.talkRad)+actor.speed+60;
-                    var observation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, obj.uid), NativePresentationIdentity=obj.go==null?0:obj.go.GetInstanceID(),Position = Point(position), Visible = onScreen,OutOfView=rendered && mesh && !onScreen,ShowsIcon=icon, IsPerson = engine.GetIP(obj.sid, EventEngine.tagTalk, obj.ebData) != engine.nil, HasInteraction = engine.IsActuallyTalkable(obj) || engine.GetIP(obj.sid, EventEngine.tagPush, obj.ebData) != engine.nil,ApproachCandidates=FieldActorApproaches.Create(context.Position,Point(position),collision,talkRadius) };
+                    var observation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, obj.uid), NativePresentationIdentity=obj.go==null?0:obj.go.GetInstanceID(),Position = Point(position), Visible = onScreen,OutOfView=rendered && mesh && !onScreen,ShowsIcon=icon, IsPerson = engine.GetIP(obj.sid, EventEngine.tagTalk, obj.ebData) != engine.nil, HasInteraction = NativeFieldTalkability.IsTalkable(obj) || engine.GetIP(obj.sid, EventEngine.tagPush, obj.ebData) != engine.nil,ApproachCandidates=FieldActorApproaches.Create(context.Position,Point(position),collision,talkRadius) };
+                    observation.LabelIdentity=LabelSignature(actor);observation.VisibleLabel=FieldVisibleLabels.Read(actor.model);
                     string modelName;if(FF9BattleDB.GEO.TryGetValue(actor.model,out modelName)) {
                         if(modelName.StartsWith("GEO_ACC_"))observation.IsPerson=false;
                         else if(modelName.StartsWith("GEO_NPC_") || modelName.StartsWith("GEO_MAIN_") || modelName.StartsWith("GEO_SUB_"))observation.IsPerson=true;
@@ -133,6 +136,12 @@ namespace Memoria.Accessibility.Navigation
                     presentation=new ExitPresentation{Visible=false,ApproachEnabled=safe.Count>0,ApproachCandidates=safe.ToArray(),Availability=safe.Count>0?"availability requires normal game interaction":"safe approach unavailable"};
                 }
                 var exitObservation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldExit, context.LogicalMapKey,quad.uid),NativePresentationIdentity=exitIdentity,OutOfView=offscreen, Position = presentation == null ? Point(center) : presentation.Approach, Exit = presentation, ContainsJump = true };
+                exitObservation.LabelIdentity=ExitLabelSignature(quad);
+                if(presentation!=null && presentation.Visible) {
+                    var camera=field.GetMainCamera();
+                    exitObservation.VisibleLabel=camera==null?"Exit":FieldExitLabel.Read(Point(camera.WorldToViewportPoint(Project(field,Vector(presentation.Approach)))));
+                    NativeObservedFieldExits.Presented(context,quad,exitObservation.LabelIdentity);
+                }
                 Annotate(context,engine,quad,exitObservation);result.Add(exitObservation);
             }
             return result;
@@ -141,6 +150,7 @@ namespace Memoria.Accessibility.Navigation
         {
             var region=new NavigationPoint[quad.n];for(int i=0;i<region.Length;i++)region[i]=Point(quad.q[i].Vector3Val);
             var observation=new FieldTargetObservation{Id=new TargetIdentity(TargetKind.FieldActor,context.LogicalMapKey,quad.uid),NativePresentationIdentity=System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(quad),Position=Point(center),ShowsIcon=true,HasInteraction=true,InteractionUid=quad.uid,InteractionRegion=region,ApproachCandidates=new[]{engine.NavigationContainsQuad(quad,context.Position.X,context.Position.Z)?context.Position:Point(center)}};
+            observation.LabelIdentity=ExitLabelSignature(quad);
             Annotate(context,engine,quad,observation);return observation;
         }
         private static void Annotate(NavigationContext context,EventEngine engine,Obj obj,FieldTargetObservation observation)
@@ -302,6 +312,21 @@ namespace Memoria.Accessibility.Navigation
             return projected.x>=-24 && projected.x<=Screen.width+24 && projected.y>=-24 && projected.y<=Screen.height+24;
         }
         private static string Fingerprint(byte[] bytes) { string hash; if(!_hashes.TryGetValue(bytes,out hash)) { using(var sha=SHA256.Create())hash=BitConverter.ToString(sha.ComputeHash(bytes)).Replace("-","").ToLowerInvariant(); _hashes[bytes]=hash; } return hash; }
+        internal static string ExitLabelSignature(Quad quad)
+        {
+            if(quad==null || quad.ebData==null || quad.q==null || quad.n<3 || quad.n>quad.q.Length)return null;
+            var signature=new System.Text.StringBuilder(quad.sid+":"+Fingerprint(quad.ebData)+":");
+            for(int i=0;i<quad.n;i++) {var p=quad.q[i].Vector3Val;signature.Append(p.x.ToString("R",System.Globalization.CultureInfo.InvariantCulture)).Append(',').Append(p.y.ToString("R",System.Globalization.CultureInfo.InvariantCulture)).Append(',').Append(p.z.ToString("R",System.Globalization.CultureInfo.InvariantCulture)).Append(';');}
+            return signature.ToString();
+        }
+        internal static string LabelSignature(Actor actor)
+        {
+            if(actor==null || actor.ebData==null)return null;
+            ActorLabelIdentity entry;
+            if(!_labelIdentities.TryGetValue(actor,out entry) || entry.Model!=actor.model || entry.Sid!=actor.sid || !ReferenceEquals(entry.Script,actor.ebData)) {
+                entry=new ActorLabelIdentity{Model=actor.model,Sid=actor.sid,Script=actor.ebData,Signature=actor.model+":"+actor.sid+":"+Fingerprint(actor.ebData)};_labelIdentities[actor]=entry;
+            }return entry.Signature;
+        }
         private static NavigationPoint Point(Vector3 value) { return new NavigationPoint(value.x,value.y,value.z); }
         private static Vector3 Vector(NavigationPoint value) { return new Vector3(value.X,value.Y,value.Z); }
     }

@@ -46,6 +46,28 @@ namespace FF9Access.Tests
             catalog.Append(context,input,field,id=>id==50?"Prima Vista/Cargo Room":id==52?"Prima Vista/Meeting Room":"Alexandria/Main Street",index=>index==OpeningStoryCheckpoints.PhaseByte?phase:(int?)0,scripts);
             return input.Targets.Last(t=>t.Category==NavigationCategory.Story);
         }
+        private static NavigationTarget PresentedExit(int field,int uid,int next)
+        {return new NavigationTarget{Id=new TargetIdentity(TargetKind.FieldExit,"field:"+field+":SCENE",uid),Category=NavigationCategory.Exits,Generation=1,Label="Upper exit "+uid,NextFields=new[]{next},ApproachCandidates=new[]{TestFixtures.P(1,1)}};}
+        public static void RecordedViviStreetChoosesSquareAndStatesTicketAction()
+        {
+            var input=new CatalogResult();input.Targets.Add(PresentedExit(102,8,103));input.Targets.Add(PresentedExit(102,10,108));input.Targets.Add(PresentedExit(102,9,101));
+            var story=Story(Installed(true),102,1000,0,LiveScripts(102),input);
+            TestAssert.Equal(8,story.PhysicalIdentity.NativeId);TestAssert.True(story.Label.Contains("Show Vivi's ticket at the ticket booth"));
+        }
+        public static void OptionalShopReturnDoesNotSkipTheTicketBooth()
+        {
+            var input=new CatalogResult();input.Targets.Add(PresentedExit(108,4,102));
+            var story=Story(Installed(true),108,1000,0,LiveScripts(108),input);
+            TestAssert.Equal(4,story.PhysicalIdentity.NativeId);TestAssert.True(story.Label.Contains("Show Vivi's ticket at the ticket booth"));
+        }
+        public static void ActualTicketCompletionLeadsToAlleyBeforeSteeple()
+        {
+            var input=new CatalogResult();input.Targets.Add(PresentedExit(103,26,105));input.Targets.Add(PresentedExit(103,25,104));input.Targets.Add(PresentedExit(103,23,102));
+            var story=Story(Installed(true),103,1150,0,LiveScripts(103),input);
+            TestAssert.Equal(26,story.PhysicalIdentity.NativeId);TestAssert.True(story.Label.Contains("alley"));TestAssert.False(story.Label.Contains("steeple"));
+        }
+        public static void TicketActionStaysReadableWhenNoPhysicalRouteIsPresented()
+        {var story=Story(Installed(true),102,1000,0,LiveScripts(102));TestAssert.True(story.Label.Contains("Show Vivi's ticket at the ticket booth"));TestAssert.True(story.PhysicalId==null);TestAssert.Equal(0,story.ApproachCandidates.Length);}
         public static void InstalledCatalogReproducesTheNewGameTicketPreview()
         {
             // Regression evidence for the live 2026-10-17 trace: without checkpoints the counter floor 1000

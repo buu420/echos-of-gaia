@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.4 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.4)**
+**[Download 0.1.5 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.5)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -14,12 +14,17 @@ This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing; this release does not establish a complete accessible playthrough.
 
-0.1.4 quiets map changes and controller navigation. Windows titles no longer
-read debug map/camera/script numbers during screen-reader use. Field names
-and world regions use native localized text, with the existing announcement
-setting and dialogue/narration gates. Opening controller navigation reads the
-category and target; hold a navigation trigger and press Triangle/Y for the
-full controls. Route directions and arrival messages remain available.
+0.1.5 improves field labels and menu responsiveness. NPC names are learned
+from attributed dialogue even when the text has no bubble tail. Reviewed
+appearance labels identify 38 person/animal models and two object models;
+other targets retain generic labels. Exits use screen-relative labels and can
+remember the destination of an actual trip as “Last led to”. Navigation skips
+field/world captures behind menus, and menu focus speech replaces stale
+announcements. Technical navigation details stay in logs. See
+[field label coverage and limits](docs/accessibility/field-labels.md).
+
+The quiet map titles and concise controller navigation from 0.1.4 remain.
+Hold a navigation trigger and press Triangle/Y for full navigation controls.
 
 The standalone Windows ZIP includes a double-click installer. Extract the
 ZIP and open **Install-EchosOfGaia.exe**; the installer finds Steam libraries,
@@ -79,7 +84,7 @@ Use the manager to update or uninstall a manager installation.
 
 For a standalone installation:
 
-1. Download and extract EchosOfGaia-v0.1.4-beta-windows.zip into a separate
+1. Download and extract EchosOfGaia-v0.1.5-beta-windows.zip into a separate
    folder outside the game directory.
 2. Open **Install-EchosOfGaia.exe** from the extracted folder. Check the detected
    game folder, or use **Browse** or the editable field to choose the folder

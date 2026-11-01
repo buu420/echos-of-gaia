@@ -15,6 +15,7 @@ namespace Memoria.Accessibility.Navigation
         public TargetIdentity Id; public NavigationPoint Position; public bool Visible, HasInteraction, IsPerson, ShowsIcon, ContainsJump;
         public bool OutOfView; // Native presentation remains enabled, but the camera has scrolled away.
         public int NativePresentationIdentity;
+        public string VisibleLabel,LabelIdentity;
         public string UnobservedOutcome; // Intentionally never read by the catalog.
         public NavigationPoint[] ApproachCandidates;
         public int InteractionUid = -1;

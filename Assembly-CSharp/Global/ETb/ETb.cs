@@ -95,6 +95,7 @@ public static class ETb
             return;
         ETb.DisposWindowByID(winID, true);
         ETb.FlagsToStyles(flags, out Dialog.WindowStyle windowStyle, out Dialog.CaptionType captionType);
+        PosObj originalSubject = targetPo;
         if ((flags & ETb.WindowChatStyle) == 0)
             targetPo = null;
         if ((flags & ETb.ResetChooseMask) <= 0)
@@ -116,9 +117,9 @@ public static class ETb
 
         Dialog dialog = null;
         if (Configuration.VoiceActing.Enabled) // Lambda expression captures the variable "dialog", taking the correct assignment into account
-            dialog = Singleton<DialogManager>.Instance.AttachDialog(winID, windowStyle, mes, targetPo, choiceIndex => VoicePlayer.FieldZoneDialogClosed(dialog), captionType);
+            dialog = Singleton<DialogManager>.Instance.AttachDialog(winID, windowStyle, mes, targetPo, choiceIndex => VoicePlayer.FieldZoneDialogClosed(dialog), captionType, originalSubject);
         else
-            dialog = Singleton<DialogManager>.Instance.AttachDialog(winID, windowStyle, mes, targetPo, null, captionType);
+            dialog = Singleton<DialogManager>.Instance.AttachDialog(winID, windowStyle, mes, targetPo, null, captionType, originalSubject);
 
         if (FF9StateSystem.Common.FF9.fldMapNo == 1657) // Iifa Tree/Tree Roots
         {

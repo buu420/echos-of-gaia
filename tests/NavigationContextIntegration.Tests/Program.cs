@@ -19,7 +19,23 @@ internal static class Program
             QuietPresentationTests.EnablingSpeechRestoresStableTitleOnce,
             QuietPresentationTests.FailedTitleWriteCanRetry,
             FieldLocationUsesNativeLocalizedName,FieldLocationPreferenceKeepsStatusButDisablesAutomaticSpeech,
-            MissingLocationStaysEmptyAndLateTextCanAppear};
+            MissingLocationStaysEmptyAndLateTextCanAppear,
+            CaptureBudgetTests.MenuDoesNotScanFieldTargets,
+            CaptureBudgetTests.MenuDoesNotScanWorldTargetsOrGeometry,
+            CaptureBudgetTests.BlockedFramesDoNotEraseLastSeenPeople,
+            CaptureBudgetTests.NativeMenuIsDistinctFromLoading,
+            DisplayedIdentityTests.OriginalNativeSubjectSurvivesRemovedBubbleTail,
+            DisplayedIdentityTests.ReusedUidCannotTakeAnOldSpeaker,
+            DisplayedIdentityTests.ChangedModelOrScriptCannotTakeAnOldSpeaker,
+            DisplayedIdentityTests.DifferentMapGenerationAndSaveRejectStaleSpeaker,
+            DisplayedIdentityTests.PlayerAndUnattributedSubjectsRemainUnassigned,
+            ObservedExitTests.ManualTraversalLearnsExactPresentedExit,
+            ObservedExitTests.UnknownReusedOrChangedQuadCannotBeLearned,
+            ObservedExitTests.OtherActorAndIndirectOwnerCannotClaimPlayerExit,
+            ObservedExitTests.UnpresentedAndUnexecutedTriggersRemainUnknown,
+            ObservedExitTests.FinishedPushCannotNameALaterJumpByTheSameOwner,
+            ObservedExitTests.NestedReturnPreservesTheOriginalPushButAnotherDepthCannotJump,
+            ObservedExitTests.IndependentSharedScriptCannotClaimAnActivePlayerPush};
         int failed=0;
         foreach(var test in tests)try { Reset();test();Console.WriteLine("PASS "+test.Method.Name); }
         catch(Exception error) { failed++;Console.WriteLine("FAIL "+test.Method.Name+": "+error.Message); }

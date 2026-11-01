@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
 using UnityEngine;
 using Assets.Sources.Scripts.UI.Common;
 using Memoria.ScreenReader;
@@ -18,6 +19,7 @@ namespace Memoria.Accessibility.Navigation
         private static System.Diagnostics.Stopwatch _planTimer;
         private static RouteOperation _planning;private static MovementObservation _pending;
         private static bool _exitReached,_minigameInspection;private static string _traceContext,_traceSpeech,_error;
+        private static long _diagnosticGeneration;private static readonly HashSet<string> _diagnostics=new HashSet<string>();
         static NavigationRuntime(){NavigationLifecycleBridge.Releasing+=DetachScene;NativeFieldMovement.ExitReached+=delegate{_exitReached=true;};}
         public static void Tick()
         {
@@ -25,6 +27,7 @@ namespace Memoria.Accessibility.Navigation
             NavigationContext context=null;
             try {
                 NativeNavigationInput.EnsureUpdated();context=NativeNavigationContext.Read();
+                NativeObservedFieldExits.Arrive(context);
                 NativeWorldFootsteps.UpdateGates(context);
                 NativeFieldExitCues.UpdateGates(context);
                 if(context.MinigameInspection) {
@@ -37,14 +40,24 @@ namespace Memoria.Accessibility.Navigation
                     NavigationLifecycleBridge.Acknowledge(context);return;
                 }
                 if(_minigameInspection){_minigameInspection=false;_announcer.ResetPending();}
+                if(context.MenuOpen) {
+                    // Native menu input and speech must not pay for field/world navigation work.
+                    // Loading is a separate state: its existing geometry preparation stays enabled.
+                    var paused=_coordinator.Tick(context,NativeNavigationInput.TakeCommands(),null,null,Configuration.Accessibility.ControllerNaming);
+                    if(paused.Session.ReleaseMovement)DetachScene(paused.Session.Reason);
+                    _announcer.ResetPending();NavigationLifecycleBridge.Acknowledge(context);return;
+                }
                 NativeChocoboHotCold.DrainResults(context);
                 bool world=context.LogicalMapKey!=null && context.LogicalMapKey.StartsWith("world:");
                 if(world && context.Foreground)NativeWorldGeometry.Warm(context);
                 ReadPresentation(context,world);
                 CatalogResult catalog=world?WorldMapAccessibilityManager.Instance.ReadTargets(context):AccessibleNavigationManager.Instance.ReadTargets(context);
+                if(_diagnosticGeneration!=context.Generation){_diagnostics.Clear();_diagnosticGeneration=context.Generation;}
+                foreach(string diagnostic in catalog.Diagnostics)if(_diagnostics.Count<64 && _diagnostics.Add(diagnostic))Trace("Target diagnostic; map="+context.LogicalMapKey+"; "+diagnostic);
                 NativeFieldExitCues.Tick(context,catalog);
                 NativeStoryTargets.Append(context,catalog);
                 var movement=ReadMovement(context,catalog);
+                if(movement!=null && movement.Outcome==MovementOutcome.Interrupted)Trace("Movement interrupted; reason="+movement.Reason+"; evidence="+movement.Evidence);
                 var commands=NativeNavigationInput.TakeCommands();var update=_coordinator.Tick(context,commands,catalog,movement,Configuration.Accessibility.ControllerNaming);
                 if(_pending==movement && update.Session.Mode!=RouteMode.Moving)_pending=null;
                 foreach(var command in commands) {
@@ -71,8 +84,8 @@ namespace Memoria.Accessibility.Navigation
                 _error=null;
             }catch(Exception exception) {
                 NavigationLifecycleBridge.Release(StopReason.UnknownContext);
-                string message="Navigation unavailable: "+exception.Message;
-                if(_error!=message){_error=message;Trace(message);Log.Message("[FF9Access] Navigation exception: {0}",exception);if(context!=null && context.CanInspect)ScreenReaderManager.Instance.SpeakInterrupt(message);}
+                string message=exception.GetType().FullName+": "+exception.Message;
+                if(_error!=message){_error=message;Trace(message);Log.Message("[FF9Access] Navigation exception: {0}",exception);if(context!=null && context.CanInspect)ScreenReaderManager.Instance.SpeakInterrupt("Navigation is temporarily unavailable. Try again when the scene is ready.");}
             }
         }
         private static void ReadPresentation(NavigationContext context,bool world)
@@ -182,7 +195,8 @@ namespace Memoria.Accessibility.Navigation
             if(!route.Success) {_pending=new MovementObservation{Outcome=MovementOutcome.Unavailable,RouteFailure=route.Failure,Evidence=RouteReason(route.Failure),Notice=requestedMovement?null:"Route unavailable: "+RouteReason(route.Failure)+". Direct guidance available."};return;}
             if(!requestedMovement || !automatic)return;
             _owner=++_nextOwner;var result=world?NativeWorldMovement.TryStart(context,target,route,_owner):NativeFieldMovement.TryStart(context,target,route,_owner);
-            _pending=result==MovementStartResult.Started?new MovementObservation{Outcome=MovementOutcome.Moving,RouteAvailable=true,PlannedRoute=route,RoutePoint=route.Waypoints[0],Notice="Automatic movement started toward "+target.Label+"."}:new MovementObservation{Outcome=MovementOutcome.Unavailable,Evidence="native follower "+result};
+            if(result!=MovementStartResult.Started)Trace("Native movement start refused: "+result);
+            _pending=result==MovementStartResult.Started?new MovementObservation{Outcome=MovementOutcome.Moving,RouteAvailable=true,PlannedRoute=route,RoutePoint=route.Waypoints[0],Notice="Automatic movement started toward "+target.Label+"."}:new MovementObservation{Outcome=MovementOutcome.Unavailable,Evidence=MovementStartMessage.Read(result)};
             Trace("Movement start "+result+"; owner="+_owner+"; request_ms="+_planTimer.ElapsedMilliseconds);
         }
         public static string RouteReason(RouteFailure failure)

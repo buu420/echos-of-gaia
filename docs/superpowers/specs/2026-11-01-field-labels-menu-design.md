@@ -1,0 +1,11 @@
+# Field labels and responsive menus
+
+The tester recording contains pre-0.1.4 title/tutorial text, generic Person/Exit letters, spoken exceptions and implementation diagnostics. Retain 0.1.4's title fix. Fix the confirmed new issues rather than requiring another report: menu-time navigation captures, queued menu focus, unsafe talkability reads and technical player-facing speech.
+
+Native menus must release movement without repeatedly scanning field targets/geometry, world destinations, or querying speech status. Native loading preparation must retain its existing world capture budget and readiness. Menu focus replaces stale menu utterances; native menu inputs and animation timing remain unchanged. Internal evidence and exceptions stay in logs while players receive concise actionable status. Known physical route failures remain explained.
+
+NPC targets should use actual displayed names with correct native attribution even for fixed-position/region-mediated dialogue. Before a name is known, use reviewed visible role/appearance labels where evidence exists, rather than opaque codes. Duplicate visually identical actors may retain stable differentiators. UID reuse must not apply another character's name. Exit labels must be backed by visible signs or actually observed transitions; no future dialogue, hidden identity or unrevealed destination is exposed.
+
+User clarification: every currently visible actor and presented exit belongs in its category immediately, without needing discovery, an interaction or a traversal. Traversal knowledge may improve an exit's destination label only. Keep the reviewed required story action readable while travelling; verify the reported Vivi street/shop/booth sequence and advancement to the alley from the installed catalog. Do not claim a complete live story playthrough from static checks.
+
+Keep saves/settings/608 narration recordings and unrelated game files intact. Develop in the canonical source checkout, export reviewed leaf changes to the clean public repository, build both original game architectures, verify exact-runtime compatibility and packages, then deploy and publish the tester update using existing authorization. Automated checks and recording/log evidence remain distinct from live physical-controller and recipient-PC NVDA confirmation.

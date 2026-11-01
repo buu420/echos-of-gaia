@@ -75,7 +75,7 @@ namespace Memoria.Accessibility.Navigation
             var position=actor.fieldMapActorController==null?new NavigationPoint(actor.pos[0],actor.pos[1],actor.pos[2]):Point(actor.fieldMapActorController.curPos);
             if(!FieldInteractionBindings.WithinReach(position,Polygon(region))){region=null;return false;}
             // Current native Confirm permission for the talk spot itself.
-            if(region.level<=1 || !engine.IsActuallyTalkable(region) || !EventCollision.NavigationCanTalkQuad(player,region) ||
+            if(region.level<=1 || !NativeFieldTalkability.IsTalkable(region) || !EventCollision.NavigationCanTalkQuad(player,region) ||
                 Guard(engine,region,EventEngine.tagTalk)==FieldInteractionState.Unavailable){region=null;return false;}
             return true;
         }
@@ -87,7 +87,7 @@ namespace Memoria.Accessibility.Navigation
                 Level=actor.level,Flags=actor.flags,PlayerFlags=player==null?0:player.flags};
             if(!gates.HasTalkHandler && !gates.HasPushHandler)return;
             if(gates.HasTalkHandler) {
-                gates.TalkBytesActive=engine.IsActuallyTalkable(actor);
+                gates.TalkBytesActive=NativeFieldTalkability.IsTalkable(actor);
                 gates.ReviewedListener=!gates.TalkBytesActive && NativeFieldTargets.IsReviewedListener(context,engine,actor);
                 gates.MapTalkAllowed=NativeInteractionProbe.NativeTalkGuard(engine,actor);
             }

@@ -30,7 +30,7 @@ namespace Memoria.Accessibility.Navigation
         }
         public static void CompleteSave(string verifiedIdentity)
         {
-            try { Identities.CommitSave(verifiedIdentity); if (Saved != null) Saved(verifiedIdentity); }
+            try { Identities.CommitSave(verifiedIdentity);NativeObservedFieldExits.Reset(); if (Saved != null) Saved(verifiedIdentity); }
             catch (Exception exception) { Log.Message("[FF9Access] Could not persist navigation observations: {0}", exception); }
         }
         public static void NewGame() { PrepareLoad(); }

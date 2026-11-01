@@ -97,12 +97,16 @@ public class DialogManager : Singleton<DialogManager>
     }
 
     public Dialog AttachDialog(Int32 dialogId, Dialog.WindowStyle style, Int32 textId, PosObj po, Dialog.DialogIntDelegate listener, Dialog.CaptionType captionType)
+    { return this.AttachDialog(dialogId,style,textId,po,listener,captionType,po); }
+
+    public Dialog AttachDialog(Int32 dialogId, Dialog.WindowStyle style, Int32 textId, PosObj po, Dialog.DialogIntDelegate listener, Dialog.CaptionType captionType, PosObj originalSubject)
     {
         Dialog dialogFromPool = this.GetDialogFromPool();
         if (dialogFromPool != null)
         {
             dialogFromPool.Reset();
             dialogFromPool.IsETbDialog = true;
+            dialogFromPool.NavigationSpeaker = Memoria.Accessibility.Navigation.NativeDisplayedIdentity.Capture(originalSubject);
             dialogFromPool.Id = dialogId;
             dialogFromPool.Style = style;
             dialogFromPool.Po = po;
@@ -268,6 +272,7 @@ public class DialogManager : Singleton<DialogManager>
 
     public void ReleaseDialogToPool(Dialog dialog)
     {
+        dialog.NavigationSpeaker = null;
         dialog.gameObject.SetActive(false);
         this.activeDialogList.Remove(dialog);
         this.dialogPool.Enqueue(dialog);

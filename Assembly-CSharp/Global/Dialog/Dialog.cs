@@ -435,6 +435,8 @@ public class Dialog : MonoBehaviour
         }
     }
 
+    [NonSerialized] internal Memoria.Accessibility.Navigation.NativeDisplayedIdentity.Speaker NavigationSpeaker;
+
     public Vector2 FF9Position
     {
         get => this.ff9Position;
@@ -1184,6 +1186,7 @@ public class Dialog : MonoBehaviour
         this.TailGameObject.transform.localPosition = new Vector3(0f, 0f, 0f);
         this.Po = null;
         this.isReadyToFollow = false;
+        this.NavigationSpeaker = null;
         this.isForceTailPosition = false;
         this.focusToActor = true;
         this.FollowDialog = -1;
@@ -1699,7 +1702,7 @@ public class Dialog : MonoBehaviour
             if (!String.IsNullOrEmpty(textToAnnounce))
             {
                 if(Memoria.Accessibility.Navigation.NativeChocoboHotCold.TryHandleOpenedDialog(this,textToAnnounce))return;
-                Memoria.Accessibility.Navigation.NativeDisplayedIdentity.Observe(this.Po,this.CurrentParser==null?null:this.CurrentParser.ParsedText);
+                Memoria.Accessibility.Navigation.NativeDisplayedIdentity.Observe(this.NavigationSpeaker,this.CurrentParser==null?null:this.CurrentParser.ParsedText);
                 // Build announcement with character name if present
                 String announcement = String.Empty;
                 if (!String.IsNullOrEmpty(this.caption))

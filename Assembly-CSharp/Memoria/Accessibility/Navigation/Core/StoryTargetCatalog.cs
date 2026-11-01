@@ -90,11 +90,13 @@ namespace Memoria.Accessibility.Navigation
             if(selected.Count==0) {
                 string help=currentKnown && here==0?"Continue the current scene using the game's shown interactions. No verified story approach is currently presented.":"Travel toward "+goal+". A verified route is not currently presented in this area.";
                 if(!String.IsNullOrEmpty(_stage.Instruction))help=_stage.Instruction+" "+help;
-                catalog.Targets.Add(Information(context,_stage.Milestone,"Continue the story: "+scene+".",help));return;
+                string heading=String.IsNullOrEmpty(_stage.Instruction)?"Continue the story: "+scene+".":_stage.Instruction.Trim()+" "+scene+".";
+                catalog.Targets.Add(Information(context,_stage.Milestone,heading,help));return;
             }
             foreach(var physical in selected) {
                 string action=world && physical.Category==NavigationCategory.Vehicles?"Approach "+physical.Label+" for travel toward "+goal:
-                    best==0?(!String.IsNullOrEmpty(physical.StoryAction)?physical.StoryAction:"Continue the story with "+physical.Label+". "+scene):"Continue toward "+scene+" via "+physical.Label;
+                    best==0?(!String.IsNullOrEmpty(physical.StoryAction)?physical.StoryAction:"Continue the story with "+physical.Label+". "+scene):
+                    !String.IsNullOrEmpty(_stage.Instruction)?_stage.Instruction.Trim()+" Continue via "+physical.Label:"Continue toward "+scene+" via "+physical.Label;
                 var wrapped=Wrap(context,_stage.Milestone,physical,action);
                 if(departure && best==0)wrapped.Label+=". Next destination: "+goal;
                 if((world || departure) && !String.IsNullOrEmpty(_stage.Instruction))wrapped.Availability=(_stage.Instruction+" "+wrapped.Availability).Trim();

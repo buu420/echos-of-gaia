@@ -8,6 +8,7 @@ namespace Memoria.Accessibility.Navigation
     public sealed class ObservedIdentityStore
     {
         private readonly Dictionary<TargetIdentity, string> _names = new Dictionary<TargetIdentity, string>();
+        private readonly Dictionary<TargetIdentity, string> _scopes = new Dictionary<TargetIdentity, string>();
         private readonly string _directory;
         public string SaveIdentity { get; private set; }
         public int KnownCount { get { return _names.Count; } }
@@ -15,7 +16,7 @@ namespace Memoria.Accessibility.Navigation
         public ObservedIdentityStore(string directory) { _directory = directory; }
         public void SwitchSave(string verifiedIdentity)
         {
-            _names.Clear(); SaveIdentity = verifiedIdentity;
+            _names.Clear();_scopes.Clear(); SaveIdentity = verifiedIdentity;
             string path = StoragePath(verifiedIdentity);
             if (path == null || !File.Exists(path)) return;
             // Companion files are optional evidence. Never substitute stale knowledge
@@ -23,15 +24,18 @@ namespace Memoria.Accessibility.Navigation
             try {
                 foreach (string line in File.ReadAllLines(path)) {
                     string[] parts = line.Split('\t');
-                    if (parts.Length != 4) continue;
+                    if (parts.Length != 4 && parts.Length != 5) continue;
                     int kind, id;
                     if (!int.TryParse(parts[0], out kind) || !int.TryParse(parts[1], out id) || kind < 0 || kind > (int)TargetKind.Vehicle) continue;
-                    Record(new TargetIdentity((TargetKind)kind, Decode(parts[2]), id), Decode(parts[3]));
+                    Record(new TargetIdentity((TargetKind)kind, Decode(parts[2]), id), Decode(parts[3]),parts.Length==5?Decode(parts[4]):null);
                 }
-            } catch { _names.Clear(); }
+            } catch { _names.Clear();_scopes.Clear(); }
         }
-        public void Record(TargetIdentity id, string displayedLabel) { if (!string.IsNullOrEmpty(displayedLabel)) _names[id] = displayedLabel; }
+        public void Record(TargetIdentity id, string displayedLabel) { Record(id,displayedLabel,null); }
+        public void Record(TargetIdentity id,string displayedLabel,string scope) { if(string.IsNullOrEmpty(displayedLabel))return;_names[id]=displayedLabel;if(string.IsNullOrEmpty(scope))_scopes.Remove(id);else _scopes[id]=scope; }
         public bool TryGetLabel(TargetIdentity id, out string label) { return _names.TryGetValue(id, out label); }
+        public bool TryGetLabel(TargetIdentity id,string scope,out string label)
+        {label=null;string knownScope;return (string.IsNullOrEmpty(scope) || _scopes.TryGetValue(id,out knownScope) && knownScope==scope) && _names.TryGetValue(id,out label);}
         public void CommitSave(string verifiedNewIdentity)
         {
             if (string.IsNullOrEmpty(verifiedNewIdentity)) { SwitchSave(null); return; }
@@ -40,7 +44,7 @@ namespace Memoria.Accessibility.Navigation
             if (path == null) return;
             Directory.CreateDirectory(_directory);
             List<string> lines = new List<string>();
-            foreach (KeyValuePair<TargetIdentity, string> entry in _names) lines.Add((int)entry.Key.Kind + "\t" + entry.Key.NativeId + "\t" + Encode(entry.Key.MapKey) + "\t" + Encode(entry.Value));
+            foreach (KeyValuePair<TargetIdentity, string> entry in _names) {string scope;lines.Add((int)entry.Key.Kind + "\t" + entry.Key.NativeId + "\t" + Encode(entry.Key.MapKey) + "\t" + Encode(entry.Value)+(_scopes.TryGetValue(entry.Key,out scope)?"\t"+Encode(scope):""));}
             lines.Sort(StringComparer.Ordinal);
             string temporary = path + ".tmp";
             File.WriteAllLines(temporary, lines.ToArray(), Encoding.UTF8);

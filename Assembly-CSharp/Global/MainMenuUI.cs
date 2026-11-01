@@ -426,7 +426,7 @@ public class MainMenuUI : UIScene
             }
             if (this.IsButtonDisabled(go))
                 announcement += ", disabled";
-            Boolean accepted = ScreenReaderManager.Instance.TrySpeak(announcement, false);
+            Boolean accepted = ScreenReaderManager.Instance.TrySpeak(announcement, true);
             this.screenReaderSelectionPending = !accepted;
             this.screenReaderNextRetryAt = accepted ? 0f : Time.realtimeSinceStartup + 1f;
             Log.Message($"[FF9Access] Main-menu speech: presentation={this.screenReaderPresentation}; group={ButtonGroupState.ActiveGroup}; object={go.name}; textLength={announcement.Length}; accepted={accepted}; backend={ScreenReaderManager.Instance.BackendDiagnostic}");

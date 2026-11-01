@@ -40,6 +40,7 @@ internal static class Program
             ("background retry waits and returns latest selection", BackgroundRetry),
             ("transparent opening label retries when its parent becomes visible", TransparentOpening),
             ("transparent empty row stays silent until shown", TransparentEmptyRow),
+            ("new menu focus replaces stale queued focus speech", MenuFocusReplacesPrevious),
         };
         int failed=0;
         foreach (var item in cases)
@@ -57,6 +58,14 @@ internal static class Program
         Equal(0,SpeechOutput.Text.Count,"Speech must wait while character bars still move");
         f.Tween.CompleteShow(); f.Tick();
         Sequence("Item"); f.Tick(); Sequence("Item");
+    }
+    private static void MenuFocusReplacesPrevious()
+    {
+        var f=new Fixture();f.Ready();SpeechOutput.Interrupts.Clear();SpeechOutput.Text.Clear();
+        foreach(var name in Fixture.MenuNames)ButtonGroupState.ActiveButton=f.Buttons[name];
+        Equal(Fixture.MenuNames.Length,SpeechOutput.Interrupts.Count,"each focus should reach the output boundary");
+        if(SpeechOutput.Interrupts.Any(value=>!value))throw new Exception("menu focus queues old selections instead of replacing them");
+        if(SpeechOutput.Text.Last()!="Config")throw new Exception("latest focus was not read");
     }
     private static void CharacterFirst()
     {

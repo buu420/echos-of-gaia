@@ -2,8 +2,8 @@
 
 Select Story with U from Exits or Towns. Use K and semicolon to cycle its
 targets, L for status, I for spoken directions and P for automatic movement.
-Custom bindings in the launcher still apply. In the controller navigation
-menu, use the shoulders for categories and up/down for targets.
+Custom bindings in the launcher still apply. Hold a navigation trigger on the
+controller, then use D-pad left/right for categories and up/down for targets.
 
 Story follows the current plot through Alexandria, the journeys across Gaia,
 Terra and the final area. It gives the next required scene, local interaction
@@ -15,6 +15,14 @@ Story remains selected when you change maps, board a vehicle or advance the
 plot. It selects the new objective and stops the old movement. Press P when
 you want to walk to the next one. Ordinary Confirm, conversation choices,
 boarding, landing, digging and combat remain your actions.
+
+When a reviewed step has a required action, its Story heading keeps that
+action while travelling. At the opening Vivi step it says to show the ticket
+at the ticket booth, instead of reading only a room name. The installed
+catalog regression follows street102 through square103 to booth104; an
+optional item-shop108 visit returns to102 without advancing the objective.
+Only the actual ticket-completion counter moves guidance to alley105. Missing
+presented approaches retain an informational objective with no walking target.
 
 Some steps involve a player-script interaction, dialogue, a puzzle or a scene
 without a demonstrated walking target. Those entries give the required action

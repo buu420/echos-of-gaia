@@ -52,7 +52,7 @@ namespace Memoria.Accessibility.Navigation
                     case MovementOutcome.TurnNeeded:signal=NavigationSignal.Arrived;update.Messages.Add("Approach reached. Turn to face "+Label(update.Selected)+"; use Confirm when ready.");break;
                     case MovementOutcome.ApproachReached:signal=NavigationSignal.Arrived;update.Messages.Add(movement.PlannedRoute!=null && movement.PlannedRoute.ViewingPoint?"Reached a viewing point for "+Label(update.Selected)+". This object has no interaction.":"Approach reached: "+Label(update.Selected)+". Use the ordinary game action to continue.");break;
                     case MovementOutcome.ArrivedExit:signal=NavigationSignal.Arrived;update.Messages.Add("Selected exit reached.");break;
-                    case MovementOutcome.Interrupted:signal=NavigationSignal.RouteFailed;update.Messages.Add("Automatic movement stopped: "+(movement.Evidence??movement.Reason.ToString())+".");break;
+                    case MovementOutcome.Interrupted:signal=NavigationSignal.RouteFailed;update.Messages.Add("Automatic movement stopped. "+InterruptionReason(movement.Reason));break;
                     case MovementOutcome.TargetMoved:signal=NavigationSignal.StartAutomatic;update.RouteOperation=RouteOperation.ReplanAutomatic;update.Messages.Add((update.Selected!=null && update.Selected.Id.Kind==TargetKind.Vehicle?"Vehicle":"Target")+" moved. Finding a fresh approach.");break;
                     case MovementOutcome.Unavailable:signal=NavigationSignal.RouteFailed;update.Messages.Add("Automatic route unavailable: "+(movement.Evidence??"native route could not be established")+".");break;
                 }
@@ -95,7 +95,6 @@ namespace Memoria.Accessibility.Navigation
                     else if(signal==NavigationSignal.Confirm && wasAutomatic)update.Messages.Add("Navigation paused for interaction.");
                 }
             }
-            foreach(string diagnostic in catalog.Diagnostics)update.Diagnostics.Add(diagnostic);
             if(update.Movement!=null && update.Movement.RouteAvailable && !GuidanceRouteValidation.Matches(update.Movement.PlannedRoute,context,update.Selected)) {
                 update.Movement.RouteAvailable=false;update.Movement.RoutePoint=null;
             }
@@ -109,6 +108,15 @@ namespace Memoria.Accessibility.Navigation
         private static string Label(NavigationTarget target){return target==null?"the selected target":target.Label;}
         private static NavigationCategory[] Categories(NavigationContext context){return context.LogicalMapKey!=null && context.LogicalMapKey.StartsWith("world:")?new[]{NavigationCategory.Story,NavigationCategory.Towns,NavigationCategory.Regions,NavigationCategory.Vehicles}:new[]{NavigationCategory.Story,NavigationCategory.Exits,NavigationCategory.People,NavigationCategory.Objects,NavigationCategory.Items};}
         public static string ModifierHelp(string naming){return "D-pad left and right categories; up and down targets; L3 guidance; R3 automatic travel; "+(naming=="PlayStation"?"Circle":naming=="Generic"?"right face button":"B")+" stop. Release the trigger after choosing.";}
+        private static string InterruptionReason(StopReason reason)
+        {
+            if(reason==StopReason.Stalled)return "The character could not move forward.";
+            if(reason==StopReason.PathInvalid)return "The route is no longer available.";
+            if(reason==StopReason.FocusLost)return "The game is in the background.";
+            if(reason==StopReason.Menu)return "The game menu is open.";
+            if(reason==StopReason.Dialogue)return "Dialogue is active.";
+            return "The game interrupted walking. Choose guidance or automatic walking again when ready.";
+        }
         private static void Merge(ref RouteDecision previous,RouteDecision next){next.ReleaseMovement|=previous.ReleaseMovement;next.RequireReplan|=previous.RequireReplan;previous=next;}
         private static bool OnlyInformationalCommands(NavigationCommand[] commands)
         {

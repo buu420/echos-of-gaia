@@ -7,7 +7,7 @@ using Memoria.Accessibility.Navigation;
 namespace UnityEngine
 {
     public enum RuntimePlatform { WindowsPlayer,Other }
-    public static class Application { public static RuntimePlatform platform=RuntimePlatform.WindowsPlayer; }
+    public static class Application { public static RuntimePlatform platform=RuntimePlatform.WindowsPlayer; public static string persistentDataPath=System.IO.Path.GetTempPath(); }
     public class Object
     {
         private static readonly Dictionary<Type, object> Objects = new Dictionary<Type, object>();
@@ -19,7 +19,7 @@ namespace UnityEngine
 }
 namespace Memoria.Prime
 {
-    public static class Log { public static void Error(Exception exception,string message) { } }
+    public static class Log { public static void Error(Exception exception,string message) { } public static void Message(string text,params object[] args) { } }
 }
 namespace Memoria.Prime.WinAPI
 {
@@ -80,15 +80,22 @@ public sealed class FF9StateSystem
 }
 public sealed class EventEngine
 {
+    public int gMode=1;
+    public readonly Dictionary<int,Actor> Actors=new Dictionary<int,Actor>();
+    public readonly Dictionary<int,Obj> Objects=new Dictionary<int,Obj>();
+    public object GetObjUID(int uid) { Actor value;Obj obj;return Controlled!=null && Controlled.uid==uid?Controlled:Objects.TryGetValue(uid,out obj)?obj:Actors.TryGetValue(uid,out value)?value:null; }
     public Actor Controlled;
     public bool UserControl;
     public Actor GetControlChar() { return Controlled; }
     public int GetControlUID() { return Controlled==null?-1:Controlled.uid; }
     public bool GetUserControl() { return UserControl; }
 }
-public sealed class Actor
+public class Obj { public int uid=17,sid,sx=2,level=1;public byte[] ebData=new byte[]{0,0}; }
+public class PosObj:Obj { }
+public sealed class Quad:Obj { public string Signature="polygon"; }
+public sealed class Actor:PosObj
 {
-    public int uid=17,index;
+    public int index,model;
     public UnityEngine.GameObject go=new UnityEngine.GameObject();
     public FieldMapActorController fieldMapActorController=new FieldMapActorController();
     public WMActor wmActor;
@@ -102,6 +109,7 @@ public sealed class UIManager
     public enum UIState { FieldHUD,WorldHUD,Tutorial,Menu }
     public UIState State;
     public bool IsPause,IsLoading,IsPlayerControlEnable;
+    public static bool IsUIStateMenu(UIState state) { return state==UIState.Menu || state==UIState.Tutorial; }
 }
 public sealed class Dialog { public bool HasChoices; public bool FlagButtonInh; }
 public sealed class DialogManager
@@ -113,10 +121,19 @@ public sealed class DialogManager
 public enum MinigameHUD { None,Other }
 public static class EventHUD { public static MinigameHUD CurrentHUD; }
 public static class EventInput { public static bool IsMovementControl; }
+public class PersistenSingleton<T> where T:class { public static T Instance; }
 namespace Memoria.Accessibility.Navigation
 {
-    public static class NavigationLifecycleBridge { public static long Generation=3; public static BattleTransition ReturnTransition; }
-    public static class NavigationSaveIdentity { public static string Current="test-save"; }
+    public static class NavigationLifecycleBridge { public static long Generation=3; public static BattleTransition ReturnTransition; public static event Action<StopReason> Releasing; public static void Release(StopReason reason) { if(Releasing!=null)Releasing(reason); } }
+    public static class NavigationSaveIdentity { public static string Current="test-save";public static readonly ObservedIdentityStore Identities=new ObservedIdentityStore();public static event Action<string> Loaded,Saved; }
+    public static class NativeNavigationInput { public static void EnsureUpdated() { } }
+    public static class NativeStoryTargets { public static void Initialize() { } }
+    public static class NavigationRuntime { public static void Tick() { } public static void Trace(string text) { } }
+    public static class NativeFieldTargets { public static int Reads;public static readonly List<FieldTargetObservation> Observations=new List<FieldTargetObservation>(); public static IList<FieldTargetObservation> Read(NavigationContext context){Reads++;return Observations;} public static string ExitLabelSignature(Quad quad){return quad.sid+":"+Convert.ToBase64String(quad.ebData)+":"+quad.Signature;} public static string LabelSignature(Actor actor){return actor.model+":"+actor.sid+":"+Convert.ToBase64String(actor.ebData);} }
+    public static class NativeWorldTargets { public static int Reads;public static IList<WorldTargetObservation> Read(NavigationContext context){Reads++;return new List<WorldTargetObservation>();} }
+    public static class NativeWorldGeometry { public static int Reads;public static WorldGeometrySnapshot Read(NavigationContext context,NavigationTarget target){Reads++;return null;} }
+    public static class NativeRegionReader { public static bool TryRead(out int id,out string label){id=-1;label=null;return false;} }
+    public static class NativeWorldFootsteps { public static void Tick(NavigationContext context) { } }
     public static class NativeChocoboHotCold
     {
         public static bool CanInspect;
