@@ -19,6 +19,7 @@ namespace Memoria.Accessibility.Navigation
             var presentedQuad=engine.GetObjUID(target.PhysicalIdentity.NativeId) as Quad;
             if(presentedQuad!=null && target.InteractionUid==presentedQuad.uid) {
                 if(NpcConsumesConfirm(engine,player,selected as Actor,distance))return result;
+                InteractionReadiness touch;if(NativeFieldTouchReadiness.TryRead(context,target,engine,player,presentedQuad,out touch))return touch;
                 result.SelectedCollision=engine.TreadQuad(player,4)==presentedQuad;
                 result.InRange=result.SelectedCollision && engine.NavigationContainsQuad(presentedQuad,controller.curPos.x,controller.curPos.z);
                 result.Talkable=NativeFieldTalkability.IsTalkable(presentedQuad) && EventCollision.NavigationCanTalkQuad(player,presentedQuad) && EIcon.NavigationPresentedUid==presentedQuad.uid;

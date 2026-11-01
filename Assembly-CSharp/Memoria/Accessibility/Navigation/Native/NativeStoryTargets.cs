@@ -20,6 +20,7 @@ namespace Memoria.Accessibility.Navigation
         public static void Initialize()
         {
             if(_loaded)return;_loaded=true;
+            NativeStoryPrerequisites.Initialize();
             try {
                 using(var stream=Assembly.GetExecutingAssembly().GetManifestResourceStream("Memoria.Accessibility.StoryNavigation.json")) {
                     if(stream==null)throw new InvalidOperationException("Missing Story navigation catalog");
@@ -108,6 +109,7 @@ namespace Memoria.Accessibility.Navigation
         }
         public static void Append(NavigationContext context,CatalogResult catalog)
         {
+            if(NativeStoryPrerequisites.TryAppend(context,catalog))return;
             Initialize();if(_catalog!=null)_catalog.Append(context,catalog,FieldNumber(context),id=>FF9TextTool.RemoveOpCode(FF9TextTool.LocationName(id)),MapByte,EntryHash);
             else if(context!=null && context.StoryProgress>=0)catalog.Targets.Add(new NavigationTarget{Id=new TargetIdentity(TargetKind.Story,context.LogicalMapKey,-1),Category=NavigationCategory.Story,Generation=context.Generation,Position=context.Position,Label="Story guidance unavailable.",Availability="The Story catalog could not be read.",ApproachCandidates=new NavigationPoint[0]});
         }

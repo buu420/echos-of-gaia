@@ -11,6 +11,16 @@ or travel destination. On the world map, it uses destinations available with
 your current transport and helps you approach the appropriate parked vessel.
 The four-shrine sequence advances Water, Fire, Wind, then Earth.
 
+In 0.1.6, Pinnacle Rocks keeps fragment collection ahead of the final
+conversation. Fossil Roo chooses the next step from the actual reversible
+switch bits and the player's verified current floor component. Mount Gulug
+keeps its lever step until the native completion flag changes. These rules
+require exact original script fingerprints; unsupported state provides current
+scene information without an invented walking approach. They wrap only
+ordinary, already presented interactive targets. Fossil flower/boarding steps
+without such a target remain manual. The player still chooses every dialogue,
+lever action and Confirm press.
+
 Story remains selected when you change maps, board a vehicle or advance the
 plot. It selects the new objective and stops the old movement. Press P when
 you want to walk to the next one. Ordinary Confirm, conversation choices,
@@ -46,11 +56,13 @@ is outside the current view. Its current story eligibility is checked again.
 Chapter order and travel context were checked against [bover_87's GameFAQs
 guide](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891),
 including the [four-shrine sequence](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/breaking-the-seal).
-The guide's indexed chapters were accessible; direct full-page fetches were
-blocked. Wording in the mod is original. Native scripts and engine code supply
-progress and physical bindings.
+The November 1 audit reviewed all 44 main-guide chapter bodies and all 23
+optional topic bodies. Wording in the mod is original. Native scripts and
+engine code supply progress and physical bindings. See the
+[complete comparison and remaining gaps](guide-coverage.md).
 
-The installed-script inventory contains 817 fields. Metadata retains 804
+The current complete native census contains 818 fields. The older Story
+inventory contains 817 fields (it omits field70); Story metadata retains 804
 gameplay fields, including Disc 4's Black Mage Village, and excludes 13 ending
 fields. It contains 49 reviewed chapter ranges, 364 scene checkpoints, 2,741
 potential field transitions and 10,470 entry hashes. Counter-floor writes are

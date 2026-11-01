@@ -20,6 +20,22 @@
       "requestedLevel": 1
     },
     {
+      "field": 553,
+      "mapKey": "field:553:FBG_N11_LDBM_MAP160_LB_IN1_0",
+      "region": 9,
+      "regionSha256": "61c045e153c94c1d4862b820f69188519e699bfcf2dd9c53172e67d98ba5b486",
+      "actor": 6,
+      "actorUid": 6,
+      "actorSha256": "dc158da277d5e4acb1bc3d4b65e6b39e7773b60cddb04bb817057f622603cd2c",
+      "model": 111,
+      "geo": "GEO_NPC_F0_APM",
+      "requestedTag": [
+        17
+      ],
+      "initDistance": 282,
+      "requestedLevel": 1
+    },
+    {
       "field": 555,
       "mapKey": "field:555:FBG_N11_LDBM_MAP156_LB_BAZ_0",
       "region": 23,
@@ -113,6 +129,22 @@
         21
       ],
       "initDistance": 466,
+      "requestedLevel": 1
+    },
+    {
+      "field": 1303,
+      "mapKey": "field:1303:FBG_N11_LDBM_MAP160_LB_IN1_0",
+      "region": 9,
+      "regionSha256": "b30674a71242779eeb1e87f702cabb95a3d69bfaab417a34999b2730ebfb76af",
+      "actor": 6,
+      "actorUid": 6,
+      "actorSha256": "83bd1503d49d4f9b3dc4887aad9a489e1980288a0329cd1b4ebdcdf67a61c3c9",
+      "model": 111,
+      "geo": "GEO_NPC_F0_APM",
+      "requestedTag": [
+        16
+      ],
+      "initDistance": 282,
       "requestedLevel": 1
     },
     {

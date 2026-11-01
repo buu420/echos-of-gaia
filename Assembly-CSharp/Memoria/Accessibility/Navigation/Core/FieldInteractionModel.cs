@@ -101,6 +101,8 @@ namespace Memoria.Accessibility.Navigation
     {
         public const float MaxActorDistance=700f;
         private static readonly FieldInteractionBinding[] _bindings={
+            new FieldInteractionBinding(553,6,"dc158da277d5e4acb1bc3d4b65e6b39e7773b60cddb04bb817057f622603cd2c",111,6,9,"61c045e153c94c1d4862b820f69188519e699bfcf2dd9c53172e67d98ba5b486",1),
+            new FieldInteractionBinding(1303,6,"83bd1503d49d4f9b3dc4887aad9a489e1980288a0329cd1b4ebdcdf67a61c3c9",111,6,9,"b30674a71242779eeb1e87f702cabb95a3d69bfaab417a34999b2730ebfb76af",1),
             new FieldInteractionBinding(111,4,"53a4e8c318190d94a390fca640b364de8198b6032cedc72b2c88aaad9d7febbb",124,4,5,"ed9f04326b1701dfa47f4d50299ef9b4f2931c24b73f38e0176c1425903e14f6",1),
             new FieldInteractionBinding(555,12,"fc9081e2f86645b54c7a939dcc9f20e1199fb306a8a615dc001f315a5fc370fd",112,12,23,"4dd2e02ed2e515fba2700b233a34b98807a8e556da842d84dc8120910e4a0de6",1),
             new FieldInteractionBinding(561,4,"dcee00bd10b7de2a80017312e0c7cf7a12ab4ad3640fa1c7c831cbb3bcc13cbe",24,4,8,"4e626287c790d533e902dad5eb96a6dcb75c419a469d418eb49e56a6f9e39deb",1),

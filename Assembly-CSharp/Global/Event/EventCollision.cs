@@ -287,7 +287,7 @@ public class EventCollision
                 Memoria.Accessibility.Navigation.NativeObservedFieldExits.Triggered(instance,po,obj);
                 if (instance.GetIP((Int32)obj.sid, 8, obj.ebData) != instance.nil)
                 {
-                    EIcon.PollFIcon(BubbleUI.IconType.ExclamationAndDuel);
+                    EIcon.PollFIcon(BubbleUI.IconType.ExclamationAndDuel,obj.uid);
                 }
                 else
                 {
@@ -295,7 +295,7 @@ public class EventCollision
                     if (fldMapNo == 2108)
                     {
                         if (EventCollision.CheckQuadTalk(po, obj))
-                            EIcon.PollFIcon(BubbleUI.IconType.Exclamation);
+                            EIcon.PollFIcon(BubbleUI.IconType.Exclamation,obj.uid);
                     }
                 }
             }
@@ -365,6 +365,9 @@ public class EventCollision
     {
         return ctrl != null && quad != null && quad.level > 1 && CheckQuadPush(ctrl, quad);
     }
+    // A reviewed touch listener may already have its native request queued at level1.
+    public static Boolean NavigationHasTouchFacing(PosObj ctrl,Obj quad)
+    {return ctrl!=null && quad!=null && CheckQuadPush(ctrl,quad) && CheckQuadTalk(ctrl,quad);}
 
     // Read the ordinary CheckNPCPush map gate without requesting a script.
     public static Boolean NavigationCanPushNpc(PosObj npc)

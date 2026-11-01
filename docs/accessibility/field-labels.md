@@ -1,6 +1,6 @@
 # Field target labels
 
-Echos of Gaia 0.1.5 uses the original native message subject to associate a
+Echos of Gaia uses the original native message subject to associate a
 displayed speaker heading with an NPC. Bubble tails and fixed-position text no
 longer determine whether that association survives. Names come from the page
 actually displayed, not future dialogue or a lookup of unrevealed characters.
@@ -8,12 +8,21 @@ Unattributed region text stays unassigned. Reused actor IDs require the same
 model, script entry and original script fingerprint before a remembered name
 can be reused. Older unscoped names must be observed again.
 
-Before an attributed name appears, 38 reviewed person/animal models and two
-object models have appearance descriptions. The exact entries and visual
+Before an attributed name appears, 43 reviewed person/animal models and four
+object models have appearance descriptions in 0.1.6. These include six added
+chest/frog models and a long-coat model whose body must actually be rendered;
+a hidden body receives no coat description. The exact entries and visual
 features are in `reviewed-field-labels.json`; they were checked against rendered
 installed meshes. For example, an unnamed child can be “Child with pigtails A”.
 Unreviewed models retain a generic label. Stable letters distinguish matching
 appearances; this update does not claim every NPC or object is named.
+
+Two additional inns now use their exact native actor/region association for
+interaction approaches. Field touch cues retain the actual source UID, and
+one reviewed touch-only confirmation listener has a bounded read-only readiness
+adapter. These changes do not execute an interaction or press Confirm.
+The [whole-game guide comparison](guide-coverage.md) records all fields and the
+remaining generic-label and icon-only backdrop-region gaps.
 
 Presented exits use their current projected screen position, such as
 “Upper-left exit A”. Visible actors and presented exits are listed immediately;

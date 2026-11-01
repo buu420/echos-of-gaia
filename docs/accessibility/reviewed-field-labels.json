@@ -442,6 +442,220 @@
       "proofSheet": "alexandria-extra-2.png",
       "proofRow": 4,
       "proofSha256": "47109e3d217c46e90bac38f697621797101abba9b7aac0660d0903353340c8c1"
+    },
+    {
+      "model": 75,
+      "label": "Chest",
+      "kind": "object",
+      "visibleFeatures": "Lidded box with raised hinged lid in installed bind pose",
+      "sourceAsset": "assets/resources/models/1/75/75.fbx",
+      "loadedGeo": "GEO_ACC_F0_TBX",
+      "proofSheet": "bounded-chest-models.png",
+      "proofRow": 1,
+      "proofSha256": "4f7a5ed960282e3d5ff16c617bd9dd4c116b30ad658bd4a09e23073f720c4498"
+    },
+    {
+      "model": 91,
+      "label": "Chest",
+      "kind": "object",
+      "visibleFeatures": "Lidded box with raised hinged lid in installed bind pose",
+      "sourceAsset": "assets/resources/models/1/91/91.fbx",
+      "loadedGeo": "GEO_ACC_F1_TBX",
+      "proofSheet": "bounded-chest-models.png",
+      "proofRow": 2,
+      "proofSha256": "4f7a5ed960282e3d5ff16c617bd9dd4c116b30ad658bd4a09e23073f720c4498"
+    },
+    {
+      "model": 174,
+      "label": "Frog",
+      "kind": "animal",
+      "visibleFeatures": "Squat amphibian body, broad head and long folded hind legs",
+      "sourceAsset": "assets/resources/models/4/174/174.fbx",
+      "loadedGeo": "GEO_NPC_F0_FRC",
+      "proofSheet": "bounded-frog-models.png",
+      "proofRow": 1,
+      "proofSha256": "ea7529e3218bd427c9e1207df9568b1f265c19c563fbac0c8f98029a73157649",
+      "textureProofSheet": "bounded-frog-textures.png",
+      "textureProofColumn": 1,
+      "textureProofSha256": "3f533c175a8366ae96652e29e15bc9539ca129d56d8c5b2a0bded603aa0d0913",
+      "textureMaterials": [
+        {
+          "name": "174_0",
+          "renderer": "mesh0",
+          "colors": {
+            "_Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "_EmissionColor": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "textures": [
+            {
+              "property": "_MainTex",
+              "textureName": "174_0",
+              "width": 128,
+              "height": 128,
+              "image": "frog-174-MainTex.png",
+              "imageSha256": "072eeaf29796a359b8a0f823a8f9e31f8dc1d03a0a6e0816602f3cc29c1e9f13",
+              "decodedRgbaSha256": "5ad0f8459c44594a4ce6b7dd7b4791f0c7acae3f88dd09a034bbd9a2aab69183"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "model": 175,
+      "label": "Frog",
+      "kind": "animal",
+      "visibleFeatures": "Squat amphibian body, broad head and long folded hind legs",
+      "sourceAsset": "assets/resources/models/4/175/175.fbx",
+      "loadedGeo": "GEO_NPC_F0_FRF",
+      "proofSheet": "bounded-frog-models.png",
+      "proofRow": 2,
+      "proofSha256": "ea7529e3218bd427c9e1207df9568b1f265c19c563fbac0c8f98029a73157649",
+      "textureProofSheet": "bounded-frog-textures.png",
+      "textureProofColumn": 2,
+      "textureProofSha256": "3f533c175a8366ae96652e29e15bc9539ca129d56d8c5b2a0bded603aa0d0913",
+      "textureMaterials": [
+        {
+          "name": "175_0",
+          "renderer": "mesh0",
+          "colors": {
+            "_Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "_EmissionColor": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "textures": [
+            {
+              "property": "_MainTex",
+              "textureName": "175_0",
+              "width": 128,
+              "height": 128,
+              "image": "frog-175-MainTex.png",
+              "imageSha256": "05da25dc1b05f8a8c2fc31c2dbdc8a65035e45432e7d13883de20c5dbbd14de0",
+              "decodedRgbaSha256": "1d03809258d2a1cbdcc99a22a4cccd8af6ff0ac6f2259304cd21892f46ff8a0e"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "model": 176,
+      "label": "Frog",
+      "kind": "animal",
+      "visibleFeatures": "Squat amphibian body, broad head and long folded hind legs",
+      "sourceAsset": "assets/resources/models/4/176/176.fbx",
+      "loadedGeo": "GEO_NPC_F0_FRM",
+      "proofSheet": "bounded-frog-models.png",
+      "proofRow": 3,
+      "proofSha256": "ea7529e3218bd427c9e1207df9568b1f265c19c563fbac0c8f98029a73157649",
+      "textureProofSheet": "bounded-frog-textures.png",
+      "textureProofColumn": 3,
+      "textureProofSha256": "3f533c175a8366ae96652e29e15bc9539ca129d56d8c5b2a0bded603aa0d0913",
+      "textureMaterials": [
+        {
+          "name": "176_0",
+          "renderer": "mesh0",
+          "colors": {
+            "_Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "_EmissionColor": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "textures": [
+            {
+              "property": "_MainTex",
+              "textureName": "176_0",
+              "width": 128,
+              "height": 128,
+              "image": "frog-176-MainTex.png",
+              "imageSha256": "ffdc702491f743d78819e2674c404bf3bafed06691e9b8dec0b61affc7f604d2",
+              "decodedRgbaSha256": "4f13fa00aaa2e6840c2cb59758e24c15cfcec3469ee93e3c4415056236de88d3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "model": 423,
+      "label": "Golden frog",
+      "kind": "animal",
+      "visibleFeatures": "Squat amphibian body, broad head and long folded hind legs; exact installed MainTex has a golden-yellow body",
+      "sourceAsset": "assets/resources/models/4/423/423.fbx",
+      "loadedGeo": "GEO_NPC_F1_FRM",
+      "proofSheet": "bounded-frog-models.png",
+      "proofRow": 4,
+      "proofSha256": "ea7529e3218bd427c9e1207df9568b1f265c19c563fbac0c8f98029a73157649",
+      "textureProofSheet": "bounded-frog-textures.png",
+      "textureProofColumn": 4,
+      "textureProofSha256": "3f533c175a8366ae96652e29e15bc9539ca129d56d8c5b2a0bded603aa0d0913",
+      "textureMaterials": [
+        {
+          "name": "423_0",
+          "renderer": "mesh0",
+          "colors": {
+            "_Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "_EmissionColor": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "textures": [
+            {
+              "property": "_MainTex",
+              "textureName": "423_0",
+              "width": 128,
+              "height": 128,
+              "image": "frog-423-MainTex.png",
+              "imageSha256": "eaff2e849404d3ac8ee732ca7166e7b096cc446bbde4ca2bbb21434266e2648e",
+              "decodedRgbaSha256": "84c9a1160ce72a0ac78968d94e98a0c18c344da9dd1c6b9de324349b80ff3d92"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "model": 102,
+      "label": "Figure in a long coat",
+      "kind": "person",
+      "visibleFeatures": "Coat-clad figure with wide sleeves and coat hem above the knees; visible body mesh1 without the hidden staff mesh0",
+      "sourceAsset": "assets/resources/models/4/102/102.fbx",
+      "loadedGeo": "GEO_NPC_F4_JJY",
+      "proofSheet": "bounded-model102-parts.png",
+      "proofRow": 2,
+      "proofSha256": "3cb50beeff076de24e1507f94729f723b3dc49de846b32fd50c877ca8e3b2cde",
+      "visibilityRequirement": "Current active and enabled Renderer under mesh1; otherwise no appearance fallback"
     }
   ]
 }

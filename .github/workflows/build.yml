@@ -29,6 +29,13 @@ jobs:
         run: dotnet run --project tests/NavigationContextIntegration.Tests/NavigationContextIntegration.Tests.csproj --configuration Release
       - name: Ordinary main-menu speech integration
         run: dotnet run --project tests/MenuSpeechIntegration.Tests/MenuSpeechIntegration.Tests.csproj --configuration Release
+      - name: Native card and displayed numeric presentation integration
+        run: dotnet run --project tests/PresentationIntegration.Tests/PresentationIntegration.Tests.csproj --configuration Release
+      - name: Guide coverage and prerequisite source consistency
+        run: |
+          python tools/guide_audit.py --check
+          python tools/compile_story_prerequisites.py --check
+          python -m unittest discover -s tests -p test_guide_audit.py -v
       - name: Read-only installation preflight
         shell: powershell
         run: .\tests\ReleasePreflight.Tests.ps1

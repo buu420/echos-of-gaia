@@ -12,6 +12,75 @@ namespace FF9Access.Tests
     internal static class NativeReaderVerification
     {
         private static readonly Dictionary<ushort, OpCode> Opcodes = BuildOpcodes();
+        public static void VerifyGuideAdapters(string library)
+        {
+            using(var stream=File.OpenRead(library))using(var pe=new PEReader(stream)) {
+                var metadata=pe.GetMetadataReader();var required=new HashSet<string>{
+                    "NativeStoryTargets.Initialize|NativeStoryPrerequisites.Initialize",
+                    "NativeStoryTargets.Append|NativeStoryPrerequisites.TryAppend",
+                    "NativeStoryPrerequisites.TryAppend|StoryPrerequisiteCatalog.HasScope",
+                    "NativeStoryPrerequisites.TryAppend|StoryPrerequisiteCatalog.TryAppend",
+                    "NativeStoryPrerequisites.TryAppend|NativeFieldTargets.CurrentBgiHash",
+                    "NativeFieldTargets.Read|NativeFieldTargets.VisibleBody",
+                    "NativeInteractionProbe.Read|NativeFieldTouchReadiness.TryRead",
+                    "NativeFieldTouchReadiness.TryRead|FieldTouchConfirmation.get_Ready",
+                    "NativeFieldTouchReadiness.TryRead|EventCollision.NavigationHasTouchFacing",
+                    "NativeFieldTouchReadiness.TryRead|EventEngine.TreadQuad",
+                    "Dialog.AnnounceDialogForScreenReader|NativeNumericDialogs.Opened",
+                    "Dialog.Reset|NativeNumericDialogs.Forget",
+                    "NavigationRuntime.Tick|NativeNumericDialogs.Tick",
+                    "NavigationLifecycleBridge.DetachScene|NativeNumericDialogs.Reset",
+                    "NavigationLifecycleBridge.ReplaceSave|NativeNumericDialogs.Reset",
+                    "NativeNumericDialogs.Tick|FieldRead.TextParser.VariableMessageValues",
+                    "NativeNumericDialogs.Tick|NumericInputReader.Observe",
+                    "NativeNumericDialogs.Tick|NumericInputReader.Acknowledge",
+                    "NativeNumericDialogs.Tick|ScreenReaderManager.TrySpeak"
+                    ,"NativeNumericDialogs.Tick|ScreenReaderManager.IsSpeaking"
+                    ,"NativeNumericDialogs.Tick|FieldRead.NumericInputAnnouncement.Initial"
+                };
+                var readers=new HashSet<string>{"NativeStoryPrerequisites","StoryPrerequisiteCatalog","StoryPrerequisiteData","NativeFieldTouchReadiness","FieldTouchConfirmation","NativeNumericDialogs","NumericInputReader"};
+                foreach(var handle in metadata.TypeDefinitions) {
+                    var type=metadata.GetTypeDefinition(handle);string name=metadata.GetString(type.Name),owner=name;
+                    var parent=type.GetDeclaringType();while(!parent.IsNil){var enclosing=metadata.GetTypeDefinition(parent);owner=metadata.GetString(enclosing.Name);parent=enclosing.GetDeclaringType();}
+                    foreach(var methodHandle in type.GetMethods()) {
+                        var method=metadata.GetMethodDefinition(methodHandle);if(method.RelativeVirtualAddress==0)continue;string methodName=metadata.GetString(method.Name);
+                        foreach(string call in Calls(metadata,pe.GetMethodBody(method.RelativeVirtualAddress).GetILBytes())) {
+                            required.Remove(name+"."+methodName+"|"+call);
+                            if(!readers.Contains(owner))continue;
+                            if(call=="EventEngine.Request" || call.StartsWith("EventInput.") || call.StartsWith("ETb.") || call.StartsWith("Input.") || call.StartsWith("UIManager.set_") || call.StartsWith("FieldWrite.Obj.") || call.StartsWith("FieldWrite.Actor.") || call.StartsWith("FieldWrite.PosObj.") || call.StartsWith("FieldWrite.EventEngine.") || call=="GC.Collect" || call.StartsWith("Thread.") || call.StartsWith("ThreadPool.") || call.StartsWith("File."))
+                                throw new Exception("Guide adapter changes native control/state or performs blocking work: "+owner+"."+methodName+" -> "+call);
+                            if(owner=="NativeNumericDialogs" && (call.StartsWith("ff9item.") || call.StartsWith("FF9Item.") || call.StartsWith("FieldRead.ETb.")))throw new Exception("Numeric reader bypasses the displayed parser: "+call);
+                        }
+                    }
+                }
+                if(required.Count!=0)throw new Exception("Incomplete guide adapter integration: "+String.Join(", ",required));
+                Console.WriteLine("PASS emitted guide adapters: current prerequisite state, conditional body appearance, read-only touch readiness and visible-parser numeric/lifecycle hooks in "+library);
+            }
+        }
+        public static void VerifyInteractionCues(string library)
+        {
+            using(var stream=File.OpenRead(library))using(var pe=new PEReader(stream)) {
+                var metadata=pe.GetMetadataReader();int polls=0;
+                foreach(var handle in metadata.TypeDefinitions) {
+                    var type=metadata.GetTypeDefinition(handle);if(metadata.GetString(type.Name)!="EventCollision")continue;
+                    foreach(var methodHandle in type.GetMethods()) {
+                        var method=metadata.GetMethodDefinition(methodHandle);if(metadata.GetString(method.Name)!="CollisionRequest" || method.RelativeVirtualAddress==0)continue;
+                        string previous=null;
+                        foreach(var call in Calls(metadata,pe.GetMethodBody(method.RelativeVirtualAddress).GetILBytes())) {
+                            if(call=="EIcon.PollFIcon") {
+                                polls++;
+                                bool sourceUid=previous=="Obj.get_uid" || previous=="FieldRead.Obj.uid";
+                                if(polls<=2 && !sourceUid)throw new Exception("Visible touch-region bubble has lost its exact native source UID (field cue "+polls+"; last anchor "+previous+").");
+                                if(polls>2 && sourceUid)throw new Exception("Anonymous world cue was assigned an unrelated field region.");
+                            }
+                            previous=call;
+                        }
+                    }
+                }
+                if(polls!=4)throw new Exception("Review changed native collision cue sites: expected2field and2world, got "+polls);
+                Console.WriteLine("PASS emitted interaction cues: both field bubbles retain native source UID; anonymous world cues stay unbound in "+library);
+            }
+        }
         public static void VerifyDescriptions(string library)
         {
             using(var stream=File.OpenRead(library))using(var pe=new PEReader(stream)) {

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><Nullable>disable</Nullable></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="*.cs" />
+    <Compile Include="../../Assembly-CSharp/Global/Quad/Mist/QuadMistAccessibility.cs" Link="Runtime/QuadMistAccessibility.cs" />
+    <Compile Include="../../Assembly-CSharp/Global/Button/ButtonInputHandler.cs" Link="Runtime/ButtonInputHandler.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NumericInputReader.cs" Link="Runtime/NumericInputReader.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeNumericDialogs.cs" Link="Runtime/NativeNumericDialogs.cs" />
+    <Compile Include="../../Assembly-CSharp/Global/Quad/Mist/Card/QuadMistCard.cs" Link="Runtime/QuadMistCard.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Data/TetraMaster/TetraMasterCardId.cs" Link="Runtime/TetraMasterCardId.cs" />
+  </ItemGroup>
+</Project>

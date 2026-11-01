@@ -1187,6 +1187,7 @@ public class Dialog : MonoBehaviour
         this.Po = null;
         this.isReadyToFollow = false;
         this.NavigationSpeaker = null;
+        Memoria.Accessibility.Navigation.NativeNumericDialogs.Forget(this);
         this.isForceTailPosition = false;
         this.focusToActor = true;
         this.FollowDialog = -1;
@@ -1710,6 +1711,7 @@ public class Dialog : MonoBehaviour
                 announcement += textToAnnounce;
 
                 Memoria.Accessibility.AudioDescriptions.NativeAudioDescriptions.SpeakDialogue(this, announcement);
+                Memoria.Accessibility.Navigation.NativeNumericDialogs.Opened(this);
             }
         }
         catch (Exception e)

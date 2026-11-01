@@ -3,6 +3,8 @@ namespace Memoria.Accessibility.Navigation
     // Exact installed meshes were rendered and reviewed. Never derive names from GEO abbreviations.
     public static class FieldVisibleLabels
     {
+        public static string Read(int model,bool bodyVisible)
+        {return model==102?(bodyVisible?"Figure in a long coat":null):Read(model);}
         public static string Read(int model)
         {
             switch(model) {
@@ -14,6 +16,8 @@ namespace Memoria.Accessibility.Navigation
                 case 52:return "Round-faced child";
                 case 53:return "Tall figure in a pointed hat";
                 case 61:return "Child with pigtails";
+                case 75:return "Chest";
+                case 91:return "Chest";
                 case 98:return "Boy with a tail";
                 case 107:return "Short man with a hammer";
                 case 109:return "Stocky man";
@@ -26,6 +30,9 @@ namespace Memoria.Accessibility.Navigation
                 case 126:return "Stocky figure with long snout";
                 case 129:return "Small winged creature";
                 case 171:return "Figure in a top hat";
+                case 174:return "Frog";
+                case 175:return "Frog";
+                case 176:return "Frog";
                 case 185:return "Girl";
                 case 192:return "Figure in a tall hat";
                 case 204:return "Swordswoman in a long coat";
@@ -34,6 +41,7 @@ namespace Memoria.Accessibility.Navigation
                 case 226:return "Balloon";
                 case 273:return "Large round figure";
                 case 376:return "Elderly man with a cane";
+                case 423:return "Golden frog";
                 case 443:return "Little girl";
                 case 509:return "Tall man with a wild mane";
                 case 600:return "Person in a cap";

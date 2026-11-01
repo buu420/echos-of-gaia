@@ -60,7 +60,7 @@ namespace Memoria.Accessibility.Navigation
                     float collision=player==null?0:Math.Max(player.fieldMapActorController==null?0:player.fieldMapActorController.radius,4*player.collRad)+4*actor.collRad;
                     float talkRadius=player==null?0:4*(player.talkRad+actor.talkRad)+actor.speed+60;
                     var observation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, obj.uid), NativePresentationIdentity=obj.go==null?0:obj.go.GetInstanceID(),Position = Point(position), Visible = onScreen,OutOfView=rendered && mesh && !onScreen,ShowsIcon=icon, IsPerson = engine.GetIP(obj.sid, EventEngine.tagTalk, obj.ebData) != engine.nil, HasInteraction = NativeFieldTalkability.IsTalkable(obj) || engine.GetIP(obj.sid, EventEngine.tagPush, obj.ebData) != engine.nil,ApproachCandidates=FieldActorApproaches.Create(context.Position,Point(position),collision,talkRadius) };
-                    observation.LabelIdentity=LabelSignature(actor);observation.VisibleLabel=FieldVisibleLabels.Read(actor.model);
+                    observation.LabelIdentity=LabelSignature(actor);observation.VisibleLabel=FieldVisibleLabels.Read(actor.model,VisibleBody(actor));
                     string modelName;if(FF9BattleDB.GEO.TryGetValue(actor.model,out modelName)) {
                         if(modelName.StartsWith("GEO_ACC_"))observation.IsPerson=false;
                         else if(modelName.StartsWith("GEO_NPC_") || modelName.StartsWith("GEO_MAIN_") || modelName.StartsWith("GEO_SUB_"))observation.IsPerson=true;
@@ -153,6 +153,13 @@ namespace Memoria.Accessibility.Navigation
             observation.LabelIdentity=ExitLabelSignature(quad);
             Annotate(context,engine,quad,observation);return observation;
         }
+        private static bool VisibleBody(Actor actor)
+        {
+            if(actor.model!=102 || actor.go==null)return false;
+            var body=actor.go.transform.Find("mesh1");if(body==null || !body.gameObject.activeInHierarchy)return false;
+            foreach(var renderer in body.GetComponentsInChildren<Renderer>())if(renderer.enabled && renderer.gameObject.activeInHierarchy)return true;
+            return false;
+        }
         private static void Annotate(NavigationContext context,EventEngine engine,Obj obj,FieldTargetObservation observation)
         {
             NativeStoryTargets.Annotate(context,obj.sid,Fingerprint(obj.ebData),observation,delegate {
@@ -226,10 +233,7 @@ namespace Memoria.Accessibility.Navigation
                 plain=FieldDoorEvidence.CurrentPlainWalkOut(Decode(engine,quad,EventEngine.tagPush),snapshot,_opcodes,(uid,property)=>uid==250 && property==1?(int?)height:null);
             }
             if(reviewed && field.scene!=null && field.scene.ebgBin!=null) {
-                if(_walkmeshHash==null) {
-                    try {var bytes=AssetManager.LoadBytes(FieldMap.GetMapResourcePath(field.mapName)+field.mapName+".bgi");_walkmeshHash=bytes==null?"":Fingerprint(bytes);}
-                    catch(Exception exception){_walkmeshHash="";Log.Message("[FF9Access] Entrance asset evidence unavailable: {0}",exception.Message);}
-                }
+                CurrentBgiHash(field);
                 string backgroundHash=Fingerprint(field.scene.ebgBin);
                 FieldExitEvidence.TrySurface(context.LogicalMapKey,quad.sid,field.camIdx,hash,backgroundHash,_walkmeshHash,surface.Region,out surfaceReview);
                 FieldExitEvidence.TryBoundary(context.LogicalMapKey,quad.sid,field.camIdx,hash,backgroundHash,_walkmeshHash,out boundaryCue);
@@ -311,7 +315,16 @@ namespace Memoria.Accessibility.Navigation
             Vector3 projected=Project(field,point); projected=camera.WorldToScreenPoint(projected);
             return projected.x>=-24 && projected.x<=Screen.width+24 && projected.y>=-24 && projected.y<=Screen.height+24;
         }
-        private static string Fingerprint(byte[] bytes) { string hash; if(!_hashes.TryGetValue(bytes,out hash)) { using(var sha=SHA256.Create())hash=BitConverter.ToString(sha.ComputeHash(bytes)).Replace("-","").ToLowerInvariant(); _hashes[bytes]=hash; } return hash; }
+        internal static string Fingerprint(byte[] bytes) { string hash; if(!_hashes.TryGetValue(bytes,out hash)) { using(var sha=SHA256.Create())hash=BitConverter.ToString(sha.ComputeHash(bytes)).Replace("-","").ToLowerInvariant(); _hashes[bytes]=hash; } return hash; }
+        internal static string CurrentBgiHash(FieldMap field)
+        {
+            if(field==null)return null;
+            if(_walkmeshHash==null) {
+                try {var bytes=AssetManager.LoadBytes(FieldMap.GetMapResourcePath(field.mapName)+field.mapName+".bgi");_walkmeshHash=bytes==null?"":Fingerprint(bytes);}
+                catch(Exception exception){_walkmeshHash="";Log.Message("[FF9Access] Entrance asset evidence unavailable: {0}",exception.Message);}
+            }
+            return _walkmeshHash;
+        }
         internal static string ExitLabelSignature(Quad quad)
         {
             if(quad==null || quad.ebData==null || quad.q==null || quad.n<3 || quad.n>quad.q.Length)return null;

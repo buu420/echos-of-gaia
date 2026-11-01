@@ -5,6 +5,10 @@ namespace FF9Access.Tests
 {
     internal static class FieldLabelTests
     {
+        public static void HiddenStaffDoesNotNameAFragmentAndBodyMustBePresented()
+        {TestAssert.Equal<string>(null,FieldVisibleLabels.Read(102));TestAssert.Equal<string>(null,FieldVisibleLabels.Read(102,false));TestAssert.Equal("Figure in a long coat",FieldVisibleLabels.Read(102,true));}
+        public static void VisibleChestsAndFrogsHaveReviewedAppearanceWithoutRewardsOrSexGuesses()
+        {TestAssert.Equal("Chest",FieldVisibleLabels.Read(75));TestAssert.Equal("Chest",FieldVisibleLabels.Read(91));foreach(int model in new[]{174,175,176})TestAssert.Equal("Frog",FieldVisibleLabels.Read(model));TestAssert.Equal("Golden frog",FieldVisibleLabels.Read(423));}
         private static FieldTargetObservation Actor(string scope="model118:sid3:script1")
         {
             var actor=new FieldTargetObservation{Id=new TargetIdentity(TargetKind.FieldActor,"field:100",3),Visible=true,IsPerson=true,HasInteraction=true,Position=new NavigationPoint(1,0,1),NativePresentationIdentity=15};

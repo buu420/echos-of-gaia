@@ -35,7 +35,12 @@ internal static class Program
             ObservedExitTests.UnpresentedAndUnexecutedTriggersRemainUnknown,
             ObservedExitTests.FinishedPushCannotNameALaterJumpByTheSameOwner,
             ObservedExitTests.NestedReturnPreservesTheOriginalPushButAnotherDepthCannotJump,
-            ObservedExitTests.IndependentSharedScriptCannotClaimAnActivePlayerPush};
+            ObservedExitTests.IndependentSharedScriptCannotClaimAnActivePlayerPush,
+            PrerequisiteTests.NativeFragmentUsesActualUidAndShownIdentity,
+            PrerequisiteTests.NativeFossilReadsCurrentFlagsAndActualTriangle,
+            PrerequisiteTests.NativeArrivalPlatformReadsGeometryAndKeepsTheHubExit,
+            PrerequisiteTests.BlockedPrerequisiteFramesDoNotLoadGeometryOrAssumeCompletion,
+            PrerequisiteTests.ModifiedNativeDirectorAndBgiFailClosed};
         int failed=0;
         foreach(var test in tests)try { Reset();test();Console.WriteLine("PASS "+test.Method.Name); }
         catch(Exception error) { failed++;Console.WriteLine("FAIL "+test.Method.Name+": "+error.Message); }

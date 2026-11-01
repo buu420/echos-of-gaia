@@ -19,6 +19,7 @@ namespace Memoria.Accessibility.Navigation
         }
         public static void DetachScene()
         {
+            NativeNumericDialogs.Reset();
             NativeWorldFootsteps.Suspend();
             NativeFieldExitCues.Suspend();
             NativeWorldGeometry.Detach();
@@ -35,6 +36,7 @@ namespace Memoria.Accessibility.Navigation
         public static void Acknowledge(NavigationContext context) { if (context != null && context.CanControl) ReturnTransition = BattleTransition.None; }
         public static void ReplaceSave()
         {
+            NativeNumericDialogs.Reset();
             NativeObservedFieldExits.Reset();
             NativeFieldExitCues.Suspend();
             Release(StopReason.SaveChanged); Session.Reset(); Generation++; _suspended = ReturnTransition = BattleTransition.None;

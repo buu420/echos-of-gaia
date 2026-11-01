@@ -8,6 +8,7 @@
     <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/WorldMapAccessibilityManager.cs" Link="Runtime/WorldMapAccessibilityManager.cs" />
     <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeDisplayedIdentity.cs" Link="Runtime/NativeDisplayedIdentity.cs" />
     <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeObservedFieldExits.cs" Link="Runtime/NativeObservedFieldExits.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryPrerequisites.cs" Link="Runtime/NativeStoryPrerequisites.cs" />
     <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Core/*.cs" Link="Runtime/Core/%(Filename).cs" />
   </ItemGroup>
 </Project>

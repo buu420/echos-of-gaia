@@ -80,6 +80,7 @@ public sealed class FF9StateSystem
 }
 public sealed class EventEngine
 {
+    public readonly FieldMap fieldmap=new FieldMap();public byte[] MapVars=new byte[1024];public byte[] GetMapVar(){return MapVars;}
     public int gMode=1;
     public readonly Dictionary<int,Actor> Actors=new Dictionary<int,Actor>();
     public readonly Dictionary<int,Obj> Objects=new Dictionary<int,Obj>();
@@ -100,7 +101,8 @@ public sealed class Actor:PosObj
     public FieldMapActorController fieldMapActorController=new FieldMapActorController();
     public WMActor wmActor;
 }
-public sealed class FieldMapActorController { public bool isPlayer=true; public UnityEngine.Vector3 curPos=new UnityEngine.Vector3(25,0,-664); }
+public sealed class FieldMapActorController { public int activeTri=-1;public bool isPlayer=true; public UnityEngine.Vector3 curPos=new UnityEngine.Vector3(25,0,-664); }
+public sealed class FieldMap {public string BgiHash;}
 public sealed class WMActor { public Actor originalActor; public UnityEngine.Vector3 RealPosition; }
 public static class WMUIData { public static int ActiveMapNo; }
 public static class ff9 { public static WMActor w_moveActorPtr; }
@@ -129,7 +131,7 @@ namespace Memoria.Accessibility.Navigation
     public static class NativeNavigationInput { public static void EnsureUpdated() { } }
     public static class NativeStoryTargets { public static void Initialize() { } }
     public static class NavigationRuntime { public static void Tick() { } public static void Trace(string text) { } }
-    public static class NativeFieldTargets { public static int Reads;public static readonly List<FieldTargetObservation> Observations=new List<FieldTargetObservation>(); public static IList<FieldTargetObservation> Read(NavigationContext context){Reads++;return Observations;} public static string ExitLabelSignature(Quad quad){return quad.sid+":"+Convert.ToBase64String(quad.ebData)+":"+quad.Signature;} public static string LabelSignature(Actor actor){return actor.model+":"+actor.sid+":"+Convert.ToBase64String(actor.ebData);} }
+    public static class NativeFieldTargets { public static int Reads,BgiReads; public static string CurrentBgiHash(FieldMap field){BgiReads++;return field.BgiHash;} public static string Fingerprint(byte[] bytes){return System.Text.Encoding.UTF8.GetString(bytes);}public static readonly List<FieldTargetObservation> Observations=new List<FieldTargetObservation>(); public static IList<FieldTargetObservation> Read(NavigationContext context){Reads++;return Observations;} public static string ExitLabelSignature(Quad quad){return quad.sid+":"+Convert.ToBase64String(quad.ebData)+":"+quad.Signature;} public static string LabelSignature(Actor actor){return actor.model+":"+actor.sid+":"+Convert.ToBase64String(actor.ebData);} }
     public static class NativeWorldTargets { public static int Reads;public static IList<WorldTargetObservation> Read(NavigationContext context){Reads++;return new List<WorldTargetObservation>();} }
     public static class NativeWorldGeometry { public static int Reads;public static WorldGeometrySnapshot Read(NavigationContext context,NavigationTarget target){Reads++;return null;} }
     public static class NativeRegionReader { public static bool TryRead(out int id,out string label){id=-1;label=null;return false;} }

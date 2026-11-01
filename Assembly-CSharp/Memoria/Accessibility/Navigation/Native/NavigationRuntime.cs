@@ -27,6 +27,7 @@ namespace Memoria.Accessibility.Navigation
             NavigationContext context=null;
             try {
                 NativeNavigationInput.EnsureUpdated();context=NativeNavigationContext.Read();
+                NativeNumericDialogs.Tick(context.Foreground && !context.MenuOpen);
                 NativeObservedFieldExits.Arrive(context);
                 NativeWorldFootsteps.UpdateGates(context);
                 NativeFieldExitCues.UpdateGates(context);

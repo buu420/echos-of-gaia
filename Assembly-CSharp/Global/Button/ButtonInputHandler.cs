@@ -183,10 +183,12 @@ public class ButtonInputHandler : InputHandler
                 else
                     QuadMistGame.main.CardNameDialogSlider.HideCardNameDialog(playerHand);
 
-                // Announce selected card for screen readers
+            }
+            if (playerHand.Count > 0 && NeedsFocusSpeech(board,playerHand,playerHand[this.playSelect],this.playSelect,-1,-1))
+            {
                 QuadMistCard selectedCard = playerHand[this.playSelect];
-                String cardDesc = QuadMistAccessibility.GetCardDescription(selectedCard);
-                ScreenReaderManager.Instance.Speak(cardDesc, interrupt: true);
+                if (ScreenReaderManager.Instance.TrySpeak(QuadMistAccessibility.GetCardDescription(selectedCard),true))
+                    RememberFocus(board,playerHand,selectedCard,this.playSelect,-1,-1);
             }
             if (UIManager.Input.GetKeyTrigger(Control.Confirm))
             {
@@ -232,11 +234,11 @@ public class ButtonInputHandler : InputHandler
             if (changeSelection)
             {
                 SoundEffect.Play(QuadMistSoundID.MINI_SE_CURSOL);
-
-                // Announce board position for screen readers
-                String posDesc = QuadMistAccessibility.GetBoardPositionDescription(board, this.boardSelectX, this.boardSelectY);
-                ScreenReaderManager.Instance.Speak(posDesc, interrupt: true);
             }
+            QuadMistCard focusedCard=board[this.boardSelectX,this.boardSelectY];
+            if (NeedsFocusSpeech(board,playerHand,focusedCard,-1,this.boardSelectX,this.boardSelectY) &&
+                ScreenReaderManager.Instance.TrySpeak(QuadMistAccessibility.GetBoardPositionDescription(board,this.boardSelectX,this.boardSelectY),true))
+                RememberFocus(board,playerHand,focusedCard,-1,this.boardSelectX,this.boardSelectY);
             if (this.prevBoardSelectX != this.boardSelectX || this.prevBoardSelectY != this.boardSelectY || !this.launched)
             {
                 Vector2 boardCursorPosition = new Vector2(this.boardSelectX, this.boardSelectY);
@@ -466,6 +468,18 @@ public class ButtonInputHandler : InputHandler
             this.endSelect = cardIndex;
         }
     }
+
+    private Board spokenBoard;
+    private Hand spokenHand;
+    private Hand.STATE spokenState;
+    private QuadMistCard spokenCard;
+    private Int32 spokenIndex,spokenX,spokenY;
+    private Boolean hasSpokenFocus;
+    private Int64 spokenGeneration;
+    private Boolean NeedsFocusSpeech(Board board,Hand hand,QuadMistCard card,Int32 index,Int32 x,Int32 y)
+    {return ScreenReaderManager.Instance.Enabled && (!hasSpokenFocus || spokenGeneration!=ScreenReaderManager.Instance.SpeechGeneration || !System.Object.ReferenceEquals(board,spokenBoard) || !System.Object.ReferenceEquals(hand,spokenHand) || hand.State!=spokenState || !System.Object.ReferenceEquals(card,spokenCard) || index!=spokenIndex || x!=spokenX || y!=spokenY);}
+    private void RememberFocus(Board board,Hand hand,QuadMistCard card,Int32 index,Int32 x,Int32 y)
+    {hasSpokenFocus=true;spokenGeneration=ScreenReaderManager.Instance.SpeechGeneration;spokenBoard=board;spokenHand=hand;spokenState=hand.State;spokenCard=card;spokenIndex=index;spokenX=x;spokenY=y;}
 
     private Int32 preSelect = -1;
 

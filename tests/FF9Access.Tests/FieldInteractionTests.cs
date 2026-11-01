@@ -8,6 +8,15 @@ namespace FF9Access.Tests
 {
     internal static class FieldInteractionTests
     {
+        public static void LindblumInnVendorsUseTheirNativeCounterRegions()
+        {
+            var first=FieldInteractionBindings.FindActor(553,6,"dc158da277d5e4acb1bc3d4b65e6b39e7773b60cddb04bb817057f622603cd2c",111,6);
+            var later=FieldInteractionBindings.FindActor(1303,6,"83bd1503d49d4f9b3dc4887aad9a489e1980288a0329cd1b4ebdcdf67a61c3c9",111,6);
+            TestAssert.True(first!=null && later!=null);TestAssert.Equal(9,first.RegionSid);TestAssert.Equal(9,later.RegionSid);
+            TestAssert.True(FieldInteractionBindings.FindActor(553,6,later.ActorHash,111,6)==null);
+            TestAssert.False(FieldInteractionBindings.CanRequest(first,1));TestAssert.True(FieldInteractionBindings.CanRequest(first,7));
+            TestAssert.True(FieldInteractionBindings.WithinReach(new NavigationPoint(526,0,-441),new[]{new NavigationPoint(248,0,-282),new NavigationPoint(50,0,-255),new NavigationPoint(50,0,-926),new NavigationPoint(230,0,-926)}));
+        }
         // EBin opcode values (EBin.event_code_binary): FICON 0x68, MES 0x1F, REQ 0x10.
         private static readonly FieldInteractionOpcodes Ops=new FieldInteractionOpcodes{IconOpcode=0x68};
         private static string RepoFile(string relative)
@@ -140,7 +149,7 @@ namespace FF9Access.Tests
                 var published=json.RootElement.GetProperty("bindings").EnumerateArray().Select(b=>b.GetProperty("field").GetInt32()+":"+b.GetProperty("actor").GetInt32()+":"+b.GetProperty("actorSha256").GetString()+":"+b.GetProperty("model").GetInt32()+":"+b.GetProperty("actorUid").GetInt32()+":"+b.GetProperty("region").GetInt32()+":"+b.GetProperty("regionSha256").GetString()).OrderBy(s=>s).ToList();
                 var compiled=FieldInteractionBindings.All.Select(b=>b.Field+":"+b.ActorSid+":"+b.ActorHash+":"+b.Model+":"+b.ActorUid+":"+b.RegionSid+":"+b.RegionHash).OrderBy(s=>s).ToList();
                 TestAssert.Equal(string.Join("\n",published),string.Join("\n",compiled));
-                TestAssert.Equal(16,compiled.Count);
+                TestAssert.Equal(18,compiled.Count);
                 TestAssert.Equal(700f,(float)json.RootElement.GetProperty("maxActorDistance").GetInt32());
                 foreach(var excluded in json.RootElement.GetProperty("excluded").EnumerateArray())
                     TestAssert.True(FieldInteractionBindings.FindRegion(excluded.GetProperty("field").GetInt32(),excluded.GetProperty("region").GetInt32(),excluded.GetProperty("regionSha256").GetString())==null ||

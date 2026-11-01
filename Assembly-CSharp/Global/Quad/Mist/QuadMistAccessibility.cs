@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Memoria.Data;
+using Memoria;
 
 /// <summary>
 /// Helper class for screen reader accessibility in Tetra Master (Quad Mist).
@@ -75,18 +76,23 @@ public static class QuadMistAccessibility
 
         // Card name
         String cardName = GetCardName(card.id);
-        sb.Append(cardName);
+        sb.Append(String.IsNullOrEmpty(cardName) ? "Card" : cardName);
 
-        // Attack
-        sb.Append($", Attack {card.atk}");
+        // This is the same four-character face assigned by QuadMistCardUI.Data.
+        // Internal growth bytes contain precision that the card face does not show.
+        String face = card.ToString().ToUpperInvariant();
+        if (Configuration.TetraMaster.TripleTriad > 0)
+            sb.Append($", Top {face[0]}, Bottom {face[1]}, Left {face[2]}, Right {face[3]}");
+        else
+        {
+            sb.Append($", Attack {face[0]}, Physical Defense {face[2]}, Magic Defense {face[3]}");
+            String typeName = face[1] == 'P' ? "Physical" : face[1] == 'M' ? "Magic" : face[1] == 'X' ? "Flexible" : face[1] == 'A' ? "Assault" : "Unknown";
+            sb.Append($", {typeName} type");
+        }
 
-        // Defenses
-        sb.Append($", Physical Defense {card.pdef}");
-        sb.Append($", Magic Defense {card.mdef}");
-
-        // Type
-        String typeName = GetCardTypeName(card.type);
-        sb.Append($", {typeName} type");
+        // CardArrows hides every arrow in TripleTriad modes greater than one.
+        if (Configuration.TetraMaster.TripleTriad > 1)
+            return sb.ToString();
 
         // Arrow directions
         Int32 arrowCount = card.ArrowNumber;
@@ -122,34 +128,7 @@ public static class QuadMistAccessibility
     /// <returns>Detailed card description with arrow directions</returns>
     public static String GetDetailedCardDescription(QuadMistCard card)
     {
-        if (card == null)
-            return "Empty";
-
-        if (card.IsBlock)
-            return "Block";
-
-        StringBuilder sb = new StringBuilder();
-        sb.Append(GetCardDescription(card));
-
-        // Add arrow directions if there are any
-        if (card.ArrowNumber > 0)
-        {
-            List<String> directions = GetCardinalDirections(card.arrow);
-            sb.Append(", arrows at ");
-            for (Int32 i = 0; i < directions.Count; i++)
-            {
-                if (i > 0)
-                {
-                    if (i == directions.Count - 1)
-                        sb.Append(" and ");
-                    else
-                        sb.Append(", ");
-                }
-                sb.Append(directions[i]);
-            }
-        }
-
-        return sb.ToString();
+        return GetCardDescription(card);
     }
 
     /// <summary>
@@ -171,44 +150,8 @@ public static class QuadMistAccessibility
         if (card.IsBlock)
             return $"{position}, blocked";
 
-        String cardName = GetCardName(card.id);
-
-        // Fallback if card name is empty
-        if (String.IsNullOrEmpty(cardName))
-            cardName = $"Card {(Int32)card.id}";
-
         String owner = card.side == 0 ? "your" : "enemy";
-
-        // Include key card stats for board positions
-        String typeName = GetCardTypeName(card.type);
-        Int32 arrowCount = card.ArrowNumber;
-
-        // Build the announcement with arrow directions
-        String announcement = $"{position}, {owner} {cardName}, Attack {card.atk}, {typeName} type";
-
-        // Add arrow directions
-        if (arrowCount > 0)
-        {
-            List<String> directions = GetCardinalDirections(card.arrow);
-            announcement += $", arrows at ";
-            for (Int32 i = 0; i < directions.Count; i++)
-            {
-                if (i > 0)
-                {
-                    if (i == directions.Count - 1)
-                        announcement += " and ";
-                    else
-                        announcement += ", ";
-                }
-                announcement += directions[i];
-            }
-        }
-        else
-        {
-            announcement += ", no arrows";
-        }
-
-        return announcement;
+        return $"{position}, {owner} {GetCardDescription(card)}";
     }
 
     /// <summary>
