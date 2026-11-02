@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 namespace Memoria.Accessibility.Navigation
 {
-    public sealed class StoryStage {public int Milestone;public int[] GoalFields,DepartureFields,WorldLocations;public string Goal,Instruction,RequiredVehicle;public string[] WorldPlaces;public bool InformationOnly;}
+    public sealed class StoryStage {public int Milestone;public int[] GoalFields,ApproachFields,DepartureFields,WorldLocations;public string Goal,Instruction,RequiredVehicle;public string[] WorldPlaces;public bool InformationOnly;}
     public sealed class StoryTransit {public int From,To;}
     // A reviewed sub-step that shares a scenario-counter floor with later scenes. It applies only while
     // Floor <= progress < Ceiling, in one of ScopeFields, when every required live script entry hash matches
@@ -14,6 +14,7 @@ namespace Memoria.Accessibility.Navigation
         private readonly StoryCheckpoint[] _checkpoints;
         private readonly Dictionary<int,List<int>> _incoming=new Dictionary<int,List<int>>();
         private readonly Dictionary<int,int> _distance=new Dictionary<int,int>();
+        private readonly Dictionary<int,int> _nextField=new Dictionary<int,int>();
         private StoryStage _stage;
         public StoryTargetCatalog(StoryStage[] stages,StoryTransit[] transit):this(stages,transit,null){}
         public StoryTargetCatalog(StoryStage[] stages,StoryTransit[] transit,StoryCheckpoint[] checkpoints)
@@ -40,12 +41,12 @@ namespace Memoria.Accessibility.Navigation
         {
             StoryStage next=Checkpoint(progress,currentField,mapByte,scripts);
             if(next==null)foreach(var stage in _stages)if(stage.Milestone>progress){next=stage;break;}
-            if(next==_stage)return;_stage=next;_distance.Clear();if(next==null)return;
-            var pending=new Queue<int>();var goals=next.DepartureFields!=null && next.DepartureFields.Length!=0?next.DepartureFields:next.GoalFields;
+            if(next==_stage)return;_stage=next;_distance.Clear();_nextField.Clear();if(next==null)return;
+            var pending=new Queue<int>();var goals=next.ApproachFields!=null && next.ApproachFields.Length!=0?next.ApproachFields:next.DepartureFields!=null && next.DepartureFields.Length!=0?next.DepartureFields:next.GoalFields;
             foreach(int field in goals??new int[0])if(!_distance.ContainsKey(field)){_distance[field]=0;pending.Enqueue(field);}
             while(pending.Count!=0) {
                 int field=pending.Dequeue();List<int> from;if(!_incoming.TryGetValue(field,out from))continue;
-                foreach(int previous in from)if(!_distance.ContainsKey(previous)){_distance[previous]=_distance[field]+1;pending.Enqueue(previous);}
+                foreach(int previous in from)if(!_distance.ContainsKey(previous)){_distance[previous]=_distance[field]+1;_nextField[previous]=field;pending.Enqueue(previous);}
             }
         }
         // mapByte reads the current field's native map variable bytes; scripts returns the live entry hash for a script id.
@@ -88,7 +89,9 @@ namespace Memoria.Accessibility.Navigation
             string scene=goal;
             if(!world && !departure && location!=null && _stage.GoalFields!=null && _stage.GoalFields.Length==1){string shown=location(_stage.GoalFields[0]);if(!String.IsNullOrEmpty(shown))scene=shown;}
             if(selected.Count==0) {
-                string help=currentKnown && here==0?"Continue the current scene using the game's shown interactions. No verified story approach is currently presented.":"Travel toward "+goal+". A verified route is not currently presented in this area.";
+                string help=currentKnown && here==0?"The story objective is in this area. Continue the current scene using the game's shown interactions. No verified story approach is currently presented.":"Travel toward "+goal+". A verified route is not currently presented in this area.";
+                int nextField;string nextArea=null;if(!world && _nextField.TryGetValue(field,out nextField) && location!=null)nextArea=location(nextField);
+                if(!String.IsNullOrEmpty(nextArea))help="Next area on the story route: "+nextArea+". "+help;
                 if(!String.IsNullOrEmpty(_stage.Instruction))help=_stage.Instruction+" "+help;
                 string heading=String.IsNullOrEmpty(_stage.Instruction)?"Continue the story: "+scene+".":_stage.Instruction.Trim()+" "+scene+".";
                 catalog.Targets.Add(Information(context,_stage.Milestone,heading,help));return;
@@ -97,6 +100,11 @@ namespace Memoria.Accessibility.Navigation
                 string action=world && physical.Category==NavigationCategory.Vehicles?"Approach "+physical.Label+" for travel toward "+goal:
                     best==0?(!String.IsNullOrEmpty(physical.StoryAction)?physical.StoryAction:"Continue the story with "+physical.Label+". "+scene):
                     !String.IsNullOrEmpty(_stage.Instruction)?_stage.Instruction.Trim()+" Continue via "+physical.Label:"Continue toward "+scene+" via "+physical.Label;
+                if(!world && best>0 && location!=null) {
+                    string nextArea=null;int nearest=Int32.MaxValue;
+                    foreach(int next in physical.NextFields??new int[0]){int remaining;if(_distance.TryGetValue(next,out remaining) && remaining<nearest){nearest=remaining;nextArea=location(next);}}
+                    if(!String.IsNullOrEmpty(nextArea))action="Go to "+nextArea+" via "+physical.Label+". "+(String.IsNullOrEmpty(_stage.Instruction)?"Continue toward "+scene+".":_stage.Instruction.Trim());
+                }
                 var wrapped=Wrap(context,_stage.Milestone,physical,action);
                 if(departure && best==0)wrapped.Label+=". Next destination: "+goal;
                 if((world || departure) && !String.IsNullOrEmpty(_stage.Instruction))wrapped.Availability=(_stage.Instruction+" "+wrapped.Availability).Trim();

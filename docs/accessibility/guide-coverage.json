@@ -33,7 +33,7 @@
   "sourceArtifacts": [
     {
       "path": "docs/accessibility/story-navigation.json",
-      "sha256": "2d1ba4360a2b3a371a07163cd6834ed0ec2b5382cb6e75f04ca2b545f749bf51"
+      "sha256": "dfd9668ce2620d52ca1cd17e8651d7538be01396324e481a1ae6e4b3302f56e4"
     },
     {
       "path": "docs/accessibility/story-prerequisites.json",
@@ -46,6 +46,10 @@
     {
       "path": "docs/accessibility/field-interaction-evidence.json",
       "sha256": "b2e6135f6245241fcc9d7819c061c5c13acf47822010ffa1536f38213f20a25b"
+    },
+    {
+      "path": "docs/accessibility/opening-ticket-booth.json",
+      "sha256": "bed89853f11d1600c9e6749c62ae22a82002daa4cb07cea9563070908484a5a3"
     },
     {
       "path": "Assembly-CSharp/Global/Quad/Mist/QuadMistAccessibility.cs",
@@ -64,12 +68,36 @@
       "sha256": "c19aefbdd7ee7370270eca475ea0e229b95ff0b2415706b3764250fc7f697615"
     },
     {
+      "path": "tests/FF9Access.Tests/Fixtures/opening-street-scripts.json",
+      "sha256": "dc4a561fde3bc0405912e1e77f05271ec28c375e23af39eb1c8603a6e4cd97d7"
+    },
+    {
+      "path": "tests/FF9Access.Tests/Fixtures/opening-booth-geometry.json",
+      "sha256": "6f910c034c992ef6f7e1b7007a05b20afc9dd3357bb32e0fb3dc7ca626f7056b"
+    },
+    {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/StoryPrerequisiteCatalog.cs",
       "sha256": "c26b457d21bbd025ee8dafec21a9f59a5064ac53c1ff004a5ce3177178b539cf"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/StoryPrerequisiteData.cs",
       "sha256": "beef189ed2757ca896581a53ceffa46b70aeda8fb29cb89c327131ae081da10c"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/OpeningTicketBoothEvidence.cs",
+      "sha256": "e8eb0d696c800735718627d032fa82dd888c5b39023243d9f8d79217acdd0991"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/ExitScriptAnalyzer.cs",
+      "sha256": "4901a04a8e81f8986d952a1509cd164a8f5a77a590e7b78003e37b32688a820c"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/StoryTargetCatalog.cs",
+      "sha256": "952c18c973d501687b367b9479747dd26bdffcf06b0a86e18f8ebd589cccc6bc"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NavigationCoordinator.cs",
+      "sha256": "7f6020d003f3e804551c1485da1f2ab15082bec804964bd63e148496015ac482"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldVisibleLabels.cs",
@@ -97,11 +125,11 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldTargets.cs",
-      "sha256": "639480dcd4ea178b608518392b2f60e473139939b8c2036767ebd735806dddfe"
+      "sha256": "1407f2a5efbb118d708e5c4c75e78d743f971411172f38186af3cacf95f29fda"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryTargets.cs",
-      "sha256": "6182f49b021e688c469e2242503b5e3dedc73042a0feb3e941ef040e626a04ea"
+      "sha256": "b3ee29404aaa4818ad16ac24c1b815b470042acf9333dd4943ce30e9b1f8cb20"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeInteractionProbe.cs",
@@ -114,6 +142,14 @@
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationLifecycleBridge.cs",
       "sha256": "1cebb54b23298221a235a025d5bb600a88888242f78ad0f85904fd148c5cc121"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeOpeningTicketBooth.cs",
+      "sha256": "c895a8c01b98ef4073feec5934bc9b9ff55b4635a48a0cb7f517e32cc8e1b7fc"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeTicketBoothPresentation.cs",
+      "sha256": "2978c988adea36615a13ddb4956877a7a0a7f3ec938c82b1cdd2f3ee68f85e89"
     }
   ],
   "nativeFieldIdentity": "8a1aad6c4928624e1b999279f085e45fe0d40227e47972ee13b52abd96931043",
@@ -136,7 +172,7 @@
       "conditional": 10,
       "nonplayer-conditional": 9
     },
-    "iconOnlyActionableRegions": 707
+    "iconOnlyActionableRegions": 706
   },
   "remainingEntityGaps": [
     "Most of the 345 constant actor models still lack individually reviewed appearance descriptions. Displayed native names may be learned; generic labels remain elsewhere.",
@@ -243,9 +279,9 @@
         1900
       ],
       "staticStatus": "guide-order-and-native-scenes-compared",
-      "runtimeCorrection": null,
+      "runtimeCorrection": "opening-cross-zone",
       "remainingGaps": [
-        "Opening substeps have dedicated checkpoints; later native phases, sword-fight input and the tower search still need physical transition proof."
+        "Opening travel uses actual native street exits toward the square. The rendered ticket sign binds its native front hotspot; room104 is the dialogue/completion scene. Unknown routes identify the next area without creating a walking target. Full scene transitions, puzzle inputs, controller and speech still need live validation."
       ],
       "fullyAccessibleProven": false,
       "liveValidated": false
@@ -5242,10 +5278,11 @@
         "generic": 2
       },
       "regionPolicies": {
-        "current-native-icon-only": 3,
-        "direct-touch-exit-presentation-gates": 6
+        "current-native-icon-only": 2,
+        "direct-touch-exit-presentation-gates": 6,
+        "reviewed-opening-ticket-booth-art-binding": 1
       },
-      "iconOnlyActionableRegions": 1,
+      "iconOnlyActionableRegions": 0,
       "staticAudit": "decoded-all-entries",
       "semanticLabelStatus": "partial",
       "presentationStatus": "native-gates-live-unverified",

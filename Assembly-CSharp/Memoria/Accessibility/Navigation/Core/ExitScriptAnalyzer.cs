@@ -90,6 +90,12 @@ namespace Memoria.Accessibility.Navigation
                 // Assignments must invalidate an unreadable shadow destination.
                 if(op==0x78){int uid=bytes[p++],property=bytes[p++];stack.Push(new Value{Number=objectProperty==null?null:objectProperty(uid,property)});continue;}
                 if(op==0x79){p++;if(p>bytes.Length)return false;stack.Push(new Value());continue;}
+                // B_ANGLE2 consumes two values and produces a pure angle.
+                // Street transitions use it only to center a visual wipe. Keep
+                // its value unknown: a later guard/write still propagates that
+                // uncertainty, while a discarded visual result cannot hide a
+                // following constant map jump. No native calculation executes.
+                if(op==102){stack.Pop();stack.Pop();stack.Push(new Value());continue;}
                 if(op>=4 && op<=7){var a=stack.Pop();if(!a.Variable)return false;int? next=a.Number.HasValue?(int?)(a.Number.Value+(op==4 || op==6?1:-1)):null;if(next.HasValue){if(!snapshot.Write(a.Source,a.Type,a.Index,next.Value))return false;}else if(!snapshot.Invalidate(a.Source,a.Type,a.Index))return false;stack.Push(new Value{Number=op<6?a.Number:next});continue;}
                 if(op==12 || op==13 || op==14 || op==15 || op==16 || op>=70 && op<=73) { var a=stack.Pop(); if(!a.Number.HasValue){stack.Push(new Value());continue;} int x=a.Number.Value; stack.Push(new Value{Number=op==12?x:op==13?-x:op==16?~x:op==70?(sbyte)x:op==71?(byte)x:op==72?(short)x:op==73?(ushort)x:x==0?1:0}); continue; }
                 var right=stack.Pop(); var left=stack.Pop();

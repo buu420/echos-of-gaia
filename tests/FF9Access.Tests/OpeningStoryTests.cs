@@ -28,7 +28,7 @@ namespace FF9Access.Tests
         {
             var root=Catalog();
             var stages=root.GetProperty("stages").EnumerateArray().Select(s=>new StoryStage{Milestone=s.GetProperty("milestone").GetInt32(),GoalFields=s.GetProperty("fields").EnumerateArray().Select(v=>v.GetInt32()).ToArray(),
-                DepartureFields=s.GetProperty("departureFields").EnumerateArray().Select(v=>v.GetInt32()).ToArray(),Goal=s.GetProperty("goal").GetString(),Instruction=s.GetProperty("instruction").GetString(),
+                DepartureFields=s.GetProperty("departureFields").EnumerateArray().Select(v=>v.GetInt32()).ToArray(),ApproachFields=OpeningNativeFixture.Ints(s,"approachFields"),Goal=s.GetProperty("goal").GetString(),Instruction=s.GetProperty("instruction").GetString(),
                 WorldPlaces=s.GetProperty("worldPlaces").EnumerateArray().Select(v=>v.GetString()).ToArray(),WorldLocations=s.GetProperty("worldLocations").EnumerateArray().Select(v=>v.GetInt32()).ToArray()}).ToArray();
             var transit=root.GetProperty("transit").EnumerateArray().Select(t=>new StoryTransit{From=t.GetProperty("source").GetInt32(),To=t.GetProperty("destination").GetInt32()}).ToArray();
             return checkpoints?new StoryTargetCatalog(stages,transit,OpeningStoryCheckpoints.All):new StoryTargetCatalog(stages,transit);
@@ -62,9 +62,9 @@ namespace FF9Access.Tests
         }
         public static void ActualTicketCompletionLeadsToAlleyBeforeSteeple()
         {
-            var input=new CatalogResult();input.Targets.Add(PresentedExit(103,26,105));input.Targets.Add(PresentedExit(103,25,104));input.Targets.Add(PresentedExit(103,23,102));
+            var input=new CatalogResult();input.Targets.Add(PresentedExit(103,22,105));input.Targets.Add(PresentedExit(103,25,110));input.Targets.Add(PresentedExit(103,23,102));
             var story=Story(Installed(true),103,1150,0,LiveScripts(103),input);
-            TestAssert.Equal(26,story.PhysicalIdentity.NativeId);TestAssert.True(story.Label.Contains("alley"));TestAssert.False(story.Label.Contains("steeple"));
+            TestAssert.Equal(22,story.PhysicalIdentity.NativeId);TestAssert.True(story.Label.Contains("alley"));TestAssert.False(story.Label.Contains("steeple"));
         }
         public static void TicketActionStaysReadableWhenNoPhysicalRouteIsPresented()
         {var story=Story(Installed(true),102,1000,0,LiveScripts(102));TestAssert.True(story.Label.Contains("Show Vivi's ticket at the ticket booth"));TestAssert.True(story.PhysicalId==null);TestAssert.Equal(0,story.ApproachCandidates.Length);}

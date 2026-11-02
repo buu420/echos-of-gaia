@@ -29,20 +29,27 @@ SOURCE_FILES = [
     'docs/accessibility/story-prerequisites.json',
     'docs/accessibility/reviewed-field-labels.json',
     'docs/accessibility/field-interaction-evidence.json',
+    'docs/accessibility/opening-ticket-booth.json',
     'Assembly-CSharp/Global/Quad/Mist/QuadMistAccessibility.cs',
     'Assembly-CSharp/Global/Button/ButtonInputHandler.cs',
     'Assembly-CSharp/Global/Event/EventCollision.cs',
     'Assembly-CSharp/Global/Dialog/Dialog.cs',
+    'tests/FF9Access.Tests/Fixtures/opening-street-scripts.json',
+    'tests/FF9Access.Tests/Fixtures/opening-booth-geometry.json',
 ] + ['Assembly-CSharp/Memoria/Accessibility/Navigation/' + path for path in [
     'Core/StoryPrerequisiteCatalog.cs', 'Core/StoryPrerequisiteData.cs',
+    'Core/OpeningTicketBoothEvidence.cs', 'Core/ExitScriptAnalyzer.cs',
+    'Core/StoryTargetCatalog.cs', 'Core/NavigationCoordinator.cs',
     'Core/FieldVisibleLabels.cs', 'Core/FieldTouchConfirmation.cs',
     'Core/NumericInputReader.cs', 'Native/NativeStoryPrerequisites.cs',
     'Native/NativeFieldTouchReadiness.cs', 'Native/NativeNumericDialogs.cs',
     'Native/NativeFieldTargets.cs', 'Native/NativeStoryTargets.cs',
     'Native/NativeInteractionProbe.cs', 'Native/NavigationRuntime.cs',
     'Native/NavigationLifecycleBridge.cs',
+    'Native/NativeOpeningTicketBooth.cs', 'Native/NativeTicketBoothPresentation.cs',
 ]]
 PREREQUISITE_CHAPTERS = {
+    1: ('opening-cross-zone', 'Opening travel uses actual native street exits toward the square. The rendered ticket sign binds its native front hotspot; room104 is the dialogue/completion scene. Unknown routes identify the next area without creating a walking target.'),
     15: ('pinnacle-fragments', 'Current fragment bits precede the final conversation. Only an already presented, interactive fragment can supply a walking target. Unshown fragments have no inferred position.'),
     17: ('fossil-route', 'Current switch bits and the verified current floor component choose the route step. Boarding steps without an existing interactive target remain manual information.'),
     34: ('gulug-lever', 'The presented lever remains the objective until the native completion flag changes. Pull direction and Confirm stay under player control.'),
@@ -88,6 +95,8 @@ def validate(report, root=ROOT):
     require(len(chapters) == 44 and {c['number'] for c in chapters} == set(range(1, 45)), 'All 44 main guide chapters required')
     stages = load(root / 'docs/accessibility/story-navigation.json')['stages']
     checkpoints = {s['milestone'] for s in stages}
+    ticket = next(s for s in stages if s['milestone'] == 1150)
+    require(ticket.get('approachFields') == [103] and ticket['fields'] == [104], 'Ticket physical approach and dialogue completion must stay distinct')
     require({m for c in chapters for m in c['checkpoints']} == checkpoints and len(checkpoints) == 364, 'All 364 catalog checkpoints required')
     for c in chapters:
         require(c['liveValidated'] is False and c['fullyAccessibleProven'] is False and c['remainingGaps'], 'Story must retain proof limits')
@@ -109,6 +118,18 @@ def validate(report, root=ROOT):
     labels = load(root / 'docs/accessibility/reviewed-field-labels.json')['entries']
     require(report['totals']['reviewedAppearanceModels'] == len(labels) == 47, 'Appearance catalog count mismatch')
     require(report['totals']['reviewedInteractionBindings'] == len(load(root / 'docs/accessibility/field-interaction-evidence.json')['bindings']) == 18, 'Actor/region binding count mismatch')
+    native = load(root / 'docs/accessibility/story-navigation.json')['fields']
+    native_fields = {f['field']: f for f in native}
+    captured = load(root / 'tests/FF9Access.Tests/Fixtures/opening-street-scripts.json')
+    require(captured['EventBundleSha256'] == BUNDLE and len(captured['Functions']) == 17, 'Opening native function inventory changed')
+    for row in captured['Functions']:
+        field = native_fields[row['Field']]
+        entries = {e['sid']: e for e in field['entries']}
+        require(row['FieldSha256'] == field['hash'] and row['EntrySha256'] == entries[row['Sid']]['hash'], 'Opening fixture native identity drift')
+    booth = load(root / 'docs/accessibility/opening-ticket-booth.json')
+    geometry = load(root / 'tests/FF9Access.Tests/Fixtures/opening-booth-geometry.json')
+    require(booth['source']['fieldSha256'] == native_fields[103]['hash'] and booth['source']['eventBundleSha256'] == BUNDLE, 'Booth has different native field evidence')
+    require(booth['source']['walkmeshSha256'] == geometry['WalkmeshSha256'] and booth['region'] == geometry['Booth'] and len(geometry['Triangles']) == 151, 'Booth art/region/geometry evidence differs')
 
 
 def build(research, root=ROOT):
@@ -137,8 +158,8 @@ def build(research, root=ROOT):
             pair_counts[state] += 1
             if not actor['possiblePlayerEntry']:
                 pair_counts['nonplayer-' + state] += 1
-        policies = Counter('reviewed-actor-region-binding' if (f['field'], r['entry']) in actor_regions else r['runtimePresentationPolicy'] for r in f['regions'])
-        icon_actionable = sum(r['runtimePresentationPolicy'] == 'current-native-icon-only' and (f['field'], r['entry']) not in actor_regions and (r['hasTalkHandler'] or r['hasPushHandler']) for r in f['regions'])
+        policies = Counter('reviewed-opening-ticket-booth-art-binding' if (f['field'], r['entry']) == (103, 28) else 'reviewed-actor-region-binding' if (f['field'], r['entry']) in actor_regions else r['runtimePresentationPolicy'] for r in f['regions'])
+        icon_actionable = sum(r['runtimePresentationPolicy'] == 'current-native-icon-only' and (f['field'], r['entry']) not in actor_regions and (f['field'], r['entry']) != (103, 28) and (r['hasTalkHandler'] or r['hasPushHandler']) for r in f['regions'])
         fields.append(dict(field=f['field'], scriptSha256=f['scriptSha256'], entries=f['entryCount'], actors=len(f['actors']), regions=len(f['regions']), otherEntries=f['otherEntryCount'],
                            actorModelPairs=dict(counts), regionPolicies=dict(policies), iconOnlyActionableRegions=icon_actionable,
                            staticAudit='decoded-all-entries', semanticLabelStatus='partial', presentationStatus='native-gates-live-unverified', liveValidated=False))
@@ -185,6 +206,7 @@ def markdown(report):
         f"The current English event bundle has **{t['fields']} fields and {t['entries']:,} entries**. All were decoded and matched to retained native fingerprints. The comparison accounts for **44 main-guide chapters, 364 existing Story checkpoints and 23 optional topics** (87 native entry bindings). Every field and guide topic has an explicit result in `guide-coverage.json`.", '',
         "The main reference is [bover_87's guide, version 2.01](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891); [Andrew_Testa's guide](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/29957) is the user's additional reference. Short checklists here are original summaries. Guide information is never loaded by the runtime or used to disclose hidden NPC names, rewards or coordinates.", '',
         '## Corrections from this audit', '',
+        '- Opening Story uses captured street transitions and names the next local area. The square is the physical approach to the ticket objective; the booth dialogue runs in a separate room. Its reviewed visible sign/hotspot is listed before bubble discovery. Informational steps explain the next area without starting a route to a remote objective.',
         '- Pinnacle Rocks now keeps fragment collection ahead of the final conversation. Only currently presented, interactive fragments can supply walking targets.',
         '- Fossil Roo uses the actual switch bits and current connected floor section. The route changes with reversible switches. Flower/boarding steps without a verified interactive target stay informative and manual.',
         '- Mount Gulug keeps the lever step until its native completion flag changes. The player still chooses the lever action.',

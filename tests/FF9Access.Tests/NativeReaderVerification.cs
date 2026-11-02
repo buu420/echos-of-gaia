@@ -36,9 +36,20 @@ namespace FF9Access.Tests
                     "NativeNumericDialogs.Tick|NumericInputReader.Acknowledge",
                     "NativeNumericDialogs.Tick|ScreenReaderManager.TrySpeak"
                     ,"NativeNumericDialogs.Tick|ScreenReaderManager.IsSpeaking"
-                    ,"NativeNumericDialogs.Tick|FieldRead.NumericInputAnnouncement.Initial"
+                    ,"NativeNumericDialogs.Tick|FieldRead.NumericInputAnnouncement.Initial",
+                    "NativeFieldTargets.Read|NativeFieldTargets.ReadOpeningTicketBooth",
+                    "NativeFieldTargets.ReadOpeningTicketBooth|NativeFieldTargets.BoothArtworkIsPresented",
+                    "NativeFieldTargets.ReadOpeningTicketBooth|NativeFieldTargets.CurrentBgiHash",
+                    "NativeFieldTargets.ReadOpeningTicketBooth|NativeFieldGeometry.Read",
+                    "NativeFieldTargets.ReadOpeningTicketBooth|NativeOpeningTicketBooth.Read",
+                    "NativeFieldTargets.BoothArtworkIsPresented|Renderer.get_isVisible",
+                    "NativeOpeningTicketBooth.Read|OpeningTicketBoothEvidence.Available",
+                    "NativeOpeningTicketBooth.Read|OpeningTicketBoothEvidence.Annotate",
+                    "NativeStoryTargets.Initialize|FieldWrite.StoryStage.ApproachFields",
+                    "StoryTargetCatalog.SelectStage|FieldRead.StoryStage.ApproachFields",
+                    "NavigationCoordinator.Tick|NavigationCoordinator.InformationOnly"
                 };
-                var readers=new HashSet<string>{"NativeStoryPrerequisites","StoryPrerequisiteCatalog","StoryPrerequisiteData","NativeFieldTouchReadiness","FieldTouchConfirmation","NativeNumericDialogs","NumericInputReader"};
+                var readers=new HashSet<string>{"NativeStoryPrerequisites","StoryPrerequisiteCatalog","StoryPrerequisiteData","NativeFieldTouchReadiness","FieldTouchConfirmation","NativeNumericDialogs","NumericInputReader","NativeOpeningTicketBooth","OpeningTicketBoothEvidence"};
                 foreach(var handle in metadata.TypeDefinitions) {
                     var type=metadata.GetTypeDefinition(handle);string name=metadata.GetString(type.Name),owner=name;
                     var parent=type.GetDeclaringType();while(!parent.IsNil){var enclosing=metadata.GetTypeDefinition(parent);owner=metadata.GetString(enclosing.Name);parent=enclosing.GetDeclaringType();}

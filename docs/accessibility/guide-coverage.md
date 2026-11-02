@@ -8,6 +8,7 @@ The main reference is [bover_87's guide, version 2.01](https://gamefaqs.gamespot
 
 ## Corrections from this audit
 
+- Opening Story uses captured street transitions and names the next local area. The square is the physical approach to the ticket objective; the booth dialogue runs in a separate room. Its reviewed visible sign/hotspot is listed before bubble discovery. Informational steps explain the next area without starting a route to a remote objective.
 - Pinnacle Rocks now keeps fragment collection ahead of the final conversation. Only currently presented, interactive fragments can supply walking targets.
 - Fossil Roo uses the actual switch bits and current connected floor section. The route changes with reversible switches. Flower/boarding steps without a verified interactive target stay informative and manual.
 - Mount Gulug keeps the lever step until its native completion flag changes. The player still chooses the lever action.
@@ -20,7 +21,7 @@ The main reference is [bover_87's guide, version 2.01](https://gamefaqs.gamespot
 
 All rows retain `fullyAccessibleProven: false` and/or `liveValidated: false`. Script presence, guide order and passing fixtures do not establish that every NPC, prop, exit, puzzle or optional activity works in all live states. There are 345 constant actor models; many still use generic labels before an attributed native name appears.
 
-707 region entries have a Talk/Push handler and still require the current native icon rather than a verified backdrop/actor binding. This is a static candidate count, not a count of visible missing props. Generic icon-only observations also lack a durable offscreen art-visibility proof.
+706 region entries have a Talk/Push handler and still require the current native icon rather than a verified backdrop/actor binding. This is a static candidate count, not a count of visible missing props. Generic icon-only observations also lack a durable offscreen art-visibility proof.
 
 Chocograph picture descriptions, world cracks/bubbles/tracks/shadows, jump-rope cadence, race progress, shuffle tracking, guard-facing/timed tasks, Blackjack and several puzzle sequences still need dedicated presentation evidence or live validation. Desert Palace and Pandemonium intermediate state-to-target mappings remain unresolved. The optional checklist lists each limitation; optional preparation and sidequests never become mandatory Story steps.
 
@@ -34,7 +35,7 @@ Run `python tools/guide_audit.py --check` and `python tools/compile_story_prereq
 
 | Chapter | Comparison result |
 | --- | --- |
-| [1. Alexandria](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/alexandria) | Opening substeps have dedicated checkpoints; later native phases, sword-fight input and the tower search still need physical transition proof. |
+| [1. Alexandria](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/alexandria) | Opening travel uses actual native street exits toward the square. The rendered ticket sign binds its native front hotspot; room104 is the dialogue/completion scene. Unknown routes identify the next area without creating a walking target. Full scene transitions, puzzle inputs, controller and speech still need live validation. |
 | [2. Evil Forest](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/evil-forest) | Numerous writes belong to player/director scene functions rather than a talk target. Verify Baku and party-recruitment listener phases, then escape movement; static writes do not prove a selectable actor. |
 | [3. Ice Cavern](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/ice-cavern) | Ice-wall treasure detours must remain optional. Verify current ice interactions, mist hazards and changing party/player identity separately from the seven scene floors. |
 | [4. Village of Dali](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/village-of-dali) | Windmill/lift subactions and inn reunion require native state eligibility. The optional machine-room door, treasures and resting option are not mandatory story objectives. |

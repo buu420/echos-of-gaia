@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.6 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.6)**
+**[Download 0.1.7 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.7)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -14,7 +14,14 @@ This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing; this release does not establish a complete accessible playthrough.
 
-0.1.6 corrects prerequisite guidance in Pinnacle Rocks, Fossil Roo and Mount
+0.1.7 repairs the opening Story route through Alexandria. Travel targets name
+the next area and use the current map's exit; the ticket booth is approached
+from the square through its reviewed visible interaction spot. Informational
+steps explain the next area without starting a route to a remote objective.
+Story remains selected across maps; the next walking leg still requires the
+normal deliberate command. See [opening route details and validation](docs/accessibility/opening-story-routes.md).
+
+This includes 0.1.6's prerequisite guidance in Pinnacle Rocks, Fossil Roo and Mount
 Gulug, expands reviewed chest/frog appearances, and repairs card details,
 initial card focus and changing auction/Daguerreo numeric readings. Native
 Confirm, puzzle choices and clocks remain under player control. Steps without
@@ -89,7 +96,7 @@ Use the manager to update or uninstall a manager installation.
 
 For a standalone installation:
 
-1. Download and extract EchosOfGaia-v0.1.6-beta-windows.zip into a separate
+1. Download and extract EchosOfGaia-v0.1.7-beta-windows.zip into a separate
    folder outside the game directory.
 2. Open **Install-EchosOfGaia.exe** from the extracted folder. Check the detected
    game folder, or use **Browse** or the editable field to choose the folder

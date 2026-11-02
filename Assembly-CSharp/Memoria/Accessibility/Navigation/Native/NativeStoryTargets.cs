@@ -27,7 +27,7 @@ namespace Memoria.Accessibility.Navigation
                     using(var reader=new StreamReader(stream)) {
                         var root=JSON.Parse(reader.ReadToEnd());if(root["schema"].AsInt!=1)throw new InvalidOperationException("Unsupported Story navigation catalog");
                         var stages=new List<StoryStage>();var rows=root["stages"];
-                        for(int i=0;i<rows.Count;i++)stages.Add(new StoryStage{Milestone=rows[i]["milestone"].AsInt,GoalFields=Integers(rows[i]["fields"]),DepartureFields=Integers(rows[i]["departureFields"]),WorldLocations=Integers(rows[i]["worldLocations"]),Goal=rows[i]["goal"],Instruction=rows[i]["instruction"],WorldPlaces=Strings(rows[i]["worldPlaces"]),RequiredVehicle=rows[i]["vehicle"]});
+                        for(int i=0;i<rows.Count;i++)stages.Add(new StoryStage{Milestone=rows[i]["milestone"].AsInt,GoalFields=Integers(rows[i]["fields"]),ApproachFields=Integers(rows[i]["approachFields"]),DepartureFields=Integers(rows[i]["departureFields"]),WorldLocations=Integers(rows[i]["worldLocations"]),Goal=rows[i]["goal"],Instruction=rows[i]["instruction"],WorldPlaces=Strings(rows[i]["worldPlaces"]),RequiredVehicle=rows[i]["vehicle"]});
                         var transit=new List<StoryTransit>();rows=root["transit"];
                         for(int i=0;i<rows.Count;i++)transit.Add(new StoryTransit{From=rows[i]["source"].AsInt,To=rows[i]["destination"].AsInt});
                         rows=root["fields"];for(int i=0;i<rows.Count;i++) {

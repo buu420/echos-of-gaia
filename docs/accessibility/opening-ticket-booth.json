@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "map": "field:103:FBG_N01_ALXT_MAP019N_AT_CNT_N",
+  "label": "Ticket booth",
+  "nativeRegion": 28,
+  "playerSid": 30,
+  "playerModel": 8,
+  "camera": 0,
+  "requiredOverlay": 20,
+  "visibleFeatures": "Round ticket stand with a red and cream canopy and a visible TICKET sign. The native polygon covers its front approach.",
+  "source": {
+    "eventBundleSha256": "1404f0244bf069acb0cab059684c9603589ba9ae070222447b644f9150ca9690",
+    "fieldSha256": "99978d12fdf94bb633f1d566d67a49399da423f7de6ca9ea23462595f2a64254",
+    "regionSha256": "6a8882a5ac1d5752691727fccd62d42ca691675f3c1464048f33a2f1d71c4a66",
+    "playerSha256": "0e72508bc17c135bed7a794f53ea81941c31cadc590c6832cae3a3e85e87f45d",
+    "directorSha256": "f9abc49cafca1b9355a8c0171f1acb9c85e104febcbee6b10d4831bd2e998946",
+    "backgroundSha256": "822130022cd06b30b4f85f74c21f2649fb84fe5f07817a97191b9ad6f1f2d8ea",
+    "walkmeshSha256": "a23d1a8220a5dc3cdb681d267d6bacbb5e103475af1df87d6edd0b4fa4327ddf"
+  },
+  "region": [
+    [
+      -500,
+      0,
+      -111
+    ],
+    [
+      550,
+      0,
+      -111
+    ],
+    [
+      250,
+      0,
+      -1000
+    ],
+    [
+      -200,
+      0,
+      -1000
+    ]
+  ],
+  "proof": {
+    "image": "square-camera0.png",
+    "sha256": "6c13ed65dce313414e896ce4857087d4023e7059ace8db98f3edfe87c4f3c953",
+    "overlayWitness": {
+      "(648, 460)": [
+        {
+          "overlay": 20,
+          "flags": 18,
+          "camera": 0,
+          "depth": 2046
+        }
+      ],
+      "(648, 545)": [
+        {
+          "overlay": 29,
+          "flags": 18,
+          "camera": 0,
+          "depth": 4080
+        }
+      ],
+      "(650, 415)": [
+        {
+          "overlay": 20,
+          "flags": 18,
+          "camera": 0,
+          "depth": 2113
+        }
+      ]
+    }
+  },
+  "policy": "Current native player/script/region/geometry/art/camera only. The rendered sign permits the label before an interaction bubble. Native Confirm and choices remain player controlled. Ticket completion is recorded in room104; the navigable approach is square103."
+}

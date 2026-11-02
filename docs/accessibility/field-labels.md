@@ -24,6 +24,12 @@ adapter. These changes do not execute an interaction or press Confirm.
 The [whole-game guide comparison](guide-coverage.md) records all fields and the
 remaining generic-label and icon-only backdrop-region gaps.
 
+0.1.7 also recognizes the ticket booth's visible sign in the opening Alexandria
+square. Its current rendered overlay, original art/floor, native interaction
+polygon and player/director scripts must match. It does not require prior
+bubble discovery. This is a reviewed backdrop binding, separate from the 47
+model descriptions. Native Confirm and booth choices remain player actions.
+
 Presented exits use their current projected screen position, such as
 “Upper-left exit A”. Visible actors and presented exits are listed immediately;
 they do not require an interaction, visit or saved observation to appear.

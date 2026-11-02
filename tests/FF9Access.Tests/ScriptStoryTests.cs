@@ -40,5 +40,11 @@ namespace FF9Access.Tests
             TestAssert.Equal(0,Read(code,new ScriptSnapshot(null,null,null)).Destinations.Count);
             TestAssert.Equal(0,Read(new[]{new ScriptInstruction(0,3,1,65533)},new ScriptSnapshot(null,null,null)).Destinations.Count);
         }
+        public static void UnknownVisualAngleDoesNotHideAKnownFollowingTransit()
+        {var code=new[]{Expr(0,6,0x7a,12,0x7a,13,102,0x7f),new ScriptInstruction(6,7,99,103)};TestAssert.True(Read(code,new ScriptSnapshot(null,null,null)).Destinations.Contains(103));}
+        public static void UnknownVisualAngleGuardDoesNotInventADestination()
+        {var code=new[]{Expr(0,6,0x7a,12,0x7a,13,102,0x7f),new ScriptInstruction(6,9,2,1),new ScriptInstruction(9,10,99,103),new ScriptInstruction(10,11,4)};TestAssert.Equal(0,Read(code,new ScriptSnapshot(null,null,null)).Destinations.Count);}
+        public static void StoredUnknownAngleInvalidatesItsOldShadowValue()
+        {byte[] map={1};var code=new[]{Expr(0,9,0xc5,0,0x7a,12,0x7a,13,102,44,0x7f),Expr(9,13,0xc5,0,0x7f),new ScriptInstruction(13,16,2,1),new ScriptInstruction(16,17,99,103),new ScriptInstruction(17,18,4)};TestAssert.Equal(0,Read(code,new ScriptSnapshot(null,map,null)).Destinations.Count);TestAssert.Equal((byte)1,map[0]);}
     }
 }

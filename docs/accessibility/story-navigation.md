@@ -29,10 +29,16 @@ boarding, landing, digging and combat remain your actions.
 When a reviewed step has a required action, its Story heading keeps that
 action while travelling. At the opening Vivi step it says to show the ticket
 at the ticket booth, instead of reading only a room name. The installed
-catalog regression follows street102 through square103 to booth104; an
-optional item-shop108 visit returns to102 without advancing the objective.
+catalog regression follows actual street100/101/102 exits to square103;
+optional item-shop108 visits return to102 without advancing the objective.
+The booth's physical approach is its visible stand in the square, where native
+Confirm and dialogue choices enter the close-up room104. Story never treats
+that dialogue room as an ordinary walking exit. Captured native scripts replace
+the older invented square exit fixture. Travel targets name the next area,
+and an informational step states that area without scheduling a walking plan.
 Only the actual ticket-completion counter moves guidance to alley105. Missing
 presented approaches retain an informational objective with no walking target.
+See [opening route evidence and limits](opening-story-routes.md).
 
 Some steps involve a player-script interaction, dialogue, a puzzle or a scene
 without a demonstrated walking target. Those entries give the required action

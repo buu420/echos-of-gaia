@@ -40,7 +40,9 @@ internal static class Program
             PrerequisiteTests.NativeFossilReadsCurrentFlagsAndActualTriangle,
             PrerequisiteTests.NativeArrivalPlatformReadsGeometryAndKeepsTheHubExit,
             PrerequisiteTests.BlockedPrerequisiteFramesDoNotLoadGeometryOrAssumeCompletion,
-            PrerequisiteTests.ModifiedNativeDirectorAndBgiFailClosed};
+            PrerequisiteTests.ModifiedNativeDirectorAndBgiFailClosed,
+            OpeningBoothTests.NativeBoothArtProvidesItsCurrentLocalRegionBeforeAnyBubble,
+            OpeningBoothTests.NativeBoothRejectsStaleSceneObjectAndPlayerEvidence};
         int failed=0;
         foreach(var test in tests)try { Reset();test();Console.WriteLine("PASS "+test.Method.Name); }
         catch(Exception error) { failed++;Console.WriteLine("FAIL "+test.Method.Name+": "+error.Message); }

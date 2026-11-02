@@ -92,6 +92,21 @@ class GuideAuditTests(unittest.TestCase):
                                     capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_ticket_metadata_separates_the_square_from_its_dialogue_room(self):
+        data = json.loads((ROOT / 'docs/accessibility/story-navigation.json').read_text(encoding='utf-8'))
+        ticket = next(row for row in data['stages'] if row['milestone'] == 1150)
+        self.assertEqual(ticket['approachFields'], [103])
+        self.assertEqual(ticket['fields'], [104])
+
+    def test_captured_square_has_its_real_alley_exit_and_no_fake_booth_exit(self):
+        data = json.loads((ROOT / 'tests/FF9Access.Tests/Fixtures/opening-street-scripts.json').read_text(encoding='utf-8'))
+        functions = {row['Sid']: row for row in data['Functions'] if row['Field'] == 103 and row['Tag'] == 2}
+        destinations = {sid: [ins['Arguments'][0] for ins in row['Code'] if ins['Opcode'] == data['MapJump']]
+                        for sid, row in functions.items()}
+        self.assertEqual(destinations[22], [105])
+        self.assertEqual(destinations[25], [110])
+        self.assertFalse(any(104 in values for values in destinations.values()))
+
 
 if __name__ == '__main__':
     unittest.main()

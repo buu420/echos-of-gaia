@@ -48,6 +48,8 @@ namespace Memoria.Accessibility.Navigation
             FieldGeometrySnapshot currentGeometry=null;bool geometryRead=false;
             var openingCandle=ReadOpeningCandle(context,engine,field,player);
             if(openingCandle!=null)result.Add(openingCandle);
+            var openingBooth=ReadOpeningTicketBooth(context,engine,field,player,ref currentGeometry,ref geometryRead);
+            if(openingBooth!=null)result.Add(openingBooth);
             foreach (Obj obj in ActiveObjects(engine)) {
                 if (obj.uid == context.PlayerIdentity) continue;
                 var actor = obj as Actor;
@@ -84,6 +86,7 @@ namespace Memoria.Accessibility.Navigation
                 }
                 var quad = obj as Quad; if (quad == null || quad.n < 3 || quad.q == null || quad.n>quad.q.Length || quad.ebData == null) continue;
                 if(openingCandle!=null && quad.sid>=4 && quad.sid<=7)continue;
+                if(openingBooth!=null && quad.uid==openingBooth.Id.NativeId)continue;
                 // The proven Forest talking region belongs to the observed person;
                 // its bubble must not create a second generic object target.
                 if(quad.uid==19 && IsForestInteraction(context,engine.GetObjUID(9) as Actor,quad))continue;

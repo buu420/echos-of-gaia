@@ -73,7 +73,9 @@ namespace Memoria.Accessibility.Navigation
                     signal=command==NavigationCommand.StartGuidance?NavigationSignal.StartGuidance:NavigationSignal.ToggleGuidance;
                 }else if(command==NavigationCommand.ToggleAutomatic || command==NavigationCommand.StartAutomatic) {
                     if(command==NavigationCommand.ToggleAutomatic && Session.Mode==RouteMode.Moving)signal=NavigationSignal.Stop;
-                    else if(update.Selected==null){update.Messages.Add(SelectionText(catalog));continue;}else signal=NavigationSignal.StartAutomatic;
+                    else if(update.Selected==null){update.Messages.Add(SelectionText(catalog));continue;}
+                    else if(InformationOnly(update.Selected)){update.Messages.Add(InformationText(update.Selected));continue;}
+                    else signal=NavigationSignal.StartAutomatic;
                 }else if(command==NavigationCommand.Stop)signal=NavigationSignal.Stop;
                 else if(command==NavigationCommand.ManualMovement)signal=NavigationSignal.ManualMovement;
                 else if(command==NavigationCommand.Confirm)signal=NavigationSignal.Confirm;
@@ -89,7 +91,7 @@ namespace Memoria.Accessibility.Navigation
                 if(signal!=NavigationSignal.None) {
                     bool wasAutomatic=Session.Mode==RouteMode.Moving;Merge(ref decision,Session.Update(context,signal));
                     if(signal==NavigationSignal.StartAutomatic){update.RouteOperation=RouteOperation.StartAutomatic;update.Messages.Add("Finding an automatic route to "+Label(update.Selected)+".");}
-                    else if(signal==NavigationSignal.StartGuidance || signal==NavigationSignal.ToggleGuidance){if(Session.Mode==RouteMode.Guiding)update.RouteOperation=RouteOperation.PlanGuidance;update.Messages.Add(Session.GuidanceEnabled?"Guidance on.":"Guidance off.");}
+                    else if(signal==NavigationSignal.StartGuidance || signal==NavigationSignal.ToggleGuidance){update.Messages.Add(Session.GuidanceEnabled?"Guidance on.":"Guidance off.");if(InformationOnly(update.Selected)){update.RouteOperation=RouteOperation.None;if(Session.GuidanceEnabled)update.Messages.Add(InformationText(update.Selected));}else if(Session.Mode==RouteMode.Guiding)update.RouteOperation=RouteOperation.PlanGuidance;}
                     else if(signal==NavigationSignal.Stop)update.Messages.Add("Navigation stopped.");
                     else if(signal==NavigationSignal.ManualMovement && wasAutomatic)update.Messages.Add("Automatic movement stopped. "+(Session.GuidanceEnabled?"Guidance on.":"Guidance off."));
                     else if(signal==NavigationSignal.Confirm && wasAutomatic)update.Messages.Add("Navigation paused for interaction.");
@@ -103,6 +105,8 @@ namespace Memoria.Accessibility.Navigation
         }
         private void SelectFirst(CatalogResult catalog){foreach(var target in catalog.Targets)if(target.Category==_category){_selected=target.Id;_hasSelection=true;break;}}
         private List<NavigationTarget> Choices(CatalogResult catalog){var result=new List<NavigationTarget>();foreach(var target in catalog.Targets)if(target.Category==_category)result.Add(target);return result;}
+        private static bool InformationOnly(NavigationTarget target){return target!=null && target.Category==NavigationCategory.Story && !target.PhysicalId.HasValue;}
+        private static string InformationText(NavigationTarget target){return System.String.IsNullOrEmpty(target.Availability)?target.Label:target.Availability;}
         private string SelectionText(CatalogResult catalog){var choices=Choices(catalog);if(choices.Count==0)return _category+". "+(catalog.UnavailableReason??("No "+_category.ToString().ToLowerInvariant()+" currently presented."));for(int i=0;i<choices.Count;i++)if(choices[i].Id.Equals(_selected))return _category+". "+SelectionLabel(choices[i])+", "+(i+1)+" of "+choices.Count+".";return "Selected target unavailable.";}
         public static string SelectionLabel(NavigationTarget target){return target.Label+(target.Evidence==VisibilityEvidence.ObservedFieldLandmark?", last seen":"");}
         private static string Label(NavigationTarget target){return target==null?"the selected target":target.Label;}
