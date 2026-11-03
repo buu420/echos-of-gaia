@@ -22,7 +22,7 @@ namespace Memoria.Accessibility.Navigation
                 var smooth=funnel==null?null:Smooth(geometry,context.Position,funnel);
                 if(smooth==null)smooth=Smooth(geometry,context.Position,points);
                 if(smooth==null){failure.Failure=RouteFailure.UnsafeSegment;continue;}
-                var route=new RoutePlan{Success=true,Failure=RouteFailure.None,TargetId=target.Id,PhysicalId=target.PhysicalId,Generation=context.Generation,Transport=context.Transport,ApproachPoint=approach,Waypoints=smooth.ToArray(),Corridor=corridor,GeometryFingerprint=geometry.Fingerprint,ViewingPoint=viewing};
+                var route=new RoutePlan{Success=true,Failure=RouteFailure.None,TargetId=target.Id,PhysicalId=target.PhysicalId,Generation=context.Generation,Transport=context.Transport,Origin=context.Position,ApproachPoint=approach,Waypoints=smooth.ToArray(),Corridor=corridor,GeometryFingerprint=geometry.Fingerprint,ViewingPoint=viewing};
                 var from=context.Position;foreach(var point in route.Waypoints){route.Length+=FieldGeometrySnapshot.Horizontal(from,point);from=point;}
                 if(viewing)return route; // Viewing candidates are ordered by proximity to the observed object.
                 if(best==null || route.Length<best.Length)best=route;

@@ -22,7 +22,12 @@ namespace Memoria.Accessibility.Navigation
             if (route.GeometryFingerprint != fingerprint) return MovementOutcome.RouteChanged;
             if (!world && FieldApproachChanged(planned,current)) return MovementOutcome.TargetMoved;
             float distance = world ? WorldCoordinates.Distance(current.Position, planned.Position) : NavigationPoint.Distance(current.Position, planned.Position);
-            if (distance > tolerance) return MovementOutcome.TargetMoved;
+            bool exitApproach=false;
+            if(!world && route.Success && planned.PhysicalIdentity.Kind==TargetKind.FieldExit && current.ApproachCandidates!=null) {
+                foreach(var point in current.ApproachCandidates)if(NavigationPoint.Distance(point,route.ApproachPoint)<.01f){exitApproach=true;break;}
+                if(!exitApproach)return MovementOutcome.TargetMoved;
+            }
+            if (distance > tolerance && !exitApproach) return MovementOutcome.TargetMoved;
             if (route.Success && !segmentClear) return MovementOutcome.RouteChanged;
             return MovementOutcome.None;
         }

@@ -68,6 +68,10 @@
       "sha256": "c19aefbdd7ee7370270eca475ea0e229b95ff0b2415706b3764250fc7f697615"
     },
     {
+      "path": "Assembly-CSharp/Global/Field/Map/Actor/FieldMapActorController.cs",
+      "sha256": "464d36dc94a84c72626bb6a5a2f65af63126d44fdb6b2ba4f44b0e6a47d5a4f5"
+    },
+    {
       "path": "tests/FF9Access.Tests/Fixtures/opening-street-scripts.json",
       "sha256": "dc4a561fde3bc0405912e1e77f05271ec28c375e23af39eb1c8603a6e4cd97d7"
     },
@@ -92,12 +96,64 @@
       "sha256": "4901a04a8e81f8986d952a1509cd164a8f5a77a590e7b78003e37b32688a820c"
     },
     {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldPanoramaPresentation.cs",
+      "sha256": "45ff1cb837bbaf690d323e5d603d45d260f4cd72f93a9833445c25c67c28442c"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NavigationAnnouncements.cs",
+      "sha256": "3913a45391295a4416b2f4cc16d9adbe5d438a84ccce707b0485267c0cf6ed7d"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldPanoramaEvidence.cs",
+      "sha256": "1471dfaff4865ed35890d203794e5d33250ceabe3d0e0245d8bbaeb930a16a91"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldInputOrientation.cs",
+      "sha256": "5ec3c4e869ec71652bc5ed03732aa162e74adf8711ee70fd1faba49065ef55d3"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/ManualRouteGuidance.cs",
+      "sha256": "d68e100ad209277b641a39ea94bde4db97b4d16af60088ef229875077342a09e"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/GuidanceRouteValidation.cs",
+      "sha256": "410991a91be9b710d02368ffc0238276dd89d741e90b989f0ccb852ed848dfe2"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NavigationModels.cs",
+      "sha256": "238abdd4aaf7889f986628b308553e3eff5672a56e7aefbec0eeb02e4fe98755"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/RouteGuidanceProgress.cs",
+      "sha256": "fe6f2ae4660c179b38b8224c2c146a9e4cec874f41e1dd80c489f3f40667b665"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/RouteInstruction.cs",
+      "sha256": "7cc926b30377b2a74a0b9ae4209fae47e802c4524a2e88c7147b3f22200bd67c"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/RoutePlan.cs",
+      "sha256": "0046e580d3a084ee1bb8b9b589b8e54652deab85347b2c30b33bad6c71f47a83"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldRoutePlanner.cs",
+      "sha256": "93e078af00c6932f267a6b8daaabf7838c46e32b6f3cb49fbf612c66bbc3105b"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/WorldRoutePlanner.cs",
+      "sha256": "4ffa9ab388ef375d06860b9ea907780b0e964739bb1f880f19702eb94177c7bd"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeNavigationContext.cs",
+      "sha256": "3ca2d4949fdf7567e0da1abc5ad59a40296e828da791d8d8a4a432f5185ee65a"
+    },
+    {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/StoryTargetCatalog.cs",
       "sha256": "952c18c973d501687b367b9479747dd26bdffcf06b0a86e18f8ebd589cccc6bc"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NavigationCoordinator.cs",
-      "sha256": "7f6020d003f3e804551c1485da1f2ab15082bec804964bd63e148496015ac482"
+      "sha256": "418c35790a79e1320d84e13dad8cb16abdf1c6a0d18ae0a483e3ad723617a7db"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldVisibleLabels.cs",
@@ -125,7 +181,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldTargets.cs",
-      "sha256": "1407f2a5efbb118d708e5c4c75e78d743f971411172f38186af3cacf95f29fda"
+      "sha256": "7532385bf7386a9222f56ebd97b4431d60396d8819b6af199bc3f6a300bb5695"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryTargets.cs",
@@ -137,7 +193,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationRuntime.cs",
-      "sha256": "23dadc7fd8f22561ae53632b0376a763b515518ac86b2784041671fb0c5a3aa8"
+      "sha256": "bef19604269f6cb65dbb10fbdb8331cddb9595cdacc0d0d22c7edc6fcb64a08f"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationLifecycleBridge.cs",

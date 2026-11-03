@@ -139,15 +139,14 @@ namespace FF9Access.Tests
             update.Context.CanControl=false;TestAssert.Equal(null,Speak(speech,update,100));update.Context.CanControl=true;
             TestAssert.Equal("left 2.",Speak(speech,update,200));speech.ResetPending();TestAssert.Equal("left 2.",Speak(speech,update,300));
         }
-        public static void ContextAndReplannedRouteEachGetAFreshInstruction()
+        public static void ContextChangesEachGetAFreshInstruction()
         {
-            for(int change=0;change<5;change++) {
+            for(int change=0;change<4;change++) {
                 var update=Route(TestFixtures.P(-480,0));var speech=new NavigationAnnouncements();Speak(speech,update);
                 if(change==0)update.Context.Generation++;
                 if(change==1)update.Context.SaveIdentity="another save";
                 if(change==2)update.Context.PlayerIdentity++;
                 if(change==3)update.Context.Transport=new TransportIdentity(TransportKind.Chocobo,9,3);
-                if(change==4)update.Movement.PlannedRoute=Route(TestFixtures.P(-480,0)).Movement.PlannedRoute;
                 TestAssert.Equal("left 2.",Speak(speech,update,100));
             }
         }

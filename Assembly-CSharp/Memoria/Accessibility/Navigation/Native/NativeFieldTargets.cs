@@ -243,9 +243,14 @@ namespace Memoria.Accessibility.Navigation
             }
             var animationFrames=new Dictionary<int,IList<DoorTileObservation>>();
             if(field.scene!=null)foreach(int animation in binding.Animations)if(animation>=0 && animation<field.scene.animList.Count)animationFrames[animation]=ReadFrames(field,animation);
+            var panorama=plain?ReadPassagePanorama(context,field,quad,hash,surface.Region):null;
             Func<NavigationPoint,bool> presented=p=> {
-                if(!EntranceOnScreen(field,Vector(p)))return false;
-                if(plain && RenderedBackgroundAt(field,Vector(p)))return true;
+                bool onScreen=EntranceOnScreen(field,Vector(p));
+                // A long street is one continuous native camera panorama.
+                // Only proven plain walking passages may use its pan extent;
+                // doors and interaction objects still require the current view.
+                if(plain && (onScreen?RenderedBackgroundAt(field,Vector(p)):PlainPassageOnPanorama(field,Vector(p),panorama)))return true;
+                if(!onScreen)return false;
                 if(surfaceReview!=null && RenderedBackgroundAt(field,Vector(p),surfaceReview.OverlayIds))return true;
                 int overlay;foreach(var animation in animationFrames)if(FieldDoorEvidence.TryBind(field.scene.animList[animation.Key].camNdx,field.camIdx,animation.Value,Point(Project(field,Vector(p))),true,out overlay))return true;
                 return false;
@@ -254,7 +259,7 @@ namespace Memoria.Accessibility.Navigation
             NavigationPoint approach;
             if(FieldDoorEvidence.TryTriggerSurface(binding.Walk || surfaceReview!=null,true,surface.Approaches,presented,nativeFirst,context.Position,out approach)) {
                 var safe=new List<NavigationPoint>();foreach(var point in surface.Approaches)if(nativeFirst(point))safe.Add(point);
-                string cue=surfaceReview!=null?surfaceReview.Cue:plain?"Rendered native walk-out surface":"Current rendered door tile at native trigger surface";
+                string cue=surfaceReview!=null?surfaceReview.Cue:plain?(EntranceOnScreen(field,Vector(approach))?"Rendered native walk-out surface":"Rendered native passage on the scrolling field panorama"):"Current rendered door tile at native trigger surface";
                 if(_cueLogs.Count<64 && _cueLogs.Add("surface:"+quad.uid+":"+field.camIdx))Log.Message("[FF9Access] Entrance trigger surface: map={0}; uid={1}; sid={2}; camera={3}; candidates={4}; approach={5}; cue={6}",context.LogicalMapKey,quad.uid,quad.sid,field.camIdx,safe.Count,Vector(approach),cue);
                 return new ExitPresentation{Visible=true,ApproachEnabled=true,Approach=approach,ApproachCandidates=safe.ToArray(),Evidence=surfaceReview!=null?VisibilityEvidence.ReviewedBackground:plain?VisibilityEvidence.ObservedRegion:VisibilityEvidence.NativeDoorTile,Cue=cue,SourceFingerprint=hash};
             }
@@ -275,31 +280,32 @@ namespace Memoria.Accessibility.Navigation
             foreach(var frame in field.scene.animList[animation].frameList)if(ids.Add(frame.target) && frame.target>=0 && frame.target<field.scene.overlayList.Count)frames.Add(ReadTile(field,frame.target));
             return frames;
         }
-        private static DoorTileObservation ReadTile(FieldMap field,int id)
+        private static DoorTileObservation ReadTile(FieldMap field,int id,bool opaqueOnly=false)
         {
             // Share live renderer observations across every exit and candidate
             // in this frame. Refresh on the next frame or scene replacement.
             if(!ReferenceEquals(_tileScene,field.scene) || _tileFrame!=Time.frameCount){_tiles.Clear();_tileScene=field.scene;_tileFrame=Time.frameCount;}
-            DoorTileObservation tile;if(!_tiles.TryGetValue(id,out tile)){tile=ReadTile(field.scene.overlayList[id],id);_tiles[id]=tile;}return tile;
+            int key=opaqueOnly?~id:id;
+            DoorTileObservation tile;if(!_tiles.TryGetValue(key,out tile)){tile=ReadTile(field.scene.overlayList[id],id,opaqueOnly);_tiles[key]=tile;}return tile;
         }
-        private static DoorTileObservation ReadTile(BGOVERLAY_DEF overlay,int id)
+        private static DoorTileObservation ReadTile(BGOVERLAY_DEF overlay,int id,bool opaqueOnly=false)
         {
             var tile=new DoorTileObservation{Overlay=id,Camera=overlay.camNdx,Flags=(int)overlay.flags,HierarchyActive=overlay.transform!=null && overlay.transform.gameObject.activeInHierarchy};
             if(!tile.HierarchyActive || (tile.Flags&2)==0 || (tile.Flags&(1|8|128))!=0 || overlay.viewportNdx!=0)return tile;
             foreach(var renderer in overlay.transform.GetComponentsInChildren<Renderer>())if(renderer.enabled && renderer.gameObject.activeInHierarchy) {
-                bool drawn=false;foreach(var material in renderer.sharedMaterials)if(material!=null && (!material.HasProperty("_Color") || material.GetColor("_Color").a>0)){drawn=true;break;}
+                bool drawn=false;foreach(var material in renderer.sharedMaterials)if(material!=null && (!material.HasProperty("_Color") || (opaqueOnly?FieldPanoramaPresentation.IsOpaque(material.GetColor("_Color").a):material.GetColor("_Color").a>0))){drawn=true;break;}
                 if(!drawn)continue;var bounds=renderer.bounds;if(bounds.size.x<=0 || bounds.size.y<=0)continue;
                 if(!tile.HasRenderer){tile.MinX=bounds.min.x;tile.MinY=bounds.min.y;tile.MaxX=bounds.max.x;tile.MaxY=bounds.max.y;tile.HasRenderer=true;}
                 else {tile.MinX=Math.Min(tile.MinX,bounds.min.x);tile.MinY=Math.Min(tile.MinY,bounds.min.y);tile.MaxX=Math.Max(tile.MaxX,bounds.max.x);tile.MaxY=Math.Max(tile.MaxY,bounds.max.y);}
             }return tile;
         }
-        private static bool RenderedBackgroundAt(FieldMap field,Vector3 point,int[] overlayIds=null)
+        private static bool RenderedBackgroundAt(FieldMap field,Vector3 point,int[] overlayIds=null,bool opaqueOnly=false)
         {
             if(field.scene==null)return false;var projected=Project(field,point);
             int count=overlayIds==null || overlayIds.Length==0?field.scene.overlayList.Count:overlayIds.Length;
             for(int index=0;index<count;index++) {
                 int i=overlayIds==null || overlayIds.Length==0?index:overlayIds[index];if(i<0 || i>=field.scene.overlayList.Count)continue;
-                var tile=ReadTile(field,i);int overlay;
+                var tile=ReadTile(field,i,opaqueOnly);int overlay;
                 if(FieldDoorEvidence.TryBind(tile.Camera,field.camIdx,new[]{tile},Point(projected),true,out overlay))return true;
             }return false;
         }
@@ -311,6 +317,20 @@ namespace Memoria.Accessibility.Navigation
         {
             var camera=field.GetMainCamera();if(camera==null || field.GetCurrentBgCamera()==null)return false;
             return FieldDoorEvidence.InViewport(Point(camera.WorldToViewportPoint(Project(field,point))),1,1);
+        }
+        private static FieldCameraPanorama ReadPassagePanorama(NavigationContext context,FieldMap field,Quad quad,string script,NavigationPoint[] region)
+        {
+            var camera=field.GetCurrentBgCamera();if(camera==null || field.camIdx!=field.curCamIdx || camera.vrpMinX==camera.vrpMaxX && camera.vrpMinY==camera.vrpMaxY)return null;
+            if(!FieldPanoramaEvidence.IsReviewed(context.LogicalMapKey,quad.sid,field.camIdx) || field.scene==null || field.scene.ebgBin==null ||
+                !FieldPanoramaEvidence.Matches(context.LogicalMapKey,quad.sid,field.camIdx,script,Fingerprint(field.scene.ebgBin),CurrentBgiHash(field),region))return null;
+            return new FieldCameraPanorama{HalfWidth=FieldMap.HalfFieldWidth,HalfHeight=FieldMap.HalfFieldHeight,
+                MinX=camera.vrpMinX,MaxX=camera.vrpMaxX,MinY=camera.vrpMinY,MaxY=camera.vrpMaxY};
+        }
+        private static bool PlainPassageOnPanorama(FieldMap field,Vector3 point,FieldCameraPanorama panorama)
+        {
+            if(panorama==null)return false;var camera=field.GetCurrentBgCamera();if(camera==null)return false;
+            var projected=PSX.CalculateGTE_RTPT_POS(point,Matrix4x4.identity,camera.GetMatrixRT(),camera.GetViewDistance(),field.GetProjectionOffset());
+            return FieldPanoramaPresentation.PresentsPassage(true,false,RenderedBackgroundAt(field,point,null,true),panorama,Point(projected));
         }
         private static bool OnScreen(FieldMap field,Vector3 point)
         {

@@ -101,7 +101,7 @@ public sealed class Actor:PosObj
     public FieldMapActorController fieldMapActorController=new FieldMapActorController();
     public WMActor wmActor;
 }
-public sealed class FieldMapActorController { public int activeTri=-1;public bool isPlayer=true; public UnityEngine.Vector3 curPos=new UnityEngine.Vector3(25,0,-664); }
+public sealed class FieldMapActorController { public Memoria.Accessibility.Navigation.FieldInputBasis NavigationMovementBasis;public int activeTri=-1;public bool isPlayer=true; public UnityEngine.Vector3 curPos=new UnityEngine.Vector3(25,0,-664); }
 public sealed class FieldMap {public string BgiHash;}
 public sealed class WMActor { public Actor originalActor; public UnityEngine.Vector3 RealPosition; }
 public static class WMUIData { public static int ActiveMapNo; }

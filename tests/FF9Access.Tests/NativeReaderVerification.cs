@@ -48,8 +48,17 @@ namespace FF9Access.Tests
                     "NativeStoryTargets.Initialize|FieldWrite.StoryStage.ApproachFields",
                     "StoryTargetCatalog.SelectStage|FieldRead.StoryStage.ApproachFields",
                     "NavigationCoordinator.Tick|NavigationCoordinator.InformationOnly"
+                    ,"FieldMapActorController.MovePC|FieldInputOrientation.Observe"
+                    ,"NativeNavigationContext.Read|FieldMapActorController.get_NavigationMovementBasis"
+                    ,"NavigationRuntime.ReadPresentation|FieldInputOrientation.Resolve"
+                    ,"NavigationRuntime.ReadMovement|RouteGuidanceProgress.Read"
+                    ,"NavigationRuntime.ReadMovement|RouteGuidanceProgress.ObserveWaypoint"
+                    ,"RouteGuidanceProgress.Read|ManualRouteGuidance.Read"
+                    ,"RouteInstruction.Resolve|ManualRouteGuidance.Read"
+                    ,"NavigationRuntime.CanGuideFieldStep|FieldGeometrySnapshot.IsSegmentClear"
+                    ,"NavigationRuntime.CanGuideWorldStep|GuidanceRouteValidation.WorldLeg"
                 };
-                var readers=new HashSet<string>{"NativeStoryPrerequisites","StoryPrerequisiteCatalog","StoryPrerequisiteData","NativeFieldTouchReadiness","FieldTouchConfirmation","NativeNumericDialogs","NumericInputReader","NativeOpeningTicketBooth","OpeningTicketBoothEvidence"};
+                var readers=new HashSet<string>{"NativeStoryPrerequisites","StoryPrerequisiteCatalog","StoryPrerequisiteData","NativeFieldTouchReadiness","FieldTouchConfirmation","NativeNumericDialogs","NumericInputReader","NativeOpeningTicketBooth","OpeningTicketBoothEvidence","FieldInputOrientation","ManualRouteGuidance","RouteGuidanceProgress","RouteInstruction"};
                 foreach(var handle in metadata.TypeDefinitions) {
                     var type=metadata.GetTypeDefinition(handle);string name=metadata.GetString(type.Name),owner=name;
                     var parent=type.GetDeclaringType();while(!parent.IsNil){var enclosing=metadata.GetTypeDefinition(parent);owner=metadata.GetString(enclosing.Name);parent=enclosing.GetDeclaringType();}
@@ -277,6 +286,12 @@ namespace FF9Access.Tests
                 var metadata=pe.GetMetadataReader();var required=new HashSet<string>{
                     "NativeFieldTargets.VisibleBoundary|FieldDoorEvidence.TryTriggerSurface",
                     "NativeFieldTargets.VisibleBoundary|FieldDoorEvidence.CurrentPlainWalkOut",
+                    "NativeFieldTargets.VisibleBoundary|NativeFieldTargets.ReadPassagePanorama",
+                    "NativeFieldTargets.ReadPassagePanorama|FieldPanoramaEvidence.Matches",
+                    "NativeFieldTargets.ReadTile|FieldPanoramaPresentation.IsOpaque",
+                    "NativeFieldTargets.PlainPassageOnPanorama|FieldPanoramaPresentation.PresentsPassage",
+                    "FieldPanoramaPresentation.PresentsPassage|FieldPanoramaPresentation.Contains",
+                    "NativeFieldTargets.PlainPassageOnPanorama|PSX.CalculateGTE_RTPT_POS",
                     "NativeFieldTargets.Surface|FieldRegionApproaches.Interaction",
                     "NativeFieldTargets.VisibleBoundary|FieldExitEvidence.TrySurface",
                     "NativeFieldTargets.Read|NativeFieldActorInteractions.Annotate",
@@ -543,7 +558,7 @@ namespace FF9Access.Tests
                     "Memoria.Accessibility.Navigation.NativeNavigationInput|ReadPhysical|ControllerKeyBindings.TriggerConfirm",
                     "Memoria.Accessibility.Navigation.NativeNavigationInput|ReadPhysical|ControllerKeyBindings.TriggerAvailable",
                     "Memoria.Accessibility.Navigation.NavigationRuntime|ReadMovement|GuidanceRouteValidation.Check",
-                    "Memoria.Accessibility.Navigation.NavigationRuntime|ReadMovement|GuidanceRouteValidation.WorldLeg",
+                    "Memoria.Accessibility.Navigation.NavigationRuntime|CanGuideWorldStep|GuidanceRouteValidation.WorldLeg",
                     "WMPad|CollectInput|NativeNavigationInput.get_IsCapturingController",
                     "ff9|w_moveGetPadStateR|XInputManager.get_CurrentState",
                     "ff9|w_moveGetPadStateLY|HonoInputManager.GetAxis",

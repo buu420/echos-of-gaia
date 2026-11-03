@@ -6,7 +6,8 @@ namespace Memoria.Accessibility.Navigation
     public sealed class MovementObservation
     {
         public MovementOutcome Outcome;public StopReason Reason;public string Evidence,Notice;
-        public bool IsPlanning,RouteAvailable;public RouteFailure? RouteFailure;public NavigationPoint? RoutePoint;public RoutePlan PlannedRoute;
+        public bool IsPlanning,QuietPlanning,RouteAvailable;public RouteFailure? RouteFailure;public NavigationPoint? RoutePoint;public RoutePlan PlannedRoute;
+        public ManualGuidanceStep ManualStep;
         public bool IsTerminal {get{return Outcome!=MovementOutcome.None && Outcome!=MovementOutcome.Moving;}}
     }
     public enum RouteOperation {None,PlanGuidance,StartAutomatic,ReplanAutomatic}
@@ -14,6 +15,7 @@ namespace Memoria.Accessibility.Navigation
     {
         public NavigationContext Context;public RouteDecision Session;public NavigationTarget Selected;
         public NavigationCategory Category;public RouteOperation RouteOperation;public bool RequestStatus,RequestRepeat,GuidanceEnabled,ModifierOpened,IsPlanning;
+        public bool RefreshGuidance;
         public MovementObservation Movement;public string ControllerNaming="Xbox";
         public readonly IList<string> Messages=new List<string>();public readonly IList<string> Diagnostics=new List<string>();
     }
@@ -43,7 +45,7 @@ namespace Memoria.Accessibility.Navigation
             if(decision.RequireReplan && update.Selected!=null)update.RouteOperation=Session.Mode==RouteMode.Moving?RouteOperation.ReplanAutomatic:RouteOperation.PlanGuidance;
             if(movement!=null && old==RouteMode.Guiding && Session.Mode==RouteMode.Guiding && OnlyInformationalCommands(commands) && !movement.IsPlanning && (movement.Outcome==MovementOutcome.TargetMoved || movement.Outcome==MovementOutcome.RouteChanged)) {
                 update.RouteOperation=RouteOperation.PlanGuidance;
-                update.Messages.Add("Route changed. Refreshing directions.");
+                update.RefreshGuidance=true;
             }
             if(movement!=null && old==RouteMode.Moving && Session.Mode==RouteMode.Moving && OnlyInformationalCommands(commands) && !movement.IsPlanning) {
                 NavigationSignal signal=NavigationSignal.None;

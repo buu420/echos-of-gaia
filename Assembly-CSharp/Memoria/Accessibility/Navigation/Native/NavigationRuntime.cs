@@ -17,7 +17,7 @@ namespace Memoria.Accessibility.Navigation
         private static readonly OwnedWorldPlanner _worldPlanner=new OwnedWorldPlanner();
         private static long _worldRequest,_nextWorldRequest;
         private static System.Diagnostics.Stopwatch _planTimer;
-        private static RouteOperation _planning;private static MovementObservation _pending;
+        private static RouteOperation _planning;private static MovementObservation _pending;private static bool _quietGuidancePlan;
         private static bool _exitReached,_minigameInspection;private static string _traceContext,_traceSpeech,_error;
         private static long _diagnosticGeneration;private static readonly HashSet<string> _diagnostics=new HashSet<string>();
         static NavigationRuntime(){NavigationLifecycleBridge.Releasing+=DetachScene;NativeFieldMovement.ExitReached+=delegate{_exitReached=true;};}
@@ -63,6 +63,7 @@ namespace Memoria.Accessibility.Navigation
                 if(_pending==movement && update.Session.Mode!=RouteMode.Moving)_pending=null;
                 foreach(var command in commands) {
                     Trace("Command "+command+"; map="+context.LogicalMapKey+"; generation="+context.Generation+"; mode="+update.Session.Mode);
+                    if(command==NavigationCommand.StartAutomatic || command==NavigationCommand.ToggleAutomatic || command==NavigationCommand.StartGuidance || command==NavigationCommand.ToggleGuidance || command==NavigationCommand.Status)TraceSelection(update,catalog);
                     if(command==NavigationCommand.DecreaseInterval || command==NavigationCommand.IncreaseInterval) {
                         Configuration.Accessibility.NavigationIntervalMilliseconds+=command==NavigationCommand.IncreaseInterval?500:-500;
                         Configuration.Accessibility.SaveValues();update.Messages.Add("Guidance interval "+(Configuration.Accessibility.NavigationIntervalMilliseconds/1000f).ToString("0.0")+" seconds.");
@@ -71,7 +72,7 @@ namespace Memoria.Accessibility.Navigation
                 if(update.Session.ReleaseMovement)DetachScene(update.Session.Reason);
                 if(!String.IsNullOrEmpty(NativeNavigationInput.Diagnostic))update.Diagnostics.Add(NativeNavigationInput.Diagnostic);
                 if(_exitReached && context.CanControl){update.Messages.Add("Selected exit reached. "+context.CurrentLocation+".");_exitReached=false;}
-                if(update.RouteOperation!=RouteOperation.None && update.Selected!=null && context.CanControl)BeginPlan(update.RouteOperation,update.Selected);
+                if(update.RouteOperation!=RouteOperation.None && update.Selected!=null && context.CanControl)BeginPlan(update.RouteOperation,update.Selected,update.RefreshGuidance);
                 if(_planning!=RouteOperation.None && context.CanControl && update.Selected!=null && _routeTarget.Id.Equals(update.Selected.Id))ApplyPlan(context,update.Selected,world,update.Session.IsAutomatic);
                 NavigationLifecycleBridge.Acknowledge(context);
                 string traceKey=context.Generation+":"+context.LogicalMapKey+":"+context.CanControl+":"+context.GateReason;
@@ -102,7 +103,7 @@ namespace Memoria.Accessibility.Navigation
             else if(context.LogicalMapKey!=null && context.LogicalMapKey.StartsWith("field:")) {
                 bool analog=Configuration.AnalogControl.Enabled;
                 bool stick=NativeNavigationInput.Physical!=null && (Math.Abs(NativeNavigationInput.Physical.MoveX)>NavigationControls.StickDeadZone || Math.Abs(NativeNavigationInput.Physical.MoveY)>NavigationControls.StickDeadZone);
-                context.InputOrientationDegrees=analog && (stick?Configuration.AnalogControl.UseAbsoluteOrientationStick:Configuration.AnalogControl.UseAbsoluteOrientationKeys)?FF9StateSystem.Field.twist.x:FF9StateSystem.Field.twist.y;
+                context.InputOrientationDegrees=FieldInputOrientation.Resolve(context.FieldInputBasis,stick,analog,Configuration.AnalogControl.UseAbsoluteOrientationStick,Configuration.AnalogControl.UseAbsoluteOrientationKeys,FF9StateSystem.Field.twist.x,FF9StateSystem.Field.twist.y);
             }
         }
         private static MovementObservation ReadMovement(NavigationContext context,CatalogResult catalog)
@@ -111,7 +112,7 @@ namespace Memoria.Accessibility.Navigation
             // Keep a one-shot terminal result when a movement command defers it.
             // Status/repeat can consume it immediately; I may leave movement active.
             if(result==null || !result.IsTerminal || _coordinator.Session.Mode!=RouteMode.Moving)_pending=null;
-            if(_planning!=RouteOperation.None)return new MovementObservation{IsPlanning=true,Notice=result==null?null:result.Notice};
+            if(_planning!=RouteOperation.None)return new MovementObservation{IsPlanning=true,QuietPlanning=_quietGuidancePlan,Notice=_quietGuidancePlan || result==null?null:result.Notice};
             if(result!=null)return result;
             if(_route==null || _route.Generation!=context.Generation || !_route.Transport.Equals(context.Transport))return null;
             result=new MovementObservation{RouteAvailable=_route.Success,PlannedRoute=_route};
@@ -120,11 +121,17 @@ namespace Memoria.Accessibility.Navigation
                 if(fresh==null)return result;
                 if(context.LogicalMapKey.StartsWith("field:")) {
                     var geometry=NativeFieldGeometry.Read(context);
-                    bool segmentClear=!_route.Success || _guideProgress==null || geometry==null || geometry.IsSegmentClear(context.Position,_guideProgress.Next(context.Position));
+                    if(_route.Success && _guideProgress!=null && geometry!=null) {
+                        result.ManualStep=_guideProgress.Read(context,_route,p=>CanGuideFieldStep(context,geometry,p));result.RoutePoint=result.ManualStep.Aim;
+                    }
+                    bool segmentClear=!_route.Success || result.ManualStep!=null && !result.ManualStep.NeedReplan;
                     result.Outcome=GuidanceRouteValidation.Check(_route,_routeTarget,fresh,geometry==null?null:geometry.Fingerprint,geometry==null?1:geometry.Radius,false,segmentClear);
                 }else {
                     var geometry=NativeWorldGeometry.Read(context,fresh);
-                    bool segmentClear=!_route.Success || _guideProgress==null || GuidanceRouteValidation.WorldLeg(geometry,context,_guideProgress.Next(context.Position),fresh,_route.ApproachPoint);
+                    if(_route.Success && _guideProgress!=null && geometry!=null) {
+                        result.ManualStep=_guideProgress.Read(context,_route,p=>CanGuideWorldStep(context,geometry,p,fresh,_route.ApproachPoint));result.RoutePoint=result.ManualStep.Aim;
+                    }
+                    bool segmentClear=!_route.Success || result.ManualStep!=null && !result.ManualStep.NeedReplan;
                     result.Outcome=GuidanceRouteValidation.Check(_route,_routeTarget,fresh,NativeWorldGeometry.CurrentFingerprint(),0.5f,true,segmentClear);
                 }
                 if(result.Outcome!=MovementOutcome.None){result.RouteAvailable=false;return result;}
@@ -144,13 +151,18 @@ namespace Memoria.Accessibility.Navigation
                 }
             }
             if(_route.Success && _route.Waypoints.Length>0) {
+                if(result.ManualStep!=null)return result;
+                var tracked=_guideProgress==null?_route.Waypoints[0]:_guideProgress.Next(context.Position);
                 var native=context.LogicalMapKey.StartsWith("world:")?NativeWorldMovement.CurrentWaypoint:NativeFieldMovement.CurrentWaypoint();
-                result.RoutePoint=native??(_guideProgress==null?_route.Waypoints[0]:_guideProgress.Next(context.Position));
+                if(native.HasValue && _guideProgress!=null)_guideProgress.ObserveWaypoint(native.Value);
+                result.RoutePoint=native??tracked;
             }
             return result;
         }
+        private static bool CanGuideFieldStep(NavigationContext context,FieldGeometrySnapshot geometry,NavigationPoint point){return geometry!=null && geometry.IsSegmentClear(context.Position,point);}
+        private static bool CanGuideWorldStep(NavigationContext context,WorldGeometrySnapshot geometry,NavigationPoint point,NavigationTarget target,NavigationPoint approach){return GuidanceRouteValidation.WorldLeg(geometry,context,point,target,approach);}
         private static void CancelWorldPlan(){_worldPlanner.Cancel();_worldRequest=0;}
-        private static void BeginPlan(RouteOperation operation,NavigationTarget target){CancelWorldPlan();_planTimer=System.Diagnostics.Stopwatch.StartNew();_planning=operation;_routeTarget=target;_planningAttempts=0;_route=null;_pending=null;}
+        private static void BeginPlan(RouteOperation operation,NavigationTarget target,bool quiet=false){CancelWorldPlan();_planTimer=System.Diagnostics.Stopwatch.StartNew();_planning=operation;_quietGuidancePlan=quiet;_routeTarget=target;_planningAttempts=0;_route=null;_pending=null;}
         private static void ApplyPlan(NavigationContext context,NavigationTarget target,bool world,bool automatic)
         {
             if(target.Category==NavigationCategory.Story && !target.PhysicalId.HasValue) {
@@ -169,7 +181,7 @@ namespace Memoria.Accessibility.Navigation
                     WorldPlanResult completed;if(!_worldPlanner.TryTake(_worldRequest,out completed))return;
                     long finished=_worldRequest;_worldRequest=0;
                     if(!completed.IsCurrent(context,target,NativeWorldGeometry.CurrentFingerprint())) {
-                        Trace("World route completion rejected as stale; request="+finished);BeginPlan(_planning,target);return;
+                        Trace("World route completion rejected as stale; request="+finished);BeginPlan(_planning,target,_quietGuidancePlan);return;
                     }
                     route=completed.Route;
                     Trace("World route search completed; request="+finished+"; search_ms="+completed.ElapsedMilliseconds+"; request_ms="+_planTimer.ElapsedMilliseconds);
@@ -191,7 +203,7 @@ namespace Memoria.Accessibility.Navigation
             }
             _planning=RouteOperation.None;
             _route=route;_routeTarget=target;
-            if(route.Success){var field=world?null:NativeFieldGeometry.Read(context);_guideProgress=new RouteGuidanceProgress(context.Position,route.Waypoints,world,world?0.5f:field==null?1:field.Radius);}
+            if(route.Success){var field=world?null:NativeFieldGeometry.Read(context);_guideProgress=new RouteGuidanceProgress(route.Origin,route.Waypoints,world,world?0.5f:field==null?1:field.Radius);}
             Trace("Route "+target.Id+"; success="+route.Success+"; failure="+route.Failure+"; points="+route.Waypoints.Length+"; fingerprint="+route.GeometryFingerprint);
             if(!route.Success) {_pending=new MovementObservation{Outcome=MovementOutcome.Unavailable,RouteFailure=route.Failure,Evidence=RouteReason(route.Failure),Notice=requestedMovement?null:"Route unavailable: "+RouteReason(route.Failure)+". Direct guidance available."};return;}
             if(!requestedMovement || !automatic)return;
@@ -218,6 +230,16 @@ namespace Memoria.Accessibility.Navigation
         internal static void Trace(string message)
         {
             try{string path=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"FF9Access");Directory.CreateDirectory(path);File.AppendAllText(Path.Combine(path,"navigation.log"),DateTime.UtcNow.ToString("o")+" "+message+Environment.NewLine);}catch(Exception exception){Log.Message("[FF9Access] Navigation trace unavailable: {0}",exception.Message);}
+        }
+        private static void TraceSelection(NavigationUpdate update,CatalogResult catalog)
+        {
+            var target=update.Selected;
+            Trace("Selection; target="+(target==null?"none":target.Id.ToString())+"; physical="+(target==null?"none":target.PhysicalIdentity.ToString())+"; availability="+(target==null?"":target.Availability));
+            int count=0;
+            foreach(var exit in catalog.Targets)if(exit.Category==NavigationCategory.Exits && count++<8) {
+                var fields=new List<string>();foreach(int field in exit.NextFields??new int[0])fields.Add(field.ToString());
+                Trace("Local exit; target="+exit.Id+"; approaches="+(exit.ApproachCandidates==null?-1:exit.ApproachCandidates.Length)+"; next="+String.Join(",",fields.ToArray())+"; evidence="+exit.Evidence+"; availability="+exit.Availability);
+            }
         }
     }
 }

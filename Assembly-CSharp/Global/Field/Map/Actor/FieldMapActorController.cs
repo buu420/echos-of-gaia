@@ -12,6 +12,8 @@ using Object = System.Object;
 public partial class FieldMapActorController : HonoBehavior
 {
     internal Int64 AccessibilityPathOwner;
+    private Memoria.Accessibility.Navigation.FieldInputBasis _navigationMovementBasis;
+    public Memoria.Accessibility.Navigation.FieldInputBasis NavigationMovementBasis {get{return _navigationMovementBasis;}}
     public Boolean IsActive()
     {
         return this.isActive;
@@ -729,6 +731,9 @@ public partial class FieldMapActorController : HonoBehavior
                     y = FF9StateSystem.Field.twist.x;
             }
             Quaternion rotation = Quaternion.Euler(0f, y, 0f);
+            // Observe the native choice already made for physical movement.
+            // Retain its input kind at rest; do not retain a stale camera angle.
+            _navigationMovementBasis = Memoria.Accessibility.Navigation.FieldInputOrientation.Observe(_navigationMovementBasis,isStickMovement,AccessibilityPathOwner);
             this.moveVec = rotation * this.moveVec;
         }
 

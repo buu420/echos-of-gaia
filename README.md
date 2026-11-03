@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.7 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.7)**
+**[Download 0.1.8 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.8)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -14,7 +14,17 @@ This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing; this release does not establish a complete accessible playthrough.
 
-0.1.7 repairs the opening Story route through Alexandria. Travel targets name
+0.1.8 keeps manual directions on the same stretch of a route instead of chasing
+small path points. Small safe sideways movement keeps the current instruction;
+larger drift gives a correction followed by the remaining direction. Equivalent
+route refreshes stay quiet. Releasing the stick retains the game's actual input
+orientation, and changing the control angle no longer shortens the distance
+count. Walking and running consume the same rounded map-distance units.
+The opening Alexandria street exits also remain available across the reviewed
+camera scrolls, improving the route to the ticket booth. See
+[manual navigation](docs/accessibility/manual-navigation.md).
+
+This includes 0.1.7's opening Story route through Alexandria. Travel targets name
 the next area and use the current map's exit; the ticket booth is approached
 from the square through its reviewed visible interaction spot. Informational
 steps explain the next area without starting a route to a remote objective.
@@ -155,6 +165,7 @@ launcher. Existing native battle controls retain their normal meaning.
 **Continue loads the automatic checkpoint.** Use **Load** for a manual save;
 testing New Game can replace the automatic checkpoint. Full controls and
 behavior are in [navigation controls](docs/accessibility/navigation-controls.md),
+[Manual navigation](docs/accessibility/manual-navigation.md),
 [Story guidance](docs/accessibility/story-navigation.md) and
 [Hot and Cold](docs/accessibility/chocobo-hot-and-cold.md).
 

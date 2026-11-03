@@ -2,6 +2,33 @@
 
 Automated checks, exact-runtime probes, installation checks and live gameplay are separate evidence. The installed accessibility/installed-build.json records the precise source commit, package and rollback manifest. Full logs and raw captures are retained under D:\FF9Access\research\2026-10-10; the live subfolders identify the build and context used.
 
+## Stable manual guidance and distance counts, 2026-11-02
+
+Manual guidance follows stable geometric runs, with native-clear rejoin and
+corner checks, correction hysteresis and explicit arrival/replan handling.
+Equivalent route refreshes and harmless static-exit reference changes remain
+quiet. The actual native stick/digital movement choice is retained at rest;
+current native control angles still choose the spoken direction. Counts use
+horizontal map length rather than a rotated-axis projection, so an unchanged
+path retains its count across control orientations. Progress comes from the
+actual player position; walking/running and partial stick movement affect how
+quickly the same rounded distance units are consumed.
+
+The opening 100/101/102 street panorama expansion is bound to reviewed scene,
+camera, script, region, background and walkmesh identities. It does not apply
+to other maps or replacement art without matching evidence. The player has
+confirmed the repaired ticket-booth route works in their local test; that is
+a bounded report, not a complete opening or full-game playthrough.
+
+Regression evidence covers sideways drift, behind-start corrections, blocked
+bends, world wrapping, native input-basis retention, rejected speech retries,
+quiet refreshes and orientation-independent counts. Original Mono probes test
+the actual compiled game assemblies for both architectures. Release/package
+checks and raw evidence are retained under D:\FF9Access\releases and
+D:\FF9Access\research. Physical manual/controller feel, audible delivery,
+dynamic collision, all camera transitions and complete playthroughs remain
+player tests. Counts are distance markers, not exact animation footfalls.
+
 ## Complete field census and exit cue, 2026-10-16
 
 The new reproducible census covers all 818 installed English field scripts,

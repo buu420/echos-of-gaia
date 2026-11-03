@@ -47,6 +47,7 @@ namespace Memoria.Accessibility.Navigation
             } else {
                 if (actor.fieldMapActorController == null || !actor.fieldMapActorController.isPlayer) return context;
                 Vector3 position = actor.fieldMapActorController.curPos;
+                context.FieldInputBasis=actor.fieldMapActorController.NavigationMovementBasis;
                 context.Position = new NavigationPoint(position.x, position.y, position.z);
                 context.Transport = new TransportIdentity(TransportKind.Foot, actor.uid, 0);
             }

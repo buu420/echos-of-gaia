@@ -49,6 +49,7 @@ namespace Memoria.Accessibility.Navigation
         public string CurrentLocation, CurrentRegion;
         public int StoryProgress=-1;
         public float InputOrientationDegrees;
+        public FieldInputBasis FieldInputBasis;
         public int WorldControlType=-1;
         public GateReason GateReason;
         public BattleTransition BattleTransition;

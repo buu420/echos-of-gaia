@@ -37,7 +37,7 @@ namespace Memoria.Accessibility.Navigation
                     WorldSurface last;if(!valid || !geometry.Segment(previous,goalProbe,hit,cache,startCell,goalCell,out last,cancelled)){failure.Failure=RouteFailure.TraversalRejected;continue;}
                     points.Add(goalProbe);
                 }
-                var route=new RoutePlan{Success=true,TargetId=target.Id,PhysicalId=target.PhysicalId,Generation=context.Generation,Transport=context.Transport,GeometryFingerprint=geometry.Fingerprint,ApproachPoint=goalProbe,Waypoints=points.ToArray()};
+                var route=new RoutePlan{Success=true,TargetId=target.Id,PhysicalId=target.PhysicalId,Generation=context.Generation,Transport=context.Transport,Origin=context.Position,GeometryFingerprint=geometry.Fingerprint,ApproachPoint=goalProbe,Waypoints=points.ToArray()};
                 var from=context.Position;foreach(var point in points){route.Length+=WorldCoordinates.Distance(from,point);from=point;}
                 if(best==null || route.Length<best.Length)best=route;
             }

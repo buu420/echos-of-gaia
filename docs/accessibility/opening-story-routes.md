@@ -1,6 +1,12 @@
 # Opening Story travel
 
 The ticket objective first leads through Alexandria's streets to the square.
+The long street and town-center backdrops scroll within a single native camera.
+The three reviewed forward walking passages stay available across those native
+pan limits. They require the original scene, camera, entry and background/mesh
+fingerprints, the unchanged current region, fully opaque active artwork and current trigger,
+native first-touch selection and a valid walking approach. Animated doors,
+people and items keep their existing presentation rules.
 Each travel target names the next area and binds an exit in the current map.
 It does not send the local walking planner to a coordinate in another map.
 Story remains selected across transitions; walking the next leg still requires

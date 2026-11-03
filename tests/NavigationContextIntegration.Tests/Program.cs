@@ -18,7 +18,7 @@ internal static class Program
             QuietPresentationTests.DisabledSpeechPreservesDebugTitleWithoutDuplicateWrites,
             QuietPresentationTests.EnablingSpeechRestoresStableTitleOnce,
             QuietPresentationTests.FailedTitleWriteCanRetry,
-            FieldLocationUsesNativeLocalizedName,FieldLocationPreferenceKeepsStatusButDisablesAutomaticSpeech,
+            FieldLocationUsesNativeLocalizedName,FieldLocationPreferenceKeepsStatusButDisablesAutomaticSpeech,FieldContextRetainsTheActualMovementInputKind,
             MissingLocationStaysEmptyAndLateTextCanAppear,
             CaptureBudgetTests.MenuDoesNotScanFieldTargets,
             CaptureBudgetTests.MenuDoesNotScanWorldTargetsOrGeometry,
@@ -59,6 +59,13 @@ internal static class Program
         Memoria.Configuration.Accessibility.AnnounceRegionChanges=true;
         Assets.Sources.Scripts.UI.Common.FF9TextTool.Names.Clear();
         FF9StateSystem.Common.FF9.fldMapNo=50;
+    }
+    private static void FieldContextRetainsTheActualMovementInputKind()
+    {
+        engine.Controlled.fieldMapActorController.NavigationMovementBasis=FieldInputBasis.Stick;
+        Require(NativeNavigationContext.Read().FieldInputBasis==FieldInputBasis.Stick,"actual stick input choice was lost at rest");
+        engine.Controlled.fieldMapActorController.NavigationMovementBasis=FieldInputBasis.Digital;
+        Require(NativeNavigationContext.Read().FieldInputBasis==FieldInputBasis.Digital,"actual digital input choice was replaced");
     }
     private static void FieldLocationUsesNativeLocalizedName()
     {

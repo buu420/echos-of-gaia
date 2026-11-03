@@ -8,9 +8,10 @@ namespace Memoria.Accessibility.Navigation
     {
         private const float FieldUnitsPerCount=240,WorldUnitsPerCount=4;
         private static readonly string[] Directions={"up","up and right","right","down and right","down","down and left","left","up and left"};
-        public string Text,Direction;
+        public string Text,Direction,FollowingDirection;
         public int EndWaypointIndex=-1;
         public bool HasRoute,AtApproach;
+        public bool StableLeg,Correcting;public NavigationPoint LegEnd;
 
         public static RouteInstruction Resolve(NavigationUpdate update)
         {
@@ -31,6 +32,22 @@ namespace Memoria.Accessibility.Navigation
                 point=route.Waypoints[++index];delta=Difference(c.Position,point,world);distance=Horizontal(delta);
             }
             result.EndWaypointIndex=index;
+            if(result.HasRoute && (movement.ManualStep!=null || index>=0) && update.Session.Mode==RouteMode.Guiding) {
+                var step=movement.ManualStep??ManualRouteGuidance.Read(c,route,index,world?.5f:1,false,null);
+                result.StableLeg=true;result.LegEnd=step.LegEnd;result.EndWaypointIndex=step.EndWaypointIndex;result.Correcting=step.Correcting;
+                if(step.NeedReplan){result.Direction="planning";result.Text="Finding a walking route.";return result;}
+                if(step.AtApproach){result.AtApproach=true;result.Direction="approach";result.Text=route.ViewingPoint?"Viewing point reached.":"Route approach reached.";return result;}
+                var aim=step.Correcting?Difference(c.Position,step.Aim,world):new NavigationPoint(step.ForwardVector.X*step.ForwardDistance,0,step.ForwardVector.Z*step.ForwardDistance);
+                double amount;result.Direction=DirectionFor(aim,c,world,out amount);result.Text=Phrase(result.Direction,amount,scale);
+                if(step.Correcting) {
+                    result.Text="Correction: "+result.Text;
+                    if(step.ForwardDistance>(world?.5f:4)) {
+                        string next=DirectionFor(new NavigationPoint(step.ForwardVector.X*step.ForwardDistance,0,step.ForwardVector.Z*step.ForwardDistance),c,world,out amount);
+                        result.FollowingDirection=next;
+                        result.Text+=" Then "+Phrase(next,amount,scale);
+                    }
+                }return result;
+            }
             // Arrival is a geometric approach test, independent of count rounding.
             if(result.HasRoute && index>=0 && index==route.Waypoints.Length-1 && distance<=arrivalRadius) {
                 result.AtApproach=true;result.Direction="approach";
@@ -65,6 +82,11 @@ namespace Memoria.Accessibility.Navigation
             for(int i=0;i<route.Waypoints.Length;i++)if(NavigationPoint.Distance(route.Waypoints[i],point)<0.001f)return i;
             return -1;
         }
+        private static string Phrase(string direction,double amount,float scale)
+        {
+            int count=(int)Math.Round(amount/scale,MidpointRounding.AwayFromZero);
+            return direction=="here"?"Target is here.":direction+" "+(count==0?"a little":count.ToString(CultureInfo.InvariantCulture))+".";
+        }
         private static NavigationPoint Difference(NavigationPoint from,NavigationPoint to,bool world)
         {
             return world?WorldCoordinates.Difference(from,to):new NavigationPoint(to.X-from.X,to.Y-from.Y,to.Z-from.Z);
@@ -83,7 +105,8 @@ namespace Memoria.Accessibility.Navigation
             if(secondary>=dominant*0.5) {
                 int sector=((int)Math.Round(Math.Atan2(right,up)*4/Math.PI)+8)%8;return Directions[sector];
             }
-            distance=dominant;
+            // Projection chooses a key direction, never the distance measure.
+            // Keep the same map length when input/camera orientation changes.
             return vertical>horizontal?(up>0?"up":"down"):(right>0?"right":"left");
         }
     }
