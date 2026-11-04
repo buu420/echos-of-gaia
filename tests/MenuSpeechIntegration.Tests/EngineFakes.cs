@@ -118,20 +118,24 @@ public class UIEventListener
 }
 public class HonoFading : UnityEngine.MonoBehaviour
 {
+    public bool IsAnimating { get; private set; }
     public float fadeOutDuration,fadeInDuration;
     public UISprite ForegroundSprite = new UISprite();
     public readonly Queue<UIScene.SceneVoidDelegate> Shows = new Queue<UIScene.SceneVoidDelegate>();
     public readonly Queue<UIScene.SceneVoidDelegate> Hides = new Queue<UIScene.SceneVoidDelegate>();
-    public void FadeOut(UIScene.SceneVoidDelegate action) => Shows.Enqueue(action);
+    public void FadeOut(UIScene.SceneVoidDelegate action) { IsAnimating=true; Shows.Enqueue(action); }
     public void FadeIn(UIScene.SceneVoidDelegate action) => Hides.Enqueue(action);
-    public void CompleteShow() => Shows.Dequeue()();
+    public void CompleteShow() { var action=Shows.Dequeue(); IsAnimating=Shows.Count>0; action(); }
+    public void FinishWithoutCallback() { Shows.Dequeue(); IsAnimating=Shows.Count>0; }
     public void CompleteHide() => Hides.Dequeue()();
 }
 public class HonoTweenPosition : UnityEngine.MonoBehaviour
 {
+    public bool IsAnimating { get; private set; }
     public readonly Queue<UIScene.SceneVoidDelegate> Shows = new Queue<UIScene.SceneVoidDelegate>();
-    public void TweenIn(byte[] indexes,UIScene.SceneVoidDelegate action) => Shows.Enqueue(action);
-    public void CompleteShow() => Shows.Dequeue()();
+    public void TweenIn(byte[] indexes,UIScene.SceneVoidDelegate action) { IsAnimating=true; Shows.Enqueue(action); }
+    public void CompleteShow() { var action=Shows.Dequeue(); IsAnimating=Shows.Count>0; action(); }
+    public void FinishWithoutCallback() { Shows.Dequeue(); IsAnimating=Shows.Count>0; }
 }
 public class HonoTweenClipping : UnityEngine.MonoBehaviour
 {

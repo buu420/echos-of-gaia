@@ -1,7 +1,7 @@
 using System;
 namespace Memoria.Accessibility.Navigation
 {
-    public enum OpeningGoalAxis {X,Z}
+    public enum OpeningGoalAxis {X,Z,Y}
     // A reviewed native position wait. The script polls OBJ(uid).x or .z, which
     // EBin.getvobj rounds from the float position, against constant bounds.
     // Minimum and Maximum are inclusive bounds on that rounded native value.
@@ -11,7 +11,7 @@ namespace Memoria.Accessibility.Navigation
         public bool Satisfied(NavigationPoint point)
         {
             if(!point.IsFinite)return false;
-            int value=(int)Math.Round(Axis==OpeningGoalAxis.X?point.X:point.Z,MidpointRounding.ToEven);
+            int value=(int)Math.Round(Axis==OpeningGoalAxis.X?point.X:Axis==OpeningGoalAxis.Y?point.Y:point.Z,MidpointRounding.ToEven);
             return (!Minimum.HasValue || value>=Minimum.Value) && (!Maximum.HasValue || value<=Maximum.Value);
         }
     }

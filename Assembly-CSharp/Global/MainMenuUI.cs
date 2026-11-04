@@ -86,7 +86,7 @@ public class MainMenuUI : UIScene
         if (!UIManager.IsUIStateMenu(PersistenSingleton<UIManager>.Instance.PreviousState))
             ImpactfulActionCount = 0;
         this.screenReaderBuilding = false;
-        Log.Message($"[FF9Access] Main-menu opening: presentation={speechPresentation}; characterTween={this.isNeedCharacterTween}");
+        Log.Message($"[FF9Access] Main-menu opening: presentation={speechPresentation}; characterTween={this.isNeedCharacterTween}; {this.MainMenuSpeechState()}");
     }
 
     public override void Hide(UIScene.SceneVoidDelegate afterFinished = null)
@@ -358,7 +358,7 @@ public class MainMenuUI : UIScene
         if (this.screenReaderOpen && this.IsCurrentMainMenu() && this.IsMainMenuSpeechSelection(go))
         {
             this.screenReaderSelectionPending = true;
-            Log.Message($"[FF9Access] Main-menu selection: presentation={this.screenReaderPresentation}; group={ButtonGroupState.ActiveGroup}; object={go.name}; loading={base.Loading}; ready={this.IsMainMenuSpeechReady()}");
+            Log.Message($"[FF9Access] Main-menu selection: presentation={this.screenReaderPresentation}; group={ButtonGroupState.ActiveGroup}; object={go.name}; loading={base.Loading}; ready={this.IsMainMenuSpeechReady()}; {this.MainMenuSpeechState()}");
         }
         if (base.OnItemSelect(go))
         {
@@ -378,13 +378,22 @@ public class MainMenuUI : UIScene
         return true;
     }
 
-    // The menu fade and character bars finish independently. Loading can be cleared by either
-    // callback, so it cannot establish that the whole menu is ready to read.
+    // Loading can be cleared by either native transition. Completion callbacks
+    // may be discarded by interrupted/busy animations, so a current selected
+    // menu may also establish readiness from both native animations being idle.
     private Boolean IsMainMenuSpeechReady()
     {
-        return this.screenReaderOpen && !this.screenReaderBuilding && this.screenReaderFadeReady
-            && this.screenReaderCharactersReady && !base.Loading && this.isActiveAndEnabled
-            && HonoInputManager.ApplicationIsActivated() && this.IsCurrentMainMenu();
+        return this.screenReaderOpen && !this.screenReaderBuilding && !base.Loading && this.isActiveAndEnabled
+            && HonoInputManager.ApplicationIsActivated() && this.IsCurrentMainMenu()
+            && (this.FadingComponent == null || !this.FadingComponent.IsAnimating)
+            && (this.characterTransition == null || !this.characterTransition.IsAnimating)
+            && ((this.screenReaderFadeReady && this.screenReaderCharactersReady)
+                || this.IsMainMenuSpeechSelection(ButtonGroupState.ActiveButton));
+    }
+
+    private String MainMenuSpeechState()
+    {
+        return $"focused={HonoInputManager.ApplicationIsActivated()}; active={this.isActiveAndEnabled}; building={this.screenReaderBuilding}; fadeCallback={this.screenReaderFadeReady}; characterCallback={this.screenReaderCharactersReady}; fadeAnimating={this.FadingComponent != null && this.FadingComponent.IsAnimating}; charactersAnimating={this.characterTransition != null && this.characterTransition.IsAnimating}";
     }
 
     private Boolean IsCurrentMainMenu()

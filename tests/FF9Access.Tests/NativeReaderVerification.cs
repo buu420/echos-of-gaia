@@ -59,6 +59,18 @@ namespace FF9Access.Tests
                     "NativeOpeningPositionTargets.TryAppend|NativeFieldTargets.ReadGeometryForStory",
                     "NativeFieldTargets.ReadStoryRegion|EventCollision.NavigationCanTriggerQuad",
                     "NativeFieldTargets.ReadStoryRegion|FieldStoryRegionApproaches.Read",
+                    "NativeFieldTargets.Annotate|NativeFieldTargets.AnnotateExitSurfaces",
+                    "NativeFieldTargets.AnnotateExitSurfaces|FieldExitDestinationCache.Read",
+                    "NativeFieldTargets|FieldExitDestinations.PlayerProperty",
+                    "NativeFieldTargets.ReadStoryEvidence|ScriptStoryAnalyzer.Read",
+                    "StoryTargetCatalog.Append|FieldExitDestinations.Select",
+                    "MainMenuUI.IsMainMenuSpeechReady|HonoFading.get_IsAnimating",
+                    "MainMenuUI.IsMainMenuSpeechReady|HonoTweenPosition.get_IsAnimating",
+                    "MainMenuUI.MainMenuSpeechState|HonoInputManager.ApplicationIsActivated",
+                    "HonoFading.get_IsAnimating|FieldRead.HonoFading.busy",
+                    "HonoTweenPosition.get_IsAnimating|FieldRead.HonoTweenPosition.busy",
+                    "HonoTweenPosition.get_IsAnimating|FieldRead.HonoTweenPosition.busyPingPong",
+                    "NativeStoryTargets.CurrentPositionGoal|OpeningCastleStory.CurrentGoal",
                     "NativeFieldTargets.ReadStoryRegion|FieldWrite.FieldTargetObservation.UseApprovedApproaches",
                     "NativeFieldTargets.ReadOpeningCandle|FieldWrite.FieldTargetObservation.UseApprovedApproaches",
                     "NativeOpeningTicketBooth.Read|FieldWrite.FieldTargetObservation.UseApprovedApproaches",
@@ -115,6 +127,7 @@ namespace FF9Access.Tests
                         var method=metadata.GetMethodDefinition(methodHandle);if(method.RelativeVirtualAddress==0)continue;string methodName=metadata.GetString(method.Name);
                         foreach(string call in Calls(metadata,pe.GetMethodBody(method.RelativeVirtualAddress).GetILBytes())) {
                             required.Remove(name+"."+methodName+"|"+call);
+                            required.Remove(owner+"|"+call);
                             if(!readers.Contains(owner))continue;
                             if(call=="EventEngine.Request" || call.StartsWith("EventInput.") || call.StartsWith("ETb.") || call.StartsWith("Input.") || call.StartsWith("UIManager.set_") || call.StartsWith("FieldWrite.Obj.") || call.StartsWith("FieldWrite.Actor.") || call.StartsWith("FieldWrite.PosObj.") || call.StartsWith("FieldWrite.EventEngine.") || call=="GC.Collect" || call.StartsWith("Thread.") || call.StartsWith("ThreadPool.") || call.StartsWith("File."))
                                 throw new Exception("Guide adapter changes native control/state or performs blocking work: "+owner+"."+methodName+" -> "+call);

@@ -122,6 +122,7 @@ namespace Memoria.Accessibility.Navigation
         public static OpeningPositionGoal CurrentPositionGoal(NavigationContext context)
         {
             int field=FieldNumber(context);
+            if(field==OpeningCastleStory.HallField)return OpeningCastleStory.CurrentGoal(context,MapByte(OpeningCastleStory.PhaseByte),EntryHash);
             if(field==OpeningRooftopEvidence.Field)return OpeningRooftopEvidence.Current(context,MapByte(OpeningStoryCheckpoints.PhaseByte),EntryHash);
             if(field!=OpeningStoryCheckpoints.AlleyField)return null;
             bool shown;

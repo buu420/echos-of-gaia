@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class HonoFading : MonoBehaviour
 {
+    // Observe the native transition; accessibility never changes its timing.
+    public Boolean IsAnimating => this.busy;
+
     public UISprite ForegroundSprite
     {
         get

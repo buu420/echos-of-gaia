@@ -25,6 +25,7 @@ namespace Memoria.Accessibility.Navigation
                     reachable.Add(id);pending.Enqueue(geometry.Find(id));
                 }
             }
+            if(goal.Axis==OpeningGoalAxis.Y)return HeightPoints(goal,geometry,player,reachable,nearBoundary);
             if(goal.Axis==OpeningGoalAxis.X){if(goal.Minimum.HasValue)minX=Math.Max(minX,goal.Minimum.Value+StopMargin);if(goal.Maximum.HasValue)maxX=Math.Min(maxX,goal.Maximum.Value-StopMargin);}
             else {if(goal.Minimum.HasValue)minZ=Math.Max(minZ,goal.Minimum.Value+StopMargin);if(goal.Maximum.HasValue)maxZ=Math.Min(maxZ,goal.Maximum.Value-StopMargin);}
             // Aim just across the wait boundary. Scanning the entire rest of a
@@ -44,6 +45,48 @@ namespace Memoria.Accessibility.Navigation
                 if(support!=null && reachable.Contains(support.Id) && goal.Satisfied(point))safe.Add(point);
             }
             safe.Sort((a,b)=>NavigationPoint.Distance(player,a).CompareTo(NavigationPoint.Distance(player,b)));return safe.ToArray();
+        }
+        private static NavigationPoint[] HeightPoints(OpeningPositionGoal goal,FieldGeometrySnapshot geometry,NavigationPoint player,HashSet<int> reachable,bool nearBoundary)
+        {
+            var safe=new List<NavigationPoint>();
+            foreach(var triangle in geometry.Triangles)if(reachable.Contains(triangle.Id)) {
+                // Arrival tolerance is horizontal. Scale vertical clearance by
+                // this floor's gradient so a steep stair cannot stop too low.
+                float scale=HeightScale(triangle),margin=StopMargin*scale;
+                float minimum=goal.Minimum.HasValue?goal.Minimum.Value+margin:float.MinValue;
+                float maximum=goal.Maximum.HasValue?goal.Maximum.Value-margin:float.MaxValue;
+                if(nearBoundary){float band=Math.Max(64,geometry.Radius*2)*scale;
+                    if(player.Y<minimum)maximum=Math.Min(maximum,minimum+band);
+                    else if(player.Y>maximum)minimum=Math.Max(minimum,maximum-band);
+                }
+                if(minimum>maximum)continue;
+                var polygon=ClipHeight(triangle.Vertices,minimum,true);polygon=ClipHeight(polygon,maximum,false);
+                if(polygon.Length<3)continue;
+                foreach(var point in FieldRegionApproaches.Interaction(polygon,geometry)) {
+                    var support=geometry.At(point);if(support==null || !reachable.Contains(support.Id) || !goal.Satisfied(point))continue;
+                    float clearance=StopMargin*HeightScale(support);
+                    if(goal.Minimum.HasValue && point.Y<goal.Minimum.Value+clearance-.01f || goal.Maximum.HasValue && point.Y>goal.Maximum.Value-clearance+.01f)continue;
+                    if(!safe.Contains(point))safe.Add(point);
+                }
+            }
+            safe.Sort((a,b)=>NavigationPoint.Distance(player,a).CompareTo(NavigationPoint.Distance(player,b)));return safe.ToArray();
+        }
+        private static float HeightScale(FieldTriangle triangle)
+        {
+            var p=triangle.Vertices[0];
+            float x=triangle.Height(new NavigationPoint(p.X+1,p.Y,p.Z))-p.Y,z=triangle.Height(new NavigationPoint(p.X,p.Y,p.Z+1))-p.Y;
+            return Math.Max(1,(float)Math.Sqrt(x*x+z*z));
+        }
+        private static NavigationPoint[] ClipHeight(NavigationPoint[] polygon,float boundary,bool minimum)
+        {
+            var result=new List<NavigationPoint>();if(polygon==null || polygon.Length==0)return result.ToArray();
+            var previous=polygon[polygon.Length-1];bool before=minimum?previous.Y>=boundary:previous.Y<=boundary;
+            foreach(var current in polygon) {
+                bool inside=minimum?current.Y>=boundary:current.Y<=boundary;
+                if(inside!=before){float t=(boundary-previous.Y)/(current.Y-previous.Y);result.Add(new NavigationPoint(previous.X+(current.X-previous.X)*t,boundary,previous.Z+(current.Z-previous.Z)*t));}
+                if(inside)result.Add(current);previous=current;before=inside;
+            }
+            return result.ToArray();
         }
     }
 }

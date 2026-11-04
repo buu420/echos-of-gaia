@@ -41,6 +41,10 @@ internal static class Program
             ("transparent opening label retries when its parent becomes visible", TransparentOpening),
             ("transparent empty row stays silent until shown", TransparentEmptyRow),
             ("new menu focus replaces stale queued focus speech", MenuFocusReplacesPrevious),
+            ("settled current menu recovers a missing fade callback", MissingFadeCallback),
+            ("settled current menu recovers a missing character callback", MissingCharacterCallback),
+            ("callback recovery waits for native animation idle", RecoveryWaitsForAnimation),
+            ("callback recovery retains foreground ownership and latest selection", RecoveryWaitsForForeground),
         };
         int failed=0;
         foreach (var item in cases)
@@ -66,6 +70,30 @@ internal static class Program
         Equal(Fixture.MenuNames.Length,SpeechOutput.Interrupts.Count,"each focus should reach the output boundary");
         if(SpeechOutput.Interrupts.Any(value=>!value))throw new Exception("menu focus queues old selections instead of replacing them");
         if(SpeechOutput.Text.Last()!="Config")throw new Exception("latest focus was not read");
+    }
+    private static void MissingFadeCallback()
+    {
+        var f=new Fixture(); f.Menu.Show(); f.Fade.FinishWithoutCallback(); f.Tween.CompleteShow();
+        ButtonGroupState.ActiveGroup="MainMenu.SubMenu"; ButtonGroupState.ActiveButton=f.Buttons["Item"];
+        f.Tick(); Sequence("Item"); f.Tick(); Sequence("Item");
+    }
+    private static void MissingCharacterCallback()
+    {
+        var f=new Fixture(); f.Menu.Show(); f.Fade.CompleteShow(); f.Tween.FinishWithoutCallback();
+        f.Tick(); Sequence("Item"); f.Tick(); Sequence("Item");
+    }
+    private static void RecoveryWaitsForAnimation()
+    {
+        var f=new Fixture(); f.Menu.Show(); f.Fade.CompleteShow();
+        f.Tick(); Equal(0,SpeechOutput.Text.Count,"native character animation must still own the presentation");
+        f.Tween.FinishWithoutCallback(); f.Tick(); Sequence("Item");
+    }
+    private static void RecoveryWaitsForForeground()
+    {
+        var f=new Fixture(); f.Menu.Show(); f.Fade.CompleteShow(); f.Tween.FinishWithoutCallback();
+        HonoInputManager.Activated=false; ButtonGroupState.ActiveButton=f.Buttons["Equip"]; f.Tick();
+        Equal(0,SpeechOutput.Text.Count,"a background game cannot speak over the user's foreground application");
+        HonoInputManager.Activated=true; f.Tick(); Sequence("Equip");
     }
     private static void CharacterFirst()
     {

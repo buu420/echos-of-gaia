@@ -33,6 +33,16 @@ internal static class PositionTargetTests
         var f=new Fixture();var first=f.Read();f.Context.Position=P(1400,200);var second=f.Read();
         Require(first.Id.Equals(second.Id) && first.Position.Equals(second.Position),"ordinary movement rotated the synthetic story goal");
     }
+    public static void CurrentHeightGoalPlansToTheStairSurface()
+    {
+        var f=new Fixture();f.Context.LogicalMapKey=OpeningCastleStory.HallMap;f.Context.PlayerIdentity=3;f.Context.Position=new NavigationPoint(10,50,10);
+        f.Geometry=new FieldGeometrySnapshot{Generation=f.Context.Generation,Fingerprint="stairs",Radius=2,ActiveTriangle=0,Triangles=new[]{new FieldTriangle{Id=0,Vertices=new[]{new NavigationPoint(0,0,0),new NavigationPoint(200,1000,0),new NavigationPoint(0,0,200)}}}};
+        NativeFieldTargets.PositionGeometry=f.Geometry;
+        NativeStoryTargets.PositionGoal=new OpeningPositionGoal{Field=153,Map=f.Context.LogicalMapKey,Phase=6,Milestone=1190,Axis=OpeningGoalAxis.Y,Minimum=450,Action="Climb the stairs to the royal box"};
+        var target=f.Read();Require(target.PhysicalId.HasValue && target.ApproachCandidates.Length>0,"height goal lost its native floor approaches");
+        var route=new FieldRoutePlanner().Plan(f.Context,target,f.Geometry);
+        Require(route.Success && route.ApproachPoint.Y>=490-.01f,"actual position adapter planned below the vertical wait/arrival margin");
+    }
     public static void LosingOnlyThePlannedEndpointReplacesTheOwnedTarget()
     {
         var f=new Fixture();f.Read();f.Context.Position=P(1100,56.3157f);var first=f.Read();

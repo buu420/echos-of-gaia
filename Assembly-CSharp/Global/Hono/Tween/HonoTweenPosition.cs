@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HonoTweenPosition : MonoBehaviour
 {
+    public Boolean IsAnimating => this.busy || this.busyPingPong;
+
     public Vector3[] DestinationPosition
     {
         get

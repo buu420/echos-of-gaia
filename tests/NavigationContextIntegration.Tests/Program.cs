@@ -46,6 +46,7 @@ internal static class Program
             AreaNameTests.NativeNameCacheSeparatesAreasAndRefreshesAfterLanguageChanges,
             PositionTargetTests.CurrentPositionGoalProvidesAWalkableStoryTarget,
             PositionTargetTests.ManualMovementKeepsTheSameRooftopAnchors,
+            PositionTargetTests.CurrentHeightGoalPlansToTheStairSurface,
             PositionTargetTests.LosingOnlyThePlannedEndpointReplacesTheOwnedTarget,
             PositionTargetTests.SatisfiedOrUnpresentedGoalReplacesTheOwnedTargetWithInformation,
             PositionTargetTests.BlockingNativeRegionCannotBecomeARooftopGoal,

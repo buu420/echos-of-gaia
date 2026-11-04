@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.9 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.9)**
+**[Download 0.1.10 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.10)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -14,7 +14,16 @@ This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing; this release does not establish a complete accessible playthrough.
 
-0.1.9 repairs current-area entity and exit presentation, including the second
+0.1.10 repairs Story guidance after the play: Zidane follows the castle stairs
+instead of Blank's guard-door warning, and Steiner follows the current castle
+route. Exits serving multiple floors use approach points proven for the selected
+destination. The main-menu reader can recover from missing transition callbacks
+after the visible native menu settles, and logs more specific readiness conditions.
+Both architectures have automated and original-Mono checks. Live castle/controller
+and audible menu testing are still needed; the tester's exact "Date modified"
+failure is not confirmed resolved. See the [castle and menu repair](docs/accessibility/post-play-story-and-menu.md).
+
+This includes 0.1.9's repairs to current-area entity and exit presentation, including the second
 Alexandria alley exit, and adds distinct Area A/B/C names where different scenes
 share a native location name. Opening Story guidance follows the alley encounter,
 steeple ladder and rooftop walking checkpoints, with a current story-region
@@ -118,7 +127,7 @@ Use the manager to update or uninstall a manager installation.
 
 For a standalone installation:
 
-1. Download and extract EchosOfGaia-v0.1.9-beta-windows.zip into a separate
+1. Download and extract EchosOfGaia-v0.1.10-beta-windows.zip into a separate
    folder outside the game directory.
 2. Open **Install-EchosOfGaia.exe** from the extracted folder. Check the detected
    game folder, or use **Browse** or the editable field to choose the folder

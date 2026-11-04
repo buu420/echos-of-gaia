@@ -39,7 +39,7 @@ namespace Memoria.Accessibility.Navigation
         private static readonly NavigationPoint[] _area={P(300,350),P(210,650),P(-210,650),P(-300,350),P(-210,120),P(210,120)};
         public static IList<OpeningCandleRegion> CandleRegions{get{return new ReadOnlyCollection<OpeningCandleRegion>(_regions);}}
         public static NavigationPoint[] CandleArea{get{return (NavigationPoint[])_area.Clone();}}
-        public static StoryCheckpoint[] All{get{return new[]{
+        public static StoryCheckpoint[] All{get{return Concat(new[]{
             new StoryCheckpoint{Floor=Floor,Ceiling=Ceiling,ScopeFields=new[]{CargoField},MapByte=PhaseByte,MapValue=CandlePhase,RequiredScripts=Scripts(3,CargoDirector,17,CargoZidane),
                 Stage=new StoryStage{Milestone=CandleMilestone,GoalFields=new[]{CargoField},Goal="Prima Vista",Instruction=CandleInstruction}},
             // Every other phase of the cargo room and the meeting is shown cutscene, battle or dialogue.
@@ -71,7 +71,10 @@ namespace Memoria.Accessibility.Navigation
             // Changed or unavailable scripts keep the current scene without the castle route.
             new StoryCheckpoint{Floor=SteepleMilestone,Ceiling=SteepleCeiling,ScopeFields=new[]{SteepleField,OpeningRooftopEvidence.Field},
                 Stage=new StoryStage{Milestone=SteepleMilestone,Goal="Alexandria",Instruction="",InformationOnly=true}},
-        };}}
+        },OpeningCastleStory.Checkpoints);}}
+        // The exact opening checkpoints come first; the castle checkpoints follow (OpeningCastleStory).
+        private static StoryCheckpoint[] Concat(StoryCheckpoint[] first,StoryCheckpoint[] second)
+        {var result=new StoryCheckpoint[first.Length+second.Length];first.CopyTo(result,0);second.CopyTo(result,first.Length);return result;}
         // True only for the reviewed regions, in field 50, at the counter floor, during the native candle phase.
         public static bool IsCandleRegion(int field,int sid,string hash,int progress,int? phase)
         {

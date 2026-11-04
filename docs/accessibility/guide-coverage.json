@@ -68,6 +68,18 @@
       "sha256": "7ca636715883a34d33f76e6c2b9fa09c00e0d888a185c33dd58ab27ab4f1f840"
     },
     {
+      "path": "Assembly-CSharp/Global/MainMenuUI.cs",
+      "sha256": "88fe6b12d1f36842995477fed4d1e8a9f70838fb305db414266a50afb26347e7"
+    },
+    {
+      "path": "Assembly-CSharp/Global/Hono/HonoFading.cs",
+      "sha256": "ad1703fd222386ba74d7f9cb340dc9bb8bec492d4a648be7c3094a5080ac47fd"
+    },
+    {
+      "path": "Assembly-CSharp/Global/Hono/Tween/HonoTweenPosition.cs",
+      "sha256": "1e817c122bf04cd6098940b2db26c16abd2937efde1203f35950f69095b89772"
+    },
+    {
       "path": "Assembly-CSharp/Global/Field/Map/Actor/FieldMapActorController.cs",
       "sha256": "58beda46772032cb0153e408f6f8a22239db7066c139a686fb6fe11637b9f69c"
     },
@@ -129,11 +141,11 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NavigationTargets.cs",
-      "sha256": "835f1964ec4f4b05df03f5590006185bc8de2f8172185d814d1eb131c8a91015"
+      "sha256": "51974ef6eacd7fa3b2df8edaf963029dd59faeaa81c808390057926c4597225c"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldTargetCatalog.cs",
-      "sha256": "b2a4af2def12a288bd87b0febd35ae69baf1765630a4aef4d7d21bd304425f7a"
+      "sha256": "b70adae4430829b1ac672733b79066ace33f72a308f4f37742122db62bf131cf"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldTargetApproaches.cs",
@@ -141,11 +153,23 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/OpeningRooftopEvidence.cs",
-      "sha256": "5c72984c3908e839ace397bb238efa6d20cb677e4fda31f16186ccbe059a4e8b"
+      "sha256": "9bd88edd11645556ac8e7caf888a97eede2b6e675283cc580bf7e0eec0f99ccf"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/OpeningPositionApproaches.cs",
-      "sha256": "f85011722c1482b921db7bd93b7ccbc534a2cdac5c253c00dd3149b435dcf21c"
+      "sha256": "7d9f314b064ebc80c91f20bc0429fa369bac313669da22eb8f405d5eaa1809b3"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/OpeningCastleStory.cs",
+      "sha256": "73960eab974b482ef970a18c4d4fc9a3840f3166436b8f63e6b19a8dc679c01a"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldExitDestinations.cs",
+      "sha256": "a7a6dd135d5ea92a52a4f0ff47581861087b767d3f389c325b80015f18303e09"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/ScriptStoryAnalyzer.cs",
+      "sha256": "bee66a9a7d2cd2bf6e74e97b5e7eda935885720aa7d2a406ca83132e916512ab"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldInputOrientation.cs",
@@ -196,12 +220,16 @@
       "sha256": "9a243dad9e1c79e6ead3230e523110cb4f2f49d924707900ed4e57d1482cb39e"
     },
     {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldExitDestinations.cs",
+      "sha256": "36d0a70003b08d1188e637fa09c8016fa4dedd7d0559fdb751d3b8ab6c84b797"
+    },
+    {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeOpeningPositionTargets.cs",
       "sha256": "c17ad448f5a35fb2c9229837864cc6dd702d0c0434b96ac123c81c64436ef87c"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/StoryTargetCatalog.cs",
-      "sha256": "6882f8f1e69d0db75009448fedfe75f0655752892b10a2e698438209bc091f3b"
+      "sha256": "686686a7971d19948359f32db69b61d645bc7e05708592cac7979c1b0f254df7"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NavigationCoordinator.cs",
@@ -233,11 +261,11 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldTargets.cs",
-      "sha256": "4859d0ab55ef60834d44c3569c2ae396ef85af0a21af31f69f5471b795c050e0"
+      "sha256": "43a313e8015188ce5b491ee83276ba5082029bf70ab12f7e471f99e63da9c249"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryTargets.cs",
-      "sha256": "fdafd302d9a149794edcbdaa44bc6b9f329ab131ad5ced200d25c24b944a99ee"
+      "sha256": "001c6f7c4489c4f0bdae5266e01f52b68c2253bc86d02e8b9cba87a0d69215a1"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeInteractionProbe.cs",

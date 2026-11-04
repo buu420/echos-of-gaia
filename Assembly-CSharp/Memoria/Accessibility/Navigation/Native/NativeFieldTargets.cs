@@ -149,12 +149,13 @@ namespace Memoria.Accessibility.Navigation
                 }
                 var exitObservation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldExit, context.LogicalMapKey,quad.uid),NativePresentationIdentity=exitIdentity,OutOfView=offscreen, Position = presentation == null ? Point(center) : presentation.Approach, Exit = presentation, ContainsJump = true };
                 exitObservation.LabelIdentity=ExitLabelSignature(quad);
+                Annotate(context,engine,quad,exitObservation);
                 if(presentation!=null && presentation.Visible) {
                     var camera=field.GetMainCamera();
                     exitObservation.VisibleLabel=camera==null?"Exit":FieldExitLabel.Read(Point(camera.WorldToViewportPoint(Project(field,Vector(presentation.Approach)))));
                     NativeObservedFieldExits.Presented(context,quad,exitObservation.LabelIdentity);
                 }
-                Annotate(context,engine,quad,exitObservation);result.Add(exitObservation);
+                result.Add(exitObservation);
             }
             RemoveLadderDuplicate(context,engine,result);
             CacheStoryGeometry(context,currentGeometry);
@@ -191,21 +192,9 @@ namespace Memoria.Accessibility.Navigation
         {Annotate(context,engine,obj,observation,-1);}
         private static void Annotate(NavigationContext context,EventEngine engine,Obj obj,FieldTargetObservation observation,int onlyTag)
         {
-            NativeStoryTargets.Annotate(context,obj.sid,Fingerprint(obj.ebData),observation,delegate {
-                var combined=new ScriptStoryEvidence();
-                foreach(int tag in new[]{EventEngine.tagPush,EventEngine.tagTalk}) {
-                    if(onlyTag>=0 && tag!=onlyTag)continue;
-                    var snapshot=new ScriptSnapshot(FF9StateSystem.EventState.gEventGlobal,engine.GetMapVar(),ScriptSnapshot.InstanceBytes(obj.buffer,obj.vofs)){UserControl=true};
-                    Func<int,int,int,ScriptSnapshot,ScriptStoryFunction> requested=(uid,calledTag,callerIdentity,caller)=> {
-                        var called=uid==255?engine.GetObjUID(callerIdentity/256):uid==250?engine.GetControlChar():engine.GetObjUID(uid);
-                        if(called==null || called.ebData==null || !NativeStoryTargets.Matches(context,called.sid,Fingerprint(called.ebData)))return null;
-                        return new ScriptStoryFunction{Identity=called.uid*256+calledTag,Code=Decode(engine,called,calledTag),Snapshot=caller.WithInstance(ScriptSnapshot.InstanceBytes(called.buffer,called.vofs))};
-                    };
-                    var evidence=ScriptStoryAnalyzer.Read(new ScriptStoryFunction{Identity=obj.uid*256+tag,Code=Decode(engine,obj,tag),Snapshot=snapshot},requested,_opcodes.MapJump,_opcodes.WorldJump,_opcodes.Requests);
-                    combined.Milestones.UnionWith(evidence.Milestones);combined.Destinations.UnionWith(evidence.Destinations);
-                }
-                return combined;
-            },(sid,hash)=>{var controlled=engine.GetControlChar();return controlled!=null && controlled.uid==context.PlayerIdentity && controlled.sid==sid && controlled.ebData!=null && Fingerprint(controlled.ebData)==hash;});
+            NativeStoryTargets.Annotate(context,obj.sid,Fingerprint(obj.ebData),observation,()=>ReadStoryEvidence(context,engine,obj,onlyTag,null),
+                (sid,hash)=>{var controlled=engine.GetControlChar();return controlled!=null && controlled.uid==context.PlayerIdentity && controlled.sid==sid && controlled.ebData!=null && Fingerprint(controlled.ebData)==hash;});
+            AnnotateExitSurfaces(context,engine,obj,observation);
         }
         public static bool IsReviewedListener(NavigationContext context,EventEngine engine,Obj obj)
         {

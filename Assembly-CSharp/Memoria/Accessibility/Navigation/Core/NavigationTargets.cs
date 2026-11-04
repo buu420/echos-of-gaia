@@ -25,6 +25,7 @@ namespace Memoria.Accessibility.Navigation
         public bool UseViewingPoint;
         public bool IsItem;
         public int[] StoryMilestones,NextFields;
+        public Dictionary<int,NavigationPoint[]> DestinationApproaches;
         public string StoryAction;
         public ExitPresentation Exit;
     }
@@ -40,6 +41,7 @@ namespace Memoria.Accessibility.Navigation
         public TargetIdentity? PhysicalId;
         public TargetIdentity PhysicalIdentity {get{return PhysicalId??Id;}}
         public int[] StoryMilestones,NextFields;
+        public Dictionary<int,NavigationPoint[]> DestinationApproaches;
         public string StoryAction;
     }
     public sealed class CatalogResult
