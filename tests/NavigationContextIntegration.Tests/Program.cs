@@ -42,7 +42,14 @@ internal static class Program
             PrerequisiteTests.BlockedPrerequisiteFramesDoNotLoadGeometryOrAssumeCompletion,
             PrerequisiteTests.ModifiedNativeDirectorAndBgiFailClosed,
             OpeningBoothTests.NativeBoothArtProvidesItsCurrentLocalRegionBeforeAnyBubble,
-            OpeningBoothTests.NativeBoothRejectsStaleSceneObjectAndPlayerEvidence};
+            OpeningBoothTests.NativeBoothRejectsStaleSceneObjectAndPlayerEvidence,
+            AreaNameTests.NativeNameCacheSeparatesAreasAndRefreshesAfterLanguageChanges,
+            PositionTargetTests.CurrentPositionGoalProvidesAWalkableStoryTarget,
+            PositionTargetTests.ManualMovementKeepsTheSameRooftopAnchors,
+            PositionTargetTests.LosingOnlyThePlannedEndpointReplacesTheOwnedTarget,
+            PositionTargetTests.SatisfiedOrUnpresentedGoalReplacesTheOwnedTargetWithInformation,
+            PositionTargetTests.BlockingNativeRegionCannotBecomeARooftopGoal,
+            PositionTargetTests.BattleAndNoControlFramesDoNoPositionWork};
         int failed=0;
         foreach(var test in tests)try { Reset();test();Console.WriteLine("PASS "+test.Method.Name); }
         catch(Exception error) { failed++;Console.WriteLine("FAIL "+test.Method.Name+": "+error.Message); }

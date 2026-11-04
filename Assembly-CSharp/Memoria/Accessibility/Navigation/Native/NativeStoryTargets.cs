@@ -78,6 +78,13 @@ namespace Memoria.Accessibility.Navigation
                OpeningStoryCheckpoints.IsCandleRegion(field,scriptId,scriptHash,context.StoryProgress,MapByte(OpeningStoryCheckpoints.PhaseByte))) {
                 observation.StoryMilestones=new[]{OpeningStoryCheckpoints.CandleMilestone};observation.StoryAction=OpeningStoryCheckpoints.CandleAction;
             }
+            // Alley walk-in/boy and Steeple ladder: reviewed native phase guards without a counter write
+            // in their own handlers. The boy counts only while rendered and talkable.
+            if(field==OpeningStoryCheckpoints.AlleyField || field==OpeningStoryCheckpoints.SteepleField) {
+                var opening=OpeningStoryCheckpoints.Annotation(field,scriptId,scriptHash,context.StoryProgress,MapByte(OpeningStoryCheckpoints.PhaseByte),EntryHash);
+                bool presented=scriptId!=OpeningStoryCheckpoints.AlleyRatKidSid || field!=OpeningStoryCheckpoints.AlleyField || (observation.Visible || observation.OutOfView) && observation.HasInteraction;
+                if(opening!=null && presented){observation.StoryMilestones=new[]{opening.Milestone};observation.StoryAction=opening.Action;}
+            }
             int identity=observation.NativePresentationIdentity^scriptHash.GetHashCode(),observed;
             if(binding.Pickup && !observation.IsPerson && observation.ShowsIcon)_observedItems[observation.Id]=identity;
             observation.IsItem=!observation.IsPerson && _observedItems.TryGetValue(observation.Id,out observed) && observed==identity;
@@ -107,10 +114,30 @@ namespace Memoria.Accessibility.Navigation
             int field=-1;if(context==null || context.LogicalMapKey==null || !context.LogicalMapKey.StartsWith("field:"))return field;
             var parts=context.LogicalMapKey.Split(':');if(parts.Length<=1 || !Int32.TryParse(parts[1],out field))return -1;return field;
         }
+        // Same-name fields keep the distinct area labels used by exits and announcements.
+        private static string AreaName(int field)
+        {string scene;return NativeFieldAreaNames.Read(field,EventEngineUtils.eventIDToFBGID.TryGetValue(field,out scene)?scene:null);}
+        // Current reviewed native position wait (rooftop control windows, or the hidden alley boy at 1151).
+        // Callers supply walkable floor points satisfying goal.Satisfied; the goal itself is not a position.
+        public static OpeningPositionGoal CurrentPositionGoal(NavigationContext context)
+        {
+            int field=FieldNumber(context);
+            if(field==OpeningRooftopEvidence.Field)return OpeningRooftopEvidence.Current(context,MapByte(OpeningStoryCheckpoints.PhaseByte),EntryHash);
+            if(field!=OpeningStoryCheckpoints.AlleyField)return null;
+            bool shown;
+            try {
+                var engine=UnityEngine.Object.FindObjectOfType<EventEngine>();if(engine==null || engine.gMode!=1)return null;
+                var boy=engine.GetObjUID(OpeningStoryCheckpoints.AlleyRatKidSid);
+                // A missing boy entry is not a hidden boy.
+                if(boy==null || boy.sid!=OpeningStoryCheckpoints.AlleyRatKidSid)return null;
+                shown=(boy.flags&EventEngine.flagShow)!=0;
+            }catch(Exception){return null;}
+            return OpeningStoryCheckpoints.AlleyBoyGoal(context,MapByte(OpeningStoryCheckpoints.PhaseByte),EntryHash,shown);
+        }
         public static void Append(NavigationContext context,CatalogResult catalog)
         {
             if(NativeStoryPrerequisites.TryAppend(context,catalog))return;
-            Initialize();if(_catalog!=null)_catalog.Append(context,catalog,FieldNumber(context),id=>FF9TextTool.RemoveOpCode(FF9TextTool.LocationName(id)),MapByte,EntryHash);
+            Initialize();if(_catalog!=null)_catalog.Append(context,catalog,FieldNumber(context),AreaName,MapByte,EntryHash);
             else if(context!=null && context.StoryProgress>=0)catalog.Targets.Add(new NavigationTarget{Id=new TargetIdentity(TargetKind.Story,context.LogicalMapKey,-1),Category=NavigationCategory.Story,Generation=context.Generation,Position=context.Position,Label="Story guidance unavailable.",Availability="The Story catalog could not be read.",ApproachCandidates=new NavigationPoint[0]});
         }
     }

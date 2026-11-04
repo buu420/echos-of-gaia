@@ -59,13 +59,42 @@ namespace Memoria.Accessibility.Navigation
                 _interruption = new FieldMovementOutcome { Outcome = FieldOutcome.Interrupted, Reason = StopReason.ManualMovement, Evidence = "Player selected a native mouse movement destination" };
             }
         }
-        public static void OnNativeClear(FieldMapActorController controller)
+        public static void OnNativeClear(FieldMapActorController controller){OnNativeClear(controller,FieldPathClearCause.Unknown);}
+        public static void OnNativeClear(FieldMapActorController controller,FieldPathClearCause cause)
         {
             if (controller.AccessibilityPathOwner != 0) {
-                ReleaseCurrent(StopReason.NativeClear);
-                _interruption = new FieldMovementOutcome { Outcome = FieldOutcome.Interrupted, Reason = StopReason.NativeClear, Evidence = "Native interaction or still-frame threshold cleared the owned path" };
+                FieldMovementCapture state=null;
+                try { state=CaptureMovement(controller,cause); }
+                catch(System.Exception){/* The native stop must survive a failed observation. */}
+                var reason=cause==FieldPathClearCause.StillFrames?StopReason.Stalled:StopReason.NativeClear;
+                ReleaseCurrent(reason);
+                _interruption = new FieldMovementOutcome { Outcome = FieldOutcome.Interrupted, Reason = reason, Evidence = "Native path clear: "+cause };
+                // Disk/geometry diagnostics must never delay ownership release or
+                // throw past the game's existing cancellation operation.
+                try { Memoria.Prime.Log.Message("[FF9Access] Owned field path cleared: {0}; owner={1}; still={2}",cause,state==null?0:state.Owner,controller.stillCount); }
+                catch(System.Exception){/* The independent snapshot may still succeed. */}
+                try { if(state!=null)NativeFieldGeometry.CaptureInterruption(NativeNavigationContext.Read(),_target,_route,state); }
+                catch(System.Exception){/* Optional logging cannot prevent native cancellation. */}
             }
         }
+        private static FieldMovementCapture CaptureMovement(FieldMapActorController controller,FieldPathClearCause cause)
+        {
+            var state=new FieldMovementCapture{Cause=cause,Owner=controller.AccessibilityPathOwner,HasTarget=controller.hasTarget,StillCount=controller.stillCount,
+                RemainingWaypoints=controller.movePaths.Count,Position=Point(controller.curPos),LastPosition=Point(controller.lastPos),
+                Waypoint=Point(controller.hasTarget?controller.moveTarget:controller.movePaths.Count>0?controller.movePaths[controller.movePaths.Count-1]:controller.curPos),
+                ActiveTriangle=controller.activeTri,LastTriangle=controller.lastTri,Speed=controller.speed,BodyRadius=controller.radius,NativeActorSpeed=controller.originalActor.speed,Running=controller.originalActor.speed==60};
+            var previous=controller.originalActor.coll;
+            if(previous!=null){state.PreviousCollisionUid=previous.uid;state.PreviousCollisionPosition=new NavigationPoint(previous.pos[0],previous.pos[1],previous.pos[2]);state.PreviousCollisionRadius=4*previous.collRad;state.PreviousCollisionDistance=controller.originalActor.colldist;}
+            if(controller.walkMesh!=null) {
+                try {
+                    float distance;var collision=controller.walkMesh.Collision(controller,0,out distance);
+                    state.CollisionProbeAvailable=true;
+                    if(collision!=null){state.CollisionUid=collision.uid;state.CollisionPosition=new NavigationPoint(collision.pos[0],collision.pos[1],collision.pos[2]);state.CollisionRadius=4*collision.collRad;state.CollisionDistance=distance;}
+                }catch(System.Exception){/* Keep the waypoint even if collision observation fails. */}
+            }
+            return state;
+        }
+        private static NavigationPoint Point(Vector3 value){return new NavigationPoint(value.x,value.y,value.z);}
         public static void NotifyExitTransition(int nativeExecutingUid) { if (_owned != null) {bool previous=_owned.ExitConfirmed;_owned.ObserveExit(nativeExecutingUid);if(!previous && _owned.ExitConfirmed && ExitReached!=null)ExitReached();} }
         private sealed class NativeFollower : IFieldFollower
         {

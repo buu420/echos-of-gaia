@@ -20,6 +20,7 @@ namespace Memoria.Accessibility.Navigation
         private static readonly Dictionary<int,DoorTileObservation> _tiles=new Dictionary<int,DoorTileObservation>();
         private static int _doorPlayer=-1;private static byte[] _doorPlayerScript;
         private static readonly HashSet<string> _cueLogs=new HashSet<string>();
+        private static int _rosterLogs;
         private static readonly HashSet<int> _seenExits=new HashSet<int>();
         private static string _walkmeshHash;
         private sealed class DoorBinding {public bool Walk,Plain;public int[] Animations;}
@@ -38,7 +39,7 @@ namespace Memoria.Accessibility.Navigation
             // Battle/loading contexts retain the previous field ID. They are
             // not observations of that field and must not prepare its surfaces.
             if(context.GateReason==GateReason.Battle || context.GateReason==GateReason.MapTransition)return result;
-            if (_generation != context.Generation) { _hashes.Clear();_labelIdentities.Clear();_decoded.Clear();_doors.Clear();_surfaces.Clear();_cueLogs.Clear();_seenExits.Clear();_walkmeshHash=null; _generation = context.Generation; }
+            if (_generation != context.Generation) { _hashes.Clear();_labelIdentities.Clear();_decoded.Clear();_doors.Clear();_surfaces.Clear();_cueLogs.Clear();_seenExits.Clear();_walkmeshHash=null;_rosterLogs=0; _generation = context.Generation; }
             var engine = UnityEngine.Object.FindObjectOfType<EventEngine>();
             var field = UnityEngine.Object.FindObjectOfType<FieldMap>();
             if (engine == null || field == null) return result;
@@ -55,13 +56,19 @@ namespace Memoria.Accessibility.Navigation
                 var actor = obj as Actor;
                 if (actor != null) {
                     Vector3 position = actor.fieldMapActorController == null ? new Vector3(actor.pos[0], actor.pos[1], actor.pos[2]) : actor.fieldMapActorController.curPos;
-                    bool rendered = (obj.flags & EventEngine.flagShow) != 0 && obj.isEnableRenderer && obj.go != null && obj.go.activeInHierarchy;
-                    bool mesh = false; if (rendered) foreach (Renderer renderer in obj.go.GetComponentsInChildren<Renderer>()) mesh |= renderer.enabled;
+                    bool rendered = (obj.flags & EventEngine.flagShow) != 0 && obj.isEnableRenderer && actor.frontCamera && obj.go != null && obj.go.activeInHierarchy;
+                    bool mesh = false; if (rendered) foreach (Renderer renderer in obj.go.GetComponentsInChildren<Renderer>()) {
+                        if(!renderer.enabled || !renderer.gameObject.activeInHierarchy || actor.fieldMapActor!=null && renderer==actor.fieldMapActor.shadowMeshRenderer)continue;
+                        foreach(var material in renderer.sharedMaterials)if(material!=null && (!material.HasProperty("_Color") || material.GetColor("_Color").a>0)){mesh=true;break;}
+                    }
                     bool onScreen=rendered && mesh && OnScreen(field,position);
+                    var bg=field.GetCurrentBgCamera();
+                    var projected=bg==null?new NavigationPoint():Point(PSX.CalculateGTE_RTPT_POS(position,Matrix4x4.identity,bg.GetMatrixRT(),bg.GetViewDistance(),field.GetProjectionOffset()));
+                    bool inArea=FieldScenePresentation.Actor(rendered,mesh,onScreen,ReadAreaPanorama(field),projected);
                     bool icon=EIcon.NavigationPresentedUid==obj.uid && OnScreen(field,Vector(context.Position));
                     float collision=player==null?0:Math.Max(player.fieldMapActorController==null?0:player.fieldMapActorController.radius,4*player.collRad)+4*actor.collRad;
                     float talkRadius=player==null?0:4*(player.talkRad+actor.talkRad)+actor.speed+60;
-                    var observation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, obj.uid), NativePresentationIdentity=obj.go==null?0:obj.go.GetInstanceID(),Position = Point(position), Visible = onScreen,OutOfView=rendered && mesh && !onScreen,ShowsIcon=icon, IsPerson = engine.GetIP(obj.sid, EventEngine.tagTalk, obj.ebData) != engine.nil, HasInteraction = NativeFieldTalkability.IsTalkable(obj) || engine.GetIP(obj.sid, EventEngine.tagPush, obj.ebData) != engine.nil,ApproachCandidates=FieldActorApproaches.Create(context.Position,Point(position),collision,talkRadius) };
+                    var observation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, obj.uid), NativePresentationIdentity=obj.go==null?0:obj.go.GetInstanceID(),Position = Point(position), Visible = inArea,OutOfView=rendered && mesh && !inArea,ShowsIcon=icon, IsPerson = engine.GetIP(obj.sid, EventEngine.tagTalk, obj.ebData) != engine.nil, HasInteraction = NativeFieldTalkability.IsTalkable(obj) || engine.GetIP(obj.sid, EventEngine.tagPush, obj.ebData) != engine.nil,ApproachCandidates=FieldActorApproaches.Create(context.Position,Point(position),collision,talkRadius) };
                     observation.LabelIdentity=LabelSignature(actor);observation.VisibleLabel=FieldVisibleLabels.Read(actor.model,VisibleBody(actor));
                     string modelName;if(FF9BattleDB.GEO.TryGetValue(actor.model,out modelName)) {
                         if(modelName.StartsWith("GEO_ACC_"))observation.IsPerson=false;
@@ -95,7 +102,9 @@ namespace Memoria.Accessibility.Navigation
                 Vector3 center = Vector3.zero; for(int i=0;i<quad.n && i<quad.q.Length;i++) center+=quad.q[i].Vector3Val; center/=quad.n;
                 bool quadIcon=EIcon.NavigationPresentedUid==quad.uid && OnScreen(field,Vector(context.Position));
                 if (!ContainsJump(touch)) {
-                    if(quadIcon)result.Add(ObservedQuad(context,engine,quad,center));
+                    var storyRegion=ReadStoryRegion(context,engine,field,player,quad,ref currentGeometry,ref geometryRead);
+                    if(storyRegion!=null)result.Add(storyRegion);
+                    else if(quadIcon)result.Add(ObservedQuad(context,engine,quad,center));
                     continue;
                 }
                 string fingerprint = Fingerprint(quad.ebData);
@@ -147,7 +156,22 @@ namespace Memoria.Accessibility.Navigation
                 }
                 Annotate(context,engine,quad,exitObservation);result.Add(exitObservation);
             }
+            RemoveLadderDuplicate(context,engine,result);
+            CacheStoryGeometry(context,currentGeometry);
+            LogPresentedRoster(context,result);
             return result;
+        }
+        private static void LogPresentedRoster(NavigationContext context,List<FieldTargetObservation> observations)
+        {
+            if(!context.CanControl || _rosterLogs>=8)return;
+            var people=new List<string>();var exits=new List<string>();var objects=new List<string>();
+            foreach(var item in observations) {
+                if(item.Id.Kind==TargetKind.FieldExit){if(item.Exit!=null && item.Exit.Visible)exits.Add(item.Id.NativeId.ToString());}
+                else if(item.Visible || item.ShowsIcon)(item.IsPerson?people:objects).Add(item.Id.NativeId.ToString());
+            }
+            string summary="people="+String.Join(",",people.ToArray())+"; objects="+String.Join(",",objects.ToArray())+"; exits="+String.Join(",",exits.ToArray());
+            if(!_cueLogs.Add("roster:"+summary))return;
+            _rosterLogs++;Log.Message("[FF9Access] Presented field entities: map={0}; {1}",context.LogicalMapKey,summary);
         }
         private static FieldTargetObservation ObservedQuad(NavigationContext context,EventEngine engine,Quad quad,Vector3 center)
         {
@@ -164,10 +188,13 @@ namespace Memoria.Accessibility.Navigation
             return false;
         }
         private static void Annotate(NavigationContext context,EventEngine engine,Obj obj,FieldTargetObservation observation)
+        {Annotate(context,engine,obj,observation,-1);}
+        private static void Annotate(NavigationContext context,EventEngine engine,Obj obj,FieldTargetObservation observation,int onlyTag)
         {
             NativeStoryTargets.Annotate(context,obj.sid,Fingerprint(obj.ebData),observation,delegate {
                 var combined=new ScriptStoryEvidence();
                 foreach(int tag in new[]{EventEngine.tagPush,EventEngine.tagTalk}) {
+                    if(onlyTag>=0 && tag!=onlyTag)continue;
                     var snapshot=new ScriptSnapshot(FF9StateSystem.EventState.gEventGlobal,engine.GetMapVar(),ScriptSnapshot.InstanceBytes(obj.buffer,obj.vofs)){UserControl=true};
                     Func<int,int,int,ScriptSnapshot,ScriptStoryFunction> requested=(uid,calledTag,callerIdentity,caller)=> {
                         var called=uid==255?engine.GetObjUID(callerIdentity/256):uid==250?engine.GetControlChar():engine.GetObjUID(uid);
@@ -246,9 +273,9 @@ namespace Memoria.Accessibility.Navigation
             var panorama=plain?ReadPassagePanorama(context,field,quad,hash,surface.Region):null;
             Func<NavigationPoint,bool> presented=p=> {
                 bool onScreen=EntranceOnScreen(field,Vector(p));
-                // A long street is one continuous native camera panorama.
-                // Only proven plain walking passages may use its pan extent;
-                // doors and interaction objects still require the current view.
+                // A plain walk-off belongs to the whole current camera panorama.
+                // Native trigger priority, floor clearance and the active opaque
+                // backdrop are still required before it becomes a target.
                 if(plain && (onScreen?RenderedBackgroundAt(field,Vector(p)):PlainPassageOnPanorama(field,Vector(p),panorama)))return true;
                 if(!onScreen)return false;
                 if(surfaceReview!=null && RenderedBackgroundAt(field,Vector(p),surfaceReview.OverlayIds))return true;
@@ -315,14 +342,22 @@ namespace Memoria.Accessibility.Navigation
         }
         private static bool EntranceOnScreen(FieldMap field,Vector3 point)
         {
-            var camera=field.GetMainCamera();if(camera==null || field.GetCurrentBgCamera()==null)return false;
-            return FieldDoorEvidence.InViewport(Point(camera.WorldToViewportPoint(Project(field,point))),1,1);
+            var camera=field.GetMainCamera();var bg=field.GetCurrentBgCamera();if(camera==null || bg==null)return false;
+            var projected=PSX.CalculateGTE_RTPT_POS(point,Matrix4x4.identity,bg.GetMatrixRT(),bg.GetViewDistance(),field.GetProjectionOffset());
+            if(!Point(projected).IsFinite || projected.z<=0)return false;
+            projected.z=0;
+            return FieldDoorEvidence.InViewport(Point(camera.WorldToViewportPoint(projected)),1,1);
         }
         private static FieldCameraPanorama ReadPassagePanorama(NavigationContext context,FieldMap field,Quad quad,string script,NavigationPoint[] region)
         {
-            var camera=field.GetCurrentBgCamera();if(camera==null || field.camIdx!=field.curCamIdx || camera.vrpMinX==camera.vrpMaxX && camera.vrpMinY==camera.vrpMaxY)return null;
-            if(!FieldPanoramaEvidence.IsReviewed(context.LogicalMapKey,quad.sid,field.camIdx) || field.scene==null || field.scene.ebgBin==null ||
-                !FieldPanoramaEvidence.Matches(context.LogicalMapKey,quad.sid,field.camIdx,script,Fingerprint(field.scene.ebgBin),CurrentBgiHash(field),region))return null;
+            var panorama=ReadAreaPanorama(field);if(panorama==null)return null;
+            if(FieldPanoramaEvidence.IsReviewed(context.LogicalMapKey,quad.sid,field.camIdx) && (field.scene==null || field.scene.ebgBin==null ||
+                !FieldPanoramaEvidence.Matches(context.LogicalMapKey,quad.sid,field.camIdx,script,Fingerprint(field.scene.ebgBin),CurrentBgiHash(field),region)))return null;
+            return panorama;
+        }
+        private static FieldCameraPanorama ReadAreaPanorama(FieldMap field)
+        {
+            var camera=field.GetCurrentBgCamera();if(camera==null || field.camIdx!=field.curCamIdx)return null;
             return new FieldCameraPanorama{HalfWidth=FieldMap.HalfFieldWidth,HalfHeight=FieldMap.HalfFieldHeight,
                 MinX=camera.vrpMinX,MaxX=camera.vrpMaxX,MinY=camera.vrpMinY,MaxY=camera.vrpMaxY};
         }
@@ -330,7 +365,7 @@ namespace Memoria.Accessibility.Navigation
         {
             if(panorama==null)return false;var camera=field.GetCurrentBgCamera();if(camera==null)return false;
             var projected=PSX.CalculateGTE_RTPT_POS(point,Matrix4x4.identity,camera.GetMatrixRT(),camera.GetViewDistance(),field.GetProjectionOffset());
-            return FieldPanoramaPresentation.PresentsPassage(true,false,RenderedBackgroundAt(field,point,null,true),panorama,Point(projected));
+            return FieldScenePresentation.Passage(true,RenderedBackgroundAt(field,point,null,true),panorama,Point(projected));
         }
         private static bool OnScreen(FieldMap field,Vector3 point)
         {

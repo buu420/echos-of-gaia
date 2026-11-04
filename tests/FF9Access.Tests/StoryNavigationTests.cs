@@ -114,7 +114,7 @@ namespace FF9Access.Tests
         public static void StoryPreservesLastSeenAndInteractionRegionSnapshots()
         {
             var context=TestFixtures.Context();context.StoryProgress=1000;
-            var person=new NavigationTarget{Id=new TargetIdentity(TargetKind.FieldActor,context.LogicalMapKey,7),Generation=1,Category=NavigationCategory.People,Label="Mene",Evidence=VisibilityEvidence.ObservedFieldLandmark,StoryMilestones=new[]{1150},InteractionUid=19,InteractionRegion=new[]{TestFixtures.P(5,5),TestFixtures.P(10,5),TestFixtures.P(10,10)},ApproachCandidates=new[]{TestFixtures.P(10,10)}};
+            var person=new NavigationTarget{Id=new TargetIdentity(TargetKind.FieldActor,context.LogicalMapKey,7),Generation=1,Category=NavigationCategory.People,Label="Mene",IsInteractive=true,Evidence=VisibilityEvidence.ObservedFieldLandmark,StoryMilestones=new[]{1150},InteractionUid=19,InteractionRegion=new[]{TestFixtures.P(5,5),TestFixtures.P(10,5),TestFixtures.P(10,10)},ApproachCandidates=new[]{TestFixtures.P(10,10)}};
             var input=Targets(person);Catalog().Append(context,input,104);var story=input.Targets[1];person.InteractionRegion[0]=TestFixtures.P(900,900);
             TestAssert.Near(5,story.InteractionRegion[0].X,0);TestAssert.Equal(VisibilityEvidence.ObservedFieldLandmark,story.Evidence);TestAssert.Equal(19,story.InteractionUid);
         }

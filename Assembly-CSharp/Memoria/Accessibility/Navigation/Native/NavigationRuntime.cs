@@ -56,7 +56,7 @@ namespace Memoria.Accessibility.Navigation
                 if(_diagnosticGeneration!=context.Generation){_diagnostics.Clear();_diagnosticGeneration=context.Generation;}
                 foreach(string diagnostic in catalog.Diagnostics)if(_diagnostics.Count<64 && _diagnostics.Add(diagnostic))Trace("Target diagnostic; map="+context.LogicalMapKey+"; "+diagnostic);
                 NativeFieldExitCues.Tick(context,catalog);
-                NativeStoryTargets.Append(context,catalog);
+                if(!NativeOpeningPositionTargets.TryAppend(context,catalog))NativeStoryTargets.Append(context,catalog);
                 var movement=ReadMovement(context,catalog);
                 if(movement!=null && movement.Outcome==MovementOutcome.Interrupted)Trace("Movement interrupted; reason="+movement.Reason+"; evidence="+movement.Evidence);
                 var commands=NativeNavigationInput.TakeCommands();var update=_coordinator.Tick(context,commands,catalog,movement,Configuration.Accessibility.ControllerNaming);

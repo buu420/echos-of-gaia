@@ -31,7 +31,7 @@ namespace FF9Access.Tests
         public static void OwnedApproachDoesNotSkipOrOvershootShortWaypoints()
         {
             TestAssert.Near(4,FieldAnalogMovement.ArrivalRadius(96,2),0);
-            TestAssert.Near(5,FieldAnalogMovement.StepMagnitude(30,5,2,true),0);
+            TestAssert.Near(3,FieldAnalogMovement.StepMagnitude(30,5,2,true),0);
             TestAssert.Near(30,FieldAnalogMovement.StepMagnitude(30,50,2,true),0);
             TestAssert.Near(96,FieldAnalogMovement.ArrivalRadius(96,0),0);
             TestAssert.Near(30,FieldAnalogMovement.StepMagnitude(30,5,0,true),0);

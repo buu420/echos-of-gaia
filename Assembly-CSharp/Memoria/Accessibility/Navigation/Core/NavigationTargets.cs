@@ -18,6 +18,8 @@ namespace Memoria.Accessibility.Navigation
         public string VisibleLabel,LabelIdentity;
         public string UnobservedOutcome; // Intentionally never read by the catalog.
         public NavigationPoint[] ApproachCandidates;
+        // Current native selection/presentation already filtered these points.
+        public bool UseApprovedApproaches;
         public int InteractionUid = -1;
         public NavigationPoint[] InteractionRegion;
         public bool UseViewingPoint;
@@ -31,6 +33,7 @@ namespace Memoria.Accessibility.Navigation
         public TargetIdentity Id; public NavigationCategory Category; public string Label, Availability;
         public NavigationPoint Position; public VisibilityEvidence Evidence; public long Generation;
         public NavigationPoint[] ApproachCandidates; public bool IsInteractive; public int NativeLocationId = -1;
+        public bool UseApprovedApproaches;
         public int InteractionUid = -1;
         public NavigationPoint[] InteractionRegion;
         public bool UseViewingPoint;

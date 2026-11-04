@@ -58,7 +58,7 @@ namespace Memoria.Accessibility.Navigation
             else context.GateReason = context.Position.IsFinite ? GateReason.None : GateReason.UnknownActor;
             context.CanControl = context.GateReason == GateReason.None;
             if (!world) {
-                context.CurrentLocation = FF9TextTool.RemoveOpCode(FF9TextTool.LocationName(FF9StateSystem.Common.FF9.fldMapNo));
+                context.CurrentLocation = NativeFieldAreaNames.Read(FF9StateSystem.Common.FF9.fldMapNo,FF9StateSystem.Field.SceneName);
                 if (Configuration.Accessibility.AnnounceRegionChanges) context.CurrentRegion = context.CurrentLocation;
             }
             return context;

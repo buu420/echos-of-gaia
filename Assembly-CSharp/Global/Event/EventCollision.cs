@@ -143,7 +143,7 @@ public class EventCollision
     {
         if (PersistenSingleton<EventEngine>.Instance.gMode == 1)
         {
-            po.go.GetComponent<FieldMapActorController>().ClearMoveTargetAndPath();
+            po.go.GetComponent<FieldMapActorController>().ClearMoveTargetAndPath(Memoria.Accessibility.Navigation.FieldPathClearCause.Interaction);
         }
     }
 

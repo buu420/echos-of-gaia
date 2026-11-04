@@ -11,6 +11,7 @@
   <ItemGroup><EmbeddedResource Include="Fixtures/field2850-story-guard.json" LogicalName="Field2850.StoryGuard.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="Fixtures/opening-street-scripts.json" LogicalName="Opening.StreetScripts.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="Fixtures/opening-booth-geometry.json" LogicalName="Opening.BoothGeometry.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Fixtures/story-region-surfaces.json" LogicalName="Story.RegionSurfaces.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../docs/accessibility/story-navigation.json" LogicalName="StoryNavigation.json" /></ItemGroup>
   <ItemGroup><Compile Include="../../Memoria.XInputDotNetPure/GamePad.cs" /><Compile Include="../../Memoria.XInputDotNetPure/Utils.cs" /><Compile Include="../../Memoria.XInputDotNetPure/JoyShockLibrary.cs" /></ItemGroup>
   <ItemGroup><Compile Include="../../Memoria.ScreenReader/*.cs" /></ItemGroup>

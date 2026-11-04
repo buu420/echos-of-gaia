@@ -35,11 +35,19 @@ namespace Memoria.Accessibility.Navigation
         {
             if(planned==null || current==null)return true;
             if(!planned.PhysicalIdentity.Equals(current.PhysicalIdentity) || planned.InteractionUid!=current.InteractionUid || planned.UseViewingPoint!=current.UseViewingPoint)return true;
+            if(planned.UseApprovedApproaches!=current.UseApprovedApproaches)return true;
+            if(planned.UseApprovedApproaches && !SameApproved(planned.ApproachCandidates,current.ApproachCandidates))return true;
             var a=planned.InteractionRegion;var b=current.InteractionRegion;
             if(a==null || b==null)return a!=b;
             if(a.Length!=b.Length)return true;
             for(int i=0;i<a.Length;i++)if(!a[i].IsFinite || !b[i].IsFinite || NavigationPoint.Distance(a[i],b[i])>0.01f)return true;
             return false;
+        }
+        private static bool SameApproved(NavigationPoint[] a,NavigationPoint[] b)
+        {
+            if(a==null || b==null)return a==b;
+            var first=new System.Collections.Generic.HashSet<NavigationPoint>(a);
+            return first.SetEquals(b);
         }
     }
 }

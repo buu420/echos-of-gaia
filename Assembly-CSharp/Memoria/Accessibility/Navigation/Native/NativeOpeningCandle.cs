@@ -56,7 +56,7 @@ namespace Memoria.Accessibility.Navigation
                 Id=new TargetIdentity(TargetKind.FieldActor,context.LogicalMapKey,regions[0].uid),
                 NativePresentationIdentity=System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(regions[0]),
                 Position=center,Visible=visible,ShowsIcon=icon,HasInteraction=true,IsPerson=false,
-                InteractionUid=regions[0].uid,InteractionRegion=area,ApproachCandidates=permitted.ToArray()
+                InteractionUid=regions[0].uid,InteractionRegion=area,ApproachCandidates=permitted.ToArray(),UseApprovedApproaches=true
             };
             Annotate(context,engine,regions[0],observation);return observation;
         }

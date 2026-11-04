@@ -7,6 +7,24 @@ namespace Memoria.Accessibility.Navigation
     {
         private static long _captureGeneration;
         private static readonly HashSet<string> _captures=new HashSet<string>();
+        private static long _interruptionGeneration;
+        private static int _interruptionCount;
+        public static void CaptureInterruption(NavigationContext context,NavigationTarget target,RoutePlan route,FieldMovementCapture movement)
+        {
+            if(context==null || target==null || route==null || movement==null || route.Generation!=context.Generation)return;
+            if(_interruptionGeneration!=context.Generation){_interruptionGeneration=context.Generation;_interruptionCount=0;}
+            if(_interruptionCount>=8)return;
+            _interruptionCount++;
+            // This is an event-only capture after movement release, not frame work.
+            var geometry=Read(context);var raw=CaptureRaw(context);
+            if(geometry==null || raw==null)return;
+            string payload=FieldRouteDiagnostics.SerializeWithMovementCapture(context,target,geometry,route,raw,movement);
+            string directory=System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"FF9Access/field-routes");
+            System.IO.Directory.CreateDirectory(directory);
+            string path=System.IO.Path.Combine(directory,DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")+"-interrupted-"+movement.Owner+".json");
+            System.IO.File.WriteAllText(path,payload);
+            Memoria.Prime.Log.Message("[FF9Access] Field interruption snapshot ({0}): {1}",movement.Cause,path);
+        }
         // Keep the existing call boundary; capture successful plans as paired evidence.
         // Raw arrays are detached only here, never in the per-frame Read.
         public static void CaptureFailure(NavigationContext context,NavigationTarget target,FieldGeometrySnapshot geometry,RoutePlan route)

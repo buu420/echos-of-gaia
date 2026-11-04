@@ -3,6 +3,8 @@
   <ItemGroup>
     <Compile Include="*.cs" />
     <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeNavigationContext.cs" Link="Runtime/NativeNavigationContext.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldAreaNames.cs" Link="Runtime/NativeFieldAreaNames.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeOpeningPositionTargets.cs" Link="Runtime/NativeOpeningPositionTargets.cs" />
     <Compile Include="../../Assembly-CSharp/Memoria/Application/PlayerWindow.cs" Link="Runtime/PlayerWindow.cs" />
     <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AccessibleNavigationManager.cs" Link="Runtime/AccessibleNavigationManager.cs" />
     <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/WorldMapAccessibilityManager.cs" Link="Runtime/WorldMapAccessibilityManager.cs" />

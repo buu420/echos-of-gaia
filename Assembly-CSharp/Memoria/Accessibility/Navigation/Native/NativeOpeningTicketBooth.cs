@@ -26,7 +26,7 @@ namespace Memoria.Accessibility.Navigation
             var observation=new FieldTargetObservation{Id=new TargetIdentity(TargetKind.FieldActor,context.LogicalMapKey,region.uid),
                 NativePresentationIdentity=System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(region),LabelIdentity=OpeningTicketBoothEvidence.Script+":"+OpeningTicketBoothEvidence.Background,
                 Position=new NavigationPoint(x/presentation.Region.Length,presentation.Height,z/presentation.Region.Length),Visible=true,ShowsIcon=presentation.ShowsIcon,HasInteraction=true,
-                InteractionUid=region.uid,InteractionRegion=(NavigationPoint[])presentation.Region.Clone(),ApproachCandidates=presentation.Approaches==null?new NavigationPoint[0]:(NavigationPoint[])presentation.Approaches.Clone()};
+                InteractionUid=region.uid,InteractionRegion=(NavigationPoint[])presentation.Region.Clone(),UseApprovedApproaches=true,ApproachCandidates=presentation.Approaches==null?new NavigationPoint[0]:(NavigationPoint[])presentation.Approaches.Clone()};
             OpeningTicketBoothEvidence.Annotate(context,observation);return observation;
         }
     }

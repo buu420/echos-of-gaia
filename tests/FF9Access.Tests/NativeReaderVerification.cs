@@ -12,6 +12,33 @@ namespace FF9Access.Tests
     internal static class NativeReaderVerification
     {
         private static readonly Dictionary<ushort, OpCode> Opcodes = BuildOpcodes();
+        public static void VerifyFieldInterruptions(string library)
+        {
+            using(var stream=File.OpenRead(library))using(var pe=new PEReader(stream)) {
+                var metadata=pe.GetMetadataReader();bool late=false,clear=false,adapter=false,legacyClear=false,legacyAdapter=false;
+                foreach(var typeHandle in metadata.TypeDefinitions) {
+                    var type=metadata.GetTypeDefinition(typeHandle);string owner=metadata.GetString(type.Name);
+                    foreach(var methodHandle in type.GetMethods()) {
+                        var method=metadata.GetMethodDefinition(methodHandle);if(method.RelativeVirtualAddress==0)continue;
+                        string name=metadata.GetString(method.Name);var calls=new List<string>(Calls(metadata,pe.GetMethodBody(method.RelativeVirtualAddress).GetILBytes()));
+                        int capture=calls.IndexOf("NativeFieldMovement.OnNativeClear"),nativeClear=calls.IndexOf("FieldMapActorController.ClearMoveTarget");
+                        if(owner=="FieldMapActorController" && name=="HonoLateUpdate")late=capture>=0 && nativeClear>capture;
+                        if(owner=="FieldMapActorController" && name=="ClearMoveTargetAndPath") {
+                            if(method.GetParameters().Count==0)legacyClear=true;
+                            if(capture>=0)clear=nativeClear>capture;
+                        }
+                        if(owner=="NativeFieldMovement" && name=="OnNativeClear") {
+                            if(method.GetParameters().Count==1)legacyAdapter=true;
+                            int observe=calls.IndexOf("NativeFieldMovement.CaptureMovement"),release=calls.IndexOf("NativeFieldMovement.ReleaseCurrent"),write=calls.IndexOf("NativeFieldGeometry.CaptureInterruption");
+                            if(observe>=0)adapter=release>observe && write>release;
+                        }
+                        if(calls.Contains("NativeFieldGeometry.CaptureInterruption") && !(owner=="NativeFieldMovement" && name=="OnNativeClear"))throw new Exception("Interruption disk work escaped the owned clear event: "+owner+"."+name);
+                    }
+                }
+                if(!late || !clear || !adapter || !legacyClear || !legacyAdapter)throw new Exception("Missing pre-clear capture/release ordering or legacy clear signature");
+                Console.WriteLine("PASS emitted field interruptions: pre-clear native hooks, detached observation before release, disk work after release, event-only capture and both legacy signatures");
+            }
+        }
         public static void VerifyGuideAdapters(string library)
         {
             using(var stream=File.OpenRead(library))using(var pe=new PEReader(stream)) {
@@ -22,6 +49,28 @@ namespace FF9Access.Tests
                     "NativeStoryPrerequisites.TryAppend|StoryPrerequisiteCatalog.TryAppend",
                     "NativeStoryPrerequisites.TryAppend|NativeFieldTargets.CurrentBgiHash",
                     "NativeFieldTargets.Read|NativeFieldTargets.VisibleBody",
+                    "NativeFieldTargets.Read|FieldScenePresentation.Actor",
+                    "NativeFieldTargets.Read|NativeFieldTargets.ReadStoryRegion",
+                    "NavigationRuntime.Tick|NativeOpeningPositionTargets.TryAppend",
+                    "NativeOpeningPositionTargets.TryAppend|NativeStoryTargets.CurrentPositionGoal",
+                    "NativeOpeningPositionTargets.TryAppend|OpeningPositionApproaches.Read",
+                    "NativeOpeningPositionTargets.TryAppend|NativeOpeningPositionTargets.Presented",
+                    "NativeOpeningPositionTargets.Presented|NativeFieldTargets.StorySurfacePresented",
+                    "NativeOpeningPositionTargets.TryAppend|NativeFieldTargets.ReadGeometryForStory",
+                    "NativeFieldTargets.ReadStoryRegion|EventCollision.NavigationCanTriggerQuad",
+                    "NativeFieldTargets.ReadStoryRegion|FieldStoryRegionApproaches.Read",
+                    "NativeFieldTargets.ReadStoryRegion|FieldWrite.FieldTargetObservation.UseApprovedApproaches",
+                    "NativeFieldTargets.ReadOpeningCandle|FieldWrite.FieldTargetObservation.UseApprovedApproaches",
+                    "NativeOpeningTicketBooth.Read|FieldWrite.FieldTargetObservation.UseApprovedApproaches",
+                    "FieldTargetCatalog.Build|FieldWrite.NavigationTarget.UseApprovedApproaches",
+                    "FieldTargetCatalog.Copy|FieldWrite.NavigationTarget.UseApprovedApproaches",
+                    "StoryTargetCatalog.Wrap|FieldWrite.NavigationTarget.UseApprovedApproaches",
+                    "FieldTargetApproaches.Prepare|FieldRead.NavigationTarget.UseApprovedApproaches",
+                    "NativeFieldTargets.StorySurfacePresented|NativeFieldTargets.RenderedBackgroundAt",
+                    "NativeNavigationContext.Read|NativeFieldAreaNames.Read",
+                    "NativeFieldAreaNames.Read|FieldAreaNames.Build",
+                    "Dialog.get_ChoicePhrases|DisplayedChoice.Split",
+                    "Dialog.AnnounceSelectedChoiceForScreenReader|DisplayedChoice.Read",
                     "NativeInteractionProbe.Read|NativeFieldTouchReadiness.TryRead",
                     "NativeFieldTouchReadiness.TryRead|FieldTouchConfirmation.get_Ready",
                     "NativeFieldTouchReadiness.TryRead|EventCollision.NavigationHasTouchFacing",
@@ -58,7 +107,7 @@ namespace FF9Access.Tests
                     ,"NavigationRuntime.CanGuideFieldStep|FieldGeometrySnapshot.IsSegmentClear"
                     ,"NavigationRuntime.CanGuideWorldStep|GuidanceRouteValidation.WorldLeg"
                 };
-                var readers=new HashSet<string>{"NativeStoryPrerequisites","StoryPrerequisiteCatalog","StoryPrerequisiteData","NativeFieldTouchReadiness","FieldTouchConfirmation","NativeNumericDialogs","NumericInputReader","NativeOpeningTicketBooth","OpeningTicketBoothEvidence","FieldInputOrientation","ManualRouteGuidance","RouteGuidanceProgress","RouteInstruction"};
+                var readers=new HashSet<string>{"NativeStoryPrerequisites","StoryPrerequisiteCatalog","StoryPrerequisiteData","NativeFieldTouchReadiness","FieldTouchConfirmation","NativeNumericDialogs","NumericInputReader","NativeOpeningTicketBooth","OpeningTicketBoothEvidence","FieldInputOrientation","ManualRouteGuidance","RouteGuidanceProgress","RouteInstruction","NativeOpeningPositionTargets","OpeningPositionApproaches"};
                 foreach(var handle in metadata.TypeDefinitions) {
                     var type=metadata.GetTypeDefinition(handle);string name=metadata.GetString(type.Name),owner=name;
                     var parent=type.GetDeclaringType();while(!parent.IsNil){var enclosing=metadata.GetTypeDefinition(parent);owner=metadata.GetString(enclosing.Name);parent=enclosing.GetDeclaringType();}
@@ -116,7 +165,9 @@ namespace FF9Access.Tests
                     "NativeAudioDescriptions.MoviePresented|MovieMaterial.get_DescriptionPresentedTime",
                       "FieldMap.HonoAwake|NativeAudioDescriptions.Initialize",
                     "Dialog.AnnounceDialogForScreenReader|NativeAudioDescriptions.SpeakDialogue",
-                    "Dialog.AnnounceChoicesForScreenReader|NativeAudioDescriptions.SpeakDialogue",
+                    "Dialog.AnnounceChoicesForScreenReader|Dialog.AnnounceSelectedChoiceForScreenReader",
+                    "Dialog.AnnounceCurrentChoiceForScreenReader|Dialog.AnnounceSelectedChoiceForScreenReader",
+                    "Dialog.AnnounceSelectedChoiceForScreenReader|NativeAudioDescriptions.SpeakDialogue",
                     "NavigationRuntime.Tick|NativeAudioDescriptions.get_NarrationPlaying",
                     "NavigationRuntime.Tick|ScreenReaderManager.TrySpeak",
                     "NavigationRuntime.Tick|NavigationAnnouncements.Acknowledge",
@@ -289,8 +340,8 @@ namespace FF9Access.Tests
                     "NativeFieldTargets.VisibleBoundary|NativeFieldTargets.ReadPassagePanorama",
                     "NativeFieldTargets.ReadPassagePanorama|FieldPanoramaEvidence.Matches",
                     "NativeFieldTargets.ReadTile|FieldPanoramaPresentation.IsOpaque",
-                    "NativeFieldTargets.PlainPassageOnPanorama|FieldPanoramaPresentation.PresentsPassage",
-                    "FieldPanoramaPresentation.PresentsPassage|FieldPanoramaPresentation.Contains",
+                    "NativeFieldTargets.PlainPassageOnPanorama|FieldScenePresentation.Passage",
+                    "FieldScenePresentation.Passage|FieldPanoramaPresentation.ContainsBackdropEdge",
                     "NativeFieldTargets.PlainPassageOnPanorama|PSX.CalculateGTE_RTPT_POS",
                     "NativeFieldTargets.Surface|FieldRegionApproaches.Interaction",
                     "NativeFieldTargets.VisibleBoundary|FieldExitEvidence.TrySurface",
@@ -550,6 +601,7 @@ namespace FF9Access.Tests
                     "FieldMapActorController|MovePC|FieldAnalogMovement.Speed",
                     "FieldMapActorController|MovePC|FieldAnalogMovement.ArrivalRadius",
                     "FieldMapActorController|MovePC|FieldAnalogMovement.StepMagnitude",
+                    "FieldMapActorController|MovePC|Signature.FieldAnalogMovement.StepMagnitude/5",
                     "Memoria.Accessibility.Navigation.NativeNavigationContext|Read|EventInput.get_IsMovementControl",
                     "Memoria.Accessibility.Navigation.NativeNavigationContext|Read|DialogManager.GetChoiceDialog",
                     "Memoria.Accessibility.Navigation.NavigationLifecycleBridge|Release|NavigationSession.RevokeAutomaticResume",
@@ -640,7 +692,9 @@ namespace FF9Access.Tests
                         if (member.Parent.Kind == HandleKind.TypeReference) yield return metadata.GetString(metadata.GetTypeReference((TypeReferenceHandle)member.Parent).Name) + "." + metadata.GetString(member.Name);
                     } else if (handle.Kind == HandleKind.MethodDefinition) {
                         var method = metadata.GetMethodDefinition((MethodDefinitionHandle)handle);
-                        yield return metadata.GetString(metadata.GetTypeDefinition(method.GetDeclaringType()).Name) + "." + metadata.GetString(method.Name);
+                        string owner=metadata.GetString(metadata.GetTypeDefinition(method.GetDeclaringType()).Name),name=metadata.GetString(method.Name);
+                        yield return owner + "." + name;
+                        if(owner=="FieldAnalogMovement" && name=="StepMagnitude")yield return "Signature."+owner+"."+name+"/"+method.GetParameters().Count;
                     }
                 }
                 offset += size;

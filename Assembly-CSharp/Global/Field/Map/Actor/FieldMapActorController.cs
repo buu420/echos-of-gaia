@@ -277,10 +277,10 @@ public partial class FieldMapActorController : HonoBehavior
             this.stillCount++;
             if (this.stillCount > 30)
             {
+                Memoria.Accessibility.Navigation.NativeFieldMovement.OnNativeClear(this,Memoria.Accessibility.Navigation.FieldPathClearCause.StillFrames);
                 this.movePaths.Clear();
                 this.ClearMoveTarget();
                 this.totalPathCount = 0;
-                Memoria.Accessibility.Navigation.NativeFieldMovement.OnNativeClear(this);
             }
         }
         else
@@ -653,7 +653,7 @@ public partial class FieldMapActorController : HonoBehavior
             movingRight &= PersistenSingleton<EventEngine>.Instance.GetUserControl();
         }
         if (movingUp || movingDown || movingLeft || movingRight)
-            this.ClearMoveTargetAndPath();
+            this.ClearMoveTargetAndPath(Memoria.Accessibility.Navigation.FieldPathClearCause.PhysicalMovement);
         if (this.isPlayer)
             FieldMapActorController.ccSMoveKey = movingUp || movingDown || movingLeft || movingRight || this.hasTarget;
         Single pathRadius = Memoria.Accessibility.Navigation.FieldAnalogMovement.ArrivalRadius(this.radius, this.AccessibilityPathOwner);
@@ -757,7 +757,7 @@ public partial class FieldMapActorController : HonoBehavior
         {
             Vector3 remaining = this.moveTarget - this.curPos;
             remaining.y = 0f;
-            actualMoveVec = actualMoveVec.normalized * Memoria.Accessibility.Navigation.FieldAnalogMovement.StepMagnitude(actualMoveVec.magnitude, remaining.magnitude, this.AccessibilityPathOwner, this.hasTarget);
+            actualMoveVec = actualMoveVec.normalized * Memoria.Accessibility.Navigation.FieldAnalogMovement.StepMagnitude(actualMoveVec.magnitude, remaining.magnitude, this.AccessibilityPathOwner, this.hasTarget, pathRadius);
         }
         this.curPos += actualMoveVec;
         EventEngine instance = PersistenSingleton<EventEngine>.Instance;
@@ -2242,10 +2242,15 @@ public partial class FieldMapActorController : HonoBehavior
 
     public void ClearMoveTargetAndPath()
     {
+        this.ClearMoveTargetAndPath(Memoria.Accessibility.Navigation.FieldPathClearCause.Unknown);
+    }
+
+    public void ClearMoveTargetAndPath(Memoria.Accessibility.Navigation.FieldPathClearCause cause)
+    {
+        Memoria.Accessibility.Navigation.NativeFieldMovement.OnNativeClear(this,cause);
         this.ClearMoveTarget();
         this.totalPathCount = 0;
         this.totalPathLengthSq = 0f;
-        Memoria.Accessibility.Navigation.NativeFieldMovement.OnNativeClear(this);
     }
 
     public void LoadResources()

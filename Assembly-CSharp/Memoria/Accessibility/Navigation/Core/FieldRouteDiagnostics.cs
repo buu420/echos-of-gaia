@@ -13,10 +13,16 @@ namespace Memoria.Accessibility.Navigation
         }
         public static string SerializeWithNativeCapture(NavigationContext context,NavigationTarget target,FieldGeometrySnapshot geometry,RoutePlan route,FieldNativeCapture native)
         {
+            return SerializeWithMovementCapture(context,target,geometry,route,native,null);
+        }
+        public static string SerializeWithMovementCapture(NavigationContext context,NavigationTarget target,FieldGeometrySnapshot geometry,RoutePlan route,FieldNativeCapture native,FieldMovementCapture movement)
+        {
             var text=new StringBuilder("{\"Schema\":1,\"Context\":");Write(text,context,0);
             text.Append(",\"Target\":");Write(text,target,0);text.Append(",\"Geometry\":");Write(text,geometry,0);
             text.Append(",\"Route\":");Write(text,route,0);
-            if(native!=null){text.Append(",\"Native\":");Write(text,native,0);}return text.Append('}').ToString();
+            if(native!=null){text.Append(",\"Native\":");Write(text,native,0);}
+            if(movement!=null){text.Append(",\"Movement\":");Write(text,movement,0);}
+            return text.Append('}').ToString();
         }
         private static void Write(StringBuilder text,object value,int depth)
         {

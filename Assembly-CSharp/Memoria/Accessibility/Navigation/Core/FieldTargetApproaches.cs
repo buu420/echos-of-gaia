@@ -7,6 +7,7 @@ namespace Memoria.Accessibility.Navigation
         public static NavigationPoint[] Prepare(NavigationContext context,NavigationTarget target,FieldGeometrySnapshot geometry)
         {
             if(context==null || target==null || geometry==null || geometry.Generation!=context.Generation || target.Generation!=context.Generation)return new NavigationPoint[0];
+            if(target.UseApprovedApproaches)return target.ApproachCandidates??new NavigationPoint[0];
             var candidates=target.ApproachCandidates??new[]{target.Position};
             if(target.IsInteractive && target.InteractionUid>=0)return FieldRegionApproaches.Interaction(target.InteractionRegion,geometry);
             if(target.UseViewingPoint && !target.IsInteractive && target.PhysicalIdentity.Kind==TargetKind.FieldActor)return FieldRegionApproaches.Viewing(context,target.Position,geometry);

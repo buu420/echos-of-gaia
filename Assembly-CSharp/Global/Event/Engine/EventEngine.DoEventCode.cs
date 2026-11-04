@@ -1024,7 +1024,7 @@ public partial class EventEngine
                 {
                     Obj objUid250 = this.GetObjUID(250);
                     if (objUid250 != null && objUid250.cid == 4)
-                        ((Actor)objUid250).fieldMapActorController.ClearMoveTargetAndPath();
+                        ((Actor)objUid250).fieldMapActorController.ClearMoveTargetAndPath(Memoria.Accessibility.Navigation.FieldPathClearCause.ScriptedControl);
                 }
                 if (!EMinigame.CheckChocoboVirtual())
                     PersistenSingleton<UIManager>.Instance.SetPlayerControlEnable(false, (System.Action)null);

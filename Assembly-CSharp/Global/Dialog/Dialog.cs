@@ -300,28 +300,10 @@ public class Dialog : MonoBehaviour
     {
         get
         {
-            if (!this.HasChoices)
-                return [this.CurrentParser.ParsedText];
-            Int32 newLinePos = 0;
-            if (this.startChoiceRow > 0)
-            {
-                newLinePos = this.CurrentParser.ParsedText.IndexOf('\n');
-                for (Int32 i = 1; i < this.startChoiceRow && newLinePos >= 0; i++)
-                    newLinePos = this.CurrentParser.ParsedText.IndexOf('\n', newLinePos + 1);
-            }
-            if (newLinePos < 0)
-                return [this.CurrentParser.ParsedText];
-            List<String> phrases = new List<String>();
-            phrases.Add(this.CurrentParser.ParsedText.Substring(0, newLinePos));
-            Int32 nextNewLinePos = this.CurrentParser.ParsedText.IndexOf('\n', newLinePos + 1);
-            while (nextNewLinePos >= 0)
-            {
-                phrases.Add(this.CurrentParser.ParsedText.Substring(newLinePos + 1, nextNewLinePos - (newLinePos + 1)));
-                newLinePos = nextNewLinePos;
-                nextNewLinePos = this.CurrentParser.ParsedText.IndexOf('\n', newLinePos + 1);
-            }
-            phrases.Add(this.CurrentParser.ParsedText.Substring(newLinePos + 1));
-            return phrases.ToArray();
+            // HasChoices runs the native ChoiceSetup parse, which removes
+            // disabled text rows. Read ParsedText only after that setup.
+            Boolean choices = this.HasChoices;
+            return Memoria.Accessibility.Navigation.DisplayedChoice.Split(this.CurrentParser.ParsedText, choices ? this.startChoiceRow : -1);
         }
     }
 
@@ -1775,107 +1757,31 @@ public class Dialog : MonoBehaviour
 
     private void AnnounceChoicesForScreenReader()
     {
-        if (!this.HasChoices)
-            return;
-
-        try
-        {
-            String[] choices = this.ChoicePhrases;
-            if (choices == null || choices.Length <= 1)
-                return;
-
-            // Announce that choices are available and the current selection
-            String announcement = "Choose option. ";
-            Int32 currentChoice = this.SelectChoice;
-
-            // Get all choice text (skip the first element if it contains dialog text)
-            List<String> choiceTexts = new List<String>();
-            for (Int32 i = this.startChoiceRow; i < this.EndChoiceRow; i++)
-            {
-                Int32 choiceIndex = i - this.startChoiceRow;
-                if (!this.disableIndexes.Contains(choiceIndex) && i < choices.Length)
-                {
-                    String choiceText = StripFormattingTags(choices[i]);
-                    if (!String.IsNullOrEmpty(choiceText))
-                        choiceTexts.Add(choiceText);
-                }
-            }
-
-            if (choiceTexts.Count > 0 && currentChoice >= 0 && currentChoice < choiceTexts.Count)
-                announcement += choiceTexts[currentChoice];
-
-            Memoria.Accessibility.AudioDescriptions.NativeAudioDescriptions.SpeakDialogue(this, announcement, true);
-        }
-        catch (Exception e)
-        {
-            Log.Error($"[ScreenReader] Screen reader choice announcement failed: {e.Message}");
-            Log.Error(e);
-        }
+        AnnounceSelectedChoiceForScreenReader(true);
     }
 
     private void AnnounceCurrentChoiceForScreenReader()
     {
+        AnnounceSelectedChoiceForScreenReader(false);
+    }
+
+    private void AnnounceSelectedChoiceForScreenReader(Boolean initial)
+    {
         if (!this.HasChoices)
             return;
-
         try
         {
-            String[] choices = this.ChoicePhrases;
-            // ChoicePhrases[0] is the prompt, choices start at index 1
-            // SelectChoice is the index into choiceList (0, 1, 2, etc.)
-            Int32 currentChoice = this.SelectChoice + 1;
-
-            Log.Message($"[ScreenReader] AnnounceChoice: SelectChoice={this.SelectChoice}, startChoiceRow={this.startChoiceRow}, currentChoice={currentChoice}, choicesLength={choices?.Length ?? 0}, EndChoiceRow={this.EndChoiceRow}");
-
-            // Dump the full ChoicePhrases array for debugging
-            if (choices != null)
-            {
-                for (Int32 i = 0; i < choices.Length; i++)
-                {
-                    Log.Message($"[ScreenReader]   ChoicePhrases[{i}] = '{choices[i]}'");
-                }
-            }
-
-            if (choices != null && currentChoice >= 0 && currentChoice < choices.Length)
-            {
-                String choiceText = StripFormattingTags(choices[currentChoice]);
-                if (!String.IsNullOrEmpty(choiceText))
-                {
-                    Log.Message($"[ScreenReader] Speaking choice: '{choiceText}'");
-                    Memoria.Accessibility.AudioDescriptions.NativeAudioDescriptions.SpeakDialogue(this, choiceText, true);
-                }
-                else
-                {
-                    Log.Warning($"[ScreenReader] Choice text empty after stripping tags for index {currentChoice}");
-                    Log.Warning($"[ScreenReader] Raw choice text was: '{choices[currentChoice]}'");
-                }
-            }
-            else
-            {
-                Log.Warning($"[ScreenReader] Invalid choice index: currentChoice={currentChoice}, choicesLength={choices?.Length ?? 0}");
-
-                // Try to announce using SelectChoice directly as index into the filtered choices
-                Log.Message($"[ScreenReader] Attempting fallback: using SelectChoice={this.SelectChoice} directly");
-                Int32 validChoiceCount = 0;
-                for (Int32 i = this.startChoiceRow; i < choices.Length; i++)
-                {
-                    if (validChoiceCount == this.SelectChoice)
-                    {
-                        String fallbackText = StripFormattingTags(choices[i]);
-                        if (!String.IsNullOrEmpty(fallbackText))
-                        {
-                            Log.Message($"[ScreenReader] Fallback speaking: '{fallbackText}'");
-                            Memoria.Accessibility.AudioDescriptions.NativeAudioDescriptions.SpeakDialogue(this, fallbackText, true);
-                            return;
-                        }
-                    }
-                    validChoiceCount++;
-                }
-            }
+            String displayed = Memoria.Accessibility.Navigation.DisplayedChoice.Read(
+                this.ChoicePhrases, this.SelectChoice, this.EndChoiceRow - this.startChoiceRow, this.disableIndexes);
+            if (String.IsNullOrEmpty(displayed))
+                return;
+            String text = StripFormattingTags(displayed);
+            if (!String.IsNullOrEmpty(text))
+                Memoria.Accessibility.AudioDescriptions.NativeAudioDescriptions.SpeakDialogue(this, (initial ? "Choose option. " : "") + text, true);
         }
         catch (Exception e)
         {
-            Log.Error($"[ScreenReader] Screen reader choice selection failed: {e.Message}");
+            Log.Error($"[ScreenReader] Screen reader choice announcement failed: {e.Message}");
             Log.Error(e);
         }
     }

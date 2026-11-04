@@ -67,7 +67,8 @@ namespace Memoria.Accessibility.Navigation
             foreach(var target in catalog.Targets) {
                 if(target.Category==NavigationCategory.Story || target.Generation!=context.Generation || target.Id.MapKey!=context.LogicalMapKey)continue;
                 int score=Int32.MaxValue;
-                if(Contains(target.StoryMilestones,_stage.Milestone))score=0;
+                // A field actor annotated before its final native interaction gates is a goal only while interactive.
+                if(Contains(target.StoryMilestones,_stage.Milestone)){if(target.PhysicalIdentity.Kind!=TargetKind.FieldActor || target.IsInteractive)score=0;}
                 else if(world && target.Category==NavigationCategory.Towns && WorldPlace(target,goal))score=1;
                 else if(!world && (target.PhysicalIdentity.Kind==TargetKind.FieldExit || target.IsInteractive)) {
                     foreach(int next in target.NextFields??new int[0]) {
@@ -116,7 +117,7 @@ namespace Memoria.Accessibility.Navigation
             var id=physical.PhysicalIdentity;
             return new NavigationTarget{Id=new TargetIdentity(TargetKind.Story,context.LogicalMapKey,milestone*4096+(int)id.Kind*512+id.NativeId),PhysicalId=id,Category=NavigationCategory.Story,
                 Label=label,Availability=physical.Availability,Position=physical.Position,Evidence=physical.Evidence,Generation=context.Generation,
-                IsInteractive=physical.IsInteractive,NativeLocationId=physical.NativeLocationId,InteractionUid=physical.InteractionUid,UseViewingPoint=physical.UseViewingPoint,
+                IsInteractive=physical.IsInteractive,NativeLocationId=physical.NativeLocationId,InteractionUid=physical.InteractionUid,UseViewingPoint=physical.UseViewingPoint,UseApprovedApproaches=physical.UseApprovedApproaches,
                 ApproachCandidates=Copy(physical.ApproachCandidates),InteractionRegion=Copy(physical.InteractionRegion),StoryMilestones=Copy(physical.StoryMilestones),NextFields=Copy(physical.NextFields),StoryAction=physical.StoryAction};
         }
         private static NavigationTarget Information(NavigationContext context,int milestone,string label,string help)

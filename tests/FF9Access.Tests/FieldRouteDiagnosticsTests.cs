@@ -6,6 +6,31 @@ namespace FF9Access.Tests
 {
     internal static class FieldRouteDiagnosticsTests
     {
+        public static void InterruptedSnapshotRetainsPreClearMovementAndOriginalRoute()
+        {
+            var type=typeof(FieldRouteDiagnostics).Assembly.GetType("Memoria.Accessibility.Navigation.FieldMovementCapture");
+            TestAssert.True(type!=null);
+            var movement=Activator.CreateInstance(type);
+            type.GetField("Owner").SetValue(movement,7L);
+            type.GetField("HasTarget").SetValue(movement,true);
+            type.GetField("StillCount").SetValue(movement,31);
+            type.GetField("RemainingWaypoints").SetValue(movement,37);
+            type.GetField("Waypoint").SetValue(movement,new NavigationPoint(25,0,1500));
+            var route=new RoutePlan{Success=true,Origin=new NavigationPoint(0,0,332),Waypoints=new[]{new NavigationPoint(25,0,1500),new NavigationPoint(50,0,6500)}};
+            var method=typeof(FieldRouteDiagnostics).GetMethod("SerializeWithMovementCapture");
+            TestAssert.True(method!=null);
+            var text=(string)method.Invoke(null,new object[]{TestFixtures.Context(),new NavigationTarget(),FieldRoutesTests.Grid(false),route,new FieldNativeCapture(),movement});
+            using(var json=JsonDocument.Parse(text)) {
+                var captured=json.RootElement.GetProperty("Movement");
+                TestAssert.Equal(7L,captured.GetProperty("Owner").GetInt64());
+                TestAssert.True(captured.GetProperty("HasTarget").GetBoolean());
+                TestAssert.Equal(31,captured.GetProperty("StillCount").GetInt32());
+                TestAssert.Equal(37,captured.GetProperty("RemainingWaypoints").GetInt32());
+                TestAssert.Equal(1500f,captured.GetProperty("Waypoint").GetProperty("Z").GetSingle());
+                TestAssert.Equal(332f,json.RootElement.GetProperty("Route").GetProperty("Origin").GetProperty("Z").GetSingle());
+                TestAssert.Equal(2,json.RootElement.GetProperty("Route").GetProperty("Waypoints").GetArrayLength());
+            }
+        }
         public static void LegacyNameOnlyReflectionLookupStillInvokesFourArgumentSerializer()
         {
             // Original Mono WorldPlanningProbe resolves this entry by name alone.

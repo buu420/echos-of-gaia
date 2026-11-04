@@ -12,6 +12,7 @@ namespace FF9Access.Tests
             try
             {
                 if (args.Length == 2 && args[0] == "--verify-input") { NativeReaderVerification.Run(args[1]); return 0; }
+                if (args.Length == 2 && args[0] == "--verify-field-interruptions") { NativeReaderVerification.VerifyFieldInterruptions(args[1]); return 0; }
                 if (args.Length == 2 && args[0] == "--verify-interaction-cues") { NativeReaderVerification.VerifyInteractionCues(args[1]); return 0; }
                 if (args.Length == 2 && args[0] == "--verify-guide-adapters") { NativeReaderVerification.VerifyGuideAdapters(args[1]); return 0; }
                 if (args.Length == 2 && args[0] == "--verify-speech-lifetime") { NativeReaderVerification.VerifySpeechLifetime(args[1]); return 0; }

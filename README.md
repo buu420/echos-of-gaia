@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.8 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.8)**
+**[Download 0.1.9 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.9)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -14,7 +14,19 @@ This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing; this release does not establish a complete accessible playthrough.
 
-0.1.8 keeps manual directions on the same stretch of a route instead of chasing
+0.1.9 repairs current-area entity and exit presentation, including the second
+Alexandria alley exit, and adds distinct Area A/B/C names where different scenes
+share a native location name. Opening Story guidance follows the alley encounter,
+steeple ladder and rooftop walking checkpoints, with a current story-region
+approach for the first Evil Forest rescue. Dialogue choices retain their first
+letter and read the selected displayed option even when other options are disabled.
+Filtered interaction approaches remain intact through route planning. Main Street
+automatic walking also stops short steps within the native arrival tolerance.
+These repairs have automated and original-Mono checks; the complete opening,
+forest, controller and audible speech routes still need player testing. See the
+[entity and story audit](docs/accessibility/entity-story-audit-2026-11-03.md).
+
+This includes 0.1.8's manual directions on the same stretch of a route instead of chasing
 small path points. Small safe sideways movement keeps the current instruction;
 larger drift gives a correction followed by the remaining direction. Equivalent
 route refreshes stay quiet. Releasing the stick retains the game's actual input
@@ -106,7 +118,7 @@ Use the manager to update or uninstall a manager installation.
 
 For a standalone installation:
 
-1. Download and extract EchosOfGaia-v0.1.8-beta-windows.zip into a separate
+1. Download and extract EchosOfGaia-v0.1.9-beta-windows.zip into a separate
    folder outside the game directory.
 2. Open **Install-EchosOfGaia.exe** from the extracted folder. Check the detected
    game folder, or use **Browse** or the editable field to choose the folder
