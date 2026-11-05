@@ -27,14 +27,25 @@ namespace Memoria.Accessibility.Navigation
                 Reset(context);
                 if(observation.Visible)_observedActors[actor]=observation.NativePresentationIdentity;
                 else if(!observation.OutOfView)_observedActors.Remove(actor);
+                // Only this actor's own bubble is presented and no body is drawn (model-less touch props):
+                // the game offers something here, and nothing about it is guessed.
+                if(!observation.Visible && observation.ShowsIcon && String.IsNullOrEmpty(observation.VisibleLabel))observation.VisibleLabel=FieldBackgroundObjects.PresentedPrompt;
                 // A reviewed binding already owns this actor's interaction (Forest Mene).
                 if(observation.InteractionUid>=0)return;
-                Quad region;
-                if(TryBind(context,engine,player,actor,out region)) {
+                Quad region;FieldInteractionBinding binding;
+                if(TryBind(context,engine,player,actor,out region,out binding)) {
                     var polygon=Polygon(region);
                     observation.InteractionUid=region.uid;observation.InteractionRegion=polygon;observation.HasInteraction=true;observation.UseViewingPoint=false;
                     observation.ShowsIcon|=observation.Visible && EIcon.NavigationPresentedUid==region.uid && PlayerOnScreen(field,context);
-                    Note(context,actor,"bound talk region "+region.uid+" (sid "+region.sid+")");
+                    // The requested function runs on this actor (its windows open on it): its role heading
+                    // may describe the person when the person's own Talk heading gives none.
+                    if(observation.IsPerson && NativeFieldTargets.OwnSpeakerLabel(context,engine,actor)==null) {
+                        string role=NativeFieldTargets.RequestedSpeakerLabel(context,engine,actor,binding.RequestedTag);
+                        if(role!=null)observation.VisibleLabel=FieldSpeakerRoles.Prefer(role,observation.VisibleLabel);
+                    }
+                    // The region is not listed separately, so its own Story evidence belongs to this person.
+                    NativeFieldTargets.AnnotateBoundRegionStory(context,engine,region,observation);
+                    Note(context,actor,"bound talk region "+region.uid+" (sid "+region.sid+", "+binding.Evidence+")");
                     return;
                 }
                 ApplyGates(context,engine,player,actor,observation);
@@ -48,36 +59,78 @@ namespace Memoria.Accessibility.Navigation
                 Reset(context);
                 var binding=FieldInteractionBindings.FindRegion(FF9StateSystem.Common.FF9.fldMapNo,quad.sid,Hash(quad.ebData));
                 if(binding==null)return false;
-                var actor=engine.GetObjUID(binding.ActorUid) as Actor;Quad bound;
-                return actor!=null && TryBind(context,engine,engine.GetControlChar() as Actor,actor,out bound) && ReferenceEquals(bound,quad);
+                var actor=engine.GetObjUID(binding.ActorUid) as Actor;Quad bound;FieldInteractionBinding owner;
+                return actor!=null && TryBind(context,engine,engine.GetControlChar() as Actor,actor,out bound,out owner) && ReferenceEquals(bound,quad);
             }catch(Exception){return false;}
         }
         // NativeInteractionProbe: the presented target's reviewed talk region.
         public static bool IsBoundPair(NavigationContext context,EventEngine engine,Actor player,Actor actor,Quad region)
         {
-            try {Reset(context);Quad bound;return region!=null && TryBind(context,engine,player,actor,out bound) && ReferenceEquals(bound,region);}
+            try {Reset(context);Quad bound;FieldInteractionBinding binding;return region!=null && TryBind(context,engine,player,actor,out bound,out binding) && ReferenceEquals(bound,region);}
             catch(Exception){return false;}
         }
-        private static bool TryBind(NavigationContext context,EventEngine engine,Actor player,Actor actor,out Quad region)
+        // Readiness at a reviewed counter (for NativeInteractionProbe). The native facing arc of
+        // IsQuadTalkable decides only "turn to face"; the first selected Talk region, containment,
+        // talk bytes, level and map rule must already hold. Reads only; Confirm stays with the player.
+        public static InteractionReadiness ReadBoundReadiness(NavigationContext context,EventEngine engine,Actor player,Actor actor,Quad region)
         {
-            region=null;int map=FF9StateSystem.Common.FF9.fldMapNo;
+            try {
+                if(!IsBoundPair(context,engine,player,actor,region) || player.fieldMapActorController==null)return null;
+                var position=player.fieldMapActorController.curPos;
+                bool permitted=region.level>1 && NativeFieldTalkability.IsTalkable(region) && FieldInteractionBindings.QuadTalkPermitted(FF9StateSystem.Common.FF9.fldMapNo,region.sid);
+                var result=FieldInteractionBindings.Readiness(engine.TreadQuad(player,4)==region,engine.NavigationContainsQuad(region,position.x,position.z),permitted,
+                    EventCollision.NavigationCanTalkQuad(player,region),EIcon.NavigationPresentedUid==region.uid);
+                result.Evidence="Reviewed native talking region of this speaker, selected quad, request level and native facing arc; Confirm remains player controlled";
+                return result;
+            }catch(Exception){return null;}
+        }
+        // Readiness of a contact prop such as a chest (for NativeInteractionProbe): the actor has a push
+        // handler and its Talk channel is closed. CollisionRequest selects it with walkMesh.Collision mode 2
+        // (talk collision skips flagTalkInh actors) and its handler shows the bubble for itself (FICON keeps
+        // the executing UID) before waiting for Confirm. Only that presented bubble makes it ready.
+        // Reads only; nothing is requested or pressed.
+        public static InteractionReadiness ReadPushReadiness(NavigationContext context,EventEngine engine,Actor player,Actor npc)
+        {
+            try {
+                if(context==null || engine==null || engine.gMode!=1 || player==null || npc==null || npc.ebData==null || player.fieldMapActorController==null || player.fieldMapActorController.walkMesh==null)return null;
+                if(engine.GetIP(npc.sid,EventEngine.tagPush,npc.ebData)==engine.nil)return null;
+                // An open Talk channel (as NativeInteractionProbe reads it) keeps the ordinary talk readiness.
+                if(engine.GetIP(npc.sid,EventEngine.tagTalk,npc.ebData)!=engine.nil && (npc.flags&EventEngine.flagTalkInh)==0 &&
+                    (NativeFieldTalkability.IsTalkable(npc) || NativeFieldTargets.IsReviewedListener(context,engine,npc)))return null;
+                float distance;bool selected=ReferenceEquals(player.fieldMapActorController.walkMesh.Collision(player.fieldMapActorController,2,out distance),npc);
+                bool permitted=npc.level>1 && EventCollision.NavigationCanPushNpc(npc) &&
+                    !((player.flags&FieldInteractionFlags.CollisionInhibitOther)!=0 && (npc.flags&FieldInteractionFlags.CollisionInhibitControl)!=0);
+                var result=FieldInteractionRules.PushReadiness(selected,distance<0,permitted,EIcon.NavigationPresentedUid==npc.uid);
+                result.Evidence="Native push contact selection, request level and the bubble this actor presents; Confirm remains player controlled";
+                return result;
+            }catch(Exception){return null;}
+        }
+        private static bool TryBind(NavigationContext context,EventEngine engine,Actor player,Actor actor,out Quad region,out FieldInteractionBinding binding)
+        {
+            region=null;binding=null;int map=FF9StateSystem.Common.FF9.fldMapNo;
             if(context==null || engine==null || player==null || actor==null || actor.ebData==null || engine.gMode!=1 || !FieldInteractionBindings.HasField(map) || !context.LogicalMapKey.StartsWith("field:"+map+":"))return false;
-            var binding=FieldInteractionBindings.FindActor(map,actor.sid,Hash(actor.ebData),actor.model,actor.uid);
+            binding=FieldInteractionBindings.FindActor(map,actor.sid,Hash(actor.ebData),actor.model,actor.uid);
+            if(binding==null)return false;
             int observedIdentity;
-            if(binding==null || !FieldInteractionBindings.CanRequest(binding,actor.level) || !_observedActors.TryGetValue(actor,out observedIdentity) || actor.go==null || observedIdentity!=actor.go.GetInstanceID() || !Rendered(actor))return false;
+            var live=new FieldInteractionPresence{ActorRendered=Rendered(actor),ActorLevel=actor.level,
+                ActorObserved=_observedActors.TryGetValue(actor,out observedIdentity) && actor.go!=null && observedIdentity==actor.go.GetInstanceID(),
+                ActorPosition=actor.fieldMapActorController==null?new NavigationPoint(actor.pos[0],actor.pos[1],actor.pos[2]):Point(actor.fieldMapActorController.curPos)};
+            Quad found=null;
             for(var list=engine.GetActiveObjList();list!=null;list=list.next) {
                 var quad=list.obj as Quad;
                 if(quad==null || quad.cid!=3 || quad.sid!=binding.RegionSid || quad.ebData==null || quad.q==null || quad.n<3 || quad.n>quad.q.Length || Hash(quad.ebData)!=binding.RegionHash)continue;
-                if(region!=null)return false; // more than one live instance: not the reviewed layout
-                region=quad;
+                live.LiveRegions++;found=quad;
             }
-            if(region==null)return false;
-            var position=actor.fieldMapActorController==null?new NavigationPoint(actor.pos[0],actor.pos[1],actor.pos[2]):Point(actor.fieldMapActorController.curPos);
-            if(!FieldInteractionBindings.WithinReach(position,Polygon(region))){region=null;return false;}
-            // Current native Confirm permission for the talk spot itself.
-            if(region.level<=1 || !NativeFieldTalkability.IsTalkable(region) || !EventCollision.NavigationCanTalkQuad(player,region) ||
-                Guard(engine,region,EventEngine.tagTalk)==FieldInteractionState.Unavailable){region=null;return false;}
-            return true;
+            if(live.LiveRegions==1) {
+                // Native Confirm permission of the talk spot itself. The facing arc (IsQuadTalkable) is
+                // readiness only: a person across a counter is not dropped while the player looks away.
+                live.Region=Polygon(found);live.RegionLevel=found.level;live.RegionTalkable=NativeFieldTalkability.IsTalkable(found);
+                live.MapTalkPermitted=FieldInteractionBindings.QuadTalkPermitted(map,found.sid);
+            }
+            if(!FieldInteractionBindings.Present(binding,live))return false;
+            live.RegionGuard=Guard(engine,found,EventEngine.tagTalk);
+            if(!FieldInteractionBindings.Present(binding,live))return false;
+            region=found;return true;
         }
         private static void ApplyGates(NavigationContext context,EventEngine engine,Actor player,Actor actor,FieldTargetObservation observation)
         {
@@ -103,6 +156,12 @@ namespace Memoria.Accessibility.Navigation
                 observation.UseViewingPoint=true;
                 Note(context,actor,"native interaction unavailable (talk "+talk+", push "+push+", level "+gates.Level+", flags 0x"+gates.Flags.ToString("X2")+")");
             }
+        }
+        // The detached Confirm guard of a background object region (NativeFieldBackgroundObjects).
+        internal static FieldInteractionState QuadTalkGuard(NavigationContext context,EventEngine engine,Quad quad)
+        {
+            try {Reset(context);return quad==null || quad.ebData==null?FieldInteractionState.Unknown:Guard(engine,quad,EventEngine.tagTalk);}
+            catch(Exception){return FieldInteractionState.Unknown;}
         }
         private static FieldInteractionState Guard(EventEngine engine,Obj obj,int tag)
         {

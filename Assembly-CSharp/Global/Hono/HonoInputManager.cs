@@ -248,6 +248,14 @@ public class HonoInputManager : PersistenSingleton<HonoInputManager>
         this.ScanKeySources();
         this.ScanDirectionSources();
         this.ScanOnScreenSources();
+        this.ObserveAccessibilityInputSource();
+    }
+
+    private readonly Memoria.Accessibility.AudioDescriptions.PromptInputDeviceTracker promptInputDevice = new Memoria.Accessibility.AudioDescriptions.PromptInputDeviceTracker();
+    public Memoria.Accessibility.AudioDescriptions.PromptInputDevice AccessibilityInputDevice => this.promptInputDevice.Device;
+    private void ObserveAccessibilityInputSource()
+    {
+        Memoria.Accessibility.AudioDescriptions.NativePromptInputSource.Observe(this.inputDownSources,this.promptInputDevice,this,this.isDisablePrimaryKey);
     }
 
     private void ScanKeySources()

@@ -1491,6 +1491,10 @@
     <Compile Include="Memoria\Accessibility\AudioDescriptions\*.cs" />
     <EmbeddedResource Include="..\docs\accessibility\field-exit-evidence.json"><LogicalName>Memoria.Accessibility.FieldExitEvidence.json</LogicalName></EmbeddedResource>
     <EmbeddedResource Include="..\docs\accessibility\story-navigation.json"><LogicalName>Memoria.Accessibility.StoryNavigation.json</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="..\docs\accessibility\story-steps.json"><LogicalName>Memoria.Accessibility.StorySteps.json</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="..\docs\accessibility\story-action-chains.json"><LogicalName>Memoria.Accessibility.StoryActionChains.json</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="..\docs\accessibility\story-palace-actions.json"><LogicalName>Memoria.Accessibility.StoryPalaceActions.json</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="..\docs\accessibility\field-loop-prompts.json"><LogicalName>Memoria.Accessibility.FieldLoopPrompts.json</LogicalName></EmbeddedResource>
     <EmbeddedResource Include="..\docs\accessibility\audio-descriptions.json"><LogicalName>Memoria.Accessibility.AudioDescriptions.json</LogicalName></EmbeddedResource>
     <Compile Include="Memoria\Accessibility\Navigation\Native\*.cs" />
   </ItemGroup>

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Compiles the actual native object/NPC interaction glue (NativeFieldActorInteractions, its bound-region
+       Story helper, NativeFieldSpeakers and NativeFieldTalkability) against minimal engine fakes. The real
+       generated binding rows are replaced by synthetic rows whose hashes match the synthetic scripts here;
+       the published rows themselves are checked by FF9Access.Tests. Portable: no installed game. -->
+  <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><Nullable>disable</Nullable></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="*.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldActorInteractions.cs" Link="Runtime/NativeFieldActorInteractions.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldBoundRegionStory.cs" Link="Runtime/NativeFieldBoundRegionStory.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldSpeakers.cs" Link="Runtime/NativeFieldSpeakers.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldTalkability.cs" Link="Runtime/NativeFieldTalkability.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Core/*.cs" Exclude="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldInteractionBindingRows.cs" Link="Runtime/Core/%(Filename).cs" />
+    <Compile Include="../../Memoria.Prime/Ini/*.cs" />
+    <Compile Include="../../Memoria.Prime/Text/*.cs" />
+    <Compile Include="../../Memoria.Prime/Exceptions/*.cs" />
+    <Compile Include="../../Memoria.Prime/ExtensionMethodsArray.cs" />
+    <Compile Include="../../Memoria.Prime/ExtensionMethodsIList.cs" />
+    <Compile Include="../../Memoria.Prime/ExtensionMethodsIEnumerable.cs" />
+    <Compile Include="../../Memoria.XInputDotNetPure/GamePad.cs" /><Compile Include="../../Memoria.XInputDotNetPure/Utils.cs" /><Compile Include="../../Memoria.XInputDotNetPure/JoyShockLibrary.cs" />
+    <Compile Include="../../Memoria.ScreenReader/*.cs" />
+  </ItemGroup>
+</Project>

@@ -34,6 +34,8 @@ namespace Memoria.Accessibility.Navigation
         public void Record(TargetIdentity id, string displayedLabel) { Record(id,displayedLabel,null); }
         public void Record(TargetIdentity id,string displayedLabel,string scope) { if(string.IsNullOrEmpty(displayedLabel))return;_names[id]=displayedLabel;if(string.IsNullOrEmpty(scope))_scopes.Remove(id);else _scopes[id]=scope; }
         public bool TryGetLabel(TargetIdentity id, out string label) { return _names.TryGetValue(id, out label); }
+        // A name the game has displayed for some actor in this save: a known identity, not a guess.
+        public bool HasName(string name) { if(string.IsNullOrEmpty(name))return false; foreach(string known in _names.Values)if(known==name)return true; return false; }
         public bool TryGetLabel(TargetIdentity id,string scope,out string label)
         {label=null;string knownScope;return (string.IsNullOrEmpty(scope) || _scopes.TryGetValue(id,out knownScope) && knownScope==scope) && _names.TryGetValue(id,out label);}
         public void CommitSave(string verifiedNewIdentity)

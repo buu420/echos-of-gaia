@@ -22,12 +22,24 @@ public partial class EventEngine
     }
 
     // Same read-only region selection as TreadQuad, at a prospective approach.
+    // Push (mode 2) selects the first region with a tag 2 handler.
     public Obj NavigationTouchQuadAt(Single x, Single z)
+    {
+        return this.NavigationQuadAt(x, z, 2);
+    }
+
+    // Talk/Confirm (mode 4) selects the first region with a tag 3 handler.
+    public Obj NavigationTalkQuadAt(Single x, Single z)
+    {
+        return this.NavigationQuadAt(x, z, 3);
+    }
+
+    private Obj NavigationQuadAt(Single x, Single z, Int32 tagID)
     {
         for (ObjList list = this._context.activeObj; list != null; list = list.next)
         {
             Obj obj = list.obj;
-            if (obj != null && obj.cid == 3 && this.GetIP(obj.sid, 2, obj.ebData) != this.nil && this.IsInQuadHotFix((Quad)obj, x, z))
+            if (obj != null && obj.cid == 3 && this.GetIP(obj.sid, tagID, obj.ebData) != this.nil && this.IsInQuadHotFix((Quad)obj, x, z))
                 return obj;
         }
         return null;

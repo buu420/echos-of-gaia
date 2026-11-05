@@ -1,5 +1,30 @@
 # Audio-description validation
 
+## Timed play commands, 2026-11-04
+
+Eight behavioral regressions verify immediate delivery of the first command over
+an owned recording, nine successive individual prompts, suppression of field
+descriptions during the round, retry of only the latest current presentation,
+discarding closed commands, and stopping owned SAPI fallback without globally
+silencing the screen reader, rejecting commands during the native closing
+animation, and holding only a still-current command across focus/pause changes.
+The narration integration suite passes 71 checks.
+
+Nineteen input integration checks exercise the actual name adapter with narrow
+native fixtures: keyboard/controller changes and idle retention, foreground
+ownership, current remaps, fixed glyph semantics, Japanese button order,
+PlayStation/Xbox/generic names, punctuation keys, first-phase detection before
+the mobile HUD update and unavailable field buffers. They compile the game's
+Windows UnityXInput backend and cover its button, trigger and deadzoned movement
+edges, secondary keyboard/movement remaps, and idle retention. The verified
+single-button native command template speaks just the button; instructions
+and unrelated dialogue retain their text. No input is consumed by
+the device observer. Timed prompts change no game timer, score or speed.
+
+These automated results do not establish physical-controller operation,
+audible reaction time on a tester's speech backend or a perfect sword-fight
+score. Those live checks remain pending.
+
 ## Disc 1 scene expansion, 2026-10-24
 
 The expansion adds 112 personal-voice recordings: 109 exact animation-site

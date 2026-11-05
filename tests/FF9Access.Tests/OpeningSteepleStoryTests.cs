@@ -263,7 +263,7 @@ namespace FF9Access.Tests
         public static void EvilForestWalkInIsSelectedOnceObserved()
         {
             var bare=Story(251,2010,null,LiveScripts(251));
-            TestAssert.True(bare.PhysicalId==null);TestAssert.True(bare.Availability.Contains("objective is in this area"));
+            TestAssert.True(bare.PhysicalId==null);TestAssert.True(bare.Availability.Contains("next story step is in this area"));
             var input=new CatalogResult();input.Targets.Add(Exit(251,11,252));input.Targets.Add(Exit(251,10,250));
             var region=new NavigationTarget{Id=new TargetIdentity(TargetKind.FieldActor,"field:251:SCENE",12),Category=NavigationCategory.Objects,Generation=1,Label="Story path",IsInteractive=true,ApproachCandidates=new[]{TestFixtures.P(-100,-1300)},StoryMilestones=new[]{2020,2030}};
             input.Targets.Add(region);

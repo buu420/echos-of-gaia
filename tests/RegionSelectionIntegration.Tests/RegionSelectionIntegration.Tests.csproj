@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Compiles the actual native region selector (EventEngine.TreadQuad.cs) with its real triangle,
+       hotfix-circle and quad vertex helpers against minimal engine fakes. Portable: no installed game. -->
+  <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><Nullable>disable</Nullable></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="*.cs" />
+    <Compile Include="../../Assembly-CSharp/Global/Event/Engine/EventEngine.TreadQuad.cs" Link="Runtime/EventEngine.TreadQuad.cs" />
+    <Compile Include="../../Assembly-CSharp/Global/Math3D.cs" Link="Runtime/Math3D.cs" />
+    <Compile Include="../../Assembly-CSharp/Global/Quad/QuadCircle.cs" Link="Runtime/QuadCircle.cs" />
+    <Compile Include="../../Assembly-CSharp/Global/Quad/QuadPos.cs" Link="Runtime/QuadPos.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Core/*.cs" Link="Runtime/Core/%(Filename).cs" />
+    <Compile Include="../../Memoria.Prime/Ini/*.cs" />
+    <Compile Include="../../Memoria.Prime/Text/*.cs" />
+    <Compile Include="../../Memoria.Prime/Exceptions/*.cs" />
+    <Compile Include="../../Memoria.Prime/ExtensionMethodsArray.cs" />
+    <Compile Include="../../Memoria.Prime/ExtensionMethodsIList.cs" />
+    <Compile Include="../../Memoria.Prime/ExtensionMethodsIEnumerable.cs" />
+    <Compile Include="../../Memoria.XInputDotNetPure/GamePad.cs" /><Compile Include="../../Memoria.XInputDotNetPure/Utils.cs" /><Compile Include="../../Memoria.XInputDotNetPure/JoyShockLibrary.cs" />
+    <Compile Include="../../Memoria.ScreenReader/*.cs" />
+  </ItemGroup>
+</Project>

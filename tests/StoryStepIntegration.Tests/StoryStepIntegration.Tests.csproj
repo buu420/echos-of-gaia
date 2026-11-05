@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Compiles the native Story step loader/evaluator against minimal engine fakes and the real
+       generated catalog, so the runtime JSON reading and live guard evaluation are exercised. -->
+  <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><Nullable>disable</Nullable></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="*.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStorySteps.cs" Link="Runtime/NativeStorySteps.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldSpeakers.cs" Link="Runtime/NativeFieldSpeakers.cs" />
+    <Compile Include="../../Assembly-CSharp/SimpleJSON/*.cs" Link="Runtime/SimpleJSON/%(Filename).cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Core/*.cs" Link="Runtime/Core/%(Filename).cs" />
+    <Compile Include="../../Memoria.Prime/Ini/*.cs" />
+    <Compile Include="../../Memoria.Prime/Text/*.cs" />
+    <Compile Include="../../Memoria.Prime/Exceptions/*.cs" />
+    <Compile Include="../../Memoria.Prime/ExtensionMethodsArray.cs" />
+    <Compile Include="../../Memoria.Prime/ExtensionMethodsIList.cs" />
+    <Compile Include="../../Memoria.Prime/ExtensionMethodsIEnumerable.cs" />
+    <Compile Include="../../Memoria.XInputDotNetPure/GamePad.cs" /><Compile Include="../../Memoria.XInputDotNetPure/Utils.cs" /><Compile Include="../../Memoria.XInputDotNetPure/JoyShockLibrary.cs" />
+    <Compile Include="../../Memoria.ScreenReader/*.cs" />
+    <EmbeddedResource Include="../../docs/accessibility/story-steps.json" LogicalName="Memoria.Accessibility.StorySteps.json" />
+    <EmbeddedResource Include="../../docs/accessibility/story-action-chains.json" LogicalName="Memoria.Accessibility.StoryActionChains.json" />
+    <EmbeddedResource Include="../../docs/accessibility/story-palace-actions.json" LogicalName="Memoria.Accessibility.StoryPalaceActions.json" />
+  </ItemGroup>
+</Project>

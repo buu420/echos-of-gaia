@@ -26,6 +26,17 @@ TOPICS = {
 }
 SOURCE_FILES = [
     'docs/accessibility/story-navigation.json',
+    'docs/accessibility/story-steps.json',
+    'docs/accessibility/story-step-coverage.json',
+    'docs/accessibility/story-action-chains.json',
+    'docs/accessibility/story-palace-actions.json',
+    'docs/accessibility/reviewed-background-objects.json',
+    'docs/accessibility/field-loop-prompts.json',
+    'docs/accessibility/field-exit-functions.json',
+    'tools/Export-FF9StorySteps.py',
+    'tools/story_native_graph.py',
+    'tools/story_action_validation.py',
+    'tools/story_step_analysis.py',
     'docs/accessibility/story-prerequisites.json',
     'docs/accessibility/reviewed-field-labels.json',
     'docs/accessibility/field-interaction-evidence.json',
@@ -34,6 +45,10 @@ SOURCE_FILES = [
     'Assembly-CSharp/Global/Button/ButtonInputHandler.cs',
     'Assembly-CSharp/Global/Event/EventCollision.cs',
     'Assembly-CSharp/Global/Dialog/Dialog.cs',
+    'Assembly-CSharp/Global/Event/Engine/EventEngine.TreadQuad.cs',
+    'Assembly-CSharp/Global/Hono/HonoInputManager.cs',
+    'Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Native/NativePromptInputSource.cs',
+    'Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Core/PromptButtonNames.cs',
     'Assembly-CSharp/Global/MainMenuUI.cs',
     'Assembly-CSharp/Global/Hono/HonoFading.cs',
     'Assembly-CSharp/Global/Hono/Tween/HonoTweenPosition.cs',
@@ -67,11 +82,15 @@ SOURCE_FILES = [
     'Native/NativeInteractionProbe.cs', 'Native/NavigationRuntime.cs',
     'Native/NavigationLifecycleBridge.cs',
     'Native/NativeOpeningTicketBooth.cs', 'Native/NativeTicketBoothPresentation.cs',
+    'Core/StoryStepCatalog.cs', 'Core/FieldSpeakerRoles.cs', 'Core/ArrivalNotice.cs', 'Core/ObservedIdentityStore.cs',
+    'Core/StoryPhasePlan.cs', 'Core/FieldExitPaths.cs', 'Core/FieldPhysicalAreas.Generated.cs',
+    'Native/NativeStorySteps.cs', 'Native/NativeFieldSpeakers.cs', 'Native/NativeFieldLoopTargets.cs', 'Native/NativeFieldExitRoutes.cs',
 ]]
 PREREQUISITE_CHAPTERS = {
     1: ('opening-cross-zone', 'Opening travel uses actual native street exits toward the square. The rendered ticket sign binds its native front hotspot; room104 is the dialogue/completion scene. Unknown routes identify the next area without creating a walking target.'),
     15: ('pinnacle-fragments', 'Current fragment bits precede the final conversation. Only an already presented, interactive fragment can supply a walking target. Unshown fragments have no inferred position.'),
-    17: ('fossil-route', 'Current switch bits and the verified current floor component choose the route step. Boarding steps without an existing interactive target remain manual information.'),
+    17: ('fossil-route', 'Current switch bits and the verified floor component choose the route step. Reviewed flowers and boarding spots are separate targets tied to their native prompts; a route with no current approach remains informational.'),
+    33: ('palace-lamps', 'The required candle route has explicit native actions and named room transitions. In the Shadow Chamber, the current floor distinguishes a recoverable lamp change after backtracking from an unsupported position. The Cid cue reads the native timing state; audible delivery and playability have not been tested.'),
     34: ('gulug-lever', 'The presented lever remains the objective until the native completion flag changes. Pull direction and Confirm stay under player control.'),
 }
 SHA = re.compile(r'^[a-f0-9]{64}$')
@@ -117,7 +136,7 @@ def validate(report, root=ROOT):
     checkpoints = {s['milestone'] for s in stages}
     ticket = next(s for s in stages if s['milestone'] == 1150)
     require(ticket.get('approachFields') == [103] and ticket['fields'] == [104], 'Ticket physical approach and dialogue completion must stay distinct')
-    require({m for c in chapters for m in c['checkpoints']} == checkpoints and len(checkpoints) == 364, 'All 364 catalog checkpoints required')
+    require({m for c in chapters for m in c['checkpoints']} == checkpoints and len(checkpoints) == report['totals']['storyCheckpoints'], 'Every current catalog checkpoint is required')
     for c in chapters:
         require(c['liveValidated'] is False and c['fullyAccessibleProven'] is False and c['remainingGaps'], 'Story must retain proof limits')
         require(c['guideUrl'].startswith(report['guide']['root'] + '/'), 'Chapter has no exact guide page')
@@ -136,8 +155,10 @@ def validate(report, root=ROOT):
     for source in report['sourceArtifacts']:
         require(digest(root / source['path']) == source['sha256'], 'Source changed; refresh audit: ' + source['path'])
     labels = load(root / 'docs/accessibility/reviewed-field-labels.json')['entries']
-    require(report['totals']['reviewedAppearanceModels'] == len(labels) == 47, 'Appearance catalog count mismatch')
-    require(report['totals']['reviewedInteractionBindings'] == len(load(root / 'docs/accessibility/field-interaction-evidence.json')['bindings']) == 18, 'Actor/region binding count mismatch')
+    require(report['totals']['reviewedAppearanceModels'] == len(labels) and len(labels)>=47, 'Appearance catalog count mismatch')
+    bindings=load(root / 'docs/accessibility/field-interaction-evidence.json')['bindings']
+    require(report['totals']['reviewedInteractionBindings'] == len(bindings) and len(bindings)>=18, 'Actor/region binding count mismatch')
+    require(report['reviewedStoryActions']==reviewed_actions(root), 'Reviewed action summary differs from the data loaded by Story')
     native = load(root / 'docs/accessibility/story-navigation.json')['fields']
     native_fields = {f['field']: f for f in native}
     captured = load(root / 'tests/FF9Access.Tests/Fixtures/opening-street-scripts.json')
@@ -150,6 +171,11 @@ def validate(report, root=ROOT):
     geometry = load(root / 'tests/FF9Access.Tests/Fixtures/opening-booth-geometry.json')
     require(booth['source']['fieldSha256'] == native_fields[103]['hash'] and booth['source']['eventBundleSha256'] == BUNDLE, 'Booth has different native field evidence')
     require(booth['source']['walkmeshSha256'] == geometry['WalkmeshSha256'] and booth['region'] == geometry['Booth'] and len(geometry['Triangles']) == 151, 'Booth art/region/geometry evidence differs')
+
+
+def reviewed_actions(root):
+    packs=[load(root / 'docs/accessibility' / name) for name in ('story-action-chains.json','story-palace-actions.json')]
+    return dict(steps=sum(len(p['steps']) for p in packs),loopActions=sum(len(p.get('loopActions',[])) for p in packs),phases=sum(len(p['phases']) for p in packs))
 
 
 def build(research, root=ROOT):
@@ -183,12 +209,13 @@ def build(research, root=ROOT):
         fields.append(dict(field=f['field'], scriptSha256=f['scriptSha256'], entries=f['entryCount'], actors=len(f['actors']), regions=len(f['regions']), otherEntries=f['otherEntryCount'],
                            actorModelPairs=dict(counts), regionPolicies=dict(policies), iconOnlyActionableRegions=icon_actionable,
                            staticAudit='decoded-all-entries', semanticLabelStatus='partial', presentationStatus='native-gates-live-unverified', liveValidated=False))
+    checkpoints={s['milestone'] for s in load(root / 'docs/accessibility/story-navigation.json')['stages']}
     chapters = []
     for c in story['chapters']:
         change = PREREQUISITE_CHAPTERS.get(c['number'])
         gap = c['runtimeAndProofGap'] if not change else change[1] + ' Full scene transitions, puzzle inputs, controller and speech still need live validation.'
         chapters.append(dict(number=c['number'], disc=c['disc'], title=c['guideChapter'], guideUrl=c['sourceURL'],
-                             expectedActions=c['expectedRequiredActions'], nativeFields=c['nativeFamilyFields'], checkpoints=c['catalogCheckpoints'],
+                             expectedActions=c['expectedRequiredActions'], nativeFields=c['nativeFamilyFields'], checkpoints=[m for m in c['catalogCheckpoints'] if m in checkpoints],
                              staticStatus='guide-order-and-native-scenes-compared', runtimeCorrection=change[0] if change else None,
                              remainingGaps=[gap], fullyAccessibleProven=False, liveValidated=False))
     topics = []
@@ -199,15 +226,22 @@ def build(research, root=ROOT):
                            nativeBindings=[dict(field=b['field'], fieldSha256=b['fieldSha256'], entry=b['entry'], entrySha256=b['entrySha256'], tags=b['tags']) for b in t['nativeStaticBindings']],
                            existingSupport=t['existingSupport'], correctedBaselineFindings=resolved, remainingGaps=gaps,
                            fullyAccessibleProven=False, liveValidated=False))
-    return dict(schema=1, auditDate='2026-11-01', baselineSourceHead=BASELINE, eventBundleSha256=BUNDLE,
+    steps = load(root / 'docs/accessibility/story-step-coverage.json')
+    native_steps = dict(summary=steps['summary'], proofBoundary=steps['proofBoundary'],
+                        chapters=[dict(chapter=c['chapter'], counter=c['counter'], stageMilestones=c['stageMilestones'],
+                                       playerActionBound=c['playerActionBound'], positionWaitBound=c['positionWaitBound'],
+                                       arrivalOrAutomaticOnly=len(c['arrivalOrAutomaticOnly'])) for c in steps['chapters']])
+    return dict(schema=1, auditDate='2026-11-04', baselineSourceHead=BASELINE, eventBundleSha256=BUNDLE,
                 guide=story['guide'], additionalGuide='https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/29957',
                 runtimeLoadsGuide=False,
-                proofBoundary='Static guide/native-source comparison. All 818 fields and all listed guide topics accounted for; no claim of all visible props, full semantic labeling, full accessibility or a completed live playthrough. Native field IDs below are developer evidence, never spoken labels.',
+                proofBoundary='Static guide/native-source comparison. All 818 fields and all listed guide topics accounted for; no claim of all visible props, full semantic labeling, full accessibility or a completed live playthrough. Story checkpoints are chapter/counter metadata, not native action bindings. Generated and reviewed actions are counted separately. Native field IDs below are developer evidence, never spoken labels.',
+                nativeStoryStepBindings=native_steps,
+                reviewedStoryActions=reviewed_actions(root),
                 retainedInputs=[dict(name=p, sha256=digest(research / p)) for p in ['story/main-story-checklist.json', 'optional/optional-checklist.json', 'entities/entities-census.json', 'entities/cache-validation.json']],
                 sourceArtifacts=[dict(path=p, sha256=digest(root / p)) for p in SOURCE_FILES],
                 nativeFieldIdentity=identity([[f['field'], f['scriptSha256'], f['entries']] for f in fields]),
                 totals=dict(fields=len(fields), entries=sum(f['entries'] for f in fields), actors=sum(f['actors'] for f in fields), regions=sum(f['regions'] for f in fields),
-                            storyChapters=len(chapters), storyCheckpoints=364, optionalTopics=len(topics), optionalBindings=sum(len(t['nativeBindings']) for t in topics),
+                            storyChapters=len(chapters), storyCheckpoints=len(checkpoints), optionalTopics=len(topics), optionalBindings=sum(len(t['nativeBindings']) for t in topics),
                             reviewedAppearanceModels=len(labels), reviewedInteractionBindings=len(bindings), actorModelPairs=dict(pair_counts),
                             iconOnlyActionableRegions=sum(f['iconOnlyActionableRegions'] for f in fields)),
                 remainingEntityGaps=[
@@ -223,21 +257,25 @@ def markdown(report):
     t = report['totals']
     lines = ['# Whole-game guide comparison', '',
         'This is an offline audit, not a complete accessibility or playthrough certification.', '',
-        f"The current English event bundle has **{t['fields']} fields and {t['entries']:,} entries**. All were decoded and matched to retained native fingerprints. The comparison accounts for **44 main-guide chapters, 364 existing Story checkpoints and 23 optional topics** (87 native entry bindings). Every field and guide topic has an explicit result in `guide-coverage.json`.", '',
+        f"The current English event bundle has **{t['fields']} fields and {t['entries']:,} entries**. All were decoded and matched to retained native fingerprints. The comparison accounts for **44 main-guide chapters, {t['storyCheckpoints']} Story checkpoints and 23 optional topics** (87 native entry bindings). Every field and guide topic has an explicit result in `guide-coverage.json`.", '',
+        "Story checkpoints are scenario-counter metadata. Native Story step bindings are generated separately (`tools/Export-FF9StorySteps.py`, `story-steps.json`, `story-step-coverage.json`): " + f"**{report['nativeStoryStepBindings']['summary']['steps']} current-state step bindings** (" + ', '.join(f'{v} {k}' for k, v in sorted(report['nativeStoryStepBindings']['summary']['stepsByKind'].items())) + f") and {report['nativeStoryStepBindings']['summary']['transit']} typed transitions (" + ', '.join(f'{v} {k}' for k, v in sorted(report['nativeStoryStepBindings']['summary']['transitByKind'].items())) + f"). {report['nativeStoryStepBindings']['summary']['unresolved']} analysis records describe unproven waits, setters or instances. They do not count missing required steps.", '',
+        f"Reviewed packs supply **{report['reviewedStoryActions']['steps']} explicit actions, {report['reviewedStoryActions']['loopActions']} native loop actions and {report['reviewedStoryActions']['phases']} state rules**. Several rules can cover the same action or different entrances to one room. The native approach and current interaction still have to pass at runtime.", '',
         "The main reference is [bover_87's guide, version 2.01](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891); [Andrew_Testa's guide](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/29957) is the user's additional reference. Short checklists here are original summaries. Guide information is never loaded by the runtime or used to disclose hidden NPC names, rewards or coordinates.", '',
         '## Corrections from this audit', '',
         '- Opening Story uses captured street transitions and names the next local area. The square is the physical approach to the ticket objective; the booth dialogue runs in a separate room. Its reviewed visible sign/hotspot is listed before bubble discovery. Informational steps explain the next area without starting a route to a remote objective.',
         '- Pinnacle Rocks now keeps fragment collection ahead of the final conversation. Only currently presented, interactive fragments can supply walking targets.',
-        '- Fossil Roo uses the actual switch bits and current connected floor section. The route changes with reversible switches. Flower/boarding steps without a verified interactive target stay informative and manual.',
+        '- Fossil Roo uses the actual switch bits and current connected floor section. Reviewed flowers and boarding spots are listed separately and use the corresponding native interaction.',
+        '- Desert Palace follows the required lamps in their native order. After backtracking, the current floor and lamp state can select a reachable recovery action instead of a closed staircase.',
+        '- Memoria and the Crystal World expose three rendered save spheres with verified approaches. Four hidden save points receive a name only after the game shows their prompt.',
         '- Mount Gulug keeps the lever step until its native completion flag changes. The player still chooses the lever action.',
         '- Card speech uses the displayed face grades, includes placed-card defenses and reads initial hand/board focus. Triple Triad follows its displayed layout and hidden-arrow setting.',
         '- Auction bids/current price/funds and Daguerreo quantities read changes from completed, visible native text parsers. Original instructions and clocks remain intact. Only the verified English numeric layouts are supported.',
         '- Exact source UIDs are retained for field touch bubbles. Two additional native inn actor/region bindings and a narrowly verified touch-only confirmation state are recognized.',
-        '- Six additional chest/frog appearances and a conditional long-coat body description bring the reviewed catalog to 47 models. A hidden body cannot acquire the coat label.', '',
+        f"- The reviewed appearance catalog includes {t['reviewedAppearanceModels']} models. Exact native interaction and actor identities have separate bindings.", '',
         '## Remaining limits', '',
         'All rows retain `fullyAccessibleProven: false` and/or `liveValidated: false`. Script presence, guide order and passing fixtures do not establish that every NPC, prop, exit, puzzle or optional activity works in all live states. There are 345 constant actor models; many still use generic labels before an attributed native name appears.', '',
         f"{t['iconOnlyActionableRegions']} region entries have a Talk/Push handler and still require the current native icon rather than a verified backdrop/actor binding. This is a static candidate count, not a count of visible missing props. Generic icon-only observations also lack a durable offscreen art-visibility proof.", '',
-        'Chocograph picture descriptions, world cracks/bubbles/tracks/shadows, jump-rope cadence, race progress, shuffle tracking, guard-facing/timed tasks, Blackjack and several puzzle sequences still need dedicated presentation evidence or live validation. Desert Palace and Pandemonium intermediate state-to-target mappings remain unresolved. The optional checklist lists each limitation; optional preparation and sidequests never become mandatory Story steps.', '',
+        'Chocograph picture descriptions, world cracks/bubbles/tracks/shadows, jump-rope cadence, race progress, shuffle tracking, guard-facing/timed tasks, Blackjack and several puzzle sequences still need dedicated presentation evidence or live validation. Desert Palace and Pandemonium have reviewed required routes; alternate-state recovery and live movement still need verification. The optional checklist lists each limitation.', '',
         'This audit did not launch the game or synthesize gameplay/controller input. Full transitions, audible NVDA/controller delivery and complete main/optional playthroughs remain player tests.', '',
         '## Reproduce the checks', '',
         'Run `python tools/guide_audit.py --check` and `python tools/compile_story_prerequisites.py --check`. These validate the committed census accounting, all guide topics/checkpoints and current source fingerprints. They do not re-extract the installed game. A fresh extraction/research input refresh is required when the event-bundle identity changes.', '',
@@ -245,6 +283,10 @@ def markdown(report):
     for c in report['storyChapters']:
         result = c['remainingGaps'][0].replace('|', '/')
         lines.append(f"| [{c['number']}. {c['title']}]({c['guideUrl']}) | {result} |")
+    lines += ['', '## Native Story step bindings by chapter', '', 'Counts are stage milestones in the chapter whose counter write has a native player-action step, a native player-position wait, or only arrival/automatic scene writers. Arrival-only does not mean broken: those scenes play on entering the field, and the route must still reach that field through walkable transitions.', '',
+              '| Chapter | Stages | Player action | Position wait | Arrival/automatic only |', '| --- | --- | --- | --- | --- |']
+    for c in report['nativeStoryStepBindings']['chapters']:
+        lines.append(f"| {c['chapter']} | {c['stageMilestones']} | {c['playerActionBound']} | {c['positionWaitBound']} | {c['arrivalOrAutomaticOnly']} |")
     lines += ['', '## Optional topics', '', '| Topic | Remaining work |', '| --- | --- |']
     for topic in report['optionalTopics']:
         lines.append(f"| [{topic['title']}]({topic['guideUrl']}) | {' '.join(topic['remainingGaps']).replace('|', '/')} |")
@@ -270,7 +312,7 @@ def main():
         report = load(ROOT / OUT)
         validate(report)
     require((ROOT / OUT.with_suffix('.md')).read_text(encoding='utf-8') == markdown(report), 'Markdown report differs from machine-readable audit')
-    print('PASS guide audit: 818 fields, 44 chapters, 364 checkpoints, 23 optional topics/87 bindings; live proof remains open')
+    print(f"PASS guide audit: 818 fields, 44 chapters, {report['totals']['storyCheckpoints']} checkpoints, 23 optional topics/87 bindings; live proof remains open")
 
 
 if __name__ == '__main__':

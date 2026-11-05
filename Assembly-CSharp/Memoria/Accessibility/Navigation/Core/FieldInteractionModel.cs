@@ -39,6 +39,11 @@ namespace Memoria.Accessibility.Navigation
             if(gates.Level<=1 || !gates.MapPushAllowed || ((gates.PlayerFlags&FieldInteractionFlags.CollisionInhibitOther)!=0 && (gates.Flags&FieldInteractionFlags.CollisionInhibitControl)!=0))return FieldInteractionState.Unavailable;
             return guard==FieldInteractionState.None?FieldInteractionState.Unknown:guard;
         }
+        // Readiness of a contact (push) prop such as a chest: CollisionRequest requests its push handler while
+        // the player is inside the push radius, and the handler shows its own bubble before waiting for Confirm.
+        // Only that presented bubble proves the offer; without it nothing is ready and no turn is requested.
+        public static InteractionReadiness PushReadiness(bool selected,bool inRange,bool permitted,bool presented)
+        {return new InteractionReadiness{SelectedCollision=selected,InRange=selected && inRange,Talkable=permitted && presented,FacingWithinArc=permitted && presented};}
         // null: no native channel, leave the observation as it is.
         public static bool? Interactive(FieldInteractionState talk,FieldInteractionState push)
         {
@@ -51,7 +56,7 @@ namespace Memoria.Accessibility.Navigation
     // unavailable only when every executed step is control flow or a pure read and it returns.
     public static class FieldInteractionGuard
     {
-        public static FieldInteractionState Evaluate(IList<ScriptInstruction> code,ScriptSnapshot snapshot,FieldInteractionOpcodes opcodes)
+        public static FieldInteractionState Evaluate(IList<ScriptInstruction> code,ScriptSnapshot snapshot,FieldInteractionOpcodes opcodes,bool requireIcon=false)
         {
             if(code==null || code.Count==0 || snapshot==null || opcodes==null)return FieldInteractionState.Unknown;
             var offsets=new Dictionary<int,ScriptInstruction>();foreach(var item in code)offsets[item.Offset]=item;
@@ -75,7 +80,7 @@ namespace Memoria.Accessibility.Navigation
                 if(op==6 || op==11 || op==13) {int? target=ScriptBranches.SelectSwitch(item,value);if(!target.HasValue)return FieldInteractionState.Unknown;ip=target.Value;continue;}
                 // FICON(0) presents "?"; it is an interaction just like "!".
                 // Any other native operation (icon, dialogue, request, movement, sound...) is an interaction.
-                return FieldInteractionState.Available;
+                return !requireIcon || op==opcodes.IconOpcode?FieldInteractionState.Available:FieldInteractionState.Unknown;
             }
             return FieldInteractionState.Unknown;
         }
@@ -89,37 +94,29 @@ namespace Memoria.Accessibility.Navigation
             return false;
         }
     }
+    // Native: EventEngineUtils.QuadTalkableData names the region's actor. NativeDirection: that entry is the
+    // controlled party member (a direction-only rule), and the handler's single requested speaker is used.
+    // Script: no native row; one direct request to a non-interactive speaker within MaxActorDistance.
+    public enum FieldInteractionEvidence { Script, Native, NativeDirection }
     public sealed class FieldInteractionBinding
     {
-        public readonly int Field,ActorSid,Model,ActorUid,RegionSid,RequestedLevel;public readonly string ActorHash,RegionHash;
-        public FieldInteractionBinding(int field,int actorSid,string actorHash,int model,int actorUid,int regionSid,string regionHash,int requestedLevel)
-        {Field=field;ActorSid=actorSid;ActorHash=actorHash;Model=model;ActorUid=actorUid;RegionSid=regionSid;RegionHash=regionHash;RequestedLevel=requestedLevel;}
+        public readonly int Field,ActorSid,Model,ActorUid,RegionSid,RequestedLevel,RequestedTag;public readonly string ActorHash,RegionHash;
+        public readonly FieldInteractionEvidence Evidence;
+        public FieldInteractionBinding(int field,int actorSid,string actorHash,int model,int actorUid,int regionSid,string regionHash,int requestedLevel,int requestedTag,FieldInteractionEvidence evidence)
+        {Field=field;ActorSid=actorSid;ActorHash=actorHash;Model=model;ActorUid=actorUid;RegionSid=regionSid;RegionHash=regionHash;RequestedLevel=requestedLevel;RequestedTag=requestedTag;Evidence=evidence;}
     }
-    // Reviewed Confirm regions whose talk handler requests a dialogue function of exactly one nearby actor
-    // that has no talk/push handler of its own (docs/accessibility/field-interaction-evidence.json).
-    public static class FieldInteractionBindings
+    // Detached live facts for one reviewed pair. The player's facing is deliberately absent: it decides
+    // readiness at the counter, not whether the person is the one the region talks to.
+    public sealed class FieldInteractionPresence
+    {
+        public bool ActorRendered,ActorObserved,RegionTalkable,MapTalkPermitted;public int ActorLevel,RegionLevel,LiveRegions;
+        public FieldInteractionState RegionGuard=FieldInteractionState.Unknown;public NavigationPoint ActorPosition;public NavigationPoint[] Region;
+    }
+    // Reviewed Confirm regions whose talk handler requests the dialogue/service function of exactly one actor
+    // (docs/accessibility/field-interaction-evidence.json, generated rows in FieldInteractionBindingRows.cs).
+    public static partial class FieldInteractionBindings
     {
         public const float MaxActorDistance=700f;
-        private static readonly FieldInteractionBinding[] _bindings={
-            new FieldInteractionBinding(553,6,"dc158da277d5e4acb1bc3d4b65e6b39e7773b60cddb04bb817057f622603cd2c",111,6,9,"61c045e153c94c1d4862b820f69188519e699bfcf2dd9c53172e67d98ba5b486",1),
-            new FieldInteractionBinding(1303,6,"83bd1503d49d4f9b3dc4887aad9a489e1980288a0329cd1b4ebdcdf67a61c3c9",111,6,9,"b30674a71242779eeb1e87f702cabb95a3d69bfaab417a34999b2730ebfb76af",1),
-            new FieldInteractionBinding(111,4,"53a4e8c318190d94a390fca640b364de8198b6032cedc72b2c88aaad9d7febbb",124,4,5,"ed9f04326b1701dfa47f4d50299ef9b4f2931c24b73f38e0176c1425903e14f6",1),
-            new FieldInteractionBinding(555,12,"fc9081e2f86645b54c7a939dcc9f20e1199fb306a8a615dc001f315a5fc370fd",112,12,23,"4dd2e02ed2e515fba2700b233a34b98807a8e556da842d84dc8120910e4a0de6",1),
-            new FieldInteractionBinding(561,4,"dcee00bd10b7de2a80017312e0c7cf7a12ab4ad3640fa1c7c831cbb3bcc13cbe",24,4,8,"4e626287c790d533e902dad5eb96a6dcb75c419a469d418eb49e56a6f9e39deb",1),
-            new FieldInteractionBinding(562,4,"ad233fce7a9a270bd2bad900bf8e7e9fa1519244aeea35e904e09ef484ccaa98",197,4,9,"9eb30b5a3d9f8150c6d59d121484ea34921b0847ddc6cbfbb32db53fdacb9a2b",1),
-            new FieldInteractionBinding(806,4,"a764a6e4badfbdd1aee0970c9147841370c4e49ceedb7cd20ae07a36353d12ec",217,4,6,"51882b1adffd9d406ec5b0c3a2c2a28e654875cd44698521f4d0ed8fcd82e791",6),
-            new FieldInteractionBinding(911,3,"78ea1b75f70014107fcb5120e2fc722fb113140f2218528df52428347e4cbb5f",417,3,6,"25f31187a5f6285e74bb7e23a8b0fb7fee09e4fc8e074e240af4382cf60b8a41",1),
-            new FieldInteractionBinding(912,6,"1d3a69967922fafeeabc697e89b99da54a61f651e674e1b8078037227768e1ca",51,6,13,"9a2c095de654985fe97215dec8712076d1ad12f5966abe1282ac083f54ab0255",1),
-            new FieldInteractionBinding(1860,7,"af296d9c0414aa7baf68d95f7898a6704301cd4278bb525c05eb69451eeda06c",123,7,8,"db67890a403ac848c856325894b3292df54a5c95b1be093198d5479268152d66",1),
-            new FieldInteractionBinding(1860,9,"e87b35d781e6ae35793b56ebc6228fa09b7836f95e0d3b6436c6f94664b1d72b",52,9,10,"94f74d19ba33553eb4cb8c505b2fae40b2203cebd50dbb46b6b2b8b3a2cf72c2",1),
-            new FieldInteractionBinding(1911,3,"7c8b87633058fc2d31eb2bcf30de4779fd6e07d6ca314290fb926455914cc32c",417,3,6,"7f3d0f5b731e9dd31f03f8822cdd76980e2f1411cc3005e236f450690e246eb4",1),
-            new FieldInteractionBinding(1912,6,"1224ec71dc66441a0b8be17cf00d36a87d5272672f7ce78d56a719879c10245f",51,6,14,"d0b3da4c4293d82ecc1fadcb1cd289ddb01c22cbf2305b722e9a777dc76962d1",1),
-            new FieldInteractionBinding(2303,2,"65375299f3a4eb704ecd2406d43a7979d233a703a764797d8b1c058aa487cd5c",597,2,11,"ede742dc6f5fbfb631040b2e531c68f6709815a299881955bfa45661b35f98dc",1),
-            new FieldInteractionBinding(2455,4,"7e67469032218c8ec817e034e68aad4a87a5be2d696cc554cf3d5545058a5818",124,4,5,"d20191fbb581c6bd18d00eac74aa534bddb7f60052b387c47b0012e40a5c8323",1),
-            new FieldInteractionBinding(2802,14,"7fe337f2a656729e9c360920321fe83eb7cc92138abc1334a60a68ef2226b30a",21,14,24,"c857ff5871878049e4a624835996b3a203be510f06ff451ebea81637e85c9d14",2),
-            new FieldInteractionBinding(2955,14,"08dfa459333b12ec9e6d4801f36c53810931892cfef4e979800bc28dcf96abe9",615,14,25,"754b41031805a917a12aad68a72f6dca8d48b503e2c697b61e8218cb41413c2c",6),
-            new FieldInteractionBinding(2955,13,"d1b2f88ce140edbd5b4b8bffb3fdf5736afa7693cd1e277daf3eb3bff3917b25",615,13,26,"a732b28f4d267f25e2518245e155854b05c23de3efd90230361c29cfe4f6f14c",6),
-        };
         public static IList<FieldInteractionBinding> All{get{return new ReadOnlyCollection<FieldInteractionBinding>(_bindings);}}
         public static FieldInteractionBinding FindActor(int field,int actorSid,string actorHash,int model,int actorUid)
         {
@@ -133,6 +130,30 @@ namespace Memoria.Accessibility.Navigation
         }
         public static bool CanRequest(FieldInteractionBinding binding,int actorLevel){return binding!=null && binding.RequestedLevel<actorLevel;}
         public static bool HasField(int field){foreach(var b in _bindings)if(b.Field==field)return true;return false;}
+        // The native table proves the pair wherever the person stands behind the counter; only the
+        // script-derived rows keep the reviewed counter-scale distance.
+        public static bool WithinReach(FieldInteractionBinding binding,NavigationPoint actor,NavigationPoint[] polygon)
+        {
+            if(binding==null)return false;
+            if(binding.Evidence==FieldInteractionEvidence.Script)return WithinReach(actor,polygon);
+            if(!actor.IsFinite || polygon==null || polygon.Length<3)return false;
+            foreach(var point in polygon)if(!point.IsFinite)return false;
+            return true;
+        }
+        // The region still talks to this actor: rendered/observed instance, request level, one live region,
+        // native talk bytes/level/map rule and a guard not proven unavailable.
+        public static bool Present(FieldInteractionBinding binding,FieldInteractionPresence live)
+        {
+            return binding!=null && live!=null && live.ActorRendered && live.ActorObserved && CanRequest(binding,live.ActorLevel) && live.LiveRegions==1 &&
+                WithinReach(binding,live.ActorPosition,live.Region) && live.RegionLevel>1 && live.RegionTalkable && live.MapTalkPermitted && live.RegionGuard!=FieldInteractionState.Unavailable;
+        }
+        // EventCollision.CheckQuadTalk: these two native regions never accept Confirm.
+        public static bool QuadTalkPermitted(int field,int regionSid){return !(field==2108 && regionSid==7) && !(field==2504 && regionSid==9);}
+        // Readiness at the counter. permitted: talk bytes, level and map rule without facing. facing: the native
+        // IsQuadTalkable arc. When only facing is missing the player is asked to turn; when facing is allowed the
+        // presented bubble must confirm that the game offers the interaction now.
+        public static InteractionReadiness Readiness(bool selected,bool contains,bool permitted,bool facing,bool presented)
+        {return new InteractionReadiness{SelectedCollision=selected,InRange=selected && contains,Talkable=permitted && (!facing || presented),FacingWithinArc=permitted && facing && presented};}
         // XZ distance from the actor to the native region polygon (0 inside), as in the reviewed table.
         public static bool WithinReach(NavigationPoint actor,NavigationPoint[] polygon)
         {

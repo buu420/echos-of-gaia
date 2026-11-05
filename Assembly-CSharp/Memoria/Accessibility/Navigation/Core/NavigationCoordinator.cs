@@ -52,7 +52,7 @@ namespace Memoria.Accessibility.Navigation
                 switch(movement.Outcome) {
                     case MovementOutcome.ReadyToInteract:signal=NavigationSignal.Arrived;update.Messages.Add("Ready to interact with "+Label(update.Selected)+". Press Confirm.");break;
                     case MovementOutcome.TurnNeeded:signal=NavigationSignal.Arrived;update.Messages.Add("Approach reached. Turn to face "+Label(update.Selected)+"; use Confirm when ready.");break;
-                    case MovementOutcome.ApproachReached:signal=NavigationSignal.Arrived;update.Messages.Add(movement.PlannedRoute!=null && movement.PlannedRoute.ViewingPoint?"Reached a viewing point for "+Label(update.Selected)+". This object has no interaction.":"Approach reached: "+Label(update.Selected)+". Use the ordinary game action to continue.");break;
+                    case MovementOutcome.ApproachReached:signal=NavigationSignal.Arrived;update.Messages.Add(ArrivalNotice.ApproachReached(update.Selected,movement.PlannedRoute!=null && movement.PlannedRoute.ViewingPoint));break;
                     case MovementOutcome.ArrivedExit:signal=NavigationSignal.Arrived;update.Messages.Add("Selected exit reached.");break;
                     case MovementOutcome.Interrupted:signal=NavigationSignal.RouteFailed;update.Messages.Add("Automatic movement stopped. "+InterruptionReason(movement.Reason));break;
                     case MovementOutcome.TargetMoved:signal=NavigationSignal.StartAutomatic;update.RouteOperation=RouteOperation.ReplanAutomatic;update.Messages.Add((update.Selected!=null && update.Selected.Id.Kind==TargetKind.Vehicle?"Vehicle":"Target")+" moved. Finding a fresh approach.");break;

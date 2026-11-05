@@ -6,6 +6,7 @@ recorded in the ledger; their writes do not invent an interaction position.
 """
 import argparse, json, hashlib
 from pathlib import Path
+from story_native_graph import NativeEventGraph
 
 p=argparse.ArgumentParser()
 p.add_argument('--inventory',required=True)
@@ -50,34 +51,30 @@ for fid,f in sorted(fields.items(),key=lambda x:int(x[0])):
  field=int(fid)
  if not gameplay(field):continue
  entries=f['entries']; functions={(sid,tag):code for sid,e in entries.items() for tag,code in e['functions'].items()}
- calls={}
- for key,code in functions.items():
-  calls[key]=set()
-  for i in code:
-   v=i['args']
-   if i['op']=='MAPJUMP' and v and isinstance(v[0],int) and str(v[0]) in fields and gameplay(v[0]):transit.add((field,v[0]))
-   if i['op'] in ('REQ','REQSW','REQEW') and len(v)>=3 and isinstance(v[1],int) and isinstance(v[2],int):
-    sid=key[0] if v[1]==255 else str(v[1])
-    if (sid,str(v[2])) in functions:calls[key].add((sid,str(v[2])))
- def reachable(start):
-  pending=[start]; seen=set(); result=set()
+ native=NativeEventGraph(entries)
+ for code in functions.values():
+  for instruction in code:
+   v=instruction['args']
+   if instruction['op']=='MAPJUMP' and v and isinstance(v[0],int) and str(v[0]) in fields and gameplay(v[0]):transit.add((field,v[0]))
+ def walk(start):
+  sid,tag=map(int,start)
+  pending=[node for node in native.functions if node[0]==sid and node[2]==tag];seen=set()
   while pending:
-   key=pending.pop()
-   if key in seen:continue
-   seen.add(key)
-   if len(seen)>1024: raise ValueError('Unbounded static request graph')
-   result.update(direct.get((field,key[0],key[1]),()))
-   pending.extend(calls.get(key,()))
+   node=pending.pop()
+   if node in seen:continue
+   seen.add(node)
+   if len(seen)>4096:raise ValueError('Unbounded native instance request graph')
+   yield node
+   pending.extend(edge.target for edge in native.calls(node))
+ def reachable(start):
+  result=set()
+  for sid,uid,tag in walk(start):result.update(direct.get((field,str(sid),str(tag)),()))
   return result
  def destinations_from(start):
-  pending=[start];seen=set();result=set()
-  while pending:
-   key=pending.pop()
-   if key in seen:continue
-   seen.add(key)
-   for i in functions.get(key,()):
-    if i['op'] in ('MAPJUMP','WMAPJUMP') and i['args'] and isinstance(i['args'][0],int):result.add(i['args'][0])
-   pending.extend(calls.get(key,()))
+  result=set()
+  for node in walk(start):
+   for instruction in native.functions[node]:
+    if instruction['op'] in ('MAPJUMP','WMAPJUMP') and instruction['args'] and isinstance(instruction['args'][0],int):result.add(instruction['args'][0])
   return result
  annotations=[]
  for sid,e in entries.items():
@@ -111,7 +108,21 @@ for milestone,goals in sorted(stage_fields.items()):
   marker_ids.extend(m['id'] for m in world_markers['markers'] if normal(m['name'])==normal(place))
  marker_ids=review['worldMarkerOverrides'].get(str(milestone),marker_ids)
  departures=[2850,2854] if milestone in (10620,10640,10660,10670,10830) else []
- stages.append(dict(milestone=milestone,fields=sorted(goals),goal=' or '.join(names),instruction=review['instructions'].get(str(milestone),''),worldPlaces=world,worldLocations=marker_ids,departureFields=departures,vehicle=vehicle,chapter=chapter(milestone)[2]))
+ stage=dict(milestone=milestone,fields=sorted(goals),goal=' or '.join(names),instruction=review['instructions'].get(str(milestone),''),worldPlaces=world,worldLocations=marker_ids,departureFields=departures,vehicle=vehicle,chapter=chapter(milestone)[2])
+ approaches=review.get('approachFieldOverrides',{}).get(str(milestone))
+ if approaches is not None:
+  if not approaches or any(str(fid) not in fields or not gameplay(fid) for fid in approaches):raise ValueError('Invalid reviewed Story approach field')
+  stage['approachFields']=sorted(set(approaches))
+ gates=review.get('worldDepartureOverrides',{}).get(str(milestone))
+ if gates is not None:
+  if gates and not marker_ids:
+   raise ValueError('World departure has no verified world marker: '+str(milestone))
+  for fid in gates:
+   f=fields.get(str(fid))
+   if not f or not gameplay(fid) or not any(i['op']=='WMAPJUMP' for e in f['entries'].values() for i in e['functions'].get('2',[])):
+    raise ValueError('World departure has no native walking exit: '+str(fid))
+  stage['worldDepartureFields']=sorted(set(gates))
+ stages.append(stage)
 listeners=[]
 for b in review['listenerBindings']:
  entries=fields[str(b['field'])]['entries']

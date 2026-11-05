@@ -1833,6 +1833,8 @@ public partial class EventEngine
                 }
                 else
                     EIcon.PollFIcon(bubbleType,this.gCur.uid);
+                if(mapNo==2554)
+                    Memoria.Accessibility.AudioDescriptions.NativeEarthShrineCue.BubblePolled(this,this.gCur,this._lastIP);
                 return 0;
             }
             case EBin.event_code_binary.CLEARCOLOR: // 0x6B, "SetBackgroundColor", "Change the default color, seen behind the field's tiles"

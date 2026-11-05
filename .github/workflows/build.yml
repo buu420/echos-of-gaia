@@ -31,6 +31,12 @@ jobs:
         run: dotnet run --project tests/FieldMovementIntegration.Tests/FieldMovementIntegration.Tests.csproj --configuration Release
       - name: Ordinary main-menu speech integration
         run: dotnet run --project tests/MenuSpeechIntegration.Tests/MenuSpeechIntegration.Tests.csproj --configuration Release
+      - name: Timed prompt input-device and button-name integration
+        run: dotnet run --project tests/PromptInputIntegration.Tests/PromptInputIntegration.Tests.csproj --configuration Release
+      - name: Native Story step catalog and live guard integration
+        run: dotnet run --project tests/StoryStepIntegration.Tests/StoryStepIntegration.Tests.csproj --configuration Release
+      - name: Native first-region Talk and Push selection
+        run: dotnet run --project tests/RegionSelectionIntegration.Tests/RegionSelectionIntegration.Tests.csproj --configuration Release
       - name: Native card and displayed numeric presentation integration
         run: dotnet run --project tests/PresentationIntegration.Tests/PresentationIntegration.Tests.csproj --configuration Release
       - name: Guide coverage and prerequisite source consistency

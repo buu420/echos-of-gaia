@@ -14,11 +14,13 @@ namespace Memoria.Accessibility.Navigation
         public readonly TargetKind Kind;
         public readonly string MapKey;
         public readonly int NativeId;
-        public TargetIdentity(TargetKind kind, string mapKey, int nativeId) { Kind = kind; MapKey = mapKey ?? ""; NativeId = nativeId; }
-        public bool Equals(TargetIdentity other) { return Kind == other.Kind && NativeId == other.NativeId && MapKey == other.MapKey; }
+        public readonly int Variant;
+        public TargetIdentity(TargetKind kind, string mapKey, int nativeId):this(kind,mapKey,nativeId,0){}
+        public TargetIdentity(TargetKind kind, string mapKey, int nativeId,int variant) { Kind = kind; MapKey = mapKey ?? ""; NativeId = nativeId; Variant=variant; }
+        public bool Equals(TargetIdentity other) { return Kind == other.Kind && NativeId == other.NativeId && Variant==other.Variant && MapKey == other.MapKey; }
         public override bool Equals(object other) { return other is TargetIdentity && Equals((TargetIdentity)other); }
-        public override int GetHashCode() { return ((int)Kind * 397 ^ NativeId) * 397 ^ (MapKey ?? "").GetHashCode(); }
-        public override string ToString() { return Kind + ":" + MapKey + ":" + NativeId; }
+        public override int GetHashCode() { return (((int)Kind * 397 ^ NativeId) * 397 ^ (MapKey ?? "").GetHashCode())*397^Variant; }
+        public override string ToString() { return Kind + ":" + MapKey + ":" + NativeId+(Variant==0?"":":"+Variant); }
     }
     public enum TransportKind { Unknown, Foot, Chocobo, Boat, HildaGarde, Invincible }
     public struct TransportIdentity : IEquatable<TransportIdentity>
@@ -47,6 +49,7 @@ namespace Memoria.Accessibility.Navigation
         public bool MinigameInspection;
         public bool MenuOpen;
         public string CurrentLocation, CurrentRegion;
+        public int SubArea;
         public int StoryProgress=-1;
         public float InputOrientationDegrees;
         public FieldInputBasis FieldInputBasis;

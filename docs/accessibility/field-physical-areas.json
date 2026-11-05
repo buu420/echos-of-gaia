@@ -1,0 +1,5459 @@
+{
+ "evidence": {
+  "FBG_N00_TSHP_MAP001_TH_CGR_0": {
+   "cameras": [
+    "361e2297309d0fac",
+    "9feeb52c550ceecc"
+   ],
+   "room": "TSHP/TH/CGR",
+   "walkmesh": "8241c6b62b300aabd88e778cbd48625bd10d38a50e5f38b63e4b22b66377f6ce"
+  },
+  "FBG_N00_TSHP_MAP002_TH_CGR_1": {
+   "cameras": [
+    "361e2297309d0fac",
+    "82be36dc31eecb73"
+   ],
+   "room": "TSHP/TH/CGR",
+   "walkmesh": "8241c6b62b300aabd88e778cbd48625bd10d38a50e5f38b63e4b22b66377f6ce"
+  },
+  "FBG_N00_TSHP_MAP005_TH_MET_0": {
+   "cameras": [
+    "18e2fdb7d63c1d82",
+    "9877ef1ab4bcdc59",
+    "b51693cfd2d11b52",
+    "edd3477251424c42"
+   ],
+   "room": "TSHP/TH/MET",
+   "walkmesh": "47564c5d26b6c6312761daeeb3b8a319da2dbd5c03219c056c91013cd810944e"
+  },
+  "FBG_N00_TSHP_MAP006C_TH_MET_4": {
+   "cameras": [
+    "edd3477251424c42"
+   ],
+   "room": "TSHP/TH/MET",
+   "walkmesh": "78623edb1eb0029584806369179a5927b642536e5a7313923ce40ca39a9cde94"
+  },
+  "FBG_N00_TSHP_MAP007_TH_ORC_0": {
+   "cameras": [
+    "92d34aa119d1f5b6"
+   ],
+   "room": "TSHP/TH/ORC",
+   "walkmesh": "6ec5ed5421b6d7e5ef0d1bb94586a52a762816bc78f4204275b2380e0b91ef4c"
+  },
+  "FBG_N00_TSHP_MAP008_TH_UPR_0": {
+   "cameras": [
+    "930a527b02cc2f49"
+   ],
+   "room": "TSHP/TH/UPR",
+   "walkmesh": "ec6bc267950284ccf68adfd531ff923b42eb2aef90e603e53e463afd8a99fd18"
+  },
+  "FBG_N00_TSHP_MAP009_TH_BST_0": {
+   "cameras": [
+    "187ef080acaba861",
+    "35858176431246e3"
+   ],
+   "room": "TSHP/TH/BST",
+   "walkmesh": "594c6f1b53e27d3661ce03d98223a1140655fc0374464422b411551545e19562"
+  },
+  "FBG_N00_TSHP_MAP011C_TH_STG_3": {
+   "cameras": [
+    "7320f2c2bf4a5fe0",
+    "b454efd6dbee9628",
+    "c525d84a060caa2f"
+   ],
+   "room": "TSHP/TH/STG",
+   "walkmesh": "3e33b5f1e6c1085278a625fec711a537c31759788028e96187d213d5d2384841"
+  },
+  "FBG_N00_TSHP_MAP011F_TH_STG_6": {
+   "cameras": [
+    "7ceb0d713593bf6f",
+    "a15b0f30902a0913",
+    "da84678d88c781dc",
+    "eda88332fba4ea53"
+   ],
+   "room": "TSHP/TH/STG",
+   "walkmesh": "3e33b5f1e6c1085278a625fec711a537c31759788028e96187d213d5d2384841"
+  },
+  "FBG_N00_TSHP_MAP011J_TH_STG_A": {
+   "cameras": [
+    "3ecffa0e11fdded0",
+    "7ea49cd5170ff78d",
+    "b8dc5817ac66ded9"
+   ],
+   "room": "TSHP/TH/STG",
+   "walkmesh": "3e33b5f1e6c1085278a625fec711a537c31759788028e96187d213d5d2384841"
+  },
+  "FBG_N00_TSHP_MAP011M_TH_STG_D": {
+   "cameras": [
+    "187ef080acaba861",
+    "7ea49cd5170ff78d"
+   ],
+   "room": "TSHP/TH/STG",
+   "walkmesh": "3e33b5f1e6c1085278a625fec711a537c31759788028e96187d213d5d2384841"
+  },
+  "FBG_N00_TSHP_MAP011_TH_STG_0": {
+   "cameras": [
+    "187ef080acaba861",
+    "5e2a96ccc05cea7a",
+    "db4bc244ac6cc2e4"
+   ],
+   "room": "TSHP/TH/STG",
+   "walkmesh": "3e33b5f1e6c1085278a625fec711a537c31759788028e96187d213d5d2384841"
+  },
+  "FBG_N00_TSHP_MAP012A_TH_EGR_1": {
+   "cameras": [
+    "a7a21222c41ce30f"
+   ],
+   "room": "TSHP/TH/EGR",
+   "walkmesh": "fe2d4c3208aedd209cf1097dfe0746e393b65006e80079953766b941a75267b7"
+  },
+  "FBG_N00_TSHP_MAP012_TH_EGR_0": {
+   "cameras": [
+    "ba3b51e65f74b4aa"
+   ],
+   "room": "TSHP/TH/EGR",
+   "walkmesh": "7f897f9eeb4c76c134145f5f93b0042f38d420012a55b97f989c6bf29b8880e6"
+  },
+  "FBG_N00_TSHP_MAP013_TH_BSU_0": {
+   "cameras": [
+    "4289906aecef640d"
+   ],
+   "room": "TSHP/TH/BSU",
+   "walkmesh": "d3f022a67708df8e1f058c94b35e98bb11293c02c24602484cbb5dc9740f292d"
+  },
+  "FBG_N00_TSHP_MAP014_TH_UST_0": {
+   "cameras": [
+    "b1843d0987445619"
+   ],
+   "room": "TSHP/TH/UST",
+   "walkmesh": "d8b3041a3c3f49ad6d9760f945386fb31bb34ea2b99a4cd9193c8d4eb26d96f8"
+  },
+  "FBG_N00_TSHP_MAP015_TH_CPT_0": {
+   "cameras": [
+    "586d308bec4a68cf"
+   ],
+   "room": "TSHP/TH/CPT",
+   "walkmesh": "fb6d803b7de655cf986a3d33069cc34bbabd33e82684b8ef5cde51e2737cc216"
+  },
+  "FBG_N01_ALXT_MAP016_AT_MSA_0": {
+   "cameras": [
+    "047a0708ccc78777"
+   ],
+   "room": "ALXT/AT/MSA",
+   "walkmesh": "622833579ae3196d7738e91cab073880343c159c7c77b725349395b7f576f628"
+  },
+  "FBG_N01_ALXT_MAP017_AT_MSB_0": {
+   "cameras": [
+    "af32784820dcd7e3"
+   ],
+   "room": "ALXT/AT/MSB",
+   "walkmesh": "7172bf359a0d83d2cfa96354b860091ceb0a1fbf2ff340ecc4e6b860895ae003"
+  },
+  "FBG_N01_ALXT_MAP018_AT_MSC_0": {
+   "cameras": [
+    "82c165f21e32683b"
+   ],
+   "room": "ALXT/AT/MSC",
+   "walkmesh": "b06b34bf3a369622e5d21cbef37c8a42655058c49e811defe031c69777d24ac0"
+  },
+  "FBG_N01_ALXT_MAP019N_AT_CNT_N": {
+   "cameras": [
+    "3aa2a63cc5a49a5d"
+   ],
+   "room": "ALXT/AT/CNT",
+   "walkmesh": "a23d1a8220a5dc3cdb681d267d6bacbb5e103475af1df87d6edd0b4fa4327ddf"
+  },
+  "FBG_N01_ALXT_MAP020_AT_CNT_1": {
+   "cameras": [
+    "2bdc79763885a184"
+   ],
+   "room": "ALXT/AT/CNT",
+   "walkmesh": "9821c4dc1c7dd733c786fd148fecebab19615ffa5c09d29ee82f12dcefff3482"
+  },
+  "FBG_N01_ALXT_MAP021_AT_BST_0": {
+   "cameras": [
+    "17cb924494f57f0d"
+   ],
+   "room": "ALXT/AT/BST",
+   "walkmesh": "9168a9b1ed78d5a7c2e27e35d3a8dcf4e35ad150f57c868cff221b45ed7a9f0b"
+  },
+  "FBG_N01_ALXT_MAP022_AT_TSS_0": {
+   "cameras": [
+    "6377d1f51254e574"
+   ],
+   "room": "ALXT/AT/TSS",
+   "walkmesh": "ad12ec3670872d13b7724db463224bdb199807d8638e0a8f44a311a1d566b2ec"
+  },
+  "FBG_N01_ALXT_MAP023_AT_ROF_0": {
+   "cameras": [
+    "9f32b37cdaad6e01",
+    "d7c0ef5d3b0455e9"
+   ],
+   "room": "ALXT/AT/ROF",
+   "walkmesh": "05ad1f92786f1c3401384033d48dbb8566f0326a2c6afe1a7dd03f50daba037d"
+  },
+  "FBG_N01_ALXT_MAP025_AT_GAT_0": {
+   "cameras": [
+    "b7343cd791857a89"
+   ],
+   "room": "ALXT/AT/GAT",
+   "walkmesh": "02c0d0c84eb9ea02cee79d7ac52c0627f6014b4cc1c9bc41c6433a49a9836f82"
+  },
+  "FBG_N01_ALXT_MAP026_AT_SIN_0": {
+   "cameras": [
+    "1cf3763b3c18c7e3"
+   ],
+   "room": "ALXT/AT/SIN",
+   "walkmesh": "676beb409606b43327e1c02ceca3fa9cbe2a9b346df3add6b102bebf7ed67713"
+  },
+  "FBG_N01_ALXT_MAP027_AT_SLN_0": {
+   "cameras": [
+    "d136bb2b344357d5"
+   ],
+   "room": "ALXT/AT/SLN",
+   "walkmesh": "986150732d374a5a29660b2d06df7cb1d56b69d4ca24af3fdbf5b4a6d95b5a8f"
+  },
+  "FBG_N01_ALXT_MAP028_AT_INN_0": {
+   "cameras": [
+    "c9f835f1897daf2c"
+   ],
+   "room": "ALXT/AT/INN",
+   "walkmesh": "bc2ed7a39da71446a2df7d279b868c6659840ddc71fb1c234e4a078963d80a02"
+  },
+  "FBG_N01_ALXT_MAP029A_AT_HOM_A": {
+   "cameras": [
+    "59dc05d13b0368e7"
+   ],
+   "room": "ALXT/AT/HOM",
+   "walkmesh": "2be55a999736a74c4858f68d0ffe5da15e1b4930bca5af8133d425ff3c8459d2"
+  },
+  "FBG_N01_ALXT_MAP029_AT_STH_0": {
+   "cameras": [
+    "36645a61ddf0954d"
+   ],
+   "room": "ALXT/AT/STH",
+   "walkmesh": "487ca36df5428d100128e5b8083e9bf0d33f6f7321068868d5396e7a56931818"
+  },
+  "FBG_N01_ALXT_MAP030_AT_HOM_0": {
+   "cameras": [
+    "3a62ba374cd19019"
+   ],
+   "room": "ALXT/AT/HOM",
+   "walkmesh": "574a4ba80d6b43b6987995f4c7f0091aa04708960a477d4c646ae4d01691e966"
+  },
+  "FBG_N01_ALXT_MAP031_AT_WPN_0": {
+   "cameras": [
+    "c77724f8f1957f51"
+   ],
+   "room": "ALXT/AT/WPN",
+   "walkmesh": "9eb44974683026f9b154ea3b73fc03332ca7c31c6c49a0fce3f73b96a17ca2ff"
+  },
+  "FBG_N01_ALXT_MAP032_AT_ITM_0": {
+   "cameras": [
+    "696c32f10af313ba"
+   ],
+   "room": "ALXT/AT/ITM",
+   "walkmesh": "f7f5df9e5e54a4b01178ccd20a6b9fdb8b6df723e416f333a16f712370f887ca"
+  },
+  "FBG_N01_ALXT_MAP033_AT_MGC_0": {
+   "cameras": [
+    "63129109d3d21d83"
+   ],
+   "room": "ALXT/AT/MGC",
+   "walkmesh": "ac4e7c65cafcae88fb76d14e053f9bff39a1069a07880461384c0a1e8f63d5fd"
+  },
+  "FBG_N01_ALXT_MAP820A_AT_MSA_B": {
+   "cameras": [
+    "047a0708ccc78777"
+   ],
+   "room": "ALXT/AT/MSA",
+   "walkmesh": "8904429a9f136b0b93fcb04c7d2632cda8595a1d1ed6156511308bf74b953ac0"
+  },
+  "FBG_N01_ALXT_MAP820_AT_MSA_A": {
+   "cameras": [
+    "047a0708ccc78777"
+   ],
+   "room": "ALXT/AT/MSA",
+   "walkmesh": "df1eaa7dde991aaeb9042285d2f3c7f9e40e0de4fa4d986c2ae51b869bea8e7e"
+  },
+  "FBG_N01_ALXT_MAP821A_AT_MSB_B": {
+   "cameras": [
+    "af32784820dcd7e3"
+   ],
+   "room": "ALXT/AT/MSB",
+   "walkmesh": "6e4f2c1d3209c0afcbb0f15618b4f6401eb79ea2ce38ff7e06cbcb03e3931f13"
+  },
+  "FBG_N01_ALXT_MAP821_AT_MSB_A": {
+   "cameras": [
+    "af32784820dcd7e3"
+   ],
+   "room": "ALXT/AT/MSB",
+   "walkmesh": "2aafc4c75f1eb40068a940282349605fd2bc6cde4cfca4e6e5b62d4d1e79165d"
+  },
+  "FBG_N01_ALXT_MAP822A_AT_MSC_B": {
+   "cameras": [
+    "82c165f21e32683b"
+   ],
+   "room": "ALXT/AT/MSC",
+   "walkmesh": "ca58d3b4ee4c63de24104ef99d9e35053d91a042987f804625ec50aa299d1887"
+  },
+  "FBG_N01_ALXT_MAP822_AT_MSC_A": {
+   "cameras": [
+    "82c165f21e32683b"
+   ],
+   "room": "ALXT/AT/MSC",
+   "walkmesh": "c2a1c116478fc60160be5e99df3f88bf943c0e81bf5a6de42dbd3d412e31ccaf"
+  },
+  "FBG_N01_ALXT_MAP823A_AT_CNT_B": {
+   "cameras": [
+    "3aa2a63cc5a49a5d"
+   ],
+   "room": "ALXT/AT/CNT",
+   "walkmesh": "d30728dd066014ecd7c6a9fc64387c3bf722a0f2bdef2966c41c0bb8cf571728"
+  },
+  "FBG_N01_ALXT_MAP823_AT_CNT_A": {
+   "cameras": [
+    "3aa2a63cc5a49a5d"
+   ],
+   "room": "ALXT/AT/CNT",
+   "walkmesh": "fb9c336c1def58e07a66e6b4c593cfd3c83763a65288fca1f80f445b35e3fb7e"
+  },
+  "FBG_N01_ALXT_MAP824_AT_BST_A": {
+   "cameras": [
+    "17cb924494f57f0d"
+   ],
+   "room": "ALXT/AT/BST",
+   "walkmesh": "d3e3bc8fc0e98dee54cf2f96d1b6c22cf16be4e5df7a9ef9d10703dce2c35e40"
+  },
+  "FBG_N01_ALXT_MAP825_AT_TSS_A": {
+   "cameras": [
+    "6377d1f51254e574"
+   ],
+   "room": "ALXT/AT/TSS",
+   "walkmesh": "cf6672746edb269289d4c44b93a1d926763f7a5a2c75c140ba51c1088dd6f845"
+  },
+  "FBG_N01_ALXT_MAP826A_AT_GAT_B": {
+   "cameras": [
+    "b7343cd791857a89"
+   ],
+   "room": "ALXT/AT/GAT",
+   "walkmesh": "6d971e6fa497b48d090a2348a0bc8b5811f37e0e5508298cd18caabcee88cb46"
+  },
+  "FBG_N01_ALXT_MAP826_AT_GAT_A": {
+   "cameras": [
+    "b7343cd791857a89"
+   ],
+   "room": "ALXT/AT/GAT",
+   "walkmesh": "2d564bd3c33aafdd6f86e24c6ad39662b10c89b9a53357a79ccff3230bd515ed"
+  },
+  "FBG_N01_ALXT_MAP827_AT_SIN_A": {
+   "cameras": [
+    "1cf3763b3c18c7e3"
+   ],
+   "room": "ALXT/AT/SIN",
+   "walkmesh": "3225bc8278e802741f8ae57032e3e34afd0c073772231315234ddd72d65a0f6d"
+  },
+  "FBG_N01_ALXT_MAP830_AT_MSA_W": {
+   "cameras": [
+    "047a0708ccc78777"
+   ],
+   "room": "ALXT/AT/MSA",
+   "walkmesh": "739e2d147950191e2ca8e80cedb0242b77eafb1a96aeba579faf68b22039aa62"
+  },
+  "FBG_N01_ALXT_MAP832_AT_MSC_W": {
+   "cameras": [
+    "82c165f21e32683b"
+   ],
+   "room": "ALXT/AT/MSC",
+   "walkmesh": "29729002159d54d918906aad66015c72184ad8c9aa81f2fbc1239eb750e2742f"
+  },
+  "FBG_N01_ALXT_MAP833_AT_CNT_W": {
+   "cameras": [
+    "3aa2a63cc5a49a5d"
+   ],
+   "room": "ALXT/AT/CNT",
+   "walkmesh": "08fbbd665a329c0a4665e2f1e1c435c25836e5e1c8c81d3667283de63425f617"
+  },
+  "FBG_N01_ALXT_MAP834_AT_BST_W": {
+   "cameras": [
+    "17cb924494f57f0d"
+   ],
+   "room": "ALXT/AT/BST",
+   "walkmesh": "48f66e6a7b66295977562de98b29f7e580b9d380a8ef2ebb5d5e6f6b36f97833"
+  },
+  "FBG_N01_ALXT_MAP835_AT_TSS_W": {
+   "cameras": [
+    "6377d1f51254e574"
+   ],
+   "room": "ALXT/AT/TSS",
+   "walkmesh": "c8ec0d5639ea593734119379a3595c99e4309622d7085178ab645b22e7c41698"
+  },
+  "FBG_N01_ALXT_MAP837_AT_SIN_W": {
+   "cameras": [
+    "1cf3763b3c18c7e3"
+   ],
+   "room": "ALXT/AT/SIN",
+   "walkmesh": "c355a772d2bf3aa276765d8e2b21a3f53eb1a0ce8b40a631f1cbd54429884dab"
+  },
+  "FBG_N01_ALXT_MAP839_AT_INN_W": {
+   "cameras": [
+    "c9f835f1897daf2c"
+   ],
+   "room": "ALXT/AT/INN",
+   "walkmesh": "bab591f5d5c7e9643a56a91e7907cf34f5ab4286fd03c8ecf6c1817b27fa76e6"
+  },
+  "FBG_N02_ALXC_MAP034A_AC_GTO_0": {
+   "cameras": [
+    "160d1080a3239e14"
+   ],
+   "room": "ALXC/AC/GTO",
+   "walkmesh": "7504e3a12d8da4dba61a29d36adc26c8faadb89c238787c36d11c837cf823fa2"
+  },
+  "FBG_N02_ALXC_MAP034_AC_FGO_0": {
+   "cameras": [
+    "cc9032bb1bba4e6a"
+   ],
+   "room": "ALXC/AC/FGO",
+   "walkmesh": "c8f48b97944d8150334c19a36b7ca0955871770e13d2761ce215b6b298d77a96"
+  },
+  "FBG_N02_ALXC_MAP035_AC_RTW_0": {
+   "cameras": [
+    "ae7de6645dbd8b7e"
+   ],
+   "room": "ALXC/AC/RTW",
+   "walkmesh": "be8121f68204d9b3eb4a43c8e66fbe91d13514ee1408cfece80feebc311f8646"
+  },
+  "FBG_N02_ALXC_MAP036_AC_LTW_0": {
+   "cameras": [
+    "b5afb42245eb7bde"
+   ],
+   "room": "ALXC/AC/LTW",
+   "walkmesh": "5718843c1b621502224997ca19e49470ce41d0564abc3842111d03d678e9552b"
+  },
+  "FBG_N02_ALXC_MAP038A_AC_AST_1": {
+   "cameras": [
+    "afb1aed9a3e3c94b"
+   ],
+   "room": "ALXC/AC/AST",
+   "walkmesh": "1b633f8fe42c6a029a5e31f79158ca4e5f75300759bb88abf9226cdc1e46f248"
+  },
+  "FBG_N02_ALXC_MAP038B_AC_AST_2": {
+   "cameras": [
+    "afb1aed9a3e3c94b"
+   ],
+   "room": "ALXC/AC/AST",
+   "walkmesh": "a8b131e2683f4bba2f936214af0bf249af0df1b65d9404ebf304270243e1dbb7"
+  },
+  "FBG_N02_ALXC_MAP038C_AC_AST_3": {
+   "cameras": [
+    "afb1aed9a3e3c94b"
+   ],
+   "room": "ALXC/AC/AST",
+   "walkmesh": "a8b131e2683f4bba2f936214af0bf249af0df1b65d9404ebf304270243e1dbb7"
+  },
+  "FBG_N02_ALXC_MAP038_AC_AST_0": {
+   "cameras": null,
+   "room": "ALXC/AC/AST",
+   "walkmesh": null
+  },
+  "FBG_N02_ALXC_MAP039A_AC_RST_1": {
+   "cameras": [
+    "303037338191fd36"
+   ],
+   "room": "ALXC/AC/RST",
+   "walkmesh": "fd41fc1db673b3e7c1a90874104142ec6220bcf743beb8dd12f85b9e674a4233"
+  },
+  "FBG_N02_ALXC_MAP039_AC_RST_0": {
+   "cameras": [
+    "303037338191fd36",
+    "70d8a587acd94fe5"
+   ],
+   "room": "ALXC/AC/RST",
+   "walkmesh": "d43ee3ad37c519a5de386c4fec2132f142123f199e5f8716e76a237d100b318c"
+  },
+  "FBG_N02_ALXC_MAP040_AC_H3F_0": {
+   "cameras": [
+    "07511a1c1a26537c",
+    "dafe0801964f94a4"
+   ],
+   "room": "ALXC/AC/H3F",
+   "walkmesh": "38dd110396341c382afeae12929b2548f07456edcd24c036171392539ad22a85"
+  },
+  "FBG_N02_ALXC_MAP041A_AC_H2F_1": {
+   "cameras": [
+    "07511a1c1a26537c",
+    "b967106eacc4dac7"
+   ],
+   "room": "ALXC/AC/H2F",
+   "walkmesh": "11ae4a6bdf04d29d4dcce2c52e7d0e708f75b2d4f60424205a26495bdaef15f0"
+  },
+  "FBG_N02_ALXC_MAP042_AC_GDR_0": {
+   "cameras": [
+    "544cfd3cc01d8a80"
+   ],
+   "room": "ALXC/AC/GDR",
+   "walkmesh": "160c2782b9871f9de506ed9a1085f049fc7781967deb3d2c83bf371352606cc9"
+  },
+  "FBG_N02_ALXC_MAP043_AC_PTR_0": {
+   "cameras": [
+    "0ab8f860b8d0463e"
+   ],
+   "room": "ALXC/AC/PTR",
+   "walkmesh": "df19260ecf3c90f18efb16bbb7a1ed12b4d4c394a2ebe76a590971f884bdac98"
+  },
+  "FBG_N02_ALXC_MAP044_AC_KTN_0": {
+   "cameras": [
+    "72d3afdbe6183143"
+   ],
+   "room": "ALXC/AC/KTN",
+   "walkmesh": "aa15683b0c4406762a2e9a3037cc0d6b661c3aa9a5a3c5813dc37691732a8cc2"
+  },
+  "FBG_N02_ALXC_MAP045A_AC_LBR_1": {
+   "cameras": [
+    "04c1cf7938935f78"
+   ],
+   "room": "ALXC/AC/LBR",
+   "walkmesh": "fd936a295bc5b1b5e0c49fb93f3b6d01f1ab26f28c7158a0d160cb7c5e3d4830"
+  },
+  "FBG_N02_ALXC_MAP045_AC_LBR_0": {
+   "cameras": [
+    "12a73fb858094979"
+   ],
+   "room": "ALXC/AC/LBR",
+   "walkmesh": "744f70e776ca77b5564dcaea6b57e7039375a572cff94534ff92c5d5d5189357"
+  },
+  "FBG_N02_ALXC_MAP046_AC_FTI_0": {
+   "cameras": [
+    "245fe8e65af6c1b2",
+    "8867db92eb52accd"
+   ],
+   "room": "ALXC/AC/FTI",
+   "walkmesh": "30cd185f7f2acd6ceabea2058a0ca918eeeb4a9309d727fa4021e67292822fd9"
+  },
+  "FBG_N02_ALXC_MAP056A_AC_LTI_1": {
+   "cameras": [
+    "2c02eb61217b6a79"
+   ],
+   "room": "ALXC/AC/LTI",
+   "walkmesh": "e6f5c7e50c409483c7173eeada2c3da25c2e851d7ba4bd781fad1df8178e3c8d"
+  },
+  "FBG_N02_ALXC_MAP056B_AC_LTI_2": {
+   "cameras": [
+    "fb268ee08d4b85c2"
+   ],
+   "room": "ALXC/AC/LTI",
+   "walkmesh": "a63f039cf47265cf203242a21788ff3fb0f0847db647b6ad164a22a6b1734682"
+  },
+  "FBG_N02_ALXC_MAP056_AC_LTI_0": {
+   "cameras": [
+    "7cd48fef029fc4ec"
+   ],
+   "room": "ALXC/AC/LTI",
+   "walkmesh": "ebd863874eb171f51fc699d9fd9ce31d5e7fa69bd7c8adad7882996e10019056"
+  },
+  "FBG_N02_ALXC_MAP057_AC_LTT_0": {
+   "cameras": [
+    "b225378ecc789b98"
+   ],
+   "room": "ALXC/AC/LTT",
+   "walkmesh": "471f07716e8dc72bc3a452103f1a27c04b95d7e230212e953401af430888d01f"
+  },
+  "FBG_N02_ALXC_MAP061A_AC_LTH_0": {
+   "cameras": [
+    "4771b710bb097600"
+   ],
+   "room": "ALXC/AC/LTH",
+   "walkmesh": "a4cee0b4f549266cab28ae0bc1408a593f4c7893b43083073820accf370baa4c"
+  },
+  "FBG_N02_ALXC_MAP850_AC_LBR_A": {
+   "cameras": [
+    "12a73fb858094979",
+    "330d058029228655"
+   ],
+   "room": "ALXC/AC/LBR",
+   "walkmesh": "65db2ba4f6a2e98c64c1604437bfa479622b3b0b8f7d192f3d16057f090f54c2"
+  },
+  "FBG_N02_ALXC_MAP852_AC_FGO_A": {
+   "cameras": [
+    "cc9032bb1bba4e6a"
+   ],
+   "room": "ALXC/AC/FGO",
+   "walkmesh": "5b42eadeb345cb3ad3c10d27a999f94bd27888ed63ac64c09488221cbf574503"
+  },
+  "FBG_N02_ALXC_MAP853A_AC_RST_A": {
+   "cameras": [
+    "303037338191fd36",
+    "70d8a587acd94fe5"
+   ],
+   "room": "ALXC/AC/RST",
+   "walkmesh": "c041323e115f5ca101413c9cce66af6570a5ae1e3d0233f08ec29f41691599cb"
+  },
+  "FBG_N02_ALXC_MAP853_AC_GTO_A": {
+   "cameras": [
+    "160d1080a3239e14"
+   ],
+   "room": "ALXC/AC/GTO",
+   "walkmesh": "7317eaade46c798c434dda5f260cc7b432ddaaed308c8c1ea1b11610030785cb"
+  },
+  "FBG_N02_ALXC_MAP854_AC_RTW_A": {
+   "cameras": [
+    "ae7de6645dbd8b7e"
+   ],
+   "room": "ALXC/AC/RTW",
+   "walkmesh": "6ba4329318f4a48195db54f85279971d2625fb2353656b4de6297564e9388f37"
+  },
+  "FBG_N02_ALXC_MAP855_AC_LTW_A": {
+   "cameras": [
+    "b5afb42245eb7bde"
+   ],
+   "room": "ALXC/AC/LTW",
+   "walkmesh": "2549da2cfb95eb42e14e212b7d97893562759da3c4a9d6ac899e07b0ae08184d"
+  },
+  "FBG_N02_ALXC_MAP856A_AC_RTH_1": {
+   "cameras": [
+    "536e5b657020c4b1"
+   ],
+   "room": "ALXC/AC/RTH",
+   "walkmesh": "94a5caeec8c886b8fd9014b3b4c2bada08b40575a05b2c34d1d7fd7c3fa63daf"
+  },
+  "FBG_N02_ALXC_MAP856_AC_RTH_0": {
+   "cameras": [
+    "a751124623533515"
+   ],
+   "room": "ALXC/AC/RTH",
+   "walkmesh": "bbf4b4e9fdadbf8061e6cc7d771fe22220681a8a5554fb2108a4f52f39890ca3"
+  },
+  "FBG_N02_ALXC_MAP857B_AC_JIL_2": {
+   "cameras": [
+    "8afd467fdd2d24b9"
+   ],
+   "room": "ALXC/AC/JIL",
+   "walkmesh": "e3097bbab1c3c3261b66b785154005d90bbdc90e7415b15fef2f00d74620db36"
+  },
+  "FBG_N02_ALXC_MAP857_AC_JIL_0": {
+   "cameras": [
+    "9a66cd9263f1b331",
+    "d11869f4ca0c8a6e"
+   ],
+   "room": "ALXC/AC/JIL",
+   "walkmesh": "2e4cf851f740ffe38368446730ba48ecc451dc3989d8caf5aa338870d274a9e5"
+  },
+  "FBG_N02_ALXC_MAP858_AC_QRM_0": {
+   "cameras": [
+    "348a1ab398ff630d",
+    "993f280139cb8126"
+   ],
+   "room": "ALXC/AC/QRM",
+   "walkmesh": "f2848a75ccd7c723346b2c9c8901356c1f8a98b83ac3a2995ea2aa9536e09466"
+  },
+  "FBG_N02_ALXC_MAP860_AC_RYH_0": {
+   "cameras": [
+    "5e4e030c990b6055"
+   ],
+   "room": "ALXC/AC/RYH",
+   "walkmesh": "71c4638ad273ec7f7c4108d1f11a73ff863058e63b23eebe198b28237ca9f86a"
+  },
+  "FBG_N02_ALXC_MAP861_AC_DGR_0": {
+   "cameras": [
+    "10acf3a29739722a"
+   ],
+   "room": "ALXC/AC/DGR",
+   "walkmesh": "32ad8eac58adf361951b92b900b0d9fc102a9d1322861c3bf6628b915798aaf2"
+  },
+  "FBG_N02_ALXC_MAP864_AC_SRM_0": {
+   "cameras": [
+    "d1ea18d530311711"
+   ],
+   "room": "ALXC/AC/SRM",
+   "walkmesh": "c5c602c2912a6e53120dcbc4df3d6f783264154461596d2c268cb3b17a0d421d"
+  },
+  "FBG_N02_ALXC_MAP865_AC_FMS_0": {
+   "cameras": [
+    "0f60cb6d3d130c75"
+   ],
+   "room": "ALXC/AC/FMS",
+   "walkmesh": "3cbf4ed1e6a753c4485b519e66141a0ae0abc0136da7f1abd8f6e02279a9e34f"
+  },
+  "FBG_N02_ALXC_MAP866_AC_MAA_0": {
+   "cameras": [
+    "5f1e51c5a0d8b43a",
+    "de92f0e0578a4ec6"
+   ],
+   "room": "ALXC/AC/MAA",
+   "walkmesh": "b142521249578b54b51ecd85768f089aa567fdc916cbf52f167b74cb58b96ff7"
+  },
+  "FBG_N02_ALXC_MAP868_AC_STA_0": {
+   "cameras": [
+    "483078c1c1ace9fe"
+   ],
+   "room": "ALXC/AC/STA",
+   "walkmesh": "357921d4ed14e040895351e0259b87cc21aa8cea5739593c2421f1d5cb9f3c28"
+  },
+  "FBG_N02_ALXC_MAP869_AC_STB_0": {
+   "cameras": [
+    "0ac2b7cc11b190c6"
+   ],
+   "room": "ALXC/AC/STB",
+   "walkmesh": "25d23be99e7605e4279d7c380dffc6abf96e15f1246ca2cfd566ec96aae6b1a9"
+  },
+  "FBG_N02_ALXC_MAP871_AC_TSP_0": {
+   "cameras": [
+    "0927f616c6230caa"
+   ],
+   "room": "ALXC/AC/TSP",
+   "walkmesh": "1657904d9465ec56ea57c462c8689ce2c1ff194f769cf693d2b918d7d91cf04e"
+  },
+  "FBG_N02_ALXC_MAP873_AC_BRG_0": {
+   "cameras": [
+    "d691c7154bb5061c"
+   ],
+   "room": "ALXC/AC/BRG",
+   "walkmesh": "b71f8ccaad87fe4f60ba4a03698538de10e6fe746614a2f202443a50ce122598"
+  },
+  "FBG_N02_ALXC_MAP874_AC_ATP_0": {
+   "cameras": [
+    "8da8e29696558c81"
+   ],
+   "room": "ALXC/AC/ATP",
+   "walkmesh": "07daf039d4b88d09d0cc8d297a654b6811ba72456f10a2f4ff9ce307a346b26c"
+  },
+  "FBG_N02_ALXC_MAP875_AC_BTP_0": {
+   "cameras": [
+    "b78243a8c4eca7b7"
+   ],
+   "room": "ALXC/AC/BTP",
+   "walkmesh": "f13f5c0d4282d8945b10c7abe5ad29e20ba4b60429c8cdcf69c42508bc1bf2d1"
+  },
+  "FBG_N02_ALXC_MAP876_AC_POT_0": {
+   "cameras": [
+    "5551c3250f7fa6cf"
+   ],
+   "room": "ALXC/AC/POT",
+   "walkmesh": "f15792871c41027b0aec1bfc87ad64b9c45ad033f1233f5f628e02520f15f3ac"
+  },
+  "FBG_N02_ALXC_MAP877_AC_POT_1": {
+   "cameras": [
+    "5551c3250f7fa6cf"
+   ],
+   "room": "ALXC/AC/POT",
+   "walkmesh": "f15792871c41027b0aec1bfc87ad64b9c45ad033f1233f5f628e02520f15f3ac"
+  },
+  "FBG_N02_ALXC_MAP878A_AC_RST_X": {
+   "cameras": [
+    "303037338191fd36",
+    "70d8a587acd94fe5"
+   ],
+   "room": "ALXC/AC/RST",
+   "walkmesh": "4d0472717a6edbf3ba49dec6253b44f18ef41179201907007e91cbc47c0370ce"
+  },
+  "FBG_N02_ALXC_MAP879_AC_STR_0": {
+   "cameras": [
+    "b237792ec216d840"
+   ],
+   "room": "ALXC/AC/STR",
+   "walkmesh": "0a5e129984dd11c821a09e41a7bf43b16c5a92a3e947454eb17c7a03a99ff24c"
+  },
+  "FBG_N02_ALXC_MAP880_AC_CTP_0": {
+   "cameras": [
+    "f8aa597c67898e67"
+   ],
+   "room": "ALXC/AC/CTP",
+   "walkmesh": "4a2534693d3eee4582a298e1f821b5bb6e786f37081b3e3420835da765b1d264"
+  },
+  "FBG_N02_ALXC_MAP881_AC_ST1_0": {
+   "cameras": [
+    "c734e9f734bb72b4"
+   ],
+   "room": "ALXC/AC/ST1",
+   "walkmesh": "8b94b9b1bf08ca797cc6aafaeed524d7ae0c16fafdb99221bd2525e9cd8608e6"
+  },
+  "FBG_N02_ALXC_MAP882_AC_ST2_0": {
+   "cameras": [
+    "188c6bdd68fdc902"
+   ],
+   "room": "ALXC/AC/ST2",
+   "walkmesh": "136e2b1e68b5ec34a2c6d5766b8f6ed876b220566778210cac1c4e3c951466e0"
+  },
+  "FBG_N02_ALXC_MAP883_AC_ST3_0": {
+   "cameras": [
+    "209901b006669257"
+   ],
+   "room": "ALXC/AC/ST3",
+   "walkmesh": "8859e452d26a3cd2e86c78f99c2d34730df084dd9bb6b4c1f23b2869204cb031"
+  },
+  "FBG_N02_ALXC_MAP884_AC_ALT_0": {
+   "cameras": [
+    "d7b626833c86e10b"
+   ],
+   "room": "ALXC/AC/ALT",
+   "walkmesh": "e95943251f2622a327cd040dd2e20416da252c8a7f3b0eea40c51b089458a22d"
+  },
+  "FBG_N02_ALXC_MAP885A_AC_GTO_B": {
+   "cameras": [
+    "160d1080a3239e14"
+   ],
+   "room": "ALXC/AC/GTO",
+   "walkmesh": "c47b4c9a881fc5ec70c711ac7e8f69952b150636d92b5d136140638db346c8ad"
+  },
+  "FBG_N02_ALXC_MAP885B_AC_DGR_A": {
+   "cameras": [
+    "10acf3a29739722a"
+   ],
+   "room": "ALXC/AC/DGR",
+   "walkmesh": "72ae757857ba67ce105a44c892cf70d6a8517639863a13d836a1643e6a94ca84"
+  },
+  "FBG_N02_ALXC_MAP885_AC_ALT_1": {
+   "cameras": [
+    "b9fae5a5f488f1fc"
+   ],
+   "room": "ALXC/AC/ALT",
+   "walkmesh": "2ff15995daf8dfd77438c45db641cba5fecdee3cf941b3e6bb6819575e487ae7"
+  },
+  "FBG_N02_ALXC_MAP886_AC_DTA_W": {
+   "cameras": [
+    "0927f616c6230caa"
+   ],
+   "room": "ALXC/AC/DTA",
+   "walkmesh": "21ce83f5580548b9b0d35e86dd807d5cf53141307a61c632d5d6d42e2ba140f0"
+  },
+  "FBG_N02_ALXC_MAP888_AC_GTO_W": {
+   "cameras": [
+    "160d1080a3239e14"
+   ],
+   "room": "ALXC/AC/GTO",
+   "walkmesh": "8789cc65a7613abeade594a7933d817f5435f89b3382a6118b00d6c2e3031360"
+  },
+  "FBG_N02_ALXC_MAP889_AC_LTW_W": {
+   "cameras": [
+    "b5afb42245eb7bde"
+   ],
+   "room": "ALXC/AC/LTW",
+   "walkmesh": "b98ca0989a3ada0db067fba781603ae192749ad8ad32be1181ca1fea91584530"
+  },
+  "FBG_N02_ALXC_MAP890_AC_LTH_W": {
+   "cameras": [
+    "4771b710bb097600"
+   ],
+   "room": "ALXC/AC/LTH",
+   "walkmesh": "4cab25d94fefe90c7595e014f1c85f8a9c81798c99c1b5feea14be8daed1f1cb"
+  },
+  "FBG_N03_BSHP_MAP062_BT_FRT_0": {
+   "cameras": [
+    "fc20990d870fd1c0"
+   ],
+   "room": "BSHP/BT/FRT",
+   "walkmesh": "384ffc7dc603c518970ee13260130143d6423578a5e04ebcb0332131698a8c1b"
+  },
+  "FBG_N03_BSHP_MAP063_BT_CF1_0": {
+   "cameras": [
+    "e6e3472e5b91a72c"
+   ],
+   "room": "BSHP/BT/CF1",
+   "walkmesh": "07812a816cab46c72c6079d1f06d095717266682fc979edcd565752e470e33f0"
+  },
+  "FBG_N03_BSHP_MAP065_BT_CCD_0": {
+   "cameras": [
+    "9edfd410c13d8fd3"
+   ],
+   "room": "BSHP/BT/CCD",
+   "walkmesh": "b7db840ed439da2f01b1f6b448f218898005b61a2761f89c106119ecc62122fb"
+  },
+  "FBG_N03_BSHP_MAP066_BT_CCR_0": {
+   "cameras": [
+    "f168d0cfdce8f3c5"
+   ],
+   "room": "BSHP/BT/CCR",
+   "walkmesh": "b64d554997bec19ed4c18ae5eedffbbb73249c26a8ea53a3517d6e05abe2c282"
+  },
+  "FBG_N03_BSHP_MAP067_BT_CMR_0": {
+   "cameras": [
+    "eaabb1665ca6fa1f"
+   ],
+   "room": "BSHP/BT/CMR",
+   "walkmesh": "0021dcd0d3788d06197fd8f5c033477f9f4fdd2fb93de566c4dcd1f603c4eb9e"
+  },
+  "FBG_N03_BSHP_MAP068A_BT_STR_0": {
+   "cameras": [
+    "759e651c9c9f881f"
+   ],
+   "room": "BSHP/BT/STR",
+   "walkmesh": "fbd47b748a91824a61a587f4f4aab9e8212aed7076928e68d904538d96133ea5"
+  },
+  "FBG_N03_BSHP_MAP068_BT_CUS_0": {
+   "cameras": [
+    "eb1aada5834b849b"
+   ],
+   "room": "BSHP/BT/CUS",
+   "walkmesh": "421b4a417d709c53856ad49a0b20e06cc19d884729bc28298e0e0b20331609eb"
+  },
+  "FBG_N03_BSHP_MAP069_BT_CNR_0": {
+   "cameras": [
+    "0bfac3d6f9a7ae83"
+   ],
+   "room": "BSHP/BT/CNR",
+   "walkmesh": "e11cbbe85acc80f26bbce410da38dfa95a394c57f1ff8fa8b4427dd24bb3b0b6"
+  },
+  "FBG_N03_BSHP_MAP070_BT_GTR_0": {
+   "cameras": [
+    "b265a0010a0f50e6"
+   ],
+   "room": "BSHP/BT/GTR",
+   "walkmesh": "9a46fd8d36e31b7f7e1cb691c3df2141b62d9da06040f017587667dfaf005a6b"
+  },
+  "FBG_N03_BSHP_MAP071_BT_CCP_0": {
+   "cameras": [
+    "b9c23832865ac60d"
+   ],
+   "room": "BSHP/BT/CCP",
+   "walkmesh": "39dc1e659c7f9315a30265cbcf60437f0614a1e6fe09f03b782fb4c5a1927c5a"
+  },
+  "FBG_N04_EVFT_MAP072_EF_ENT_0": {
+   "cameras": [
+    "5c66d83fcd36eac1"
+   ],
+   "room": "EVFT/EF/ENT",
+   "walkmesh": "8faaa5da01504aca3389390f979b4b780ff6d49133f36d8942547c46e220c524"
+  },
+  "FBG_N04_EVFT_MAP073_EF_FR1_0": {
+   "cameras": [
+    "eac4245cc53ea6bd"
+   ],
+   "room": "EVFT/EF/FR1",
+   "walkmesh": "b4ea96e2a44f3804fb2c945445cbdaa4f16a4e6b80a68d0f0ab7dcbe0ae67371"
+  },
+  "FBG_N04_EVFT_MAP074_EF_FR2_0": {
+   "cameras": [
+    "2a1bb2d9a6836bbf"
+   ],
+   "room": "EVFT/EF/FR2",
+   "walkmesh": "f824bea841b708e4fe68372df3ec26404123b76e6d5974990786d7e0998cb8ff"
+  },
+  "FBG_N04_EVFT_MAP075_EF_NRV_0": {
+   "cameras": [
+    "b0ef2d254b8edfae"
+   ],
+   "room": "EVFT/EF/NRV",
+   "walkmesh": "fc9396e1e2edd0d3837961e0180764126732d75f28dd3a68ff05b703bf4b6c0f"
+  },
+  "FBG_N04_EVFT_MAP076_EF_HEL_0": {
+   "cameras": [
+    "eb9f8bf0c0da283d"
+   ],
+   "room": "EVFT/EF/HEL",
+   "walkmesh": "68337c2d8dadf77803eb08b1b790667f7cb171c336b3598d56fbe769dfd323d0"
+  },
+  "FBG_N04_EVFT_MAP077_EF_NSP_0": {
+   "cameras": [
+    "4fd2805b44098528"
+   ],
+   "room": "EVFT/EF/NSP",
+   "walkmesh": "c771eeaf323709fb29e70c0afce57d319353892ecd1f74b1b1052a728bb40699"
+  },
+  "FBG_N04_EVFT_MAP078_EF_FR3_0": {
+   "cameras": [
+    "41a636c152fb9733"
+   ],
+   "room": "EVFT/EF/FR3",
+   "walkmesh": "17777663815cc477d017e5b880efc0cc50985195fad5f52243b2dc81e2038c2b"
+  },
+  "FBG_N04_EVFT_MAP079_EF_DEP_0": {
+   "cameras": [
+    "79a16fed01121330"
+   ],
+   "room": "EVFT/EF/DEP",
+   "walkmesh": "6eef795a790d144ff00a355665939dedff96697c89221bcb3efabbb916119983"
+  },
+  "FBG_N04_EVFT_MAP080_EF_FR4_0": {
+   "cameras": [
+    "19b7dd7c92c81235"
+   ],
+   "room": "EVFT/EF/FR4",
+   "walkmesh": "0c48de5f19c1ef5457725ea0df47321174bd90c19d6cde60faf448c5e68df4c2"
+  },
+  "FBG_N04_EVFT_MAP081_EF_FR5_0": {
+   "cameras": [
+    "08e9ef8fc7e82d0a"
+   ],
+   "room": "EVFT/EF/FR5",
+   "walkmesh": "190704ccdc7c2c345bbd8f3ca402c743e38ce423e2538a71560d692480e6b98e"
+  },
+  "FBG_N04_EVFT_MAP082_EF_FR6_0": {
+   "cameras": [
+    "0886b130257f9d0c"
+   ],
+   "room": "EVFT/EF/FR6",
+   "walkmesh": "18869169e88d074f12d1a2515751a6dafe695b400e06ddf7237ba72ac57e8396"
+  },
+  "FBG_N04_EVFT_MAP083_EF_EXT_0": {
+   "cameras": [
+    "6bf516a51aea0547"
+   ],
+   "room": "EVFT/EF/EXT",
+   "walkmesh": "17fbe69f35f22aecb3da3d16f69f482b248d08c37e78a7ebc5641ad58c9fff33"
+  },
+  "FBG_N04_EVFT_MAP084_EF_TNT_0": {
+   "cameras": [
+    "695a5283776f8bff"
+   ],
+   "room": "EVFT/EF/TNT",
+   "walkmesh": "4e08e16afd861c35bbca9bba3c472e8893c406f0d02fddb153ee1c278cee12d7"
+  },
+  "FBG_N05_ICCV_MAP085_IC_ENT_0": {
+   "cameras": [
+    "3613126e0301293d"
+   ],
+   "room": "ICCV/IC/ENT",
+   "walkmesh": "7613ae8a0b26ef1d52a4ffaf910af5ab32f7ac46fc091ec846d96c26232f2609"
+  },
+  "FBG_N05_ICCV_MAP086_IC_STP_0": {
+   "cameras": [
+    "3a8addb45523dbce"
+   ],
+   "room": "ICCV/IC/STP",
+   "walkmesh": "e1abe574e0a29885f8cbe01cc14bd4c7e0a50c42dab9604417c76c1c475b384a"
+  },
+  "FBG_N05_ICCV_MAP087_IC_TER_0": {
+   "cameras": [
+    "4fa78d1b2374dbd5"
+   ],
+   "room": "ICCV/IC/TER",
+   "walkmesh": "35e5a93d7cf6c9cad8cb7ade0ea1c442c2d7d5940060977043b11224dd04bee6"
+  },
+  "FBG_N05_ICCV_MAP088_IC_JMP_0": {
+   "cameras": [
+    "b9c12d80b04f2f64"
+   ],
+   "room": "ICCV/IC/JMP",
+   "walkmesh": "96549f1f549eb904308e23d6cccf8ba68100389bd2b3eff6f0f1d22122410a89"
+  },
+  "FBG_N05_ICCV_MAP089_IC_BRI_0": {
+   "cameras": [
+    "8b533bebe2d4c436"
+   ],
+   "room": "ICCV/IC/BRI",
+   "walkmesh": "4393c85e5b9d99cfbef8c2ffc1ef084ab6d1e01691af39642efdd84359090e04"
+  },
+  "FBG_N05_ICCV_MAP090_IC_MEN_0": {
+   "cameras": [
+    "ee85a1017dafd43b"
+   ],
+   "room": "ICCV/IC/MEN",
+   "walkmesh": "95c535e9cb02f6d40bcdc83e24a31ee8d010b798602c03f3c042164fe5e221c9"
+  },
+  "FBG_N05_ICCV_MAP091_IC_MRM_0": {
+   "cameras": [
+    "f92789eb2fa3c0d9"
+   ],
+   "room": "ICCV/IC/MRM",
+   "walkmesh": "b932331cb1d9a5b18de6ca0bf9a3541a969973076f0c0a5699a6513b0e0e1543"
+  },
+  "FBG_N05_ICCV_MAP092_IC_STA_0": {
+   "cameras": [
+    "9b5698edc21f7617"
+   ],
+   "room": "ICCV/IC/STA",
+   "walkmesh": "3da28c01292a13b255f125e98d21eb7bbb045a38e567010e2f8f91c8c54dbd47"
+  },
+  "FBG_N05_ICCV_MAP093_IC_WBF_0": {
+   "cameras": [
+    "828f785aca643a79"
+   ],
+   "room": "ICCV/IC/WBF",
+   "walkmesh": "549021483a7d206f0a2d4e16462c6238aa452b039ef5cb5b190371637ff05946"
+  },
+  "FBG_N05_ICCV_MAP094_IC_WAF_0": {
+   "cameras": [
+    "828f785aca643a79"
+   ],
+   "room": "ICCV/IC/WAF",
+   "walkmesh": "b30e3eddf4a69593ae8a5a31068f1797ed6b1556c4e6ba6b9ce2b11ec5d6ebca"
+  },
+  "FBG_N05_ICCV_MAP095_IC_CAF_0": {
+   "cameras": [
+    "3330c4e5d536a3bc"
+   ],
+   "room": "ICCV/IC/CAF",
+   "walkmesh": "83aa5f7c7fff7fbc2016f99067810da2188e46d621e92d25286189d5370208f1"
+  },
+  "FBG_N05_ICCV_MAP096_IC_XIT_0": {
+   "cameras": [
+    "4f30affafeff587b"
+   ],
+   "room": "ICCV/IC/XIT",
+   "walkmesh": "707baa91a26adf68ce9c1a809fc79eb4a5ce5c45832b63b42544c2880f407fe7"
+  },
+  "FBG_N06_VGDL_MAP097_DL_VIW_0": {
+   "cameras": [
+    "da4a961b603e3307"
+   ],
+   "room": "VGDL/DL/VIW",
+   "walkmesh": "3694c23df96b30b1b207dd07defdf9236c09f23e02c660259cd42484c42feac2"
+  },
+  "FBG_N06_VGDL_MAP098_DL_ENT_0": {
+   "cameras": [
+    "bae63d69b6e27274"
+   ],
+   "room": "VGDL/DL/ENT",
+   "walkmesh": "83554b4eaae29f966f580281a44d9829e259c9cde72b246057c5fe60b785bfb8"
+  },
+  "FBG_N06_VGDL_MAP099_DL_WHL_0": {
+   "cameras": [
+    "3ecffccb81e6af37"
+   ],
+   "room": "VGDL/DL/WHL",
+   "walkmesh": "e04364322305bf0ec05dad1d1e3b9874772e7851521343808cb0df2801c4b9e9"
+  },
+  "FBG_N06_VGDL_MAP100_DL_FWM_0": {
+   "cameras": [
+    "fe54c7f109522e98"
+   ],
+   "room": "VGDL/DL/FWM",
+   "walkmesh": "012a62fdfeebc84109402fb5b0822ba0794613a863c2467be4f0ee7bbbecea76"
+  },
+  "FBG_N06_VGDL_MAP101_DL_INN_0": {
+   "cameras": [
+    "86bae7e5e8e5f0d2"
+   ],
+   "room": "VGDL/DL/INN",
+   "walkmesh": "ebe3b06dd07e7d076a024815e318f6029c2ac43c2804b51d0ee46cdca33f07f6"
+  },
+  "FBG_N06_VGDL_MAP102_DL_INN_1": {
+   "cameras": [
+    "283e70e404bad365",
+    "9e4acdd806c660b0"
+   ],
+   "room": "VGDL/DL/INN",
+   "walkmesh": "4f8e18124358197bfd89ec677f2d744b7a6379f7ff02a3842c4b99f47095659c"
+  },
+  "FBG_N06_VGDL_MAP103_DL_SHP_0": {
+   "cameras": [
+    "a4e96025e132ef17"
+   ],
+   "room": "VGDL/DL/SHP",
+   "walkmesh": "cd917d93568eaea10600a6bf97bbe984074abd4d4dcf6b60127aa5c10601ef9b"
+  },
+  "FBG_N06_VGDL_MAP104_DL_MYR_0": {
+   "cameras": [
+    "2a291b0e6552194e"
+   ],
+   "room": "VGDL/DL/MYR",
+   "walkmesh": "33b6c15249f1a936c7d39505f336e44dfddba1e42df9301b7d35798127e978ab"
+  },
+  "FBG_N06_VGDL_MAP105_DL_BAR_0": {
+   "cameras": [
+    "039d4162df7fdd0b",
+    "f9a78469606df69c"
+   ],
+   "room": "VGDL/DL/BAR",
+   "walkmesh": "9e89fa35ac065824d9bcb2431bdda1ec2edf7b6868bbe6c771c40f160ddcbe10"
+  },
+  "FBG_N06_VGDL_MAP106_DL_WMS_0": {
+   "cameras": [
+    "58a63e0de1ce0a2d"
+   ],
+   "room": "VGDL/DL/WMS",
+   "walkmesh": "c235a2ec7b10c53678ec73b1819c9056be94959a00cc3c8a5d7cc368cc0493c4"
+  },
+  "FBG_N06_VGDL_MAP107_DL_WMS_1": {
+   "cameras": [
+    "30adcfc49a244e39"
+   ],
+   "room": "VGDL/DL/WMS",
+   "walkmesh": "47b131b1bb98804d2e36a88db2865a9171ac527a22563d9402faf22ce0805796"
+  },
+  "FBG_N07_AIRP_MAP108_AP_FID_0": {
+   "cameras": [
+    "bee32c0dd4ced1ca"
+   ],
+   "room": "AIRP/AP/FID",
+   "walkmesh": "2de1d11050adaabb6b8314725c05d081a1da71b3f6189b9c70da2174d953405b"
+  },
+  "FBG_N07_AIRP_MAP109A_AP_AIR_1": {
+   "cameras": [
+    "78a99845f84fbdb1"
+   ],
+   "room": "AIRP/AP/AIR",
+   "walkmesh": "4840a93fca41ba39118a576ca8a8b1c6d03ec3ea704e8f384b716301196e3cbf"
+  },
+  "FBG_N07_AIRP_MAP109B_AP_AIR_2": {
+   "cameras": [
+    "73b76efe74770693"
+   ],
+   "room": "AIRP/AP/AIR",
+   "walkmesh": "f21232b27574dba1bbbed9e2ad80e3053e99faaa4dc13c57f987a6b9562addd2"
+  },
+  "FBG_N07_AIRP_MAP109C_AP_AIR_3": {
+   "cameras": [
+    "8f5cc673d04d118e"
+   ],
+   "room": "AIRP/AP/AIR",
+   "walkmesh": "da8cf8485b47ec9e3877981c0793b55b31009085b83a9a00a5a5a26fe0c2fa72"
+  },
+  "FBG_N07_AIRP_MAP109_AP_AIR_0": {
+   "cameras": [
+    "98b6b340eb496b1c"
+   ],
+   "room": "AIRP/AP/AIR",
+   "walkmesh": "e438bdf20f106b7e2d7b73008edbb9daa892402221dc33b7dae47b20523b2f3a"
+  },
+  "FBG_N07_AIRP_MAP110A_AP_WTE_1": {
+   "cameras": [
+    "b6561dd121e6241d"
+   ],
+   "room": "AIRP/AP/WTE",
+   "walkmesh": "dc56c119c94ad6a05a368bb9c6102e5f70d2c7c66769b217d612af9ae994b28b"
+  },
+  "FBG_N07_AIRP_MAP110_AP_WTE_0": {
+   "cameras": [
+    "66fdf9e074ee72e8"
+   ],
+   "room": "AIRP/AP/WTE",
+   "walkmesh": "4f97004ce6e3a2c5a1938ad7dae7db28ef5039b9da3f87e3cdf4a77d0ff640f6"
+  },
+  "FBG_N07_AIRP_MAP111_AP_WTI_0": {
+   "cameras": [
+    "92a5dd5ddd7e9f01"
+   ],
+   "room": "AIRP/AP/WTI",
+   "walkmesh": "346342dd1fda219d5168ac28fff802314388e1d5f2fbcfad933ea139e032a745"
+  },
+  "FBG_N08_UDFT_MAP120_UF_ENT_0": {
+   "cameras": [
+    "5a1610a1379c987d"
+   ],
+   "room": "UDFT/UF/ENT",
+   "walkmesh": "292a9ac9d0b88d6829582209553ebd6f328bf508534a56205c717814a3ef1414"
+  },
+  "FBG_N08_UDFT_MAP121_UF_RST_0": {
+   "cameras": [
+    "0191ef2143331a1d"
+   ],
+   "room": "UDFT/UF/RST",
+   "walkmesh": "42c654fba722689eed1cec98416f6cee6515bc847a0c23e578bc3d55474df25b"
+  },
+  "FBG_N08_UDFT_MAP122_UF_STO_0": {
+   "cameras": [
+    "968fb1782a26906e"
+   ],
+   "room": "UDFT/UF/STO",
+   "walkmesh": "4bf3ef14f878ba181d48b8b73ccb282d9d95bc8bc6e185b7a7f71a3ffe9a303a"
+  },
+  "FBG_N08_UDFT_MAP123_UF_STO_1": {
+   "cameras": [
+    "17df52da2122099f"
+   ],
+   "room": "UDFT/UF/STO",
+   "walkmesh": "19376ff552ea59bf6a5ec9cfcd9f84e2c79cdc15e0a47c5ab8a17b04a642a444"
+  },
+  "FBG_N08_UDFT_MAP124_UF_EGG_0": {
+   "cameras": [
+    "31985c0cd39d0f40"
+   ],
+   "room": "UDFT/UF/EGG",
+   "walkmesh": "f6c259761a8eafded9c8b41bdb1c2bb5d848ef0f72e81528b5c73c9ecf42743e"
+  },
+  "FBG_N08_UDFT_MAP125_UF_DEV_0": {
+   "cameras": [
+    "e18d0e6cd492df5d"
+   ],
+   "room": "UDFT/UF/DEV",
+   "walkmesh": "79b59161bce920c50ce289eaea7759c66f51d9e4ef44b3408ad1494128a3c06b"
+  },
+  "FBG_N08_UDFT_MAP126_UF_MST_0": {
+   "cameras": [
+    "5cf3f792771c86cb"
+   ],
+   "room": "UDFT/UF/MST",
+   "walkmesh": "cb26fada0ce67ad559b4a09c7180fae235e40026462b0d31bf0b40939dfb3864"
+  },
+  "FBG_N08_UDFT_MAP127_UF_BLK_0": {
+   "cameras": [
+    "5fe82f095e8b2a7c"
+   ],
+   "room": "UDFT/UF/BLK",
+   "walkmesh": "9275689be7290e0bf4e157b099d0a77184b807e4934def333af53baafb8575fe"
+  },
+  "FBG_N08_UDFT_MAP128_UF_BLK_1": {
+   "cameras": [
+    "e855b2e72d29fd42"
+   ],
+   "room": "UDFT/UF/BLK",
+   "walkmesh": "b34d78980e1c0969f3fd95f5bb5054e0fdf7fa3ab1bd2ce6500d4c0db5c03b0e"
+  },
+  "FBG_N09_CSHP_MAP140A_CA_DCK_W": {
+   "cameras": [
+    "6d968bf17bf3edc8"
+   ],
+   "room": "CSHP/CA/DCK",
+   "walkmesh": "af2099e2ca92e204b40c42c41a0a93fa0debdbe6c10f7878290bdb4a8f028fe7"
+  },
+  "FBG_N09_CSHP_MAP140_CA_DCK_0": {
+   "cameras": [
+    "6d968bf17bf3edc8"
+   ],
+   "room": "CSHP/CA/DCK",
+   "walkmesh": "b69856f760eb768a9da9f1719fa3821259e45069600c30d886ec96d4e28260b0"
+  },
+  "FBG_N09_CSHP_MAP141_CA_DCK_1": {
+   "cameras": [
+    "a9c18a44878becab"
+   ],
+   "room": "CSHP/CA/DCK",
+   "walkmesh": "e5a503b8e14bfa1260a8f270c61b5cf42bcc3edf6a6c797506cfa734c93f37d5"
+  },
+  "FBG_N09_CSHP_MAP142_CA_ERM_0": {
+   "cameras": [
+    "5bfd631d1160d2ab"
+   ],
+   "room": "CSHP/CA/ERM",
+   "walkmesh": "b9b15f42ccdd8259eeabd4b03b65253241557209c39d19386bffbbf679279089"
+  },
+  "FBG_N09_CSHP_MAP143_CA_COP_0": {
+   "cameras": [
+    "93320d682d5f248e"
+   ],
+   "room": "CSHP/CA/COP",
+   "walkmesh": "ed198d8cdeef7aa5cd89da89b926f6e0a764c3f4bf563435f4a2ca48b4c393b4"
+  },
+  "FBG_N09_CSHP_MAP144_CA_COP_1": {
+   "cameras": [
+    "93320d682d5f248e"
+   ],
+   "room": "CSHP/CA/COP",
+   "walkmesh": "ad329fefa689670d92e92b310cfc5605c052634079e1b22bb6ed838ac8a4a67c"
+  },
+  "FBG_N09_CSHP_MAP145_CA_RDK_0": {
+   "cameras": [
+    "6837572d4109ad1a"
+   ],
+   "room": "CSHP/CA/RDK",
+   "walkmesh": "7bba3322edc2f9b203e06e6d9d703b74cbe0ab614fae236940eb00b05a9e2a2d"
+  },
+  "FBG_N10_FNRL_MAP150_FN_DCK_0": {
+   "cameras": [
+    "0963abc73b051d49"
+   ],
+   "room": "FNRL/FN/DCK",
+   "walkmesh": "e56d4a09a4d6a8c56049446ddfd9982ba2f53e168d527be7baf64fde466cba9e"
+  },
+  "FBG_N11_LDBM_MAP155_LB_MST_0": {
+   "cameras": [
+    "e498f37679209588"
+   ],
+   "room": "LDBM/LB/MST",
+   "walkmesh": "13bb4136104810147f70227efe5fc701fc83865b457e5bee784f4223f8468561"
+  },
+  "FBG_N11_LDBM_MAP156_LB_BAZ_0": {
+   "cameras": [
+    "8a7810d388c8a88d"
+   ],
+   "room": "LDBM/LB/BAZ",
+   "walkmesh": "6d96e483de7beadf02a392e6aa4b10ec836994dd7578c0841d0e058fd8fbdde0"
+  },
+  "FBG_N11_LDBM_MAP157_LB_ALY_0": {
+   "cameras": [
+    "e0efba857fef5f3b"
+   ],
+   "room": "LDBM/LB/ALY",
+   "walkmesh": "b68b98a2ef81977355cd2e9eb844f5014b48cfa8207d0d75f59b5e3c10bc4f5e"
+  },
+  "FBG_N11_LDBM_MAP158_LB_PLZ_0": {
+   "cameras": [
+    "fae75e4118ab6bd1"
+   ],
+   "room": "LDBM/LB/PLZ",
+   "walkmesh": "50dc82e4636f84192b58c9bc1c7ead7d493ae6ae33d0a4019a7dbe3af978289a"
+  },
+  "FBG_N11_LDBM_MAP159_LB_GAT_0": {
+   "cameras": [
+    "e8cbae40ce94c046"
+   ],
+   "room": "LDBM/LB/GAT",
+   "walkmesh": "3b6d3f7d555876ec185603d6823c64199098ef9d10f30c93ff3c3f99aa0fd438"
+  },
+  "FBG_N11_LDBM_MAP160_LB_IN1_0": {
+   "cameras": [
+    "5d18ff260ff5c48f"
+   ],
+   "room": "LDBM/LB/IN1",
+   "walkmesh": "f474d4b919c5587a88fe960e7ec79c4ef8fec606991784d55cc06b1eaeb416aa"
+  },
+  "FBG_N11_LDBM_MAP161_LB_IN2_0": {
+   "cameras": [
+    "243e60dc9dc3b774"
+   ],
+   "room": "LDBM/LB/IN2",
+   "walkmesh": "6aa470454cd2214afd126f38840d1556f8b4b3f4351aedafa71978ea58c18133"
+  },
+  "FBG_N11_LDBM_MAP162_LB_MTM_0": {
+   "cameras": [
+    "1e7ba973fa193c69"
+   ],
+   "room": "LDBM/LB/MTM",
+   "walkmesh": "ffb9de27d35aa5ed062f78fefac9b090e19ceb17d7f20cc2a285dac8a42c21b4"
+  },
+  "FBG_N11_LDBM_MAP163_LB_HUS_0": {
+   "cameras": [
+    "5c8aed10c3df321a"
+   ],
+   "room": "LDBM/LB/HUS",
+   "walkmesh": "fbede1436f65f12bee33e5a64d95857f757b5b902982573120679d227097f2b7"
+  },
+  "FBG_N11_LDBM_MAP164_LB_TMP_0": {
+   "cameras": [
+    "efcd8af37e9d76c5"
+   ],
+   "room": "LDBM/LB/TMP",
+   "walkmesh": "3ab185556f3a07045d7e788b0c1532c0774f6d0f612388abdeb35ff5c55f9b75"
+  },
+  "FBG_N11_LDBM_MAP165_LB_ITM_0": {
+   "cameras": [
+    "6f6a13b9791fae11"
+   ],
+   "room": "LDBM/LB/ITM",
+   "walkmesh": "4c0b6137665fad7d90c2d48bbc55b90a8e12ca16dc506a068d0f3799caf9c04b"
+  },
+  "FBG_N11_LDBM_MAP166_LB_WPN_0": {
+   "cameras": [
+    "35ea285dc816894a"
+   ],
+   "room": "LDBM/LB/WPN",
+   "walkmesh": "3a718a5de4dfc16ff15473bce1fac185a82054936bb342fb055465b4f088ea7e"
+  },
+  "FBG_N11_LDBM_MAP167_LB_ECH_0": {
+   "cameras": [
+    "1f443935ebf6ac7f"
+   ],
+   "room": "LDBM/LB/ECH",
+   "walkmesh": "4ee652cdd5b8782a60c723fc7b29046b21610788d527a8a0ecffbde4ff05e697"
+  },
+  "FBG_N11_LDBM_MAP168_LB_RFS_0": {
+   "cameras": [
+    "25969c6e619b40cb"
+   ],
+   "room": "LDBM/LB/RFS",
+   "walkmesh": "faab965c6a87f3c8bf91c6a82da17f663dd31580dd4fb301c9ff10a8163884b8"
+  },
+  "FBG_N11_LDBM_MAP169_LB_HIG_0": {
+   "cameras": [
+    "762dc392d445216b"
+   ],
+   "room": "LDBM/LB/HIG",
+   "walkmesh": "bd601c5ebf5f1b1a45615b797da2aed51442f3ae869aa04b17bcf6851ef14037"
+  },
+  "FBG_N11_LDBM_MAP170_LB_FTH_0": {
+   "cameras": [
+    "ffd2dd3f285716ca"
+   ],
+   "room": "LDBM/LB/FTH",
+   "walkmesh": "a4518ed60bd6920007e7a069e5db5fb25fcf8f49247f564b4143060c6025665f"
+  },
+  "FBG_N11_LDBM_MAP171_LB_STN_0": {
+   "cameras": [
+    "1d264a70f54a0d5e"
+   ],
+   "room": "LDBM/LB/STN",
+   "walkmesh": "ca6c8cf7ceef04eefd97f2aaf3305448371734de2390d58efe7c0ad49f183a58"
+  },
+  "FBG_N11_LDBM_MAP172_LB_ATL_0": {
+   "cameras": [
+    "9b76840033825cf8"
+   ],
+   "room": "LDBM/LB/ATL",
+   "walkmesh": "12b76136965300a944df0e5d1296016b5de63f6a7bc4ac8d7b1975bec1473f2f"
+  },
+  "FBG_N11_LDBM_MAP173_LB_TTL_0": {
+   "cameras": [
+    "b315ccedfcd582e7"
+   ],
+   "room": "LDBM/LB/TTL",
+   "walkmesh": "9385958edc1e6781cf90e945b48c2cdf9fac0c13e2d62a07e2b20e87ea827a56"
+  },
+  "FBG_N11_LDBM_MAP174_LB_AET_0": {
+   "cameras": [
+    "e6fffc094d724722"
+   ],
+   "room": "LDBM/LB/AET",
+   "walkmesh": "0a969c1ed2bb7e33e2ae1ada9af7fb4040722c31a002455e111ef8ae5683fdd5"
+  },
+  "FBG_N11_LDBM_MAP175_LB_ROD_0": {
+   "cameras": [
+    "38041fe1e5aded7b"
+   ],
+   "room": "LDBM/LB/ROD",
+   "walkmesh": "18ad69581c2fe600e21f9175cff8d48f1b8b2d7bb872b52139987eec7864443c"
+  },
+  "FBG_N11_LDBM_MAP176_LB_FTM_0": {
+   "cameras": [
+    "a6009dd44f452fba"
+   ],
+   "room": "LDBM/LB/FTM",
+   "walkmesh": "3b7a2e23e6e0223d70f8862d53812e528c1a3a7acc7a2a4e8c6a4957aeeeb9c6"
+  },
+  "FBG_N11_LDBM_MAP177_LB_LDH_0": {
+   "cameras": [
+    "87406393e05a8b50"
+   ],
+   "room": "LDBM/LB/LDH",
+   "walkmesh": "8efe157d88ec41f35e182f9cfee8ca9ffa0c933791df8749aed7bc8c771bb959"
+  },
+  "FBG_N11_LDBM_MAP178_LB_SLN_0": {
+   "cameras": [
+    "a40cda3c32219a15"
+   ],
+   "room": "LDBM/LB/SLN",
+   "walkmesh": "8aa7ea9acefb5b8828609247e2d902cb99571fa9df27b88a1f5edfed34ea4629"
+  },
+  "FBG_N11_LDBM_MAP180_LB_WGN_0": {
+   "cameras": [
+    "831336e70cc364bb"
+   ],
+   "room": "LDBM/LB/WGN",
+   "walkmesh": "463ad47a403b27ad0341fcc84f12dde44e6fbf67b9d0faf800673a1ffc05b570"
+  },
+  "FBG_N11_LDBM_MAP181_LB_CAG_0": {
+   "cameras": [
+    "064155654fedf2f5"
+   ],
+   "room": "LDBM/LB/CAG",
+   "walkmesh": "978c3236b7059ace4b4ee57017e7164945314c796cb51e3b40eb25c1affff2ba"
+  },
+  "FBG_N11_LDBM_MAP182_LB_SHT_0": {
+   "cameras": [
+    "0a95842dd6dcdefe"
+   ],
+   "room": "LDBM/LB/SHT",
+   "walkmesh": "9a19cacd4054d25fab858076ac554c2deefd7b0361b6a539c163287271405aa4"
+  },
+  "FBG_N11_LDBM_MAP183_LB_LFT_0": {
+   "cameras": [
+    "1af26e81da35f5e2"
+   ],
+   "room": "LDBM/LB/LFT",
+   "walkmesh": "ff1c2bf0d18ce91f6a9e7b493e1f950cd5f37392cc83262d1261d904e7fefb20"
+  },
+  "FBG_N11_LDBM_MAP184_LB_LPF_0": {
+   "cameras": [
+    "dd108843a452ffe4"
+   ],
+   "room": "LDBM/LB/LPF",
+   "walkmesh": "51ef51fe401feaec4053ed1c80ef5efdf3ab01de14b5638474fe7188d93d594c"
+  },
+  "FBG_N11_LDBM_MAP185_LB_HFC_0": {
+   "cameras": [
+    "e718f4e68e2c0bf5"
+   ],
+   "room": "LDBM/LB/HFC",
+   "walkmesh": "846ec7524af6bdf920f9ce5883d34bf35f55704c71fa28fddc12ed02dabc19f2"
+  },
+  "FBG_N11_LDBM_MAP186_LB_CFR_0": {
+   "cameras": [
+    "3ab5497d5838eb5b",
+    "e700c5284ada8eb0"
+   ],
+   "room": "LDBM/LB/CFR",
+   "walkmesh": "d0f611998840e8ac1d5814ceefe9ba34f63a8f7980cb4b056c73773cdf41b3b9"
+  },
+  "FBG_N11_LDBM_MAP187A_LB_MET_A": {
+   "cameras": [
+    "58e2b7ca9ea7f9fa"
+   ],
+   "room": "LDBM/LB/MET",
+   "walkmesh": "c94bda0b338d7bd986c5d482eb7f5b31227693c09aa8594214f9bbe998c6c1be"
+  },
+  "FBG_N11_LDBM_MAP187_LB_MET_0": {
+   "cameras": [
+    "58e2b7ca9ea7f9fa"
+   ],
+   "room": "LDBM/LB/MET",
+   "walkmesh": "c94bda0b338d7bd986c5d482eb7f5b31227693c09aa8594214f9bbe998c6c1be"
+  },
+  "FBG_N11_LDBM_MAP188_LB_UHW_0": {
+   "cameras": [
+    "a27a86e18246ade1"
+   ],
+   "room": "LDBM/LB/UHW",
+   "walkmesh": "ec8a39abe8c92f7ef1db5d4920319862608a51c2698aeef1c20c2b92c749563c"
+  },
+  "FBG_N11_LDBM_MAP189_LB_LPR_0": {
+   "cameras": [
+    "830b897bc6048495"
+   ],
+   "room": "LDBM/LB/LPR",
+   "walkmesh": "b9236afbaff22d5cbde6520269c581364d8047b0c451208470bb59e7d9c1eb4d"
+  },
+  "FBG_N11_LDBM_MAP190_LB_OBS_0": {
+   "cameras": [
+    "95066ece44f68d1b",
+    "ef8924b10e9f3e6f"
+   ],
+   "room": "LDBM/LB/OBS",
+   "walkmesh": "aa8f0f37a2f20e621a1df694535c76369957b1a72d7b6d20ef1a442d5b681bf3"
+  },
+  "FBG_N11_LDBM_MAP191A_LB_ASD_1": {
+   "cameras": [
+    "6c06eeede0757ac8"
+   ],
+   "room": "LDBM/LB/ASD",
+   "walkmesh": "3d8882eda6821b82a6b83a845b4c7cd394ff204d092254fbbf91db3b125dde69"
+  },
+  "FBG_N11_LDBM_MAP191B_LB_ASD_2": {
+   "cameras": [
+    "6c06eeede0757ac8"
+   ],
+   "room": "LDBM/LB/ASD",
+   "walkmesh": "3d8882eda6821b82a6b83a845b4c7cd394ff204d092254fbbf91db3b125dde69"
+  },
+  "FBG_N11_LDBM_MAP191_LB_ASD_0": {
+   "cameras": [
+    "6c06eeede0757ac8"
+   ],
+   "room": "LDBM/LB/ASD",
+   "walkmesh": "3d8882eda6821b82a6b83a845b4c7cd394ff204d092254fbbf91db3b125dde69"
+  },
+  "FBG_N11_LDBM_MAP192_LB_HAL_0": {
+   "cameras": [
+    "6b5f7a7e412092ff"
+   ],
+   "room": "LDBM/LB/HAL",
+   "walkmesh": "5b0d14373daa6bd6e634463321ac130f1c202c05fecfcac3b45007675cbf8abd"
+  },
+  "FBG_N11_LDBM_MAP193_LB_MHW_0": {
+   "cameras": [
+    "735fd214a2b70ab8"
+   ],
+   "room": "LDBM/LB/MHW",
+   "walkmesh": "f8d76b7ee2232e4cd88508872991c1a3003fefe11cca70cd2d7ad9c34e47901f"
+  },
+  "FBG_N11_LDBM_MAP194_LB_GRM_0": {
+   "cameras": [
+    "885decaac65b129d"
+   ],
+   "room": "LDBM/LB/GRM",
+   "walkmesh": "6001ee3d588f2b10e815a8328bcdcacf4e4be40df5e9ab408a08b7fdd7b1dc1a"
+  },
+  "FBG_N11_LDBM_MAP195_LB_CTM_0": {
+   "cameras": [
+    "c127d155017af9c5"
+   ],
+   "room": "LDBM/LB/CTM",
+   "walkmesh": "686c5a48dd7549bc563369ca8337e869b84897e50ec109d3ea12c24db5635197"
+  },
+  "FBG_N11_LDBM_MAP196_LB_BRG_0": {
+   "cameras": [
+    "d78f8811a144881d"
+   ],
+   "room": "LDBM/LB/BRG",
+   "walkmesh": "2ba82bd64bcf47e797bcdfebb3e0e3da287fa84cb146c359a4cde617f0be77ef"
+  },
+  "FBG_N11_LDBM_MAP197_LB_SHB_0": {
+   "cameras": [
+    "036d30176de2f09c"
+   ],
+   "room": "LDBM/LB/SHB",
+   "walkmesh": "73915eaa3ba06dc5aa8c8c446123655f82a70b971d66feb4bb5c33671f331c0b"
+  },
+  "FBG_N11_LDBM_MAP198_LB_EXB_0": {
+   "cameras": [
+    "4c3cf87e7852302e"
+   ],
+   "room": "LDBM/LB/EXB",
+   "walkmesh": "e74de86cc38217b5cb3497f1291848bae7b1040716a8334d882a2ca4b72baf94"
+  },
+  "FBG_N11_LDBM_MAP199_LB_LLP_0": {
+   "cameras": [
+    "27869e7c7037f681"
+   ],
+   "room": "LDBM/LB/LLP",
+   "walkmesh": "ca75d409e55457f26534f4a7f666f407f90a6acc7e85603f3282b2050df9c403"
+  },
+  "FBG_N11_LDBM_MAP200_LB_PLA_0": {
+   "cameras": [
+    "d4ea4780d8196328"
+   ],
+   "room": "LDBM/LB/PLA",
+   "walkmesh": "a429833f31cc60f9996323e433490047322ee9a41a281a98bcfb044615142d35"
+  },
+  "FBG_N11_LDBM_MAP201_LB_POT_0": {
+   "cameras": [
+    "29ece84a7c5f803d"
+   ],
+   "room": "LDBM/LB/POT",
+   "walkmesh": "9989a374cbccd35b6c51cc668a3db53505145963876c922ae9c64ad1fa0e374a"
+  },
+  "FBG_N11_LDBM_MAP202_LB_SCT_0": {
+   "cameras": [
+    "90e871525da6b874",
+    "f3ad7414f0c5fd05"
+   ],
+   "room": "LDBM/LB/SCT",
+   "walkmesh": "c12d124997f1727c295869387fa1d2e456e9c4e27d0917f5a4bc58526416f5ed"
+  },
+  "FBG_N11_LDBM_MAP203_LB_HNG_0": {
+   "cameras": [
+    "90e871525da6b874"
+   ],
+   "room": "LDBM/LB/HNG",
+   "walkmesh": "2d7f7e96b7179aa5460b32e09770b37009b0fead5ee5cd436226a9e31c113782"
+  },
+  "FBG_N11_LDBM_MAP204_LB_TSP_0": {
+   "cameras": [
+    "4e7b5c714c1bb4f1"
+   ],
+   "room": "LDBM/LB/TSP",
+   "walkmesh": "8443e10c93c72151ba08404d5191a0c0ac22151f57c9f516b1c0bf48c0ca8cfd"
+  },
+  "FBG_N11_LDBM_MAP910_LB_MST_W": {
+   "cameras": [
+    "e498f37679209588"
+   ],
+   "room": "LDBM/LB/MST",
+   "walkmesh": "16d3af152c597ae934491884c31c567a64aa20dcdbef7a18cc8448b1b68a261d"
+  },
+  "FBG_N11_LDBM_MAP911_LB_BAZ_W": {
+   "cameras": [
+    "8a7810d388c8a88d"
+   ],
+   "room": "LDBM/LB/BAZ",
+   "walkmesh": "376cf5b9b68a630a8dc35b3df8e7010fb05a308654f9993be45ec0cceae457d4"
+  },
+  "FBG_N11_LDBM_MAP912_LB_PLZ_W": {
+   "cameras": [
+    "fae75e4118ab6bd1"
+   ],
+   "room": "LDBM/LB/PLZ",
+   "walkmesh": "cd0a66c86b5d86ba9308f621c17b41bcd0641b8c6a05335eb009063a73482634"
+  },
+  "FBG_N11_LDBM_MAP913_LB_GAT_W": {
+   "cameras": [
+    "e8cbae40ce94c046"
+   ],
+   "room": "LDBM/LB/GAT",
+   "walkmesh": "966e0fddc2c5dfce18fc0de57c20fde2ca3ab7662af1daf941eb63a7ba500c2b"
+  },
+  "FBG_N11_LDBM_MAP914_LB_HUS_W": {
+   "cameras": [
+    "5c8aed10c3df321a"
+   ],
+   "room": "LDBM/LB/HUS",
+   "walkmesh": "8b74c67cfb38850e56156daae603e6c6c162f8ca7199c7402e6f674ca62af5ed"
+  },
+  "FBG_N11_LDBM_MAP915_LB_WPN_W": {
+   "cameras": [
+    "35ea285dc816894a"
+   ],
+   "room": "LDBM/LB/WPN",
+   "walkmesh": "dd9d9c1ba49c5e10a51ba0b7f914c8dc1081c97c8a9e95c0d2de7d2a0b780114"
+  },
+  "FBG_N11_LDBM_MAP916_LB_RFS_W": {
+   "cameras": [
+    "25969c6e619b40cb"
+   ],
+   "room": "LDBM/LB/RFS",
+   "walkmesh": "8b1d3d3c926072cf9e722093112da45e92f3845d8a77e4348d3b982fdf4a97c9"
+  },
+  "FBG_N11_LDBM_MAP917A_LB_OMG_W": {
+   "cameras": [
+    "fa57d686dc1f7996"
+   ],
+   "room": "LDBM/LB/OMG",
+   "walkmesh": "89e6227ce21949b4b004f6b8e09d5b979f44fed424ad0a263fb8dfc633cb963b"
+  },
+  "FBG_N11_LDBM_MAP917_LB_HIG_W": {
+   "cameras": [
+    "762dc392d445216b"
+   ],
+   "room": "LDBM/LB/HIG",
+   "walkmesh": "923998765868c2bac878c861c416b99bdf3c3bbd2f92601eb93eb0490e46e27d"
+  },
+  "FBG_N11_LDBM_MAP918_LB_OBS_M": {
+   "cameras": [
+    "95066ece44f68d1b",
+    "ef8924b10e9f3e6f"
+   ],
+   "room": "LDBM/LB/OBS",
+   "walkmesh": "aa8f0f37a2f20e621a1df694535c76369957b1a72d7b6d20ef1a442d5b681bf3"
+  },
+  "FBG_N11_LDBM_MAP919_LB_PTM_M": {
+   "cameras": [
+    "29ece84a7c5f803d"
+   ],
+   "room": "LDBM/LB/PTM",
+   "walkmesh": "23403f898f0e82829396e24dfbc6a99e69d8593f41372c61b429ca58bd2510f5"
+  },
+  "FBG_N11_LDBM_MAP920_LB_MST_R": {
+   "cameras": [
+    "e498f37679209588"
+   ],
+   "room": "LDBM/LB/MST",
+   "walkmesh": "73fa9bf84f78ea5697b1563d5ae899f0f9bdd3dbad086e8443cf18e9e247d9d6"
+  },
+  "FBG_N11_LDBM_MAP921_LB_BAZ_R": {
+   "cameras": [
+    "8a7810d388c8a88d"
+   ],
+   "room": "LDBM/LB/BAZ",
+   "walkmesh": "b35ae52e1a69787f75f271e4a94be65065aaf27c8ed03177c7b8d2a9ff0cf126"
+  },
+  "FBG_N11_LDBM_MAP922_LB_PLZ_R": {
+   "cameras": [
+    "fae75e4118ab6bd1"
+   ],
+   "room": "LDBM/LB/PLZ",
+   "walkmesh": "a80047593c1b199dc1d75822cbb65cab8d98325543c37c3207f483e64f492f8b"
+  },
+  "FBG_N11_LDBM_MAP924_LB_HUS_R": {
+   "cameras": [
+    "5c8aed10c3df321a"
+   ],
+   "room": "LDBM/LB/HUS",
+   "walkmesh": "fbede1436f65f12bee33e5a64d95857f757b5b902982573120679d227097f2b7"
+  },
+  "FBG_N11_LDBM_MAP925_LB_WPN_R": {
+   "cameras": [
+    "35ea285dc816894a"
+   ],
+   "room": "LDBM/LB/WPN",
+   "walkmesh": "fdc576de5d9e7895b659fbd814105a08ef16a456b1c175e739345ae51bae0d79"
+  },
+  "FBG_N11_LDBM_MAP926_LB_RFS_R": {
+   "cameras": [
+    "25969c6e619b40cb"
+   ],
+   "room": "LDBM/LB/RFS",
+   "walkmesh": "355ded073eee511937973125b6168f40e6a20c56c3186ea5901b86bbcb169c67"
+  },
+  "FBG_N11_LDBM_MAP927_LB_HIG_R": {
+   "cameras": [
+    "762dc392d445216b"
+   ],
+   "room": "LDBM/LB/HIG",
+   "walkmesh": "1d18d8e33366f239352ad0183b027aafd927cdf55621c40b79991d35e6087543"
+  },
+  "FBG_N12_GZML_MAP251_GZ_ENT_1": {
+   "cameras": [
+    "629852b9c6206639"
+   ],
+   "room": "GZML/GZ/ENT",
+   "walkmesh": "f0b6579a3780662800fe9a48ec32e7e965a17ea8446aa2fbf3c6bdcb378187d0"
+  },
+  "FBG_N12_GZML_MAP252_GZ_CAV_0": {
+   "cameras": [
+    "8c69035715c9c953"
+   ],
+   "room": "GZML/GZ/CAV",
+   "walkmesh": "20ff746e83c30a64bd4c9365179517bea97d21abbcb8c955799a7da005a1ba10"
+  },
+  "FBG_N12_GZML_MAP253_GZ_CAV_1": {
+   "cameras": [
+    "90fb66dc4fe4e5e0"
+   ],
+   "room": "GZML/GZ/CAV",
+   "walkmesh": "48f4043f4e6fcd713ec1b370a03dd9f03faf4a361569c66e89e1c577bb00fac7"
+  },
+  "FBG_N12_GZML_MAP254A_GZ_BEL_0": {
+   "cameras": [
+    "8aad74882779fe9c"
+   ],
+   "room": "GZML/GZ/BEL",
+   "walkmesh": "3bc5cd24c788824c891e4dc632e434e20fa0a669dc1e98b4b29821b59e58730a"
+  },
+  "FBG_N12_GZML_MAP254_GZ_HAL_0": {
+   "cameras": [
+    "2ac25bf935ea539a"
+   ],
+   "room": "GZML/GZ/HAL",
+   "walkmesh": "04134c70edf98f39a98aae9b1d0033562b1a78ffe3d9112209c99358f914dd52"
+  },
+  "FBG_N12_GZML_MAP255_GZ_XIT_0": {
+   "cameras": [
+    "5622df0eff25fb17"
+   ],
+   "room": "GZML/GZ/XIT",
+   "walkmesh": "05c4166190d7b8d5e155a6370e1965daddd2c3e214d07920d2bc5b58efee6fa7"
+  },
+  "FBG_N12_GZML_MAP256_GZ_XIT_1": {
+   "cameras": [
+    "6bf23e1d4e5540c0"
+   ],
+   "room": "GZML/GZ/XIT",
+   "walkmesh": "e5859e6bcd9febb3b59624900c8e686dbca97ad984393788cd3105bfd4eb9cdb"
+  },
+  "FBG_N13_BRMC_MAP260_BU_ENT_0": {
+   "cameras": [
+    "722f669038de2806"
+   ],
+   "room": "BRMC/BU/ENT",
+   "walkmesh": "d1ce7d266becf7b23c43925a397c26e4e7fafe88d254ea8a3ccd5425c9956d6a"
+  },
+  "FBG_N13_BRMC_MAP261_BU_RES_0": {
+   "cameras": [
+    "a1efd70de7c5eefb"
+   ],
+   "room": "BRMC/BU/RES",
+   "walkmesh": "3e3fbd245cee54843cd40b9525ba915073ffb88a53bca916fb29514f49b2f53f"
+  },
+  "FBG_N13_BRMC_MAP263_BU_RES_2": {
+   "cameras": [
+    "877639ba8be55b52"
+   ],
+   "room": "BRMC/BU/RES",
+   "walkmesh": "85c4912a0f1aa2f447a8c39f33941070f808cd96b0972b3cecb8992f70b99343"
+  },
+  "FBG_N13_BRMC_MAP264_BU_BEL_0": {
+   "cameras": [
+    "a51eb730fc182041"
+   ],
+   "room": "BRMC/BU/BEL",
+   "walkmesh": "dba5ead7ad6ef10d3b1a07d0377d866fe0d0e8e4e938153b0e349b5ab32b7cad"
+  },
+  "FBG_N13_BRMC_MAP265_BU_CYD_0": {
+   "cameras": [
+    "a6243fa71a56fdb5"
+   ],
+   "room": "BRMC/BU/CYD",
+   "walkmesh": "b25126d620419507e0601b02d750553a87b85100fbfa46c858954071cde0e517"
+  },
+  "FBG_N13_BRMC_MAP266_BU_SQU_0": {
+   "cameras": [
+    "d9ee82401c0259e8"
+   ],
+   "room": "BRMC/BU/SQU",
+   "walkmesh": "ce383381cec38fdc9c007e4de60dcd53d8a3e02aa5c641afb6d916755d9951d1"
+  },
+  "FBG_N13_BRMC_MAP267_BU_PAL_0": {
+   "cameras": [
+    "933d3de2ef54aeca"
+   ],
+   "room": "BRMC/BU/PAL",
+   "walkmesh": "6c4b6a304c76a3a62e0ee730fe42d2fef7bdc90b599e5c40305efb0c9b78b70d"
+  },
+  "FBG_N13_BRMC_MAP268_BU_SRR_0": {
+   "cameras": [
+    "f98cd4e68cf6e6a3"
+   ],
+   "room": "BRMC/BU/SRR",
+   "walkmesh": "72d038ee7cecc3aa7696916ee164ad4c291ae0661296215edc1820f2067e605a"
+  },
+  "FBG_N13_BRMC_MAP269_BU_SRL_0": {
+   "cameras": [
+    "34fa370b40db2e9c"
+   ],
+   "room": "BRMC/BU/SRL",
+   "walkmesh": "f6281b3c5670fadcae28ee182e5f19617ba8fb4917069a141621c448cb7b2189"
+  },
+  "FBG_N13_BRMC_MAP270_BU_DEN_0": {
+   "cameras": [
+    "0a7faaccce205523"
+   ],
+   "room": "BRMC/BU/DEN",
+   "walkmesh": "522db8b0a1cc389525668a24882d01f33c9b2ed7cee266c1d6ce859b653d4d0e"
+  },
+  "FBG_N13_BRMC_MAP271_BU_BED_0": {
+   "cameras": [
+    "8f6a1bcbad2072b2"
+   ],
+   "room": "BRMC/BU/BED",
+   "walkmesh": "b590b1c70f1dec309d0bc59e8ebec4459176ac178bea6f88a55160f6f049860d"
+  },
+  "FBG_N13_BRMC_MAP272_BU_PTH_0": {
+   "cameras": [
+    "9d977608264b1237"
+   ],
+   "room": "BRMC/BU/PTH",
+   "walkmesh": "f6e68cc5b6bca70e5ba8eea56630d405cf76cb9ae1f669d4579ed550be9606f2"
+  },
+  "FBG_N13_BRMC_MAP273_BU_HAL_0": {
+   "cameras": [
+    "4793abd1f4ca6d8a"
+   ],
+   "room": "BRMC/BU/HAL",
+   "walkmesh": "1ace5626cf6cb80690b05c5af8441d0815648b105524f61888fdf603c1cc325c"
+  },
+  "FBG_N13_BRMC_MAP274A_BU_HAL_2": {
+   "cameras": [
+    "94b90bd20db7107a"
+   ],
+   "room": "BRMC/BU/HAL",
+   "walkmesh": "e86c61f200a45fff6320cfc04159952f54313422caee47987467f8d91a2661a5"
+  },
+  "FBG_N13_BRMC_MAP274_BU_HAL_1": {
+   "cameras": [
+    "94b90bd20db7107a"
+   ],
+   "room": "BRMC/BU/HAL",
+   "walkmesh": "e86c61f200a45fff6320cfc04159952f54313422caee47987467f8d91a2661a5"
+  },
+  "FBG_N13_BRMC_MAP275_BU_TRE_0": {
+   "cameras": [
+    "c886223249630f22"
+   ],
+   "room": "BRMC/BU/TRE",
+   "walkmesh": "a932d3a2aaf3b73ca1dc3f21969e41d288e627dac7ee8eedd547db7b0759e971"
+  },
+  "FBG_N13_BRMC_MAP276_BU_WEP_0": {
+   "cameras": [
+    "614ec68ddbc74ad9"
+   ],
+   "room": "BRMC/BU/WEP",
+   "walkmesh": "f1d291a7cbb98e0a56bea4419daf3aec73b9c08a2ffbd50f1e9effc735b37bcd"
+  },
+  "FBG_N13_BRMC_MAP277_BU_INT_0": {
+   "cameras": [
+    "84ff68db189d2159"
+   ],
+   "room": "BRMC/BU/INT",
+   "walkmesh": "a754a7a820557c780d45ee2789f577f99d3290569e816ba98007eff72c9589c2"
+  },
+  "FBG_N13_BRMC_MAP278_BU_INT_1": {
+   "cameras": [
+    "57fe2a37059164ea"
+   ],
+   "room": "BRMC/BU/INT",
+   "walkmesh": "dbc30dcf7727839a986e4fa836e6341a05377ba62099b8d3deb9d8e16f319c9f"
+  },
+  "FBG_N14_CHCB_MAP300_CH_FST_0": {
+   "cameras": [
+    "ccbb069b41520f24"
+   ],
+   "room": "CHCB/CH/FST",
+   "walkmesh": "79c8564978da5f54a4e3602363343c8ba5df948998efd26412da7051ee49f7a1"
+  },
+  "FBG_N14_CHCB_MAP301_CH_HLG_0": {
+   "cameras": [
+    "aad0b3d5ae93c1a1"
+   ],
+   "room": "CHCB/CH/HLG",
+   "walkmesh": "5d9accce01348a93afecc30d0d9f2faf9acb96e97763aea7da57fe5649f13673"
+  },
+  "FBG_N14_CHCB_MAP302_CH_FGD_0": {
+   "cameras": [
+    "8cb12d2e5f55518f"
+   ],
+   "room": "CHCB/CH/FGD",
+   "walkmesh": "03b49797e0026e5fc7a9b7e27edc338f1917b8e6b0aa773a9e803e8915cbfeff"
+  },
+  "FBG_N14_CHCB_MAP303_CH_DWL_0": {
+   "cameras": [
+    "a4302ef6ce231c1c"
+   ],
+   "room": "CHCB/CH/DWL",
+   "walkmesh": "f63a0edeecab0b98cfebbee891f4e672ca29dccb2429ff08267e26df4697817d"
+  },
+  "FBG_N14_CHCB_MAP304_CH_PDS_0": {
+   "cameras": [
+    "2d50f51b92d42b6a"
+   ],
+   "room": "CHCB/CH/PDS",
+   "walkmesh": "a8e057790dba0c63c331dcc5e5f40a4264d7dc3cd50a341667124481e7ec5da3"
+  },
+  "FBG_N14_CHCB_MAP305_CH_PDS_1": {
+   "cameras": [
+    "b84fc44f77fca176"
+   ],
+   "room": "CHCB/CH/PDS",
+   "walkmesh": "eed53e720a4c293c7ad3f9a36101e0f9ecfa6b6cdbb538619296b8446c59d2fd"
+  },
+  "FBG_N15_KUIN_MAP310_KM_ENT_0": {
+   "cameras": [
+    "94287300875e9a6b"
+   ],
+   "room": "KUIN/KM/ENT",
+   "walkmesh": "601558144fa2445962c9b29f28aabf0837318f510f8f91b74f775a0429ebfc1b"
+  },
+  "FBG_N15_KUIN_MAP311A_KM_DWN_0": {
+   "cameras": [
+    "58db4b5fc22d3967"
+   ],
+   "room": "KUIN/KM/DWN",
+   "walkmesh": "1ff446288fb9beef57e76f91e6b6bbab259c975abe9a9403bdd66e58d45d35f3"
+  },
+  "FBG_N15_KUIN_MAP311B_KM_DWN_1": {
+   "cameras": [
+    "488496bb49c6c5c1"
+   ],
+   "room": "KUIN/KM/DWN",
+   "walkmesh": "b3efe34f03dffc41fe123af0fd02fbad6cc56bf60b5f42f390eb2fa5ef20450b"
+  },
+  "FBG_N15_KUIN_MAP311C_KM_DWN_2": {
+   "cameras": [
+    "0f9382ab504ec55a"
+   ],
+   "room": "KUIN/KM/DWN",
+   "walkmesh": "09e9b34c8e17218ccf08dc68e97be0889d2458913fd0e788d888e4049093ad1b"
+  },
+  "FBG_N15_KUIN_MAP311D_KM_DWN_3": {
+   "cameras": [
+    "58db4b5fc22d3967"
+   ],
+   "room": "KUIN/KM/DWN",
+   "walkmesh": "c6367eef5559a2d9385ac233e3501bb3fb6e958073fe645b06df55341a0e9537"
+  },
+  "FBG_N15_KUIN_MAP315_KM_RED_0": {
+   "cameras": [
+    "94287300875e9a6b"
+   ],
+   "room": "KUIN/KM/RED",
+   "walkmesh": "5fbec8d0d474b5f09e66e2f190b4ffa2bd4cdbc95d8505fe6693b019b9b8e731"
+  },
+  "FBG_N15_KUIN_MAP316_KM_SWP_0": {
+   "cameras": [
+    "e78f08c66dc2c807"
+   ],
+   "room": "KUIN/KM/SWP",
+   "walkmesh": "2ac1b282014083554e6c8d3f4979c7d23be16479dd0e43b9a70dedcf842bfc04"
+  },
+  "FBG_N15_KUIN_MAP317_KM_SWP_1": {
+   "cameras": [
+    "776826748d7abb37"
+   ],
+   "room": "KUIN/KM/SWP",
+   "walkmesh": "eba4de251ad02928a3309b92f51e3cba861d9a6cad5d8e339275da667f7b2d5b"
+  },
+  "FBG_N15_KUIN_MAP318_KM_SWP_2": {
+   "cameras": [
+    "b27981b6d7cb6224"
+   ],
+   "room": "KUIN/KM/SWP",
+   "walkmesh": "fa35e666e6d58551c5376224aabc5392aa9b66b90a9533b4016ecb5fbb99e8dc"
+  },
+  "FBG_N15_KUIN_MAP319_KM_SWP_3": {
+   "cameras": [
+    "ee514f369a2fe3e3"
+   ],
+   "room": "KUIN/KM/SWP",
+   "walkmesh": "2124334768e7a941bffaf4218dc9f985ed59122a5fe1410c784a074b24eb44f2"
+  },
+  "FBG_N15_KUIN_MAP320_KM_THE_0": {
+   "cameras": [
+    "24713ea518e1ed9a"
+   ],
+   "room": "KUIN/KM/THE",
+   "walkmesh": "93477535ad4d9f740ab913dd7d6f1070498a043c90629ce81d2b231af0487f0e"
+  },
+  "FBG_N15_KUIN_MAP321_KM_THI_0": {
+   "cameras": [
+    "4f6039e60720638f"
+   ],
+   "room": "KUIN/KM/THI",
+   "walkmesh": "f4bcf715911f61c6b30b61c1bde3b309470a99538231620b47d0ee42a27d76f0"
+  },
+  "FBG_N15_KUIN_MAP322A_KM_FET_1": {
+   "cameras": [
+    "cae1a91183dab1c9"
+   ],
+   "room": "KUIN/KM/FET",
+   "walkmesh": "c7ffc11dc2a32b5f05175d4571ec7915be54424c09207ca9a79ae1166505118c"
+  },
+  "FBG_N15_KUIN_MAP322_KM_FET_0": {
+   "cameras": [
+    "56715565eaeec021"
+   ],
+   "room": "KUIN/KM/FET",
+   "walkmesh": "900b461fc5ff1795686bc0089e5d2021b8c980b9e44b3206af5c7d8d1fb9592e"
+  },
+  "FBG_N16_STGT_MAP330_SG_RND_0": {
+   "cameras": [
+    "2f726b58536fecf4"
+   ],
+   "room": "STGT/SG/RND",
+   "walkmesh": "e2877105e72bee28f173b2b4cf12175879d750b857d4270b8ef5bd93df808843"
+  },
+  "FBG_N16_STGT_MAP331_SG_RND_1": {
+   "cameras": [
+    "1c005c933ef52867",
+    "2c986c5bc324ca49"
+   ],
+   "room": "STGT/SG/RND",
+   "walkmesh": "4b0e258dd1578ffac0d446f8b09756f7272d421bd16ca409ef9ad760a7d36bda"
+  },
+  "FBG_N16_STGT_MAP332_SG_RND_3": {
+   "cameras": [
+    "584f0063bdba9434",
+    "eea0406f045fce88"
+   ],
+   "room": "STGT/SG/RND",
+   "walkmesh": "5b378b765b984e81c90483cbe6fc4dd088f83f0e8de480ee9cc1e5305431406c"
+  },
+  "FBG_N16_STGT_MAP340A_SG_TRN_1": {
+   "cameras": [
+    "2374305fc489eee8"
+   ],
+   "room": "STGT/SG/TRN",
+   "walkmesh": "21bc31c68dccca4515fe982477e4f50b783539309219e9f3efcc78c1f4bfa345"
+  },
+  "FBG_N16_STGT_MAP340_SG_TRN_0": {
+   "cameras": [
+    "9099aa9c359db938"
+   ],
+   "room": "STGT/SG/TRN",
+   "walkmesh": "e57d722aa609e0a9f866fa4f9f8b28ab393225eea96b90871e5a055167c6010f"
+  },
+  "FBG_N16_STGT_MAP341A_SG_TRN_3": {
+   "cameras": [
+    "79a5a28e00b88ded"
+   ],
+   "room": "STGT/SG/TRN",
+   "walkmesh": "21bc31c68dccca4515fe982477e4f50b783539309219e9f3efcc78c1f4bfa345"
+  },
+  "FBG_N16_STGT_MAP341_SG_TRN_2": {
+   "cameras": [
+    "a69b0a58fabb2c44"
+   ],
+   "room": "STGT/SG/TRN",
+   "walkmesh": "1cdacb5e57ac913031c7a840be8b10f76f2d9c352043c1a1b57e19b63e8efef1"
+  },
+  "FBG_N16_STGT_MAP342X_SG_TOP_3": {
+   "cameras": [
+    "584f0063bdba9434",
+    "fa3e9c41b601c4e9"
+   ],
+   "room": "STGT/SG/TOP",
+   "walkmesh": "484ea3b587e9e3a7bcdb6de240efa4d62ff12a3130b79b6f44c9855b9bb45a0e"
+  },
+  "FBG_N16_STGT_MAP342_SG_TOP_0": {
+   "cameras": [
+    "584f0063bdba9434",
+    "fa3e9c41b601c4e9"
+   ],
+   "room": "STGT/SG/TOP",
+   "walkmesh": "6eddf0614e03e37213878bd5e34fa5b0244f0d1a9e94e85e0b0994f895403d13"
+  },
+  "FBG_N16_STGT_MAP343_SG_TOP_1": {
+   "cameras": [
+    "35223794fb4046d8",
+    "584f0063bdba9434"
+   ],
+   "room": "STGT/SG/TOP",
+   "walkmesh": "e5ad113e039d0caade713aea63c7988eb5bee08ee3a908f91fdb491565685b8b"
+  },
+  "FBG_N16_STGT_MAP345_SG_TOP_2": {
+   "cameras": [
+    "84cda79aaafa95ed"
+   ],
+   "room": "STGT/SG/TOP",
+   "walkmesh": "19622b811696a36212a7430f8996aaa24e7ee976c8c125782049cf9231f62f19"
+  },
+  "FBG_N16_STGT_MAP350_SG_ALX_0": {
+   "cameras": [
+    "584f0063bdba9434",
+    "d707381c0d05e08f"
+   ],
+   "room": "STGT/SG/ALX",
+   "walkmesh": "64cb9302de85cb952425eb132b1e1469efbca830c08424ca664c59286bb3a962"
+  },
+  "FBG_N16_STGT_MAP351_SG_ALX_1": {
+   "cameras": [
+    "31f9f24f805d3884"
+   ],
+   "room": "STGT/SG/ALX",
+   "walkmesh": "09fa8fde0a2204041984e997f09382f61efcda22e5ff57316f3a8255cbed50bb"
+  },
+  "FBG_N16_STGT_MAP352A_SG_ALX_5": {
+   "cameras": [
+    "7243c5cea2990c2d"
+   ],
+   "room": "STGT/SG/ALX",
+   "walkmesh": "60dfa060e88a804a6f2a62d33841005ce4626f5602fc39e0602fcd874a44c717"
+  },
+  "FBG_N16_STGT_MAP352_SG_ALX_2": {
+   "cameras": [
+    "7243c5cea2990c2d"
+   ],
+   "room": "STGT/SG/ALX",
+   "walkmesh": "60dfa060e88a804a6f2a62d33841005ce4626f5602fc39e0602fcd874a44c717"
+  },
+  "FBG_N16_STGT_MAP353_SG_ALX_3": {
+   "cameras": [
+    "2c916726c643750e"
+   ],
+   "room": "STGT/SG/ALX",
+   "walkmesh": "072385e78c0224027de52f6b9370c786ceafc2f7f42126bc4f28d6450a849026"
+  },
+  "FBG_N16_STGT_MAP354_SG_ALX_4": {
+   "cameras": [
+    "fa523816515183f6"
+   ],
+   "room": "STGT/SG/ALX",
+   "walkmesh": "9ea8c6b95366db5b8d0392c24d3fe9dd8ae9ea4a69a223df4a5fd62b6fb4eb93"
+  },
+  "FBG_N18_GTRE_MAP360_GT_GRD_0": {
+   "cameras": [
+    "52526d7b4d6d4399"
+   ],
+   "room": "GTRE/GT/GRD",
+   "walkmesh": "a55cdd9d62e3712d601638fe25bc87964a7e455e739a7c57d58ef67c4f4c7c00"
+  },
+  "FBG_N18_GTRE_MAP361_GT_GRD_1": {
+   "cameras": [
+    "6700ff44c15a4f74"
+   ],
+   "room": "GTRE/GT/GRD",
+   "walkmesh": "56f58813836b6a0666c587acb3d65168ddd3fec58e77be1d0e1e336c972240ad"
+  },
+  "FBG_N18_GTRE_MAP362_GT_GRD_2": {
+   "cameras": [
+    "bcb0b0703250a3d9"
+   ],
+   "room": "GTRE/GT/GRD",
+   "walkmesh": "330224fe55640c0d338e25bff433367f044d41c4d9002af18a90d5f21e38b4d4"
+  },
+  "FBG_N18_GTRE_MAP363_GT_DUN_0": {
+   "cameras": [
+    "fe2c883ea85d7cc5"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "369ae2d79a801a0a9d42f4bbead4a3679d232ce7415a30bdd5d7fefacbe1075a"
+  },
+  "FBG_N18_GTRE_MAP364_GT_DUN_1": {
+   "cameras": [
+    "98ca4229084da55c"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "7d62a58ed9108bce429b51f71b21b6b16e16669c617c63fef33c95347c7654f7"
+  },
+  "FBG_N18_GTRE_MAP365_GT_DUN_2": {
+   "cameras": [
+    "98ca4229084da55c"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "ffcfec8f5d02efbc24779ab2966b87c6c147a3d10dd10c8732ad524425b52f0a"
+  },
+  "FBG_N18_GTRE_MAP366_GT_DUN_3": {
+   "cameras": [
+    "ed716d3b91ae4036"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "af195560c2ab778ea50c47d77ee53ef525bbd17ae7a3a6a8c94143fe1588f62f"
+  },
+  "FBG_N18_GTRE_MAP367_GT_DUN_4": {
+   "cameras": [
+    "4625bafd518a316c"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "edf959c921ed67a1e089893d1b461e4f943b6626432e0b4a489c73e8f55ff013"
+  },
+  "FBG_N18_GTRE_MAP368_GT_DUN_5": {
+   "cameras": [
+    "db6493fb9c5cff30"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "ffe99d7ed7208b7808c3fdd18a9cc2f302ee2a36621faf7dec06099362e60353"
+  },
+  "FBG_N18_GTRE_MAP369_GT_DUN_6": {
+   "cameras": [
+    "e27fd0a7c7671d21"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "e9fad56d61572837348d3d6a3becbe9d511820287af1f5d7a67691aa1e5f1f61"
+  },
+  "FBG_N18_GTRE_MAP370_GT_DUN_7": {
+   "cameras": [
+    "20a4c281153cb5b7"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "2b8fb222f2fb504839fa90b39de2a8de9523286e88ac650a7687ff328f95acc5"
+  },
+  "FBG_N18_GTRE_MAP371_GT_DUN_8": {
+   "cameras": [
+    "d6476586d2291df4"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "09beb9c493c39abd50fa400b004aa99becc8661edd77c4ccf66bb05af9a4dc48"
+  },
+  "FBG_N18_GTRE_MAP372_GT_DUN_9": {
+   "cameras": [
+    "27c4bccc5fcd65b9"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "aaddb0abddb9bd6a16410cea58c13aad558627188b120b753b4fa56e124bcd24"
+  },
+  "FBG_N18_GTRE_MAP373_GT_DUN_A": {
+   "cameras": [
+    "566cc08a44f3da1f"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "b9576917b4be4eb236ff9f2a87821197c47261b4026fd0ca56baa7f8cfc9e0ec"
+  },
+  "FBG_N18_GTRE_MAP374_GT_DUN_B": {
+   "cameras": [
+    "3c55f913838895cc"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "fb9123a863c3b091edd6505fcd05c6a5944c3e49fb8e9c52b2c587e6c93327f2"
+  },
+  "FBG_N18_GTRE_MAP375X_GT_DUN_D": {
+   "cameras": [
+    "06f120dcb264bbf1"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "8495f4be08526cb55cb456141acadfe97566bbf1323fc3735d389ff1d31ec834"
+  },
+  "FBG_N18_GTRE_MAP375_GT_DUN_C": {
+   "cameras": [
+    "06f120dcb264bbf1"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "be263aee29b52c5119cce4b3a46b0169f39ef99b572197b8eddb5188c3a1e64b"
+  },
+  "FBG_N18_GTRE_MAP376X_GT_DUN_F": {
+   "cameras": [
+    "fc3b0dc9b3e1a538"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "e1e2467adcbeab59bb5654fb8d0f32c390575fb02315be853b6337bcd6c904b4"
+  },
+  "FBG_N18_GTRE_MAP376_GT_DUN_E": {
+   "cameras": [
+    "fc3b0dc9b3e1a538"
+   ],
+   "room": "GTRE/GT/DUN",
+   "walkmesh": "e1e2467adcbeab59bb5654fb8d0f32c390575fb02315be853b6337bcd6c904b4"
+  },
+  "FBG_N19_CLIR_MAP380X_CY_TWN_1": {
+   "cameras": [
+    "a0fe99c1b777f332"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "d5bc023f54e4d4a991a19c8d72e79177ca0f0a6a08c2e00e05879f317ee62bf4"
+  },
+  "FBG_N19_CLIR_MAP380_CY_TWN_0": {
+   "cameras": [
+    "a0fe99c1b777f332"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "d5bc023f54e4d4a991a19c8d72e79177ca0f0a6a08c2e00e05879f317ee62bf4"
+  },
+  "FBG_N19_CLIR_MAP381A_CY_TWN_4": {
+   "cameras": [
+    "cb1f439c5833f292"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "2657f5dec04e48e05a006bb469c1390cc8e222073d70deb91abe0968d93828dd"
+  },
+  "FBG_N19_CLIR_MAP381X_CY_TWN_3": {
+   "cameras": [
+    "b78c55ea4fb8cf3b"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "5867ba4fc85a0abc524d38fe96f9ccb2e5ddc757302cb478af2826a5093b28e5"
+  },
+  "FBG_N19_CLIR_MAP381_CY_TWN_2": {
+   "cameras": [
+    "b78c55ea4fb8cf3b"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "5867ba4fc85a0abc524d38fe96f9ccb2e5ddc757302cb478af2826a5093b28e5"
+  },
+  "FBG_N19_CLIR_MAP382X_CY_TWN_6": {
+   "cameras": [
+    "0702dbd4cedfaf0f"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "9bf46a0539d2ac9a213eb0a6382b8a43d5f835f8b352bc1654ed567bbae5ca4a"
+  },
+  "FBG_N19_CLIR_MAP382_CY_TWN_5": {
+   "cameras": [
+    "0702dbd4cedfaf0f"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "9bf46a0539d2ac9a213eb0a6382b8a43d5f835f8b352bc1654ed567bbae5ca4a"
+  },
+  "FBG_N19_CLIR_MAP383X_CY_TWN_8": {
+   "cameras": [
+    "fcc4b6439b7a6c07"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "fa533f328b62ab84fcc00183c0ceda687170e9251652ca7c873291ded40341ba"
+  },
+  "FBG_N19_CLIR_MAP383_CY_TWN_7": {
+   "cameras": [
+    "fcc4b6439b7a6c07"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "fa533f328b62ab84fcc00183c0ceda687170e9251652ca7c873291ded40341ba"
+  },
+  "FBG_N19_CLIR_MAP384X_CY_TWN_A": {
+   "cameras": [
+    "6fd7661b5dbca8d1"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "48900a65f773e85bf9db2eb7edf7c2f131e56482a4eb69524e04fa7ee5260a78"
+  },
+  "FBG_N19_CLIR_MAP384_CY_TWN_9": {
+   "cameras": [
+    "6fd7661b5dbca8d1"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "0291ad84d4cee7d1b6a273e5f9de12d4de08a161db03acc5a39c4cbafb22748a"
+  },
+  "FBG_N19_CLIR_MAP385_CY_TWN_B": {
+   "cameras": [
+    "0899e093fd054b3a"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "d2dc96bb690bc12e597b1510d5854087c6bd1ee9bd7a1e9ae0dae0ffa4299fca"
+  },
+  "FBG_N19_CLIR_MAP386X_CY_TWN_D": {
+   "cameras": [
+    "7f8ae738511831b9"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "f2ca6062765832af0de9096709005cbaa2405b61ec8db881ee09ffcc3a55fc09"
+  },
+  "FBG_N19_CLIR_MAP386_CY_TWN_C": {
+   "cameras": [
+    "7f8ae738511831b9"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "f2ca6062765832af0de9096709005cbaa2405b61ec8db881ee09ffcc3a55fc09"
+  },
+  "FBG_N19_CLIR_MAP387X_CY_TWN_F": {
+   "cameras": [
+    "32e892a1d2a8af99"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "ba627ff0f9d5b748f828f6986d8fa913a75ed3566d083a8752128daf0630c1a2"
+  },
+  "FBG_N19_CLIR_MAP387_CY_TWN_E": {
+   "cameras": [
+    "32e892a1d2a8af99"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "64171b6c13f269f20c65c731a0691c7a3dd0c9571268c2231d2af098a9d864cf"
+  },
+  "FBG_N19_CLIR_MAP388X_CY_TWN_J": {
+   "cameras": [
+    "f791fb8b9ac19033"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "16a7d741935f5a64aec84e6d3b7a7a124997b98094cea891328d817e71314ef8"
+  },
+  "FBG_N19_CLIR_MAP388_CY_TWN_G": {
+   "cameras": [
+    "f791fb8b9ac19033"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "e0466d70cffc747adf3fe388460c33b703c6756d0303acace6bbbd4d98916f52"
+  },
+  "FBG_N19_CLIR_MAP389X_CY_TWN_I": {
+   "cameras": [
+    "f7f7e7c4ef7db3e7"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "c35c601781f927749127772636c52fd811d9abe1b74871b45bf4ab02fe9dd973"
+  },
+  "FBG_N19_CLIR_MAP389_CY_TWN_H": {
+   "cameras": [
+    "f7f7e7c4ef7db3e7"
+   ],
+   "room": "CLIR/CY/TWN",
+   "walkmesh": "c35c601781f927749127772636c52fd811d9abe1b74871b45bf4ab02fe9dd973"
+  },
+  "FBG_N20_TRNO_MAP400_TR_GAT_0": {
+   "cameras": [
+    "5195aa61e77e6031"
+   ],
+   "room": "TRNO/TR/GAT",
+   "walkmesh": "ee1f9ef49e2c2ceafd71b5f03a2aaa252506c47872d1fd73a2102b2276aedfad"
+  },
+  "FBG_N20_TRNO_MAP401_TR_RES_0": {
+   "cameras": [
+    "7e3e9faed3721ae5"
+   ],
+   "room": "TRNO/TR/RES",
+   "walkmesh": "9ec5f5e0956e5f108966f88b59abf6642063afd6cb7b545faf263b06822d44f9"
+  },
+  "FBG_N20_TRNO_MAP402A_TR_FQH_0": {
+   "cameras": [
+    "616c05671bbe4877"
+   ],
+   "room": "TRNO/TR/FQH",
+   "walkmesh": "0288693e75473f029d8009061f02b43f3cb8fd316f0bcd2c369e29fb8a0485ec"
+  },
+  "FBG_N20_TRNO_MAP402_TR_EKH_0": {
+   "cameras": [
+    "a37b0c212be4d2ef"
+   ],
+   "room": "TRNO/TR/EKH",
+   "walkmesh": "c1509d166756d4c0807f8315e02ff06d81c21a7bfc59ff1bb293b7a1826dec1d"
+  },
+  "FBG_N20_TRNO_MAP403_TR_WHF_0": {
+   "cameras": [
+    "b540ec52b7056d80"
+   ],
+   "room": "TRNO/TR/WHF",
+   "walkmesh": "4234aaadd80f8e9cb432b94a6fcc2ec6ed36c21855f2f1b2faff63b306135091"
+  },
+  "FBG_N20_TRNO_MAP404_TR_FKH_0": {
+   "cameras": [
+    "a1a4ef21ed25ab45"
+   ],
+   "room": "TRNO/TR/FKH",
+   "walkmesh": "cf07ec5ef1040144a3703208bbde4cfa749318eabea860c2eeb00acdbe4e189c"
+  },
+  "FBG_N20_TRNO_MAP405A_TR_FBH_0": {
+   "cameras": [
+    "34757412716fb1a2"
+   ],
+   "room": "TRNO/TR/FBH",
+   "walkmesh": "f905226725c5ea3970ff707e2551bf6267c76d2f3cb02090f565aeacf4d96d67"
+  },
+  "FBG_N20_TRNO_MAP405_TR_WBH_0": {
+   "cameras": [
+    "1a2f56dac10b24fe"
+   ],
+   "room": "TRNO/TR/WBH",
+   "walkmesh": "16dcc5eb689821cf5a5b907921b88d9e00e031cc964afa68f4d40e771b6150ee"
+  },
+  "FBG_N20_TRNO_MAP406_TR_BTA_0": {
+   "cameras": [
+    "d891ce50b3b898e9"
+   ],
+   "room": "TRNO/TR/BTA",
+   "walkmesh": "dcaee00e70b8439877a193a8b77b13efaafeb6a8584538bf2b87018a4d0e2c30"
+  },
+  "FBG_N20_TRNO_MAP407_TR_WAT_0": {
+   "cameras": [
+    "46c877d474fc9dab"
+   ],
+   "room": "TRNO/TR/WAT",
+   "walkmesh": "d5d5966b3c01ce4a18290af99379c85ac8ce253f2b6d63f7b9e333e72a111766"
+  },
+  "FBG_N20_TRNO_MAP409_TR_KHA_0": {
+   "cameras": [
+    "7060b46bc2a6f9a6"
+   ],
+   "room": "TRNO/TR/KHA",
+   "walkmesh": "cff9c8f2c1d35a23f775cedd07d5a42067f7814dd3f094abd130893f9a6b91e8"
+  },
+  "FBG_N20_TRNO_MAP410_TR_QHM_0": {
+   "cameras": [
+    "808e5f1711112c25"
+   ],
+   "room": "TRNO/TR/QHM",
+   "walkmesh": "fae255f0fc5cbe106ff3f9ae8bf53cb7740789949049f6aaba1f577ac326190d"
+  },
+  "FBG_N20_TRNO_MAP411_TR_KHM_0": {
+   "cameras": [
+    "7dbb7199147c7186"
+   ],
+   "room": "TRNO/TR/KHM",
+   "walkmesh": "5842e340d7dfb3e913960ac02cc391f41bd3afc4bea6c4912678dcd227883b2b"
+  },
+  "FBG_N20_TRNO_MAP412_TR_BHE_0": {
+   "cameras": [
+    "c9a679b9f8fc964c"
+   ],
+   "room": "TRNO/TR/BHE",
+   "walkmesh": "e247ee63cde2612f119b9a37ae4f5ce3e31d745cf3f6b29b678eb983157c1279"
+  },
+  "FBG_N20_TRNO_MAP413_TR_BHM_0": {
+   "cameras": [
+    "d6682e7f9628a546"
+   ],
+   "room": "TRNO/TR/BHM",
+   "walkmesh": "57c0ba2d8bdf445a9d0113be4e50140325e49b47e777687e52a65348f652e31e"
+  },
+  "FBG_N20_TRNO_MAP414_TR_TMS_0": {
+   "cameras": [
+    "405d196ba3da2cb1"
+   ],
+   "room": "TRNO/TR/TMS",
+   "walkmesh": "dfc30115ac4c0a48ff766ae9b102ff87bb55753d0ce4a744fc7d893ab80c7212"
+  },
+  "FBG_N20_TRNO_MAP415_TR_TOT_0": {
+   "cameras": [
+    "891effffaf237f66"
+   ],
+   "room": "TRNO/TR/TOT",
+   "walkmesh": "7727529a2181e88a03bf2d89ac561b3cd8687a8c0f108ef88fefb27e96bb1b55"
+  },
+  "FBG_N20_TRNO_MAP416_TR_TOT_1": {
+   "cameras": [
+    "f7aeabe1196f4e5a"
+   ],
+   "room": "TRNO/TR/TOT",
+   "walkmesh": "d6c2de2bceb27abf4645b5e680bc7d833636b62bde81253753f9c73353b0f795"
+  },
+  "FBG_N20_TRNO_MAP417_TR_BAR_0": {
+   "cameras": [
+    "ac73d1d70ed92f7f"
+   ],
+   "room": "TRNO/TR/BAR",
+   "walkmesh": "18e0ebd27e7ee1267ca15674cf8b682de4cdd9cbcc5e7e81623d705f8fb059f3"
+  },
+  "FBG_N21_GRGR_MAP420_GR_CEN_0": {
+   "cameras": [
+    "32dad38c8c6e7abf"
+   ],
+   "room": "GRGR/GR/CEN",
+   "walkmesh": "c6858f20b1e8d2484dc7e5f4d8f573e38da6884e0f88e8544996c6017dab6aba"
+  },
+  "FBG_N21_GRGR_MAP421_GR_LEF_0": {
+   "cameras": [
+    "488563271d767cf4",
+    "805eb48fab86bd84"
+   ],
+   "room": "GRGR/GR/LEF",
+   "walkmesh": "d450449d250b0289499602fa076e3c19ce128d28bf20cda705e54ff8d5b81fe5"
+  },
+  "FBG_N21_GRGR_MAP423_GR_GBA_0": {
+   "cameras": [
+    "869c37e76d1c9f09"
+   ],
+   "room": "GRGR/GR/GBA",
+   "walkmesh": "b03c42d8d4c37d70886fe67ce2f880cbccb4c4da1c593595db797f197ff8c2d2"
+  },
+  "FBG_N21_GRGR_MAP424_GR_REN_0": {
+   "cameras": [
+    "2142ff44c4da1d7e",
+    "ee3bac757d98f296"
+   ],
+   "room": "GRGR/GR/REN",
+   "walkmesh": "3a8c6e6c110307e1e07d7664d3578e5f492fcc7ccefdd0c99ef27b1e78ceb8ba"
+  },
+  "FBG_N21_GRGR_MAP426_GR_GGT_0": {
+   "cameras": [
+    "4cc0c3c2921758f0"
+   ],
+   "room": "GRGR/GR/GGT",
+   "walkmesh": "313f5b96ee8cbe4e98867774c1c88eb5b2d5c33ea50eb2c7e2e93dafc3304d30"
+  },
+  "FBG_N21_GRGR_MAP427_GR_ALX_0": {
+   "cameras": [
+    "c3d672eef9bd66e6"
+   ],
+   "room": "GRGR/GR/ALX",
+   "walkmesh": "dd4e0efb2940008a20a3de4d4e26185c7b1f5c2cf926f2d3a4bfc2939336685b"
+  },
+  "FBG_N23_QUNH_MAP440_QH_HUR_0": {
+   "cameras": [
+    "7fda2d31de5b36ab"
+   ],
+   "room": "QUNH/QH/HUR",
+   "walkmesh": "eb74d60995805fb1b127a766bd9041a863202abceb1e5430308a10c14f9abfea"
+  },
+  "FBG_N23_QUNH_MAP441_QH_HUH_0": {
+   "cameras": [
+    "7fda2d31de5b36ab"
+   ],
+   "room": "QUNH/QH/HUH",
+   "walkmesh": "b1745d7f7ee2010eda0046583cb454d534edaebe1018430852b88265b13a8d21"
+  },
+  "FBG_N23_QUNH_MAP442_QH_LNI_0": {
+   "cameras": [
+    "1abe3e4f882268cc"
+   ],
+   "room": "QUNH/QH/LNI",
+   "walkmesh": "a7b435789ba2d9d57fa4ea197ae819d099ce9e0292d6552eb146445d8a670dae"
+  },
+  "FBG_N23_QUNH_MAP443_QH_CAV_0": {
+   "cameras": [
+    "493e0134b67c6325"
+   ],
+   "room": "QUNH/QH/CAV",
+   "walkmesh": "225026890f2a82e67d22323e5aa0d7d2a4f13582529dfe4cc39f0c73732d79f9"
+  },
+  "FBG_N25_NTGT_MAP450A_NG_MDA_1": {
+   "cameras": [
+    "c19db7842d2d1144"
+   ],
+   "room": "NTGT/NG/MDA",
+   "walkmesh": "45e870828e2a0e45c5d652409b68acd2a9bd416925f2654ad11ea07cbe28d36f"
+  },
+  "FBG_N25_NTGT_MAP450_NG_MDA_0": {
+   "cameras": [
+    "c19db7842d2d1144"
+   ],
+   "room": "NTGT/NG/MDA",
+   "walkmesh": "45e870828e2a0e45c5d652409b68acd2a9bd416925f2654ad11ea07cbe28d36f"
+  },
+  "FBG_N25_NTGT_MAP451A_NG_BMA_1": {
+   "cameras": [
+    "f7f10de9867ff91c"
+   ],
+   "room": "NTGT/NG/BMA",
+   "walkmesh": "eb2a58a3ef6c671f0d49154d3c59b1bfc0b95c9317500ddfe1bd047e6085d60e"
+  },
+  "FBG_N25_NTGT_MAP451_NG_BMA_0": {
+   "cameras": [
+    "f7f10de9867ff91c"
+   ],
+   "room": "NTGT/NG/BMA",
+   "walkmesh": "eb2a58a3ef6c671f0d49154d3c59b1bfc0b95c9317500ddfe1bd047e6085d60e"
+  },
+  "FBG_N25_NTGT_MAP452A_NG_TRA_1": {
+   "cameras": [
+    "f34862752e6ca042"
+   ],
+   "room": "NTGT/NG/TRA",
+   "walkmesh": "5a11548a7d19b3441d353bcea45067065c0365a09f56d97af2254534043a4168"
+  },
+  "FBG_N25_NTGT_MAP453A_NG_BDA_1": {
+   "cameras": [
+    "de9c9ea9f814a8b1"
+   ],
+   "room": "NTGT/NG/BDA",
+   "walkmesh": "16a7f2aa2b2f79135e0a01b1f94bb4221a3c602bd63de7822945771f1902b38d"
+  },
+  "FBG_N25_NTGT_MAP453_NG_BDA_0": {
+   "cameras": [
+    "de9c9ea9f814a8b1"
+   ],
+   "room": "NTGT/NG/BDA",
+   "walkmesh": "16a7f2aa2b2f79135e0a01b1f94bb4221a3c602bd63de7822945771f1902b38d"
+  },
+  "FBG_N26_PNCL_MAP455_PR_GAL_0": {
+   "cameras": [
+    "16c2e99ee7e91a05"
+   ],
+   "room": "PNCL/PR/GAL",
+   "walkmesh": "617042f4f287511cac79aec3cd104f207e7ddd59f4ae49f0884a0c41f46cdff1"
+  },
+  "FBG_N26_PNCL_MAP456_PR_PW1_0": {
+   "cameras": [
+    "771697858f956eaf"
+   ],
+   "room": "PNCL/PR/PW1",
+   "walkmesh": "96d2e3006185ce7cdf6f3ed5b7ea8e2d9f6cb8e7af98cfa6cb4f393dbe37df1b"
+  },
+  "FBG_N26_PNCL_MAP457_PR_PW2_0": {
+   "cameras": [
+    "22a0f78cc2dd5991"
+   ],
+   "room": "PNCL/PR/PW2",
+   "walkmesh": "2e1e36f9830f4a309a10653396a2562d894a827dd5aafbb565098da6a1428b29"
+  },
+  "FBG_N26_PNCL_MAP458_PR_PW3_0": {
+   "cameras": [
+    "1eca8c748f3b4a9e"
+   ],
+   "room": "PNCL/PR/PW3",
+   "walkmesh": "c38f0bd29ea4279b9cf3d27101a699872d147e84de5487198ed3ae78c2dc57d7"
+  },
+  "FBG_N26_PNCL_MAP459_PR_ENT_0": {
+   "cameras": [
+    "cd8fc3b4de73f548"
+   ],
+   "room": "PNCL/PR/ENT",
+   "walkmesh": "d9254348788fc4d40db02441762eb4810481461228c20d630345b16b14310dba"
+  },
+  "FBG_N26_PNCL_MAP460_PR_ENT_1": {
+   "cameras": [
+    "cd8fc3b4de73f548"
+   ],
+   "room": "PNCL/PR/ENT",
+   "walkmesh": "d9254348788fc4d40db02441762eb4810481461228c20d630345b16b14310dba"
+  },
+  "FBG_N27_FSLR_MAP465_FR_ENT_0": {
+   "cameras": [
+    "f372058baf4d61c2"
+   ],
+   "room": "FSLR/FR/ENT",
+   "walkmesh": "6bd89e387ed27a053b04d5db74e2294a47d08a7316eabf6755c5715a51326f40"
+  },
+  "FBG_N27_FSLR_MAP466_FR_TRP_0": {
+   "cameras": [
+    "17046f2bc75fd195"
+   ],
+   "room": "FSLR/FR/TRP",
+   "walkmesh": "e56c2447f15615563467db09bc68c5a725ae006c6afecb2ebdd3a0de4c3f4ec4"
+  },
+  "FBG_N27_FSLR_MAP467_FR_SBW_0": {
+   "cameras": [
+    "eef90ff9f18f55da"
+   ],
+   "room": "FSLR/FR/SBW",
+   "walkmesh": "ac92393e46da60763f8d02ee0573ea631720a7c5de5f0b7b191426c875ef9fee"
+  },
+  "FBG_N27_FSLR_MAP468A_FR_SL2_0": {
+   "cameras": [
+    "3981412772bb97cd"
+   ],
+   "room": "FSLR/FR/SL2",
+   "walkmesh": "45815cc2e4897a9838f76d1f58c817c5d0019105820f9b0746a501c56331815a"
+  },
+  "FBG_N27_FSLR_MAP468B_FR_SL3_0": {
+   "cameras": [
+    "3fd7598a1d72f387"
+   ],
+   "room": "FSLR/FR/SL3",
+   "walkmesh": "1ce80b48931083528ec8f0e0cb1161fce9e318e3dc6e8be38bbdd639dd6f52ee"
+  },
+  "FBG_N27_FSLR_MAP468C_FR_SL4_0": {
+   "cameras": [
+    "26756ddfc2b28322"
+   ],
+   "room": "FSLR/FR/SL4",
+   "walkmesh": "cb866ba3b9f150eb22a1ca7b9ae4a68cc44698669e203f1c01d2089479589f3b"
+  },
+  "FBG_N27_FSLR_MAP468D_FR_SL5_0": {
+   "cameras": [
+    "7241dad31d01eb36"
+   ],
+   "room": "FSLR/FR/SL5",
+   "walkmesh": "efe3b9882ad4b08c2b7ed2dca49717caa75fcd9e8464b998244e39ca4f617ced"
+  },
+  "FBG_N27_FSLR_MAP468E_FR_SM1_0": {
+   "cameras": [
+    "eff62d7396c5651b"
+   ],
+   "room": "FSLR/FR/SM1",
+   "walkmesh": "6b8a97b2ad3017603f329b6c92f28158879c40c4e10b6a48e0727f5f91c4397c"
+  },
+  "FBG_N27_FSLR_MAP468_FR_SL1_0": {
+   "cameras": [
+    "9010d6d10b918d85"
+   ],
+   "room": "FSLR/FR/SL1",
+   "walkmesh": "df2d5b882912a0831a1289663df026ca59c6540cee662b78c21bb82e351ec2af"
+  },
+  "FBG_N27_FSLR_MAP469A_FR_SR2_0": {
+   "cameras": [
+    "7fb0f4935801d95f"
+   ],
+   "room": "FSLR/FR/SR2",
+   "walkmesh": "8bbb5c4d5280f3b11fcc34397f05681c4ca885817810852bf30b3699d5ee54a4"
+  },
+  "FBG_N27_FSLR_MAP469B_FR_SR3_0": {
+   "cameras": [
+    "da9ba11ca8992b0d"
+   ],
+   "room": "FSLR/FR/SR3",
+   "walkmesh": "4f2f341ccab113877db51de54c743eeb59efcfa22dc0cd2b379ff1751a54a56e"
+  },
+  "FBG_N27_FSLR_MAP469C_FR_SR4_0": {
+   "cameras": [
+    "202587f7a7a1e9bd"
+   ],
+   "room": "FSLR/FR/SR4",
+   "walkmesh": "a4108dce3cf58a99298bcb86d1f46cfe9c45421e49b10ebfc0df9f864643630f"
+  },
+  "FBG_N27_FSLR_MAP469D_FR_SR5_0": {
+   "cameras": [
+    "6041641f8c39ef21"
+   ],
+   "room": "FSLR/FR/SR5",
+   "walkmesh": "7a543f842081087d5072428312686b3506d3fd57f047372b1f2d03d278aeaa36"
+  },
+  "FBG_N27_FSLR_MAP469E_FR_SR6_0": {
+   "cameras": [
+    "d51ca442db258c03"
+   ],
+   "room": "FSLR/FR/SR6",
+   "walkmesh": "dc149915472d707fcd12f3e64726508f713ba0786d29c8ebb06916bf60481b0f"
+  },
+  "FBG_N27_FSLR_MAP469F_FR_SR7_0": {
+   "cameras": [
+    "e20e234f82bd6b5c"
+   ],
+   "room": "FSLR/FR/SR7",
+   "walkmesh": "6a3916407139b7edd8c18643a0a21798bc6e018751ccaa5508966a6cd488d891"
+  },
+  "FBG_N27_FSLR_MAP469_FR_SR1_0": {
+   "cameras": [
+    "d6eed5e41d35ea07"
+   ],
+   "room": "FSLR/FR/SR1",
+   "walkmesh": "1fffdd70a9e73c8f58fd039c344925dd52877a1303e79aadc4687c42566b561c"
+  },
+  "FBG_N27_FSLR_MAP470A_FR_MV2_0": {
+   "cameras": [
+    "26e52c35431443ee"
+   ],
+   "room": "FSLR/FR/MV2",
+   "walkmesh": "db6c374ab2b275606b1975e2adbfad48bbd4fe1bfc0e7a7773e52eb8c8a95302"
+  },
+  "FBG_N27_FSLR_MAP470B_FR_MV3_0": {
+   "cameras": [
+    "90e90690bb14c98a"
+   ],
+   "room": "FSLR/FR/MV3",
+   "walkmesh": "3832a99217310f89b9094396822979d6a20b155fc6dbf98aac05f0f024a603bf"
+  },
+  "FBG_N27_FSLR_MAP470C_FR_MV4_0": {
+   "cameras": [
+    "7f99c846668ea619"
+   ],
+   "room": "FSLR/FR/MV4",
+   "walkmesh": "14c0a52bef58bae9fcb1bdb2e2292c099683fb89243d54ed3f31cc9eac97bdab"
+  },
+  "FBG_N27_FSLR_MAP470D_FR_MV5_0": {
+   "cameras": [
+    "b7a61a7ed5076673"
+   ],
+   "room": "FSLR/FR/MV5",
+   "walkmesh": "bdba9f2484154beaffab58ad55a4554b1373dcca04e75ca07d134af81c5b6067"
+  },
+  "FBG_N27_FSLR_MAP470_FR_MV1_0": {
+   "cameras": [
+    "34fa66ba10aaa421"
+   ],
+   "room": "FSLR/FR/MV1",
+   "walkmesh": "06fc6dba50d290742afbb73c50b1c6723cea13d5f0128044006979cb0ef510ed"
+  },
+  "FBG_N27_FSLR_MAP471_FR_DN1_0": {
+   "cameras": [
+    "c045d1aeb53d520e"
+   ],
+   "room": "FSLR/FR/DN1",
+   "walkmesh": "c9c1c55250da0ed675fc13b3153d677f74f376d5de5342b275780d42262d2ade"
+  },
+  "FBG_N27_FSLR_MAP472_FR_DN2_0": {
+   "cameras": [
+    "c982f1b66017f3e3"
+   ],
+   "room": "FSLR/FR/DN2",
+   "walkmesh": "4f1ff7416eea4af00338086aa87cad3f9175cf923969b4623aa017dc28512ea3"
+  },
+  "FBG_N27_FSLR_MAP473_FR_DN3_0": {
+   "cameras": [
+    "60433135ba061e5d"
+   ],
+   "room": "FSLR/FR/DN3",
+   "walkmesh": "327bb75f8e332044b4bca17229d043172a1775fc47c7d65bfa6c7c86f71ad745"
+  },
+  "FBG_N27_FSLR_MAP474_FR_DN4_0": {
+   "cameras": [
+    "923e5fa3a7046108"
+   ],
+   "room": "FSLR/FR/DN4",
+   "walkmesh": "4fc88fb1b510ed1a1845120027c04dd071458e3b940e89ac1feb697fe2da7f0f"
+  },
+  "FBG_N27_FSLR_MAP475_FR_EXT_0": {
+   "cameras": [
+    "54a77a993906707b"
+   ],
+   "room": "FSLR/FR/EXT",
+   "walkmesh": "3f44da1d4d77cf73c9c4e1fd5f93522e0e319d8e20255ce581a5eecfa9ae209e"
+  },
+  "FBG_N28_CDPT_MAP480_CP_ENT_0": {
+   "cameras": [
+    "2ccf4e6e7f487e4d"
+   ],
+   "room": "CDPT/CP/ENT",
+   "walkmesh": "7c0e276cf2c1cc08faf3d6425c8a30df3a5c3f4c76a5f5ebc6dc4f73e16ef287"
+  },
+  "FBG_N28_CDPT_MAP481_CP_GL1_0": {
+   "cameras": [
+    "e657beb34d51a54d"
+   ],
+   "room": "CDPT/CP/GL1",
+   "walkmesh": "6992399ff7853ac42e41ae9db7b658e4d1b585ce1bc183fc1d9526beba42f6ff"
+  },
+  "FBG_N28_CDPT_MAP482_CP_GL2_0": {
+   "cameras": [
+    "b3e0cee70599871a"
+   ],
+   "room": "CDPT/CP/GL2",
+   "walkmesh": "f1d7c4335def95cd72622c982080c880f1a1bdd32161481fadb50b0c24e5d9b6"
+  },
+  "FBG_N28_CDPT_MAP483_CP_STR_0": {
+   "cameras": [
+    "b7afffc3733b672d"
+   ],
+   "room": "CDPT/CP/STR",
+   "walkmesh": "2d8c41fec56e59e96c71bbf7652fb91dd7e0cd8fcbc2b66853f9834e4e2674e4"
+  },
+  "FBG_N28_CDPT_MAP484_CP_EXT_0": {
+   "cameras": [
+    "8fa80d44efbc7909"
+   ],
+   "room": "CDPT/CP/EXT",
+   "walkmesh": "eaa7e5d7d8adb805ecf99170fd9a80564c58235466a718d8eb14710bc332e874"
+  },
+  "FBG_N28_CDPT_MAP485_CP_SHN_0": {
+   "cameras": [
+    "2f543f1fde79f03b"
+   ],
+   "room": "CDPT/CP/SHN",
+   "walkmesh": "fa1ad40923e4f0593ce3c0b524a3a0ac708de9c6b85ba4c40c09d586a702b1d0"
+  },
+  "FBG_N28_CDPT_MAP486_CP_ALT_0": {
+   "cameras": [
+    "bec794993678c844"
+   ],
+   "room": "CDPT/CP/ALT",
+   "walkmesh": "f8e0af39bb0e998ff92083e4c97f8de0fb75875837cfaff7d7ba759f20a90b05"
+  },
+  "FBG_N28_CDPT_MAP487_CP_STP_0": {
+   "cameras": [
+    "5f32db0c676a6e0c"
+   ],
+   "room": "CDPT/CP/STP",
+   "walkmesh": "894c1c974b4ad5c46b1699a20be2fbf3071a8ad82a1771f1682db3d278b88f0c"
+  },
+  "FBG_N28_CDPT_MAP488_CP_ROM_0": {
+   "cameras": [
+    "565ae2d6e4dca5fe"
+   ],
+   "room": "CDPT/CP/ROM",
+   "walkmesh": "93cf2239c843b7623ace4d2193553911dc5b384bcb236a57234a74024fe20b34"
+  },
+  "FBG_N28_CDPT_MAP489_CP_TOL_0": {
+   "cameras": [
+    "7a7dc743e0d8bff5"
+   ],
+   "room": "CDPT/CP/TOL",
+   "walkmesh": "649d8ddc7aff7d0c5ad1ce27bfab827a4584c3e55193157e05b37f935bff9a3c"
+  },
+  "FBG_N29_CPMP_MAP510_CM_MP0_0": {
+   "cameras": [
+    "2f6ea9c2f44e68e1"
+   ],
+   "room": "CPMP/CM/MP0",
+   "walkmesh": "52595ed4a1af7b4d0d7ca056bb53241ce044ae518ca306ef5c4231cc3e653d0c"
+  },
+  "FBG_N29_CPMP_MAP511_CM_MP1_0": {
+   "cameras": [
+    "6c8b22ca870abd44"
+   ],
+   "room": "CPMP/CM/MP1",
+   "walkmesh": "c337a7415630b990d3c89e81cec7c2451ead0fe918f8dbe653af3217869ad4bd"
+  },
+  "FBG_N29_CPMP_MAP512_CM_MP2_0": {
+   "cameras": [
+    "e670459692b09d92"
+   ],
+   "room": "CPMP/CM/MP2",
+   "walkmesh": "acefb7066ad16f579d743861c9dd361992eea1ec3bbf368f2eafb1f023a1e1bd"
+  },
+  "FBG_N29_CPMP_MAP513_CM_MP3_0": {
+   "cameras": [
+    "b5e48feb79f10b61"
+   ],
+   "room": "CPMP/CM/MP3",
+   "walkmesh": "c02d73456f5caf60b78be58b8f8c5e3f6cbe6b7a03f80705b3d00ddcafc352fb"
+  },
+  "FBG_N29_CPMP_MAP514_CM_MP4_0": {
+   "cameras": [
+    "b272ab2053b530e6"
+   ],
+   "room": "CPMP/CM/MP4",
+   "walkmesh": "49c4b3985ee5f1224b4cd0c87e01501b392e436c16bc5e0b53f2c273ee91a85d"
+  },
+  "FBG_N29_CPMP_MAP515_CM_MP5_0": {
+   "cameras": [
+    "a8e811f18987f2f0"
+   ],
+   "room": "CPMP/CM/MP5",
+   "walkmesh": "93fdeddd74995ebea893178cb3f9deb2a047dd45bec7ee20fb16fca503ec2a3d"
+  },
+  "FBG_N29_CPMP_MAP516_CM_MP6_0": {
+   "cameras": [
+    "60e47981bd159843"
+   ],
+   "room": "CPMP/CM/MP6",
+   "walkmesh": "717844b052f7006244353ce1f6d787fe048b443d71988693dd2f5c234c27d220"
+  },
+  "FBG_N29_CPMP_MAP517_CM_MP7_0": {
+   "cameras": [
+    "af572b200763e8ec"
+   ],
+   "room": "CPMP/CM/MP7",
+   "walkmesh": "8aac163273b1f668ecfad50855bbe7efa18393e35bb8eb357286e27511c0b3ac"
+  },
+  "FBG_N30_BMVL_MAP530_BV_FR1_0": {
+   "cameras": [
+    "2bd40ddae9c434de"
+   ],
+   "room": "BMVL/BV/FR1",
+   "walkmesh": "2117512279b711712e9c9848ef8f2e03a7a08a08dcf3a1082b01c232a2a496f8"
+  },
+  "FBG_N30_BMVL_MAP531A_BV_ZTN_0": {
+   "cameras": [
+    "1416ee8bf8f9f51a",
+    "29ece84a7c5f803d"
+   ],
+   "room": "BMVL/BV/ZTN",
+   "walkmesh": "973c8b627c2207f818c88143df29b5409b41ae33b12a2127c1aac05c6afcba64"
+  },
+  "FBG_N30_BMVL_MAP531_BV_FR2_0": {
+   "cameras": [
+    "4cb000e3cd5cbca5"
+   ],
+   "room": "BMVL/BV/FR2",
+   "walkmesh": "348c13b84044eefd26ac6ef8ebde7ae0929af8568dbc4e6b956ce03e54bff727"
+  },
+  "FBG_N30_BMVL_MAP532_BV_ENT_0": {
+   "cameras": [
+    "b05032312baa3e5b"
+   ],
+   "room": "BMVL/BV/ENT",
+   "walkmesh": "3e150d8350d57ddbb451e4dabba075ad22c97f70af9fa0196de75e80768025f7"
+  },
+  "FBG_N30_BMVL_MAP533_BV_ABR_0": {
+   "cameras": [
+    "d9d99d01002cb6c9"
+   ],
+   "room": "BMVL/BV/ABR",
+   "walkmesh": "bfb50c9ac6a98785e83253766512a03e3c70ab548a7209c02a7a4e0c3903e682"
+  },
+  "FBG_N30_BMVL_MAP534A_BV_GVY_1": {
+   "cameras": [
+    "bfa466122953d685"
+   ],
+   "room": "BMVL/BV/GVY",
+   "walkmesh": "4970e6d33919655c38a21d30e57807201916b65c2b37cea77ec209ac3618e316"
+  },
+  "FBG_N30_BMVL_MAP534_BV_GVY_0": {
+   "cameras": [
+    "bfa466122953d685"
+   ],
+   "room": "BMVL/BV/GVY",
+   "walkmesh": "4970e6d33919655c38a21d30e57807201916b65c2b37cea77ec209ac3618e316"
+  },
+  "FBG_N30_BMVL_MAP535_BV_CSK_0": {
+   "cameras": [
+    "ca5c1f157458ac55"
+   ],
+   "room": "BMVL/BV/CSK",
+   "walkmesh": "170bc1614d0a123f0f7a26e52b93f9daee691adc9b8863bbdbe0d2c095aabc78"
+  },
+  "FBG_N30_BMVL_MAP536_BV_ORT_0": {
+   "cameras": [
+    "f420c83da4362aed"
+   ],
+   "room": "BMVL/BV/ORT",
+   "walkmesh": "3e7db448a3f6554834e64703d95b283c3d3f4a0b41a30925783663a9c6b8fba9"
+  },
+  "FBG_N30_BMVL_MAP537_BV_EVE_0": {
+   "cameras": [
+    "929e8ff3186518d6",
+    "a8edd334ec0ce7ce"
+   ],
+   "room": "BMVL/BV/EVE",
+   "walkmesh": "6ec4abe02a20c4741141b947a5b4fdb955760e6a4698e2c45a23aa42559e778d"
+  },
+  "FBG_N30_BMVL_MAP538_BV_WPN_0": {
+   "cameras": [
+    "5a7a8779cf44396d"
+   ],
+   "room": "BMVL/BV/WPN",
+   "walkmesh": "fd40d283155b876a17de96b159802d4c9bb65db5774b9997ee081409f3a8c622"
+  },
+  "FBG_N30_BMVL_MAP539_BV_INN_0": {
+   "cameras": [
+    "6085796599410145"
+   ],
+   "room": "BMVL/BV/INN",
+   "walkmesh": "d10a20ea8b9266cbbe36035c5189e59ed4f756b6b941492769e7b374fe03db9e"
+  },
+  "FBG_N30_BMVL_MAP540_BV_ITM_0": {
+   "cameras": [
+    "ab25ccf4319938fa"
+   ],
+   "room": "BMVL/BV/ITM",
+   "walkmesh": "55156b337c200efd621ec2b62545b3fcccab81e22f4d326aa27990da8bd8164d"
+  },
+  "FBG_N30_BMVL_MAP541_BV_ITS_0": {
+   "cameras": [
+    "642d89d2d2502b3e"
+   ],
+   "room": "BMVL/BV/ITS",
+   "walkmesh": "729c577ca6aebbf742578daa2436dbf7a66b24cf3fc467be9a3991a7a8271f63"
+  },
+  "FBG_N30_BMVL_MAP542_BV_CSI_0": {
+   "cameras": [
+    "eee7fae64b1a9210"
+   ],
+   "room": "BMVL/BV/CSI",
+   "walkmesh": "7130bb71997ab02913c6284ef187a47a1ca72ff181f553c26ac3c20f5b421956"
+  },
+  "FBG_N31_IFTR_MAP550A_IF_ENT_1": {
+   "cameras": [
+    "1b130bddecc4c766"
+   ],
+   "room": "IFTR/IF/ENT",
+   "walkmesh": "0e07d9609daf8ae9abc2e15a47c11ceb86714817597c85ad888ac391c1edf2f9"
+  },
+  "FBG_N31_IFTR_MAP550_IF_ENT_0": {
+   "cameras": [
+    "1b130bddecc4c766"
+   ],
+   "room": "IFTR/IF/ENT",
+   "walkmesh": "0e07d9609daf8ae9abc2e15a47c11ceb86714817597c85ad888ac391c1edf2f9"
+  },
+  "FBG_N31_IFTR_MAP551A_IF_PUG_1": {
+   "cameras": [
+    "1fe251a122342040"
+   ],
+   "room": "IFTR/IF/PUG",
+   "walkmesh": "117e4ba514faebe4d84ce03ef1e703be7b284d9370504d150d772b4b16363d36"
+  },
+  "FBG_N31_IFTR_MAP551_IF_PUG_0": {
+   "cameras": [
+    "1fe251a122342040"
+   ],
+   "room": "IFTR/IF/PUG",
+   "walkmesh": "117e4ba514faebe4d84ce03ef1e703be7b284d9370504d150d772b4b16363d36"
+  },
+  "FBG_N31_IFTR_MAP552A_IF_BAS_1": {
+   "cameras": [
+    "4da1ffa6b4b02fb9",
+    "ae6c6f538fe41bf5"
+   ],
+   "room": "IFTR/IF/BAS",
+   "walkmesh": "475a98b93792964db94c1b843dddaddd9b6a593e8e7890df4db0ed1eda880191"
+  },
+  "FBG_N31_IFTR_MAP552_IF_BAS_0": {
+   "cameras": [
+    "4da1ffa6b4b02fb9",
+    "ae6c6f538fe41bf5"
+   ],
+   "room": "IFTR/IF/BAS",
+   "walkmesh": "475a98b93792964db94c1b843dddaddd9b6a593e8e7890df4db0ed1eda880191"
+  },
+  "FBG_N31_IFTR_MAP553_IF_BAS_2": {
+   "cameras": [
+    "076782616b1bda75"
+   ],
+   "room": "IFTR/IF/BAS",
+   "walkmesh": "aec3da026121005275ac12c3d4fbc099e97962556a7be8ad5869162c79173e9a"
+  },
+  "FBG_N31_IFTR_MAP555A_IF_MKJ_1": {
+   "cameras": [
+    "03683a399a23d16f",
+    "5a0c7379dfe8b045"
+   ],
+   "room": "IFTR/IF/MKJ",
+   "walkmesh": "4f8ed59b9bcced2bfa97a562f52837a21b57046cff3f061c4e82ad07fa042397"
+  },
+  "FBG_N31_IFTR_MAP555_IF_MKJ_0": {
+   "cameras": [
+    "52bad5010dfa47de"
+   ],
+   "room": "IFTR/IF/MKJ",
+   "walkmesh": "e5ea00e32031a7aa15075b16670cf1db7c6500093cbb0e3912fa8fbc7fc91bcc"
+  },
+  "FBG_N31_IFTR_MAP556A_IF_PTS_1": {
+   "cameras": [
+    "c775f36ed45388da"
+   ],
+   "room": "IFTR/IF/PTS",
+   "walkmesh": "dca9a7cc8a925155d13e2ad9345c13eafc73d651f1d530d80cbf95ad0b518cd0"
+  },
+  "FBG_N31_IFTR_MAP556_IF_PTS_0": {
+   "cameras": [
+    "d7109eec2e9bb6c4"
+   ],
+   "room": "IFTR/IF/PTS",
+   "walkmesh": "4ba578ccffaff91d7f516a784457edbe77d2f3c49db6aed116ebed0b56d91c24"
+  },
+  "FBG_N31_IFTR_MAP557_IF_GGT_0": {
+   "cameras": [
+    "82357786851fe94a"
+   ],
+   "room": "IFTR/IF/GGT",
+   "walkmesh": "23901b092c579beb5a166b3b257c42e3ab00611e9e88f4e51443132574d63118"
+  },
+  "FBG_N31_IFTR_MAP558_IF_MSD_0": {
+   "cameras": [
+    "6405adcc8a57d8ec"
+   ],
+   "room": "IFTR/IF/MSD",
+   "walkmesh": "a564a939f95454962422f88e924849f94da373fa504f532eb59baa48ef25bc0f"
+  },
+  "FBG_N31_IFTR_MAP559_IF_CST_0": {
+   "cameras": [
+    "8f4c886f95bda523"
+   ],
+   "room": "IFTR/IF/CST",
+   "walkmesh": "c40c2268568412b9e1c77e15f921c6ef8d056beafc7426c4459c96eccbf0d42e"
+  },
+  "FBG_N32_IFUG_MAP565A_IU_EUG_1": {
+   "cameras": [
+    "3aa06958459f82ec"
+   ],
+   "room": "IFUG/IU/EUG",
+   "walkmesh": "60e79d09380b145df323457b32aa7f887897989279fc6e9fe2c77738d3bbf857"
+  },
+  "FBG_N32_IFUG_MAP565B_IU_EUG_2": {
+   "cameras": [
+    "9b168a33912f31af"
+   ],
+   "room": "IFUG/IU/EUG",
+   "walkmesh": "bcb5077c7ae908168961090068a37db54f211b2e673089416dc2772b87f9b381"
+  },
+  "FBG_N32_IFUG_MAP565_IU_EUG_0": {
+   "cameras": [
+    "3da9742d10f18e4b"
+   ],
+   "room": "IFUG/IU/EUG",
+   "walkmesh": "1c30233001b4ad6ac4de600e9332a2b2fdd4d42c847fc5a4e9be9873649e8296"
+  },
+  "FBG_N32_IFUG_MAP566_IU_EVE_0": {
+   "cameras": [
+    "4e939ee6d8601d35"
+   ],
+   "room": "IFUG/IU/EVE",
+   "walkmesh": "be85a15343115707cd1b587338653c1af384b0775cae2c9af7fdb5b0aa698a6f"
+  },
+  "FBG_N32_IFUG_MAP567_IU_ELV_0": {
+   "cameras": [
+    "25a23f3928fd0449"
+   ],
+   "room": "IFUG/IU/ELV",
+   "walkmesh": "c14eb65a43cec43d70167f075178bafc1ad9da4672453d5ddc7f2c8b5dbf728d"
+  },
+  "FBG_N32_IFUG_MAP568_IU_SDV_0": {
+   "cameras": [
+    "641a0f7986cabe5b"
+   ],
+   "room": "IFUG/IU/SDV",
+   "walkmesh": "cbd03564990eb3f1b022a8feb08b06787720f8b5bbe7c3d2d3d9f8eb52d472da"
+  },
+  "FBG_N32_IFUG_MAP569_IU_SDV_1": {
+   "cameras": [
+    "8bbd12797cfb530e"
+   ],
+   "room": "IFUG/IU/SDV",
+   "walkmesh": "ce094330d331165ab222b3bffadd2f31ec42726ec5d210c78a9587466535ff27"
+  },
+  "FBG_N34_MDSR_MAP570A_MS_ENT_1": {
+   "cameras": [
+    "02071ec4b109fa4a"
+   ],
+   "room": "MDSR/MS/ENT",
+   "walkmesh": "55ed05c69565edf95fd98f99cacc59702519eaa2c08e92f5d9513eea0541e0d6"
+  },
+  "FBG_N34_MDSR_MAP570_MS_ENT_0": {
+   "cameras": [
+    "02071ec4b109fa4a"
+   ],
+   "room": "MDSR/MS/ENT",
+   "walkmesh": "9a5684a760f8ca1381021d6b701014b2a705cc406511573d2488850a09aef9ab"
+  },
+  "FBG_N34_MDSR_MAP571A_MS_FNT_1": {
+   "cameras": [
+    "6516a18cfe94f484"
+   ],
+   "room": "MDSR/MS/FNT",
+   "walkmesh": "f2f48b0b93f62eb0b35ce24517f9994a3638671312334971365ccbd215d1c298"
+  },
+  "FBG_N34_MDSR_MAP571_MS_FNT_0": {
+   "cameras": [
+    "6516a18cfe94f484"
+   ],
+   "room": "MDSR/MS/FNT",
+   "walkmesh": "f2f48b0b93f62eb0b35ce24517f9994a3638671312334971365ccbd215d1c298"
+  },
+  "FBG_N34_MDSR_MAP572A_MS_EKH_1": {
+   "cameras": [
+    "659d3f0ba3a507fd"
+   ],
+   "room": "MDSR/MS/EKH",
+   "walkmesh": "3aabd813b1d4e663b32394122685ba38bede34c4edc47bf3d6bcc87618d7cdfc"
+  },
+  "FBG_N34_MDSR_MAP572_MS_EKH_0": {
+   "cameras": [
+    "659d3f0ba3a507fd"
+   ],
+   "room": "MDSR/MS/EKH",
+   "walkmesh": "3aabd813b1d4e663b32394122685ba38bede34c4edc47bf3d6bcc87618d7cdfc"
+  },
+  "FBG_N34_MDSR_MAP573A_MS_PMR_1": {
+   "cameras": [
+    "bd07a0e1004f4763"
+   ],
+   "room": "MDSR/MS/PMR",
+   "walkmesh": "6ed5ae85e0bee0c38c65c5abf79d400e9a330e601a433e60f7e0e5fffc2a71f6"
+  },
+  "FBG_N34_MDSR_MAP573_MS_PMR_0": {
+   "cameras": [
+    "bd07a0e1004f4763"
+   ],
+   "room": "MDSR/MS/PMR",
+   "walkmesh": "6ed5ae85e0bee0c38c65c5abf79d400e9a330e601a433e60f7e0e5fffc2a71f6"
+  },
+  "FBG_N34_MDSR_MAP574_MS_SSD_0": {
+   "cameras": [
+    "d75abefc04a69f66"
+   ],
+   "room": "MDSR/MS/SSD",
+   "walkmesh": "7f14001d37f72178603640d2d248d7b2cb71f33976d9831fdb709967e586dc77"
+  },
+  "FBG_N34_MDSR_MAP575_MS_SSD_1": {
+   "cameras": [
+    "fe12975be96b869d"
+   ],
+   "room": "MDSR/MS/SSD",
+   "walkmesh": "16221998243801a4c05e2226341d1b399ab906997d52b1f9c3674ea8c58b1a22"
+  },
+  "FBG_N34_MDSR_MAP576A_MS_MRR_1": {
+   "cameras": [
+    "d5d293185117346f"
+   ],
+   "room": "MDSR/MS/MRR",
+   "walkmesh": "ed7a0c83a14d2f16125afb569e5ab386cb80abd421cfe607e9a0c5a6c1feefff"
+  },
+  "FBG_N34_MDSR_MAP576_MS_MRR_0": {
+   "cameras": [
+    "d5d293185117346f"
+   ],
+   "room": "MDSR/MS/MRR",
+   "walkmesh": "ed7a0c83a14d2f16125afb569e5ab386cb80abd421cfe607e9a0c5a6c1feefff"
+  },
+  "FBG_N34_MDSR_MAP577_MS_MRR_2": {
+   "cameras": [
+    "ab4d8a94fef76e4f"
+   ],
+   "room": "MDSR/MS/MRR",
+   "walkmesh": "3cf54ebc72a9ec52d16a96ce586ee3112021dbacf36ccc4bb3058d0ff033d630"
+  },
+  "FBG_N34_MDSR_MAP578A_MS_EKI_1": {
+   "cameras": [
+    "3634da5b3fe1726d"
+   ],
+   "room": "MDSR/MS/EKI",
+   "walkmesh": "fbb43f74ad048540a99a4ef3af341183876c4bdd108d228ea74753762ea5dea5"
+  },
+  "FBG_N34_MDSR_MAP578_MS_EKI_0": {
+   "cameras": [
+    "3634da5b3fe1726d"
+   ],
+   "room": "MDSR/MS/EKI",
+   "walkmesh": "fbb43f74ad048540a99a4ef3af341183876c4bdd108d228ea74753762ea5dea5"
+  },
+  "FBG_N34_MDSR_MAP579A_MS_KTN_1": {
+   "cameras": [
+    "e412cc677b51a5d8"
+   ],
+   "room": "MDSR/MS/KTN",
+   "walkmesh": "9b3c960b68386031a14c2faf280e228ed6ad38da1f8be9af9984b6f8f24ef8c7"
+  },
+  "FBG_N34_MDSR_MAP579_MS_KTN_0": {
+   "cameras": [
+    "e412cc677b51a5d8"
+   ],
+   "room": "MDSR/MS/KTN",
+   "walkmesh": "e5821358b6fd39079c4e26348bfbc35c31f3651d819f477dc55fb4a6f8a7d805"
+  },
+  "FBG_N34_MDSR_MAP580B_MS_SCR_2": {
+   "cameras": [
+    "756903e386cc0892",
+    "9c478584c58a281b"
+   ],
+   "room": "MDSR/MS/SCR",
+   "walkmesh": "5ff3f5c2c7f9dab0aeeb3854c9898ee89f7b9eb0fb42417ea0240b7baf3c2766"
+  },
+  "FBG_N34_MDSR_MAP580_MS_SCR_0": {
+   "cameras": [
+    "756903e386cc0892",
+    "cd4a066e8aa7b761"
+   ],
+   "room": "MDSR/MS/SCR",
+   "walkmesh": "5ff3f5c2c7f9dab0aeeb3854c9898ee89f7b9eb0fb42417ea0240b7baf3c2766"
+  },
+  "FBG_N35_ESTG_MAP600_EG_EXT_0": {
+   "cameras": [
+    "71c5f4abac73b92e"
+   ],
+   "room": "ESTG/EG/EXT",
+   "walkmesh": "a9b4193a5ed2461d7aa1ee373c9e748f0b7f3492e0edf115d14b4f91c0f8c29b"
+  },
+  "FBG_N35_ESTG_MAP602_EG_RM1_0": {
+   "cameras": [
+    "c8c9246faafe13b9"
+   ],
+   "room": "ESTG/EG/RM1",
+   "walkmesh": "1f1fa73aec2e5624fc9b96b5358cdab177361147d154fecdf7ef9497533bfe56"
+  },
+  "FBG_N35_ESTG_MAP603_EG_RM2_0": {
+   "cameras": [
+    "85a1a65d7bb4f468"
+   ],
+   "room": "ESTG/EG/RM2",
+   "walkmesh": "af7dd40ae04f3acf0061f584c58b19ba54a71431f5055b036d7e9887d8021107"
+  },
+  "FBG_N35_ESTG_MAP605_EG_OBS_0": {
+   "cameras": [
+    "ee0f4ee0d7f3a743"
+   ],
+   "room": "ESTG/EG/OBS",
+   "walkmesh": "c01d9fe7af0148f519819f17dddaba0b12bcb0c2d16e5a0c8f5a8e8c6c0e305c"
+  },
+  "FBG_N35_ESTG_MAP607_EG_EGV_0": {
+   "cameras": [
+    "a0dcedc5d53e5cbc"
+   ],
+   "room": "ESTG/EG/EGV",
+   "walkmesh": "88dd63d75bc56ae9910ed48f426d70e52854372089f0a009f470b283008d297e"
+  },
+  "FBG_N36_GLGV_MAP790_GV_WHL_0": {
+   "cameras": [
+    "a755ee34e3b376a0"
+   ],
+   "room": "GLGV/GV/WHL",
+   "walkmesh": "4863b8533ce2869376097174ec87d0798f2685f564d906173e0da4d85e6e1684"
+  },
+  "FBG_N36_GLGV_MAP791_GV_IDO_0": {
+   "cameras": [
+    "d7a42e0cd9e37efb"
+   ],
+   "room": "GLGV/GV/IDO",
+   "walkmesh": "1257b65fb6e540faaecfc992fc0943799a560895f592b35e4d8252f74534ee08"
+  },
+  "FBG_N36_GLGV_MAP792_GV_RM1_0": {
+   "cameras": [
+    "cc32314c27d46244"
+   ],
+   "room": "GLGV/GV/RM1",
+   "walkmesh": "950d3bccf50fc51ee637c1540c6e3413055b5948a68cec3e3f4df716bd3d00f8"
+  },
+  "FBG_N36_GLGV_MAP793_GV_RM2_0": {
+   "cameras": [
+    "3bfcdeef9007c42a"
+   ],
+   "room": "GLGV/GV/RM2",
+   "walkmesh": "03dbbca999a8ab838b230c8b54974c0d29a458e8fa0fe969076742475f40d99c"
+  },
+  "FBG_N36_GLGV_MAP794_GV_RM3_0": {
+   "cameras": [
+    "534b6d4ee063783d"
+   ],
+   "room": "GLGV/GV/RM3",
+   "walkmesh": "6abf366fbf6e13f87f5f441c810085c888561707dc4519c9922885e0e80f6d90"
+  },
+  "FBG_N36_GLGV_MAP795_GV_RM4_0": {
+   "cameras": [
+    "1f039f0461e18bf5"
+   ],
+   "room": "GLGV/GV/RM4",
+   "walkmesh": "3a93d802e4cd25cd2c03a64c580c730ac302bf5380b17a4af1b6c21866f57841"
+  },
+  "FBG_N36_GLGV_MAP796_GV_ATK_0": {
+   "cameras": [
+    "48ba415e7d1cde1f"
+   ],
+   "room": "GLGV/GV/ATK",
+   "walkmesh": "06d0e1c0994c385593eb80244ab0036d14b26f6f6e94d73b51b1d73ad7b2fa40"
+  },
+  "FBG_N36_GLGV_MAP797_GV_HLD_0": {
+   "cameras": [
+    "dc22154448cf6c06"
+   ],
+   "room": "GLGV/GV/HLD",
+   "walkmesh": "6d9a2b495862e0f8dab78dbbe594b1e4235c5906f39a8c4f70bcda4a16bc3d37"
+  },
+  "FBG_N36_GLGV_MAP798_GV_PW1_0": {
+   "cameras": [
+    "6e25f8f0e0c4bfb8"
+   ],
+   "room": "GLGV/GV/PW1",
+   "walkmesh": "392aa03b05adfe9a226c08aefd2858b0d96a1ea9ea935e7f00ac7c601b0c2db7"
+  },
+  "FBG_N36_GLGV_MAP799_GV_PW2_0": {
+   "cameras": [
+    "d3dc9488b184dc59"
+   ],
+   "room": "GLGV/GV/PW2",
+   "walkmesh": "e7395acab1de2ea5cb605a6de54cef7be9608f824d0dc01e2aa6cd7342fac60b"
+  },
+  "FBG_N36_GLGV_MAP800_GV_PW3_0": {
+   "cameras": [
+    "c45b37d051748c56"
+   ],
+   "room": "GLGV/GV/PW3",
+   "walkmesh": "5e62f74d9a19a500abe49de02d68f961e4a47d68549e17b3be95d2a3d50f44cd"
+  },
+  "FBG_N36_GLGV_MAP801_GV_TIN_0": {
+   "cameras": [
+    "27c5a038cdca3857"
+   ],
+   "room": "GLGV/GV/TIN",
+   "walkmesh": "218b12ea20bfcdeb9018ac7e5f02877de69cd0eecbdc822d7950bff591f86693"
+  },
+  "FBG_N36_GLGV_MAP802_GV_MGS_0": {
+   "cameras": [
+    "dceb25f3ea758616"
+   ],
+   "room": "GLGV/GV/MGS",
+   "walkmesh": "89fdd89c5d4fb4032a900a9332afa587d2e1b2a8b662f76b3f2e5ebafbdf0e69"
+  },
+  "FBG_N36_GLGV_MAP803_GV_PW4_0": {
+   "cameras": [
+    "9a8d7c3f722874b4",
+    "bbd2b4e7981f737c"
+   ],
+   "room": "GLGV/GV/PW4",
+   "walkmesh": "b5fb8bca687c640d23342c9c030ec90ee1a0dce1866e5cf1f75c08f75142afe5"
+  },
+  "FBG_N36_GLGV_MAP804_GV_MG1_0": {
+   "cameras": [
+    "1142ec95c22a3d10"
+   ],
+   "room": "GLGV/GV/MG1",
+   "walkmesh": "a915635c23b2150e294ff06a7dab890fc23592dd9ab0286cf13eb1f6669a9cf8"
+  },
+  "FBG_N36_GLGV_MAP805_GV_MG2_0": {
+   "cameras": [
+    "b617561bb43b3826"
+   ],
+   "room": "GLGV/GV/MG2",
+   "walkmesh": "1e289e8536a654b327133267b009ab9fdf76777a9eb7969d329d68f47579e692"
+  },
+  "FBG_N38_SDPL_MAP640_SP_RRO_0": {
+   "cameras": [
+    "e6370105ed2afc4f"
+   ],
+   "room": "SDPL/SP/RRO",
+   "walkmesh": "b79ad6b04bbc4b465ca971b5e800c138c4b03898b8f7447990c4b732b80799da"
+  },
+  "FBG_N38_SDPL_MAP641A_SP_RPE_0": {
+   "cameras": [
+    "c620394d74c7a400"
+   ],
+   "room": "SDPL/SP/RPE",
+   "walkmesh": "a99a6144a6ad9ea9677031b9f95051b57519c2c4100b57cd6b022ad475a04291"
+  },
+  "FBG_N38_SDPL_MAP641_SP_RPW_0": {
+   "cameras": [
+    "e97e37a131b0b1f5"
+   ],
+   "room": "SDPL/SP/RPW",
+   "walkmesh": "2be9c3a74631abca1a788816c03562fd29bb04090e8d49597e57c5b07f276d18"
+  },
+  "FBG_N38_SDPL_MAP642A_SP_RFG_0": {
+   "cameras": [
+    "9f2f30abb4b40b99"
+   ],
+   "room": "SDPL/SP/RFG",
+   "walkmesh": "1633e2bb4ed69392af61a7ac12d042f95f87ef47f2f63ac29091ba842d25dde1"
+  },
+  "FBG_N38_SDPL_MAP642_SP_RRM_0": {
+   "cameras": [
+    "4ec5fcedcfdc2e47"
+   ],
+   "room": "SDPL/SP/RRM",
+   "walkmesh": "630412442949e648cb827a0e1df97d20e25423bfa7b0dc298ee078aafecdcc2f"
+  },
+  "FBG_N38_SDPL_MAP643_SP_RSW_0": {
+   "cameras": [
+    "2f74db5d55e84abe"
+   ],
+   "room": "SDPL/SP/RSW",
+   "walkmesh": "1633e2bb4ed69392af61a7ac12d042f95f87ef47f2f63ac29091ba842d25dde1"
+  },
+  "FBG_N38_SDPL_MAP644_SP_REX_0": {
+   "cameras": [
+    "ccb41570c41eb467"
+   ],
+   "room": "SDPL/SP/REX",
+   "walkmesh": "625266b3256c686a262fd595dda18ef75342fa92f21eac8f2bf7fe96f18274e4"
+  },
+  "FBG_N38_SDPL_MAP645A_SP_KDR_0": {
+   "cameras": [
+    "cc23e4edad7f4546"
+   ],
+   "room": "SDPL/SP/KDR",
+   "walkmesh": "9bf191ffeb3225278c615b3ab8cb3230308b05544ca75338927ce6fc325396be"
+  },
+  "FBG_N38_SDPL_MAP645_SP_KPW_0": {
+   "cameras": [
+    "f1883b113743e068"
+   ],
+   "room": "SDPL/SP/KPW",
+   "walkmesh": "c33bc6fbceb3403a6ccdbb827cdb94850b89343649bfe12dfd9a3ae4f0740132"
+  },
+  "FBG_N38_SDPL_MAP646_SP_KKR_0": {
+   "cameras": [
+    "016002e854a29a21",
+    "cc08d1b51c1799a3"
+   ],
+   "room": "SDPL/SP/KKR",
+   "walkmesh": "2c4e1f629ebd7a4dff63bfcae907d0e617f73e58449d12b334303c324d0dd888"
+  },
+  "FBG_N38_SDPL_MAP647_SP_KDC_0": {
+   "cameras": [
+    "de41782535699e70"
+   ],
+   "room": "SDPL/SP/KDC",
+   "walkmesh": "5824622015e10ec82e06f5d990e446db0341c6cd49c07dbe07469109f20bb529"
+  },
+  "FBG_N38_SDPL_MAP648_SP_KEX_0": {
+   "cameras": [
+    "541798d0444a324e"
+   ],
+   "room": "SDPL/SP/KEX",
+   "walkmesh": "36193039f76c3fe8377f4eb4268e1a84e236c7f059556ae3eff2718e6cfa1148"
+  },
+  "FBG_N38_SDPL_MAP650_SP_MP1_0": {
+   "cameras": [
+    "f79a8461c2dda38e"
+   ],
+   "room": "SDPL/SP/MP1",
+   "walkmesh": "4cffdc3e81a61cff8ceab0b358a6020e7699e6446e795d7230c7f2c7786cc6ee"
+  },
+  "FBG_N38_SDPL_MAP651_SP_MP2_0": {
+   "cameras": [
+    "98152da10d7b08f5"
+   ],
+   "room": "SDPL/SP/MP2",
+   "walkmesh": "7b7ea62ef7da71fccac566655b52e0c1ab82f2f948b9de025434b87f9471f3c5"
+  },
+  "FBG_N38_SDPL_MAP652_SP_MT1_0": {
+   "cameras": [
+    "b61ee18e9dbba16a"
+   ],
+   "room": "SDPL/SP/MT1",
+   "walkmesh": "3727b236c13f2db35a619edea3bca0af0996259679fd433b569bd65872c4a2b7"
+  },
+  "FBG_N38_SDPL_MAP653_SP_MP3_0": {
+   "cameras": [
+    "0f7949b7a4f1a63b"
+   ],
+   "room": "SDPL/SP/MP3",
+   "walkmesh": "d4279548122d07f17dbe0777e8aa585de5aa4b9fbcbfc26844ed438ab586b4c2"
+  },
+  "FBG_N38_SDPL_MAP654_SP_MHL_0": {
+   "cameras": [
+    "120af5cd110f26b7",
+    "31081d1d3ae91f55",
+    "627d23e88e68baf9"
+   ],
+   "room": "SDPL/SP/MHL",
+   "walkmesh": "b2633f1f96037a918b0d901e41e3f5162cc3f1094aea1e362a811a3b43e97e8d"
+  },
+  "FBG_N38_SDPL_MAP655_SP_MT2_0": {
+   "cameras": [
+    "381b966ea7ebeb3e"
+   ],
+   "room": "SDPL/SP/MT2",
+   "walkmesh": "fd033a4a1041934dedcbd717850ce2d2510d4b2f792027f7a77092f42b732d89"
+  },
+  "FBG_N38_SDPL_MAP656_SP_MT3_0": {
+   "cameras": [
+    "6e244945a9706496"
+   ],
+   "room": "SDPL/SP/MT3",
+   "walkmesh": "be8e79099954eec5659f4577745665e2da8d15661647dd0fd261746b412a76af"
+  },
+  "FBG_N38_SDPL_MAP657_SP_MBS_0": {
+   "cameras": [
+    "6ee7dfebec6a54e0"
+   ],
+   "room": "SDPL/SP/MBS",
+   "walkmesh": "32b9c9a38e3ce97aa627724813fec1aa1b3a1b0bfd125eaee6ba8e33dc0efa6d"
+  },
+  "FBG_N39_UUVL_MAP660_UV_EXT_0": {
+   "cameras": [
+    "fbd2e76d781e48dd"
+   ],
+   "room": "UUVL/UV/EXT",
+   "walkmesh": "d0a56974d27650138cc8427f194e089c60152173b88b15ac085bff7bbfb9ac6a"
+  },
+  "FBG_N39_UUVL_MAP661_UV_ENT_0": {
+   "cameras": [
+    "a9298224ef539f5d"
+   ],
+   "room": "UUVL/UV/ENT",
+   "walkmesh": "97e921490b3e53c44125cc197061aa6c1feafa90ac750710fcd96c07993fdfda"
+  },
+  "FBG_N39_UUVL_MAP665_UV_PST_0": {
+   "cameras": [
+    "0cd3fcd16d7b0053"
+   ],
+   "room": "UUVL/UV/PST",
+   "walkmesh": "51d7f8cccfa4030051b2fff3fc10d9478c7b1f53249cb9d92711c2f46e93139e"
+  },
+  "FBG_N39_UUVL_MAP666_UV_DP1_0": {
+   "cameras": [
+    "92fcd8ed95266fee"
+   ],
+   "room": "UUVL/UV/DP1",
+   "walkmesh": "5fe67368b504fc04c476cd5d5f28db6e8b46c8e5b12274bdf6cf591d6fadd19a"
+  },
+  "FBG_N39_UUVL_MAP667_UV_DP2_0": {
+   "cameras": [
+    "501d66f2ed5de790"
+   ],
+   "room": "UUVL/UV/DP2",
+   "walkmesh": "2222528e49c9371a2b2e4f3eed25bfd1a7abefbbf3d671490cbe713e884b901d"
+  },
+  "FBG_N39_UUVL_MAP668A_UV_VSL_1": {
+   "cameras": [
+    "f539a6b5ee7df056"
+   ],
+   "room": "UUVL/UV/VSL",
+   "walkmesh": "6a57be8af1bd7704c0025c9e5f34b3ed9370cfe0d67ec1c7901f9222b6e84cc3"
+  },
+  "FBG_N39_UUVL_MAP668_UV_VSL_0": {
+   "cameras": [
+    "1783cc8412cb24fd"
+   ],
+   "room": "UUVL/UV/VSL",
+   "walkmesh": "4f53b0c076ab07220a7ed98fa9b9018eb3495395d167778be395e41cf8379a34"
+  },
+  "FBG_N39_UUVL_MAP669_UV_RFM_0": {
+   "cameras": [
+    "8cd31bedbebfc24d"
+   ],
+   "room": "UUVL/UV/RFM",
+   "walkmesh": "351185e9ebaf4c6892f0f93de60047b29901e59f45d0bff3d4206644d6e11da2"
+  },
+  "FBG_N39_UUVL_MAP670_UV_ELV_0": {
+   "cameras": [
+    "e3a2c2d7c9de3584"
+   ],
+   "room": "UUVL/UV/ELV",
+   "walkmesh": "3d8954116d6055762c3c08ef2e5db4ae8f19cd3244e12df46fc352e5526c4ad6"
+  },
+  "FBG_N39_UUVL_MAP671_UV_DEP_0": {
+   "cameras": [
+    "15bab3a7ec225256"
+   ],
+   "room": "UUVL/UV/DEP",
+   "walkmesh": "ddacba950af3df91bc309033d05f5a660fd1eca3d776680541b2ba7489a12cb3"
+  },
+  "FBG_N39_UUVL_MAP672_UV_FDP_0": {
+   "cameras": [
+    "ab82ebdda10fdf43"
+   ],
+   "room": "UUVL/UV/FDP",
+   "walkmesh": "03429e654f993f7af7737d3045642d5ee80bceb969760f325f6d5dcb9812b38d"
+  },
+  "FBG_N40_TERA_MAP680_TA_THL_0": {
+   "cameras": [
+    "205b3f558c353db4"
+   ],
+   "room": "TERA/TA/THL",
+   "walkmesh": "920a26847a79a7f2f8a06d839863c19a620a911acb4afb462b1dcdab02d84323"
+  },
+  "FBG_N40_TERA_MAP681_TA_HLD_0": {
+   "cameras": [
+    "41a8db6068235f7c"
+   ],
+   "room": "TERA/TA/HLD",
+   "walkmesh": "aa8a176b7d201b094a04438caab58b3ae496492abf26af2794b18e0986bb1e3b"
+  },
+  "FBG_N40_TERA_MAP682_TA_BST_0": {
+   "cameras": [
+    "82ff8d22bd14928a"
+   ],
+   "room": "TERA/TA/BST",
+   "walkmesh": "adc6b1e8fea3c533e40a67f3ed72dcb11cb1883a2bd624e4fdb2edd25b45466c"
+  },
+  "FBG_N40_TERA_MAP683_TA_PRB_0": {
+   "cameras": [
+    "10e177f10b6cf6a6"
+   ],
+   "room": "TERA/TA/PRB",
+   "walkmesh": "0bdf050db1c36f091be337a6a7160f07c4335be32c9110dfbda7234c7e979e3e"
+  },
+  "FBG_N40_TERA_MAP684_TA_RPB_0": {
+   "cameras": [
+    "ef4893a05583d821"
+   ],
+   "room": "TERA/TA/RPB",
+   "walkmesh": "277ed3b61c365874679c4363b24054ad9af326c803d78c40de6564a3f5780fe4"
+  },
+  "FBG_N40_TERA_MAP685_TA_ROU_0": {
+   "cameras": [
+    "2bd1b1a910a39535"
+   ],
+   "room": "TERA/TA/ROU",
+   "walkmesh": "7800c601093d00dc9ecd9dbbea57f49a8cf3ba778a62563803b7d091f76275b2"
+  },
+  "FBG_N40_TERA_MAP686_TA_ROD_0": {
+   "cameras": [
+    "28fb32148cb39085"
+   ],
+   "room": "TERA/TA/ROD",
+   "walkmesh": "28701f0df688a8eb674e0e4def86f11f044c26d069ca63e58effdd7a15223fd1"
+  },
+  "FBG_N40_TERA_MAP687_TA_TOB_0": {
+   "cameras": [
+    "db8a2e9d41c4696f"
+   ],
+   "room": "TERA/TA/TOB",
+   "walkmesh": "bcf8654973af173ebe15b3ffa5e29da271e3c7194f0d46d05bde434ebeea1ed3"
+  },
+  "FBG_N40_TERA_MAP688_TA_IVK_0": {
+   "cameras": [
+    "a8003fea0cc921b5"
+   ],
+   "room": "TERA/TA/IVK",
+   "walkmesh": "e9ff2fa823646c00989b8d59f7ab3ec84eaf326abbf567aa4969d5b1c9f270ea"
+  },
+  "FBG_N41_BRBL_MAP690_BB_STW_0": {
+   "cameras": [
+    "a83aab1ec5d6728f"
+   ],
+   "room": "BRBL/BB/STW",
+   "walkmesh": "42d91a65a3ee46b3999f33113d9e817e2155037dd876d37b6d28a6357f54bd35"
+  },
+  "FBG_N41_BRBL_MAP691_BB_SQR_0": {
+   "cameras": [
+    "bcf6b02f9aceea86"
+   ],
+   "room": "BRBL/BB/SQR",
+   "walkmesh": "573981c930aaa0f8fab6f8eacf444398e6b0345de6174fdf65e550914c248523"
+  },
+  "FBG_N41_BRBL_MAP692_BB_FGT_0": {
+   "cameras": [
+    "41b3ae82c6d11f73"
+   ],
+   "room": "BRBL/BB/FGT",
+   "walkmesh": "33f4a8c5848ef8a7e5073acb8726ca731781d0ac7535e2cb0f6edde25390b682"
+  },
+  "FBG_N41_BRBL_MAP693_BB_CDR_0": {
+   "cameras": [
+    "fd2073fae74a57fe"
+   ],
+   "room": "BRBL/BB/CDR",
+   "walkmesh": "0021007af3d2d9c2b20a19fb5d287fd1724f891c65e805263fc8c555a1d395fa"
+  },
+  "FBG_N41_BRBL_MAP694_BB_CDL_0": {
+   "cameras": [
+    "fed2d15fa9127be3"
+   ],
+   "room": "BRBL/BB/CDL",
+   "walkmesh": "44bc3cb532b9456a2e1d1fa3a802a0f60178f9217341371623f27ef5e1e7087a"
+  },
+  "FBG_N41_BRBL_MAP695_BB_WPS_0": {
+   "cameras": [
+    "340b94654f519ef0"
+   ],
+   "room": "BRBL/BB/WPS",
+   "walkmesh": "4756887ab927c86ab8c1c32c98dd3fbf2ed6458af9b4cca3ae25aacba102c2ec"
+  },
+  "FBG_N41_BRBL_MAP696_BB_GTH_0": {
+   "cameras": [
+    "2e16c53d6ca2edef"
+   ],
+   "room": "BRBL/BB/GTH",
+   "walkmesh": "ab787242b4ac67c93212afaf8eca544e3faf5cfaa7fcf118fb8526e6afff93c7"
+  },
+  "FBG_N41_BRBL_MAP697_BB_ITS_0": {
+   "cameras": [
+    "069d5b60e4521e10"
+   ],
+   "room": "BRBL/BB/ITS",
+   "walkmesh": "e2540321f53885f4c412af547d7ce154267811853ef03fbda80177f107fe0277"
+  },
+  "FBG_N41_BRBL_MAP698_BB_UDL_0": {
+   "cameras": [
+    "b18d56b000352634"
+   ],
+   "room": "BRBL/BB/UDL",
+   "walkmesh": "df24981ee391a9525b6194b6629d528c88d518240c6fce10f7740050de9dedff"
+  },
+  "FBG_N41_BRBL_MAP699_BB_BRG_0": {
+   "cameras": [
+    "8f5fa3b7bca7347c"
+   ],
+   "room": "BRBL/BB/BRG",
+   "walkmesh": "53103c2c4ca1c9813647f5408deb4fb93f9723d0c10b20dcb7584a54b6976498"
+  },
+  "FBG_N41_BRBL_MAP700_BB_THL_0": {
+   "cameras": [
+    "f42e4cc4e465c725"
+   ],
+   "room": "BRBL/BB/THL",
+   "walkmesh": "291404034d682a404bae078124ebdfdcdad07e733419229124db7406830ac758"
+  },
+  "FBG_N41_BRBL_MAP701_BB_INV_0": {
+   "cameras": [
+    "3b4f77855e0319ba"
+   ],
+   "room": "BRBL/BB/INV",
+   "walkmesh": "0cf52f8be1506a23381502e6a8ca8d9dda7dc82b00efa39d39574a0b382050e4"
+  },
+  "FBG_N42_PDMN_MAP720_PD_STR_0": {
+   "cameras": [
+    "16a2d12a010e3ef2"
+   ],
+   "room": "PDMN/PD/STR",
+   "walkmesh": "34700d0ad29f6ca0bc727fe7a50bb5e7eb92eabc374a4be25335d750f61006b6"
+  },
+  "FBG_N42_PDMN_MAP721_PD_CAO_0": {
+   "cameras": [
+    "4887ab22b4d63235"
+   ],
+   "room": "PDMN/PD/CAO",
+   "walkmesh": "afe34b3a59c487456ae9db40625a76c37538dee6ac47c37ae9152a2f6538f465"
+  },
+  "FBG_N42_PDMN_MAP722_PD_EAO_0": {
+   "cameras": [
+    "65e7ac0d1f9448c7"
+   ],
+   "room": "PDMN/PD/EAO",
+   "walkmesh": "c54ddd9a6244faef24e41bd205a8b65e5671a4a63f0139fde6b4fad4525ffca7"
+  },
+  "FBG_N42_PDMN_MAP723_PD_SAO_0": {
+   "cameras": [
+    "f7603b4af322633e"
+   ],
+   "room": "PDMN/PD/SAO",
+   "walkmesh": "d78f0ee3b4a12c66e54d8e28020dd08df8301bdeccd025323356f8d9a41780e5"
+  },
+  "FBG_N42_PDMN_MAP724_PD_AOS_0": {
+   "cameras": [
+    "1178f61e9debac0f"
+   ],
+   "room": "PDMN/PD/AOS",
+   "walkmesh": "ce47d4e1c608ddecad24a1f88a1c6c7358c3a5231743863195234b0679872071"
+  },
+  "FBG_N42_PDMN_MAP725_PD_BWR_0": {
+   "cameras": [
+    "62e9167839cdeb46"
+   ],
+   "room": "PDMN/PD/BWR",
+   "walkmesh": "3023388ce49abdf2121b8718ce6ddbc451f0ab97958130db4252048a49a7092c"
+  },
+  "FBG_N42_PDMN_MAP726_PD_RM1_0": {
+   "cameras": [
+    "bdada29b4f93640e"
+   ],
+   "room": "PDMN/PD/RM1",
+   "walkmesh": "ecf2ce4cdb799ddb2c73a1625e66c644e5fa03ff5aa810e48f48dbda62f22bc2"
+  },
+  "FBG_N42_PDMN_MAP727_PD_MCD_0": {
+   "cameras": [
+    "2805df827b3c22e5"
+   ],
+   "room": "PDMN/PD/MCD",
+   "walkmesh": "957f07cfa06d8cafa6428eba1627fad58a1e9a9a208c0dd3367f6ec89164a90c"
+  },
+  "FBG_N42_PDMN_MAP728_PD_RM2_0": {
+   "cameras": [
+    "0940fa38ec1ba368"
+   ],
+   "room": "PDMN/PD/RM2",
+   "walkmesh": "123ad5d43c3a5c19b658c85af827ab51c1be6fac1373568e3a0e1eedfe95f9c5"
+  },
+  "FBG_N42_PDMN_MAP729_PD_OLB_0": {
+   "cameras": [
+    "eddbeb1ccefa8285"
+   ],
+   "room": "PDMN/PD/OLB",
+   "walkmesh": "c5d34bed3687b2c113b2aa7a55c61d2d704e11dc8bd255bcffe996aafd8f454d"
+  },
+  "FBG_N42_PDMN_MAP730_PD_ULB_0": {
+   "cameras": [
+    "793f567355ebc537"
+   ],
+   "room": "PDMN/PD/ULB",
+   "walkmesh": "b2c7ebcae5a171a9f0f5552451301c2d9b661cb01340dfc20c8a40cf5fabc60d"
+  },
+  "FBG_N42_PDMN_MAP731_PD_OEV_0": {
+   "cameras": [
+    "4ab20b1df590792b"
+   ],
+   "room": "PDMN/PD/OEV",
+   "walkmesh": "838b3893a2965df247f3646ff854c851cf231afcb955294e5781d4a367c39d50"
+  },
+  "FBG_N42_PDMN_MAP732_PD_ELV_0": {
+   "cameras": [
+    "85fe4af9f62f77bb"
+   ],
+   "room": "PDMN/PD/ELV",
+   "walkmesh": "49ce6f2a77b89a12aafd973eea6d64f25aee4d766c9187cb3d7bc7aa911d79b4"
+  },
+  "FBG_N42_PDMN_MAP733_PD_EVD_0": {
+   "cameras": [
+    "e05a7a0eb4c63abe"
+   ],
+   "room": "PDMN/PD/EVD",
+   "walkmesh": "1e34eea45a17a19d72157f477c8ee42a41653ca90db7fc589b1078e11d4573e7"
+  },
+  "FBG_N42_PDMN_MAP734_PD_MZM_0": {
+   "cameras": [
+    "a41a3ba90824d875"
+   ],
+   "room": "PDMN/PD/MZM",
+   "walkmesh": "13f9aed7dda2b59aadc528212f8428213c0b9f5e829dc84790d1abeaac827abd"
+  },
+  "FBG_N42_PDMN_MAP735_PD_RTA_0": {
+   "cameras": [
+    "7b293c16bf1fd8f5"
+   ],
+   "room": "PDMN/PD/RTA",
+   "walkmesh": "8c3b7d2e2ac16e4fb4e83e62407bff37ca920dcde182d936b0d7724af1ef7507"
+  },
+  "FBG_N42_PDMN_MAP736_PD_RTB_0": {
+   "cameras": [
+    "a355c049a06ada03"
+   ],
+   "room": "PDMN/PD/RTB",
+   "walkmesh": "fbe4b712e321c357b16fb7c969dcdefa0da7468ae796edfd8fd86a63524e59fa"
+  },
+  "FBG_N42_PDMN_MAP737_PD_RTC_0": {
+   "cameras": [
+    "5425ed234e202719"
+   ],
+   "room": "PDMN/PD/RTC",
+   "walkmesh": "cb5fcd3279f7dd391dc49f09119264f43d65f6dec4fbb62476eff5c64540e35c"
+  },
+  "FBG_N42_PDMN_MAP738_PD_ALB_0": {
+   "cameras": [
+    "1e4dc370dfbc8e44"
+   ],
+   "room": "PDMN/PD/ALB",
+   "walkmesh": "396ce27331ec28473ae424f18f2cec46eac91d3d562dd22f73c38bc3f373459a"
+  },
+  "FBG_N42_PDMN_MAP739_PD_PEV_0": {
+   "cameras": [
+    "96cca2fcfe4e8b5d"
+   ],
+   "room": "PDMN/PD/PEV",
+   "walkmesh": "d962e2dde70ffdbf8044a9471f6b6dbb9a8da9e872fb329c1c37b4fda5ceba35"
+  },
+  "FBG_N43_IPSN_MAP740A_IP_EXT_1": {
+   "cameras": [
+    "7885c2b088f8bc4d"
+   ],
+   "room": "IPSN/IP/EXT",
+   "walkmesh": "b7c22d3b733657e6a71a3da8c71d783a919d311508f7963b4841bb950237a74a"
+  },
+  "FBG_N43_IPSN_MAP740_IP_EXT_0": {
+   "cameras": [
+    "7885c2b088f8bc4d"
+   ],
+   "room": "IPSN/IP/EXT",
+   "walkmesh": "b7c22d3b733657e6a71a3da8c71d783a919d311508f7963b4841bb950237a74a"
+  },
+  "FBG_N43_IPSN_MAP741_IP_EN1_0": {
+   "cameras": [
+    "b6914aa139baa2ce"
+   ],
+   "room": "IPSN/IP/EN1",
+   "walkmesh": "9998b9263ef7b3f94321a5f08c1bbaa6f504d5ce8cad5eac272f6729c1a82050"
+  },
+  "FBG_N43_IPSN_MAP742_IP_EN2_0": {
+   "cameras": [
+    "4470691dc72e5f84"
+   ],
+   "room": "IPSN/IP/EN2",
+   "walkmesh": "7db973f111a35e51cde296d1e8c82b8f02683f5e1a6a0601342e0ebecf3765ca"
+  },
+  "FBG_N43_IPSN_MAP743_IP_RM1_0": {
+   "cameras": [
+    "7a0c5d3f9684c5f8"
+   ],
+   "room": "IPSN/IP/RM1",
+   "walkmesh": "74e950134821054a4bd9b56684b5bbb5fdcc7d25e207e342012aded1aa5d5cd1"
+  },
+  "FBG_N43_IPSN_MAP744_IP_RM2_0": {
+   "cameras": [
+    "3ac75d2d19648990"
+   ],
+   "room": "IPSN/IP/RM2",
+   "walkmesh": "46f445c8fc219ec9f7dc7aea42d3a1a1663725d5293c139d29113066333fdc09"
+  },
+  "FBG_N43_IPSN_MAP745A_IP_HL2_0": {
+   "cameras": [
+    "70c743e4b7342223"
+   ],
+   "room": "IPSN/IP/HL2",
+   "walkmesh": "d49d2f33990150656a444c4187e73e4672ee42c869342ea4882537fb6ae5ef87"
+  },
+  "FBG_N43_IPSN_MAP745_IP_HL1_0": {
+   "cameras": [
+    "e751c231298d493b"
+   ],
+   "room": "IPSN/IP/HL1",
+   "walkmesh": "e2727b259fe62091a783431937e9ef5a56bd3337483f790b00b8b570d6c6f941"
+  },
+  "FBG_N43_IPSN_MAP746_IP_ST1_0": {
+   "cameras": [
+    "bd8d3faa0cfe30f5"
+   ],
+   "room": "IPSN/IP/ST1",
+   "walkmesh": "0a4264fdb94a8719ff7b56fefbb4d7658db2c080727734ae3c94089332c6420c"
+  },
+  "FBG_N43_IPSN_MAP747_IP_ST2_0": {
+   "cameras": [
+    "711a169e5e7b8c56"
+   ],
+   "room": "IPSN/IP/ST2",
+   "walkmesh": "0eb2b132fe35f2ce0988214596820bdb89eaca3f0dc5187c8e7479ccf789553f"
+  },
+  "FBG_N43_IPSN_MAP748B_IP_CNT_2": {
+   "cameras": [
+    "62aa7918172a0725"
+   ],
+   "room": "IPSN/IP/CNT",
+   "walkmesh": "33d09e15b764cc1a5665c015364da24078d8884dfcb23fc956f8b5a9189a445e"
+  },
+  "FBG_N43_IPSN_MAP748_IP_CNT_0": {
+   "cameras": [
+    "62aa7918172a0725",
+    "8ddf70019a27a69a"
+   ],
+   "room": "IPSN/IP/CNT",
+   "walkmesh": "33d09e15b764cc1a5665c015364da24078d8884dfcb23fc956f8b5a9189a445e"
+  },
+  "FBG_N43_IPSN_MAP749_IP_SMN_0": {
+   "cameras": [
+    "40c8cc870e9044bc"
+   ],
+   "room": "IPSN/IP/SMN",
+   "walkmesh": "f6ffd33c2d7449639183516a4bef9f92f65a14938191d711d9791391547469e7"
+  },
+  "FBG_N44_EMSH_MAP760A_ES_ENT_1": {
+   "cameras": [
+    "675207686cfa05ef"
+   ],
+   "room": "EMSH/ES/ENT",
+   "walkmesh": "c43bb58a85a3317a01008c4395b553b9224d0c0d4515f3ae6e4625963c059c62"
+  },
+  "FBG_N44_EMSH_MAP760_ES_ENT_0": {
+   "cameras": [
+    "323092dd978aa6be"
+   ],
+   "room": "EMSH/ES/ENT",
+   "walkmesh": "6041510e1d0cde229422e14f9897776f22e0c0cd6d7ca847784da85abb1b9dfe"
+  },
+  "FBG_N44_EMSH_MAP761_ES_TRP_0": {
+   "cameras": [
+    "2a8f9f4d1bf10f3c",
+    "2b46a43c92a34a9e"
+   ],
+   "room": "EMSH/ES/TRP",
+   "walkmesh": "b985ddca14b9f5779087521ab1dee74bfc0c3de63d5f428fb17d017f2ea73f45"
+  },
+  "FBG_N44_EMSH_MAP762A_ES_SEL_1": {
+   "cameras": [
+    "0650edee170c28de",
+    "74d5642ac39ffac1"
+   ],
+   "room": "EMSH/ES/SEL",
+   "walkmesh": "e141659dfb82f1614a3376f095ae1fd8375d83bfebee8d344dfb8b76dc90e887"
+  },
+  "FBG_N44_EMSH_MAP762B_ES_SEL_2": {
+   "cameras": [
+    "0650edee170c28de",
+    "b57668c6b0a90bff"
+   ],
+   "room": "EMSH/ES/SEL",
+   "walkmesh": "9d78c01964ebfe47d567f223cc3129ea92d1f6891fb838d3470d302c4183fbb6"
+  },
+  "FBG_N45_CYSW_MAPX00_CW_ENT_0": {
+   "cameras": [
+    "08877b1b54b608df"
+   ],
+   "room": null,
+   "walkmesh": "d55e891c38a7829a083afc43c09b6165f14c968e87f98229963e2fd88255dd3b"
+  },
+  "FBG_N45_CYSW_MAPX01_CW_ETH_0": {
+   "cameras": [
+    "3aae54dfa9a64a4f"
+   ],
+   "room": null,
+   "walkmesh": "f6f6152bea29489f991ec9992a5b4313aae20e05169ca84ed346318551652858"
+  },
+  "FBG_N45_CYSW_MAPX02_CW_1LY_0": {
+   "cameras": [
+    "de91bcbe3415aa20"
+   ],
+   "room": null,
+   "walkmesh": "850cf48469fc0246d8c9b0237672f11d78a3fe3406b1ba70d9d20663df7c6852"
+  },
+  "FBG_N45_CYSW_MAPX03_CW_1LY_1": {
+   "cameras": [
+    "29a390073d91e57d"
+   ],
+   "room": null,
+   "walkmesh": "464a5383362cc5f8dfe0c32b6cfaf0ce867722f7810b66b8c3cf33bd2d052c2e"
+  },
+  "FBG_N45_CYSW_MAPX04_CW_1LY_2": {
+   "cameras": [
+    "6f90ea9e351b31ad"
+   ],
+   "room": null,
+   "walkmesh": "c56a8932df4a8162c7cd99dd96b6841307d92c6d1749e2dd9ef467c7c3631efa"
+  },
+  "FBG_N45_CYSW_MAPX05_CW_GIA_0": {
+   "cameras": [
+    "62f5311933ca0289"
+   ],
+   "room": null,
+   "walkmesh": "dc89e4d044c98365a9e3822b5de9cbcff0a6d5eed4f1f79a8b8bf8f40fc9ee25"
+  },
+  "FBG_N45_CYSW_MAPX06_CW_2LY_0": {
+   "cameras": [
+    "7c1f5b03414079b8"
+   ],
+   "room": null,
+   "walkmesh": "fa69cb3016ca4ac3af67be9614d77778234c471a9ef8493911c1b699cf4c0cc5"
+  },
+  "FBG_N45_CYSW_MAPX07_CW_2LY_1": {
+   "cameras": [
+    "bd16013fdb45a8d3"
+   ],
+   "room": null,
+   "walkmesh": "b67041226e90dab3c63591fad037975169fdacd6ea934bad355fe4e084f096a9"
+  },
+  "FBG_N45_CYSW_MAPX08_CW_GIA_1": {
+   "cameras": [
+    "4728356e115037b9"
+   ],
+   "room": null,
+   "walkmesh": "8d2834743ed980881bcff574494e5020241fee21c70d3992bb7f93ee87baa7f3"
+  },
+  "FBG_N45_CYSW_MAPX09_CW_3LY_0": {
+   "cameras": [
+    "c1c0b5a0b042e257"
+   ],
+   "room": null,
+   "walkmesh": "c153359d85223424360ade330a35ef7156212c47783b51711bbf7a54a9e799e7"
+  },
+  "FBG_N45_CYSW_MAPX10_CW_3LY_1": {
+   "cameras": [
+    "26ada0208505284c"
+   ],
+   "room": null,
+   "walkmesh": "0b2919282295bcd0e6d1072588be3480f4e4add49f90a26ad722ba49d7c6b110"
+  },
+  "FBG_N45_CYSW_MAPX11_CW_3LY_2": {
+   "cameras": [
+    "9f9a6fd21154d251"
+   ],
+   "room": null,
+   "walkmesh": "c367fb81a8f32bd4c46501aa4902e15acb4216856fc20095738fcc99a81c54f5"
+  },
+  "FBG_N45_CYSW_MAPX12_CW_GIA_2": {
+   "cameras": [
+    "8718518a9f4cf5ba"
+   ],
+   "room": null,
+   "walkmesh": "9217b5ff2e5a247061b31bdd8100b257a090da4ea520c0e1fc1dc3df42f12802"
+  },
+  "FBG_N45_CYSW_MAPX13_CW_4LY_0": {
+   "cameras": [
+    "054c0b09d24a303c"
+   ],
+   "room": null,
+   "walkmesh": "15c0b9933be0a4da2db93a66e3908feaeb27f1560279b631fb1435446abf99ca"
+  },
+  "FBG_N45_CYSW_MAPX14_CW_4LY_1": {
+   "cameras": [
+    "462ac970f1b66ecb"
+   ],
+   "room": null,
+   "walkmesh": "b9c49b92f6e0572cb6d737b61305b6191e11a49dde0dc854905d74ffcf15cb4a"
+  },
+  "FBG_N45_CYSW_MAPX15_CW_GIA_3": {
+   "cameras": [
+    "21ef63b8796e3b00"
+   ],
+   "room": null,
+   "walkmesh": "2f0590b8039503cc747a7807084c0bdfc735d47b9492c45548de374ce8ec74a1"
+  },
+  "FBG_N45_CYSW_MAPX16_CW_5LY_0": {
+   "cameras": [
+    "bc1848b4cff019e9"
+   ],
+   "room": null,
+   "walkmesh": "f02b2b99503e81266713750e32c9238fa65c232843cb93f8888c07e0a7012683"
+  },
+  "FBG_N45_CYSW_MAPX17_CW_GIA_4": {
+   "cameras": [
+    "48cf046160637305"
+   ],
+   "room": null,
+   "walkmesh": "51d9710dd533fe655189f0e3e794c3b03c9dbbbd8a6977897be95c529f6b7c1e"
+  },
+  "FBG_N45_CYSW_MAPX18_CW_LTP_0": {
+   "cameras": [
+    "626a3c63f8788665"
+   ],
+   "room": null,
+   "walkmesh": "de328fafc3a12e572c793f60afed8a82f94360905b6d108f40a5b50968b826de"
+  },
+  "FBG_N45_CYSW_MAPX19_CW_EMP_0": {
+   "cameras": [
+    "a749b73a8c934bd0"
+   ],
+   "room": null,
+   "walkmesh": "6d4f2cb74c79ad9643a8c09a9dc054a3d772ae1195d84a4724e03ab5dcc5b7c2"
+  },
+  "FBG_N45_CYSW_MAPX20_CW_SPC_0": {
+   "cameras": [
+    "03f942476f9b954c"
+   ],
+   "room": null,
+   "walkmesh": "93d7cadc49c70a26a53e70b3773b6e75c28366b9c2932c12004728ceaed96a00"
+  },
+  "FBG_N45_CYSW_MAPX21_CW_SPC_1": {
+   "cameras": [
+    "4807fe1be9038352"
+   ],
+   "room": null,
+   "walkmesh": "19492db5349a19c453238875433239dc27ab7ef81b1d7ea24615333355cfb486"
+  },
+  "FBG_N45_CYSW_MAPX22_CW_CYW_0": {
+   "cameras": [
+    "7fa567ff5348911e"
+   ],
+   "room": null,
+   "walkmesh": "0b74fa7a43280443a457b624b567a7c983fce302ab9465b98a9b03bb4f9494da"
+  },
+  "FBG_N45_CYSW_MAPX23_CW_CYW_1": {
+   "cameras": [
+    "54db61a794a10896"
+   ],
+   "room": null,
+   "walkmesh": "f601ea2d644cb21c993f7a59e8d5af011517238f65a4c3ab0dddf1835bbd0f6d"
+  },
+  "FBG_N45_CYSW_MAPX24_CW_CYW_2": {
+   "cameras": [
+    "175c3f418eea81e1"
+   ],
+   "room": null,
+   "walkmesh": "87426cab18414a74df21d0030e4c8eb415a11130575de28f611ac66a3d254988"
+  },
+  "FBG_N45_CYSW_MAPX25_CW_CYW_3": {
+   "cameras": [
+    "2c2bd8129460ba72"
+   ],
+   "room": null,
+   "walkmesh": "86f183b048d1bf8f00e851c65825b5fdbe0e7060ab1dee33fe5adafbcc32b687"
+  },
+  "FBG_N45_CYSW_MAPX26A_CW_LST_A": {
+   "cameras": [
+    "26792fe0f23daa7f"
+   ],
+   "room": null,
+   "walkmesh": "69328cf576b43e79af590dceb7d77ca5a342fe64502d3876ad064c9e4a43184f"
+  },
+  "FBG_N45_CYSW_MAPX26_CW_LST_0": {
+   "cameras": [
+    "7769b96ba5e880fc"
+   ],
+   "room": null,
+   "walkmesh": "902e9714809d965d4ddc9d23b542ebaae571bd22f5a9f2f3db7be5226d0a712a"
+  },
+  "FBG_N45_CYSW_MAPX27_CW_LST_1": {
+   "cameras": [
+    "cda16f1eacd43bd0"
+   ],
+   "room": null,
+   "walkmesh": "7e4702589d4a2db4e7c427564ebb6bc9ce26daa911981972558933e42b8ce817"
+  },
+  "FBG_N45_CYSW_MAPX28_CW_MBG_0": {
+   "cameras": [
+    "7174a486b3bbed5e"
+   ],
+   "room": null,
+   "walkmesh": "2266edbec933c808ae8014cfa9c076b6b56b43a56eaf61c836a00c02680ca853"
+  },
+  "FBG_N45_CYSW_MAPX29A_CW_MBG_A": {
+   "cameras": [
+    "2aa2cf9247f65aff",
+    "8c8a2caec998aae1"
+   ],
+   "room": null,
+   "walkmesh": "383399a5fc39fa618d302da4e54d35816a387ea8c2280b5438994bd50324a6ca"
+  },
+  "FBG_N45_CYSW_MAPX29_CW_MBG_1": {
+   "cameras": [
+    "8c8a2caec998aae1"
+   ],
+   "room": null,
+   "walkmesh": "546aec136112de82892c6edc6a8375ec3ce866b63125423493d281dd92bf3c96"
+  },
+  "FBG_N45_CYSW_MAPX30_CW_MBG_2": {
+   "cameras": [
+    "3f347180a2d3497c",
+    "66c8c18bfb5aaf4b",
+    "ff075765627638e9"
+   ],
+   "room": null,
+   "walkmesh": "8a67cf2798de0a85c929f7f6c2a027f0821d17362a12ec0129314e125bd98d87"
+  },
+  "FBG_N46_ENDG_MAPX50_ED_EVT_0": {
+   "cameras": [
+    "303037338191fd36",
+    "4f60c372368ea952",
+    "a772b3127d8d8a06"
+   ],
+   "room": null,
+   "walkmesh": "254f6d7f1bcb8ccb5652a0f7e6cac5aa17706d9d8f997293ce6ea4320b31201a"
+  },
+  "FBG_N48_RDRS_MAPV00A_RR_BRG_1": {
+   "cameras": [
+    "1ead159d3fd6d0b3",
+    "ff7c9716555be94a"
+   ],
+   "room": "RDRS/RR/BRG",
+   "walkmesh": "29814f08f489220ab1cadf9e77ecc36fb95f2ff23db2590a558e7e0de7b17510"
+  },
+  "FBG_N48_RDRS_MAPV00B_RR_BRG_2": {
+   "cameras": [
+    "ff7c9716555be94a"
+   ],
+   "room": "RDRS/RR/BRG",
+   "walkmesh": "ea0ea7f659a8d7d2946cc0fa2fa2c6c3b34a1753799285c19aab945f188d0554"
+  },
+  "FBG_N48_RDRS_MAPV00_RR_BRG_0": {
+   "cameras": [
+    "26f141591af38533"
+   ],
+   "room": "RDRS/RR/BRG",
+   "walkmesh": "f424babca205f0da56860ea2345c5f1a76837d34a31c622764913b2c9ca4b325"
+  },
+  "FBG_N48_RDRS_MAPV01_RR_DCK_0": {
+   "cameras": [
+    "da1cbc4ae554cc5d"
+   ],
+   "room": "RDRS/RR/DCK",
+   "walkmesh": "5328626cab0ea0478c4f53d0497eaf5aff764418aeb8524f70032e7ca41f075e"
+  },
+  "FBG_N48_RDRS_MAPV02_RR_CB1_0": {
+   "cameras": [
+    "ff9c10156fa59afa"
+   ],
+   "room": "RDRS/RR/CB1",
+   "walkmesh": "fe5b396b266a049ca22af21c3c3e7da04bbf819dcb1b100310f083823c7480d5"
+  },
+  "FBG_N48_RDRS_MAPV03_RR_CB2_0": {
+   "cameras": [
+    "f4ae3451683a2106"
+   ],
+   "room": "RDRS/RR/CB2",
+   "walkmesh": "0a1783400072fa1e8937702f2ce93574d23f2ee6542202480e5cea511f4fc0a8"
+  },
+  "FBG_N49_BRNF_MAPV11_BF_FLS_0": {
+   "cameras": [
+    "485b025f2c74befb"
+   ],
+   "room": "BRNF/BF/FLS",
+   "walkmesh": "cebb8f5382c63a76aec5ec3a886a08794402d4713d4dd70cd7673c59d534ec84"
+  },
+  "FBG_N49_BRNF_MAPV12_BF_DCK_0": {
+   "cameras": [
+    "253ebe3f40953a3d"
+   ],
+   "room": "BRNF/BF/DCK",
+   "walkmesh": "cebb8f5382c63a76aec5ec3a886a08794402d4713d4dd70cd7673c59d534ec84"
+  },
+  "FBG_N49_BRNF_MAPV13_BF_DCK_1": {
+   "cameras": [
+    "485b025f2c74befb"
+   ],
+   "room": "BRNF/BF/DCK",
+   "walkmesh": "cebb8f5382c63a76aec5ec3a886a08794402d4713d4dd70cd7673c59d534ec84"
+  },
+  "FBG_N50_BLNR_MAPV20_BN_DCR_0": {
+   "cameras": [
+    "94742940aa0fb29c"
+   ],
+   "room": "BLNR/BN/DCR",
+   "walkmesh": "98f9c9d40eabb153a7148d9bcd0ccd329fbb31278c7fd9209ff772a6b38b68a0"
+  },
+  "FBG_N50_BLNR_MAPV21_BN_DCR_1": {
+   "cameras": [
+    "94742940aa0fb29c"
+   ],
+   "room": "BLNR/BN/DCR",
+   "walkmesh": "98f9c9d40eabb153a7148d9bcd0ccd329fbb31278c7fd9209ff772a6b38b68a0"
+  },
+  "FBG_N51_HLG1_MAPV30_G1_BRG_0": {
+   "cameras": [
+    "1df90a135d0515e8"
+   ],
+   "room": "HLG1/G1/BRG",
+   "walkmesh": "877409399e1c61d3c2ee3b38bb12e72a7197e9d9df272d982a97fbf43d0f9bc7"
+  },
+  "FBG_N52_HLG2_MAPV40_G2_DCK_0": {
+   "cameras": [
+    "305007f640ceef4e",
+    "eb2245271ac62da1"
+   ],
+   "room": "HLG2/G2/DCK",
+   "walkmesh": "b738bb27e7d43aae9de9150c2c22ab51a0bf6497a6e0844e570c911cbe433ccc"
+  },
+  "FBG_N53_HLG3_MAPV50A_G3_BRG_1": {
+   "cameras": [
+    "756859f48abc2eb0"
+   ],
+   "room": "HLG3/G3/BRG",
+   "walkmesh": "6305f6c419a8380da48a2fd9d5adddb35db216c18943db943cc06719c343283d"
+  },
+  "FBG_N53_HLG3_MAPV50B_G3_BRG_2": {
+   "cameras": [
+    "1ead159d3fd6d0b3",
+    "756859f48abc2eb0"
+   ],
+   "room": "HLG3/G3/BRG",
+   "walkmesh": "ab2e59df4c2f37a8e5b24dc04165eaa6aaeb5a5b6b266c08d5bf378f34d82ef0"
+  },
+  "FBG_N53_HLG3_MAPV50_G3_BRG_0": {
+   "cameras": [
+    "756859f48abc2eb0"
+   ],
+   "room": "HLG3/G3/BRG",
+   "walkmesh": "6305f6c419a8380da48a2fd9d5adddb35db216c18943db943cc06719c343283d"
+  },
+  "FBG_N53_HLG3_MAPV51_G3_EGR_0": {
+   "cameras": [
+    "ec4a0f59069e966a"
+   ],
+   "room": "HLG3/G3/EGR",
+   "walkmesh": "966b0863d61e62ec28caf72e14de74db09fe380a063cb8f0564995bfa0e242d1"
+  },
+  "FBG_N53_HLG3_MAPV52_G3_DCK_0": {
+   "cameras": [
+    "80c9d3d46c383426"
+   ],
+   "room": "HLG3/G3/DCK",
+   "walkmesh": "bdd68a3859789c83f1576072543018f1d057ae4f87237b4f92d490f4dac3b983"
+  },
+  "FBG_N53_HLG3_MAPV53_G3_EXT_0": {
+   "cameras": [
+    "2386b718d1d48138"
+   ],
+   "room": "HLG3/G3/EXT",
+   "walkmesh": "7f2da90f87f09b6ac3e58334acbd5d3167393818a59d53b254106e03c778a45c"
+  },
+  "FBG_N54_INVB_MAPV60A_IV_BRG_1": {
+   "cameras": [
+    "0ac8ce1c66685481"
+   ],
+   "room": "INVB/IV/BRG",
+   "walkmesh": "5ade7b7e27c70030a6368c54c7c8df7a9c794d22dab2c5c062b27fa2da163139"
+  },
+  "FBG_N54_INVB_MAPV60C_IV_BRG_3": {
+   "cameras": [
+    "eccbe15bccd62bb6"
+   ],
+   "room": "INVB/IV/BRG",
+   "walkmesh": "5ade7b7e27c70030a6368c54c7c8df7a9c794d22dab2c5c062b27fa2da163139"
+  },
+  "FBG_N54_INVB_MAPV60_IV_BRG_0": {
+   "cameras": [
+    "0ac8ce1c66685481"
+   ],
+   "room": "INVB/IV/BRG",
+   "walkmesh": "5ade7b7e27c70030a6368c54c7c8df7a9c794d22dab2c5c062b27fa2da163139"
+  },
+  "FBG_N54_INVB_MAPV61_IV_CXI_0": {
+   "cameras": [
+    "c6a5fbd3a854e1d2"
+   ],
+   "room": "INVB/IV/CXI",
+   "walkmesh": "49d0dd2571a4222d76b4cd4acd6e79d3847bbbe07685bc187bc08686e14d1c8a"
+  },
+  "FBG_N54_INVB_MAPV62A_IV_CTR_1": {
+   "cameras": [
+    "ddaf7577e076b2b9"
+   ],
+   "room": "INVB/IV/CTR",
+   "walkmesh": "9835bb72afad7950c9bde1b41d72cd1571af5df75c11258e7237c36503a6f7bd"
+  },
+  "FBG_N54_INVB_MAPV62_IV_CTR_0": {
+   "cameras": [
+    "31e5475a6b76f1ce"
+   ],
+   "room": "INVB/IV/CTR",
+   "walkmesh": "9835bb72afad7950c9bde1b41d72cd1571af5df75c11258e7237c36503a6f7bd"
+  },
+  "FBG_N55_DGLO_MAP775_DG_ENT_0": {
+   "cameras": [
+    "5af853fd54fe30f5"
+   ],
+   "room": "DGLO/DG/ENT",
+   "walkmesh": "d45aaba3ab93e1f78c13f698776d1b45f23218997e3ff3f9fe499fb2de9a7e39"
+  },
+  "FBG_N55_DGLO_MAP776_DG_LFT_0": {
+   "cameras": [
+    "b5494dab0ae751f8"
+   ],
+   "room": "DGLO/DG/LFT",
+   "walkmesh": "2ee94bb98f21e7be1028ae3ff6b34d1618accd5b90593224f193b4e0571404c1"
+  },
+  "FBG_N55_DGLO_MAP777_DG_SRH_0": {
+   "cameras": [
+    "7c5f0145125a4b14"
+   ],
+   "room": "DGLO/DG/SRH",
+   "walkmesh": "de33dbd7b8453a0effe614569febdaac726ae0be80470f0a2f2219cf8bcc483d"
+  },
+  "FBG_N55_DGLO_MAP778_DG_2F0_0": {
+   "cameras": [
+    "03fd106b27797360"
+   ],
+   "room": "DGLO/DG/2F0",
+   "walkmesh": "e6bfe41729b2646655af0619c57e3bf2e9a219a48de4f8ce14de9fa8ed42034c"
+  },
+  "FBG_N56_MGNT_MAP810_MN_MOG_0": {
+   "cameras": [
+    "7653374c1aa4d8cd"
+   ],
+   "room": "MGNT/MN/MOG",
+   "walkmesh": "81173f29b36bcf598d4bebf5f79690f42e866e51130e062332fb087d65176d8d"
+  }
+ },
+ "groups": {
+  "FBG_N00_TSHP_MAP002_TH_CGR_1": [
+   "FBG_N00_TSHP_MAP001_TH_CGR_0"
+  ],
+  "FBG_N00_TSHP_MAP005_TH_MET_0": [
+   "FBG_N00_TSHP_MAP006C_TH_MET_4"
+  ],
+  "FBG_N00_TSHP_MAP011_TH_STG_0": [
+   "FBG_N00_TSHP_MAP011C_TH_STG_3",
+   "FBG_N00_TSHP_MAP011F_TH_STG_6",
+   "FBG_N00_TSHP_MAP011J_TH_STG_A",
+   "FBG_N00_TSHP_MAP011M_TH_STG_D"
+  ],
+  "FBG_N01_ALXT_MAP016_AT_MSA_0": [
+   "FBG_N01_ALXT_MAP820A_AT_MSA_B",
+   "FBG_N01_ALXT_MAP820_AT_MSA_A",
+   "FBG_N01_ALXT_MAP830_AT_MSA_W"
+  ],
+  "FBG_N01_ALXT_MAP017_AT_MSB_0": [
+   "FBG_N01_ALXT_MAP821A_AT_MSB_B",
+   "FBG_N01_ALXT_MAP821_AT_MSB_A"
+  ],
+  "FBG_N01_ALXT_MAP018_AT_MSC_0": [
+   "FBG_N01_ALXT_MAP822A_AT_MSC_B",
+   "FBG_N01_ALXT_MAP822_AT_MSC_A",
+   "FBG_N01_ALXT_MAP832_AT_MSC_W"
+  ],
+  "FBG_N01_ALXT_MAP019N_AT_CNT_N": [
+   "FBG_N01_ALXT_MAP823A_AT_CNT_B",
+   "FBG_N01_ALXT_MAP823_AT_CNT_A",
+   "FBG_N01_ALXT_MAP833_AT_CNT_W"
+  ],
+  "FBG_N01_ALXT_MAP021_AT_BST_0": [
+   "FBG_N01_ALXT_MAP824_AT_BST_A",
+   "FBG_N01_ALXT_MAP834_AT_BST_W"
+  ],
+  "FBG_N01_ALXT_MAP022_AT_TSS_0": [
+   "FBG_N01_ALXT_MAP825_AT_TSS_A",
+   "FBG_N01_ALXT_MAP835_AT_TSS_W"
+  ],
+  "FBG_N01_ALXT_MAP025_AT_GAT_0": [
+   "FBG_N01_ALXT_MAP826A_AT_GAT_B",
+   "FBG_N01_ALXT_MAP826_AT_GAT_A"
+  ],
+  "FBG_N01_ALXT_MAP026_AT_SIN_0": [
+   "FBG_N01_ALXT_MAP827_AT_SIN_A",
+   "FBG_N01_ALXT_MAP837_AT_SIN_W"
+  ],
+  "FBG_N01_ALXT_MAP028_AT_INN_0": [
+   "FBG_N01_ALXT_MAP839_AT_INN_W"
+  ],
+  "FBG_N02_ALXC_MAP034A_AC_GTO_0": [
+   "FBG_N02_ALXC_MAP853_AC_GTO_A",
+   "FBG_N02_ALXC_MAP885A_AC_GTO_B"
+  ],
+  "FBG_N02_ALXC_MAP034_AC_FGO_0": [
+   "FBG_N02_ALXC_MAP852_AC_FGO_A"
+  ],
+  "FBG_N02_ALXC_MAP035_AC_RTW_0": [
+   "FBG_N02_ALXC_MAP854_AC_RTW_A"
+  ],
+  "FBG_N02_ALXC_MAP036_AC_LTW_0": [
+   "FBG_N02_ALXC_MAP855_AC_LTW_A",
+   "FBG_N02_ALXC_MAP889_AC_LTW_W"
+  ],
+  "FBG_N02_ALXC_MAP038A_AC_AST_1": [
+   "FBG_N02_ALXC_MAP038B_AC_AST_2",
+   "FBG_N02_ALXC_MAP038C_AC_AST_3"
+  ],
+  "FBG_N02_ALXC_MAP039A_AC_RST_1": [
+   "FBG_N02_ALXC_MAP039_AC_RST_0",
+   "FBG_N02_ALXC_MAP853A_AC_RST_A",
+   "FBG_N02_ALXC_MAP878A_AC_RST_X"
+  ],
+  "FBG_N02_ALXC_MAP045_AC_LBR_0": [
+   "FBG_N02_ALXC_MAP850_AC_LBR_A"
+  ],
+  "FBG_N02_ALXC_MAP861_AC_DGR_0": [
+   "FBG_N02_ALXC_MAP885B_AC_DGR_A"
+  ],
+  "FBG_N02_ALXC_MAP877_AC_POT_1": [
+   "FBG_N02_ALXC_MAP876_AC_POT_0"
+  ],
+  "FBG_N09_CSHP_MAP140A_CA_DCK_W": [
+   "FBG_N09_CSHP_MAP140_CA_DCK_0"
+  ],
+  "FBG_N09_CSHP_MAP143_CA_COP_0": [
+   "FBG_N09_CSHP_MAP144_CA_COP_1"
+  ],
+  "FBG_N11_LDBM_MAP155_LB_MST_0": [
+   "FBG_N11_LDBM_MAP910_LB_MST_W",
+   "FBG_N11_LDBM_MAP920_LB_MST_R"
+  ],
+  "FBG_N11_LDBM_MAP156_LB_BAZ_0": [
+   "FBG_N11_LDBM_MAP911_LB_BAZ_W",
+   "FBG_N11_LDBM_MAP921_LB_BAZ_R"
+  ],
+  "FBG_N11_LDBM_MAP158_LB_PLZ_0": [
+   "FBG_N11_LDBM_MAP912_LB_PLZ_W",
+   "FBG_N11_LDBM_MAP922_LB_PLZ_R"
+  ],
+  "FBG_N11_LDBM_MAP159_LB_GAT_0": [
+   "FBG_N11_LDBM_MAP913_LB_GAT_W"
+  ],
+  "FBG_N11_LDBM_MAP163_LB_HUS_0": [
+   "FBG_N11_LDBM_MAP914_LB_HUS_W",
+   "FBG_N11_LDBM_MAP924_LB_HUS_R"
+  ],
+  "FBG_N11_LDBM_MAP166_LB_WPN_0": [
+   "FBG_N11_LDBM_MAP915_LB_WPN_W",
+   "FBG_N11_LDBM_MAP925_LB_WPN_R"
+  ],
+  "FBG_N11_LDBM_MAP168_LB_RFS_0": [
+   "FBG_N11_LDBM_MAP916_LB_RFS_W",
+   "FBG_N11_LDBM_MAP926_LB_RFS_R"
+  ],
+  "FBG_N11_LDBM_MAP169_LB_HIG_0": [
+   "FBG_N11_LDBM_MAP917_LB_HIG_W",
+   "FBG_N11_LDBM_MAP927_LB_HIG_R"
+  ],
+  "FBG_N11_LDBM_MAP187_LB_MET_0": [
+   "FBG_N11_LDBM_MAP187A_LB_MET_A"
+  ],
+  "FBG_N11_LDBM_MAP190_LB_OBS_0": [
+   "FBG_N11_LDBM_MAP918_LB_OBS_M"
+  ],
+  "FBG_N11_LDBM_MAP191_LB_ASD_0": [
+   "FBG_N11_LDBM_MAP191A_LB_ASD_1",
+   "FBG_N11_LDBM_MAP191B_LB_ASD_2"
+  ],
+  "FBG_N13_BRMC_MAP274A_BU_HAL_2": [
+   "FBG_N13_BRMC_MAP274_BU_HAL_1"
+  ],
+  "FBG_N16_STGT_MAP340A_SG_TRN_1": [
+   "FBG_N16_STGT_MAP341A_SG_TRN_3"
+  ],
+  "FBG_N16_STGT_MAP342_SG_TOP_0": [
+   "FBG_N16_STGT_MAP342X_SG_TOP_3"
+  ],
+  "FBG_N16_STGT_MAP352_SG_ALX_2": [
+   "FBG_N16_STGT_MAP352A_SG_ALX_5"
+  ],
+  "FBG_N18_GTRE_MAP375_GT_DUN_C": [
+   "FBG_N18_GTRE_MAP375X_GT_DUN_D"
+  ],
+  "FBG_N18_GTRE_MAP376_GT_DUN_E": [
+   "FBG_N18_GTRE_MAP376X_GT_DUN_F"
+  ],
+  "FBG_N19_CLIR_MAP380_CY_TWN_0": [
+   "FBG_N19_CLIR_MAP380X_CY_TWN_1"
+  ],
+  "FBG_N19_CLIR_MAP381_CY_TWN_2": [
+   "FBG_N19_CLIR_MAP381X_CY_TWN_3"
+  ],
+  "FBG_N19_CLIR_MAP382_CY_TWN_5": [
+   "FBG_N19_CLIR_MAP382X_CY_TWN_6"
+  ],
+  "FBG_N19_CLIR_MAP383_CY_TWN_7": [
+   "FBG_N19_CLIR_MAP383X_CY_TWN_8"
+  ],
+  "FBG_N19_CLIR_MAP384_CY_TWN_9": [
+   "FBG_N19_CLIR_MAP384X_CY_TWN_A"
+  ],
+  "FBG_N19_CLIR_MAP386_CY_TWN_C": [
+   "FBG_N19_CLIR_MAP386X_CY_TWN_D"
+  ],
+  "FBG_N19_CLIR_MAP387_CY_TWN_E": [
+   "FBG_N19_CLIR_MAP387X_CY_TWN_F"
+  ],
+  "FBG_N19_CLIR_MAP388X_CY_TWN_J": [
+   "FBG_N19_CLIR_MAP388_CY_TWN_G"
+  ],
+  "FBG_N19_CLIR_MAP389_CY_TWN_H": [
+   "FBG_N19_CLIR_MAP389X_CY_TWN_I"
+  ],
+  "FBG_N25_NTGT_MAP450_NG_MDA_0": [
+   "FBG_N25_NTGT_MAP450A_NG_MDA_1"
+  ],
+  "FBG_N25_NTGT_MAP451_NG_BMA_0": [
+   "FBG_N25_NTGT_MAP451A_NG_BMA_1"
+  ],
+  "FBG_N25_NTGT_MAP453_NG_BDA_0": [
+   "FBG_N25_NTGT_MAP453A_NG_BDA_1"
+  ],
+  "FBG_N26_PNCL_MAP459_PR_ENT_0": [
+   "FBG_N26_PNCL_MAP460_PR_ENT_1"
+  ],
+  "FBG_N30_BMVL_MAP534_BV_GVY_0": [
+   "FBG_N30_BMVL_MAP534A_BV_GVY_1"
+  ],
+  "FBG_N31_IFTR_MAP550A_IF_ENT_1": [
+   "FBG_N31_IFTR_MAP550_IF_ENT_0"
+  ],
+  "FBG_N31_IFTR_MAP551A_IF_PUG_1": [
+   "FBG_N31_IFTR_MAP551_IF_PUG_0"
+  ],
+  "FBG_N31_IFTR_MAP552A_IF_BAS_1": [
+   "FBG_N31_IFTR_MAP552_IF_BAS_0"
+  ],
+  "FBG_N34_MDSR_MAP570_MS_ENT_0": [
+   "FBG_N34_MDSR_MAP570A_MS_ENT_1"
+  ],
+  "FBG_N34_MDSR_MAP571_MS_FNT_0": [
+   "FBG_N34_MDSR_MAP571A_MS_FNT_1"
+  ],
+  "FBG_N34_MDSR_MAP572_MS_EKH_0": [
+   "FBG_N34_MDSR_MAP572A_MS_EKH_1"
+  ],
+  "FBG_N34_MDSR_MAP573_MS_PMR_0": [
+   "FBG_N34_MDSR_MAP573A_MS_PMR_1"
+  ],
+  "FBG_N34_MDSR_MAP576_MS_MRR_0": [
+   "FBG_N34_MDSR_MAP576A_MS_MRR_1"
+  ],
+  "FBG_N34_MDSR_MAP578_MS_EKI_0": [
+   "FBG_N34_MDSR_MAP578A_MS_EKI_1"
+  ],
+  "FBG_N34_MDSR_MAP579_MS_KTN_0": [
+   "FBG_N34_MDSR_MAP579A_MS_KTN_1"
+  ],
+  "FBG_N34_MDSR_MAP580_MS_SCR_0": [
+   "FBG_N34_MDSR_MAP580B_MS_SCR_2"
+  ],
+  "FBG_N43_IPSN_MAP740_IP_EXT_0": [
+   "FBG_N43_IPSN_MAP740A_IP_EXT_1"
+  ],
+  "FBG_N43_IPSN_MAP748_IP_CNT_0": [
+   "FBG_N43_IPSN_MAP748B_IP_CNT_2"
+  ],
+  "FBG_N44_EMSH_MAP762A_ES_SEL_1": [
+   "FBG_N44_EMSH_MAP762B_ES_SEL_2"
+  ],
+  "FBG_N48_RDRS_MAPV00A_RR_BRG_1": [
+   "FBG_N48_RDRS_MAPV00B_RR_BRG_2"
+  ],
+  "FBG_N49_BRNF_MAPV12_BF_DCK_0": [
+   "FBG_N49_BRNF_MAPV13_BF_DCK_1"
+  ],
+  "FBG_N50_BLNR_MAPV20_BN_DCR_0": [
+   "FBG_N50_BLNR_MAPV21_BN_DCR_1"
+  ],
+  "FBG_N53_HLG3_MAPV50_G3_BRG_0": [
+   "FBG_N53_HLG3_MAPV50A_G3_BRG_1"
+  ],
+  "FBG_N54_INVB_MAPV60_IV_BRG_0": [
+   "FBG_N54_INVB_MAPV60A_IV_BRG_1",
+   "FBG_N54_INVB_MAPV60C_IV_BRG_3"
+  ],
+  "FBG_N54_INVB_MAPV62A_IV_CTR_1": [
+   "FBG_N54_INVB_MAPV62_IV_CTR_0"
+  ]
+ },
+ "inventorySHA256": "5626ea3494cbf1e48145e8f58457f26ec36677fd9d9ce142464589585b357962",
+ "mergedScenes": 102,
+ "minFloorIoU": 0.6,
+ "missingAssets": {
+  "FBG_N02_ALXC_MAP038_AC_AST_0": {
+   "fields": [
+    1805
+   ],
+   "keys": [
+    "assets/resources/fieldmaps/fbg_n02_alxc_map038_ac_ast_0/fbg_n02_alxc_map038_ac_ast_0.bgi.bytes",
+    "assets/resources/fieldmaps/fbg_n02_alxc_map038_ac_ast_0/fbg_n02_alxc_map038_ac_ast_0.bgs.bytes"
+   ]
+  }
+ },
+ "physicalAreas": 573,
+ "reasons": {
+  "FBG_N00_TSHP_MAP001_TH_CGR_0": {
+   "FBG_N00_TSHP_MAP002_TH_CGR_1": "identical walkmesh"
+  },
+  "FBG_N00_TSHP_MAP005_TH_MET_0": {
+   "FBG_N00_TSHP_MAP006C_TH_MET_4": "camera pose and floor IoU 0.97"
+  },
+  "FBG_N00_TSHP_MAP011C_TH_STG_3": {
+   "FBG_N00_TSHP_MAP011F_TH_STG_6": "identical walkmesh",
+   "FBG_N00_TSHP_MAP011J_TH_STG_A": "identical walkmesh",
+   "FBG_N00_TSHP_MAP011M_TH_STG_D": "identical walkmesh",
+   "FBG_N00_TSHP_MAP011_TH_STG_0": "identical walkmesh"
+  },
+  "FBG_N00_TSHP_MAP011F_TH_STG_6": {
+   "FBG_N00_TSHP_MAP011J_TH_STG_A": "identical walkmesh",
+   "FBG_N00_TSHP_MAP011M_TH_STG_D": "identical walkmesh",
+   "FBG_N00_TSHP_MAP011_TH_STG_0": "identical walkmesh"
+  },
+  "FBG_N00_TSHP_MAP011J_TH_STG_A": {
+   "FBG_N00_TSHP_MAP011M_TH_STG_D": "identical walkmesh",
+   "FBG_N00_TSHP_MAP011_TH_STG_0": "identical walkmesh"
+  },
+  "FBG_N00_TSHP_MAP011M_TH_STG_D": {
+   "FBG_N00_TSHP_MAP011_TH_STG_0": "identical walkmesh"
+  },
+  "FBG_N01_ALXT_MAP016_AT_MSA_0": {
+   "FBG_N01_ALXT_MAP820A_AT_MSA_B": "camera pose and floor IoU 0.95",
+   "FBG_N01_ALXT_MAP820_AT_MSA_A": "camera pose and floor IoU 0.98",
+   "FBG_N01_ALXT_MAP830_AT_MSA_W": "camera pose and floor IoU 0.91"
+  },
+  "FBG_N01_ALXT_MAP017_AT_MSB_0": {
+   "FBG_N01_ALXT_MAP821A_AT_MSB_B": "camera pose and floor IoU 1.00",
+   "FBG_N01_ALXT_MAP821_AT_MSB_A": "camera pose and floor IoU 0.99"
+  },
+  "FBG_N01_ALXT_MAP018_AT_MSC_0": {
+   "FBG_N01_ALXT_MAP822A_AT_MSC_B": "camera pose and floor IoU 0.78",
+   "FBG_N01_ALXT_MAP822_AT_MSC_A": "camera pose and floor IoU 0.83",
+   "FBG_N01_ALXT_MAP832_AT_MSC_W": "camera pose and floor IoU 0.62"
+  },
+  "FBG_N01_ALXT_MAP019N_AT_CNT_N": {
+   "FBG_N01_ALXT_MAP823A_AT_CNT_B": "camera pose and floor IoU 0.91",
+   "FBG_N01_ALXT_MAP823_AT_CNT_A": "camera pose and floor IoU 0.91",
+   "FBG_N01_ALXT_MAP833_AT_CNT_W": "camera pose and floor IoU 0.61"
+  },
+  "FBG_N01_ALXT_MAP021_AT_BST_0": {
+   "FBG_N01_ALXT_MAP824_AT_BST_A": "camera pose and floor IoU 0.82",
+   "FBG_N01_ALXT_MAP834_AT_BST_W": "camera pose and floor IoU 0.69"
+  },
+  "FBG_N01_ALXT_MAP022_AT_TSS_0": {
+   "FBG_N01_ALXT_MAP825_AT_TSS_A": "camera pose and floor IoU 0.92",
+   "FBG_N01_ALXT_MAP835_AT_TSS_W": "camera pose and floor IoU 0.67"
+  },
+  "FBG_N01_ALXT_MAP025_AT_GAT_0": {
+   "FBG_N01_ALXT_MAP826A_AT_GAT_B": "camera pose and floor IoU 1.00",
+   "FBG_N01_ALXT_MAP826_AT_GAT_A": "camera pose and floor IoU 1.00"
+  },
+  "FBG_N01_ALXT_MAP026_AT_SIN_0": {
+   "FBG_N01_ALXT_MAP827_AT_SIN_A": "camera pose and floor IoU 0.99",
+   "FBG_N01_ALXT_MAP837_AT_SIN_W": "camera pose and floor IoU 0.86"
+  },
+  "FBG_N01_ALXT_MAP028_AT_INN_0": {
+   "FBG_N01_ALXT_MAP839_AT_INN_W": "camera pose and floor IoU 0.94"
+  },
+  "FBG_N01_ALXT_MAP820A_AT_MSA_B": {
+   "FBG_N01_ALXT_MAP820_AT_MSA_A": "camera pose and floor IoU 0.94",
+   "FBG_N01_ALXT_MAP830_AT_MSA_W": "camera pose and floor IoU 0.87"
+  },
+  "FBG_N01_ALXT_MAP820_AT_MSA_A": {
+   "FBG_N01_ALXT_MAP830_AT_MSA_W": "camera pose and floor IoU 0.92"
+  },
+  "FBG_N01_ALXT_MAP821A_AT_MSB_B": {
+   "FBG_N01_ALXT_MAP821_AT_MSB_A": "camera pose and floor IoU 1.00"
+  },
+  "FBG_N01_ALXT_MAP822A_AT_MSC_B": {
+   "FBG_N01_ALXT_MAP822_AT_MSC_A": "camera pose and floor IoU 0.90"
+  },
+  "FBG_N01_ALXT_MAP822_AT_MSC_A": {
+   "FBG_N01_ALXT_MAP832_AT_MSC_W": "camera pose and floor IoU 0.66"
+  },
+  "FBG_N01_ALXT_MAP823A_AT_CNT_B": {
+   "FBG_N01_ALXT_MAP823_AT_CNT_A": "camera pose and floor IoU 0.98",
+   "FBG_N01_ALXT_MAP833_AT_CNT_W": "camera pose and floor IoU 0.65"
+  },
+  "FBG_N01_ALXT_MAP823_AT_CNT_A": {
+   "FBG_N01_ALXT_MAP833_AT_CNT_W": "camera pose and floor IoU 0.65"
+  },
+  "FBG_N01_ALXT_MAP824_AT_BST_A": {
+   "FBG_N01_ALXT_MAP834_AT_BST_W": "camera pose and floor IoU 0.78"
+  },
+  "FBG_N01_ALXT_MAP825_AT_TSS_A": {
+   "FBG_N01_ALXT_MAP835_AT_TSS_W": "camera pose and floor IoU 0.68"
+  },
+  "FBG_N01_ALXT_MAP826A_AT_GAT_B": {
+   "FBG_N01_ALXT_MAP826_AT_GAT_A": "camera pose and floor IoU 1.00"
+  },
+  "FBG_N01_ALXT_MAP827_AT_SIN_A": {
+   "FBG_N01_ALXT_MAP837_AT_SIN_W": "camera pose and floor IoU 0.87"
+  },
+  "FBG_N02_ALXC_MAP034A_AC_GTO_0": {
+   "FBG_N02_ALXC_MAP853_AC_GTO_A": "camera pose and floor IoU 1.00",
+   "FBG_N02_ALXC_MAP885A_AC_GTO_B": "camera pose and floor IoU 1.00"
+  },
+  "FBG_N02_ALXC_MAP034_AC_FGO_0": {
+   "FBG_N02_ALXC_MAP852_AC_FGO_A": "camera pose and floor IoU 1.00"
+  },
+  "FBG_N02_ALXC_MAP035_AC_RTW_0": {
+   "FBG_N02_ALXC_MAP854_AC_RTW_A": "camera pose and floor IoU 1.00"
+  },
+  "FBG_N02_ALXC_MAP036_AC_LTW_0": {
+   "FBG_N02_ALXC_MAP855_AC_LTW_A": "camera pose and floor IoU 0.93",
+   "FBG_N02_ALXC_MAP889_AC_LTW_W": "camera pose and floor IoU 0.70"
+  },
+  "FBG_N02_ALXC_MAP038A_AC_AST_1": {
+   "FBG_N02_ALXC_MAP038B_AC_AST_2": "camera pose and floor IoU 0.87",
+   "FBG_N02_ALXC_MAP038C_AC_AST_3": "camera pose and floor IoU 0.87"
+  },
+  "FBG_N02_ALXC_MAP038B_AC_AST_2": {
+   "FBG_N02_ALXC_MAP038C_AC_AST_3": "identical walkmesh"
+  },
+  "FBG_N02_ALXC_MAP039A_AC_RST_1": {
+   "FBG_N02_ALXC_MAP039_AC_RST_0": "camera pose and floor IoU 0.98",
+   "FBG_N02_ALXC_MAP853A_AC_RST_A": "camera pose and floor IoU 0.98",
+   "FBG_N02_ALXC_MAP878A_AC_RST_X": "camera pose and floor IoU 0.97"
+  },
+  "FBG_N02_ALXC_MAP039_AC_RST_0": {
+   "FBG_N02_ALXC_MAP853A_AC_RST_A": "camera pose and floor IoU 0.99",
+   "FBG_N02_ALXC_MAP878A_AC_RST_X": "camera pose and floor IoU 0.98"
+  },
+  "FBG_N02_ALXC_MAP045_AC_LBR_0": {
+   "FBG_N02_ALXC_MAP850_AC_LBR_A": "camera pose and floor IoU 0.95"
+  },
+  "FBG_N02_ALXC_MAP853A_AC_RST_A": {
+   "FBG_N02_ALXC_MAP878A_AC_RST_X": "camera pose and floor IoU 0.99"
+  },
+  "FBG_N02_ALXC_MAP853_AC_GTO_A": {
+   "FBG_N02_ALXC_MAP885A_AC_GTO_B": "camera pose and floor IoU 1.00"
+  },
+  "FBG_N02_ALXC_MAP855_AC_LTW_A": {
+   "FBG_N02_ALXC_MAP889_AC_LTW_W": "camera pose and floor IoU 0.75"
+  },
+  "FBG_N02_ALXC_MAP861_AC_DGR_0": {
+   "FBG_N02_ALXC_MAP885B_AC_DGR_A": "camera pose and floor IoU 0.99"
+  },
+  "FBG_N02_ALXC_MAP876_AC_POT_0": {
+   "FBG_N02_ALXC_MAP877_AC_POT_1": "identical walkmesh"
+  },
+  "FBG_N09_CSHP_MAP140A_CA_DCK_W": {
+   "FBG_N09_CSHP_MAP140_CA_DCK_0": "camera pose and floor IoU 0.77"
+  },
+  "FBG_N09_CSHP_MAP143_CA_COP_0": {
+   "FBG_N09_CSHP_MAP144_CA_COP_1": "camera pose and floor IoU 1.00"
+  },
+  "FBG_N11_LDBM_MAP155_LB_MST_0": {
+   "FBG_N11_LDBM_MAP910_LB_MST_W": "camera pose and floor IoU 0.96",
+   "FBG_N11_LDBM_MAP920_LB_MST_R": "camera pose and floor IoU 0.74"
+  },
+  "FBG_N11_LDBM_MAP156_LB_BAZ_0": {
+   "FBG_N11_LDBM_MAP911_LB_BAZ_W": "camera pose and floor IoU 0.73",
+   "FBG_N11_LDBM_MAP921_LB_BAZ_R": "camera pose and floor IoU 0.75"
+  },
+  "FBG_N11_LDBM_MAP158_LB_PLZ_0": {
+   "FBG_N11_LDBM_MAP912_LB_PLZ_W": "camera pose and floor IoU 0.83",
+   "FBG_N11_LDBM_MAP922_LB_PLZ_R": "camera pose and floor IoU 0.79"
+  },
+  "FBG_N11_LDBM_MAP159_LB_GAT_0": {
+   "FBG_N11_LDBM_MAP913_LB_GAT_W": "camera pose and floor IoU 1.00"
+  },
+  "FBG_N11_LDBM_MAP163_LB_HUS_0": {
+   "FBG_N11_LDBM_MAP914_LB_HUS_W": "camera pose and floor IoU 1.00",
+   "FBG_N11_LDBM_MAP924_LB_HUS_R": "identical walkmesh"
+  },
+  "FBG_N11_LDBM_MAP166_LB_WPN_0": {
+   "FBG_N11_LDBM_MAP915_LB_WPN_W": "camera pose and floor IoU 0.96",
+   "FBG_N11_LDBM_MAP925_LB_WPN_R": "camera pose and floor IoU 0.98"
+  },
+  "FBG_N11_LDBM_MAP168_LB_RFS_0": {
+   "FBG_N11_LDBM_MAP916_LB_RFS_W": "camera pose and floor IoU 0.95",
+   "FBG_N11_LDBM_MAP926_LB_RFS_R": "camera pose and floor IoU 0.96"
+  },
+  "FBG_N11_LDBM_MAP169_LB_HIG_0": {
+   "FBG_N11_LDBM_MAP917_LB_HIG_W": "camera pose and floor IoU 0.74",
+   "FBG_N11_LDBM_MAP927_LB_HIG_R": "camera pose and floor IoU 0.62"
+  },
+  "FBG_N11_LDBM_MAP187A_LB_MET_A": {
+   "FBG_N11_LDBM_MAP187_LB_MET_0": "identical walkmesh"
+  },
+  "FBG_N11_LDBM_MAP190_LB_OBS_0": {
+   "FBG_N11_LDBM_MAP918_LB_OBS_M": "identical walkmesh"
+  },
+  "FBG_N11_LDBM_MAP191A_LB_ASD_1": {
+   "FBG_N11_LDBM_MAP191B_LB_ASD_2": "identical walkmesh",
+   "FBG_N11_LDBM_MAP191_LB_ASD_0": "identical walkmesh"
+  },
+  "FBG_N11_LDBM_MAP191B_LB_ASD_2": {
+   "FBG_N11_LDBM_MAP191_LB_ASD_0": "identical walkmesh"
+  },
+  "FBG_N11_LDBM_MAP910_LB_MST_W": {
+   "FBG_N11_LDBM_MAP920_LB_MST_R": "camera pose and floor IoU 0.75"
+  },
+  "FBG_N11_LDBM_MAP911_LB_BAZ_W": {
+   "FBG_N11_LDBM_MAP921_LB_BAZ_R": "camera pose and floor IoU 0.96"
+  },
+  "FBG_N11_LDBM_MAP912_LB_PLZ_W": {
+   "FBG_N11_LDBM_MAP922_LB_PLZ_R": "camera pose and floor IoU 0.87"
+  },
+  "FBG_N11_LDBM_MAP914_LB_HUS_W": {
+   "FBG_N11_LDBM_MAP924_LB_HUS_R": "camera pose and floor IoU 1.00"
+  },
+  "FBG_N11_LDBM_MAP915_LB_WPN_W": {
+   "FBG_N11_LDBM_MAP925_LB_WPN_R": "camera pose and floor IoU 0.98"
+  },
+  "FBG_N11_LDBM_MAP916_LB_RFS_W": {
+   "FBG_N11_LDBM_MAP926_LB_RFS_R": "camera pose and floor IoU 0.94"
+  },
+  "FBG_N11_LDBM_MAP917_LB_HIG_W": {
+   "FBG_N11_LDBM_MAP927_LB_HIG_R": "camera pose and floor IoU 0.83"
+  },
+  "FBG_N13_BRMC_MAP274A_BU_HAL_2": {
+   "FBG_N13_BRMC_MAP274_BU_HAL_1": "identical walkmesh"
+  },
+  "FBG_N16_STGT_MAP340A_SG_TRN_1": {
+   "FBG_N16_STGT_MAP341A_SG_TRN_3": "identical walkmesh"
+  },
+  "FBG_N16_STGT_MAP342X_SG_TOP_3": {
+   "FBG_N16_STGT_MAP342_SG_TOP_0": "camera pose and floor IoU 0.98"
+  },
+  "FBG_N16_STGT_MAP352A_SG_ALX_5": {
+   "FBG_N16_STGT_MAP352_SG_ALX_2": "identical walkmesh"
+  },
+  "FBG_N18_GTRE_MAP375X_GT_DUN_D": {
+   "FBG_N18_GTRE_MAP375_GT_DUN_C": "camera pose and floor IoU 1.00"
+  },
+  "FBG_N18_GTRE_MAP376X_GT_DUN_F": {
+   "FBG_N18_GTRE_MAP376_GT_DUN_E": "identical walkmesh"
+  },
+  "FBG_N19_CLIR_MAP380X_CY_TWN_1": {
+   "FBG_N19_CLIR_MAP380_CY_TWN_0": "identical walkmesh"
+  },
+  "FBG_N19_CLIR_MAP381X_CY_TWN_3": {
+   "FBG_N19_CLIR_MAP381_CY_TWN_2": "identical walkmesh"
+  },
+  "FBG_N19_CLIR_MAP382X_CY_TWN_6": {
+   "FBG_N19_CLIR_MAP382_CY_TWN_5": "identical walkmesh"
+  },
+  "FBG_N19_CLIR_MAP383X_CY_TWN_8": {
+   "FBG_N19_CLIR_MAP383_CY_TWN_7": "identical walkmesh"
+  },
+  "FBG_N19_CLIR_MAP384X_CY_TWN_A": {
+   "FBG_N19_CLIR_MAP384_CY_TWN_9": "camera pose and floor IoU 1.00"
+  },
+  "FBG_N19_CLIR_MAP386X_CY_TWN_D": {
+   "FBG_N19_CLIR_MAP386_CY_TWN_C": "identical walkmesh"
+  },
+  "FBG_N19_CLIR_MAP387X_CY_TWN_F": {
+   "FBG_N19_CLIR_MAP387_CY_TWN_E": "camera pose and floor IoU 0.95"
+  },
+  "FBG_N19_CLIR_MAP388X_CY_TWN_J": {
+   "FBG_N19_CLIR_MAP388_CY_TWN_G": "camera pose and floor IoU 0.99"
+  },
+  "FBG_N19_CLIR_MAP389X_CY_TWN_I": {
+   "FBG_N19_CLIR_MAP389_CY_TWN_H": "identical walkmesh"
+  },
+  "FBG_N25_NTGT_MAP450A_NG_MDA_1": {
+   "FBG_N25_NTGT_MAP450_NG_MDA_0": "identical walkmesh"
+  },
+  "FBG_N25_NTGT_MAP451A_NG_BMA_1": {
+   "FBG_N25_NTGT_MAP451_NG_BMA_0": "identical walkmesh"
+  },
+  "FBG_N25_NTGT_MAP453A_NG_BDA_1": {
+   "FBG_N25_NTGT_MAP453_NG_BDA_0": "identical walkmesh"
+  },
+  "FBG_N26_PNCL_MAP459_PR_ENT_0": {
+   "FBG_N26_PNCL_MAP460_PR_ENT_1": "identical walkmesh"
+  },
+  "FBG_N30_BMVL_MAP534A_BV_GVY_1": {
+   "FBG_N30_BMVL_MAP534_BV_GVY_0": "identical walkmesh"
+  },
+  "FBG_N31_IFTR_MAP550A_IF_ENT_1": {
+   "FBG_N31_IFTR_MAP550_IF_ENT_0": "identical walkmesh"
+  },
+  "FBG_N31_IFTR_MAP551A_IF_PUG_1": {
+   "FBG_N31_IFTR_MAP551_IF_PUG_0": "identical walkmesh"
+  },
+  "FBG_N31_IFTR_MAP552A_IF_BAS_1": {
+   "FBG_N31_IFTR_MAP552_IF_BAS_0": "identical walkmesh"
+  },
+  "FBG_N34_MDSR_MAP570A_MS_ENT_1": {
+   "FBG_N34_MDSR_MAP570_MS_ENT_0": "camera pose and floor IoU 0.99"
+  },
+  "FBG_N34_MDSR_MAP571A_MS_FNT_1": {
+   "FBG_N34_MDSR_MAP571_MS_FNT_0": "identical walkmesh"
+  },
+  "FBG_N34_MDSR_MAP572A_MS_EKH_1": {
+   "FBG_N34_MDSR_MAP572_MS_EKH_0": "identical walkmesh"
+  },
+  "FBG_N34_MDSR_MAP573A_MS_PMR_1": {
+   "FBG_N34_MDSR_MAP573_MS_PMR_0": "identical walkmesh"
+  },
+  "FBG_N34_MDSR_MAP576A_MS_MRR_1": {
+   "FBG_N34_MDSR_MAP576_MS_MRR_0": "identical walkmesh"
+  },
+  "FBG_N34_MDSR_MAP578A_MS_EKI_1": {
+   "FBG_N34_MDSR_MAP578_MS_EKI_0": "identical walkmesh"
+  },
+  "FBG_N34_MDSR_MAP579A_MS_KTN_1": {
+   "FBG_N34_MDSR_MAP579_MS_KTN_0": "camera pose and floor IoU 1.00"
+  },
+  "FBG_N34_MDSR_MAP580B_MS_SCR_2": {
+   "FBG_N34_MDSR_MAP580_MS_SCR_0": "identical walkmesh"
+  },
+  "FBG_N43_IPSN_MAP740A_IP_EXT_1": {
+   "FBG_N43_IPSN_MAP740_IP_EXT_0": "identical walkmesh"
+  },
+  "FBG_N43_IPSN_MAP748B_IP_CNT_2": {
+   "FBG_N43_IPSN_MAP748_IP_CNT_0": "identical walkmesh"
+  },
+  "FBG_N44_EMSH_MAP762A_ES_SEL_1": {
+   "FBG_N44_EMSH_MAP762B_ES_SEL_2": "camera pose and floor IoU 0.96"
+  },
+  "FBG_N48_RDRS_MAPV00A_RR_BRG_1": {
+   "FBG_N48_RDRS_MAPV00B_RR_BRG_2": "camera pose and floor IoU 1.00"
+  },
+  "FBG_N49_BRNF_MAPV12_BF_DCK_0": {
+   "FBG_N49_BRNF_MAPV13_BF_DCK_1": "identical walkmesh"
+  },
+  "FBG_N50_BLNR_MAPV20_BN_DCR_0": {
+   "FBG_N50_BLNR_MAPV21_BN_DCR_1": "identical walkmesh"
+  },
+  "FBG_N53_HLG3_MAPV50A_G3_BRG_1": {
+   "FBG_N53_HLG3_MAPV50_G3_BRG_0": "identical walkmesh"
+  },
+  "FBG_N54_INVB_MAPV60A_IV_BRG_1": {
+   "FBG_N54_INVB_MAPV60C_IV_BRG_3": "identical walkmesh",
+   "FBG_N54_INVB_MAPV60_IV_BRG_0": "identical walkmesh"
+  },
+  "FBG_N54_INVB_MAPV60C_IV_BRG_3": {
+   "FBG_N54_INVB_MAPV60_IV_BRG_0": "identical walkmesh"
+  },
+  "FBG_N54_INVB_MAPV62A_IV_CTR_1": {
+   "FBG_N54_INVB_MAPV62_IV_CTR_0": "identical walkmesh"
+  }
+ },
+ "rejectedSamePose": [
+  {
+   "a": "FBG_N01_ALXT_MAP822A_AT_MSC_B",
+   "b": "FBG_N01_ALXT_MAP832_AT_MSC_W",
+   "floorIoU": 0.597
+  },
+  {
+   "a": "FBG_N02_ALXC_MAP034A_AC_GTO_0",
+   "b": "FBG_N02_ALXC_MAP888_AC_GTO_W",
+   "floorIoU": 0.4
+  },
+  {
+   "a": "FBG_N02_ALXC_MAP853_AC_GTO_A",
+   "b": "FBG_N02_ALXC_MAP888_AC_GTO_W",
+   "floorIoU": 0.401
+  },
+  {
+   "a": "FBG_N02_ALXC_MAP885A_AC_GTO_B",
+   "b": "FBG_N02_ALXC_MAP888_AC_GTO_W",
+   "floorIoU": 0.401
+  },
+  {
+   "a": "FBG_N02_ALXC_MAP061A_AC_LTH_0",
+   "b": "FBG_N02_ALXC_MAP890_AC_LTH_W",
+   "floorIoU": 0.321
+  },
+  {
+   "a": "FBG_N15_KUIN_MAP311A_KM_DWN_0",
+   "b": "FBG_N15_KUIN_MAP311D_KM_DWN_3",
+   "floorIoU": 0.305
+  },
+  {
+   "a": "FBG_N16_STGT_MAP342X_SG_TOP_3",
+   "b": "FBG_N16_STGT_MAP343_SG_TOP_1",
+   "floorIoU": 0.106
+  },
+  {
+   "a": "FBG_N16_STGT_MAP342_SG_TOP_0",
+   "b": "FBG_N16_STGT_MAP343_SG_TOP_1",
+   "floorIoU": 0.102
+  },
+  {
+   "a": "FBG_N18_GTRE_MAP364_GT_DUN_1",
+   "b": "FBG_N18_GTRE_MAP365_GT_DUN_2",
+   "floorIoU": 0.543
+  },
+  {
+   "a": "FBG_N53_HLG3_MAPV50A_G3_BRG_1",
+   "b": "FBG_N53_HLG3_MAPV50B_G3_BRG_2",
+   "floorIoU": 0.379
+  },
+  {
+   "a": "FBG_N53_HLG3_MAPV50B_G3_BRG_2",
+   "b": "FBG_N53_HLG3_MAPV50_G3_BRG_0",
+   "floorIoU": 0.379
+  }
+ ],
+ "scenes": 675,
+ "schema": 1
+}

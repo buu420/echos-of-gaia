@@ -23,6 +23,8 @@ namespace Memoria.Accessibility.AudioDescriptions
         private const long FieldOwner=-1;
         private static Film _film;
         private static Dialogue _dialogue;
+        private static Dialogue _timedPrompt;
+        private static bool _timedInput;
         private static FieldCue _fieldVoice;
         private static long _nextOwner,_sceneOwner,_sceneGeneration;
         private static NativeDescriptionFieldBank _sceneBank;
@@ -101,7 +103,7 @@ namespace Memoria.Accessibility.AudioDescriptions
         private static void QueueFieldCue(string id,string text,Func<bool> current)
         {
             try {
-                Initialize();if(!Enabled() || _film!=null || current==null || !current())return;
+                Initialize();if(!Enabled() || _film!=null || NativeTimedInputContext.Active || current==null || !current())return;
                 // The observed event carries fixed, reviewed wording. A missing
                 // recording can still be delivered together with current dialog.
                 if(Pending.Count>=64){Report("Field descriptions exceeded the current scene queue");return;}
@@ -120,6 +122,13 @@ namespace Memoria.Accessibility.AudioDescriptions
         {
             try {
                 Initialize();Windows.Add(window);
+                if(ObserveTimedInput()) {
+                    // A timed command describes this presentation, not a line
+                    // to replay after an animation/recording. Keep only the
+                    // current presentation if the backend temporarily rejects it.
+                    _timedPrompt=new Dialogue{Window=window,Parser=window.CurrentParser,Line=text};
+                    SpeakTimedPrompt();return;
+                }
                 // Keep every already presented line in order. Its native window
                 // may close or advance while a recording finishes. Only choices
                 // in the same question coalesce to the latest selected value.
@@ -137,7 +146,24 @@ namespace Memoria.Accessibility.AudioDescriptions
         }
         public static void DialogueHidden(Dialog window)
         {
-            try{Windows.Remove(window);if(_dialogue!=null && _dialogue.Window==window)_dialogue=null;if(Windows.Count==0 && _film==null)DeliverField();}catch(Exception exception){Fail(exception);}
+            try{Windows.Remove(window);if(_timedPrompt!=null && _timedPrompt.Window==window)_timedPrompt=null;if(_dialogue!=null && _dialogue.Window==window)_dialogue=null;if(Windows.Count==0 && _film==null)DeliverField();}catch(Exception exception){Fail(exception);}
+        }
+        private static bool ObserveTimedInput()
+        {
+            bool active=_film==null && NativeTimedInputContext.Active;
+            if(active) {
+                Pending.Clear();_fieldSegmentPlayed=false;
+                // Both paths are privately owned (waveOut or the private SAPI
+                // voice). Never globally silence the screen reader here.
+                if(_fieldVoice!=null){Playback.Stop();_fieldVoice=null;}
+            }else if(_timedInput)_timedPrompt=null;
+            _timedInput=active;return active;
+        }
+        private static void SpeakTimedPrompt()
+        {
+            if(!Current(_timedPrompt) || !_timedPrompt.Window.IsActive){_timedPrompt=null;return;}
+            if(!HonoInputManager.ApplicationIsActivated() || UIManager.Instance.IsPause)return;
+            if(ScreenReaderManager.Instance.TrySpeak(DialogueText(_timedPrompt),true))_timedPrompt=null;
         }
         private static string QueuedDialogueText()
         {
@@ -155,6 +181,7 @@ namespace Memoria.Accessibility.AudioDescriptions
         }
         private static void DeliverField()
         {
+            if(ObserveTimedInput()){SpeakTimedPrompt();return;}
             if(_film!=null || !Enabled() || !HonoInputManager.ApplicationIsActivated())return;
             if(_fieldVoice!=null && Playback.Playing)return;
             _fieldVoice=null;Playback.MovieFallback=false;Playback.Volume=Configuration.Accessibility.AudioDescriptionVolume;
@@ -193,6 +220,7 @@ namespace Memoria.Accessibility.AudioDescriptions
             try {
                 NativeFieldDescriptions.ObservePresentationBoundary();
                 Windows.RemoveWhere(window=>window==null || window.gameObject==null || !window.gameObject.activeInHierarchy);
+                if(ObserveTimedInput()){SpeakTimedPrompt();return;}
                 if(!Enabled() || !HonoInputManager.ApplicationIsActivated()){if(_film!=null)MovieSession.Observe(_film.Owner,_film.Definition.Timeline,_film.Position,false,false,false,false);ClearField();return;}
                 if(_film!=null) {
                     SpeakQueuedDialogue();
@@ -221,6 +249,7 @@ namespace Memoria.Accessibility.AudioDescriptions
             // Screen-reader fallbacks share the native dialogue queue and cannot
             // be cancelled individually. Stop only the recording that we own.
             ++_sceneGeneration;Pending.Clear();Windows.Clear();_dialogue=null;
+            _timedPrompt=null;_timedInput=false;
             if(_fieldVoice!=null){Playback.Stop();_fieldVoice=null;}
             _fieldSegmentPlayed=false;
             // These are observed native lines, independent of a gesture's

@@ -29,5 +29,16 @@ namespace Memoria.Accessibility.Navigation
             }
             string result;return _labels.TryGetValue(map,out result)?result:name;
         }
+        // The numbered native location name of a destination field (current text language), or null.
+        public static string Destination(int field)
+        {
+            string scene;if(!EventEngineUtils.eventIDToFBGID.TryGetValue(field,out scene))return null;
+            string name=Read(field,scene);return String.IsNullOrEmpty(name)?null:name;
+        }
+        internal static string Screen(int field,int entrance)
+        {
+            if(FieldAreaNames.SpiralArea(field,entrance)==0)return null;
+            return FieldAreaNames.SpiralName(field,entrance,FF9TextTool.RemoveOpCode(FF9TextTool.LocationName(field)));
+        }
     }
 }

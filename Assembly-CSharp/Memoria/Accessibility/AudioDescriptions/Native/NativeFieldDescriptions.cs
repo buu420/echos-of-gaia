@@ -56,7 +56,7 @@ namespace Memoria.Accessibility.AudioDescriptions
                 bool blocked=!_focused || !HonoInputManager.ApplicationIsActivated()
                     || PersistenSingleton<UIManager>.Instance.IsPause
                     || PersistenSingleton<UIManager>.Instance.State!=UIManager.UIState.FieldHUD
-                    || SceneDirector.IsScreenObscured || PersistenSingleton<SceneDirector>.Instance.IsFading
+                    || NativeTimedInputContext.Active || SceneDirector.IsScreenObscured || PersistenSingleton<SceneDirector>.Instance.IsFading
                     || (!MBG.IsNull && (MBG.Instance.IsPlaying() & 1UL)!=0 && !MBG.Instance.IsFinished());
                 if(blocked && !_presentationBlocked)_tracker.Invalidate("presentation blocked");
                 _presentationBlocked=blocked;
@@ -66,7 +66,7 @@ namespace Memoria.Accessibility.AudioDescriptions
         // EventEngine.ExecAnim: every script-started clip (ANIM/DANIM, turn and jump clips).
         public static void OnAnimationStarted(EventEngine engine, Obj executing, int instruction, Actor actor, int anim)
         {
-            if (_tracker == null || !_open || engine == null || actor == null || engine.gMode != FieldEngineFlags.ModeField) return;
+            if (_tracker == null || !_open || engine == null || actor == null || engine.gMode != FieldEngineFlags.ModeField || NativeTimedInputContext.Active) return;
             try
             {
                 string clip;
@@ -121,7 +121,7 @@ namespace Memoria.Accessibility.AudioDescriptions
         // without a reviewed candidate in this field or an existing pending proof.
         public static void OnClipSampled(Actor actor, string clip, bool clipPresent)
         {
-            if (_tracker == null || !_open || actor == null) return;
+            if (_tracker == null || !_open || actor == null || NativeTimedInputContext.Active) return;
             int map=FF9StateSystem.Common.FF9.fldMapNo;
             bool objectMap=_tracker.HasPresentedObjects(map);
             if(_tracker.PendingCount==0 && !objectMap && _tracker.PresentedPendingCount==0)return;
@@ -183,7 +183,7 @@ namespace Memoria.Accessibility.AudioDescriptions
                 // 3 encounter, 4 field jump, 5 world map, 7 mini-game/ending path, 8 game over.
                 if (result == 3 || result == 4 || result == 5 || result == 7 || result == 8) { Close("left field: " + result); return; }
                 if (engine.gMode != FieldEngineFlags.ModeField) return;
-                bool menu = PersistenSingleton<UIManager>.Instance.State != UIManager.UIState.FieldHUD;
+                bool menu = PersistenSingleton<UIManager>.Instance.State != UIManager.UIState.FieldHUD || NativeTimedInputContext.Active;
                 if (menu || !_focused) { if (!_blocked) { _blocked = true; _tracker.Invalidate(menu ? "menu" : "focus"); } }
                 else _blocked = false;
                 bool clear = ScreenClear(engine);

@@ -106,6 +106,7 @@ namespace FF9Access.Tests
             actor.Visible=false;actor.OutOfView=true;actor.InteractionUid=99;actor.InteractionRegion[0]=new NavigationPoint(9999,0,9999);
             var remembered=catalog.Build(capture.Context,new[]{actor},null).Find(actor.Id);
             TestAssert.Equal(19,remembered.InteractionUid);TestAssert.Equal(original.InteractionRegion[0],remembered.InteractionRegion[0]);
+            TestAssert.False(remembered.IsInteractive);TestAssert.True(remembered.UseViewingPoint);
             TestAssert.True(remembered.Availability.Contains("last seen"));
             actor.NativePresentationIdentity++;TestAssert.Equal(0,catalog.Build(capture.Context,new[]{actor},null).Targets.Count);
         }

@@ -89,12 +89,12 @@ internal static class WorldPlanningProbe
         Require((bool)native.GetMethod("Matches").Invoke(null,new object[]{context,4,seller}),"Mono native seller provenance failed");
         object observation=Create("FieldTargetObservation");Set(observation,"Id",Create("TargetIdentity",Enum.Parse(Type("TargetKind"),"FieldActor"),"field:104",4));Set(observation,"Visible",true);Set(observation,"IsPerson",true);Set(observation,"HasInteraction",false);
         Func<int,string,bool> matches=delegate(int sid,string hash){return sid==7 && hash==player;};
-        var annotate=native.GetMethod("Annotate");annotate.Invoke(null,new object[]{context,4,seller,observation,null,matches});
+        var annotate=native.GetMethod("Annotate");annotate.Invoke(null,new object[]{context,4,seller,observation,null,matches,null,null});
         Require(((int[])Get(observation,"StoryMilestones")).Length==1 && ((int[])Get(observation,"StoryMilestones"))[0]==1150,"Mono lost the reviewed player-listener objective");
         Require((bool)Get(observation,"HasInteraction"),"Mono trivial native Talk listener was mistaken for no interaction");
         Require(((string)Get(observation,"StoryAction")).IndexOf("ticket booth")>=0,"Mono Story lost the required action wording");
-        annotate.Invoke(null,new object[]{context,4,"modified",observation,null,matches});Require(((int[])Get(observation,"StoryMilestones")).Length==0,"Mono modified script inherited a Story objective");
-        Set(context,"StoryProgress",1150);annotate.Invoke(null,new object[]{context,4,seller,observation,null,matches});Require(((int[])Get(observation,"StoryMilestones")).Length==0,"Mono completed ticket visit remained a required objective");
+        annotate.Invoke(null,new object[]{context,4,"modified",observation,null,matches,null,null});Require(((int[])Get(observation,"StoryMilestones")).Length==0,"Mono modified script inherited a Story objective");
+        Set(context,"StoryProgress",1150);annotate.Invoke(null,new object[]{context,4,seller,observation,null,matches,null,null});Require(((int[])Get(observation,"StoryMilestones")).Length==0,"Mono completed ticket visit remained a required objective");
         byte[] buffer={99,99,99,99,99,99,99,99,1,0};byte[] instance=(byte[])Type("ScriptSnapshot").GetMethod("InstanceBytes").Invoke(null,new object[]{buffer,2});Require(instance.Length==2 && instance[0]==1,"Mono native word offset was read as bytes");
         Console.WriteLine("PASS Mono Story metadata: 804 fields, native seller/player hashes, current listener checkpoint, modified/completed rejection and word-offset snapshot; warm="+timer.ElapsedMilliseconds+" ms; no Unity/input access");
     }

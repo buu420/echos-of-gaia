@@ -58,7 +58,15 @@ namespace Memoria.Accessibility.Navigation
             else context.GateReason = context.Position.IsFinite ? GateReason.None : GateReason.UnknownActor;
             context.CanControl = context.GateReason == GateReason.None;
             if (!world) {
-                context.CurrentLocation = NativeFieldAreaNames.Read(FF9StateSystem.Common.FF9.fldMapNo,FF9StateSystem.Field.SceneName);
+                int field=FF9StateSystem.Common.FF9.fldMapNo;
+                int entrance=story!=null && story.Length>=4?story[2]|(story[3]<<8):-1;
+                string screen=entrance>=0?NativeFieldAreaNames.Screen(field,entrance):null;
+                context.CurrentLocation = screen??NativeFieldAreaNames.Read(field,FF9StateSystem.Field.SceneName);
+                if(screen!=null)context.SubArea=FieldAreaNames.SpiralArea(field,entrance);
+                if(field==2714 && engine.fieldmap!=null && !System.String.IsNullOrEmpty(context.CurrentLocation)) {
+                    context.SubArea=FieldAreaNames.WarpMazeArea(field,NativeFieldTargets.CurrentBgiHash(engine.fieldmap),actor.fieldMapActorController.activeTri);
+                    if(context.SubArea!=0)context.CurrentLocation+=", Area "+context.SubArea;
+                }
                 if (Configuration.Accessibility.AnnounceRegionChanges) context.CurrentRegion = context.CurrentLocation;
             }
             return context;

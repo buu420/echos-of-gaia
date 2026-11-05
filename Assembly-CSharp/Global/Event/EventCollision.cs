@@ -380,6 +380,12 @@ public class EventCollision
     {
         return ctrl != null && quad != null && quad.level > 1 && CheckQuadTalk(ctrl, quad) && IsQuadTalkable(ctrl, quad);
     }
+    // The native talk channel can be approached before the player turns to
+    // face it. Facing and the actual bubble still govern readiness.
+    public static Boolean NavigationCanApproachTalkQuad(PosObj ctrl, Obj quad)
+    {
+        return ctrl != null && quad != null && quad.level > 1 && CheckQuadTalk(ctrl, quad);
+    }
 
     private static Boolean CheckQuadPush(PosObj ctrl, Obj quad)
     {

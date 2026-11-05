@@ -1,0 +1,5199 @@
+{
+  "schema": 1,
+  "inventorySHA256": "5626ea3494cbf1e48145e8f58457f26ec36677fd9d9ce142464589585b357962",
+  "proofBoundary": "Native script and installed walkmesh model of the required Desert Palace puzzle, SC 9825 to 9830. The runtime verifies current room, puzzle state and actual interaction approaches. Optional rewards are not Story steps.",
+  "steps": [
+    {
+      "id": "palace-reviewed-fire-chamber-centre",
+      "field": 2215,
+      "sid": 13,
+      "uid": 13,
+      "hash": "1ff54bb9da1d0f5507a1db4eed97612ad258ac30385b9ddba93f790428dac13f",
+      "kind": "region-confirm",
+      "source": "reviewed-prefix",
+      "priority": 0,
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Press Confirm at the centre of the Fire Chamber",
+      "label": "Fire Chamber centre",
+      "guards": [],
+      "completion": [],
+      "effects": [
+        {
+          "sid": 13,
+          "uid": 13,
+          "tag": 3,
+          "offset": 415,
+          "hash": "1ff54bb9da1d0f5507a1db4eed97612ad258ac30385b9ddba93f790428dac13f",
+          "proof": "reached"
+        }
+      ],
+      "evidence": {
+        "prompt": 564,
+        "nativeRequest": 456,
+        "floor": 1
+      }
+    },
+    {
+      "id": "palace-reviewed-top-level-confirm",
+      "field": 2222,
+      "sid": 5,
+      "uid": 5,
+      "hash": "b5485c0dce99e182a996fb14e8a30bf0aaaafb9cc37874d3e2c4b3ccd2e2c8fb",
+      "kind": "region-confirm",
+      "source": "reviewed-prefix",
+      "priority": 0,
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Press Confirm at the top of the palace",
+      "label": "Top Level platform",
+      "guards": [],
+      "completion": [],
+      "effects": [
+        {
+          "sid": 5,
+          "uid": 5,
+          "tag": 3,
+          "offset": 81,
+          "hash": "b5485c0dce99e182a996fb14e8a30bf0aaaafb9cc37874d3e2c4b3ccd2e2c8fb",
+          "proof": "reached"
+        }
+      ],
+      "evidence": {
+        "prompt": 349,
+        "nativeRequest": 122,
+        "counterWrite": 209
+      }
+    }
+  ],
+  "phases": [
+    {
+      "id": "palace-2213-62-000",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2214,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2213,
+          "directorHash": "ac64a4a2d86b1e9ad39cb197f2435b8d410702f5e96ae132cefa4ee9424f5d8f"
+        },
+        {
+          "field": 2214,
+          "directorHash": "f8445df183a5be48cfa9a26db73bc84af24fe6e9945807f198acac637ce7d571"
+        }
+      ],
+      "guards": [
+        "d8027d3e00207f"
+      ],
+      "links": [
+        {
+          "from": 2213,
+          "to": 2214,
+          "sid": 2,
+          "uid": 2,
+          "tag": 2,
+          "offset": 240,
+          "hash": "66015acb46affea1b8c6f75636b2acb01f2c1b4e4da8cc11ecf8ccd4be352211",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2213
+      ]
+    },
+    {
+      "id": "palace-2213-71-001",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2214,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2213,
+          "directorHash": "ac64a4a2d86b1e9ad39cb197f2435b8d410702f5e96ae132cefa4ee9424f5d8f"
+        },
+        {
+          "field": 2214,
+          "directorHash": "f8445df183a5be48cfa9a26db73bc84af24fe6e9945807f198acac637ce7d571"
+        }
+      ],
+      "guards": [
+        "d8027d4700207f"
+      ],
+      "links": [
+        {
+          "from": 2213,
+          "to": 2214,
+          "sid": 2,
+          "uid": 2,
+          "tag": 2,
+          "offset": 240,
+          "hash": "66015acb46affea1b8c6f75636b2acb01f2c1b4e4da8cc11ecf8ccd4be352211",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2213
+      ]
+    },
+    {
+      "id": "palace-2214-69-002",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2214,
+          "directorHash": "f8445df183a5be48cfa9a26db73bc84af24fe6e9945807f198acac637ce7d571"
+        },
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4500207f"
+      ],
+      "links": [
+        {
+          "from": 2214,
+          "to": 2215,
+          "sid": 2,
+          "uid": 2,
+          "tag": 2,
+          "offset": 191,
+          "hash": "25d10bc6c80306cc7a0596d6d3b02e8cb5657f80d783bb8b18a1478bf9d34fa4",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2214
+      ]
+    },
+    {
+      "id": "palace-2214-73-003",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2214,
+          "directorHash": "f8445df183a5be48cfa9a26db73bc84af24fe6e9945807f198acac637ce7d571"
+        },
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4900207f"
+      ],
+      "links": [
+        {
+          "from": 2214,
+          "to": 2215,
+          "sid": 2,
+          "uid": 2,
+          "tag": 2,
+          "offset": 191,
+          "hash": "25d10bc6c80306cc7a0596d6d3b02e8cb5657f80d783bb8b18a1478bf9d34fa4",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2214
+      ]
+    },
+    {
+      "id": "palace-2215-71-004",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2216,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        },
+        {
+          "field": 2216,
+          "directorHash": "e1ad26830cfbc1996166dfcf5f0992a620f34107d4e0af86a7691e1e9b7b692a"
+        }
+      ],
+      "guards": [
+        "d8027d4700207f",
+        "e4f90d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2215,
+          "to": 2216,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 279,
+          "hash": "72f6264a6478d240dd26faa01d7a5a11bf0c7fdfe7e3ae9c37572096e72b7f19",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-71-005",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        13
+      ],
+      "action": "Press Confirm where the icon appears at the centre of the room",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4700207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0100207f",
+        "e4f80d7d0100207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0100207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0100207f",
+        "e4fd0d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-71-006",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        5
+      ],
+      "action": "Light the candelabrum 5",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4700207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0100207f",
+        "e4f80d7d0000207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0100207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0100207f",
+        "e4fd0d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-71-007",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        6
+      ],
+      "action": "Light the candelabrum 6",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4700207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0000207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0100207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0100207f",
+        "e4fd0d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-71-008",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        4
+      ],
+      "action": "Light the candelabrum 4",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4700207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0000207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0100207f",
+        "e4fd0d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-71-009",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        8
+      ],
+      "action": "Light the candelabrum 8",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4700207f",
+        "e4f50d7d0000207f",
+        "e4f60d7d0100207f",
+        "e4f90d7d0000207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0100207f",
+        "e4fd0d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-71-010",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d4700207f",
+        "e4f60d7d0000207f",
+        "e4f90d7d0000207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0100207f",
+        "e4fd0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2215,
+          "to": 2217,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 279,
+          "hash": "d32588d3039f81183a4600864c499a2835ad895cfb34d3c4f269ffa07707a284",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-71-011",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        1
+      ],
+      "action": "Light the candelabrum 1",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4700207f",
+        "e4f90d7d0000207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0100207f",
+        "e4fd0d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-71-012",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        2
+      ],
+      "action": "Light the candelabrum 2",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4700207f",
+        "e4f90d7d0000207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-71-013",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        3
+      ],
+      "action": "Light the candelabrum 3",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4700207f",
+        "e4f90d7d0000207f",
+        "e4fb0d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-76-014",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2216,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        },
+        {
+          "field": 2216,
+          "directorHash": "e1ad26830cfbc1996166dfcf5f0992a620f34107d4e0af86a7691e1e9b7b692a"
+        }
+      ],
+      "guards": [
+        "d8027d4c00207f",
+        "e4f70d7d0100207f",
+        "e4f80d7d0100207f",
+        "e4f90d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2215,
+          "to": 2216,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 279,
+          "hash": "72f6264a6478d240dd26faa01d7a5a11bf0c7fdfe7e3ae9c37572096e72b7f19",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-76-015",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        13
+      ],
+      "action": "Press Confirm where the icon appears at the centre of the room",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4c00207f",
+        "e4f70d7d0100207f",
+        "e4f80d7d0100207f",
+        "e4f90d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-76-016",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        5
+      ],
+      "action": "Light the candelabrum 5",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4c00207f",
+        "e4f70d7d0100207f",
+        "e4f80d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-76-017",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        6
+      ],
+      "action": "Light the candelabrum 6",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4c00207f",
+        "e4f70d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-78-018",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2216,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        },
+        {
+          "field": 2216,
+          "directorHash": "e1ad26830cfbc1996166dfcf5f0992a620f34107d4e0af86a7691e1e9b7b692a"
+        }
+      ],
+      "guards": [
+        "d8027d4e00207f",
+        "e4f90d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2215,
+          "to": 2216,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 279,
+          "hash": "72f6264a6478d240dd26faa01d7a5a11bf0c7fdfe7e3ae9c37572096e72b7f19",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-78-019",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        13
+      ],
+      "action": "Press Confirm where the icon appears at the centre of the room",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4e00207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0100207f",
+        "e4f80d7d0100207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0100207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-78-020",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        5
+      ],
+      "action": "Light the candelabrum 5",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4e00207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0100207f",
+        "e4f80d7d0000207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0100207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-78-021",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        6
+      ],
+      "action": "Light the candelabrum 6",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4e00207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0000207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0100207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-78-022",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        4
+      ],
+      "action": "Light the candelabrum 4",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4e00207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0000207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-78-023",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        8
+      ],
+      "action": "Light the candelabrum 8",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4e00207f",
+        "e4f50d7d0000207f",
+        "e4f60d7d0100207f",
+        "e4f90d7d0000207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-78-024",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d4e00207f",
+        "e4f60d7d0000207f",
+        "e4f90d7d0000207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2215,
+          "to": 2217,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 279,
+          "hash": "d32588d3039f81183a4600864c499a2835ad895cfb34d3c4f269ffa07707a284",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-78-025",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        2
+      ],
+      "action": "Light the candelabrum 2",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4e00207f",
+        "e4f90d7d0000207f",
+        "e4fb0d7d0100207f",
+        "e4fc0d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-78-026",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        3
+      ],
+      "action": "Light the candelabrum 3",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4e00207f",
+        "e4f90d7d0000207f",
+        "e4fb0d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-027",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2216,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        },
+        {
+          "field": 2216,
+          "directorHash": "e1ad26830cfbc1996166dfcf5f0992a620f34107d4e0af86a7691e1e9b7b692a"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4f90d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2215,
+          "to": 2216,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 279,
+          "hash": "72f6264a6478d240dd26faa01d7a5a11bf0c7fdfe7e3ae9c37572096e72b7f19",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-028",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        13
+      ],
+      "action": "Press Confirm where the icon appears at the centre of the room",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0100207f",
+        "e4f80d7d0100207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-029",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        5
+      ],
+      "action": "Light the candelabrum 5",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0100207f",
+        "e4f80d7d0000207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-030",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        6
+      ],
+      "action": "Light the candelabrum 6",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0100207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-031",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        6
+      ],
+      "action": "Light the candelabrum 6",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4f50d7d0000207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0100207f",
+        "e4f90d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-032",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        6
+      ],
+      "action": "Light the candelabrum 6",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4e80d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0000207f",
+        "e4f90d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-033",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        6
+      ],
+      "action": "Light the candelabrum 6",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0000207f",
+        "e4f90d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-034",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        6
+      ],
+      "action": "Light the candelabrum 6",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0000207f",
+        "e4f90d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-035",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        6
+      ],
+      "action": "Light the candelabrum 6",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4eb0d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0000207f",
+        "e4f90d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-036",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        6
+      ],
+      "action": "Light the candelabrum 6",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0000207f",
+        "e4f90d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-037",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        6
+      ],
+      "action": "Light the candelabrum 6",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0000207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0000207f",
+        "e4f90d7d0000207f",
+        "e40c0e7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-038",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        6
+      ],
+      "action": "Light the candelabrum 6",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0000207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0000207f",
+        "e4f80d7d0100207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0100207f",
+        "e40c0e7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-039",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        5
+      ],
+      "action": "Light the candelabrum 5",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0000207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0000207f",
+        "e4f80d7d0100207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0000207f",
+        "e40c0e7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-040",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        5
+      ],
+      "action": "Light the candelabrum 5",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0000207f",
+        "e4f50d7d0000207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0000207f",
+        "e4f80d7d0100207f",
+        "e4f90d7d0000207f",
+        "e40c0e7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-041",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        5
+      ],
+      "action": "Light the candelabrum 5",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0000207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0000207f",
+        "e4f80d7d0000207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0100207f",
+        "e40c0e7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-042",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0000207f",
+        "e4f50d7d0100207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0000207f",
+        "e4f80d7d0000207f",
+        "e4f90d7d0000207f",
+        "e4fa0d7d0000207f",
+        "e40c0e7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2215,
+          "to": 2217,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 279,
+          "hash": "f940132e5a47a0b6e9d0a9fd91c0b84815147466d3cbe82d10408f6137a1455f",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-043",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0000207f",
+        "e4f50d7d0000207f",
+        "e4f60d7d0100207f",
+        "e4f70d7d0000207f",
+        "e4f80d7d0000207f",
+        "e4f90d7d0000207f",
+        "e40c0e7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2215,
+          "to": 2217,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 279,
+          "hash": "f940132e5a47a0b6e9d0a9fd91c0b84815147466d3cbe82d10408f6137a1455f",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2215-79-044",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [
+        7
+      ],
+      "action": "Light the candelabrum 7",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4f00207f",
+        "e4f60d7d0000207f",
+        "e4f90d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2215
+      ]
+    },
+    {
+      "id": "palace-2216-73-045",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2216,
+          "directorHash": "e1ad26830cfbc1996166dfcf5f0992a620f34107d4e0af86a7691e1e9b7b692a"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d4900207f"
+      ],
+      "links": [
+        {
+          "from": 2216,
+          "to": 2217,
+          "sid": 1,
+          "uid": 1,
+          "tag": 2,
+          "offset": 244,
+          "hash": "df94c7803618b7766078a298fcd6b080b4d46481e81d04ae7a07616be05ec18e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2216
+      ]
+    },
+    {
+      "id": "palace-2216-77-046",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2216,
+          "directorHash": "e1ad26830cfbc1996166dfcf5f0992a620f34107d4e0af86a7691e1e9b7b692a"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d4d00207f"
+      ],
+      "links": [
+        {
+          "from": 2216,
+          "to": 2217,
+          "sid": 1,
+          "uid": 1,
+          "tag": 2,
+          "offset": 244,
+          "hash": "df94c7803618b7766078a298fcd6b080b4d46481e81d04ae7a07616be05ec18e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2216
+      ]
+    },
+    {
+      "id": "palace-2217-74-047",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4a00207f",
+        "e4f60d7d0100207f",
+        "e4030e7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2215,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 252,
+          "hash": "6af44e8b4ed95a7f87b349d7d0b7a0a8081f1b44855b6e27b7dd8664dcf712ed",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-74-048",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4a00207f",
+        "e4f60d7d0000207f",
+        "e4030e7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2215,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 252,
+          "hash": "369a7ef9edeb86bd02d3804e8588b4e95d76a9bda3eea4cdc740fcea58e22e2e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-74-049",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4a00207f",
+        "e4030e7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2215,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 252,
+          "hash": "6af44e8b4ed95a7f87b349d7d0b7a0a8081f1b44855b6e27b7dd8664dcf712ed",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-75-050",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4b00207f",
+        "e4f80d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2215,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 252,
+          "hash": "369a7ef9edeb86bd02d3804e8588b4e95d76a9bda3eea4cdc740fcea58e22e2e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-75-051",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4b00207f",
+        "e4f60d7d0100207f",
+        "e4f80d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2215,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 252,
+          "hash": "6af44e8b4ed95a7f87b349d7d0b7a0a8081f1b44855b6e27b7dd8664dcf712ed",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-75-052",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2215,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2215,
+          "directorHash": "59fb5207f75f710fa46b5db205cd6bdc9eec7f69ac5003fbc1e5fe04a76ebfd8"
+        }
+      ],
+      "guards": [
+        "d8027d4b00207f",
+        "e4f60d7d0000207f",
+        "e4f80d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2215,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 252,
+          "hash": "369a7ef9edeb86bd02d3804e8588b4e95d76a9bda3eea4cdc740fcea58e22e2e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-76-053",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d4c00207f",
+        "e4e80d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 252,
+          "hash": "05e125a7d2373b8688af168190e86c4d16ebff738a7c1e3755e35d9ffbfe9e9e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-76-054",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2220,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        }
+      ],
+      "guards": [
+        "d8027d4c00207f",
+        "e4e80d7d0100207f",
+        "e4ed0d7d0000207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2220,
+          "sid": 2,
+          "uid": 2,
+          "tag": 2,
+          "offset": 240,
+          "hash": "65b78b6c2092749a5558f9675e053cec5cba467552dfefd18a53b14e00efe1fa",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-76-055",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d4c00207f",
+        "e4e80d7d0000207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-76-056",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [
+        11
+      ],
+      "action": "Light the landing candelabrum 1",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d4c00207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-87-057",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5700207f",
+        "e4e80d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 252,
+          "hash": "05e125a7d2373b8688af168190e86c4d16ebff738a7c1e3755e35d9ffbfe9e9e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-87-058",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2220,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        }
+      ],
+      "guards": [
+        "d8027d5700207f",
+        "e4e80d7d0100207f",
+        "e4ed0d7d0000207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2220,
+          "sid": 2,
+          "uid": 2,
+          "tag": 2,
+          "offset": 240,
+          "hash": "65b78b6c2092749a5558f9675e053cec5cba467552dfefd18a53b14e00efe1fa",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-87-059",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5700207f",
+        "e4e80d7d0000207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-87-060",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [
+        11
+      ],
+      "action": "Light the landing candelabrum 1",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5700207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-88-061",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2220,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        }
+      ],
+      "guards": [
+        "d8027d5800207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2220,
+          "sid": 3,
+          "uid": 3,
+          "tag": 2,
+          "offset": 252,
+          "hash": "cfe2316bfb5409ab3fcd5c12497ad73d20b15f20bc474bd07ec524908509cb2a",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-89-062",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5900207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 252,
+          "hash": "05e125a7d2373b8688af168190e86c4d16ebff738a7c1e3755e35d9ffbfe9e9e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-89-063",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5900207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 261,
+          "hash": "2643c968f52833490f881309b01b945a4ab819fab0697c6ba40391a444635ea4",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-89-064",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5900207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 252,
+          "hash": "05e125a7d2373b8688af168190e86c4d16ebff738a7c1e3755e35d9ffbfe9e9e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-89-065",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5900207f",
+        "e4e80d7d0000207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-89-066",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2220,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        }
+      ],
+      "guards": [
+        "d8027d5900207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2220,
+          "sid": 4,
+          "uid": 4,
+          "tag": 2,
+          "offset": 252,
+          "hash": "bdc1139f1fa85a83fb30cc83c1b3e22545eb2b6b7de9cb709c3c355f5b7ebaf5",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-89-067",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [
+        12
+      ],
+      "action": "Light the upper landing candelabrum",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5900207f",
+        "e4ed0d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-92-068",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5c00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 252,
+          "hash": "05e125a7d2373b8688af168190e86c4d16ebff738a7c1e3755e35d9ffbfe9e9e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-92-069",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5c00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 261,
+          "hash": "2643c968f52833490f881309b01b945a4ab819fab0697c6ba40391a444635ea4",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-92-070",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5c00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0100207f",
+        "e4ed0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-92-071",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5c00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4ed0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 261,
+          "hash": "2643c968f52833490f881309b01b945a4ab819fab0697c6ba40391a444635ea4",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-92-072",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5c00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4ed0d7d0000207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-92-073",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5c00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4ed0d7d0000207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 261,
+          "hash": "2643c968f52833490f881309b01b945a4ab819fab0697c6ba40391a444635ea4",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-92-074",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5c00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 252,
+          "hash": "05e125a7d2373b8688af168190e86c4d16ebff738a7c1e3755e35d9ffbfe9e9e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-92-075",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5c00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 261,
+          "hash": "2643c968f52833490f881309b01b945a4ab819fab0697c6ba40391a444635ea4",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-92-076",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5c00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4ed0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-92-077",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5c00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-92-078",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5c00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-92-079",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5c00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 261,
+          "hash": "2643c968f52833490f881309b01b945a4ab819fab0697c6ba40391a444635ea4",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-92-080",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5c00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-93-081",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5d00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 252,
+          "hash": "05e125a7d2373b8688af168190e86c4d16ebff738a7c1e3755e35d9ffbfe9e9e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-93-082",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5d00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 261,
+          "hash": "2643c968f52833490f881309b01b945a4ab819fab0697c6ba40391a444635ea4",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-93-083",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5d00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0100207f",
+        "e4ed0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-93-084",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5d00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4ed0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 261,
+          "hash": "2643c968f52833490f881309b01b945a4ab819fab0697c6ba40391a444635ea4",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-93-085",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5d00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4ed0d7d0000207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-93-086",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5d00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4ed0d7d0000207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 261,
+          "hash": "2643c968f52833490f881309b01b945a4ab819fab0697c6ba40391a444635ea4",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-93-087",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5d00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 252,
+          "hash": "05e125a7d2373b8688af168190e86c4d16ebff738a7c1e3755e35d9ffbfe9e9e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-93-088",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5d00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 261,
+          "hash": "2643c968f52833490f881309b01b945a4ab819fab0697c6ba40391a444635ea4",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-93-089",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5d00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4ed0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-93-090",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5d00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-93-091",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5d00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-93-092",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5d00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 261,
+          "hash": "2643c968f52833490f881309b01b945a4ab819fab0697c6ba40391a444635ea4",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-93-093",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5d00207f",
+        "e4e80d7d0000207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-94-094",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5e00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 252,
+          "hash": "05e125a7d2373b8688af168190e86c4d16ebff738a7c1e3755e35d9ffbfe9e9e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-94-095",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5e00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 261,
+          "hash": "2643c968f52833490f881309b01b945a4ab819fab0697c6ba40391a444635ea4",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-94-096",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5e00207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2221,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 252,
+          "hash": "05e125a7d2373b8688af168190e86c4d16ebff738a7c1e3755e35d9ffbfe9e9e",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-94-097",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5e00207f",
+        "e4e80d7d0000207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 252,
+          "hash": "091c80e5bfa0d610a0137e26f06fbd7b2c359650fc31ba8692805e72418f4f67",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-94-098",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2220,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        },
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        }
+      ],
+      "guards": [
+        "d8027d5e00207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2217,
+          "to": 2220,
+          "sid": 4,
+          "uid": 4,
+          "tag": 2,
+          "offset": 252,
+          "hash": "bdc1139f1fa85a83fb30cc83c1b3e22545eb2b6b7de9cb709c3c355f5b7ebaf5",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2217-94-099",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [
+        12
+      ],
+      "action": "Light the upper landing candelabrum",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5e00207f",
+        "e4ed0d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2217
+      ]
+    },
+    {
+      "id": "palace-2220-81-100",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2220,
+          "to": 2217,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 203,
+          "hash": "59d8486a377ab6b78c78b5a0a4d745c4c153f80ce9114ebcd1c2edd67265d73d",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2220
+      ]
+    },
+    {
+      "id": "palace-2220-81-101",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5100207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2220,
+          "to": 2217,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 203,
+          "hash": "afe8ce96923f212042e78e6c53ee9318dce1aa83b046acd06bdb190b52a5646a",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2220
+      ]
+    },
+    {
+      "id": "palace-2220-82-102",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5200207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2220,
+          "to": 2217,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 203,
+          "hash": "59d8486a377ab6b78c78b5a0a4d745c4c153f80ce9114ebcd1c2edd67265d73d",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2220
+      ]
+    },
+    {
+      "id": "palace-2220-82-103",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5200207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2220,
+          "to": 2217,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 203,
+          "hash": "afe8ce96923f212042e78e6c53ee9318dce1aa83b046acd06bdb190b52a5646a",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2220
+      ]
+    },
+    {
+      "id": "palace-2220-83-104",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5300207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2220,
+          "to": 2217,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 203,
+          "hash": "59d8486a377ab6b78c78b5a0a4d745c4c153f80ce9114ebcd1c2edd67265d73d",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2220
+      ]
+    },
+    {
+      "id": "palace-2220-83-105",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5300207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2220,
+          "to": 2217,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 203,
+          "hash": "afe8ce96923f212042e78e6c53ee9318dce1aa83b046acd06bdb190b52a5646a",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2220
+      ]
+    },
+    {
+      "id": "palace-2220-91-106",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5b00207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2220,
+          "to": 2217,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 203,
+          "hash": "59d8486a377ab6b78c78b5a0a4d745c4c153f80ce9114ebcd1c2edd67265d73d",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2220
+      ]
+    },
+    {
+      "id": "palace-2220-91-107",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5b00207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2220,
+          "to": 2217,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 203,
+          "hash": "afe8ce96923f212042e78e6c53ee9318dce1aa83b046acd06bdb190b52a5646a",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2220
+      ]
+    },
+    {
+      "id": "palace-2221-85-108",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [
+        3
+      ],
+      "action": "Put out the candelabrum 2",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5500207f",
+        "e4eb0d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-85-109",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5500207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0100207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2221,
+          "to": 2217,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 240,
+          "hash": "9fd4a254eca9513ef646502fe1a55b84b5122fba115bfb65abb0314ec3c5927a",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-85-110",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5500207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2221,
+          "to": 2222,
+          "sid": 13,
+          "uid": 13,
+          "tag": 2,
+          "offset": 240,
+          "hash": "a2bcf040de9a7644335baf55a36f2b6ef6686fa17bfb33f83d700176f23fd8cb",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-85-111",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5500207f",
+        "e4e80d7d0100207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2221,
+          "to": 2217,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 240,
+          "hash": "9fd4a254eca9513ef646502fe1a55b84b5122fba115bfb65abb0314ec3c5927a",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-85-112",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2220,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        },
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        }
+      ],
+      "guards": [
+        "d8027d5500207f",
+        "e4e80d7d0100207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0100207f",
+        "e4ed0d7d0000207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2221,
+          "to": 2220,
+          "sid": 14,
+          "uid": 14,
+          "tag": 2,
+          "offset": 260,
+          "hash": "f601b3bcff308c8fbd2cdef1a5b64cec1203c7a805e0df5b909e6ff5d89b750c",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-85-113",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5500207f",
+        "e4e80d7d0000207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2221,
+          "to": 2217,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 240,
+          "hash": "9fd4a254eca9513ef646502fe1a55b84b5122fba115bfb65abb0314ec3c5927a",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-85-114",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2220,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        },
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        }
+      ],
+      "guards": [
+        "d8027d5500207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0100207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2221,
+          "to": 2220,
+          "sid": 14,
+          "uid": 14,
+          "tag": 2,
+          "offset": 260,
+          "hash": "f601b3bcff308c8fbd2cdef1a5b64cec1203c7a805e0df5b909e6ff5d89b750c",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-85-115",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [
+        2
+      ],
+      "action": "Light the candelabrum 1",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5500207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-86-116",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [
+        5
+      ],
+      "action": "Put out the candelabrum 4",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5600207f",
+        "e4e90d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-86-117",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5600207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2221,
+          "to": 2217,
+          "sid": 12,
+          "uid": 12,
+          "tag": 2,
+          "offset": 240,
+          "hash": "1076a7415a6fbe07e64d3e227c796a3af9e28b0970872e977458577e049c5f27",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-86-118",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [
+        4
+      ],
+      "action": "Light the candelabrum 3",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5600207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-94-put-out-second-candelabrum",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [
+        3
+      ],
+      "action": "Put out the candelabrum 2",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5e00207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4eb0d7d0100207f"
+      ],
+      "local": {
+        "field": 2221,
+        "walkmesh": "be8e79099954eec5659f4577745665e2da8d15661647dd0fd261746b412a76af",
+        "triangles": [
+          1, 3, 24, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101,
+          102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123,
+          124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145
+        ]
+      },
+      "links": [],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-94-relight-first-candelabrum",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [
+        2
+      ],
+      "action": "Light the candelabrum 1",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5e00207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0000207f"
+      ],
+      "local": {
+        "field": 2221,
+        "walkmesh": "be8e79099954eec5659f4577745665e2da8d15661647dd0fd261746b412a76af",
+        "triangles": [
+          1, 3, 24, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101,
+          102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123,
+          124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145
+        ]
+      },
+      "links": [],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-94-119",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        },
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5e00207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0100207f",
+        "e4e80d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2221,
+          "to": 2222,
+          "sid": 13,
+          "uid": 13,
+          "tag": 2,
+          "offset": 240,
+          "hash": "a2bcf040de9a7644335baf55a36f2b6ef6686fa17bfb33f83d700176f23fd8cb",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-94-120",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2220,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        },
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        }
+      ],
+      "guards": [
+        "d8027d5e00207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0100207f",
+        "e4e80d7d0100207f",
+        "e4ed0d7d0000207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2221,
+          "to": 2220,
+          "sid": 14,
+          "uid": 14,
+          "tag": 2,
+          "offset": 260,
+          "hash": "f601b3bcff308c8fbd2cdef1a5b64cec1203c7a805e0df5b909e6ff5d89b750c",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-94-121",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d5e00207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0100207f",
+        "e4e80d7d0000207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2221,
+          "to": 2217,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 240,
+          "hash": "9fd4a254eca9513ef646502fe1a55b84b5122fba115bfb65abb0314ec3c5927a",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2221-94-122",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2220,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        },
+        {
+          "field": 2220,
+          "directorHash": "96b435e9762cb58816b8a1b9fc9117514cbeee721160140eb6fe502694bd3b99"
+        }
+      ],
+      "guards": [
+        "d8027d5e00207f",
+        "e4e90d7d0000207f",
+        "e4ea0d7d0100207f",
+        "e4eb0d7d0000207f",
+        "e4ec0d7d0100207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2221,
+          "to": 2220,
+          "sid": 14,
+          "uid": 14,
+          "tag": 2,
+          "offset": 260,
+          "hash": "f601b3bcff308c8fbd2cdef1a5b64cec1203c7a805e0df5b909e6ff5d89b750c",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2221
+      ]
+    },
+    {
+      "id": "palace-2222-77-123",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2217,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        },
+        {
+          "field": 2217,
+          "directorHash": "94ae9e2b59c9b17a44682fe2c8e04f86d105e3b9005a91810b342488d71c792a"
+        }
+      ],
+      "guards": [
+        "d8027d4d00207f",
+        "e4e80d7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2222,
+          "to": 2217,
+          "sid": 3,
+          "uid": 3,
+          "tag": 2,
+          "offset": 202,
+          "hash": "35c0f74f0d4291e09551ac31f099c3df0951ad6189c74e01439f01c98fc6cbab",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2222
+      ]
+    },
+    {
+      "id": "palace-2222-77-124",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [
+        6
+      ],
+      "action": "Light the final candelabrum",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d4d00207f",
+        "e4e80d7d0000207f"
+      ],
+      "links": [],
+      "scope": [
+        2222
+      ]
+    },
+    {
+      "id": "palace-2222-91-125",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2222,
+      "uids": [
+        5
+      ],
+      "action": "Press Confirm where the icon appears at the top of the palace",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        }
+      ],
+      "guards": [
+        "d8027d5b00207f",
+        "e4e80d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0100207f"
+      ],
+      "links": [],
+      "scope": [
+        2222
+      ]
+    },
+    {
+      "id": "palace-2222-91-126",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5b00207f",
+        "e4e80d7d0100207f",
+        "e4ed0d7d0100207f",
+        "e4ef0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2222,
+          "to": 2221,
+          "sid": 2,
+          "uid": 2,
+          "tag": 2,
+          "offset": 202,
+          "hash": "e0d133e38fb089e5d52d764850ee981b59590fcf5a6e6cb2a5af5b11e83a47b7",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2222
+      ]
+    },
+    {
+      "id": "palace-2222-91-127",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5b00207f",
+        "e4e80d7d0100207f",
+        "e4ed0d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2222,
+          "to": 2221,
+          "sid": 2,
+          "uid": 2,
+          "tag": 2,
+          "offset": 202,
+          "hash": "e0d133e38fb089e5d52d764850ee981b59590fcf5a6e6cb2a5af5b11e83a47b7",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2222
+      ]
+    },
+    {
+      "id": "palace-2222-91-128",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "field": 2221,
+      "uids": [],
+      "action": "",
+      "goal": "Kuja's Desert Palace",
+      "rooms": [
+        {
+          "field": 2222,
+          "directorHash": "60b6b465d54d506b6ebc4dd2c8c70b67f3bdffdd5475958b23739d21444fb936"
+        },
+        {
+          "field": 2221,
+          "directorHash": "fe542ff51e6d94b68ab42c2714a11c9d70e2eb5d581e342a01ff83aed52f8e78"
+        }
+      ],
+      "guards": [
+        "d8027d5b00207f",
+        "e4e80d7d0000207f"
+      ],
+      "links": [
+        {
+          "from": 2222,
+          "to": 2221,
+          "sid": 2,
+          "uid": 2,
+          "tag": 2,
+          "offset": 202,
+          "hash": "e0d133e38fb089e5d52d764850ee981b59590fcf5a6e6cb2a5af5b11e83a47b7",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2222
+      ]
+    }
+  ],
+  "loopActions": [
+    {
+      "field": 2215,
+      "sid": 5,
+      "uid": 5,
+      "hash": "403b14445737424e10f0c1ccc65472ba4a826f86c1b484f589e5f0516abe4d83",
+      "entry": 11,
+      "prompt": 111,
+      "resume": 220,
+      "id": "palace-loop-2215-5",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Light the candelabrum 5"
+    },
+    {
+      "field": 2215,
+      "sid": 6,
+      "uid": 6,
+      "hash": "7c1fd154aac7d08212a6c83cc62737678c7259d6ea3f9f26d97afae4dcc7e9e9",
+      "entry": 11,
+      "prompt": 111,
+      "resume": 220,
+      "id": "palace-loop-2215-6",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Light the candelabrum 6"
+    },
+    {
+      "field": 2215,
+      "sid": 4,
+      "uid": 4,
+      "hash": "fc3b9fec000a0897e4f048cc79b19721c1f2f0d7d54ed1b2918ba8b9075f917d",
+      "entry": 11,
+      "prompt": 115,
+      "resume": 224,
+      "id": "palace-loop-2215-4",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Light the candelabrum 4"
+    },
+    {
+      "field": 2215,
+      "sid": 8,
+      "uid": 8,
+      "hash": "284bc8c1ed11735cbd5dbfd433de4630384f358e65ac7f9b8ac31e9f9700f62e",
+      "entry": 11,
+      "prompt": 115,
+      "resume": 224,
+      "id": "palace-loop-2215-8",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Light the candelabrum 8"
+    },
+    {
+      "field": 2215,
+      "sid": 1,
+      "uid": 1,
+      "hash": "6f301cbf36b39fcd321c6c87cc9b63be731d5de162aaa9231073e2dc0b707e42",
+      "entry": 11,
+      "prompt": 111,
+      "resume": 220,
+      "id": "palace-loop-2215-1",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Light the candelabrum 1"
+    },
+    {
+      "field": 2215,
+      "sid": 2,
+      "uid": 2,
+      "hash": "b075e1c1b8bd973b2d28aadc43252bb4e73094e50dd506ad794113e3cd0a322b",
+      "entry": 11,
+      "prompt": 111,
+      "resume": 220,
+      "id": "palace-loop-2215-2",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Light the candelabrum 2"
+    },
+    {
+      "field": 2215,
+      "sid": 3,
+      "uid": 3,
+      "hash": "d3c5d368d6144b954d69add335da1ba86c6a8cf4dbda5ad888d0ac8c6cfa3b00",
+      "entry": 11,
+      "prompt": 115,
+      "resume": 224,
+      "id": "palace-loop-2215-3",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Light the candelabrum 3"
+    },
+    {
+      "field": 2215,
+      "sid": 7,
+      "uid": 7,
+      "hash": "633a9b83be0362c2e068a5b5a50de6cb0c9a95fe7b13d6b13cfa4833ad714f09",
+      "entry": 11,
+      "prompt": 115,
+      "resume": 224,
+      "id": "palace-loop-2215-7",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Light the candelabrum 7"
+    },
+    {
+      "field": 2217,
+      "sid": 11,
+      "uid": 11,
+      "hash": "92e2b13afacb8d61ba8800284666a9bb2b8a40fc55edb6edba4cfb8a9dba40d9",
+      "entry": 11,
+      "prompt": 120,
+      "resume": 229,
+      "id": "palace-loop-2217-11",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Light the landing candelabrum 1"
+    },
+    {
+      "field": 2217,
+      "sid": 12,
+      "uid": 12,
+      "hash": "74a0dc6cd2212d192ea5aa68795090573b07763a4424577107623235cc4f4b5f",
+      "entry": 11,
+      "prompt": 120,
+      "resume": 229,
+      "id": "palace-loop-2217-12",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Light the upper landing candelabrum"
+    },
+    {
+      "field": 2221,
+      "sid": 3,
+      "uid": 3,
+      "hash": "27d033aa6707c197ddc88a5ac8a6f76710b8e844b7c9e34ffd63fce1c5394c83",
+      "entry": 11,
+      "prompt": 111,
+      "resume": 220,
+      "id": "palace-loop-2221-3",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Put out the candelabrum 2"
+    },
+    {
+      "field": 2221,
+      "sid": 2,
+      "uid": 2,
+      "hash": "e6b213af2ffeffde819404a786e121205889861c0216c6052941e9eed45c0c65",
+      "entry": 11,
+      "prompt": 111,
+      "resume": 220,
+      "id": "palace-loop-2221-2",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Light the candelabrum 1"
+    },
+    {
+      "field": 2221,
+      "sid": 5,
+      "uid": 5,
+      "hash": "5d1544a5bd130e109afc7f701916bf5bacd16191eb9723cdcdd13c67b048f00e",
+      "entry": 11,
+      "prompt": 115,
+      "resume": 224,
+      "id": "palace-loop-2221-5",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Put out the candelabrum 4"
+    },
+    {
+      "field": 2221,
+      "sid": 4,
+      "uid": 4,
+      "hash": "d36445caa6151e66725593b1306395d5af10a1c6d9d3ab80883129fe9eb632ff",
+      "entry": 11,
+      "prompt": 111,
+      "resume": 220,
+      "id": "palace-loop-2221-4",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Light the candelabrum 3"
+    },
+    {
+      "field": 2222,
+      "sid": 6,
+      "uid": 6,
+      "hash": "1a7f36c753001eed7335585536e18a153ba5d3ee3f15755b7977dd3bca5d1977",
+      "entry": 11,
+      "prompt": 120,
+      "resume": 229,
+      "id": "palace-loop-2222-6",
+      "floor": 9825,
+      "ceiling": 9830,
+      "milestone": 9830,
+      "action": "Light the final candelabrum"
+    }
+  ]
+}

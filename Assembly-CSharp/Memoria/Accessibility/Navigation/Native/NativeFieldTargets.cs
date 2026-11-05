@@ -39,10 +39,11 @@ namespace Memoria.Accessibility.Navigation
             // Battle/loading contexts retain the previous field ID. They are
             // not observations of that field and must not prepare its surfaces.
             if(context.GateReason==GateReason.Battle || context.GateReason==GateReason.MapTransition)return result;
-            if (_generation != context.Generation) { _hashes.Clear();_labelIdentities.Clear();_decoded.Clear();_doors.Clear();_surfaces.Clear();_cueLogs.Clear();_seenExits.Clear();_walkmeshHash=null;_rosterLogs=0; _generation = context.Generation; }
+            if (_generation != context.Generation) { _hashes.Clear();_labelIdentities.Clear();_decoded.Clear();_doors.Clear();_surfaces.Clear();_cueLogs.Clear();_seenExits.Clear();_walkmeshHash=null;_rosterLogs=0;_speakerTexts.Clear(); _generation = context.Generation; }
             var engine = UnityEngine.Object.FindObjectOfType<EventEngine>();
             var field = UnityEngine.Object.FindObjectOfType<FieldMap>();
             if (engine == null || field == null) return result;
+            NativeStoryTargets.PrepareEngine(engine);_storyProofMemory=null;
             var player=engine.GetControlChar() as Actor;
             int doorPlayer=player==null?-1:player.uid;byte[] doorScript=player==null?null:player.ebData;
             if(_doorPlayer!=doorPlayer || !System.Object.ReferenceEquals(_doorPlayerScript,doorScript)) {_doors.Clear();_doorPlayer=doorPlayer;_doorPlayerScript=doorScript;}
@@ -51,6 +52,7 @@ namespace Memoria.Accessibility.Navigation
             if(openingCandle!=null)result.Add(openingCandle);
             var openingBooth=ReadOpeningTicketBooth(context,engine,field,player,ref currentGeometry,ref geometryRead);
             if(openingBooth!=null)result.Add(openingBooth);
+            ReadLoopTargets(context,engine,field,player,result,ref currentGeometry,ref geometryRead);
             foreach (Obj obj in ActiveObjects(engine)) {
                 if (obj.uid == context.PlayerIdentity) continue;
                 var actor = obj as Actor;
@@ -74,6 +76,8 @@ namespace Memoria.Accessibility.Navigation
                         if(modelName.StartsWith("GEO_ACC_"))observation.IsPerson=false;
                         else if(modelName.StartsWith("GEO_NPC_") || modelName.StartsWith("GEO_MAIN_") || modelName.StartsWith("GEO_SUB_"))observation.IsPerson=true;
                     }
+                    // The person's own native Talk heading ("Alexandrian Soldier"), or a name the game showed.
+                    if(observation.IsPerson)observation.VisibleLabel=FieldSpeakerRoles.Prefer(SpeakerLabel(context,engine,actor),observation.VisibleLabel);
                     if(actor.ebData!=null)Annotate(context,engine,actor,observation);
                     if(context.LogicalMapKey==ForestNavigationEvidence.Map && obj.ebData!=null) {
                         var region=engine.GetObjUID(19) as Quad;
@@ -101,10 +105,24 @@ namespace Memoria.Accessibility.Navigation
                 var touch = Decode(engine,quad,EventEngine.tagPush); var talk = Decode(engine,quad,EventEngine.tagTalk);
                 Vector3 center = Vector3.zero; for(int i=0;i<quad.n && i<quad.q.Length;i++) center+=quad.q[i].Vector3Val; center/=quad.n;
                 bool quadIcon=EIcon.NavigationPresentedUid==quad.uid && OnScreen(field,Vector(context.Position));
-                if (!ContainsJump(touch)) {
+                bool directExit=ContainsJump(touch);
+                if(FindBackgroundTouchCue(context,quad)!=null) {
+                    var touchCue=ReadBackgroundObject(context,engine,field,player,quad,ref currentGeometry,ref geometryRead);
+                    if(touchCue!=null){result.Add(touchCue);continue;}
+                }
+                // A native region can own a required Confirm or walk-in
+                // scene on its current branch and a doorway on another.
+                if(!directExit || NativeStoryTargets.HasCurrentStep(context,engine,quad.sid,Fingerprint(quad.ebData),StoryStepKind.RegionConfirm,quad.uid,true)) {
                     var storyRegion=ReadStoryRegion(context,engine,field,player,quad,ref currentGeometry,ref geometryRead);
-                    if(storyRegion!=null)result.Add(storyRegion);
-                    else if(quadIcon)result.Add(ObservedQuad(context,engine,quad,center));
+                    if(storyRegion!=null){LabelReviewedRegion(context,field,quad,storyRegion);result.Add(storyRegion);continue;}
+                }
+                if(!directExit) {
+                    var indirect=ReadIndirectExit(context,engine,field,player,quad,ref currentGeometry,ref geometryRead);
+                    if(indirect==null)indirect=ReadIndirectExit(context,engine,field,player,quad,ref currentGeometry,ref geometryRead,EventEngine.tagTalk);
+                    if(indirect!=null){result.Add(indirect);continue;}
+                    var background=ReadBackgroundObject(context,engine,field,player,quad,ref currentGeometry,ref geometryRead);
+                    if(background!=null){result.Add(background);continue;}
+                    if(quadIcon)result.Add(PresentedPrompt(ObservedQuad(context,engine,quad,center)));
                     continue;
                 }
                 string fingerprint = Fingerprint(quad.ebData);
@@ -118,7 +136,7 @@ namespace Memoria.Accessibility.Navigation
                 ExitPresentation presentation=VisibleBoundary(context,currentGeometry,field,engine,player,quad,binding,reviewed,fingerprint);
                 if(presentation==null && quadIcon) {
                     // A talk/Confirm outcome is an interaction object until a walk-exit cue is established.
-                    result.Add(ObservedQuad(context,engine,quad,center));
+                    result.Add(PresentedPrompt(ObservedQuad(context,engine,quad,center)));
                     continue;
                 }
                 if (presentation != null) {
@@ -132,6 +150,14 @@ namespace Memoria.Accessibility.Navigation
                     else if(!EventCollision.NavigationCanTriggerQuad(player,quad)){presentation.ApproachEnabled=false;presentation.Availability="current entrance trigger unavailable";}
                     else if(outcome==ScriptExitOutcome.NoJumpNow){presentation.ApproachEnabled=false;presentation.Availability="current entrance trigger unavailable";}
                     else presentation.Availability = outcome == ScriptExitOutcome.JumpNow ? null : "availability requires normal game interaction";
+                }
+                // Some regions have an ordinary jump in a different phase but
+                // start an in-room Story event now. A current native walk-in
+                // must not disappear just because there is no exit this time.
+                if((presentation==null || !presentation.ApproachEnabled) &&
+                    NativeStoryTargets.HasCurrentStep(context,engine,quad.sid,fingerprint,StoryStepKind.RegionWalk,quad.uid)) {
+                    var storyRegion=ReadStoryRegion(context,engine,field,player,quad,ref currentGeometry,ref geometryRead);
+                    if(storyRegion!=null){LabelReviewedRegion(context,field,quad,storyRegion);result.Add(storyRegion);continue;}
                 }
                 // Retain only an exit already observed in this scene. A live
                 // disabled/changed region must not reuse its old approach.
@@ -155,9 +181,11 @@ namespace Memoria.Accessibility.Navigation
                     exitObservation.VisibleLabel=camera==null?"Exit":FieldExitLabel.Read(Point(camera.WorldToViewportPoint(Project(field,Vector(presentation.Approach)))));
                     NativeObservedFieldExits.Presented(context,quad,exitObservation.LabelIdentity);
                 }
+                AnnotateExitRoute(context,engine,quad,exitObservation);
                 result.Add(exitObservation);
             }
             RemoveLadderDuplicate(context,engine,result);
+            RemoveDuplicateBackgroundLandmark(engine,result);
             CacheStoryGeometry(context,currentGeometry);
             LogPresentedRoster(context,result);
             return result;
@@ -191,10 +219,12 @@ namespace Memoria.Accessibility.Navigation
         private static void Annotate(NavigationContext context,EventEngine engine,Obj obj,FieldTargetObservation observation)
         {Annotate(context,engine,obj,observation,-1);}
         private static void Annotate(NavigationContext context,EventEngine engine,Obj obj,FieldTargetObservation observation,int onlyTag)
+        {Annotate(context,engine,obj,observation,onlyTag,observation.Id.Kind==TargetKind.FieldExit?(NavigationPoint?)null:context.Position);}
+        private static void Annotate(NavigationContext context,EventEngine engine,Obj obj,FieldTargetObservation observation,int onlyTag,NavigationPoint? at,bool legacyExitSurfaces=true,int? approachFacing=null)
         {
-            NativeStoryTargets.Annotate(context,obj.sid,Fingerprint(obj.ebData),observation,()=>ReadStoryEvidence(context,engine,obj,onlyTag,null),
-                (sid,hash)=>{var controlled=engine.GetControlChar();return controlled!=null && controlled.uid==context.PlayerIdentity && controlled.sid==sid && controlled.ebData!=null && Fingerprint(controlled.ebData)==hash;});
-            AnnotateExitSurfaces(context,engine,obj,observation);
+            NativeStoryTargets.Annotate(context,obj.sid,Fingerprint(obj.ebData),observation,()=>ReadStoryEvidence(context,engine,obj,onlyTag,at),
+                (sid,hash)=>{var controlled=engine.GetControlChar();return controlled!=null && controlled.uid==context.PlayerIdentity && controlled.sid==sid && controlled.ebData!=null && Fingerprint(controlled.ebData)==hash;},at,()=>ReadStoryEvidence(context,engine,obj,onlyTag,at,true,true,approachFacing));
+            if(legacyExitSurfaces)AnnotateExitSurfaces(context,engine,obj,observation);
         }
         public static bool IsReviewedListener(NavigationContext context,EventEngine engine,Obj obj)
         {
@@ -214,8 +244,7 @@ namespace Memoria.Accessibility.Navigation
             Dictionary<int,List<ScriptInstruction>> functions;List<ScriptInstruction> cached;
             if(!_decoded.TryGetValue(obj.ebData,out functions)){functions=new Dictionary<int,List<ScriptInstruction>>();_decoded[obj.ebData]=functions;}
             if(functions.TryGetValue(start,out cached))return cached;
-            int end=obj.ebData.Length; int count=obj.ebData.Length>1?obj.ebData[1]:0;
-            for(int i=0;i<count;i++) { int p=2+4*i; if(p+3>=obj.ebData.Length)break; int offset=2+obj.ebData[p+2]+(obj.ebData[p+3]<<8); if(offset>start && offset<end)end=offset; }
+            int end=FunctionEnd(obj.ebData,start);
             try { uint cursor=(uint)start; while(cursor<end && result.Count<1024) {
                 int offset=(int)cursor; var code=new Code(obj.ebData,ref cursor); var item=new ScriptInstruction(offset,(int)cursor,code.opcode);
                 if(cursor>end) return new List<ScriptInstruction>();
@@ -229,6 +258,12 @@ namespace Memoria.Accessibility.Navigation
                 result.Add(item);
             } } catch(Exception exception) { Log.Message("[FF9Access] Entrance decoding unresolved: {0}",exception.Message); result.Clear(); }
             functions[start]=result;return result;
+        }
+        private static int FunctionEnd(byte[] data,int start)
+        {
+            int end=data.Length,count=data.Length>1?data[1]:0;
+            for(int i=0;i<count;i++){int p=2+4*i;if(p+3>=data.Length)return start;int offset=2+data[p+2]+(data[p+3]<<8);if(offset>start && offset<end)end=offset;}
+            return end;
         }
         private static bool ContainsJump(IList<ScriptInstruction> code) { foreach(var item in code)if(item.Opcode==(int)EBin.event_code_binary.MAPJUMP || item.Opcode==(int)EBin.event_code_binary.WMAPJUMP)return true; return false; }
         private static RegionSurface Surface(FieldGeometrySnapshot geometry,Quad quad)

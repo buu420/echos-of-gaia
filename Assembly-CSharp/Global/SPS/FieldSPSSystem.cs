@@ -120,6 +120,21 @@ public class FieldSPSSystem : HonoBehavior
         Utility.SetObjParm(Utility.SpsList[ObjNo], ParmType, Arg0, Arg1, Arg2);
     }
 
+    internal Boolean TryGetNavigationEffectPosition(FieldMap field, Int32 index, Int32 effect, out Vector3 position)
+    {
+        position = Vector3.zero;
+        if (Utility == null || !Utility.IsTCBReady || field != _fieldMap || index < 0 || index >= Utility.SpsList.Count)
+            return false;
+        SPSEffect sps = Utility.SpsList[index];
+        if (sps == null || sps.spsId != effect || sps.spsBin == null || sps.lastFrame < 0 || sps.fade == 0 ||
+            sps.scale == 0 || (sps.attr & SPSConst.ATTR_VISIBLE) == 0 || sps.meshRenderer == null ||
+            !sps.meshRenderer.enabled || !sps.meshRenderer.isVisible || !sps.meshRenderer.gameObject.activeInHierarchy ||
+            sps.meshFilter == null || sps.meshFilter.sharedMesh == null || sps.meshFilter.sharedMesh.vertexCount == 0)
+            return false;
+        position = sps.pos + sps.posOffset;
+        return true;
+    }
+
     [NonSerialized]
     private CommonSPSSystem Utility;
 

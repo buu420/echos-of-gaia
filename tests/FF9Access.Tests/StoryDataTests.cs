@@ -42,9 +42,14 @@ namespace FF9Access.Tests
                 TestAssert.True(booth.GetProperty("action").GetString().Contains("ticket booth"));
                 var departure=root.GetProperty("stages").EnumerateArray().Single(s=>s.GetProperty("milestone").GetInt32()==10595);
                 TestAssert.Equal(2500,departure.GetProperty("fields")[0].GetInt32());TestAssert.True(departure.GetProperty("instruction").GetString().Contains("leave Ipsen"));
-                foreach(int milestone in new[]{10030,10050}) {
-                    var meeting=root.GetProperty("stages").EnumerateArray().Single(s=>s.GetProperty("milestone").GetInt32()==milestone);
-                    TestAssert.Equal(2169,meeting.GetProperty("fields")[0].GetInt32());
+                foreach(var evt in new[]{(Milestone:10030,Field:2114,Name:"Team"),(Milestone:10050,Field:2157,Name:"Recovery")}) {
+                    var stage=root.GetProperty("stages").EnumerateArray().Single(s=>s.GetProperty("milestone").GetInt32()==evt.Milestone);
+                    // The ATE scene writes its own counter, but Story keeps the
+                    // player in the castle where the game offers the prompt.
+                    TestAssert.Equal(evt.Field,stage.GetProperty("fields")[0].GetInt32());
+                    TestAssert.True(stage.GetProperty("approachFields").EnumerateArray().Any(f=>f.GetInt32()==2161));
+                    TestAssert.False(stage.GetProperty("approachFields").EnumerateArray().Any(f=>f.GetInt32()==evt.Field));
+                    TestAssert.True(stage.GetProperty("instruction").GetString().Contains(evt.Name));
                 }
             }
         }

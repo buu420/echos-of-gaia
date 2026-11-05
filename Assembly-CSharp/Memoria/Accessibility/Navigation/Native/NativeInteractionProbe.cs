@@ -8,22 +8,25 @@ namespace Memoria.Accessibility.Navigation
         public static InteractionReadiness Read(NavigationContext context, NavigationTarget target)
         {
             var result = new InteractionReadiness();
-            if (context == null || !context.CanControl || target == null || target.PhysicalIdentity.Kind != TargetKind.FieldActor || target.Generation != context.Generation) return result;
+            if (context == null || !context.CanControl || target == null || !target.IsInteractive || target.Generation != context.Generation) return result;
+            var kind=target.PhysicalIdentity.Kind;
+            if(kind!=TargetKind.FieldActor && (kind!=TargetKind.FieldExit || target.InteractionUid!=target.PhysicalIdentity.NativeId))return result;
             var engine = Object.FindObjectOfType<EventEngine>();
             if (engine == null || engine.gMode != 1) return result;
             var player = engine.GetControlChar() as Actor;
             if(player==null || player.uid!=context.PlayerIdentity || player.fieldMapActorController==null || player.fieldMapActorController.walkMesh==null)return result;
             InteractionReadiness candle;if(NativeFieldTargets.TryOpeningCandleReadiness(context,target,engine,player,out candle))return candle;
+            InteractionReadiness loop;if(NativeFieldTargets.TryLoopPromptReadiness(context,target,engine,player,out loop))return loop;
             var controller=player.fieldMapActorController;float distance;
             var selected=controller.walkMesh.Collision(controller,4,out distance);
             var presentedQuad=engine.GetObjUID(target.PhysicalIdentity.NativeId) as Quad;
             if(presentedQuad!=null && target.InteractionUid==presentedQuad.uid) {
                 if(NpcConsumesConfirm(engine,player,selected as Actor,distance))return result;
                 InteractionReadiness touch;if(NativeFieldTouchReadiness.TryRead(context,target,engine,player,presentedQuad,out touch))return touch;
-                result.SelectedCollision=engine.TreadQuad(player,4)==presentedQuad;
-                result.InRange=result.SelectedCollision && engine.NavigationContainsQuad(presentedQuad,controller.curPos.x,controller.curPos.z);
-                result.Talkable=NativeFieldTalkability.IsTalkable(presentedQuad) && EventCollision.NavigationCanTalkQuad(player,presentedQuad) && EIcon.NavigationPresentedUid==presentedQuad.uid;
-                result.FacingWithinArc=result.Talkable;result.Evidence="Selected native interaction region and presented bubble; Confirm remains player controlled";return result;
+                touch=NativeFieldTargets.ReadBackgroundTouchReadiness(context,engine,player,presentedQuad);if(touch!=null)return touch;
+                result=FieldInteractionBindings.Readiness(engine.TreadQuad(player,4)==presentedQuad,engine.NavigationContainsQuad(presentedQuad,controller.curPos.x,controller.curPos.z),
+                    NativeFieldTalkability.IsTalkable(presentedQuad) && EventCollision.NavigationCanApproachTalkQuad(player,presentedQuad),EventCollision.NavigationCanTalkQuad(player,presentedQuad),EIcon.NavigationPresentedUid==presentedQuad.uid);
+                result.Evidence="Selected native interaction region and presented bubble; Confirm remains player controlled";return result;
             }
             var npc = engine.GetObjUID(target.PhysicalIdentity.NativeId) as Actor;
             if(npc==null)return result;
@@ -34,6 +37,7 @@ namespace Memoria.Accessibility.Navigation
                 // CheckNPCInput runs before CheckQuadInput. A competing NPC must
                 // not turn the Forest region into a false ready announcement.
                 if(NpcConsumesConfirm(engine,player,selected as Actor,distance))return result;
+                if(!forest){var bound=NativeFieldActorInteractions.ReadBoundReadiness(context,engine,player,npc,region);if(bound!=null)return bound;}
                 result.SelectedCollision=engine.TreadQuad(player,4)==region;
                 result.InRange=result.SelectedCollision && engine.NavigationContainsQuad(region,controller.curPos.x,controller.curPos.z);
                 result.Talkable=NativeFieldTalkability.IsTalkable(region) && EventCollision.NavigationCanTalkQuad(player,region) && EIcon.NavigationPresentedUid==region.uid;
@@ -41,6 +45,8 @@ namespace Memoria.Accessibility.Navigation
                 result.Evidence=(forest?"Native Forest talking region":"Reviewed native talking region of this speaker")+", selected quad, request level and presented interaction bubble; Confirm remains player controlled";
                 return result;
             }
+            var push=NativeFieldActorInteractions.ReadPushReadiness(context,engine,player,npc);
+            if(push!=null){if(NpcConsumesConfirm(engine,player,selected as Actor,distance)){push.Talkable=false;push.FacingWithinArc=false;}return push;}
             result.SelectedCollision = selected == npc;
             result.InRange = result.SelectedCollision && distance < 0;
             result.Talkable = npc.level > 1 && (npc.flags & EventEngine.flagTalkInh) == 0 && (NativeFieldTalkability.IsTalkable(npc) || NativeFieldTargets.IsReviewedListener(context,engine,npc)) && NativeTalkGuard(engine, npc);

@@ -47,6 +47,7 @@ namespace Memoria.Prime
 }
 public sealed class Dialog
 {
+    public bool IsActive=true;
     public UnityEngine.GameObject gameObject = new UnityEngine.GameObject();
     public object CurrentParser = new object();
     public void NextPhrase() { CurrentParser = new object(); }
@@ -55,6 +56,7 @@ public sealed class UIManager { public static readonly UIManager Instance = new 
 public static class HonoInputManager { public static bool Active = true; public static bool ApplicationIsActivated() { return Active; } }
 namespace Memoria.Accessibility.AudioDescriptions
 {
+    public static class NativeTimedInputContext { public static bool Active; }
     // Same public surface as the real field observer; the scenarios raise its events.
     public static class NativeFieldDescriptions
     {

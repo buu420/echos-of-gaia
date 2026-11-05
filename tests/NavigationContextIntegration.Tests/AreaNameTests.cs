@@ -8,10 +8,10 @@ internal static class AreaNameTests
     {
         EventEngineUtils.eventIDToFBGID[250]="first";EventEngineUtils.eventIDToFBGID[251]="second";
         FF9TextTool.Names[250]="Evil Forest/Trail";FF9TextTool.Names[251]="Evil Forest/Trail";
-        Equal("Evil Forest, Trail, Area A",NativeFieldAreaNames.Read(250,"first"));
-        Equal("Evil Forest, Trail, Area B",NativeFieldAreaNames.Read(251,"second"));
+        Equal("Evil Forest, Trail, Area 1",NativeFieldAreaNames.Read(250,"first"));
+        Equal("Evil Forest, Trail, Area 2",NativeFieldAreaNames.Read(251,"second"));
         Localization.CurrentDisplaySymbol="FR";FF9TextTool.Names[250]="Foret/Piste";FF9TextTool.Names[251]="Foret/Piste";
-        Equal("Foret, Piste, Area B",NativeFieldAreaNames.Read(251,"second"));
+        Equal("Foret, Piste, Area 2",NativeFieldAreaNames.Read(251,"second"));
         Localization.CurrentDisplaySymbol="US";FF9TextTool.Names.Clear();EventEngineUtils.eventIDToFBGID.Clear();
     }
 }

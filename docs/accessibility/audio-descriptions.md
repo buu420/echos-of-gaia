@@ -86,6 +86,20 @@ control. Queued visual observations expire at scene, focus, menu, battle and
 actor-lifetime boundaries. The global observer also runs while the field loop
 is paused, including the quit confirmation.
 
+The play's sword-fight commands have priority over descriptions. During the
+native timed round, owned narration stops, description cues are discarded,
+and each current command is sent immediately to the screen reader. A command
+that is replaced or closed cannot replay later. Ordinary dialogue and results
+retain their normal reading outside the round. The game keeps its own inputs,
+timers, score and speed.
+
+Button names follow the device most recently used in the game, including its
+current bindings. An idle connected controller does not override keyboard use.
+The launcher's existing **Controller button names** option selects PlayStation
+shapes, Xbox letters or generic positions. During the timed round, keyboard
+letters use phonetic names such as Bravo and Delta to avoid similar-sounding
+letters. Other keyboard dialogue retains ordinary key names.
+
 Recordings use a dedicated Windows waveOut device. They are read, hashed and
 validated on detached workers, with a movie bank, a generic field bank and one
 replaceable bank of additional scene recordings. Each bank is limited to

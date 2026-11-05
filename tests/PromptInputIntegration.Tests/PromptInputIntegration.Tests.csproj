@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><EnableDefaultCompileItems>false</EnableDefaultCompileItems></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs;EngineFakes.cs" />
+    <Compile Include="../../Assembly-CSharp/UnityXInput/Input.cs" />
+    <Compile Include="../../Memoria.XInputDotNetPure/GamePad.cs;../../Memoria.XInputDotNetPure/Utils.cs;../../Memoria.XInputDotNetPure/JoyShockLibrary.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Native/NativePromptInputSource.cs" />
+    <Compile Include="../FF9Access.Tests/NativeReaderVerification.IL.cs;../FF9Access.Tests/NativeReaderVerification.TimedPrompts.cs" />
+    <Compile Include="../../Assembly-CSharp/Global/Control.cs;../../Assembly-CSharp/Global/SourceControl.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Core/PromptButtonNames.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Core/PromptInputDeviceTracker.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Core/TimedPromptPhase.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Native/NativePromptInputNames.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Native/NativeTimedInputContext.cs" />
+  </ItemGroup>
+</Project>

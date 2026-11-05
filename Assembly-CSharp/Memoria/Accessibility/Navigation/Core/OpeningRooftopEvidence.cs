@@ -7,10 +7,11 @@ namespace Memoria.Accessibility.Navigation
     // Minimum and Maximum are inclusive bounds on that rounded native value.
     public sealed class OpeningPositionGoal
     {
-        public int Field,Phase,Milestone;public string Map,Action;public OpeningGoalAxis Axis;public int? Minimum,Maximum;
-        public bool Satisfied(NavigationPoint point)
+        public int Field,Phase,Milestone;public string Map,Action;public OpeningGoalAxis Axis;public int? Minimum,Maximum,SupportFloor,MinimumHeight;
+        public bool Satisfied(NavigationPoint point,int? floor=null)
         {
-            if(!point.IsFinite)return false;
+            if(!point.IsFinite || SupportFloor.HasValue && SupportFloor!=floor)return false;
+            if(MinimumHeight.HasValue && Math.Round(point.Y,MidpointRounding.ToEven)<MinimumHeight.Value)return false;
             int value=(int)Math.Round(Axis==OpeningGoalAxis.X?point.X:Axis==OpeningGoalAxis.Y?point.Y:point.Z,MidpointRounding.ToEven);
             return (!Minimum.HasValue || value>=Minimum.Value) && (!Maximum.HasValue || value<=Maximum.Value);
         }

@@ -6,6 +6,14 @@ namespace Memoria.Accessibility.Navigation
     // proves it. A shared region may have different upstairs/downstairs exits.
     public static class FieldExitDestinations
     {
+        // Native MJPOS projects the player onto the first edge of the region,
+        // with an 8-bit fixed point fraction and separately truncated products.
+        public static NavigationPoint JumpPoint(NavigationPoint point,int ax,int az,int bx,int bz)
+        {
+            int dx=bx-ax,dz=bz-az,denominator=unchecked((dx*dx+dz*dz)>>8),fraction=0;
+            if(denominator!=0)fraction=Math.Max(0,Math.Min(256,((int)(dx*((double)point.X-ax))+(int)(dz*((double)point.Z-az)))/denominator));
+            return new NavigationPoint(((fraction*dx)>>8)+ax,point.Y,((fraction*dz)>>8)+az);
+        }
         public static Dictionary<int,NavigationPoint[]> Read(NavigationPoint[] points,Func<NavigationPoint,ScriptStoryEvidence> evaluate)
         {
             var groups=new Dictionary<int,List<NavigationPoint>>();
@@ -29,9 +37,10 @@ namespace Memoria.Accessibility.Navigation
                 NavigationPoint[] points;if(groups.TryGetValue(destination,out points) && points!=null)foreach(var point in points)if(point.IsFinite && !result.Contains(point))result.Add(point);
             }return result.ToArray();
         }
-        public static int? PlayerProperty(int controlledUid,NavigationPoint point,int uid,int property)
+        public static int? PlayerProperty(int controlledUid,NavigationPoint point,int uid,int property,int? facing=null)
         {
-            if(!point.IsFinite || controlledUid<0 || uid!=250 && uid!=controlledUid || property<0 || property>2)return null;
+            if(!point.IsFinite || controlledUid<0 || uid!=250 && uid!=controlledUid || property<0 || property>3)return null;
+            if(property==3)return facing.HasValue && facing.Value>=0 && facing.Value<=255?facing:null;
             float value=property==0?point.X:property==1?-point.Y:point.Z;
             if(value<=int.MinValue || value>=int.MaxValue)return null;
             return (int)Math.Round(value,MidpointRounding.ToEven);

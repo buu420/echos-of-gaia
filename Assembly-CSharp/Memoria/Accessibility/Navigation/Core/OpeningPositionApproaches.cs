@@ -11,9 +11,9 @@ namespace Memoria.Accessibility.Navigation
         {return Read(goal,geometry,player,true);}
         public static NavigationPoint[] Read(OpeningPositionGoal goal,FieldGeometrySnapshot geometry,NavigationPoint player,bool nearBoundary)
         {
-            if(goal==null || geometry==null || !player.IsFinite || goal.Satisfied(player))return new NavigationPoint[0];
+            if(goal==null || geometry==null || !player.IsFinite)return new NavigationPoint[0];
             var start=geometry.Find(geometry.ActiveTriangle);if(!geometry.Permitted(start) || !start.Contains(player))start=geometry.At(player);
-            if(start==null)return new NavigationPoint[0];
+            if(start==null || goal.Satisfied(player,start.Floor))return new NavigationPoint[0];
             var reachable=new HashSet<int>{start.Id};var pending=new Queue<FieldTriangle>();pending.Enqueue(start);
             float minX=float.MaxValue,maxX=float.MinValue,minZ=float.MaxValue,maxZ=float.MinValue;
             while(pending.Count>0) {
@@ -42,14 +42,15 @@ namespace Memoria.Accessibility.Navigation
             var safe=new List<NavigationPoint>();
             foreach(var point in FieldRegionApproaches.Interaction(polygon,geometry)) {
                 var support=geometry.At(point);
-                if(support!=null && reachable.Contains(support.Id) && goal.Satisfied(point))safe.Add(point);
+                if(support!=null && reachable.Contains(support.Id) && goal.Satisfied(point,support.Floor) &&
+                    (!goal.MinimumHeight.HasValue || point.Y>=goal.MinimumHeight.Value+StopMargin*HeightScale(support)))safe.Add(point);
             }
             safe.Sort((a,b)=>NavigationPoint.Distance(player,a).CompareTo(NavigationPoint.Distance(player,b)));return safe.ToArray();
         }
         private static NavigationPoint[] HeightPoints(OpeningPositionGoal goal,FieldGeometrySnapshot geometry,NavigationPoint player,HashSet<int> reachable,bool nearBoundary)
         {
             var safe=new List<NavigationPoint>();
-            foreach(var triangle in geometry.Triangles)if(reachable.Contains(triangle.Id)) {
+            foreach(var triangle in geometry.Triangles)if(reachable.Contains(triangle.Id) && (!goal.SupportFloor.HasValue || goal.SupportFloor==triangle.Floor)) {
                 // Arrival tolerance is horizontal. Scale vertical clearance by
                 // this floor's gradient so a steep stair cannot stop too low.
                 float scale=HeightScale(triangle),margin=StopMargin*scale;
@@ -63,7 +64,7 @@ namespace Memoria.Accessibility.Navigation
                 var polygon=ClipHeight(triangle.Vertices,minimum,true);polygon=ClipHeight(polygon,maximum,false);
                 if(polygon.Length<3)continue;
                 foreach(var point in FieldRegionApproaches.Interaction(polygon,geometry)) {
-                    var support=geometry.At(point);if(support==null || !reachable.Contains(support.Id) || !goal.Satisfied(point))continue;
+                    var support=geometry.At(point);if(support==null || !reachable.Contains(support.Id) || !goal.Satisfied(point,support.Floor))continue;
                     float clearance=StopMargin*HeightScale(support);
                     if(goal.Minimum.HasValue && point.Y<goal.Minimum.Value+clearance-.01f || goal.Maximum.HasValue && point.Y>goal.Maximum.Value-clearance+.01f)continue;
                     if(!safe.Contains(point))safe.Add(point);

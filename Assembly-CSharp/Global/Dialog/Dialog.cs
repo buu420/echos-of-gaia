@@ -1724,7 +1724,7 @@ public class Dialog : MonoBehaviour
                 if (img.IsButton)
                 {
                     // img.Id contains the Control enum value
-                    String buttonName = GetButtonKeyName((Control)img.Id);
+                    String buttonName = GetButtonKeyName(img);
                     if (!String.IsNullOrEmpty(buttonName))
                         buttonNames.Add(buttonName);
                 }
@@ -1732,7 +1732,8 @@ public class Dialog : MonoBehaviour
 
             if (buttonNames.Count > 0)
             {
-                text = text + " " + String.Join(", ", buttonNames.ToArray());
+                text = Memoria.Accessibility.AudioDescriptions.PromptButtonNames.FormatDialogButtons(text,buttonNames,
+                    Memoria.Accessibility.AudioDescriptions.NativeTimedInputContext.Active);
             }
         }
 
@@ -1786,72 +1787,16 @@ public class Dialog : MonoBehaviour
         }
     }
 
-    private String GetButtonKeyName(Control control)
+    private String GetButtonKeyName(DialogImage image)
     {
         try
         {
-            // Get the actual key the user has mapped to this control
-            if (control == Control.None)
-                return String.Empty;
-
-            // For directional controls, announce the direction name instead of the key
-            // This is clearer for screen readers (e.g., "Left" vs "A" or "D")
-            switch (control)
-            {
-                case Control.Up:
-                    return "Up";
-                case Control.Down:
-                    return "Down";
-                case Control.Left:
-                    return "Left";
-                case Control.Right:
-                    return "Right";
-            }
-
-            // Non-directional controls - get the actual mapped key
-            HonoInputManager inputManager = PersistenSingleton<HonoInputManager>.Instance;
-            if (inputManager == null)
-                return String.Empty;
-
-            KeyCode keyCode = inputManager.InputKeysPrimary[(Int32)control];
-
-            // Special handling for arrow keys and common keys
-            switch (keyCode)
-            {
-                case KeyCode.UpArrow: return "Up Arrow";
-                case KeyCode.DownArrow: return "Down Arrow";
-                case KeyCode.LeftArrow: return "Left Arrow";
-                case KeyCode.RightArrow: return "Right Arrow";
-                case KeyCode.Return: return "Enter";
-                case KeyCode.KeypadEnter: return "Keypad Enter";
-                case KeyCode.Space: return "Space";
-                case KeyCode.Escape: return "Escape";
-                case KeyCode.Tab: return "Tab";
-                case KeyCode.LeftShift: return "Left Shift";
-                case KeyCode.RightShift: return "Right Shift";
-                case KeyCode.LeftControl: return "Left Control";
-                case KeyCode.RightControl: return "Right Control";
-                case KeyCode.LeftAlt: return "Left Alt";
-                case KeyCode.RightAlt: return "Right Alt";
-            }
-
-            // Convert KeyCode to readable name from dictionary
-            if (FF9UIDataTool.KeyboardIconLabel.ContainsKey(keyCode))
-            {
-                String label = FF9UIDataTool.KeyboardIconLabel[keyCode];
-                if (!String.IsNullOrEmpty(label))
-                    return label;
-            }
-
-            // Fallback to enum name with spaces inserted before capitals
-            String keyName = keyCode.ToString();
-            // Insert space before capital letters (e.g., "KeypadPlus" -> "Keypad Plus")
-            keyName = Regex.Replace(keyName, "([a-z])([A-Z])", "$1 $2");
-            return keyName;
+            return Memoria.Accessibility.AudioDescriptions.NativePromptInputNames.Read((Control)image.Id,image.checkFromConfig,image.tag,
+                Memoria.Accessibility.AudioDescriptions.NativeTimedInputContext.Active);
         }
         catch
         {
-            // Silently fail
+            // Preserve the native dialog if a binding cannot be inspected.
         }
 
         return String.Empty;

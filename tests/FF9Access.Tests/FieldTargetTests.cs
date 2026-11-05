@@ -41,7 +41,7 @@ namespace FF9Access.Tests
         {
             var item=Actor(8);item.IsPerson=false;item.HasInteraction=true;var catalog=new FieldTargetCatalog();var coordinator=new NavigationCoordinator();var context=TestFixtures.Context();
             var update=coordinator.Tick(context,new[]{NavigationCommand.NextCategory,NavigationCommand.NextCategory},Build(catalog,item),null);TestAssert.Equal(NavigationCategory.Objects,update.Category);
-            item.IsItem=true;update=coordinator.Tick(context,new NavigationCommand[0],Build(catalog,item),null);TestAssert.Equal(NavigationCategory.Items,update.Category);TestAssert.True(update.Selected.Label.StartsWith("Item "));
+            item.IsItem=true;update=coordinator.Tick(context,new NavigationCommand[0],Build(catalog,item),null);TestAssert.Equal(NavigationCategory.Items,update.Category);TestAssert.Equal("Item",update.Selected.Label);
             TestAssert.Equal(RouteOperation.None,update.RouteOperation);
         }
         private static FieldTargetObservation Actor(int id, bool visible = true) { return new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldActor, "field:100", id), Position = TestFixtures.P(id, 0), Visible = visible, IsPerson = true }; }
@@ -55,11 +55,30 @@ namespace FF9Access.Tests
             var first=Build(catalog,item).Find(item.Id);
             item.Visible=false;item.OutOfView=true;item.Position=TestFixtures.P(500,700);
             item.ApproachCandidates[0]=TestFixtures.P(900,900);
+            item.StoryAction="Talk to the required speaker";item.StoryStepMilestone=1150;
+            item.StoryMilestones=new[]{1150};item.NextFields=new[]{2510};
             var remembered=Build(catalog,item).Find(item.Id);
             TestAssert.True(remembered!=null);
             TestAssert.Equal(first.Position.X,remembered.Position.X);
             TestAssert.Equal(5f,remembered.ApproachCandidates[0].X);
+            TestAssert.False(remembered.IsInteractive);
+            TestAssert.True(remembered.UseViewingPoint);
+            TestAssert.Equal(0,remembered.StoryMilestones.Length);
+            TestAssert.Equal(0,remembered.NextFields.Length);
+            TestAssert.Equal(System.Int32.MinValue,remembered.StoryStepMilestone);
             TestAssert.True(remembered.Availability.Contains("last seen"));
+        }
+        public static void StationarySpeakerOutsideViewportUsesOnlyCurrentApproaches()
+        {
+            var catalog=new FieldTargetCatalog();var item=Actor(9);item.HasInteraction=true;
+            item.ApproachCandidates=new[]{TestFixtures.P(5,2)};Build(catalog,item);
+            item.Visible=false;item.OutOfView=true;
+            item.ApproachCandidates=new[]{TestFixtures.P(12,2)};
+            var remembered=Build(catalog,item).Find(item.Id);
+            TestAssert.True(remembered.IsInteractive);
+            TestAssert.Equal(12f,remembered.ApproachCandidates[0].X);
+            item.ApproachCandidates=new NavigationPoint[0];
+            TestAssert.False(Build(catalog,item).Find(item.Id).IsInteractive);
         }
         public static void NeverSeenActorOutsideViewportIsNotDiscovered()
         {
@@ -122,12 +141,12 @@ namespace FF9Access.Tests
         {
             var item=Actor(3,false);item.ShowsIcon=true;item.IsPerson=false;item.HasInteraction=true;
             var target=Build(new FieldTargetCatalog(),item).Find(item.Id);
-            TestAssert.Equal("Object A",target.Label);TestAssert.Equal(VisibilityEvidence.NativeInteractionIcon,target.Evidence);
+            TestAssert.Equal("Object",target.Label);TestAssert.Equal(VisibilityEvidence.NativeInteractionIcon,target.Evidence);
         }
         public static void VisibleUnnamedActorGetsStableLabel() { var catalog = new FieldTargetCatalog(); var item = Actor(8); string label = Build(catalog, item).Find(item.Id).Label; item.Position = TestFixtures.P(100, 0); TestAssert.Equal(label, Build(catalog, Actor(3), item).Find(item.Id).Label); }
-        public static void DoorWithoutIconRemainsAvailable() { var item = Door(); item.ShowsIcon = false; TestAssert.Equal("Exit A", Build(new FieldTargetCatalog(), item).Find(item.Id).Label); }
+        public static void DoorWithoutIconRemainsAvailable() { var item = Door(); item.ShowsIcon = false; TestAssert.Equal("Exit", Build(new FieldTargetCatalog(), item).Find(item.Id).Label); }
         public static void ConditionalHiddenJumpIsExcluded() { var item = Door(); item.Exit.Visible = false; item.ContainsJump = true; TestAssert.False(Build(new FieldTargetCatalog(), item).Contains(item.Id)); }
-        public static void FutureItemAndBattleOutcomesStayUnknown() { var item = Actor(2); item.IsPerson = false; item.UnobservedOutcome = "Potion and battle"; TestAssert.Equal("Object A", Build(new FieldTargetCatalog(), item).Find(item.Id).Label); }
+        public static void FutureItemAndBattleOutcomesStayUnknown() { var item = Actor(2); item.IsPerson = false; item.UnobservedOutcome = "Potion and battle"; TestAssert.Equal("Object", Build(new FieldTargetCatalog(), item).Find(item.Id).Label); }
         public static void DistanceChangeDoesNotRenameExit() { var catalog = new FieldTargetCatalog(); var first = Door(); var second = Door(1); second.Position = TestFixtures.P(50, 0); var before = Build(catalog, first, second); first.Position = TestFixtures.P(500, 0); var after = Build(catalog, first, second); TestAssert.Equal(before.Find(first.Id).Label, after.Find(first.Id).Label); }
         public static void VisibleClosedDoorRemainsInformative() { var item = Door(); item.Exit.Availability = "closed for now"; TestAssert.True(Build(new FieldTargetCatalog(), item).Find(item.Id).Availability.Contains("closed")); }
         public static void VisibleEntranceWithoutSafeApproachRemainsInformative()

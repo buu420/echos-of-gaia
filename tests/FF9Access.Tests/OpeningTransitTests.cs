@@ -135,7 +135,7 @@ namespace FF9Access.Tests
             using(var story=OpeningNativeFixture.Story()) {
                 var c=TestFixtures.Context("field:103:SCENE");c.StoryProgress=1000;var input=new CatalogResult();
                 OpeningNativeFixture.Catalog(story.RootElement).Append(c,input,103,OpeningNativeFixture.Location);
-                TestAssert.True(input.Targets.Single().Availability.Contains("objective is in this area"));
+                TestAssert.True(input.Targets.Single().Availability.Contains("next story step is in this area"));
                 TestAssert.True(input.Targets.Single().PhysicalId==null);
             }
         }

@@ -5,14 +5,26 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.10 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.10)**
+**[Download 0.1.11 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.11)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
 
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
-testing; this release does not establish a complete accessible playthrough.
+testing, including a full playthrough.
+
+0.1.11 expands Story guidance to intermediate actions such as using a ladder,
+operating a switch or boarding a Gargant. It checks the current story state
+and routes to the usable side of the next exit. Exit labels use destination
+names, with numbered areas for distinct rooms that share a name. The object
+list includes more named NPCs, props and visible save spheres. During the
+opening sword fight, the current command gets priority over narration and
+uses the controller or keyboard labels for the active input device.
+
+Some interactions still have generic labels, and alternative routes, full
+playthrough progression and speech with a physical controller need more
+in-game testing. See the [whole-game coverage audit](docs/accessibility/guide-coverage.md).
 
 0.1.10 repairs Story guidance after the play: Zidane follows the castle stairs
 instead of Blank's guard-door warning, and Steiner follows the current castle
@@ -127,7 +139,7 @@ Use the manager to update or uninstall a manager installation.
 
 For a standalone installation:
 
-1. Download and extract EchosOfGaia-v0.1.10-beta-windows.zip into a separate
+1. Download and extract EchosOfGaia-v0.1.11-beta-windows.zip into a separate
    folder outside the game directory.
 2. Open **Install-EchosOfGaia.exe** from the extracted folder. Check the detected
    game folder, or use **Browse** or the editable field to choose the folder

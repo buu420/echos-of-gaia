@@ -23,18 +23,20 @@ namespace Memoria.Accessibility.Navigation
             var field=UnityEngine.Object.FindObjectOfType<FieldMap>();var engine=UnityEngine.Object.FindObjectOfType<EventEngine>();
             var geometry=field==null || engine==null?null:NativeFieldTargets.ReadGeometryForStory(context);
             var points=new List<NavigationPoint>();
-            string key=context.Generation+":"+context.LogicalMapKey+":"+context.SaveIdentity+":"+context.PlayerIdentity+":"+goal.Phase+":"+goal.Axis+":"+goal.Minimum+":"+goal.Maximum+":"+(geometry==null?"":geometry.Fingerprint)+":"+(field==null?-1:field.camIdx);
+            string key=context.Generation+":"+context.LogicalMapKey+":"+context.SaveIdentity+":"+context.PlayerIdentity+":"+goal.Phase+":"+goal.Axis+":"+goal.Minimum+":"+goal.Maximum+":"+goal.SupportFloor+":"+(geometry==null?"":geometry.Fingerprint)+":"+(field==null?-1:field.camIdx);
             int sceneIdentity=field==null || field.scene==null?0:System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(field.scene);
-            if(geometry!=null && !goal.Satisfied(context.Position)) {
+            var support=geometry==null?null:geometry.Find(geometry.ActiveTriangle);
+            bool satisfied=goal.Satisfied(context.Position,support==null?(int?)null:support.Floor);
+            if(geometry!=null && !satisfied) {
                 if(_key!=key || _sceneIdentity!=sceneIdentity) {
                     _candidates=OpeningPositionApproaches.Read(goal,geometry,context.Position);_key=key;_sceneIdentity=sceneIdentity;_expanded=false;
                 }
                 // Retain the same floor anchors as the player walks. Only a real
                 // geometry, phase or presentation change chooses different goals.
-                points=Presented(goal,engine,field);
+                points=Presented(engine,field);
                 if(points.Count==0 && !_expanded) {
                     _candidates=OpeningPositionApproaches.Read(goal,geometry,context.Position,false);_expanded=true;
-                    points=Presented(goal,engine,field);
+                    points=Presented(engine,field);
                 }
             }
             // A planner can choose any approved point, not just Position. Any
@@ -47,7 +49,7 @@ namespace Memoria.Accessibility.Navigation
             var target=new NavigationTarget{Id=id,Category=NavigationCategory.Story,Label=goal.Action,StoryAction=goal.Action,Generation=context.Generation,
                 Position=points.Count>0?points[0]:context.Position,Evidence=VisibilityEvidence.ObservedRegion,ApproachCandidates=points.ToArray(),StoryMilestones=new[]{goal.Milestone}};
             if(points.Count>0)target.PhysicalId=new TargetIdentity(TargetKind.FieldActor,context.LogicalMapKey,4096+goal.Phase);
-            else target.Availability=goal.Satisfied(context.Position)?"Continue the current scene.":"The next walking approach is not currently available on the presented floor.";
+            else target.Availability=satisfied?"Continue the current scene.":"The next walking approach is not currently available on the presented floor.";
             catalog.Targets.Add(target);return true;
         }
         private static bool SamePoints(NavigationPoint[] previous,List<NavigationPoint> current)
@@ -56,10 +58,10 @@ namespace Memoria.Accessibility.Navigation
             foreach(var point in previous)if(!current.Contains(point))return false;
             return true;
         }
-        private static List<NavigationPoint> Presented(OpeningPositionGoal goal,EventEngine engine,FieldMap field)
+        private static List<NavigationPoint> Presented(EventEngine engine,FieldMap field)
         {
             var points=new List<NavigationPoint>();
-            foreach(var point in _candidates)if(goal.Satisfied(point) && engine.NavigationTouchQuadAt(point.X,point.Z)==null && NativeFieldTargets.StorySurfacePresented(field,point)) {
+            foreach(var point in _candidates)if(engine.NavigationTouchQuadAt(point.X,point.Z)==null && NativeFieldTargets.StorySurfacePresented(field,point)) {
                 points.Add(point);if(points.Count==16)break;
             }
             return points;

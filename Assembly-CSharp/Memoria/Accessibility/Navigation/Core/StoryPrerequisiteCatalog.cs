@@ -71,7 +71,8 @@ namespace Memoria.Accessibility.Navigation
                 string help=rule.Kind==StoryPrerequisiteKind.Pinnacle?"Explore the area for the remaining fragments. No verified walking target is currently presented.":"No verified walking target is currently presented. Use the ordinary game interaction; this step may require manual movement.";
                 catalog.Targets.Add(Information(context,rule,label,help));return true;
             }
-            foreach(var physical in chosen)catalog.Targets.Add(StoryTargetCatalog.Wrap(context,rule.Milestone,physical,label+" with "+physical.Label));
+            foreach(var physical in chosen)catalog.Targets.Add(StoryTargetCatalog.Wrap(context,rule.Milestone,physical,
+                action=="pick-flower" || action=="feed-gargant"?label:label+" with "+physical.Label));
             return true;
         }
         private static int? Read(Func<int,int?> read,int index){int? value=read==null?null:read(index);return value.HasValue && value.Value>=0 && value.Value<=255?value:null;}

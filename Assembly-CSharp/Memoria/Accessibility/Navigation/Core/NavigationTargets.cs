@@ -27,6 +27,9 @@ namespace Memoria.Accessibility.Navigation
         public int[] StoryMilestones,NextFields;
         public Dictionary<int,NavigationPoint[]> DestinationApproaches;
         public string StoryAction;
+        // A current native Story step owned by this entry (StoryStepCatalog). StoryStepMilestone is the
+        // counter its chain writes, -1 when the step advances the current scene without a counter write.
+        public int StoryStepMilestone=Int32.MinValue;public string StoryVerb;
         public ExitPresentation Exit;
     }
     public sealed class NavigationTarget
@@ -38,11 +41,13 @@ namespace Memoria.Accessibility.Navigation
         public int InteractionUid = -1;
         public NavigationPoint[] InteractionRegion;
         public bool UseViewingPoint;
+        public bool SelectDestinationInMenu;
         public TargetIdentity? PhysicalId;
         public TargetIdentity PhysicalIdentity {get{return PhysicalId??Id;}}
         public int[] StoryMilestones,NextFields;
         public Dictionary<int,NavigationPoint[]> DestinationApproaches;
         public string StoryAction;
+        public int StoryStepMilestone=Int32.MinValue;public string StoryVerb;
     }
     public sealed class CatalogResult
     {

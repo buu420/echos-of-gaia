@@ -71,6 +71,22 @@ namespace FF9Access.Tests
             var catalog=new StoryTargetCatalog(new[]{new StoryStage{Milestone=10500,Goal="Ipsen's Castle",GoalFields=new[]{2500}}},new[]{new StoryTransit{From=100,To=101},new StoryTransit{From=101,To=2500}});
             var input=Targets(Exit(9,9009));catalog.Append(context,input,100);TestAssert.True(input.Targets[1].PhysicalIdentity.Equals(input.Targets[0].Id));
         }
+        public static void CondePetieStoryRoutesFromHallToTheWorldExitBeforeTheDeadForest()
+        {
+            var context=TestFixtures.Context();context.StoryProgress=6130;
+            var stage=new StoryStage{Milestone=6170,GoalFields=new[]{1463},WorldLocations=new[]{30},WorldDepartureFields=new[]{1500},Goal="Dead Forest"};
+            var catalog=new StoryTargetCatalog(new[]{stage},new[]{new StoryTransit{From=1501,To=1500},new StoryTransit{From=1502,To=1501}});
+            var hallExit=Exit(9,1501);
+            var input=Targets(hallExit);catalog.Append(context,input,1502);
+            TestAssert.Equal(hallExit.Id,input.Targets[1].PhysicalIdentity);
+            var townExit=Exit(3,9003);var approach=TestFixtures.P(19,27);
+            townExit.DestinationApproaches=new System.Collections.Generic.Dictionary<int,NavigationPoint[]>{{9003,new[]{approach}}};
+            input=Targets(townExit);catalog.Append(context,input,1500);
+            TestAssert.Equal(townExit.Id,input.Targets[1].PhysicalIdentity);
+            TestAssert.Equal(approach,input.Targets[1].ApproachCandidates[0]);
+            input=Targets(townExit);catalog.Append(context,input,1450);
+            TestAssert.False(input.Targets[1].PhysicalId.HasValue);
+        }
         public static void StorySelectionFollowsProgressAndMapChangesWithoutStartingMovement()
         {
             var context=TestFixtures.Context();context.StoryProgress=1000;var catalog=new CatalogResult();Catalog().Append(context,catalog,100);

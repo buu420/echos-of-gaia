@@ -149,11 +149,12 @@ namespace FF9Access.Tests
                 var published=json.RootElement.GetProperty("bindings").EnumerateArray().Select(b=>b.GetProperty("field").GetInt32()+":"+b.GetProperty("actor").GetInt32()+":"+b.GetProperty("actorSha256").GetString()+":"+b.GetProperty("model").GetInt32()+":"+b.GetProperty("actorUid").GetInt32()+":"+b.GetProperty("region").GetInt32()+":"+b.GetProperty("regionSha256").GetString()).OrderBy(s=>s).ToList();
                 var compiled=FieldInteractionBindings.All.Select(b=>b.Field+":"+b.ActorSid+":"+b.ActorHash+":"+b.Model+":"+b.ActorUid+":"+b.RegionSid+":"+b.RegionHash).OrderBy(s=>s).ToList();
                 TestAssert.Equal(string.Join("\n",published),string.Join("\n",compiled));
-                TestAssert.Equal(18,compiled.Count);
+                TestAssert.Equal(29,compiled.Count);
                 TestAssert.Equal(700f,(float)json.RootElement.GetProperty("maxActorDistance").GetInt32());
                 foreach(var excluded in json.RootElement.GetProperty("excluded").EnumerateArray())
-                    TestAssert.True(FieldInteractionBindings.FindRegion(excluded.GetProperty("field").GetInt32(),excluded.GetProperty("region").GetInt32(),excluded.GetProperty("regionSha256").GetString())==null ||
-                        FieldInteractionBindings.FindRegion(excluded.GetProperty("field").GetInt32(),excluded.GetProperty("region").GetInt32(),excluded.GetProperty("regionSha256").GetString()).ActorSid!=excluded.GetProperty("actor").GetInt32());
+                    foreach(var actor in excluded.GetProperty("actors").EnumerateArray())
+                        TestAssert.True(FieldInteractionBindings.FindRegion(excluded.GetProperty("field").GetInt32(),excluded.GetProperty("region").GetInt32(),excluded.GetProperty("regionSha256").GetString())==null ||
+                            FieldInteractionBindings.FindRegion(excluded.GetProperty("field").GetInt32(),excluded.GetProperty("region").GetInt32(),excluded.GetProperty("regionSha256").GetString()).ActorSid!=actor.GetInt32());
             }
             TestAssert.Equal(FieldInteractionBindings.All.Count,FieldInteractionBindings.All.Select(b=>b.Field+":"+b.RegionSid).Distinct().Count());
         }

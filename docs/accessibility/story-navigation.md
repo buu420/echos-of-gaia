@@ -57,6 +57,35 @@ their ordinary categories. Item contents are read from the game's displayed
 result. A last-seen target retains its observed position and reports that it
 is outside the current view. Its current story eligibility is checked again.
 
+The November 4 development update adds a global native action catalog alongside
+the chapter checkpoints. It contains 192 bindings: 38 conversations, 60 walk-in
+regions, 34 Confirm regions and 60 player-position waits. Native phase guards,
+entry fingerprints, actual wait instruction pointers, and completion tests
+decide which action is current. A later milestone cannot replace the current
+required stage. Each action must reach its bound assignment on the native
+trigger path; early conversation branches and requested functions are checked.
+Confirm regions can appear before their interaction bubble is shown. A
+position-dependent walk-in must be proven at the actual walking approach.
+Confirm and walk-in regions use their own native Talk and Push permissions
+and first-region selection. Player-position waits bind the watched instance;
+two waits in one phase become available only at their own instruction pointer.
+The precise opening, rooftop, castle and prerequisite adapters remain in use.
+
+The travel graph now distinguishes player transitions, position-gated
+transitions and automatic scene jumps, with native counter bands where proven.
+Automatic jumps can complete the final scene hop; they cannot supply an
+intermediate walking shortcut. Other rooms' local variables are never read
+from the current room. Portable global guards must be known and true, and
+route state is invalidated when those flags change, even within one scenario
+counter. The selected exit still needs its own current native
+destination and approach proof.
+
+Reaching an approach no longer tells you to use a nonexistent interaction.
+Only the game's readiness probe can say to press Confirm or turn to face a
+target. Otherwise speech states what was reached and whether the game is
+offering an interaction. A missing action or route remains an informational
+entry rather than an invented destination.
+
 ## Research and coverage
 
 Chapter order and travel context were checked against [bover_87's GameFAQs
@@ -75,6 +104,19 @@ potential field transitions and 10,470 entry hashes. Counter-floor writes are
 scene checkpoints; they are not treated as proof that talking to an actor
 advances the story. Optional Daguerreo and free-time cutscenes are excluded
 from required objectives.
+
+The additional [native action coverage ledger](story-step-coverage.json)
+separates player-action bindings, position waits and automatic/arrival scenes
+for every chapter range. Its typed graph has 4,132 transition records, including
+separate guarded variants of the same destination. It also
+retains 2,480 unresolved waits/setters, mostly waits without a constant setter
+in that field. Those are research cases, not a count of missing required
+objectives. Automatic scene writers and guide chapter rows do not prove that
+all intermediate actions are supported. Cross-field chains, some puzzles and
+unbound prop labels remain gaps. Request chains using explicit UID aliases
+are not yet generally resolved by the exporter; runtime ambiguity stays
+unavailable. Whole-game Story parity and a complete live
+playthrough have not been established.
 
 World objectives use native marker IDs, so a translated town label does not
 break its Story binding. The marker audit also accounts for the world's text

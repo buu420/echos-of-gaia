@@ -2,7 +2,11 @@
 
 This is an offline audit, not a complete accessibility or playthrough certification.
 
-The current English event bundle has **818 fields and 16,067 entries**. All were decoded and matched to retained native fingerprints. The comparison accounts for **44 main-guide chapters, 364 existing Story checkpoints and 23 optional topics** (87 native entry bindings). Every field and guide topic has an explicit result in `guide-coverage.json`.
+The current English event bundle has **818 fields and 16,067 entries**. All were decoded and matched to retained native fingerprints. The comparison accounts for **44 main-guide chapters, 363 Story checkpoints and 23 optional topics** (87 native entry bindings). Every field and guide topic has an explicit result in `guide-coverage.json`.
+
+Story checkpoints are scenario-counter metadata. Native Story step bindings are generated separately (`tools/Export-FF9StorySteps.py`, `story-steps.json`, `story-step-coverage.json`): **192 current-state step bindings** (60 position, 34 region-confirm, 60 region-walk, 38 talk) and 4132 typed transitions (1953 player, 1 position, 2178 scripted). 3138 analysis records describe unproven waits, setters or instances. They do not count missing required steps.
+
+Reviewed packs supply **176 explicit actions, 16 native loop actions and 423 state rules**. Several rules can cover the same action or different entrances to one room. The native approach and current interaction still have to pass at runtime.
 
 The main reference is [bover_87's guide, version 2.01](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891); [Andrew_Testa's guide](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/29957) is the user's additional reference. Short checklists here are original summaries. Guide information is never loaded by the runtime or used to disclose hidden NPC names, rewards or coordinates.
 
@@ -10,20 +14,22 @@ The main reference is [bover_87's guide, version 2.01](https://gamefaqs.gamespot
 
 - Opening Story uses captured street transitions and names the next local area. The square is the physical approach to the ticket objective; the booth dialogue runs in a separate room. Its reviewed visible sign/hotspot is listed before bubble discovery. Informational steps explain the next area without starting a route to a remote objective.
 - Pinnacle Rocks now keeps fragment collection ahead of the final conversation. Only currently presented, interactive fragments can supply walking targets.
-- Fossil Roo uses the actual switch bits and current connected floor section. The route changes with reversible switches. Flower/boarding steps without a verified interactive target stay informative and manual.
+- Fossil Roo uses the actual switch bits and current connected floor section. Reviewed flowers and boarding spots are listed separately and use the corresponding native interaction.
+- Desert Palace follows the required lamps in their native order. After backtracking, the current floor and lamp state can select a reachable recovery action instead of a closed staircase.
+- Memoria and the Crystal World expose three rendered save spheres with verified approaches. Four hidden save points receive a name only after the game shows their prompt.
 - Mount Gulug keeps the lever step until its native completion flag changes. The player still chooses the lever action.
 - Card speech uses the displayed face grades, includes placed-card defenses and reads initial hand/board focus. Triple Triad follows its displayed layout and hidden-arrow setting.
 - Auction bids/current price/funds and Daguerreo quantities read changes from completed, visible native text parsers. Original instructions and clocks remain intact. Only the verified English numeric layouts are supported.
 - Exact source UIDs are retained for field touch bubbles. Two additional native inn actor/region bindings and a narrowly verified touch-only confirmation state are recognized.
-- Six additional chest/frog appearances and a conditional long-coat body description bring the reviewed catalog to 47 models. A hidden body cannot acquire the coat label.
+- The reviewed appearance catalog includes 326 models. Exact native interaction and actor identities have separate bindings.
 
 ## Remaining limits
 
 All rows retain `fullyAccessibleProven: false` and/or `liveValidated: false`. Script presence, guide order and passing fixtures do not establish that every NPC, prop, exit, puzzle or optional activity works in all live states. There are 345 constant actor models; many still use generic labels before an attributed native name appears.
 
-706 region entries have a Talk/Push handler and still require the current native icon rather than a verified backdrop/actor binding. This is a static candidate count, not a count of visible missing props. Generic icon-only observations also lack a durable offscreen art-visibility proof.
+695 region entries have a Talk/Push handler and still require the current native icon rather than a verified backdrop/actor binding. This is a static candidate count, not a count of visible missing props. Generic icon-only observations also lack a durable offscreen art-visibility proof.
 
-Chocograph picture descriptions, world cracks/bubbles/tracks/shadows, jump-rope cadence, race progress, shuffle tracking, guard-facing/timed tasks, Blackjack and several puzzle sequences still need dedicated presentation evidence or live validation. Desert Palace and Pandemonium intermediate state-to-target mappings remain unresolved. The optional checklist lists each limitation; optional preparation and sidequests never become mandatory Story steps.
+Chocograph picture descriptions, world cracks/bubbles/tracks/shadows, jump-rope cadence, race progress, shuffle tracking, guard-facing/timed tasks, Blackjack and several puzzle sequences still need dedicated presentation evidence or live validation. Desert Palace and Pandemonium have reviewed required routes; alternate-state recovery and live movement still need verification. The optional checklist lists each limitation.
 
 This audit did not launch the game or synthesize gameplay/controller input. Full transitions, audible NVDA/controller delivery and complete main/optional playthroughs remain player tests.
 
@@ -51,7 +57,7 @@ Run `python tools/guide_audit.py --check` and `python tools/compile_story_prereq
 | [14. Return to Alexandria](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/return-to-alexandria) | Timed escape and cage input need specific native phase proof. The purple candelabra and moving platform are required local actions, while Tantarian is an optional encounter. |
 | [15. Pinnacle Rocks](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/pinnacle-rocks) | Current fragment bits precede the final conversation. Only an already presented, interactive fragment can supply a walking target. Unshown fragments have no inferred position. Full scene transitions, puzzle inputs, controller and speech still need live validation. |
 | [16. Return to Lindblum](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/return-to-lindblum) | Shopping and town errands are optional. Verify the departure listener and one-way story transition at the fountain before routing toward the gate. |
-| [17. Journey to the Outer Continent](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/journey-to-the-outer-continent) | Current switch bits and the verified current floor component choose the route step. Boarding steps without an existing interactive target remain manual information. Full scene transitions, puzzle inputs, controller and speech still need live validation. |
+| [17. Journey to the Outer Continent](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/journey-to-the-outer-continent) | Current switch bits and the verified floor component choose the route step. Reviewed flowers and boarding spots are separate targets tied to their native prompts; a route with no current approach remains informational. Full scene transitions, puzzle inputs, controller and speech still need live validation. |
 | [18. Outer Continent](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/outer-continent) | Do not route to the blocked mountain exit before the village lead. Optional shops, ATE collection and marsh visits remain separate. |
 | [19. Magdalene Forest](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/magdalene-forest) | The guide heading is unusual; native area is Black Mage Village/Dead Forest, not a runtime location rename. Owl puzzle state and mandatory village conversations need native guard checks; optional ATE ordering is not a mandatory story checklist. |
 | [20. Codie Petie Mountain Path](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/codie-petie-mountain-path) | Preserve the native Conde Petie spelling. The second wedding and colored stones are optional. Verify the ceremony gate, ladder/vine movement and party change independently of scene floors. |
@@ -67,7 +73,7 @@ Run `python tools/guide_audit.py --check` and `python tools/compile_story_prereq
 | [30. On the High Seas](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/on-the-high-seas) | This guide chapter is an optional exploration round, not a requirement to complete every sidequest or acquire a Chocobo upgrade. |
 | [31. Picking Up the Trail](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/picking-up-the-trail) | Wrong sandpits are encounters, not the palace entrance. Verify current world marker/discovery and party selection; do not reveal hidden pit identity from static coordinates. |
 | [32. Forgotten Continent](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/forgotten-continent) | Oeilvert has several direct/indirect native milestones across projections. Their runtime request graph/current switch state must be verified; optional continental treasures and Chocographs are not required. |
-| [33. Desert Palace](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/desert-palace) | Many required lamps share global/local puzzle state between counter floors. Bloodstone rewards are optional advantages, though route candles are required. Exact remaining-lamp/state-to-target mapping and Cid minigame proof remain unresolved. |
+| [33. Desert Palace](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/desert-palace) | The required candle route has explicit native actions and named room transitions. In the Shadow Chamber, the current floor distinguishes a recoverable lamp change after backtracking from an unsupported position. The Cid cue reads the native timing state; audible delivery and playability have not been tested. Full scene transitions, puzzle inputs, controller and speech still need live validation. |
 | [34. Lost Continent](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/lost-continent) | The presented lever remains the objective until the native completion flag changes. Pull direction and Confirm stay under player control. Full scene transitions, puzzle inputs, controller and speech still need live validation. |
 | [35. Aerial Exploration](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/aerial-exploration) | Do not force optional towns, equipment, Chocobo upgrades or bosses into Story. Current vehicle landability and ordinary marker discovery remain native gates. |
 | [36. Ipsen's Castle](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/ipsens-castle) | The fresco and pot puzzles open optional treasure paths. Rescue and return have specific10575/10580/10590/10595 floors; verify their current actor/ladder approaches without routing directly out too early. |
@@ -79,6 +85,62 @@ Run `python tools/guide_audit.py --check` and `python tools/compile_story_prereq
 | [42. Memoria](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/memoria) | The main route is largely linear; optional phantom card players, hidden treasures and Hades must remain optional/currently revealed. Nero checkpoints are separate optional persistent state, not all main-story milestones. |
 | [43. Final Preparations](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/final-preparations) | This chapter supplies optional preparation opportunities. A one-way return warp must be narrated from its presented native choice; do not automate it or require grinding. |
 | [44. The Final Battle](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891/the-final-battle) | After12000 there is no further walking objective in the catalog. Verify final approach, menu handoff, ending and recovery states; static routing does not prove battle/menu narration. |
+
+## Native Story step bindings by chapter
+
+Counts are stage milestones in the chapter whose counter write has a native player-action step, a native player-position wait, or only arrival/automatic scene writers. Arrival-only does not mean broken: those scenes play on entering the field, and the route must still reach that field through walkable transitions.
+
+| Chapter | Stages | Player action | Position wait | Arrival/automatic only |
+| --- | --- | --- | --- | --- |
+| Alexandria | 14 | 4 | 1 | 10 |
+| Evil Forest | 23 | 6 | 0 | 17 |
+| Ice Cavern | 7 | 0 | 0 | 7 |
+| Dali | 14 | 4 | 0 | 10 |
+| the cargo ship | 8 | 0 | 0 | 8 |
+| Lindblum | 18 | 3 | 0 | 15 |
+| Gizamaluke's Grotto | 4 | 0 | 1 | 3 |
+| South Gate | 2 | 0 | 0 | 2 |
+| Burmecia | 9 | 3 | 1 | 5 |
+| South Gate | 10 | 6 | 0 | 4 |
+| Treno | 11 | 4 | 0 | 7 |
+| Gargan Roo | 5 | 3 | 0 | 2 |
+| Alexandria | 1 | 0 | 0 | 1 |
+| Cleyra's Trunk | 2 | 0 | 0 | 2 |
+| Cleyra | 11 | 2 | 2 | 7 |
+| the Red Rose | 3 | 0 | 0 | 3 |
+| Alexandria | 11 | 2 | 4 | 5 |
+| Gargan Roo | 1 | 0 | 0 | 1 |
+| Pinnacle Rocks | 5 | 1 | 0 | 4 |
+| Lindblum | 5 | 1 | 0 | 4 |
+| Fossil Roo | 2 | 1 | 0 | 1 |
+| Conde Petie | 3 | 1 | 0 | 2 |
+| Black Mage Village | 5 | 3 | 0 | 2 |
+| Conde Petie | 4 | 1 | 0 | 3 |
+| Conde Petie Mountain Path | 3 | 0 | 0 | 3 |
+| Madain Sari | 11 | 5 | 0 | 6 |
+| Iifa Tree | 7 | 1 | 0 | 6 |
+| Madain Sari | 9 | 0 | 0 | 9 |
+| Iifa Tree | 10 | 0 | 0 | 10 |
+| Alexandria | 9 | 0 | 4 | 5 |
+| Treno | 5 | 4 | 0 | 1 |
+| Alexandria | 7 | 0 | 0 | 7 |
+| Lindblum | 12 | 2 | 0 | 10 |
+| Blue Narciss | 1 | 0 | 0 | 1 |
+| Black Mage Village | 4 | 0 | 0 | 4 |
+| Desert Palace | 7 | 2 | 0 | 5 |
+| Oeilvert | 14 | 11 | 0 | 3 |
+| Desert Palace | 14 | 1 | 0 | 13 |
+| Blue Narciss | 0 | 0 | 0 | 0 |
+| Esto Gaza and Mount Gulug | 2 | 0 | 0 | 2 |
+| Lindblum | 5 | 0 | 0 | 5 |
+| Alexandria and Hilda Garde III | 1 | 1 | 0 | 0 |
+| Ipsen's Castle | 12 | 6 | 0 | 6 |
+| the shrines | 6 | 0 | 0 | 6 |
+| Terra | 6 | 4 | 0 | 2 |
+| Bran Bal | 8 | 1 | 0 | 7 |
+| Pandemonium | 9 | 3 | 0 | 6 |
+| the Invincible and Black Mage Village | 2 | 0 | 0 | 2 |
+| Memoria | 21 | 7 | 0 | 14 |
 
 ## Optional topics
 

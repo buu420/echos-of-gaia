@@ -38,5 +38,16 @@ namespace FF9Access.Tests
             TestAssert.Equal(0,OpeningPositionApproaches.Read(null,Floor(),P(100,100)).Length);
             TestAssert.Equal(0,OpeningPositionApproaches.Read(new OpeningPositionGoal{Axis=OpeningGoalAxis.Z,Minimum=2800,Maximum=2805},Floor(),P(100,100)).Length);
         }
+        public static void BurmeciaBalconyNeedsTheNativeUpperFloorEvenAtTheRightCoordinate()
+        {
+            var floor=Floor();var goal=new OpeningPositionGoal{Axis=OpeningGoalAxis.X,Minimum=101,SupportFloor=3};
+            TestAssert.False(goal.Satisfied(P(200,100),0));
+            TestAssert.False(goal.Satisfied(P(200,100)));
+            TestAssert.Equal(0,OpeningPositionApproaches.Read(goal,floor,P(80,100)).Length);
+            floor.Triangles[0].Floor=3;
+            var points=OpeningPositionApproaches.Read(goal,floor,P(80,100));
+            TestAssert.True(points.Length>0);
+            foreach(var point in points)TestAssert.True(goal.Satisfied(point,floor.At(point).Floor));
+        }
     }
 }
