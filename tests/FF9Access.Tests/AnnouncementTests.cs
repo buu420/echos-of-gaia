@@ -3,6 +3,28 @@ namespace FF9Access.Tests
 {
     internal static class AnnouncementsTests
     {
+        public static void FailedRouteKeepsExplicitStatusAndStopsAutomaticReminders()
+        {
+            var context=TestFixtures.Context();
+            var coordinator=new NavigationCoordinator();
+            var catalog=IntegrationTests.Catalog();
+            coordinator.Tick(context,new[]{NavigationCommand.StartGuidance},catalog,null);
+            var movement=new MovementObservation
+            {
+                Outcome=MovementOutcome.Unavailable,
+                RouteFailure=RouteFailure.Disconnected,
+                PlannedRoute=new RoutePlan{Failure=RouteFailure.Disconnected},
+                Notice="Route unavailable: no connected route."
+            };
+            var announcer=new NavigationAnnouncements();
+            var update=coordinator.Tick(context,new NavigationCommand[0],catalog,movement);
+            TestAssert.Equal(movement.Notice,announcer.Format(update,1000,new SpeechState())[0].Text);
+            movement.Notice=null;
+            update=coordinator.Tick(context,new NavigationCommand[0],catalog,movement);
+            TestAssert.Equal(0,announcer.Format(update,1000,new SpeechState{NowMilliseconds=5000}).Count);
+            update=coordinator.Tick(context,new[]{NavigationCommand.Status},catalog,movement);
+            TestAssert.True(announcer.Format(update,1000,new SpeechState{NowMilliseconds=6000})[0].Text.Contains("No walking route"));
+        }
         public static void GuidanceDoesNotPointBackToConsumedWaypoints(){var p=new RouteGuidanceProgress(TestFixtures.P(0,0),new[]{TestFixtures.P(10,0),TestFixtures.P(20,0),TestFixtures.P(30,0)},false,1);TestAssert.Near(30,p.Next(TestFixtures.P(25,0)).X,0);}
         public static void RegionChangeDeduplicates(){var n=new NavigationCoordinator();var c=TestFixtures.Context("world:0");c.CurrentRegion="Eunorus Plains";var u=n.Tick(c,new NavigationCommand[0],new CatalogResult(),null);var a=new NavigationAnnouncements();var offered=a.Format(u,1000,new SpeechState());TestAssert.Equal(1,offered.Count);a.Acknowledge(offered[0],true);TestAssert.Equal(0,a.Format(u,1000,new SpeechState{NowMilliseconds=20}).Count);}
         public static void DialogueIsNotInterruptedByRepeatedGuidance(){var u=new NavigationCoordinator().Tick(TestFixtures.Context(),new[]{NavigationCommand.StartGuidance},IntegrationTests.Catalog(),null);TestAssert.Equal(0,new NavigationAnnouncements().Format(u,1000,new SpeechState{DialogueActive=true}).Count);}

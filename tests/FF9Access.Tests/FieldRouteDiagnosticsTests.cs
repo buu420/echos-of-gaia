@@ -6,6 +6,25 @@ namespace FF9Access.Tests
 {
     internal static class FieldRouteDiagnosticsTests
     {
+        public static void DestinationApproachesAreRetainedByFieldSnapshot()
+        {
+            var target = new NavigationTarget
+            {
+                DestinationApproaches = new System.Collections.Generic.Dictionary<int, NavigationPoint[]>
+                {
+                    { 165, new[] { new NavigationPoint(60, 13002, 2335) } },
+                    { 163, new[] { new NavigationPoint(1960, 4685, 3182) } }
+                }
+            };
+            var text = FieldRouteDiagnostics.Serialize(TestFixtures.Context(), target, FieldRoutesTests.Grid(false), new RoutePlan());
+            using (var document = JsonDocument.Parse(text))
+            {
+                var approaches = document.RootElement.GetProperty("Target").GetProperty("DestinationApproaches");
+                TestAssert.Equal(13002f, approaches.GetProperty("165")[0].GetProperty("Y").GetSingle());
+                TestAssert.Equal(4685f, approaches.GetProperty("163")[0].GetProperty("Y").GetSingle());
+            }
+        }
+
         public static void InterruptedSnapshotRetainsPreClearMovementAndOriginalRoute()
         {
             var type=typeof(FieldRouteDiagnostics).Assembly.GetType("Memoria.Accessibility.Navigation.FieldMovementCapture");

@@ -5,6 +5,7 @@ namespace Memoria.Accessibility.Navigation
     {
         public bool Success;public RouteFailure Failure;public TargetIdentity TargetId;public long Generation;public TransportIdentity Transport;public NavigationPoint Origin,ApproachPoint;
         public NavigationPoint[] Waypoints=new NavigationPoint[0];public int[] Corridor=new int[0];public string GeometryFingerprint;
+        public NavigationPoint[] FieldSteeringWaypoints;
         public float Length;
         public bool ViewingPoint;
         public TargetIdentity? PhysicalId;

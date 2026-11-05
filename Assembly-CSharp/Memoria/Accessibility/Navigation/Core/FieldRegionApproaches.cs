@@ -150,6 +150,33 @@ namespace Memoria.Accessibility.Navigation
             }
             return best;
         }
+        internal static bool CanStopInside(NavigationPoint[] region,NavigationPoint point,float margin)
+        {
+            if(region==null || region.Length<3 || region.Length>16)return false;
+            // Four convex vertices have no gap between their native triples.
+            // Their diagonals are not walls when testing the arrival circle.
+            float winding=FieldTriangle.Cross(region[0],region[1],region[2]);
+            if(region.Length==4 && Math.Abs(winding)>.001f &&
+                FieldTriangle.Cross(region[1],region[2],region[3])*winding>0 &&
+                FieldTriangle.Cross(region[2],region[3],region[0])*winding>0 &&
+                FieldTriangle.Cross(region[3],region[0],region[1])*winding>0) {
+                for(int i=0;i<4;i++)if(!InsideEdge(region[i],region[(i+1)%4],point,winding,margin))return false;
+                return true;
+            }
+            // For longer or concave regions a full circle within one native
+            // triple is enough. Keep the other proven samples as fallbacks.
+            for(int i=0;i<region.Length;i++) {
+                var a=region[i];var b=region[(i+1)%region.Length];var c=region[(i+2)%region.Length];
+                winding=FieldTriangle.Cross(a,b,c);
+                if(Math.Abs(winding)>.001f && InsideEdge(a,b,point,winding,margin) &&
+                    InsideEdge(b,c,point,winding,margin) && InsideEdge(c,a,point,winding,margin))return true;
+            }
+            return false;
+        }
+        private static bool InsideEdge(NavigationPoint a,NavigationPoint b,NavigationPoint point,float winding,float margin)
+        {
+            return Side(a,b,point,winding)>FieldGeometrySnapshot.Horizontal(a,b)*margin;
+        }
         private static bool Inside(NavigationPoint[] region,NavigationPoint point)
         {
             // EventEngine.IsInQuad tests consecutive triples, including wrapping.

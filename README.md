@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.11 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.11)**
+**[Download 0.1.12 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.12)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,12 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing, including a full playthrough.
+
+0.1.12 repairs manual guidance and automatic walking on the West Tower
+stairs. Auto-walk aims inside the selected exit trigger. Repeated background
+checks stay quiet when the same route is unavailable. Reviewed interaction
+prompts load again, and route snapshots include the exit's approach points.
+The West Tower routes were checked in offline replays with both game runtimes.
 
 0.1.11 expands Story guidance to intermediate actions such as using a ladder,
 operating a switch or boarding a Gargant. It checks the current story state
@@ -139,7 +145,7 @@ Use the manager to update or uninstall a manager installation.
 
 For a standalone installation:
 
-1. Download and extract EchosOfGaia-v0.1.11-beta-windows.zip into a separate
+1. Download and extract EchosOfGaia-v0.1.12-beta-windows.zip into a separate
    folder outside the game directory.
 2. Open **Install-EchosOfGaia.exe** from the extracted folder. Check the detected
    game folder, or use **Browse** or the editable field to choose the folder

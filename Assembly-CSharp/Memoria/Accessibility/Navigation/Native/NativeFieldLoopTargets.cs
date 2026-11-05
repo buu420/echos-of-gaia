@@ -36,11 +36,16 @@ namespace Memoria.Accessibility.Navigation
                         var root=JSON.Parse(reader.ReadToEnd());if(root["schema"].AsInt!=1)throw new InvalidOperationException("Unsupported field loop prompt schema");
                         var rows=root["objects"];
                         for(int i=0;i<rows.Count;i++) {
-                            var row=rows[i];var at=row["anchor"];var sprite=row["sprite"];
+                            var row=rows[i];var sprite=row["sprite"];
                             var binding=new LoopBinding{Field=row["field"].AsInt,Sid=row["sid"].AsInt,Uid=row["uid"].AsInt,
                                 Floor=row["floor"].AsInt,Ceiling=row["ceiling"].AsInt,Entry=row["entry"].AsInt,Prompt=row["prompt"].AsInt,Resume=row["resume"].AsInt,HalfWidth=row["halfWidth"].AsInt,PromptOnly=row["promptOnly"].AsBool,
-                                Scene=row["scene"],Hash=row["hash"],Background=row["background"],Walkmesh=row["walkmesh"],Label=row["label"],
-                                Anchor=new NavigationPoint(at[0].AsInt,at[1].AsInt,at[2].AsInt)};
+                                Scene=row["scene"],Hash=row["hash"],Background=row["background"],Walkmesh=row["walkmesh"],Label=row["label"]};
+                            if(!binding.PromptOnly) {
+                                var anchor=row["anchor"] as JSONArray;
+                                if(anchor==null || anchor.Count!=3)
+                                    throw new InvalidOperationException("Invalid reviewed loop anchor");
+                                binding.Anchor=new NavigationPoint(anchor[0].AsInt,anchor[1].AsInt,anchor[2].AsInt);
+                            }
                             if(sprite.Count!=0) {
                                 if(sprite.Count!=2 || binding.PromptOnly || sprite[0].AsInt<0 || sprite[1].AsInt<0)
                                     throw new InvalidOperationException("Invalid reviewed loop sprite");

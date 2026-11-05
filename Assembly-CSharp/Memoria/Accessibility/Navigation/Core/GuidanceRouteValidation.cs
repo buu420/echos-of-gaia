@@ -21,6 +21,10 @@ namespace Memoria.Accessibility.Navigation
             if (route == null || planned == null || current == null) return MovementOutcome.None;
             if (route.GeometryFingerprint != fingerprint) return MovementOutcome.RouteChanged;
             if (!world && FieldApproachChanged(planned,current)) return MovementOutcome.TargetMoved;
+            // An exit's displayed sample can change with player position while its
+            // approved approach set and the walkmesh are identical.
+            if (!world && !route.Success && planned.PhysicalIdentity.Kind==TargetKind.FieldExit && planned.UseApprovedApproaches)
+                return MovementOutcome.None;
             float distance = world ? WorldCoordinates.Distance(current.Position, planned.Position) : NavigationPoint.Distance(current.Position, planned.Position);
             bool exitApproach=false;
             if(!world && route.Success && planned.PhysicalIdentity.Kind==TargetKind.FieldExit && current.ApproachCandidates!=null) {

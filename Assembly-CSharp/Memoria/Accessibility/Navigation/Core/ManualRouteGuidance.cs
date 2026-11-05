@@ -56,7 +56,15 @@ namespace Memoria.Accessibility.Navigation
                 correcting=true;
             }
             bool forwardClear=true;
-            if(!correcting && clear!=null){forwardClear=clear(forward);if(!forwardClear)correcting=drift>arrival;}
+            if(!correcting && clear!=null) {
+                forwardClear=clear(forward);
+                // A small native wall push can block the parallel line while
+                // the original leg is still directly reachable.
+                if(!forwardClear && drift<=arrival && clear(result.LegEnd)) {
+                    forward=result.LegEnd;forwardClear=true;
+                }
+                if(!forwardClear)correcting=drift>arrival;
+            }
             result.Correcting=correcting;result.Aim=correcting?join:forward;
             // Correction returns to the clamped join, so the follow-on count
             // starts there rather than counting the correction a second time.

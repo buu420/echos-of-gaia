@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
@@ -40,6 +41,21 @@ namespace Memoria.Accessibility.Navigation
             if(type.IsPrimitive || value is decimal){text.Append(Convert.ToString(value,CultureInfo.InvariantCulture));return;}
             var array=value as Array;
             if(array!=null) {text.Append('[');for(int i=0;i<array.Length;i++){if(i>0)text.Append(',');Write(text,array.GetValue(i),depth+1);}text.Append(']');return;}
+            var approaches=value as Dictionary<int,NavigationPoint[]>;
+            if(approaches!=null) {
+                var destinations=new List<int>(approaches.Keys);
+                destinations.Sort();
+                text.Append('{');
+                for(int i=0;i<destinations.Count;i++) {
+                    if(i>0)text.Append(',');
+                    int destination=destinations[i];
+                    Quote(text,destination.ToString(CultureInfo.InvariantCulture));
+                    text.Append(':');
+                    Write(text,approaches[destination],depth+1);
+                }
+                text.Append('}');
+                return;
+            }
             if(type.Namespace!=typeof(NavigationContext).Namespace)throw new InvalidOperationException("Field snapshot must contain navigation values only.");
             var fields=type.GetFields(BindingFlags.Public|BindingFlags.Instance);
             Array.Sort(fields,delegate(FieldInfo a,FieldInfo b){return String.CompareOrdinal(a.Name,b.Name);});

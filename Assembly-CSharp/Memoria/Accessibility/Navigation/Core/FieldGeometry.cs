@@ -6,6 +6,7 @@ namespace Memoria.Accessibility.Navigation
     {
         public int Id,Floor;public NavigationPoint[] Vertices;public int[] Neighbors={-1,-1,-1};public bool Enabled=true,RuntimeEnabled=true;public byte Attributes;public float TraversalCost=1;
         public NavigationPoint[] RadiusVertices;public FieldNativeTriangleData Native;
+        public int ReviewedBoundaryEdges;
         public NavigationPoint Center { get { return new NavigationPoint((Vertices[0].X+Vertices[1].X+Vertices[2].X)/3,(Vertices[0].Y+Vertices[1].Y+Vertices[2].Y)/3,(Vertices[0].Z+Vertices[1].Z+Vertices[2].Z)/3); } }
         public bool Contains(NavigationPoint point)
         {
@@ -31,7 +32,13 @@ namespace Memoria.Accessibility.Navigation
     public sealed class FieldGeometrySnapshot
     {
         public long Generation;public FieldTriangle[] Triangles=new FieldTriangle[0];public float Radius;public int ActiveTriangle=-1;public byte AttributeMask;public byte BlockedAttributes=0x80;public string Fingerprint;
-        public FieldTriangle Find(int id) { foreach(var tri in Triangles)if(tri.Id==id)return tri;return null; }
+        public FieldTriangle Find(int id)
+        {
+            if(id<0)return null;
+            if(id<Triangles.Length && Triangles[id].Id==id)return Triangles[id];
+            foreach(var tri in Triangles)if(tri.Id==id)return tri;
+            return null;
+        }
         public bool Permitted(FieldTriangle tri) { return tri!=null && tri.Enabled && tri.RuntimeEnabled && (tri.Attributes&AttributeMask&BlockedAttributes)==0 && tri.Vertices!=null && tri.Vertices.Length==3; }
         // BGI_findAccessibleTriangle gates the referenced BGI flags, never the
         // cached runtime enabled bit or the existence of a support/crossing portal.
@@ -153,6 +160,11 @@ namespace Memoria.Accessibility.Navigation
             }
             if(best<0)return false;point=Lerp(a,b,best);return ClearLocalCapsule(support,point,point);
         }
+        private const float WestTowerClearance=68;
+        internal bool UsesReviewedBoundaryClearance(FieldTriangle triangle)
+        {
+            return triangle.ReviewedBoundaryEdges!=0 && Radius>WestTowerClearance && Radius<=80;
+        }
         private bool ScanLocalCapsule(FieldTriangle support,NavigationPoint from,NavigationPoint to,List<CapsuleSpan> blocked)
         {
             float radius=Math.Max(0,Radius-0.01f);if(radius==0)return true;
@@ -165,9 +177,13 @@ namespace Memoria.Accessibility.Navigation
                 for(int edge=0;edge<3;edge++) {
                     var radiusVertices=tri.RadiusVertices??tri.Vertices;
                     var a=radiusVertices[edge];var b=radiusVertices[(edge+1)%3];
-                    float low,high;if(!NearEdgeInterval(first,last,a,b,radius,out low,out high))continue;
                     var next=Find(tri.Neighbors[edge]);
-                    if(!RadiusPermitted(next)) {
+                    bool open=RadiusPermitted(next);
+                    float clearance=radius;
+                    if(!open && UsesReviewedBoundaryClearance(tri) && (tri.ReviewedBoundaryEdges&(1<<edge))!=0)
+                        clearance=WestTowerClearance-.01f;
+                    float low,high;if(!NearEdgeInterval(first,last,a,b,clearance,out low,out high))continue;
+                    if(!open) {
                         blocked.Add(new CapsuleSpan{Low=span.Low+(span.High-span.Low)*low,High=span.Low+(span.High-span.Low)*high,A=a,B=b});continue;
                     }
                     // Reachability of a neighboring floor belongs only to this part of the swept leg.

@@ -14,21 +14,45 @@ namespace Memoria.Accessibility.Navigation
             NavigationPoint[] candidates=FieldTargetApproaches.Prepare(context,target,geometry);RoutePlan best=null;
             bool viewing=target.UseViewingPoint && !target.IsInteractive && target.PhysicalIdentity.Kind==TargetKind.FieldActor;
             if(candidates.Length==0){failure.Failure=RouteFailure.TargetOutsideMesh;return failure;}
+            // Exit samples often share the same support triangle and stair turns.
+            // Reuse checks only within this plan, where the geometry and origin are fixed.
+            var corridors=new Dictionary<int,int[]>();
+            var portals=new Dictionary<int,NavigationPoint?>();
+            var segments=new Dictionary<SegmentKey,NavigationPoint[]>();
+            bool bestInsideExit=false;
+            var exitRegion=target.PhysicalIdentity.Kind==TargetKind.FieldExit?target.InteractionRegion:null;
+            float arrival=FieldAnalogMovement.ArrivalRadius(geometry.Radius,1);
             foreach(var approach in candidates) {
+                bool insideExit=FieldRegionApproaches.CanStopInside(exitRegion,approach,arrival);
+                if(bestInsideExit && !insideExit)continue;
                 var end=geometry.At(approach);if(end==null){failure.Failure=RouteFailure.TargetOutsideMesh;continue;}
-                int[] corridor=Search(geometry,start,end);if(corridor==null){failure.Failure=RouteFailure.Disconnected;continue;}
-                var points=CorridorPoints(geometry,corridor,context.Position,approach);if(points==null){failure.Failure=RouteFailure.NarrowPassage;continue;}
+                int[] corridor;
+                if(!corridors.TryGetValue(end.Id,out corridor)) {
+                    corridor=Search(geometry,start,end,portals);
+                    corridors[end.Id]=corridor;
+                }
+                if(corridor==null){failure.Failure=RouteFailure.Disconnected;continue;}
+                var points=CorridorPoints(geometry,corridor,context.Position,approach,portals);if(points==null){failure.Failure=RouteFailure.NarrowPassage;continue;}
+                List<NavigationPoint> steering=null;
+                foreach(int id in corridor)if(geometry.UsesReviewedBoundaryClearance(geometry.Find(id))) {
+                    steering=new List<NavigationPoint>();break;
+                }
                 var funnel=Funnel(geometry,corridor,context.Position,approach);
-                var smooth=funnel==null?null:Smooth(geometry,context.Position,funnel);
-                if(smooth==null)smooth=Smooth(geometry,context.Position,points);
+                var smooth=funnel==null?null:Smooth(geometry,context.Position,funnel,segments,steering);
+                if(smooth==null) {
+                    if(steering!=null)steering.Clear();
+                    smooth=Smooth(geometry,context.Position,points,segments,steering);
+                }
                 if(smooth==null){failure.Failure=RouteFailure.UnsafeSegment;continue;}
-                var route=new RoutePlan{Success=true,Failure=RouteFailure.None,TargetId=target.Id,PhysicalId=target.PhysicalId,Generation=context.Generation,Transport=context.Transport,Origin=context.Position,ApproachPoint=approach,Waypoints=smooth.ToArray(),Corridor=corridor,GeometryFingerprint=geometry.Fingerprint,ViewingPoint=viewing};
+                var route=new RoutePlan{Success=true,Failure=RouteFailure.None,TargetId=target.Id,PhysicalId=target.PhysicalId,Generation=context.Generation,Transport=context.Transport,Origin=context.Position,ApproachPoint=approach,Waypoints=smooth.ToArray(),FieldSteeringWaypoints=steering==null?null:steering.ToArray(),Corridor=corridor,GeometryFingerprint=geometry.Fingerprint,ViewingPoint=viewing};
                 var from=context.Position;foreach(var point in route.Waypoints){route.Length+=FieldGeometrySnapshot.Horizontal(from,point);from=point;}
                 if(viewing)return route; // Viewing candidates are ordered by proximity to the observed object.
-                if(best==null || route.Length<best.Length)best=route;
+                if(best==null || insideExit && !bestInsideExit || route.Length<best.Length) {
+                    best=route;bestInsideExit=insideExit;
+                }
             }return best??failure;
         }
-        private static int[] Search(FieldGeometrySnapshot geometry,FieldTriangle start,FieldTriangle end)
+        private static int[] Search(FieldGeometrySnapshot geometry,FieldTriangle start,FieldTriangle end,Dictionary<int,NavigationPoint?> portals)
         {
             var open=new List<int>{start.Id};var costs=new Dictionary<int,float>{{start.Id,0}};var parent=new Dictionary<int,int>();var closed=new HashSet<int>();
             while(open.Count>0) {
@@ -38,14 +62,14 @@ namespace Memoria.Accessibility.Navigation
                 closed.Add(current);var triangle=geometry.Find(current);
                 for(int edge=0;edge<3;edge++) {
                     var next=geometry.Find(triangle.Neighbors[edge]);if(!geometry.Permitted(next))continue;
-                    NavigationPoint crossing;if(!geometry.TryPortalPoint(triangle,edge,out crossing))continue;
+                    NavigationPoint crossing;if(!Portal(geometry,triangle,edge,portals,out crossing))continue;
                     float tentative=costs[current]+FieldGeometrySnapshot.Horizontal(triangle.Center,next.Center)*Math.Max(1,next.TraversalCost),existing;
                     if(costs.TryGetValue(next.Id,out existing) && tentative>=existing)continue;
                     costs[next.Id]=tentative;parent[next.Id]=current;closed.Remove(next.Id);if(!open.Contains(next.Id))open.Add(next.Id);
                 }
             }return null;
         }
-        private static List<NavigationPoint> CorridorPoints(FieldGeometrySnapshot geometry,int[] corridor,NavigationPoint start,NavigationPoint end)
+        private static List<NavigationPoint> CorridorPoints(FieldGeometrySnapshot geometry,int[] corridor,NavigationPoint start,NavigationPoint end,Dictionary<int,NavigationPoint?> portals)
         {
             var result=new List<NavigationPoint>();
             // Native radius forces can leave the resting player within clearance
@@ -57,19 +81,68 @@ namespace Memoria.Accessibility.Navigation
                 if(i+1<corridor.Length) {
                     int edge=Array.IndexOf(triangle.Neighbors,corridor[i+1]);if(edge<0)return null;
                     // Radius constrains physical boundary clearance along this native portal.
-                    NavigationPoint crossing;if(!geometry.TryPortalPoint(triangle,edge,out crossing))return null;result.Add(crossing);
+                    NavigationPoint crossing;if(!Portal(geometry,triangle,edge,portals,out crossing))return null;result.Add(crossing);
                 }
             }result.Add(end);return result;
         }
-        private static List<NavigationPoint> Smooth(FieldGeometrySnapshot geometry,NavigationPoint start,List<NavigationPoint> points)
+        private static List<NavigationPoint> Smooth(FieldGeometrySnapshot geometry,NavigationPoint start,List<NavigationPoint> points,Dictionary<SegmentKey,NavigationPoint[]> segments,List<NavigationPoint> steering)
         {
             var result=new List<NavigationPoint>();int index=0;
             while(index<points.Count) {
                 int farthest=-1;NavigationPoint[] surface=null;
-                for(int i=points.Count-1;i>=index;i--)if(geometry.TrySegmentClear(start,points[i],out surface)){farthest=i;break;}
-                if(farthest<0)return null;result.AddRange(surface);start=surface[surface.Length-1];index=farthest+1;
+                for(int i=points.Count-1;i>=index;i--)if(Segment(geometry,start,points[i],segments,out surface)){farthest=i;break;}
+                if(farthest<0)return null;
+                result.AddRange(surface);
+                start=surface[surface.Length-1];
+                // Manual guidance interpolates these surface heights. The
+                // native follower steers in XZ and can walk through slope breaks.
+                if(steering!=null)steering.Add(start);
+                index=farthest+1;
             }
             return result;
+        }
+        private static bool Portal(FieldGeometrySnapshot geometry,FieldTriangle triangle,int edge,Dictionary<int,NavigationPoint?> cache,out NavigationPoint crossing)
+        {
+            int key=triangle.Id*3+edge;
+            NavigationPoint? point;
+            if(!cache.TryGetValue(key,out point)) {
+                point=geometry.TryPortalPoint(triangle,edge,out crossing)?(NavigationPoint?)crossing:null;
+                cache.Add(key,point);
+            }
+            crossing=point.GetValueOrDefault();
+            return point.HasValue;
+        }
+        private static bool Segment(FieldGeometrySnapshot geometry,NavigationPoint start,NavigationPoint end,
+            Dictionary<SegmentKey,NavigationPoint[]> cache,out NavigationPoint[] surface)
+        {
+            var key=new SegmentKey(start,end);
+            if(!cache.TryGetValue(key,out surface)) {
+                if(!geometry.TrySegmentClear(start,end,out surface))surface=null;
+                if(cache.Count<4096)cache.Add(key,surface);
+            }
+            return surface!=null;
+        }
+        private struct SegmentKey : IEquatable<SegmentKey>
+        {
+            private readonly NavigationPoint _start,_end;
+            public SegmentKey(NavigationPoint start,NavigationPoint end){_start=start;_end=end;}
+            public bool Equals(SegmentKey other)
+            {
+                return _start.X==other._start.X && _start.Y==other._start.Y && _start.Z==other._start.Z &&
+                    _end.X==other._end.X && _end.Y==other._end.Y && _end.Z==other._end.Z;
+            }
+            public override bool Equals(object value){return value is SegmentKey && Equals((SegmentKey)value);}
+            public override int GetHashCode()
+            {
+                unchecked {
+                    int hash=_start.X.GetHashCode();
+                    hash=hash*397^_start.Y.GetHashCode();
+                    hash=hash*397^_start.Z.GetHashCode();
+                    hash=hash*397^_end.X.GetHashCode();
+                    hash=hash*397^_end.Y.GetHashCode();
+                    return hash*397^_end.Z.GetHashCode();
+                }
+            }
         }
         private static List<NavigationPoint> Funnel(FieldGeometrySnapshot geometry,int[] corridor,NavigationPoint start,NavigationPoint end)
         {

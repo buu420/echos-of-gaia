@@ -54,7 +54,10 @@ namespace Memoria.Accessibility.Navigation
                 string region=update.Context.LogicalMapKey+":"+update.Context.CurrentRegion;
                 if(region!=_lastRegion){_offeredRegionIdentity=region;_offeredRegion=Announcement(update.Context.CurrentRegion,40,false);result.Add(_offeredRegion);return result;}
             }
-            if(guiding && (changed || !information && (speech.NowMilliseconds<_lastGuidance || speech.NowMilliseconds-_lastGuidance>=NavigationControls.IntervalMilliseconds(intervalMilliseconds,1)))) {
+            bool routeFailed=update.Movement!=null &&
+                (update.Movement.RouteFailure.HasValue && update.Movement.RouteFailure.Value!=RouteFailure.None ||
+                 update.Movement.PlannedRoute!=null && !update.Movement.PlannedRoute.Success);
+            if(guiding && !routeFailed && (changed || !information && (speech.NowMilliseconds<_lastGuidance || speech.NowMilliseconds-_lastGuidance>=NavigationControls.IntervalMilliseconds(intervalMilliseconds,1)))) {
                 string text=Guidance(update);result.Add(Offer(update,instruction,speech.NowMilliseconds,text,20,speech.Busy && replaceOwn));
             }return result;
         }

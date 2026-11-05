@@ -78,6 +78,19 @@ internal static class WorldPlanningProbe
         Require((bool)current.Invoke(null,new object[]{path,snapshot,ops,height}) && !(bool)current.Invoke(null,new object[]{path,snapshot,ops,null}),"Mono current plain path lost the scoped native height guard");
         Console.WriteLine("PASS Mono field exits/interactions: 3D radius corner, eight embedded surface reviews, player-owned listener, speaker request priority and native sound mute/volume; no Unity/input access");
     }
+    private static void CheckReviewedLoopBindings()
+    {
+        var type=Type("NativeFieldTargets");
+        type.GetMethod("LoadLoopBindings",BindingFlags.Static|BindingFlags.NonPublic).Invoke(null,null);
+        var fields=(System.Collections.IDictionary)type.GetField("_loopBindings",BindingFlags.Static|BindingFlags.NonPublic).GetValue(null);
+        int promptCount=0,objectCount=0;
+        foreach(System.Collections.IList rows in fields.Values)
+            foreach(object row in rows)
+                if((bool)Get(row,"PromptOnly"))promptCount++;else objectCount++;
+        Require(promptCount>0 && objectCount>0,"Reviewed prompt-only rows discarded the field loop object bindings");
+        Console.WriteLine("PASS Mono reviewed loop bindings: {0} prompt-only and {1} anchored objects",promptCount,objectCount);
+    }
+
     private static void CheckStory()
     {
         var timer=System.Diagnostics.Stopwatch.StartNew();Type native=Type("NativeStoryTargets");native.GetMethod("Initialize").Invoke(null,null);timer.Stop();
@@ -326,6 +339,7 @@ internal static class WorldPlanningProbe
         Require(GC.CollectionCount(0)>=0,"Original Mono cannot report the passive collection counter");
         _game=Assembly.LoadFrom(gamePath);
         CheckCountedGuidance();
+        CheckReviewedLoopBindings();
         CheckStory();
         CheckFieldExitsAndInteractions();
         CheckHotCold();

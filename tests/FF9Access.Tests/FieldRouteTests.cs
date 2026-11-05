@@ -25,6 +25,24 @@ namespace FF9Access.Tests
         }
         private static bool Same(NavigationPoint a,NavigationPoint b) { return NavigationPoint.Distance(a,b)<0.01f; }
         private static RoutePlan Route(FieldGeometrySnapshot geometry) { var context=TestFixtures.Context();context.Position=TestFixtures.P(10,10);var target=new NavigationTarget{Id=new TargetIdentity(TargetKind.FieldExit,context.LogicalMapKey,1),Generation=1,Position=TestFixtures.P(50,10)};return new FieldRoutePlanner().Plan(context,target,geometry); }
+        public static void WalkOutPrefersAnApproachInsideNativeTriggerTolerance()
+        {
+            var geometry=Grid(false);
+            var context=TestFixtures.Context();
+            context.Position=TestFixtures.P(10,10);
+            var edge=TestFixtures.P(21,10);
+            var inside=TestFixtures.P(30,10);
+            var target=new NavigationTarget {
+                Id=new TargetIdentity(TargetKind.FieldExit,context.LogicalMapKey,2),Generation=context.Generation,
+                Position=edge,UseApprovedApproaches=true,ApproachCandidates=new[]{edge,inside},
+                InteractionRegion=new[]{TestFixtures.P(20,0),TestFixtures.P(40,0),TestFixtures.P(40,20),TestFixtures.P(20,20)}
+            };
+            var plan=new FieldRoutePlanner().Plan(context,target,geometry);
+            TestAssert.True(plan.Success);
+            TestAssert.Equal(inside,plan.ApproachPoint);
+            target.ApproachCandidates=new[]{edge};
+            TestAssert.Equal(edge,new FieldRoutePlanner().Plan(context,target,geometry).ApproachPoint);
+        }
         public static void DetoursAroundObstacle() { var geometry=Grid(true);var route=Route(geometry);TestAssert.True(route.Success);TestAssert.True(route.Waypoints.Length>1);var from=TestFixtures.P(10,10);foreach(var point in route.Waypoints){TestAssert.True(geometry.IsSegmentClear(from,point));from=point;} }
         public static void DisabledBgiTriangleIsRejected() { var geometry=Grid(false);foreach(var tri in geometry.Triangles)if(tri.Center.X>40)tri.Enabled=false;TestAssert.False(Route(geometry).Success); }
         public static void DisconnectedFloorHasNoRoute() { var geometry=Grid(false);foreach(var tri in geometry.Triangles)for(int i=0;i<3;i++)tri.Neighbors[i]=-1;TestAssert.Equal(RouteFailure.Disconnected,Route(geometry).Failure); }

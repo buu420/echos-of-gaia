@@ -175,6 +175,8 @@ namespace Memoria.Accessibility.Navigation
                 }
                 var exitObservation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldExit, context.LogicalMapKey,quad.uid),NativePresentationIdentity=exitIdentity,OutOfView=offscreen, Position = presentation == null ? Point(center) : presentation.Approach, Exit = presentation, ContainsJump = true };
                 exitObservation.LabelIdentity=ExitLabelSignature(quad);
+                if(presentation!=null && presentation.ApproachEnabled && currentGeometry!=null)
+                    exitObservation.InteractionRegion=Surface(currentGeometry,quad).Region;
                 Annotate(context,engine,quad,exitObservation);
                 if(presentation!=null && presentation.Visible) {
                     var camera=field.GetMainCamera();

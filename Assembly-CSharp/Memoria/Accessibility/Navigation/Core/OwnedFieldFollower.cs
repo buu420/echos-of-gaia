@@ -22,7 +22,7 @@ namespace Memoria.Accessibility.Navigation
             if(route==null || !route.Success || route.Waypoints.Length==0)return MovementStartResult.Unavailable;
             if(route.Generation!=context.Generation || _follower.Generation!=context.Generation || !route.TargetId.Equals(target.Id) || !route.Transport.Equals(context.Transport))return MovementStartResult.StaleRoute;
             if(_owner!=0)Release(_owner,StopReason.Explicit);
-            var reversed=(NavigationPoint[])route.Waypoints.Clone();Array.Reverse(reversed);
+            var reversed=(NavigationPoint[])(route.FieldSteeringWaypoints??route.Waypoints).Clone();Array.Reverse(reversed);
             if(!_follower.Install(owner,reversed))return MovementStartResult.Busy;
             _owner=owner;_route=route;_exitTransition=false;return MovementStartResult.Started;
         }

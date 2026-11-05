@@ -18,6 +18,7 @@ namespace Memoria.Accessibility.Navigation
         private static long _worldRequest,_nextWorldRequest;
         private static System.Diagnostics.Stopwatch _planTimer;
         private static RouteOperation _planning;private static MovementObservation _pending;private static bool _quietGuidancePlan;
+        private static RouteFailure _priorGuidanceFailure;
         private static bool _exitReached,_minigameInspection;private static string _traceContext,_traceSpeech,_error;
         private static long _diagnosticGeneration;private static readonly HashSet<string> _diagnostics=new HashSet<string>();
         static NavigationRuntime(){NavigationLifecycleBridge.Releasing+=DetachScene;NativeFieldMovement.ExitReached+=delegate{_exitReached=true;};}
@@ -162,7 +163,13 @@ namespace Memoria.Accessibility.Navigation
         private static bool CanGuideFieldStep(NavigationContext context,FieldGeometrySnapshot geometry,NavigationPoint point){return geometry!=null && geometry.IsSegmentClear(context.Position,point);}
         private static bool CanGuideWorldStep(NavigationContext context,WorldGeometrySnapshot geometry,NavigationPoint point,NavigationTarget target,NavigationPoint approach){return GuidanceRouteValidation.WorldLeg(geometry,context,point,target,approach);}
         private static void CancelWorldPlan(){_worldPlanner.Cancel();_worldRequest=0;}
-        private static void BeginPlan(RouteOperation operation,NavigationTarget target,bool quiet=false){CancelWorldPlan();_planTimer=System.Diagnostics.Stopwatch.StartNew();_planning=operation;_quietGuidancePlan=quiet;_routeTarget=target;_planningAttempts=0;_route=null;_pending=null;}
+        private static void BeginPlan(RouteOperation operation,NavigationTarget target,bool quiet=false)
+        {
+            if(!quiet || _planning==RouteOperation.None)
+                _priorGuidanceFailure=quiet && _route!=null && _route.PhysicalIdentity.Equals(target.PhysicalIdentity)?_route.Failure:RouteFailure.None;
+            CancelWorldPlan();_planTimer=System.Diagnostics.Stopwatch.StartNew();_planning=operation;_quietGuidancePlan=quiet;
+            _routeTarget=target;_planningAttempts=0;_route=null;_pending=null;
+        }
         private static void ApplyPlan(NavigationContext context,NavigationTarget target,bool world,bool automatic)
         {
             if(target.Category==NavigationCategory.Story && !target.PhysicalId.HasValue) {
@@ -205,7 +212,13 @@ namespace Memoria.Accessibility.Navigation
             _route=route;_routeTarget=target;
             if(route.Success){var field=world?null:NativeFieldGeometry.Read(context);_guideProgress=new RouteGuidanceProgress(route.Origin,route.Waypoints,world,world?0.5f:field==null?1:field.Radius);}
             Trace("Route "+target.Id+"; success="+route.Success+"; failure="+route.Failure+"; points="+route.Waypoints.Length+"; fingerprint="+route.GeometryFingerprint);
-            if(!route.Success) {_pending=new MovementObservation{Outcome=MovementOutcome.Unavailable,RouteFailure=route.Failure,Evidence=RouteReason(route.Failure),Notice=requestedMovement?null:"Route unavailable: "+RouteReason(route.Failure)+". Direct guidance available."};return;}
+            if(!route.Success) {
+                string reason=RouteReason(route.Failure);
+                bool repeat=_quietGuidancePlan && _priorGuidanceFailure==route.Failure;
+                _pending=new MovementObservation{Outcome=MovementOutcome.Unavailable,RouteFailure=route.Failure,PlannedRoute=route,
+                    Evidence=reason,Notice=requestedMovement || repeat?null:"Route unavailable: "+reason+"."};
+                return;
+            }
             if(!requestedMovement || !automatic)return;
             _owner=++_nextOwner;var result=world?NativeWorldMovement.TryStart(context,target,route,_owner):NativeFieldMovement.TryStart(context,target,route,_owner);
             if(result!=MovementStartResult.Started)Trace("Native movement start refused: "+result);

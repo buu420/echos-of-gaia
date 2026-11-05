@@ -48,6 +48,13 @@ namespace FF9Access.Tests
             TestAssert.True(ManualRouteGuidance.Read(Context(110,600),route,0,80,true,p=>true).Correcting);
             TestAssert.False(ManualRouteGuidance.Read(Context(79,600),route,0,80,true,p=>true).Correcting);
         }
+        public static void ABlockedTinyDriftKeepsTheVerifiedEndOfTheRun()
+        {
+            var end=TestFixtures.P(0,1200);
+            var step=ManualRouteGuidance.Read(Context(2,600),Route(end),0,80,false,p=>p.Equals(end));
+            TestAssert.False(step.Correcting || step.NeedReplan);
+            TestAssert.Equal(end,step.Aim);
+        }
         public static void ABlockedParallelLineRequestsASmallSafeCorrection()
         {
             var step=ManualRouteGuidance.Read(Context(30,600),Route(TestFixtures.P(0,1200)),0,80,false,p=>p.X==0);
