@@ -2526,9 +2526,6 @@ public partial class BattleHUD : UIScene
         {
             PointToModel(_cursorType, _currentTargetIndex);
             ButtonGroupState.SetAllTarget(false);
-
-            // Announce selected target to screen reader
-            AnnounceSelectedTarget(_currentTargetIndex);
         }
         else
         {
@@ -2543,9 +2540,6 @@ public partial class BattleHUD : UIScene
                     if (_targetDead || _currentCharacterHp[playerIndex] != ParameterStatus.Dead)
                         targetList.Add(_targetPanel.Players[playerIndex]);
                 ButtonGroupState.SetMultipleTarget(targetList, true);
-
-                // Announce all players targeted
-                ScreenReaderManager.Instance.Speak("All allies", false);
             }
             else if (_cursorType == CursorGroup.AllEnemy)
             {
@@ -2554,16 +2548,10 @@ public partial class BattleHUD : UIScene
                     if (_targetDead || enemyIndex < _currentEnemyDieState.Count && !_currentEnemyDieState[enemyIndex])
                         targetList.Add(_targetPanel.Enemies[enemyIndex]);
                 ButtonGroupState.SetMultipleTarget(targetList, true);
-
-                // Announce all enemies targeted
-                ScreenReaderManager.Instance.Speak("All enemies", false);
             }
             else
             {
                 ButtonGroupState.SetAllTarget(true);
-
-                // Announce all targets
-                ScreenReaderManager.Instance.Speak("All targets", false);
             }
         }
     }
@@ -2608,61 +2596,6 @@ public partial class BattleHUD : UIScene
                 firstIndex = index;
                 break;
             }
-        }
-    }
-
-    private void AnnounceSelectedTarget(Int32 targetIndex)
-    {
-        // Enemy target names are read by the normal selected-label reader.
-        // The target menu does not display enemy HP/MP; Libra messages do.
-        if (targetIndex < 0 || targetIndex >= HonoluluBattleMain.EnemyStartIndex)
-            return;
-        try
-        {
-            // Get the battle unit from the target index
-            BattleUnit targetUnit = null;
-
-            if (targetIndex < HonoluluBattleMain.EnemyStartIndex)
-            {
-                // Player target
-                if (targetIndex < _matchBattleIdPlayerList.Count)
-                {
-                    Int32 battleIndex = _matchBattleIdPlayerList[targetIndex];
-                    BTL_DATA btlData = FF9StateSystem.Battle.FF9Battle.GetUnit(battleIndex);
-                    if (btlData != null)
-                        targetUnit = new BattleUnit(btlData);
-                }
-            }
-
-            if (targetUnit != null)
-            {
-                // Strip formatting tags from name
-                String cleanName = BattleFormatter.GetKey(targetUnit.Name);
-
-                // Get HP and MP values
-                UInt32 hp = targetUnit.CurrentHp;
-                UInt32 mp = targetUnit.CurrentMp;
-
-                // Handle special cases where units have +10000 HP offset for scripting
-                // (e.g., Prison Cage fight with HP drain mechanic on Garnet)
-                // Normal FF9 HP cap is 9999, so values above that indicate the offset
-                // This handles both player characters and enemies that may not be properly
-                // handled by GetLogicalHP() depending on configuration
-                if (hp > 9999)
-                    hp -= 10000;
-
-                // Build announcement with HP and MP
-                String announcement = String.Format("{0}: {1} HP, {2} MP",
-                    cleanName,
-                    hp,
-                    mp);
-
-                ScreenReaderManager.Instance.Speak(announcement, false);
-            }
-        }
-        catch
-        {
-            // Silently fail if screen reader isn't available
         }
     }
 

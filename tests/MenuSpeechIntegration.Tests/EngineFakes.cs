@@ -158,6 +158,7 @@ public class UIManager : UnityEngine.MonoBehaviour
     public UIState State = UIState.MainMenu, PreviousState = UIState.FieldHUD;
     public Scene UnityScene = Scene.Field;
     public MainMenuUI MainMenuScene;
+    public BattleHUD BattleScene;
     public QuitUI QuitScene = new QuitUI();
     public PartySettingUI PartySettingScene = new PartySettingUI();
     public CharacterUI AbilityScene = new CharacterUI(),EquipScene = new CharacterUI(),StatusScene = new CharacterUI();
@@ -165,7 +166,7 @@ public class UIManager : UnityEngine.MonoBehaviour
     public static bool IsUIStateMenu(UIState state) => state >= UIState.MainMenu;
     public void MenuOpenEvent() { }
     public void ChangeUIState(UIState state) { PreviousState=State; State=state; }
-    public UIScene GetSceneFromState(UIState state) => state == UIState.MainMenu ? MainMenuScene : null;
+    public UIScene GetSceneFromState(UIState state) => state == UIState.MainMenu ? MainMenuScene : state == UIState.BattleHUD ? BattleScene : null;
 }
 public enum Control { Up, Down }
 public enum SourceControl { Joystick }
@@ -271,7 +272,6 @@ namespace Memoria
         public static class Battle { public static bool IsMenuEnabledInBattle(MainMenuUI.SubMenu subMenu)=>false; }
     }
 }
-public static class BattleHUD { public static Dictionary<BattleStatusId,string> DebuffIconNames = new Dictionary<BattleStatusId,string> { { BattleStatusId.Poison,"icon_poison" },{ BattleStatusId.Sleep,"icon_sleep" } }; }
 namespace Memoria.Data { public enum RegularItem { NoItem } public enum BattleStatusId { Poison,Sleep } }
 namespace Memoria.Assets
 {

@@ -244,6 +244,7 @@
     <Compile Include="Global\battle\BattleHUD\BattleHUD.Nested.cs" />
     <Compile Include="Global\battle\BattleHUD\BattleHUD.Public.cs" />
     <Compile Include="Global\battle\BattleHUD\BattleHUD.Scene.cs" />
+    <Compile Include="Global\battle\BattleHUD\BattleHUD.Speech.cs" />
     <Compile Include="Global\battle\BattleHUD\BattleHUD.Unity.cs" />
     <Compile Include="Global\battle\BattleMapCameraController.cs" />
     <Compile Include="Global\battle\BattlePlayerCharacter.cs" />

@@ -11,6 +11,7 @@
     <Compile Include="*.cs" />
     <Compile Include="../../Assembly-CSharp/Global/UI/UIScene.cs" Link="Runtime/UIScene.cs" />
     <Compile Include="../../Assembly-CSharp/Global/MainMenuUI.cs" Link="Runtime/MainMenuUI.cs" />
+    <Compile Include="../../Assembly-CSharp/Global/battle/BattleHUD/BattleHUD.Speech.cs" Link="Runtime/BattleHUD.Speech.cs" />
     <Compile Include="../../Assembly-CSharp/Assets/Sources/Scripts/UI/Common/CharacterDetailHUD.cs" Link="Runtime/CharacterDetailHUD.cs" />
     <Compile Include="../../Memoria.ScreenReader/ScreenReaderManager.cs" Link="Runtime/ScreenReaderManager.cs" />
     <Compile Include="../../Memoria.ScreenReader/ISpeechBackend.cs" Link="Runtime/ISpeechBackend.cs" />

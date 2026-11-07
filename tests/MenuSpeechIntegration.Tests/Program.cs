@@ -45,6 +45,12 @@ internal static class Program
             ("settled current menu recovers a missing character callback", MissingCharacterCallback),
             ("callback recovery waits for native animation idle", RecoveryWaitsForAnimation),
             ("callback recovery retains foreground ownership and latest selection", RecoveryWaitsForForeground),
+            ("battle reads the settled command even when its callback is skipped", BattleSpeechTests.SettledCommand),
+            ("battle reads current command, item and target across native focus changes", BattleSpeechTests.ItemAndTargets),
+            ("battle waits for visible labels and current recycled rows", BattleSpeechTests.RecycledAbility),
+            ("battle retries only current focus after rejected speech", BattleSpeechTests.RetryCurrentFocus),
+            ("battle keeps speech with the foreground HUD", BattleSpeechTests.ForegroundAndVisibility),
+            ("battle reads displayed ally values and group targeting", BattleSpeechTests.AllyAndGroupTargets),
         };
         int failed=0;
         foreach (var item in cases)
