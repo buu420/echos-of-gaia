@@ -77,6 +77,8 @@ internal static partial class Program
         DaliCases();
         IifaCases();
         LaterChainCases();
+        AlexandriaPrisonLadder();
+        PrimaVistaCabinDescent();
         GateAndDetourCases();
         PalaceResourceCases();
         SpeakerCases();

@@ -1257,6 +1257,66 @@
       }
     },
     {
+      "id": "forest-reviewed-cabin-descent",
+      "field": 207,
+      "sid": 10,
+      "uid": 10,
+      "hash": "b5c064a6fcdeadade170322523797e965f90e72ea0f8d7c017458a69cf6e7b11",
+      "kind": "region-confirm",
+      "source": "reviewed-prefix",
+      "priority": 0,
+      "floor": 2055,
+      "ceiling": 2060,
+      "milestone": 2060,
+      "action": "Climb down to Vivi. Press Confirm, then hold Down.",
+      "label": "Climb down",
+      "playerSid": 15,
+      "playerUid": 15,
+      "guards": [
+        {
+          "sid": 0,
+          "uid": 0,
+          "hash": "05c593f3dd98e836d2b47044a9ff9de478d93c45f50d7ded80dab0876d9ff5ba",
+          "expr": "d5207d0200207f"
+        },
+        {
+          "sid": 15,
+          "uid": 15,
+          "hash": "7e6244ab948bf283556772ad1e153a0504bb1a2c7fadd9cd177cade63a87c5ab",
+          "expr": "78ff017d75ff1a7f"
+        }
+      ],
+      "effects": [
+        {
+          "sid": 10,
+          "uid": 10,
+          "tag": 3,
+          "offset": 95,
+          "hash": "b5c064a6fcdeadade170322523797e965f90e72ea0f8d7c017458a69cf6e7b11",
+          "proof": "reached"
+        }
+      ],
+      "evidence": {
+        "requestedPlayerTag": 50,
+        "upperSide": {
+          "sid": 15,
+          "tag": 50,
+          "offset": 652
+        },
+        "heldDown": {
+          "sid": 15,
+          "tag": 50,
+          "offset": 896,
+          "mask": 192
+        },
+        "landing": {
+          "sid": 15,
+          "tag": 50,
+          "offset": 1208
+        }
+      }
+    },
+    {
       "id": "forest-reviewed-vivi-in-cabin",
       "field": 207,
       "sid": 16,
@@ -1684,6 +1744,55 @@
           "tag": 1,
           "offset": 2823,
           "nextField": 1208
+        }
+      }
+    },
+    {
+      "id": "cleyra-alex-reviewed-prison-ladder",
+      "field": 1209,
+      "sid": 5,
+      "uid": 5,
+      "hash": "1658b7009de05a0accdbaa76aa36f02a800ebf29beb8f56a77251acc6b654b78",
+      "kind": "region-confirm",
+      "source": "reviewed-prefix",
+      "priority": 0,
+      "floor": 5030,
+      "ceiling": 5050,
+      "milestone": 5050,
+      "action": "Climb the prison ladder. Press Confirm, then hold Up.",
+      "label": "Prison ladder",
+      "playerSid": 9,
+      "playerUid": 9,
+      "guards": [
+        {
+          "sid": 9,
+          "uid": 9,
+          "hash": "93203b9eaf7e82cd359dc73243ab197de84da932efdbf9b2699861bd16e1f6d3",
+          "expr": "78ff017d9fe4197f"
+        }
+      ],
+      "completion": [],
+      "effects": [
+        {
+          "sid": 5,
+          "uid": 5,
+          "tag": 3,
+          "offset": 95,
+          "hash": "1658b7009de05a0accdbaa76aa36f02a800ebf29beb8f56a77251acc6b654b78",
+          "proof": "reached"
+        }
+      ],
+      "evidence": {
+        "requestedPlayerTag": 13,
+        "sideOfLadder": {
+          "sid": 9,
+          "tag": 13,
+          "offset": 1488
+        },
+        "heldUp": {
+          "sid": 9,
+          "tag": 13,
+          "offset": 1633
         }
       }
     },
@@ -12054,6 +12163,43 @@
           "hash": "f96709b59a8695c0a3d6f802d6745a8b5a8dcc8e9af8dffcf67aee73e7553f07"
         }
       ]
+    },
+    {
+      "id": "forest-reviewed-cabin-descent",
+      "floor": 2055,
+      "ceiling": 2060,
+      "milestone": 2060,
+      "field": 207,
+      "uids": [
+        10
+      ],
+      "action": "Climb down to Vivi. Press Confirm, then hold Down.",
+      "goal": "Evil Forest",
+      "rooms": [
+        {
+          "field": 207,
+          "directorHash": "05c593f3dd98e836d2b47044a9ff9de478d93c45f50d7ded80dab0876d9ff5ba"
+        }
+      ],
+      "guards": [],
+      "links": [],
+      "scope": [
+        207
+      ],
+      "local": {
+        "field": 207,
+        "walkmesh": "9a46fd8d36e31b7f7e1cb691c3df2141b62d9da06040f017587667dfaf005a6b",
+        "triangles": [
+          72,
+          74,
+          75,
+          78,
+          79
+        ],
+        "guards": [
+          "d5207d0200207f"
+        ]
+      }
     },
     {
       "id": "forest-reviewed-vivi-in-cabin",

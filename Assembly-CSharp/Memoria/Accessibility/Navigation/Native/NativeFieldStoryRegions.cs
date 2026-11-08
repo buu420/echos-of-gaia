@@ -52,7 +52,13 @@ namespace Memoria.Accessibility.Navigation
                 if(!geometryRead){geometry=NativeFieldGeometry.Read(context);geometryRead=true;}
                 if(geometry==null)return null;
                 var surface=Surface(geometry,quad);
-                var safe=FieldStoryRegionApproaches.Read(true,true,surface.Approaches,p=>FieldStoryRegionApproaches.Selects(path,engine.NavigationTalkQuadAt(p.X,p.Z),engine.NavigationTouchQuadAt(p.X,p.Z),quad),p=>StorySurfacePresented(field,p),context.Position);
+                bool cabinDescent = path == StoryRegionTrigger.Confirm && context.LogicalMapKey == FieldActorApproaches.WreckedCrewCabin &&
+                    quad.uid == 10 && quad.sid == 10;
+                float arrivalMargin = FieldAnalogMovement.ArrivalRadius(geometry.Radius, 1);
+                var safe=FieldStoryRegionApproaches.Read(true,true,surface.Approaches,
+                    p=>FieldStoryRegionApproaches.Selects(path,engine.NavigationTalkQuadAt(p.X,p.Z),engine.NavigationTouchQuadAt(p.X,p.Z),quad),
+                    p=>(!cabinDescent || FieldRegionApproaches.CanStopInside(surface.Region,p,arrivalMargin)) && StorySurfacePresented(field,p),
+                    context.Position);
                 // Only points whose own detached trigger path proves the offered current step remain.
                 var prove=_storyProofs.Begin(quad.uid+":"+path,context.Generation+":"+context.LogicalMapKey+":"+context.SaveIdentity+":"+context.PlayerIdentity+":"+context.StoryProgress+":"+Fingerprint(quad.ebData),surface,
                     StoryProofMemory(context,engine),Time.frameCount,point=> {

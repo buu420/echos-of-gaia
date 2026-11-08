@@ -580,9 +580,9 @@
     ]
   },
   "reviewedStoryActions": {
-    "steps": 176,
+    "steps": 178,
     "loopActions": 16,
-    "phases": 423
+    "phases": 424
   },
   "retainedInputs": [
     {
@@ -617,7 +617,7 @@
     },
     {
       "path": "docs/accessibility/story-action-chains.json",
-      "sha256": "1ca11941f0c5945cf2800b553d2c1ede0211760acf3a4791a4b73d08ff87efed"
+      "sha256": "e5b129b6c5f354314f9bc09ec0a95e7f68195ebb1a6d0381cb747c06544e5cc9"
     },
     {
       "path": "docs/accessibility/story-palace-actions.json",
@@ -833,7 +833,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldRoutePlanner.cs",
-      "sha256": "541de7a9b181dc534137d251cdce91a442d2abae9b156a22b4e3114d616b44e5"
+      "sha256": "7b7ff362be224bb1bcfe1dc040e99f92134acb33335cadb99de26ac42d80f6fc"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/WorldRoutePlanner.cs",
@@ -849,7 +849,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldStoryRegions.cs",
-      "sha256": "450f325b270cded0f72b5aef2bfe374c4dbe87a2b8a015b5df5c302d2512fff2"
+      "sha256": "e50ae5b5b07465f0dfb63223236f51b51f55feb342576571c1827d2053fdd402"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldExitDestinations.cs",
@@ -893,7 +893,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldTargets.cs",
-      "sha256": "4009dafbb68783c0be7f085771e2c653534e09d5e2d2ff492b1ec812529d6bcd"
+      "sha256": "ff1de013d00569922ebf1dacfa4e471309fc3a4ecf9cc8b5558ca435410f0f13"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryTargets.cs",

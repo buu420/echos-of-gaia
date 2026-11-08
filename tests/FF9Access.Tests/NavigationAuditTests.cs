@@ -17,6 +17,32 @@ namespace FF9Access.Tests
             target.Position=P(500,500,400);target.ApproachCandidates=FieldActorApproaches.Create(context.Position,target.Position,160,540);
             TestAssert.False(new FieldRoutePlanner().Plan(context,target,geometry).Success);
         }
+        public static void CabinViviCanBeApproachedFromTheNativeTalkRange()
+        {
+            const float talkRadius = 398;
+            var context = TestFixtures.Context("field:207:FBG_N03_BSHP_MAP070_BT_GTR_0");
+            context.Position = P(-300, -850);
+            var geometry = new FieldGeometrySnapshot { Generation = 1, ActiveTriangle = 0, Radius = 80,
+                Triangles = new[] {
+                    new FieldTriangle { Id = 0, Vertices = new[] { P(-500, -1300), P(181, -1300), P(-500, -450) }, Neighbors = new[] { -1, 1, -1 } },
+                    new FieldTriangle { Id = 1, Vertices = new[] { P(181, -1300), P(181, -450), P(-500, -450) }, Neighbors = new[] { -1, -1, 0 } }
+                }
+            };
+            var actorId = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, 16);
+            var target = new NavigationTarget { Id = actorId, Generation = 1, IsInteractive = true, Position = P(440, -773, -11) };
+            var planner = new FieldRoutePlanner();
+            target.ApproachCandidates = FieldActorApproaches.Create(context.Position, target.Position, 176, talkRadius);
+            TestAssert.Equal(RouteFailure.TargetOutsideMesh, planner.Plan(context, target, geometry).Failure);
+            // Vivi's collision ring lies past the ledge while the wider talk range reaches the floor.
+            target.ApproachCandidates = FieldActorApproaches.Create(context.Position, target.Position, 176, talkRadius, includeOuterTalkRange: true);
+            var route = planner.Plan(context, target, geometry);
+            TestAssert.True(route.Success);
+            float distance = FieldGeometrySnapshot.Horizontal(route.ApproachPoint, target.Position);
+            TestAssert.True(distance > 176 && distance <= talkRadius - 40);
+            target.Id = new TargetIdentity(TargetKind.Story, context.LogicalMapKey, 2060);
+            target.PhysicalId = actorId;
+            TestAssert.Equal(route.ApproachPoint, planner.Plan(context, target, geometry).ApproachPoint);
+        }
         public static void PreviouslySeenExitRemainsAtObservedApproachAfterScroll()
         {
             var context=TestFixtures.Context();var catalog=new FieldTargetCatalog();

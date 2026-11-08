@@ -70,7 +70,11 @@ namespace Memoria.Accessibility.Navigation
                     bool icon=EIcon.NavigationPresentedUid==obj.uid && OnScreen(field,Vector(context.Position));
                     float collision=player==null?0:Math.Max(player.fieldMapActorController==null?0:player.fieldMapActorController.radius,4*player.collRad)+4*actor.collRad;
                     float talkRadius=player==null?0:4*(player.talkRad+actor.talkRad)+actor.speed+60;
-                    var observation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, obj.uid), NativePresentationIdentity=obj.go==null?0:obj.go.GetInstanceID(),Position = Point(position), Visible = inArea,OutOfView=rendered && mesh && !inArea,ShowsIcon=icon, IsPerson = engine.GetIP(obj.sid, EventEngine.tagTalk, obj.ebData) != engine.nil, HasInteraction = NativeFieldTalkability.IsTalkable(obj) || engine.GetIP(obj.sid, EventEngine.tagPush, obj.ebData) != engine.nil,ApproachCandidates=FieldActorApproaches.Create(context.Position,Point(position),collision,talkRadius) };
+                    // In the wrecked crew cabin Vivi sits beyond the walkmesh, but his native talk radius reaches the floor.
+                    bool cabinVivi = FieldActorApproaches.IsCabinVivi(context, actor.uid) &&
+                        player != null && player.uid == context.PlayerIdentity && actor.sid == 16 && actor.model == 8 && actor.ebData != null &&
+                        Fingerprint(actor.ebData) == "ba8f8ea7e0cd60c97c4f87a1e3fad673645418a7772455c8eb3e8a6fa4d2543f";
+                    var observation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, obj.uid), NativePresentationIdentity=obj.go==null?0:obj.go.GetInstanceID(),Position = Point(position), Visible = inArea,OutOfView=rendered && mesh && !inArea,ShowsIcon=icon, IsPerson = engine.GetIP(obj.sid, EventEngine.tagTalk, obj.ebData) != engine.nil, HasInteraction = NativeFieldTalkability.IsTalkable(obj) || engine.GetIP(obj.sid, EventEngine.tagPush, obj.ebData) != engine.nil,ApproachCandidates=FieldActorApproaches.Create(context.Position,Point(position),collision,talkRadius,cabinVivi) };
                     observation.LabelIdentity=LabelSignature(actor);observation.VisibleLabel=FieldVisibleLabels.Read(actor.model,VisibleBody(actor));
                     string modelName;if(FF9BattleDB.GEO.TryGetValue(actor.model,out modelName)) {
                         if(modelName.StartsWith("GEO_ACC_"))observation.IsPerson=false;

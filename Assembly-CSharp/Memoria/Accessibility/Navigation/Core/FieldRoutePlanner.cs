@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 namespace Memoria.Accessibility.Navigation
 {
     public sealed class FieldRoutePlanner
@@ -11,9 +12,35 @@ namespace Memoria.Accessibility.Navigation
             if(geometry.Generation!=context.Generation || target.Generation!=context.Generation){failure.Failure=RouteFailure.StaleContext;return failure;}
             var start=geometry.Find(geometry.ActiveTriangle);if(!geometry.Permitted(start) || !start.Contains(context.Position))start=geometry.At(context.Position);
             if(start==null){failure.Failure=RouteFailure.StartOutsideMesh;return failure;}
-            NavigationPoint[] candidates=FieldTargetApproaches.Prepare(context,target,geometry);RoutePlan best=null;
-            bool viewing=target.UseViewingPoint && !target.IsInteractive && target.PhysicalIdentity.Kind==TargetKind.FieldActor;
+            var candidates=FieldTargetApproaches.Prepare(context,target,geometry);
             if(candidates.Length==0){failure.Failure=RouteFailure.TargetOutsideMesh;return failure;}
+            var route=PlanFrom(context,target,geometry,start,context.Position,candidates,failure);
+            if (route.Failure != RouteFailure.UnsafeSegment || !target.IsInteractive || target.PhysicalIdentity.Kind != TargetKind.FieldActor ||
+                !FieldActorApproaches.IsCabinVivi(context,target.PhysicalIdentity.NativeId)) return route;
+
+            // The shortest corridor can cut the cabin's inside corner. Both
+            // legs through the center aisle still need full native clearance.
+            var aisle=geometry.Find(62);
+            if (!geometry.Permitted(aisle) || aisle.Id == start.Id) return route;
+            var via=aisle.Center;
+            var first=PlanFrom(context,target,geometry,start,context.Position,new[]{via},new RoutePlan());
+            if (!first.Success) return route;
+            var last=PlanFrom(context,target,geometry,aisle,via,candidates,new RoutePlan());
+            if (!last.Success) return route;
+            last.Origin=context.Position;
+            last.Length+=first.Length;
+            if (first.FieldSteeringWaypoints != null || last.FieldSteeringWaypoints != null)
+                last.FieldSteeringWaypoints=(first.FieldSteeringWaypoints??first.Waypoints).Concat(last.FieldSteeringWaypoints??last.Waypoints).ToArray();
+            last.Waypoints=first.Waypoints.Concat(last.Waypoints).ToArray();
+            last.Corridor=first.Corridor.Concat(last.Corridor.Skip(1)).ToArray();
+            return last;
+        }
+
+        private static RoutePlan PlanFrom(NavigationContext context,NavigationTarget target,FieldGeometrySnapshot geometry,
+            FieldTriangle start,NavigationPoint origin,NavigationPoint[] candidates,RoutePlan failure)
+        {
+            RoutePlan best=null;
+            bool viewing=target.UseViewingPoint && !target.IsInteractive && target.PhysicalIdentity.Kind==TargetKind.FieldActor;
             // Exit samples often share the same support triangle and stair turns.
             // Reuse checks only within this plan, where the geometry and origin are fixed.
             var corridors=new Dictionary<int,int[]>();
@@ -32,20 +59,20 @@ namespace Memoria.Accessibility.Navigation
                     corridors[end.Id]=corridor;
                 }
                 if(corridor==null){failure.Failure=RouteFailure.Disconnected;continue;}
-                var points=CorridorPoints(geometry,corridor,context.Position,approach,portals);if(points==null){failure.Failure=RouteFailure.NarrowPassage;continue;}
+                var points=CorridorPoints(geometry,corridor,origin,approach,portals);if(points==null){failure.Failure=RouteFailure.NarrowPassage;continue;}
                 List<NavigationPoint> steering=null;
                 foreach(int id in corridor)if(geometry.UsesReviewedBoundaryClearance(geometry.Find(id))) {
                     steering=new List<NavigationPoint>();break;
                 }
-                var funnel=Funnel(geometry,corridor,context.Position,approach);
-                var smooth=funnel==null?null:Smooth(geometry,context.Position,funnel,segments,steering);
+                var funnel=Funnel(geometry,corridor,origin,approach);
+                var smooth=funnel==null?null:Smooth(geometry,origin,funnel,segments,steering);
                 if(smooth==null) {
                     if(steering!=null)steering.Clear();
-                    smooth=Smooth(geometry,context.Position,points,segments,steering);
+                    smooth=Smooth(geometry,origin,points,segments,steering);
                 }
                 if(smooth==null){failure.Failure=RouteFailure.UnsafeSegment;continue;}
-                var route=new RoutePlan{Success=true,Failure=RouteFailure.None,TargetId=target.Id,PhysicalId=target.PhysicalId,Generation=context.Generation,Transport=context.Transport,Origin=context.Position,ApproachPoint=approach,Waypoints=smooth.ToArray(),FieldSteeringWaypoints=steering==null?null:steering.ToArray(),Corridor=corridor,GeometryFingerprint=geometry.Fingerprint,ViewingPoint=viewing};
-                var from=context.Position;foreach(var point in route.Waypoints){route.Length+=FieldGeometrySnapshot.Horizontal(from,point);from=point;}
+                var route=new RoutePlan{Success=true,Failure=RouteFailure.None,TargetId=target.Id,PhysicalId=target.PhysicalId,Generation=context.Generation,Transport=context.Transport,Origin=origin,ApproachPoint=approach,Waypoints=smooth.ToArray(),FieldSteeringWaypoints=steering==null?null:steering.ToArray(),Corridor=corridor,GeometryFingerprint=geometry.Fingerprint,ViewingPoint=viewing};
+                var from=origin;foreach(var point in route.Waypoints){route.Length+=FieldGeometrySnapshot.Horizontal(from,point);from=point;}
                 if(viewing)return route; // Viewing candidates are ordered by proximity to the observed object.
                 if(best==null || insideExit && !bestInsideExit || route.Length<best.Length) {
                     best=route;bestInsideExit=insideExit;

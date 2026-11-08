@@ -1,4 +1,4 @@
-Echos of Gaia 0.1.13 beta
+Echos of Gaia 0.1.14 beta
 Final Fantasy IX accessibility mod by buu420
 
 Supported: 64-bit Windows 10/11, Windows Steam FFIX app 377840 build 5378074.
@@ -41,6 +41,10 @@ Use the other trigger or keyboard if a trigger is mapped to a core game action.
 In Hot and Cold, the configured status stick click reads the minigame's status.
 Use normal game controls to interact, choose dialogue and confirm actions.
 
+For a route problem, press Windows+R and open %LOCALAPPDATA%\FF9Access\field-routes.
+Send the newest JSON from the failed attempt and the session's Memoria.log.
+Memoria.log is usually in the FFIX game folder or its x64 subfolder.
+
 The installation log includes a rollback manifest under:
 %LOCALAPPDATA%\EchosOfGaia\Backups
 Keep that path and this extracted release. To undo one standalone deployment,
@@ -78,7 +82,7 @@ Alt-Tab cutoff still need listener confirmation.
 
 Source, current releases, prerequisite links and reports:
 https://github.com/buu420/echos-of-gaia
-https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.13
+https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.14
 
 Based on BlindGuyNW/Memoria and Albeoris/Memoria. The code retains the MIT
 license; dependency and supplied sound notices remain separate. Final Fantasy

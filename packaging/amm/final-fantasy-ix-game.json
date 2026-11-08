@@ -2,7 +2,7 @@
   "gameId": "final-fantasy-ix",
   "displayName": "Final Fantasy IX",
   "modName": "Echos of Gaia (Beta)",
-  "description": "Echos of Gaia adds screen reader support, field and world navigation, automatic walking, battle and menu speech, and optional audio descriptions to Windows Steam Final Fantasy IX. Beta 0.1.13 reads the highlighted battle command, ability, item, and target, including separate labels for Garnet and Prison Cage in Evil Forest. Includes the accessible launcher, double-click standalone installer and 608 narration recordings. Full playthrough and live controller speech need more testing.",
+  "description": "Echos of Gaia adds screen reader support, field and world navigation, automatic walking, battle and menu speech, and optional audio descriptions to Windows Steam Final Fantasy IX. Beta 0.1.14 repairs the route to Vivi in the wrecked Prima Vista crew cabin and guides Steiner to the Alexandria prison ladder. Includes the accessible launcher, double-click standalone installer and 608 narration recordings. Full playthrough and live controller speech need more testing.",
   "steamAppId": "377840",
   "exeName": "FF9_Launcher.exe",
   "probeRules": [

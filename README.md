@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.13 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.13)**
+**[Download 0.1.14 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.14)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,12 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing, including a full playthrough.
+
+0.1.14 repairs manual guidance and automatic walking to Vivi in the wrecked
+Prima Vista crew cabin. Story offers a climb-down step from the upper platform.
+It also guides Steiner to the prison ladder before the Alexandria tower exit.
+Both game runtimes were checked offline. Live controller and scene progression
+are ready for tester feedback.
 
 0.1.13 reads the highlighted battle command, ability, item, and target from
 the active battle menu. If speech fails, it retries the current selection.

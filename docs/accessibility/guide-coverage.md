@@ -6,7 +6,7 @@ The current English event bundle has **818 fields and 16,067 entries**. All were
 
 Story checkpoints are scenario-counter metadata. Native Story step bindings are generated separately (`tools/Export-FF9StorySteps.py`, `story-steps.json`, `story-step-coverage.json`): **192 current-state step bindings** (60 position, 34 region-confirm, 60 region-walk, 38 talk) and 4132 typed transitions (1953 player, 1 position, 2178 scripted). 3138 analysis records describe unproven waits, setters or instances. They do not count missing required steps.
 
-Reviewed packs supply **176 explicit actions, 16 native loop actions and 423 state rules**. Several rules can cover the same action or different entrances to one room. The native approach and current interaction still have to pass at runtime.
+Reviewed packs supply **178 explicit actions, 16 native loop actions and 424 state rules**. Several rules can cover the same action or different entrances to one room. The native approach and current interaction still have to pass at runtime.
 
 The main reference is [bover_87's guide, version 2.01](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/71891); [Andrew_Testa's guide](https://gamefaqs.gamespot.com/ps/197338-final-fantasy-ix/faqs/29957) is the user's additional reference. Short checklists here are original summaries. Guide information is never loaded by the runtime or used to disclose hidden NPC names, rewards or coordinates.
 
