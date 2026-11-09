@@ -1,4 +1,4 @@
-Echos of Gaia 0.1.14 beta
+Echos of Gaia 0.1.15 beta
 Final Fantasy IX accessibility mod by buu420
 
 Supported: 64-bit Windows 10/11, Windows Steam FFIX app 377840 build 5378074.
@@ -82,7 +82,7 @@ Alt-Tab cutoff still need listener confirmation.
 
 Source, current releases, prerequisite links and reports:
 https://github.com/buu420/echos-of-gaia
-https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.14
+https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.15
 
 Based on BlindGuyNW/Memoria and Albeoris/Memoria. The code retains the MIT
 license; dependency and supplied sound notices remain separate. Final Fantasy

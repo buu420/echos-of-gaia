@@ -64,7 +64,12 @@ namespace Memoria.Accessibility.Navigation
         public bool TrySegmentClear(NavigationPoint from,NavigationPoint to,out NavigationPoint[] surface)
         {
             surface=null;if(!from.IsFinite || !to.IsFinite || float.IsNaN(Radius)||float.IsInfinity(Radius))return false;
-            var start=At(from);var end=At(to);var active=Find(ActiveTriangle);
+            return TrySegmentClear(from,to,At(from),At(to),out surface);
+        }
+        internal bool TrySegmentClear(NavigationPoint from,NavigationPoint to,FieldTriangle start,FieldTriangle end,out NavigationPoint[] surface)
+        {
+            surface=null;if(!from.IsFinite || !to.IsFinite || float.IsNaN(Radius)||float.IsInfinity(Radius))return false;
+            var active=Find(ActiveTriangle);
             if(Permitted(active)&&active.Contains(from)&&Math.Abs(active.Height(from)-from.Y)<0.02f)start=active;
             if(start==null || end==null)return false;
             var queue=new Queue<int>();var entries=new Dictionary<int,float>{{start.Id,0}};

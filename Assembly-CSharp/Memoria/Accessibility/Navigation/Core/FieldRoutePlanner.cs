@@ -7,6 +7,10 @@ namespace Memoria.Accessibility.Navigation
     {
         public RoutePlan Plan(NavigationContext context,NavigationTarget target,FieldGeometrySnapshot geometry)
         {
+            return Plan(context, target, geometry, null);
+        }
+        internal RoutePlan Plan(NavigationContext context,NavigationTarget target,FieldGeometrySnapshot geometry,Func<bool> cancelled)
+        {
             var failure=new RoutePlan {TargetId=target.Id,PhysicalId=target.PhysicalId,Generation=context.Generation,Transport=context.Transport,Failure=RouteFailure.GeometryUnavailable,GeometryFingerprint=geometry==null?null:geometry.Fingerprint};
             if(geometry==null || geometry.Triangles.Length==0)return failure;
             if(geometry.Generation!=context.Generation || target.Generation!=context.Generation){failure.Failure=RouteFailure.StaleContext;return failure;}
@@ -14,7 +18,7 @@ namespace Memoria.Accessibility.Navigation
             if(start==null){failure.Failure=RouteFailure.StartOutsideMesh;return failure;}
             var candidates=FieldTargetApproaches.Prepare(context,target,geometry);
             if(candidates.Length==0){failure.Failure=RouteFailure.TargetOutsideMesh;return failure;}
-            var route=PlanFrom(context,target,geometry,start,context.Position,candidates,failure);
+            var route=PlanFrom(context,target,geometry,start,context.Position,candidates,failure,cancelled);
             if (route.Failure != RouteFailure.UnsafeSegment || !target.IsInteractive || target.PhysicalIdentity.Kind != TargetKind.FieldActor ||
                 !FieldActorApproaches.IsCabinVivi(context,target.PhysicalIdentity.NativeId)) return route;
 
@@ -23,9 +27,9 @@ namespace Memoria.Accessibility.Navigation
             var aisle=geometry.Find(62);
             if (!geometry.Permitted(aisle) || aisle.Id == start.Id) return route;
             var via=aisle.Center;
-            var first=PlanFrom(context,target,geometry,start,context.Position,new[]{via},new RoutePlan());
+            var first=PlanFrom(context,target,geometry,start,context.Position,new[]{via},new RoutePlan(),cancelled);
             if (!first.Success) return route;
-            var last=PlanFrom(context,target,geometry,aisle,via,candidates,new RoutePlan());
+            var last=PlanFrom(context,target,geometry,aisle,via,candidates,new RoutePlan(),cancelled);
             if (!last.Success) return route;
             last.Origin=context.Position;
             last.Length+=first.Length;
@@ -37,7 +41,7 @@ namespace Memoria.Accessibility.Navigation
         }
 
         private static RoutePlan PlanFrom(NavigationContext context,NavigationTarget target,FieldGeometrySnapshot geometry,
-            FieldTriangle start,NavigationPoint origin,NavigationPoint[] candidates,RoutePlan failure)
+            FieldTriangle start,NavigationPoint origin,NavigationPoint[] candidates,RoutePlan failure,Func<bool> cancelled)
         {
             RoutePlan best=null;
             bool viewing=target.UseViewingPoint && !target.IsInteractive && target.PhysicalIdentity.Kind==TargetKind.FieldActor;
@@ -46,29 +50,33 @@ namespace Memoria.Accessibility.Navigation
             var corridors=new Dictionary<int,int[]>();
             var portals=new Dictionary<int,NavigationPoint?>();
             var segments=new Dictionary<SegmentKey,NavigationPoint[]>();
+            var supports = new Dictionary<SegmentKey,FieldTriangle>();
+            bool? departureClear = null;
             bool bestInsideExit=false;
             var exitRegion=target.PhysicalIdentity.Kind==TargetKind.FieldExit?target.InteractionRegion:null;
             float arrival=FieldAnalogMovement.ArrivalRadius(geometry.Radius,1);
             foreach(var approach in candidates) {
+                if (cancelled != null && cancelled()) return failure;
                 bool insideExit=FieldRegionApproaches.CanStopInside(exitRegion,approach,arrival);
                 if(bestInsideExit && !insideExit)continue;
-                var end=geometry.At(approach);if(end==null){failure.Failure=RouteFailure.TargetOutsideMesh;continue;}
+                var end=Support(geometry,approach,supports);if(end==null){failure.Failure=RouteFailure.TargetOutsideMesh;continue;}
                 int[] corridor;
                 if(!corridors.TryGetValue(end.Id,out corridor)) {
-                    corridor=Search(geometry,start,end,portals);
+                    corridor=Search(geometry,start,end,portals,cancelled);
                     corridors[end.Id]=corridor;
                 }
                 if(corridor==null){failure.Failure=RouteFailure.Disconnected;continue;}
-                var points=CorridorPoints(geometry,corridor,origin,approach,portals);if(points==null){failure.Failure=RouteFailure.NarrowPassage;continue;}
+                if (!departureClear.HasValue) departureClear = geometry.IsSegmentClear(origin, origin);
+                var points=CorridorPoints(geometry,corridor,approach,departureClear.Value,portals);if(points==null){failure.Failure=RouteFailure.NarrowPassage;continue;}
                 List<NavigationPoint> steering=null;
                 foreach(int id in corridor)if(geometry.UsesReviewedBoundaryClearance(geometry.Find(id))) {
                     steering=new List<NavigationPoint>();break;
                 }
                 var funnel=Funnel(geometry,corridor,origin,approach);
-                var smooth=funnel==null?null:Smooth(geometry,origin,funnel,segments,steering);
+                var smooth=funnel==null?null:Smooth(geometry,origin,funnel,segments,supports,steering);
                 if(smooth==null) {
                     if(steering!=null)steering.Clear();
-                    smooth=Smooth(geometry,origin,points,segments,steering);
+                    smooth=Smooth(geometry,origin,points,segments,supports,steering);
                 }
                 if(smooth==null){failure.Failure=RouteFailure.UnsafeSegment;continue;}
                 var route=new RoutePlan{Success=true,Failure=RouteFailure.None,TargetId=target.Id,PhysicalId=target.PhysicalId,Generation=context.Generation,Transport=context.Transport,Origin=origin,ApproachPoint=approach,Waypoints=smooth.ToArray(),FieldSteeringWaypoints=steering==null?null:steering.ToArray(),Corridor=corridor,GeometryFingerprint=geometry.Fingerprint,ViewingPoint=viewing};
@@ -79,10 +87,11 @@ namespace Memoria.Accessibility.Navigation
                 }
             }return best??failure;
         }
-        private static int[] Search(FieldGeometrySnapshot geometry,FieldTriangle start,FieldTriangle end,Dictionary<int,NavigationPoint?> portals)
+        private static int[] Search(FieldGeometrySnapshot geometry,FieldTriangle start,FieldTriangle end,Dictionary<int,NavigationPoint?> portals,Func<bool> cancelled)
         {
             var open=new List<int>{start.Id};var costs=new Dictionary<int,float>{{start.Id,0}};var parent=new Dictionary<int,int>();var closed=new HashSet<int>();
             while(open.Count>0) {
+                if (cancelled != null && cancelled()) return null;
                 int current=open[0];float score=costs[current]+FieldGeometrySnapshot.Horizontal(geometry.Find(current).Center,end.Center);
                 foreach(int id in open){float value=costs[id]+FieldGeometrySnapshot.Horizontal(geometry.Find(id).Center,end.Center);if(value<score){score=value;current=id;}}
                 open.Remove(current);if(current==end.Id){var result=new List<int>{current};while(parent.ContainsKey(current)){current=parent[current];result.Add(current);}result.Reverse();return result.ToArray();}
@@ -96,13 +105,13 @@ namespace Memoria.Accessibility.Navigation
                 }
             }return null;
         }
-        private static List<NavigationPoint> CorridorPoints(FieldGeometrySnapshot geometry,int[] corridor,NavigationPoint start,NavigationPoint end,Dictionary<int,NavigationPoint?> portals)
+        private static List<NavigationPoint> CorridorPoints(FieldGeometrySnapshot geometry,int[] corridor,NavigationPoint end,bool departureClear,Dictionary<int,NavigationPoint?> portals)
         {
             var result=new List<NavigationPoint>();
             // Native radius forces can leave the resting player within clearance
             // of a boundary. Depart inward on the same support before the portal;
             // Smooth still requires monotone clearance and a fully clear endpoint.
-            if(!geometry.IsSegmentClear(start,start))result.Add(geometry.Find(corridor[0]).Center);
+            if(!departureClear)result.Add(geometry.Find(corridor[0]).Center);
             for(int i=0;i<corridor.Length;i++) {
                 var triangle=geometry.Find(corridor[i]);if(i>0)result.Add(triangle.Center);
                 if(i+1<corridor.Length) {
@@ -112,12 +121,12 @@ namespace Memoria.Accessibility.Navigation
                 }
             }result.Add(end);return result;
         }
-        private static List<NavigationPoint> Smooth(FieldGeometrySnapshot geometry,NavigationPoint start,List<NavigationPoint> points,Dictionary<SegmentKey,NavigationPoint[]> segments,List<NavigationPoint> steering)
+        private static List<NavigationPoint> Smooth(FieldGeometrySnapshot geometry,NavigationPoint start,List<NavigationPoint> points,Dictionary<SegmentKey,NavigationPoint[]> segments,Dictionary<SegmentKey,FieldTriangle> supports,List<NavigationPoint> steering)
         {
             var result=new List<NavigationPoint>();int index=0;
             while(index<points.Count) {
                 int farthest=-1;NavigationPoint[] surface=null;
-                for(int i=points.Count-1;i>=index;i--)if(Segment(geometry,start,points[i],segments,out surface)){farthest=i;break;}
+                for(int i=points.Count-1;i>=index;i--)if(Segment(geometry,start,points[i],segments,supports,out surface)){farthest=i;break;}
                 if(farthest<0)return null;
                 result.AddRange(surface);
                 start=surface[surface.Length-1];
@@ -140,14 +149,25 @@ namespace Memoria.Accessibility.Navigation
             return point.HasValue;
         }
         private static bool Segment(FieldGeometrySnapshot geometry,NavigationPoint start,NavigationPoint end,
-            Dictionary<SegmentKey,NavigationPoint[]> cache,out NavigationPoint[] surface)
+            Dictionary<SegmentKey,NavigationPoint[]> cache,Dictionary<SegmentKey,FieldTriangle> supports,out NavigationPoint[] surface)
         {
             var key=new SegmentKey(start,end);
             if(!cache.TryGetValue(key,out surface)) {
-                if(!geometry.TrySegmentClear(start,end,out surface))surface=null;
+                if(!geometry.TrySegmentClear(start,end,Support(geometry,start,supports),Support(geometry,end,supports),out surface))surface=null;
                 if(cache.Count<4096)cache.Add(key,surface);
             }
             return surface!=null;
+        }
+        private static FieldTriangle Support(FieldGeometrySnapshot geometry, NavigationPoint point, Dictionary<SegmentKey,FieldTriangle> cache)
+        {
+            var key = new SegmentKey(point, point);
+            FieldTriangle triangle;
+            if (!cache.TryGetValue(key, out triangle))
+            {
+                triangle = geometry.At(point);
+                if (cache.Count < 4096) cache.Add(key, triangle);
+            }
+            return triangle;
         }
         private struct SegmentKey : IEquatable<SegmentKey>
         {

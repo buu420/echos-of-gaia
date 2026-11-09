@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading;
 using UnityEngine;
 namespace Memoria.Accessibility.Navigation
 {
@@ -9,6 +11,11 @@ namespace Memoria.Accessibility.Navigation
         private static readonly HashSet<string> _captures=new HashSet<string>();
         private static long _interruptionGeneration;
         private static int _interruptionCount;
+        private static int _queuedCaptures;
+        private static FieldGeometrySnapshot _geometry;
+        private static string _geometryMap;
+        private static int _geometryNativeMap;
+
         public static void CaptureInterruption(NavigationContext context,NavigationTarget target,RoutePlan route,FieldMovementCapture movement)
         {
             if(context==null || target==null || route==null || movement==null || route.Generation!=context.Generation)return;
@@ -16,14 +23,9 @@ namespace Memoria.Accessibility.Navigation
             if(_interruptionCount>=8)return;
             _interruptionCount++;
             // This is an event-only capture after movement release, not frame work.
-            var geometry=Read(context);var raw=CaptureRaw(context);
-            if(geometry==null || raw==null)return;
-            string payload=FieldRouteDiagnostics.SerializeWithMovementCapture(context,target,geometry,route,raw,movement);
-            string directory=System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"FF9Access/field-routes");
-            System.IO.Directory.CreateDirectory(directory);
-            string path=System.IO.Path.Combine(directory,DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")+"-interrupted-"+movement.Owner+".json");
-            System.IO.File.WriteAllText(path,payload);
-            Memoria.Prime.Log.Message("[FF9Access] Field interruption snapshot ({0}): {1}",movement.Cause,path);
+            var geometry=Read(context);
+            if(geometry==null)return;
+            QueueCapture(context, target, geometry, route, movement, "-interrupted-" + movement.Owner);
         }
         // Keep the existing call boundary; capture successful plans as paired evidence.
         // Raw arrays are detached only here, never in the per-frame Read.
@@ -33,21 +35,60 @@ namespace Memoria.Accessibility.Navigation
             if(_captureGeneration!=context.Generation){_captureGeneration=context.Generation;_captures.Clear();}
             string key=target.Id+":"+geometry.Fingerprint+":"+route.Failure;
             if(_captures.Count>=16 || !_captures.Add(key))return;
-            try {
-                var raw=CaptureRaw(context);if(raw==null)return;
-                string payload=FieldRouteDiagnostics.SerializeWithNativeCapture(context,target,geometry,route,raw);
-                string directory=System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"FF9Access/field-routes");
-                System.IO.Directory.CreateDirectory(directory);
-                string path=System.IO.Path.Combine(directory,DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")+"-"+target.Id.NativeId+".json");
-                System.IO.File.WriteAllText(path,payload);
-                Memoria.Prime.Log.Message("[FF9Access] Field route snapshot ({0}): {1}",route.Success?"success":"failure",path);
-            }catch(Exception exception){Memoria.Prime.Log.Message("[FF9Access] Field route snapshot unavailable: {0}",exception.Message);}
+            QueueCapture(context, target, geometry, route, null, "-" + target.Id.NativeId);
+        }
+
+        private static void QueueCapture(NavigationContext context, NavigationTarget target, FieldGeometrySnapshot geometry,
+            RoutePlan route, FieldMovementCapture movement, string suffix)
+        {
+            // Bound detached snapshots even if writing is slow or routes are requested in quick succession.
+            if (Interlocked.Increment(ref _queuedCaptures) > 4)
+            {
+                Interlocked.Decrement(ref _queuedCaptures);
+                return;
+            }
+            bool scheduled = false;
+            try
+            {
+                var raw = CaptureRaw(context);
+                if (raw == null) return;
+                var origin = context.Copy();
+                var selected = FieldTargetCatalog.Copy(target);
+                string name = DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff") + suffix + ".json";
+                scheduled = ThreadPool.QueueUserWorkItem(delegate
+                {
+                    try
+                    {
+                        string payload = FieldRouteDiagnostics.SerializeWithMovementCapture(origin, selected, geometry, route, raw, movement);
+                        string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "FF9Access/field-routes");
+                        Directory.CreateDirectory(directory);
+                        string path = Path.Combine(directory, name);
+                        File.WriteAllText(path, payload);
+                        if (movement == null) Memoria.Prime.Log.Message("[FF9Access] Field route snapshot ({0}): {1}", route.Success ? "success" : "failure", path);
+                        else Memoria.Prime.Log.Message("[FF9Access] Field interruption snapshot ({0}): {1}", movement.Cause, path);
+                    }
+                    catch (Exception exception) { Memoria.Prime.Log.Message("[FF9Access] Field route snapshot unavailable: {0}", exception.Message); }
+                    finally { Interlocked.Decrement(ref _queuedCaptures); }
+                });
+            }
+            catch (Exception exception) { Memoria.Prime.Log.Message("[FF9Access] Field route snapshot unavailable: {0}", exception.Message); }
+            finally { if (!scheduled) Interlocked.Decrement(ref _queuedCaptures); }
         }
         public static FieldGeometrySnapshot Read(NavigationContext context)
         {
             // Scene teardown or malformed native arrays produce no planner input;
             // never return a partial mesh after skipping malformed triangles.
-            try {return ReadAvailable(context);}catch(Exception){return null;}
+            try
+            {
+                var snapshot = ReadAvailable(context);
+                if (snapshot == null) _geometry = null;
+                return snapshot;
+            }
+            catch (Exception)
+            {
+                _geometry = null;
+                return null;
+            }
         }
         private static FieldGeometrySnapshot ReadAvailable(NavigationContext context)
         {
@@ -56,6 +97,25 @@ namespace Memoria.Accessibility.Navigation
             if(runtimeTriangles==null || bgi.triList==null || bgi.floorList==null || bgi.vertexList==null || bgi.edgeList==null || bgi.normalList==null)return null;
             int map=FF9StateSystem.Common.FF9.fldMapNo;
             byte blocked=(byte)(actor.sid==engine.GetControlUID()?0x80:0x40);
+            float radius = controller.radius;
+            if (float.IsNaN(radius) || float.IsInfinity(radius) || radius < 0) return null;
+
+            var result = new FieldGeometrySnapshot
+            {
+                Generation = context.Generation, Radius = radius, ActiveTriangle = controller.activeTri,
+                AttributeMask = bgi.attributeMask, BlockedAttributes = blocked
+            };
+            // Player support changes while walking even when the geometry is stable.
+            // Return a fresh view, with the previously detached triangles and route identity.
+            if (_geometry != null && _geometryNativeMap == map && _geometryMap == context.LogicalMapKey && _geometry.Generation == result.Generation &&
+                _geometry.Radius == result.Radius && _geometry.AttributeMask == result.AttributeMask &&
+                _geometry.BlockedAttributes == result.BlockedAttributes && MatchesTriangles(bgi, runtimeTriangles, _geometry.Triangles))
+            {
+                result.Triangles = _geometry.Triangles;
+                result.Fingerprint = _geometry.Fingerprint;
+                return result;
+            }
+
             var triangles=new FieldTriangle[runtimeTriangles.Count];
             for(int index=0;index<runtimeTriangles.Count;index++) {
                 var runtime=runtimeTriangles[index];
@@ -88,11 +148,67 @@ namespace Memoria.Accessibility.Navigation
                     Plane=native.d,ThetaX=native.thetaX,ThetaZ=native.thetaZ,Projection=FieldNativeGeometryContract.Projection(native.normalNdx,normal)};
                 triangles[index]=FieldNativeGeometryContract.CreateTriangle(index,runtime.floorIdx,map,data);if(triangles[index]==null)return null;
             }
-            if(float.IsNaN(controller.radius)||float.IsInfinity(controller.radius)||controller.radius<0)return null;
-            var result=new FieldGeometrySnapshot{Generation=context.Generation,Triangles=triangles,Radius=controller.radius,ActiveTriangle=controller.activeTri,AttributeMask=bgi.attributeMask,BlockedAttributes=blocked};
+            result.Triangles = triangles;
             // Projection camera is presentation state, not movement geometry.
-            result.Fingerprint=FieldNativeGeometryContract.Fingerprint(context.LogicalMapKey,result);return result;
+            result.Fingerprint = FieldNativeGeometryContract.Fingerprint(context.LogicalMapKey, result);
+            _geometryMap = context.LogicalMapKey;
+            _geometryNativeMap = map;
+            _geometry = result;
+            return result;
         }
+
+        private static bool MatchesTriangles(BGI_DEF bgi, List<WalkMeshTriangle> runtimeTriangles, FieldTriangle[] captured)
+        {
+            if (runtimeTriangles.Count != captured.Length || bgi.triList.Count < captured.Length)
+                return false;
+            Vector3 mapOffset = bgi.curPos.ToVector3();
+            for (int i = 0; i < captured.Length; i++)
+            {
+                var runtime = runtimeTriangles[i];
+                var native = bgi.triList[i];
+                var old = captured[i].Native;
+                if (runtime == null || native == null || runtime.triIdx != i || native.triIdx != i ||
+                    runtime.floorIdx != captured[i].Floor || native.floorNdx != runtime.floorIdx ||
+                    runtime.originalVertices == null || runtime.originalVertices.Length != 3 || !Three(runtime.neighborIdx) ||
+                    !Three(native.vertexNdx) || !Three(native.neighborNdx) || !Three(native.edgeNdx))
+                    return false;
+
+                // The low 0x80 bit is native traversal scratch, also excluded by the fingerprint.
+                if (((runtime.triFlags ^ old.RuntimeFlags) & ~0x80) != 0 || ((native.triFlags ^ old.NativeFlags) & ~0x80) != 0 ||
+                    native.normalNdx != old.NormalIndex || native.d != old.Plane || native.thetaX != old.ThetaX || native.thetaZ != old.ThetaZ)
+                    return false;
+                if (native.normalNdx >= 0)
+                {
+                    var normal = bgi.normalList[native.normalNdx];
+                    if (normal == null || !Three(normal.coord) || normal.oneOverY != old.NormalInverseY ||
+                        normal.coord[0] != old.Normal.X || normal.coord[1] != old.Normal.Y || normal.coord[2] != old.Normal.Z)
+                        return false;
+                }
+
+                var floor = bgi.floorList[runtime.floorIdx];
+                if (floor == null) return false;
+                Vector3 floorOffset = floor.curPos.ToVector3();
+                if (!SamePoint(old.FloorDelta, floorOffset - floor.orgPos.ToVector3())) return false;
+                Vector3 offset = mapOffset + floorOffset;
+                for (int edge = 0; edge < 3; edge++)
+                {
+                    int normalized = (edge + 2) % 3;
+                    if (runtime.neighborIdx[edge] != old.RuntimeNeighbors[normalized] ||
+                        native.neighborNdx[edge] != old.NativeNeighbors[normalized] ||
+                        bgi.edgeList[native.edgeNdx[edge]].edgeClone != old.EdgeClones[normalized] ||
+                        !SamePoint(old.OriginalVertices[edge], runtime.originalVertices[edge]) ||
+                        !SamePoint(old.CrossingVertices[edge], bgi.vertexList[native.vertexNdx[edge]].ToVector3() + offset))
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        private static bool SamePoint(NavigationPoint captured, Vector3 current)
+        {
+            return captured.X == current.x && captured.Y == current.y && captured.Z == current.z;
+        }
+
         private static FieldMapActorController Controller(NavigationContext context,out EventEngine engine,out Actor actor)
         {
             engine=UnityEngine.Object.FindObjectOfType<EventEngine>();actor=engine==null?null:engine.GetControlChar() as Actor;

@@ -104,7 +104,7 @@ namespace Memoria.Accessibility.Navigation
             }
             result.Targets.Clear();foreach(var target in replaced)result.Targets.Add(target);
         }
-        private static NavigationTarget Copy(NavigationTarget source)
+        internal static NavigationTarget Copy(NavigationTarget source)
         {return new NavigationTarget{Id=source.Id,Category=source.Category,Label=source.Label,Availability=source.Availability,Position=source.Position,Evidence=source.Evidence,Generation=source.Generation,IsInteractive=source.IsInteractive,NativeLocationId=source.NativeLocationId,ApproachCandidates=source.ApproachCandidates==null?null:(NavigationPoint[])source.ApproachCandidates.Clone(),InteractionUid=source.InteractionUid,InteractionRegion=source.InteractionRegion==null?null:(NavigationPoint[])source.InteractionRegion.Clone(),UseViewingPoint=source.UseViewingPoint,UseApprovedApproaches=source.UseApprovedApproaches,PhysicalId=source.PhysicalId,StoryMilestones=source.StoryMilestones==null?null:(int[])source.StoryMilestones.Clone(),NextFields=source.NextFields==null?null:(int[])source.NextFields.Clone(),DestinationApproaches=FieldExitDestinations.Copy(source.DestinationApproaches),StoryAction=source.StoryAction,StoryStepMilestone=source.StoryStepMilestone,StoryVerb=source.StoryVerb};}
         private static bool SameRegion(NavigationPoint[] a,NavigationPoint[] b)
         {if(a==null || b==null)return a==b;if(a.Length!=b.Length)return false;for(int i=0;i<a.Length;i++)if(!SamePoint(a[i],b[i]))return false;return true;}

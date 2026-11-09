@@ -777,7 +777,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldTargetCatalog.cs",
-      "sha256": "952987fa321892596989170a41037b225ff6338c0f8c4c8b2517802115b35ee3"
+      "sha256": "fd6d8fc3b9f058c5743effafaf7fa260d33da2e70774c233ca32bc2d499e060d"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldTargetApproaches.cs",
@@ -817,7 +817,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NavigationModels.cs",
-      "sha256": "f3097a688b87f543a807253c056b59e133734d46cb3df25a7c1221bdf9e39e81"
+      "sha256": "95cf0e054bc273a61fb1c8d37ee3147a5de34e0a24ca8e4038187c6ad0a649af"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/RouteGuidanceProgress.cs",
@@ -833,7 +833,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldRoutePlanner.cs",
-      "sha256": "7b7ff362be224bb1bcfe1dc040e99f92134acb33335cadb99de26ac42d80f6fc"
+      "sha256": "303c052728f6f0d05dbd2e997ccad216d2695666f98af5ca4a5088f8f341a3cc"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/WorldRoutePlanner.cs",
@@ -905,7 +905,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationRuntime.cs",
-      "sha256": "e68fed056a435f30c63e1609aefbb5cf373a6f7b10522ab7e3261ba7a9dc3b0e"
+      "sha256": "d04aca9a3612c942529fd9fcfbf5959200c9bfea45c08f7dda9f75863ca0e873"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationLifecycleBridge.cs",

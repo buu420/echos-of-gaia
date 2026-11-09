@@ -56,6 +56,8 @@ namespace Memoria.Accessibility.Navigation
         public int WorldControlType=-1;
         public GateReason GateReason;
         public BattleTransition BattleTransition;
+
+        internal NavigationContext Copy() { return (NavigationContext)MemberwiseClone(); }
     }
     public sealed class RouteDecision
     {

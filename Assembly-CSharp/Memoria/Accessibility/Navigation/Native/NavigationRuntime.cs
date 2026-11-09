@@ -15,6 +15,7 @@ namespace Memoria.Accessibility.Navigation
         private static RoutePlan _route;private static NavigationTarget _routeTarget;
         private static RouteGuidanceProgress _guideProgress;
         private static readonly OwnedWorldPlanner _worldPlanner=new OwnedWorldPlanner();
+        private static readonly OwnedFieldPlanner _fieldPlanner = new OwnedFieldPlanner();
         private static long _worldRequest,_nextWorldRequest;
         private static System.Diagnostics.Stopwatch _planTimer;
         private static RouteOperation _planning;private static MovementObservation _pending;private static bool _quietGuidancePlan;
@@ -74,6 +75,11 @@ namespace Memoria.Accessibility.Navigation
                 if(!String.IsNullOrEmpty(NativeNavigationInput.Diagnostic))update.Diagnostics.Add(NativeNavigationInput.Diagnostic);
                 if(_exitReached && context.CanControl){update.Messages.Add("Selected exit reached. "+context.CurrentLocation+".");_exitReached=false;}
                 if(update.RouteOperation!=RouteOperation.None && update.Selected!=null && context.CanControl)BeginPlan(update.RouteOperation,update.Selected,update.RefreshGuidance);
+                if (!world && _planning != RouteOperation.None && update.Session.Mode != RouteMode.Guiding && update.Session.Mode != RouteMode.Moving)
+                {
+                    _fieldPlanner.Cancel();
+                    _planning = RouteOperation.None;
+                }
                 if(_planning!=RouteOperation.None && context.CanControl && update.Selected!=null && _routeTarget.Id.Equals(update.Selected.Id))ApplyPlan(context,update.Selected,world,update.Session.IsAutomatic);
                 NavigationLifecycleBridge.Acknowledge(context);
                 string traceKey=context.Generation+":"+context.LogicalMapKey+":"+context.CanControl+":"+context.GateReason;
@@ -167,16 +173,17 @@ namespace Memoria.Accessibility.Navigation
         {
             if(!quiet || _planning==RouteOperation.None)
                 _priorGuidanceFailure=quiet && _route!=null && _route.PhysicalIdentity.Equals(target.PhysicalIdentity)?_route.Failure:RouteFailure.None;
-            CancelWorldPlan();_planTimer=System.Diagnostics.Stopwatch.StartNew();_planning=operation;_quietGuidancePlan=quiet;
+            CancelWorldPlan();_fieldPlanner.Cancel();_planTimer=System.Diagnostics.Stopwatch.StartNew();_planning=operation;_quietGuidancePlan=quiet;
             _routeTarget=target;_planningAttempts=0;_route=null;_pending=null;
         }
         private static void ApplyPlan(NavigationContext context,NavigationTarget target,bool world,bool automatic)
         {
             if(target.Category==NavigationCategory.Story && !target.PhysicalId.HasValue) {
-                CancelWorldPlan();_planning=RouteOperation.None;_route=null;
+                CancelWorldPlan();_fieldPlanner.Cancel();_planning=RouteOperation.None;_route=null;
                 _pending=new MovementObservation{Outcome=MovementOutcome.Unavailable,Evidence=target.Availability,Notice=target.Availability};return;
             }
             RoutePlan route;
+            FieldGeometrySnapshot field = null;
             bool requestedMovement=_planning==RouteOperation.StartAutomatic || _planning==RouteOperation.ReplanAutomatic;
             if(world && target.PhysicalIdentity.Kind==TargetKind.Vehicle && EIcon.NavigationPresentedUid==target.PhysicalIdentity.NativeId) {
                 CancelWorldPlan();_planning=RouteOperation.None;_route=null;
@@ -205,12 +212,38 @@ namespace Memoria.Accessibility.Navigation
                     route=new RoutePlan{Generation=context.Generation,TargetId=target.Id,Transport=context.Transport,Failure=RouteFailure.TerrainUnavailable,GeometryFingerprint=NativeWorldGeometry.CurrentFingerprint()};
                 }
             }else {
-                var geometry=NativeFieldGeometry.Read(context);route=new FieldRoutePlanner().Plan(context,target,geometry);
-                NativeFieldGeometry.CaptureFailure(context,target,geometry,route);
+                field = NativeFieldGeometry.Read(context);
+                if (field == null)
+                {
+                    _fieldPlanner.Cancel();
+                    route = new RoutePlan
+                    {
+                        TargetId = target.Id, PhysicalId = target.PhysicalId, Generation = context.Generation,
+                        Transport = context.Transport, Failure = RouteFailure.GeometryUnavailable
+                    };
+                }
+                else
+                {
+                    FieldPlanResult completed;
+                    if (!_fieldPlanner.TryTake(out completed))
+                    {
+                        if (_fieldPlanner.TryStart(context, target, field)) ReleaseOwned(StopReason.Explicit);
+                        return;
+                    }
+                    if (!completed.IsCurrent(context, target, field))
+                    {
+                        if (_planningAttempts++ == 0) Trace("Field route completion rejected after live route inputs changed.");
+                        return;
+                    }
+                    route = completed.Route;
+                    Trace("Field route search completed; search_ms=" + completed.ElapsedMilliseconds + "; request_ms=" + _planTimer.ElapsedMilliseconds);
+                    if (completed.Error != null) Trace("Field route worker unavailable; error=" + completed.Error);
+                    NativeFieldGeometry.CaptureFailure(completed.Origin, completed.Target, completed.Geometry, route);
+                }
             }
             _planning=RouteOperation.None;
             _route=route;_routeTarget=target;
-            if(route.Success){var field=world?null:NativeFieldGeometry.Read(context);_guideProgress=new RouteGuidanceProgress(route.Origin,route.Waypoints,world,world?0.5f:field==null?1:field.Radius);}
+            if(route.Success)_guideProgress=new RouteGuidanceProgress(route.Origin,route.Waypoints,world,world?0.5f:field==null?1:field.Radius);
             Trace("Route "+target.Id+"; success="+route.Success+"; failure="+route.Failure+"; points="+route.Waypoints.Length+"; fingerprint="+route.GeometryFingerprint);
             if(!route.Success) {
                 string reason=RouteReason(route.Failure);
@@ -236,6 +269,7 @@ namespace Memoria.Accessibility.Navigation
                 _minigameInspection=false;NativeChocoboHotCold.Reset();
             }
             CancelWorldPlan();
+            if (reason != StopReason.ManualMovement) _fieldPlanner.Cancel();
             ReleaseOwned(reason);
             if(reason==StopReason.MapChanged || reason==StopReason.SaveChanged || reason==StopReason.Battle || reason==StopReason.TransportChanged || reason==StopReason.TargetChanged || reason==StopReason.TargetLost){_route=null;_routeTarget=null;_guideProgress=null;_planning=RouteOperation.None;_pending=null;_announcer.ResetPending();}
             else if(reason!=StopReason.ManualMovement)_planning=RouteOperation.None;

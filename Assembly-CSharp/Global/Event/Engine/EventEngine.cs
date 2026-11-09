@@ -1055,25 +1055,24 @@ public partial class EventEngine : PersistenSingleton<EventEngine>
 
     public Int32 GetIP(Int32 objID, Int32 tagID, Byte[] eventData)
     {
-        if (eventData.Length == 0)
+        Int32 length = eventData.Length;
+        if (length == 0)
             return this.nil;
+        if (length < 2)
+            throw new EndOfStreamException();
 
-        using (MemoryStream memoryStream = new MemoryStream(eventData))
+        // An entry's little-endian function table is already in memory.
+        // Navigation can query the same table for hundreds of approaches in one frame.
+        Int32 end = 2 + 4 * eventData[1];
+        for (Int32 position = 2; position < end; position += 4)
         {
-            using (BinaryReader binaryReader = new BinaryReader(memoryStream))
-            {
-                binaryReader.ReadByte();
-                Byte count = binaryReader.ReadByte();
-                for (Int32 i = 0; i < count; ++i)
-                {
-                    UInt16 id = (UInt16)binaryReader.ReadInt16();
-                    UInt16 offset = (UInt16)binaryReader.ReadInt16();
-                    if (id == tagID)
-                        return 2 + offset;
-                }
-                return this.nil;
-            }
+            if (position + 3 >= length)
+                throw new EndOfStreamException();
+            Int32 id = eventData[position] | (eventData[position + 1] << 8);
+            if (id == tagID)
+                return 2 + (eventData[position + 2] | (eventData[position + 3] << 8));
         }
+        return this.nil;
     }
 
     public ObjList DisposeObj(Obj obj)

@@ -18,14 +18,15 @@ namespace Memoria.Accessibility.Navigation
         }
         public static string SerializeWithMovementCapture(NavigationContext context,NavigationTarget target,FieldGeometrySnapshot geometry,RoutePlan route,FieldNativeCapture native,FieldMovementCapture movement)
         {
-            var text=new StringBuilder("{\"Schema\":1,\"Context\":");Write(text,context,0);
-            text.Append(",\"Target\":");Write(text,target,0);text.Append(",\"Geometry\":");Write(text,geometry,0);
-            text.Append(",\"Route\":");Write(text,route,0);
-            if(native!=null){text.Append(",\"Native\":");Write(text,native,0);}
-            if(movement!=null){text.Append(",\"Movement\":");Write(text,movement,0);}
+            var fieldsByType = new Dictionary<Type, FieldInfo[]>();
+            var text=new StringBuilder("{\"Schema\":1,\"Context\":");Write(text,context,0,fieldsByType);
+            text.Append(",\"Target\":");Write(text,target,0,fieldsByType);text.Append(",\"Geometry\":");Write(text,geometry,0,fieldsByType);
+            text.Append(",\"Route\":");Write(text,route,0,fieldsByType);
+            if(native!=null){text.Append(",\"Native\":");Write(text,native,0,fieldsByType);}
+            if(movement!=null){text.Append(",\"Movement\":");Write(text,movement,0,fieldsByType);}
             return text.Append('}').ToString();
         }
-        private static void Write(StringBuilder text,object value,int depth)
+        private static void Write(StringBuilder text,object value,int depth,Dictionary<Type, FieldInfo[]> fieldsByType)
         {
             if(depth>16)throw new InvalidOperationException("Field snapshot exceeds the detached value depth.");
             if(value==null){text.Append("null");return;}
@@ -40,7 +41,7 @@ namespace Memoria.Accessibility.Navigation
             }
             if(type.IsPrimitive || value is decimal){text.Append(Convert.ToString(value,CultureInfo.InvariantCulture));return;}
             var array=value as Array;
-            if(array!=null) {text.Append('[');for(int i=0;i<array.Length;i++){if(i>0)text.Append(',');Write(text,array.GetValue(i),depth+1);}text.Append(']');return;}
+            if(array!=null) {text.Append('[');for(int i=0;i<array.Length;i++){if(i>0)text.Append(',');Write(text,array.GetValue(i),depth+1,fieldsByType);}text.Append(']');return;}
             var approaches=value as Dictionary<int,NavigationPoint[]>;
             if(approaches!=null) {
                 var destinations=new List<int>(approaches.Keys);
@@ -51,15 +52,20 @@ namespace Memoria.Accessibility.Navigation
                     int destination=destinations[i];
                     Quote(text,destination.ToString(CultureInfo.InvariantCulture));
                     text.Append(':');
-                    Write(text,approaches[destination],depth+1);
+                    Write(text,approaches[destination],depth+1,fieldsByType);
                 }
                 text.Append('}');
                 return;
             }
             if(type.Namespace!=typeof(NavigationContext).Namespace)throw new InvalidOperationException("Field snapshot must contain navigation values only.");
-            var fields=type.GetFields(BindingFlags.Public|BindingFlags.Instance);
-            Array.Sort(fields,delegate(FieldInfo a,FieldInfo b){return String.CompareOrdinal(a.Name,b.Name);});
-            text.Append('{');for(int i=0;i<fields.Length;i++){if(i>0)text.Append(',');Quote(text,fields[i].Name);text.Append(':');Write(text,fields[i].GetValue(value),depth+1);}text.Append('}');
+            FieldInfo[] fields;
+            if (!fieldsByType.TryGetValue(type, out fields))
+            {
+                fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
+                Array.Sort(fields, delegate(FieldInfo a, FieldInfo b) { return String.CompareOrdinal(a.Name, b.Name); });
+                fieldsByType.Add(type, fields);
+            }
+            text.Append('{');for(int i=0;i<fields.Length;i++){if(i>0)text.Append(',');Quote(text,fields[i].Name);text.Append(':');Write(text,fields[i].GetValue(value),depth+1,fieldsByType);}text.Append('}');
         }
         private static void Quote(StringBuilder text,string value)
         {
