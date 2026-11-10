@@ -14,16 +14,34 @@ public partial class BattleHUD : UIScene
     private Int32 _lastBattleSpeechRow;
     private String _lastBattleSpeechText;
     private Single _battleSpeechRetryAt;
+    private Int32 _battleCommandSpeechLogs;
 
     protected override void AnnounceButtonForScreenReader(GameObject go)
     {
-        if (!IsBattleSpeechGroup(ButtonGroupState.ActiveGroup))
+        String group = ButtonGroupState.ActiveGroup;
+        if (IsBattleSpeechGroup(group))
+            UpdateBattleMenuSpeech(group, go);
+        else
             base.AnnounceButtonForScreenReader(go);
     }
 
     private void LateUpdate()
     {
         String group = ButtonGroupState.ActiveGroup;
+        GameObject selection = ButtonGroupState.ActiveButton;
+        if (group == CommandGroupButton)
+        {
+            // NGUI sets its selection first. ButtonGroupState may commit it later in the frame.
+            GameObject current = UICamera.SelectedObjectForAccessibility;
+            if (current != null && current.activeInHierarchy && CommandPanel != null &&
+                current.transform.parent == CommandPanel.transform && current.GetComponent<ButtonGroupState>()?.GroupName == group)
+                selection = current;
+        }
+        UpdateBattleMenuSpeech(group, selection);
+    }
+
+    private void UpdateBattleMenuSpeech(String group, GameObject selection)
+    {
         UIManager ui = PersistenSingleton<UIManager>.Instance;
         ScreenReaderManager reader = ScreenReaderManager.Instance;
         // Native navigation can commit focus before the label is populated or the fade is done.
@@ -42,7 +60,7 @@ public partial class BattleHUD : UIScene
             return;
         try
         {
-            ReadBattleMenuFocus(group, reader, now);
+            ReadBattleMenuFocus(group, selection, reader, now);
         }
         catch (Exception error)
         {
@@ -54,6 +72,8 @@ public partial class BattleHUD : UIScene
     private void OnDisable()
     {
         ClearBattleSpeechFocus();
+        _battleCommandSpeechLogs = 0;
+        _battleSpeechRetryAt = 0f;
     }
 
     private void ClearBattleSpeechFocus()
@@ -69,9 +89,8 @@ public partial class BattleHUD : UIScene
         return group == CommandGroupButton || group == ItemGroupButton || group == AbilityGroupButton || group == TargetGroupButton;
     }
 
-    private void ReadBattleMenuFocus(String group, ScreenReaderManager reader, Single now)
+    private void ReadBattleMenuFocus(String group, GameObject selection, ScreenReaderManager reader, Single now)
     {
-        GameObject selection = ButtonGroupState.ActiveButton;
         Int32 row = -1;
         RecycleListItem listItem = null;
         String text;
@@ -116,8 +135,13 @@ public partial class BattleHUD : UIScene
 
         Boolean accepted = reader.TrySpeak(announcement, true);
         Boolean wasRetrying = _battleSpeechRetryAt > 0f;
-        if (accepted ? wasRetrying || group != _lastBattleSpeechGroup : !wasRetrying)
-            Log.Message($"[FF9Access] Battle menu speech: group={group}; accepted={accepted}; backend={reader.BackendDiagnostic}");
+        Boolean traceCommandChange = group == CommandGroupButton && _battleCommandSpeechLogs < 32;
+        if (accepted ? wasRetrying || group != _lastBattleSpeechGroup || traceCommandChange : !wasRetrying)
+        {
+            if (group == CommandGroupButton)
+                _battleCommandSpeechLogs++;
+            Log.Message($"[FF9Access] Battle menu speech: group={group}; row={row}; player={CurrentPlayerIndex}; accepted={accepted}; backend={reader.BackendDiagnostic}");
+        }
         _battleSpeechRetryAt = accepted ? 0f : now + 1f;
         _lastBattleSpeechText = accepted ? text : null;
         if (!accepted)
@@ -136,7 +160,12 @@ public partial class BattleHUD : UIScene
         if (selection == null || !selection.activeInHierarchy)
             return null;
         if (group == CommandGroupButton)
-            return selection.transform.parent == CommandPanel.transform ? GetBattleChildLabel(selection, 0) : null;
+        {
+            if (CommandPanel == null || selection.transform.parent != CommandPanel.transform)
+                return null;
+            row = selection.transform.GetSiblingIndex();
+            return GetBattleChildLabel(selection, 0);
+        }
         if (group == TargetGroupButton)
         {
             for (Int32 i = 0; i < _targetPanel.AllTargets.Length; i++)

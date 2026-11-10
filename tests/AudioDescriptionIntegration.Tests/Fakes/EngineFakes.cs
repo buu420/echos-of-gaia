@@ -114,13 +114,6 @@ namespace Memoria.ScreenReader
         public bool IsSpeaking() { return false; }
         public void Dispose() { }
     }
-    public sealed class TolkSpeechBackend : ISpeechBackend
-    {
-        public string Name { get { return "FakeTolk"; } }
-        public bool Initialize() { return false; }
-        public bool Output(string text, bool interrupt) { return false; }
-        public void Stop() { } public bool IsSpeaking() { return false; } public void Dispose() { }
-    }
     internal static class SpeechDiagnostics
     {
         public static string LastWriteFailure { get; private set; }

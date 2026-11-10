@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.15 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.15)**
+**[Download 0.1.16 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.16)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,11 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing, including a full playthrough.
+
+0.1.16 interrupts the previous item or gear description when the selection
+moves. Battle speech follows the highlighted command in fights such as Baku.
+The game and launcher use Prism for screen reader speech. If the connection
+fails, the mod reconnects and retries the current announcement once.
 
 0.1.15 reduces field navigation stalls, including the Alexandria Castle
 hallways. Route searches and diagnostic file writes run in the background,
@@ -108,15 +113,13 @@ ZIP and open **Install-EchosOfGaia.exe**; the installer finds Steam libraries,
 offers a labelled game-folder field and Browse button, and displays progress
 and a readable log. Users do not need to open PowerShell or type commands.
 
-This release retains 0.1.2's recovery when Prism is detected but rejects speech output. The
-same announcement is retried through the bundled compatibility backend, and
-native Prism error codes are logged. Listening on affected tester PCs and
-the reported Alt-Tab speech cutoff still need confirmation.
+Speech diagnostics in %LOCALAPPDATA%\FF9Access\speech.log include the
+active Prism backend and native output errors.
 
 ## Features
 
-- Native menu, dialogue and battle-target speech, using Prism with Tolk/SAPI
-  fallback, and an accessible Memoria launcher with speech testing and settings.
+- Native menu, dialogue and battle-target speech through Prism, and an
+  accessible Memoria launcher with speech testing and settings.
 - Field categories for Story, Exits, People, Objects and Items. World categories
   for Story, Towns, Regions and Vehicles, including parked transport.
 - Spoken route legs such as "left 2" and "up 5", updated at turns, plus optional

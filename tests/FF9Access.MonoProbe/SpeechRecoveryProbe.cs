@@ -6,6 +6,7 @@ internal static class SpeechRecoveryProbe
 {
     private static Assembly _reader;
     private static string _faultLibrary;
+    private static int _opens;
     private static int Main(string[] args)
     {
         try {
@@ -21,43 +22,42 @@ internal static class SpeechRecoveryProbe
             Type managerType = _reader.GetType("Memoria.ScreenReader.ScreenReaderManager", true);
             Type backendType = _reader.GetType("Memoria.ScreenReader.ISpeechBackend", true);
             Type factoryType = typeof(Func<>).MakeGenericType(backendType);
-            Delegate preferred = Factory("CreatePreferred", factoryType, backendType);
-            Delegate compatibility = Factory("CreateCompatibility", factoryType, backendType);
+            MethodInfo generic = typeof(SpeechRecoveryProbe).GetMethod("CreatePrism", BindingFlags.Static | BindingFlags.NonPublic).MakeGenericMethod(backendType);
+            Delegate factory = Delegate.CreateDelegate(factoryType, generic);
             Func<DateTime> clock = () => DateTime.UtcNow;
             ConstructorInfo constructor = managerType.GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic,
-                null, new Type[] { factoryType, factoryType, typeof(Func<DateTime>) }, null);
-            object manager = constructor.Invoke(new object[] { preferred, compatibility, clock });
+                null, new Type[] { factoryType, typeof(Func<DateTime>) }, null);
+            object manager = constructor.Invoke(new object[] { factory, clock });
             try {
                 managerType.GetMethod("Initialize").Invoke(manager, null);
                 string name = (string)managerType.GetMethod("GetScreenReaderName").Invoke(manager, null);
                 if (!name.Contains("Injected output failure")) throw new InvalidOperationException("Fault backend did not initialize");
-                string text = "Final Fantasy IX compatibility speech recovery validation.";
-                bool accepted = (bool)managerType.GetMethod("TrySpeak").Invoke(manager, new object[] { text, false });
+                MethodInfo speak = managerType.GetMethod("TrySpeak");
+                if (!(bool)speak.Invoke(manager, new object[] { "Current focus", true }) || _opens != 1)
+                    throw new InvalidOperationException("A braille error repeated speech Prism already accepted");
+                if ((bool)speak.Invoke(manager, new object[] { "Rejected text", true }) || _opens != 1
+                    || (string)managerType.GetProperty("LastAnnouncement").GetValue(manager, null) != "Current focus")
+                    throw new InvalidOperationException("A text rejection replaced the current Prism backend or announcement");
+                string text = "\0Final Fantasy IX Prism\0speech check. \uD800";
+                string expected = "Final Fantasy IX Prism speech check. \uFFFD";
+                bool accepted = (bool)speak.Invoke(manager, new object[] { text, false });
                 string diagnostic = (string)managerType.GetProperty("BackendDiagnostic").GetValue(manager, null);
                 if (!accepted) throw new InvalidOperationException("Rejected native output did not recover: " + diagnostic);
-                if ((string)managerType.GetProperty("LastAnnouncement").GetValue(manager, null) != text
-                    || (long)managerType.GetProperty("OutputSerial").GetValue(manager, null) != 1
-                    || (long)managerType.GetProperty("SpeechGeneration").GetValue(manager, null) != 2)
+                if ((string)managerType.GetProperty("LastAnnouncement").GetValue(manager, null) != expected
+                    || (long)managerType.GetProperty("OutputSerial").GetValue(manager, null) != 2
+                    || (long)managerType.GetProperty("SpeechGeneration").GetValue(manager, null) != 2 || _opens != 2)
                     throw new InvalidOperationException("Recovered output acceptance or backend ownership is incorrect");
-                if (!diagnostic.Contains("fallback") || !diagnostic.Contains("Tolk ") || !diagnostic.Contains("Prism error 6"))
-                    throw new InvalidOperationException("Native error or compatibility backend was not reported: " + diagnostic);
+                if (!diagnostic.StartsWith("Prism: ", StringComparison.Ordinal) || !diagnostic.Contains("(reconnected)"))
+                    throw new InvalidOperationException("Prism reconnect was not reported: " + diagnostic);
                 Console.WriteLine("PASS Mono speech output recovery " + architecture + ": " + diagnostic + "; reader=" + _reader.Location);
                 System.Threading.Thread.Sleep(1000);
             } finally { managerType.GetMethod("Dispose").Invoke(manager, null); }
             return 0;
         } catch (Exception exception) { Console.Error.WriteLine("FAIL Mono speech recovery: " + exception); return 1; }
     }
-    private static Delegate Factory(string method, Type factoryType, Type backendType)
+    private static T CreatePrism<T>()
     {
-        MethodInfo generic = typeof(SpeechRecoveryProbe).GetMethod(method, BindingFlags.Static | BindingFlags.NonPublic).MakeGenericMethod(backendType);
-        return Delegate.CreateDelegate(factoryType, generic);
-    }
-    private static T CreatePreferred<T>()
-    {
-        return (T)Activator.CreateInstance(_reader.GetType("Memoria.ScreenReader.PrismSpeechBackend", true), new object[] { _faultLibrary });
-    }
-    private static T CreateCompatibility<T>()
-    {
-        return (T)Activator.CreateInstance(_reader.GetType("Memoria.ScreenReader.TolkSpeechBackend", true));
+        Type prism = _reader.GetType("Memoria.ScreenReader.PrismSpeechBackend", true);
+        return (T)(++_opens == 1 ? Activator.CreateInstance(prism, new object[] { _faultLibrary }) : Activator.CreateInstance(prism));
     }
 }

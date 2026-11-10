@@ -521,7 +521,7 @@ public class EquipUI : UIScene
             }
 
             if (!String.IsNullOrEmpty(announcement))
-                ScreenReaderManager.Instance.Speak(announcement, false);
+                ScreenReaderManager.Instance.SpeakInterrupt(announcement);
         }
         catch (Exception e)
         {

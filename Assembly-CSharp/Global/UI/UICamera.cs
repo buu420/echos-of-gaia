@@ -347,6 +347,8 @@ public class UICamera : MonoBehaviour
         }
     }
 
+    internal static GameObject SelectedObjectForAccessibility => mSelected;
+
     public static GameObject selectedObject
     {
         get

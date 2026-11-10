@@ -109,7 +109,22 @@ public class UILocalize : UnityEngine.MonoBehaviour { public string key; }
 public class UIInput : UnityEngine.MonoBehaviour { }
 public class UITable : UnityEngine.MonoBehaviour { }
 public class UIKeyNavigation : UnityEngine.MonoBehaviour { public UnityEngine.GameObject onUp,onDown; public bool wrapUpDown; }
-public class UICamera { public static UnityEngine.GameObject selectedObject; public static int currentTouchID; }
+public class UICamera
+{
+    private static UnityEngine.GameObject selection;
+    public static int currentTouchID;
+    public static UnityEngine.GameObject selectedObject
+    {
+        get
+        {
+            if (selection != null && selection.activeInHierarchy) return selection;
+            selection = null;
+            return null;
+        }
+        set => selection = value;
+    }
+    internal static UnityEngine.GameObject SelectedObjectForAccessibility => selection;
+}
 public class UIEventListener
 {
     public delegate void VoidDelegate(UnityEngine.GameObject go);
@@ -300,18 +315,19 @@ namespace Memoria.Scenes
 }
 namespace Memoria.ScreenReader
 {
-    public static class SpeechOutput { public static readonly List<string> Text = new List<string>(); public static readonly List<bool> Interrupts=new List<bool>(); public static bool Accept=true, CompatibilityAccept; public static int Attempts; }
+    public static class SpeechOutput { public static readonly List<string> Text = new List<string>(); public static readonly List<bool> Interrupts=new List<bool>(); public static bool Accept=true; public static int Attempts, RejectionsRemaining; }
     public class PrismSpeechBackend : ISpeechBackend
     {
-        public int LastError=>SpeechOutput.Accept?0:6;
+        public int LastError { get; private set; }
         public string Name=>"Fixture"; public bool Initialize()=>true;
-        public bool Output(string text,bool interrupt) { SpeechOutput.Attempts++; if(!SpeechOutput.Accept)return false; SpeechOutput.Interrupts.Add(interrupt); SpeechOutput.Text.Add(text); return true; }
-        public bool IsSpeaking()=>false; public void Stop() { } public void Dispose() { }
-    }
-    public class TolkSpeechBackend : ISpeechBackend
-    {
-        public string Name=>"Compatibility fixture"; public bool Initialize()=>SpeechOutput.CompatibilityAccept;
-        public bool Output(string text,bool interrupt) { SpeechOutput.Attempts++; if(!SpeechOutput.CompatibilityAccept)return false; SpeechOutput.Interrupts.Add(interrupt); SpeechOutput.Text.Add(text); return true; }
+        public bool Output(string text,bool interrupt) {
+            SpeechOutput.Attempts++;
+            bool reject = !SpeechOutput.Accept || SpeechOutput.RejectionsRemaining > 0;
+            if (SpeechOutput.RejectionsRemaining > 0) SpeechOutput.RejectionsRemaining--;
+            LastError = reject ? 6 : 0;
+            if (reject) return false;
+            SpeechOutput.Interrupts.Add(interrupt); SpeechOutput.Text.Add(text); return true;
+        }
         public bool IsSpeaking()=>false; public void Stop() { } public void Dispose() { }
     }
     public static class SpeechDiagnostics { public static string LastWriteFailure=>null; public static string LogPath=>null; public static void Write(string text) { } }

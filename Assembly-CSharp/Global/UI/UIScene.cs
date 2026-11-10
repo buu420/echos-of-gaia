@@ -336,6 +336,8 @@ public class UIScene : MonoBehaviour
         //noLabel.SetRawRect(0f, noLabel.transform.localPosition.y, 120f, noLabel.height); // Unneeded: it is anchored to yesLabel
     }
 
+    protected virtual Boolean InterruptSelectionSpeech => false;
+
     /// <summary>Announce button text for screen readers when button is selected</summary>
     protected virtual void AnnounceButtonForScreenReader(GameObject go)
     {
@@ -349,7 +351,7 @@ public class UIScene : MonoBehaviour
                 if (IsButtonDisabled(go))
                     announcement += ", disabled";
 
-                ScreenReaderManager.Instance.Speak(announcement, false);
+                ScreenReaderManager.Instance.Speak(announcement, InterruptSelectionSpeech);
             }
         }
         catch (Exception e)

@@ -11,7 +11,7 @@ $buildManifest=Get-Content -LiteralPath (Join-Path $StageRoot 'build-manifest.js
 $sourceCommit=& git -C $sourceRoot -c maintenance.auto=false rev-parse HEAD
 if($buildManifest.SourceCommit -ne $sourceCommit){throw 'Staged binaries were built from another source commit; rebuild before packaging'}
 if($buildManifest.Mode -ne 'All' -or @($buildManifest.Architectures).Count -ne 2 -or $buildManifest.Architectures -notcontains 'x86' -or $buildManifest.Architectures -notcontains 'x64'){throw 'Packaging requires a complete All/Both staged build'}
-$productChanges=& git -C $sourceRoot -c maintenance.auto=false status --porcelain --untracked-files=normal -- Assembly-CSharp Memoria.Scripts Memoria.Patcher/StreamingAssets/Data Memoria.Patcher/StreamingAssets/Shaders Memoria.Patcher/FF9_Data Memoria.ScreenReader Memoria.XInputDotNetPure Memoria.Prime Memoria.Launcher Memoria.MSBuild assets docs/accessibility native/descriptions native/spatial native/memoria-support UnityEngine.UI_LICENSE tools/Build-FF9Access.ps1 tools/Build-DescriptionSpeech.ps1 tools/Package-FF9Access.ps1 tools/FF9Access.Deployment.ps1
+$productChanges=& git -C $sourceRoot -c maintenance.auto=false status --porcelain --untracked-files=normal -- Assembly-CSharp Memoria.Scripts Memoria.Patcher/StreamingAssets/Data Memoria.Patcher/StreamingAssets/Shaders Memoria.Patcher/FF9_Data Memoria.ScreenReader Memoria.XInputDotNetPure Memoria.Prime Memoria.Launcher Memoria.MSBuild assets docs/accessibility native/descriptions native/spatial native/speech native/memoria-support UnityEngine.UI_LICENSE tools/Build-FF9Access.ps1 tools/Build-DescriptionSpeech.ps1 tools/Package-FF9Access.ps1 tools/FF9Access.Deployment.ps1
 if($productChanges){throw 'Commit and review product changes, then rebuild before packaging'}
 $nativeRoot=Join-Path $sourceRoot 'native/speech'
 $speechManifest=Get-Content -LiteralPath (Join-Path $nativeRoot 'manifest.json') -Raw | ConvertFrom-Json
@@ -61,23 +61,21 @@ foreach ($arch in @('x86','x64')) {
         $path=Join-Path $StageRoot "Game/$arch/$name"
         if (Test-Path -LiteralPath $path) { AddPayload $path "$arch/FF9_Data/Managed/$name" 'ManagedDependency' 'MSIL' }
     }
-    $bits=if ($arch -eq 'x86') {'32'} else {'64'}
-    foreach ($name in @('prism.dll','Tolk.dll',"nvdaControllerClient$bits.dll")) {
-        $path=Join-Path $nativeRoot "$arch/$name"
-        AddPayload $path "$arch/$name" 'SpeechNative' $arch
-        AddPayload $path "$arch/FF9_Data/Managed/$name" 'SpeechNative' $arch
-    }
+    $prism=Join-Path $nativeRoot "$arch/prism.dll"
+    AddPayload $prism "$arch/prism.dll" 'SpeechNative' $arch
+    AddPayload $prism "$arch/FF9_Data/Managed/prism.dll" 'SpeechNative' $arch
 }
 AddPayload (Join-Path $StageRoot 'Launcher/Memoria.Launcher.exe') 'FF9_Launcher.exe' 'Launcher' 'x86'
 AddPayload (Join-Path $StageRoot 'Launcher/Memoria.Launcher.exe.config') 'FF9_Launcher.exe.config' 'LauncherConfig' ''
 foreach ($name in @('Memoria.ScreenReader.dll','Microsoft.Bcl.AsyncInterfaces.dll','SharpCompress.dll','System.Buffers.dll','System.Memory.dll','System.Numerics.Vectors.dll','System.Runtime.CompilerServices.Unsafe.dll','System.Text.Encoding.CodePages.dll','System.Threading.Tasks.Extensions.dll')) {
     AddPayload (Join-Path $StageRoot "Launcher/$name") $name 'LauncherDependency' 'MSIL'
 }
-foreach ($name in @('prism.dll','Tolk.dll','nvdaControllerClient32.dll')) { AddPayload (Join-Path $nativeRoot "x86/$name") $name 'SpeechNative' 'x86' }
-foreach ($file in Get-ChildItem -LiteralPath $nativeRoot -File -Recurse) {
-    $relative=$file.FullName.Substring($nativeRoot.Length+1).Replace('\','/')
-    if ($relative -notmatch '^x(86|64)/') { AddPayload $file.FullName ('accessibility/speech/'+$relative) 'NoticeOrSource' '' }
+AddPayload (Join-Path $nativeRoot 'x86/prism.dll') 'prism.dll' 'SpeechNative' 'x86'
+foreach ($file in $speechManifest.Files) {
+    $relative=$file.Path.Replace('\','/')
+    if ($relative -notmatch '^x(86|64)/') { AddPayload (Get-FF9OwnedPath $nativeRoot $relative) ('accessibility/speech/'+$relative) 'NoticeOrSource' '' }
 }
+AddPayload (Join-Path $nativeRoot 'manifest.json') 'accessibility/speech/manifest.json' 'NoticeOrSource' ''
 AddPayload (Join-Path $sourceRoot 'LICENSE') 'accessibility/LICENSE' 'Notice' ''
 foreach($name in @('description-speech.cpp','README.md')){AddPayload (Join-Path $sourceRoot "native/descriptions/$name") ("accessibility/description-speech/"+$name) 'NoticeOrSource' ''}
 $descriptionRoot=Join-Path $sourceRoot 'assets/audio-descriptions'

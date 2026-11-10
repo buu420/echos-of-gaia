@@ -5,15 +5,15 @@ namespace Memoria.ScreenReader
     {
         private static readonly ScreenReaderManager _instance = new ScreenReaderManager();
         private readonly object _sync = new object();
-        private readonly Func<ISpeechBackend> _preferred, _fallback;
+        private readonly Func<ISpeechBackend> _createBackend;
         private readonly Func<DateTime> _clock;
         private ISpeechBackend _backend;
         private DateTime _nextAttempt;
-        private bool _disposed, _enabled = true, _usingFallback;
+        private bool _disposed, _enabled = true;
         private long _outputSerial;
         public static ScreenReaderManager Instance { get { return _instance; } }
-        private ScreenReaderManager() : this(() => new PrismSpeechBackend(), () => new TolkSpeechBackend(), () => DateTime.UtcNow) { }
-        internal ScreenReaderManager(Func<ISpeechBackend> preferred, Func<ISpeechBackend> fallback, Func<DateTime> clock) { _preferred = preferred; _fallback = fallback; _clock = clock; }
+        private ScreenReaderManager() : this(() => new PrismSpeechBackend(), () => DateTime.UtcNow) { }
+        internal ScreenReaderManager(Func<ISpeechBackend> createBackend, Func<DateTime> clock) { _createBackend = createBackend; _clock = clock; }
         public string LastAnnouncement { get; private set; }
         public string BackendDiagnostic { get; private set; }
         public long SpeechGeneration { get; private set; }
@@ -28,25 +28,28 @@ namespace Memoria.ScreenReader
                 if (_disposed || _backend != null || _clock() < _nextAttempt) return;
                 _nextAttempt = _clock().AddSeconds(5);
                 string failure;
-                _backend = TryCreate(_preferred, out failure);
-                _usingFallback = false;
-                if (_backend != null) SetDiagnostic("Prism: " + _backend.Name);
-                else {
-                    string fallbackFailure;
-                    _backend = TryCreate(_fallback, out fallbackFailure);
-                    _usingFallback = true;
-                    SetDiagnostic(_backend == null ? "Speech unavailable. " + failure + "; " + fallbackFailure : "Speech compatibility fallback: " + _backend.Name + ". Prism unavailable: " + failure);
-                }
-                if (_backend != null) SpeechGeneration++;
+                if (OpenBackend(out failure))
+                    SetDiagnostic("Prism: " + _backend.Name);
+                else
+                    SetDiagnostic("Prism unavailable. " + failure);
             }
         }
-        private static ISpeechBackend TryCreate(Func<ISpeechBackend> factory, out string failure)
+        private bool OpenBackend(out string failure)
         {
             ISpeechBackend backend = null;
-            try { backend = factory(); if (backend != null && backend.Initialize()) { failure = null; return backend; } failure = "No active speech backend"; }
+            try {
+                backend = _createBackend();
+                if (backend != null && backend.Initialize()) {
+                    _backend = backend;
+                    SpeechGeneration++;
+                    failure = null;
+                    return true;
+                }
+                failure = "No active speech backend";
+            }
             catch (Exception exception) { failure = exception.Message; }
             if (backend != null) try { backend.Dispose(); } catch (Exception exception) { failure += "; cleanup: " + exception.Message; }
-            return null;
+            return false;
         }
         private void SetDiagnostic(string message) { BackendDiagnostic = message; SpeechDiagnostics.Write(message); }
         // Existing scene callers detach here. Only process quit owns native disposal.
@@ -57,38 +60,54 @@ namespace Memoria.ScreenReader
         }
         public bool TrySpeak(string text,bool interrupt=false)
         {
-            if (!_enabled || string.IsNullOrEmpty(text)) return false;
+            if (!_enabled) return false;
+            text = PrepareText(text);
+            if (string.IsNullOrEmpty(text)) return false;
             lock (_sync) {
                 Initialize(); if (_backend == null || _disposed) return false;
                 string failure;
-                if (TryOutput(text, interrupt, out failure)) return true;
-                bool tryFallback = !_usingFallback;
-                DiscardBackend();
-                // Availability does not prove delivery. A preferred backend can initialize
-                // successfully while every output fails; do not keep reselecting it and
-                // leave the same menu selection unread when compatibility output works.
-                if (tryFallback) {
-                    string fallbackFailure;
-                    _backend = TryCreate(_fallback, out fallbackFailure);
-                    _usingFallback = true;
-                    if (_backend != null) {
-                        SpeechGeneration++;
-                        SetDiagnostic("Speech compatibility fallback: " + _backend.Name + ". Prism output failed: " + failure);
-                        if (TryOutput(text, interrupt, out fallbackFailure)) return true;
-                        DiscardBackend();
+                bool textRejected;
+                if (TryOutput(text, interrupt, out failure, out textRejected)) return true;
+                if (!textRejected) {
+                    DiscardBackend();
+                    string reconnectFailure;
+                    if (OpenBackend(out reconnectFailure)) {
+                        if (TryOutput(text, interrupt, out reconnectFailure, out textRejected)) {
+                            SetDiagnostic("Prism: " + _backend.Name + " (reconnected)");
+                            return true;
+                        }
+                        if (!textRejected) DiscardBackend();
                     }
-                    failure += "; compatibility failed: " + fallbackFailure;
+                    failure += "; reconnect: " + reconnectFailure;
                 }
-                SetDiagnostic("Speech output failed: " + failure);
-                _nextAttempt = _clock().AddSeconds(1);
+                SetDiagnostic("Prism output failed: " + failure);
+                if (_backend == null) _nextAttempt = _clock().AddSeconds(1);
                 return false;
             }
         }
-        private bool TryOutput(string text, bool interrupt, out string failure)
+        private static string PrepareText(string text)
         {
+            if (string.IsNullOrEmpty(text)) return text;
+            char[] corrected = null;
+            // Unity's Mono encodes orphaned UTF-16 surrogates as invalid UTF-8.
+            for (int i = 0; i < text.Length; i++) {
+                char current = text[i];
+                if (char.IsHighSurrogate(current) && i + 1 < text.Length && char.IsLowSurrogate(text[i + 1])) {
+                    i++;
+                } else if (current == '\0' || char.IsSurrogate(current)) {
+                    if (corrected == null) corrected = text.ToCharArray();
+                    corrected[i] = current == '\0' ? ' ' : '\uFFFD';
+                }
+            }
+            return corrected == null ? text : new string(corrected).Trim();
+        }
+        private bool TryOutput(string text, bool interrupt, out string failure, out bool textRejected)
+        {
+            textRejected = false;
             try {
                 if (_backend.Output(text, interrupt)) { _outputSerial++; LastAnnouncement = text; SpeechDiagnostics.Write("Output " + _backend.Name + ": " + text); failure = null; return true; }
                 var prism = _backend as PrismSpeechBackend;
+                textRejected = prism != null && prism.LastError == 13; // PRISM_ERROR_INVALID_UTF8
                 failure = _backend.Name + (prism == null ? "" : " (Prism error " + prism.LastError + ")");
             } catch (Exception exception) { failure = _backend.Name + ": " + exception.Message; }
             SpeechDiagnostics.Write("Speech output failed: " + failure);

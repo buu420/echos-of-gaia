@@ -32,7 +32,7 @@ internal static class Program
             ("world opening uses the same menu lifecycle", WorldOpening),
             ("unrelated and inactive selections stay silent", UnrelatedSelection),
             ("rejected opening speech retries after backend cooldown", RejectedOpening),
-            ("rejected primary opening reads once through compatibility", CompatibilityOpening),
+            ("rejected opening reads once after Prism reconnects", ReconnectOpening),
             ("retry reads latest selection without per-frame retry logs", RetryLatestSelection),
             ("hide cancels rejected delivery", HideCancelsRetry),
             ("scene change cancels rejected delivery", SceneChangeCancelsRetry),
@@ -47,6 +47,8 @@ internal static class Program
             ("callback recovery retains foreground ownership and latest selection", RecoveryWaitsForForeground),
             ("battle reads the settled command even when its callback is skipped", BattleSpeechTests.SettledCommand),
             ("battle reads current command, item and target across native focus changes", BattleSpeechTests.ItemAndTargets),
+            ("battle command callbacks speak immediately after Prism reconnects", BattleSpeechTests.NativeCommandCallbackReadsLatestAfterPrismReconnect),
+            ("battle reads the native directional selection before group bookkeeping", BattleSpeechTests.DirectionalFocusPrecedesGroupBookkeeping),
             ("battle waits for visible labels and current recycled rows", BattleSpeechTests.RecycledAbility),
             ("battle retries only current focus after rejected speech", BattleSpeechTests.RetryCurrentFocus),
             ("battle keeps speech with the foreground HUD", BattleSpeechTests.ForegroundAndVisibility),
@@ -217,21 +219,21 @@ internal static class Program
         f.Buttons["Item"].SetActive(false); f.Menu.OnItemSelect(f.Buttons["Item"]);
         Equal(0,SpeechOutput.Text.Count,"Only shown main-menu selections are spoken");
     }
-    private static void CompatibilityOpening()
+    private static void ReconnectOpening()
     {
-        var f=new Fixture(); SpeechOutput.Accept=false; SpeechOutput.CompatibilityAccept=true;
+        var f=new Fixture(); SpeechOutput.RejectionsRemaining=1;
         f.Ready(); Sequence("Item");
-        Equal(2,SpeechOutput.Attempts,"Preferred rejection must retry compatibility once");
+        Equal(2,SpeechOutput.Attempts,"Prism rejection must retry once after reconnecting");
         f.Tick(); f.Advance(2); f.Tick();
         Equal(2,SpeechOutput.Attempts,"Accepted opening must not keep retrying");
         ButtonGroupState.ActiveButton=f.Buttons["Ability"];
         Sequence("Item","Ability");
-        Equal(3,SpeechOutput.Attempts,"Later selections must keep the working compatibility backend");
+        Equal(3,SpeechOutput.Attempts,"Later selections must keep the working Prism backend");
     }
     private static void RejectedOpening()
     {
         var f=new Fixture(); SpeechOutput.Accept=false; f.Ready();
-        Equal(1,SpeechOutput.Attempts,"First opening delivery should reach native backend");
+        Equal(2,SpeechOutput.Attempts,"First opening delivery should get one reconnect attempt");
         SpeechOutput.Accept=true; f.Advance(1.01f); f.Tick(); Sequence("Item");
         f.Tick(); Sequence("Item");
     }
@@ -243,7 +245,7 @@ internal static class Program
         for(int i=0;i<20;i++)f.Tick();
         Equal(logCount,Memoria.Prime.Log.Messages.Count,"Waiting frames must not flood the log");
         f.Advance(.5f); SpeechOutput.Accept=true; ButtonGroupState.ActiveButton=f.Buttons["Config"]; f.Tick();
-        Equal(1,SpeechOutput.Attempts,"Cooldown must not reach backend before one second");
+        Equal(2,SpeechOutput.Attempts,"Cooldown must not reach backend before one second");
         f.Advance(.51f); f.Tick(); Sequence("Config");
     }
     private static void HideCancelsRetry()
@@ -268,7 +270,7 @@ internal static class Program
         var f=new Fixture(); f.Ready(); SpeechOutput.Text.Clear(); SpeechOutput.Attempts=0;
         SpeechOutput.Accept=false; ButtonGroupState.ActiveButton=f.Buttons["Status"];
         HonoInputManager.Activated=false; SpeechOutput.Accept=true; f.Advance(1.01f); f.Tick();
-        Equal(1,SpeechOutput.Attempts,"Background retry must wait for activation");
+        Equal(2,SpeechOutput.Attempts,"Background retry must wait for activation");
         ButtonGroupState.ActiveButton=f.Buttons["Config"]; f.Tick();
         HonoInputManager.Activated=true; f.Tick(); Sequence("Config");
     }
@@ -306,7 +308,7 @@ internal static class Program
         private DateTime now = new DateTime(2026,10,26,0,0,0,DateTimeKind.Utc);
         public Fixture()
         {
-            SpeechOutput.Text.Clear(); SpeechOutput.Accept=true; SpeechOutput.CompatibilityAccept=false; SpeechOutput.Attempts=0;
+            SpeechOutput.Text.Clear(); SpeechOutput.Accept=true; SpeechOutput.RejectionsRemaining=0; SpeechOutput.Attempts=0;
             Memoria.Prime.Log.Errors.Clear(); Memoria.Prime.Log.Messages.Clear(); ButtonGroupState.Reset();
             Time.realtimeSinceStartup=0; Time.frameCount=0; HonoInputManager.Activated=true;
             // Control the actual speech facade's clock/backoff at the native-output boundary.

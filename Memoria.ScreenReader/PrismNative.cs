@@ -11,12 +11,16 @@ namespace Memoria.ScreenReader
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void FreeCall(IntPtr handle);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate IntPtr PointerCall(IntPtr handle);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate int OutputCall(IntPtr backend, IntPtr utf8, [MarshalAs(UnmanagedType.I1)] bool interrupt);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate int BrailleCall(IntPtr backend, IntPtr utf8);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate int StatusCall(IntPtr backend, [MarshalAs(UnmanagedType.I1)] out bool speaking);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate int StopCall(IntPtr backend);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate ulong FeaturesCall(IntPtr backend);
+        private const ulong Speaks = 1UL << 2, Braille = 1UL << 4, SpeakingStatus = 1UL << 6, Stops = 1UL << 7;
         private IntPtr _library, _context, _backend;
         private InitCall _init; private FreeCall _shutdown, _freeBackend; private PointerCall _createBest, _name;
-        private OutputCall _output; private StatusCall _status; private StopCall _stop; private FeaturesCall _features;
+        private OutputCall _output, _speak; private BrailleCall _braille;
+        private StatusCall _status; private StopCall _stop; private FeaturesCall _features;
+        private ulong _capabilities;
         public string Name { get; private set; }
         public int LastError { get; private set; }
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)] private static extern IntPtr LoadLibraryEx(string path, IntPtr reserved, uint flags);
@@ -31,6 +35,7 @@ namespace Memoria.ScreenReader
                 _init = Bind<InitCall>("prism_init"); _shutdown = Bind<FreeCall>("prism_shutdown");
                 _createBest = Bind<PointerCall>("prism_registry_create_best"); _freeBackend = Bind<FreeCall>("prism_backend_free");
                 _name = Bind<PointerCall>("prism_backend_name"); _output = Bind<OutputCall>("prism_backend_output");
+                _speak = Bind<OutputCall>("prism_backend_speak"); _braille = Bind<BrailleCall>("prism_backend_braille");
                 _status = Bind<StatusCall>("prism_backend_is_speaking"); _stop = Bind<StopCall>("prism_backend_stop"); _features = Bind<FeaturesCall>("prism_backend_get_features");
                 _context = _init(IntPtr.Zero); if (_context == IntPtr.Zero) throw new InvalidOperationException("Prism context initialization failed");
             } catch { Dispose(); throw; }
@@ -44,20 +49,35 @@ namespace Memoria.ScreenReader
         {
             if (_backend != IntPtr.Zero) return true;
             _backend = _createBest(_context); if (_backend == IntPtr.Zero) return false;
-            Name = ReadUtf8(_name(_backend)); return true;
+            Name = ReadUtf8(_name(_backend));
+            _capabilities = _features(_backend);
+            return true;
         }
         public bool Output(string text, bool interrupt)
         {
             if (_backend == IntPtr.Zero) return false;
+            if (string.IsNullOrEmpty(text)) { LastError = 13; return false; }
             byte[] bytes = Encoding.UTF8.GetBytes(text + "\0"); IntPtr pointer = Marshal.AllocHGlobal(bytes.Length);
-            try { Marshal.Copy(bytes, 0, pointer, bytes.Length); LastError = _output(_backend, pointer, interrupt); return LastError == 0; } finally { Marshal.FreeHGlobal(pointer); }
+            try {
+                Marshal.Copy(bytes, 0, pointer, bytes.Length);
+                if ((_capabilities & Speaks) != 0) {
+                    LastError = _speak(_backend, pointer, interrupt);
+                    // Once speech is accepted, a braille error must not cause it to be spoken again.
+                    if (LastError == 0 && (_capabilities & Braille) != 0) _braille(_backend, pointer);
+                } else if ((_capabilities & Braille) != 0) {
+                    LastError = _braille(_backend, pointer);
+                } else {
+                    LastError = _output(_backend, pointer, interrupt);
+                }
+                return LastError == 0;
+            } finally { Marshal.FreeHGlobal(pointer); }
         }
         public bool IsSpeaking()
         {
-            if (_backend == IntPtr.Zero || (_features(_backend) & (1UL << 6)) == 0) return false;
+            if (_backend == IntPtr.Zero || (_capabilities & SpeakingStatus) == 0) return false;
             bool speaking; LastError = _status(_backend, out speaking); return LastError == 0 && speaking;
         }
-        public void Stop() { if (_backend != IntPtr.Zero && (_features(_backend) & (1UL << 7)) != 0) LastError = _stop(_backend); }
+        public void Stop() { if (_backend != IntPtr.Zero && (_capabilities & Stops) != 0) LastError = _stop(_backend); }
         private static string ReadUtf8(IntPtr pointer)
         {
             if (pointer == IntPtr.Zero) return null; int length = 0;

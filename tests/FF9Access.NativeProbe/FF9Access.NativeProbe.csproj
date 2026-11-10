@@ -3,6 +3,5 @@
   <PropertyGroup><TargetFrameworkVersion>v4.8</TargetFrameworkVersion><OutputType>Exe</OutputType><AssemblyName>FF9Access.NativeProbe</AssemblyName><OutputPath>bin\$(Configuration)\</OutputPath></PropertyGroup>
   <ItemGroup><Reference Include="System"/><Reference Include="System.Core"/></ItemGroup>
   <ItemGroup><Compile Include="Program.cs"/><Compile Include="../../Memoria.ScreenReader/PrismNative.cs"/></ItemGroup>
-  <ItemGroup><Compile Include="../../Memoria.ScreenReader/ISpeechBackend.cs"/><Compile Include="../../Memoria.ScreenReader/Tolk.cs"/><Compile Include="../../Memoria.ScreenReader/TolkSpeechBackend.cs"/></ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

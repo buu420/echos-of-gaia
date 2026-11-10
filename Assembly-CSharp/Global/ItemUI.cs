@@ -963,6 +963,8 @@ public class ItemUI : UIScene
         return go == KeySubMenu ? SubMenu.Key : SubMenu.None;
     }
 
+    protected override Boolean InterruptSelectionSpeech => true;
+
     protected override String GetButtonText(GameObject go)
     {
         try

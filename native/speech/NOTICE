@@ -11,9 +11,4 @@ This project uses code from other projects. Specifically:
 * Prism uses the `{fmt}` library, by Victor Zverovich and `{fmt}` contributors, for string formatting and the like. That code is licensed under the  MIT license.
 
 All licenses may be found under the LICENSES directory.
-Tolk fallback: unmodified dkager/tolk source at
-https://github.com/dkager/tolk/tree/e5149f0cb6ef9b941673017e0e7b7c409e485fbe
-built for x86 and x64 with a static MSVC runtime. Corresponding source is in
-tolk-source-e5149f0.zip; build recipe is tools/Build-TolkFallback.ps1.
-Tolk and its NVDA controller clients retain their accompanying LGPL licenses.
 

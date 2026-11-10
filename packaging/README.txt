@@ -1,4 +1,4 @@
-Echos of Gaia 0.1.15 beta
+Echos of Gaia 0.1.16 beta
 Final Fantasy IX accessibility mod by buu420
 
 Supported: 64-bit Windows 10/11, Windows Steam FFIX app 377840 build 5378074.
@@ -36,6 +36,7 @@ numbers. Story follows current steps such as ladders, switches and boarding.
 The opening sword fight prioritizes the current command and names the active
 controller button or keyboard key.
 Battle speech reads the highlighted command, ability, item, and target.
+Moving the selection in Item or Equip interrupts the previous description.
 In the Evil Forest fight, listen for Garnet and Prison Cage as separate targets.
 Use the other trigger or keyboard if a trigger is mapped to a core game action.
 In Hot and Cold, the configured status stick click reads the minigame's status.
@@ -76,13 +77,13 @@ check the game root, x64 and x86 for the newest game session. A root copy can
 contain launcher activity only. For speech problems, include speech.log and
 the newest game-session Memoria.log in your report. Unity output_log.txt is
 under x64\FF9_Data (or x86\FF9_Data).
-0.1.2 retries rejected Prism output through the bundled compatibility backend
-and records its native error code. Affected-PC speech and the reported
-Alt-Tab cutoff still need listener confirmation.
+Screen reader speech uses Prism in the launcher and game. If the connection
+fails, the mod reconnects and retries the current announcement once. Speech
+diagnostics record the active Prism backend and native output errors.
 
 Source, current releases, prerequisite links and reports:
 https://github.com/buu420/echos-of-gaia
-https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.15
+https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.16
 
 Based on BlindGuyNW/Memoria and Albeoris/Memoria. The code retains the MIT
 license; dependency and supplied sound notices remain separate. Final Fantasy

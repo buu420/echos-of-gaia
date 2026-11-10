@@ -6,6 +6,8 @@ EXPORTS
     prism_backend_free
     prism_backend_name
     prism_backend_output
+    prism_backend_speak
+    prism_backend_braille
     prism_backend_is_speaking
     prism_backend_stop
     prism_backend_get_features

@@ -43,18 +43,8 @@
     <Compile Include="ISpeechBackend.cs" />
     <Compile Include="PrismNative.cs" />
     <Compile Include="PrismSpeechBackend.cs" />
-    <Compile Include="TolkSpeechBackend.cs" />
     <Compile Include="SpeechDiagnostics.cs" />
-    <Compile Include="Tolk.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Tolk.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="*.dll" Exclude="Tolk.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild" Condition="'$(EnableGameDeployment)' == 'true'">

@@ -50,12 +50,49 @@ internal static class BattleSpeechTests
             throw new Exception("Speech changed the native target.");
     }
 
+    public static void NativeCommandCallbackReadsLatestAfterPrismReconnect()
+    {
+        var fixture = new Fixture();
+        SpeechOutput.RejectionsRemaining = 1;
+        fixture.Focus(BattleHUD.CommandGroupButton, fixture.Attack);
+        fixture.Focus(BattleHUD.CommandGroupButton, fixture.Steal);
+        fixture.Focus(BattleHUD.CommandGroupButton, fixture.Item);
+        Read("Zidane, Attack", "Steal", "Item");
+        fixture.Tick();
+        Read("Zidane, Attack", "Steal", "Item");
+        if (SpeechOutput.Interrupts.Any(interrupt => !interrupt))
+            throw new Exception("Current battle focus did not replace queued speech.");
+    }
+
+    public static void DirectionalFocusPrecedesGroupBookkeeping()
+    {
+        var fixture = new Fixture();
+        fixture.Focus(BattleHUD.CommandGroupButton, fixture.Attack);
+        fixture.Tick();
+        UICamera.selectedObject = fixture.Steal;
+        fixture.Tick();
+        Read("Zidane, Attack", "Steal");
+        if (ButtonGroupState.ActiveButton != fixture.Attack)
+            throw new Exception("Speech wrote back to the game's cursor.");
+        fixture.Focus(BattleHUD.CommandGroupButton, fixture.Steal);
+        fixture.Tick();
+        UICamera.selectedObject = fixture.Garnet;
+        fixture.Tick();
+        Read("Zidane, Attack", "Steal");
+        UICamera.selectedObject = fixture.Steal;
+        fixture.Steal.SetActive(false);
+        fixture.Tick();
+        Read("Zidane, Attack", "Steal");
+        if (UICamera.SelectedObjectForAccessibility != fixture.Steal)
+            throw new Exception("The speech check cleared the native selection.");
+    }
+
     public static void RecycledAbility()
     {
         var fixture = new Fixture();
-        fixture.Focus(BattleHUD.AbilityGroupButton, fixture.Ability);
         var row = fixture.Ability.GetComponent<RecycleListItem>();
         row.Visible = false;
+        fixture.Focus(BattleHUD.AbilityGroupButton, fixture.Ability);
         fixture.Tick();
         Read();
         row.Visible = true;
@@ -76,7 +113,7 @@ internal static class BattleSpeechTests
         fixture.Focus(BattleHUD.CommandGroupButton, fixture.Item);
         fixture.Tick();
         Read();
-        if (SpeechOutput.Attempts != 1)
+        if (SpeechOutput.Attempts != 2)
             throw new Exception("Rejected speech must use a bounded retry.");
         SpeechOutput.Accept = true;
         fixture.Advance(1.1f);
@@ -140,7 +177,7 @@ internal static class BattleSpeechTests
         private DateTime _now = DateTime.UnixEpoch;
         public readonly UIManager Manager = new UIManager();
         public readonly BattleHUD Hud;
-        public readonly GameObject Attack, Item, Potion, Ability, Zidane, PrisonCage, Garnet;
+        public readonly GameObject Attack, Steal, Item, Potion, Ability, Zidane, PrisonCage, Garnet;
         public readonly UILabel HpCurrent, HpMaximum;
 
         public Fixture()
@@ -148,7 +185,7 @@ internal static class BattleSpeechTests
             SpeechOutput.Text.Clear();
             SpeechOutput.Interrupts.Clear();
             SpeechOutput.Accept = true;
-            SpeechOutput.CompatibilityAccept = false;
+            SpeechOutput.RejectionsRemaining = 0;
             SpeechOutput.Attempts = 0;
             ButtonGroupState.Reset();
             Time.realtimeSinceStartup = 0;
@@ -168,6 +205,7 @@ internal static class BattleSpeechTests
             Hud.AbilityPanel = Child(Hud.AllMenuPanel, "Ability Panel");
             Hud.TargetPanel = Child(Hud.AllMenuPanel, "Target Panel");
             Attack = Button(Hud.CommandPanel, "Attack", BattleHUD.CommandGroupButton);
+            Steal = Button(Hud.CommandPanel, "Steal", BattleHUD.CommandGroupButton);
             Item = Button(Hud.CommandPanel, "Item", BattleHUD.CommandGroupButton);
             var item = Child(Hud.ItemPanel, "Recycled item");
             var itemContent = Child(item, "Content");

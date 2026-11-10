@@ -87,17 +87,20 @@ function Get-FF9PE([string]$Path) {
     [pscustomobject]@{Machine=$machine;Managed=($clr -ne 0);CorFlags=$flags;Imports=$imports}
 }
 
-function Test-FF9AllowedPayload([string]$Path) {
+function Test-FF9AllowedPayload([string]$Path, [switch]$AllowRetiredSpeech) {
     if ($Path.Contains('\') -or $Path.Split('/') -contains '..' -or $Path.Split('/') -contains '.') { return $false }
+    if ($Path -match '^(Tolk\.dll|nvdaControllerClient32\.dll|x(86|64)/(FF9_Data/Managed/)?(Tolk\.dll|nvdaControllerClient(32|64)\.dll)|accessibility/speech/(tolk-source-e5149f0\.zip|LICENSES/tolk/(LICENSE|LICENSE-NVDA)\.txt))$') {
+        return $AllowRetiredSpeech.IsPresent
+    }
     if ($Path -match '^accessibility/[A-Za-z0-9_./-]+$') { return $true }
     if ($Path -eq 'StreamingAssets/Scripts/Memoria.Scripts.dll') { return $true }
     if ($Path -match '^StreamingAssets/Data/[A-Za-z0-9_./-]+\.(csv|png|seq|sfxmodel|txt)$') { return $true }
     if ($Path -match '^StreamingAssets/Shaders/[A-Za-z0-9_./ ()~-]+\.txt$') { return $true }
     if ($Path -match '^FF9_Data/EmbeddedAsset/[A-Za-z0-9_./-]+\.(png|mpc)$') { return $true }
     if ($Path -match '^x(86|64)/FF9_Data/Plugins/(SaXAudio.dll|soloud.dll|JoyShockLibrary.dll)$') { return $true }
-    if ($Path -in @('FF9_Launcher.exe','FF9_Launcher.exe.config','Memoria.ScreenReader.dll','prism.dll','Tolk.dll','nvdaControllerClient32.dll','Microsoft.Bcl.AsyncInterfaces.dll','SharpCompress.dll','System.Buffers.dll','System.Memory.dll','System.Numerics.Vectors.dll','System.Runtime.CompilerServices.Unsafe.dll','System.Text.Encoding.CodePages.dll','System.Threading.Tasks.Extensions.dll')) { return $true }
-    if ($Path -match '^x(86|64)/(prism.dll|Tolk.dll|nvdaControllerClient(32|64).dll)$') { return $true }
-    return $Path -match '^x(86|64)/FF9_Data/Managed/(Assembly-CSharp.dll|Memoria.Prime.dll|Memoria.ScreenReader.dll|UnityEngine.UI.dll|XInputDotNetPure.dll|Newtonsoft.Json.dll|System.Runtime.Serialization.dll|Memoria.DescriptionSpeech.dll|Memoria.SpatialAudio.dll|prism.dll|Tolk.dll|nvdaControllerClient(32|64).dll)$'
+    if ($Path -in @('FF9_Launcher.exe','FF9_Launcher.exe.config','Memoria.ScreenReader.dll','prism.dll','Microsoft.Bcl.AsyncInterfaces.dll','SharpCompress.dll','System.Buffers.dll','System.Memory.dll','System.Numerics.Vectors.dll','System.Runtime.CompilerServices.Unsafe.dll','System.Text.Encoding.CodePages.dll','System.Threading.Tasks.Extensions.dll')) { return $true }
+    if ($Path -match '^x(86|64)/prism\.dll$') { return $true }
+    return $Path -match '^x(86|64)/FF9_Data/Managed/(Assembly-CSharp.dll|Memoria.Prime.dll|Memoria.ScreenReader.dll|UnityEngine.UI.dll|XInputDotNetPure.dll|Newtonsoft.Json.dll|System.Runtime.Serialization.dll|Memoria.DescriptionSpeech.dll|Memoria.SpatialAudio.dll|prism.dll)$'
 }
 
 function Assert-FF9SpatialRecordings([string]$Root) {
@@ -225,12 +228,11 @@ function Assert-FF9Package([string]$PackageRoot,[string]$GameRoot) {
     }
     foreach ($arch in @('x86','x64')) {
         foreach ($name in @('Assembly-CSharp','Memoria.Prime','Memoria.ScreenReader','UnityEngine.UI','XInputDotNetPure')) { if (!$paths.ContainsKey("$arch/FF9_Data/Managed/$name.dll")) { throw "Required $arch managed core missing: $name" } }
-        $bits=if ($arch -eq 'x86') {'32'} else {'64'}
-        foreach ($name in @('prism.dll','Tolk.dll',"nvdaControllerClient$bits.dll")) {
-            if (!$paths.ContainsKey("$arch/$name") -or !$paths.ContainsKey("$arch/FF9_Data/Managed/$name")) { throw "Required $arch speech dependency missing: $name" }
+        if (!$paths.ContainsKey("$arch/prism.dll") -or !$paths.ContainsKey("$arch/FF9_Data/Managed/prism.dll")) {
+            throw "Required $arch Prism speech library missing"
         }
     }
-    foreach ($name in @('FF9_Launcher.exe','FF9_Launcher.exe.config','prism.dll','Tolk.dll','nvdaControllerClient32.dll')) { if (!$paths.ContainsKey($name)) { throw "Required launcher file missing: $name" } }
+    foreach ($name in @('FF9_Launcher.exe','FF9_Launcher.exe.config','Memoria.ScreenReader.dll','prism.dll')) { if (!$paths.ContainsKey($name)) { throw "Required launcher file missing: $name" } }
     if(!$paths.ContainsKey('StreamingAssets/Scripts/Memoria.Scripts.dll') -or !$paths.ContainsKey('accessibility/memoria-support/manifest.json')){throw 'Required source-matched Memoria scripts or baseline support manifest missing'}
     $support=Get-Content -LiteralPath $supportManifest -Raw|ConvertFrom-Json
     if($support.Schema -ne 1 -or $support.Id -ne 'ff9-memoria-support' -or @($support.Files).Count -lt 1000){throw 'Invalid pinned Memoria baseline support manifest'}
@@ -324,7 +326,7 @@ function Undo-FF9NavigationSettings([string]$Path,$Added) {
 
 function Restore-FF9Transaction($Manifest,[string]$BackupDirectory,[string]$GameRoot,[bool]$AfterFailure) {
     foreach ($entry in $Manifest.Files) {
-        if (!(Test-FF9AllowedPayload $entry.Path) -and $entry.Path -notin @('Memoria.ini','accessibility/installed-build.json')) { throw "Unapproved rollback path: $($entry.Path)" }
+        if (!(Test-FF9AllowedPayload $entry.Path -AllowRetiredSpeech) -and $entry.Path -notin @('Memoria.ini','accessibility/installed-build.json')) { throw "Unapproved rollback path: $($entry.Path)" }
         $path=Get-FF9OwnedPath $GameRoot $entry.Path
         if ($entry.OriginalExists) {
             $original=Get-FF9OwnedPath $BackupDirectory ('Originals/'+$entry.Path)

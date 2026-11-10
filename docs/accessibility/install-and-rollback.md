@@ -1,6 +1,6 @@
 # Local FFIX accessibility installation
 
-The package contains the maintained launcher, both architecture-specific managed game builds, Prism, matching Tolk/NVDA fallback libraries, notices and source for the fallback. It is a local `ff9-access-local` build with accessibility API 1. The launcher does not apply the stock Memoria updater to this build.
+The package contains the maintained launcher, both architecture-specific managed game builds, and Prism with its dependency notices. It is a local `ff9-access-local` build with accessibility API 1. The launcher does not apply the stock Memoria updater to this build.
 
 Close FFIX and its launcher. Build and package outside the game directory. In PowerShell, run the tools with explicit absolute paths:
 

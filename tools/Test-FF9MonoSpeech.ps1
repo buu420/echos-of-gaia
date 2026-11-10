@@ -24,10 +24,7 @@ foreach($arch in @('x86','x64')) {
     Copy-Item -LiteralPath (Join-Path $sourceRoot "native/spatial/$arch/Memoria.SpatialAudio.dll") -Destination $fixture
     $spatialAssets=Join-Path $fixture 'navigation';[void](New-Item -ItemType Directory -Path $spatialAssets)
     foreach($name in @('field-exit.wav','field-npc.wav','field-interactable.wav')){Copy-Item -LiteralPath (Join-Path $sourceRoot "assets/navigation/$name") -Destination $spatialAssets}
-    foreach($name in @('prism.dll','Tolk.dll',"nvdaControllerClient$(if($arch -eq 'x86'){'32'}else{'64'}).dll")) {Copy-Item -LiteralPath (Join-Path $sourceRoot "native/speech/$arch/$name") -Destination $fixture}
-    # Tolk's DllImport is resolved beside the executable, as in the installed
-    # Unity game and launcher. Keep its matching client beside this host too.
-    foreach($name in @('Tolk.dll',"nvdaControllerClient$(if($arch -eq 'x86'){'32'}else{'64'}).dll")) {Copy-Item -LiteralPath (Join-Path $sourceRoot "native/speech/$arch/$name") -Destination $probeRoot -Force}
+    Copy-Item -LiteralPath (Join-Path $sourceRoot "native/speech/$arch/prism.dll") -Destination $fixture
     $script=Join-Path $probeRoot "build-$arch.cmd"
     @"
 @echo off
