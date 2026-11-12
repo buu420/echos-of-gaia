@@ -7,11 +7,13 @@ namespace Memoria.Accessibility.Navigation
     {
         private NavigationButton _previousButtons;
         private bool _previousModifier, _previousConnected, _observed, _active, _waitForRelease;
+        private bool _inheritedModifier;
         public bool Capturing { get; private set; }
         public void Reset()
         {
             _previousButtons=NavigationButton.None;
             _previousModifier=_previousConnected=_observed=_active=_waitForRelease=Capturing=false;
+            _inheritedModifier=false;
         }
         public NavigationCommand? Update(bool permitted,PhysicalInputSnapshot physical,bool resumed)
         {
@@ -21,11 +23,14 @@ namespace Memoria.Accessibility.Navigation
             bool modifier=left || right;
             bool reconnect=_observed && !_previousConnected && physical.ControllerConnected;
             NavigationButton pressed=physical.Buttons & ~_previousButtons;
-            Capturing=permitted && modifier;
             if(!permitted || resumed || reconnect) {
                 _active=false;_waitForRelease=modifier;
+                // Let native movement through while waiting for a fresh
+                // chord after battle, a menu, or a controller reconnect.
+                _inheritedModifier=modifier;
             } else if(!modifier) {
                 _active=false;_waitForRelease=false;
+                _inheritedModifier=false;
             } else if(!_previousModifier && !_waitForRelease) {
                 _active=true;result=NavigationCommand.ModifierOpened;
             } else if(_active && !(left && right)) {
@@ -45,6 +50,7 @@ namespace Memoria.Accessibility.Navigation
                     }
                 }
             }
+            Capturing=permitted && modifier && !_inheritedModifier;
             _previousButtons=physical.Buttons;_previousModifier=modifier;
             _previousConnected=physical.ControllerConnected;_observed=true;
             return result;

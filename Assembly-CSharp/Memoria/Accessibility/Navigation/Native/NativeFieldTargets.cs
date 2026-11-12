@@ -68,13 +68,33 @@ namespace Memoria.Accessibility.Navigation
                     var projected=bg==null?new NavigationPoint():Point(PSX.CalculateGTE_RTPT_POS(position,Matrix4x4.identity,bg.GetMatrixRT(),bg.GetViewDistance(),field.GetProjectionOffset()));
                     bool inArea=FieldScenePresentation.Actor(rendered,mesh,onScreen,ReadAreaPanorama(field),projected);
                     bool icon=EIcon.NavigationPresentedUid==obj.uid && OnScreen(field,Vector(context.Position));
+                    if (actor.model == 524 && ForestNavigationEvidence.IsEscape(context))
+                    {
+                        if (onScreen)
+                            result.Add(new FieldTargetObservation
+                            {
+                                Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, actor.uid),
+                                NativePresentationIdentity = actor.go.GetInstanceID(),
+                                Position = Point(position),
+                                Visible = true,
+                                VisibleLabel = ForestNavigationEvidence.PursuingSpiderLabel,
+                                UseApprovedApproaches = true,
+                                ApproachCandidates = new NavigationPoint[0]
+                            });
+                        continue;
+                    }
                     float collision=player==null?0:Math.Max(player.fieldMapActorController==null?0:player.fieldMapActorController.radius,4*player.collRad)+4*actor.collRad;
                     float talkRadius=player==null?0:4*(player.talkRad+actor.talkRad)+actor.speed+60;
                     // In the wrecked crew cabin Vivi sits beyond the walkmesh, but his native talk radius reaches the floor.
                     bool cabinVivi = FieldActorApproaches.IsCabinVivi(context, actor.uid) &&
                         player != null && player.uid == context.PlayerIdentity && actor.sid == 16 && actor.model == 8 && actor.ebData != null &&
                         Fingerprint(actor.ebData) == "ba8f8ea7e0cd60c97c4f87a1e3fad673645418a7772455c8eb3e8a6fa4d2543f";
-                    var observation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, obj.uid), NativePresentationIdentity=obj.go==null?0:obj.go.GetInstanceID(),Position = Point(position), Visible = inArea,OutOfView=rendered && mesh && !inArea,ShowsIcon=icon, IsPerson = engine.GetIP(obj.sid, EventEngine.tagTalk, obj.ebData) != engine.nil, HasInteraction = NativeFieldTalkability.IsTalkable(obj) || engine.GetIP(obj.sid, EventEngine.tagPush, obj.ebData) != engine.nil,ApproachCandidates=FieldActorApproaches.Create(context.Position,Point(position),collision,talkRadius,cabinVivi) };
+                    // Monty's perch is outside the walkable trail. His native
+                    // talk radius reaches the ground beyond the tree trunk.
+                    bool springMonty = context.LogicalMapKey == ForestNavigationEvidence.Spring && actor.uid == 4 &&
+                        actor.sid == 4 && actor.model == 220 && actor.ebData != null &&
+                        Fingerprint(actor.ebData) == ForestNavigationEvidence.MontyScript;
+                    var observation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, obj.uid), NativePresentationIdentity=obj.go==null?0:obj.go.GetInstanceID(),Position = Point(position), Visible = inArea,OutOfView=rendered && mesh && !inArea,ShowsIcon=icon, IsPerson = engine.GetIP(obj.sid, EventEngine.tagTalk, obj.ebData) != engine.nil, HasInteraction = NativeFieldTalkability.IsTalkable(obj) || engine.GetIP(obj.sid, EventEngine.tagPush, obj.ebData) != engine.nil,ApproachCandidates=FieldActorApproaches.Create(context.Position,Point(position),collision,talkRadius,cabinVivi || springMonty) };
                     observation.LabelIdentity=LabelSignature(actor);observation.VisibleLabel=FieldVisibleLabels.Read(actor.model,VisibleBody(actor));
                     string modelName;if(FF9BattleDB.GEO.TryGetValue(actor.model,out modelName)) {
                         if(modelName.StartsWith("GEO_ACC_"))observation.IsPerson=false;

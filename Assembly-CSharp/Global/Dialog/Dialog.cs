@@ -1674,7 +1674,7 @@ public class Dialog : MonoBehaviour
     }
 
     // Screen Reader Support
-    private void AnnounceDialogForScreenReader()
+    internal void AnnounceDialogForScreenReader()
     {
         if (this.IsOverlayDialog)
             return; // Don't announce overlay dialogs
@@ -1692,10 +1692,11 @@ public class Dialog : MonoBehaviour
                     announcement = this.caption + ": ";
                 announcement += textToAnnounce;
 
-                // The moogle question and its first focused choice are read
-                // together when the choice widgets become ready.
-                if (this.CapType != Dialog.CaptionType.Mognet || this.typeAnimationEffect || !this.HasChoices)
-                    Memoria.Accessibility.AudioDescriptions.NativeAudioDescriptions.SpeakDialogue(this, announcement);
+                // An immediate question and its focused choice share one
+                // announcement when the choice widgets become ready.
+                if (this.typeAnimationEffect || !this.HasChoices)
+                    Memoria.Accessibility.AudioDescriptions.NativeAudioDescriptions.SpeakDialogue(
+                        this, announcement, false, !PreserveForestDialogueSpeech());
                 Memoria.Accessibility.Navigation.NativeNumericDialogs.Opened(this);
             }
         }
@@ -1704,6 +1705,20 @@ public class Dialog : MonoBehaviour
             // Silently fail to avoid breaking game if screen reader isn't available
             SoundLib.VALog($"Screen reader announcement failed: {e.Message}");
         }
+    }
+
+    private Boolean PreserveForestDialogueSpeech()
+    {
+        if (!this.IsETbDialog || PersistenSingleton<EventEngine>.Instance?.gMode != 1)
+            return false;
+        Int32 field = FF9StateSystem.Common.FF9.fldMapNo;
+        if (field >= 260 && field <= 262)
+            return true;
+        // The camp's Teach Me, Mogster! ATE uses the Qu's Marsh lesson map.
+        if (field != 652 || FF9TextTool.FieldZoneId != 71)
+            return false;
+        Byte[] story = FF9StateSystem.EventState.gEventGlobal;
+        return story != null && story.Length >= 2 && (story[0] | (story[1] << 8)) == 2375;
     }
 
     private String GetCleanDialogText()
@@ -1771,7 +1786,7 @@ public class Dialog : MonoBehaviour
 
     private void AnnounceSelectedChoiceForScreenReader(Boolean initial)
     {
-        if (!this.HasChoices)
+        if ((!initial && !this.isChoiceReady) || this.IsOverlayDialog || !this.HasChoices)
             return;
         try
         {
@@ -1780,14 +1795,15 @@ public class Dialog : MonoBehaviour
                 phrases, this.SelectChoice, this.EndChoiceRow - this.startChoiceRow, this.disableIndexes);
             String choice = StripFormattingTags(displayed);
             String text = String.IsNullOrEmpty(choice) ? String.Empty : (initial ? "Choose option. " : "") + choice;
-            if (initial && this.CapType == Dialog.CaptionType.Mognet && !this.typeAnimationEffect && phrases.Length > 0)
+            if (initial && !this.typeAnimationEffect && phrases.Length > 0)
             {
                 String question = StripFormattingTags(phrases[0]);
                 if (!String.IsNullOrEmpty(question))
                     text = String.IsNullOrEmpty(text) ? question : question + " " + text;
             }
             if (!String.IsNullOrEmpty(text))
-                Memoria.Accessibility.AudioDescriptions.NativeAudioDescriptions.SpeakDialogue(this, text, true);
+                Memoria.Accessibility.AudioDescriptions.NativeAudioDescriptions.SpeakDialogue(
+                    this, text, true, !initial || !PreserveForestDialogueSpeech());
         }
         catch (Exception e)
         {

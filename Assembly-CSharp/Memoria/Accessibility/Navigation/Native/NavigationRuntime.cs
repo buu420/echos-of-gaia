@@ -20,6 +20,7 @@ namespace Memoria.Accessibility.Navigation
         private static System.Diagnostics.Stopwatch _planTimer;
         private static RouteOperation _planning;private static MovementObservation _pending;private static bool _quietGuidancePlan;
         private static RouteFailure _priorGuidanceFailure;
+        private static string _announcedEscapeMap, _announcedEscapeSave;
         private static bool _exitReached,_minigameInspection;private static string _traceContext,_traceSpeech,_error;
         private static long _diagnosticGeneration;private static readonly HashSet<string> _diagnostics=new HashSet<string>();
         static NavigationRuntime(){NavigationLifecycleBridge.Releasing+=DetachScene;NativeFieldMovement.ExitReached+=delegate{_exitReached=true;};}
@@ -90,11 +91,36 @@ namespace Memoria.Accessibility.Navigation
                 foreach(var announcement in _announcer.Format(update,Configuration.Accessibility.NavigationIntervalMilliseconds,new SpeechState{NowMilliseconds=Time.realtimeSinceStartup*1000,DialogueActive=!context.CanInspect && !context.CanControl,Busy=facade.IsSpeaking(),NarrationActive=Memoria.Accessibility.AudioDescriptions.NativeAudioDescriptions.NarrationPlaying,LastAnnouncement=facade.LastAnnouncement})) {
                     _announcer.Acknowledge(announcement,facade.TrySpeak(announcement.Text,announcement.Interrupt));
                 }
+                AnnounceForestEscape(context, catalog, facade);
                 _error=null;
             }catch(Exception exception) {
                 NavigationLifecycleBridge.Release(StopReason.UnknownContext);
                 string message=exception.GetType().FullName+": "+exception.Message;
                 if(_error!=message){_error=message;Trace(message);Log.Message("[FF9Access] Navigation exception: {0}",exception);if(context!=null && context.CanInspect)ScreenReaderManager.Instance.SpeakInterrupt("Navigation is temporarily unavailable. Try again when the scene is ready.");}
+            }
+        }
+        private static void AnnounceForestEscape(NavigationContext context, CatalogResult catalog, ScreenReaderManager reader)
+        {
+            if (!context.CanControl)
+                return;
+            if (!ForestNavigationEvidence.IsEscape(context))
+            {
+                _announcedEscapeMap = _announcedEscapeSave = null;
+                return;
+            }
+            if (_announcedEscapeMap == context.LogicalMapKey && _announcedEscapeSave == context.SaveIdentity)
+                return;
+            foreach (var target in catalog.Targets)
+            {
+                if (target.Evidence != VisibilityEvidence.RenderedActor ||
+                    target.Label?.StartsWith(ForestNavigationEvidence.PursuingSpiderLabel, StringComparison.Ordinal) != true)
+                    continue;
+                if (reader.TrySpeak("Plant Spiders are chasing you. Run toward the exit.", false))
+                {
+                    _announcedEscapeMap = context.LogicalMapKey;
+                    _announcedEscapeSave = context.SaveIdentity;
+                }
+                return;
             }
         }
         private static void ReadPresentation(NavigationContext context,bool world)

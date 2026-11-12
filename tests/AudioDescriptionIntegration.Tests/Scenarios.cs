@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using Assets.Sources.Graphics.Movie;
 using Memoria;
@@ -236,6 +237,19 @@ namespace AudioDescriptionIntegration.Tests
             Check(FakeSpeech.RejectedInterrupts == 1 && Spoken("Save") == 1, "rejected text kept cancelling or blocked the displayed choice");
             NativeAudioDescriptions.SpeakDialogue(dialog, "Tent", true);
             Check(Spoken("Tent") == 1, "moving to the next choice did not speak");
+        }
+        public static void F24_ScriptedWindowsAndTheirInitialChoiceQueueInOrder()
+        {
+            Install();
+            var question = new Dialog();
+            NativeAudioDescriptions.SpeakDialogue(new Dialog(), "Visible line A.", false, false);
+            NativeAudioDescriptions.SpeakDialogue(new Dialog(), "Visible line B.", false, false);
+            NativeAudioDescriptions.SpeakDialogue(question, "Choose option. Help Menu.", true, false);
+            Check(FakeSpeech.Outputs.Select(output => output.Key).SequenceEqual(
+                new[] { "Visible line A.", "Visible line B.", "Choose option. Help Menu." }), "scripted windows changed order");
+            Check(FakeSpeech.Outputs.All(output => !output.Value), "a scripted window cancelled an earlier line");
+            NativeAudioDescriptions.SpeakDialogue(question, "Battles.", true);
+            Check(FakeSpeech.Outputs.Last().Value && FakeSpeech.Last == "Battles.", "moving the cursor did not replace stale selection speech");
         }
         public static void F14_CueObservedDuringOpenLineIsDeliveredWhenItCloses()
         {

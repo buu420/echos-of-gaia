@@ -542,6 +542,8 @@ public class BubbleUI : Singleton<BubbleUI>
     {
         if (flags == null || flags.Length == 0)
             return;
+        if (flags.Length == 1 && flags[0] == Flag.CURSOR)
+            return; // The Here icon marks the player, without an interaction.
 
         // Check if icon announcements are enabled
         if (!Configuration.Accessibility.AnnounceIcons)
@@ -551,7 +553,6 @@ public class BubbleUI : Singleton<BubbleUI>
         {
             // Determine interaction type from flags
             string interactionType = "Interactive object";
-            bool hasCursor = false;
             bool hasExclamation = false;
             bool hasQuestion = false;
 
@@ -559,9 +560,6 @@ public class BubbleUI : Singleton<BubbleUI>
             {
                 switch (flag)
                 {
-                    case Flag.CURSOR:
-                        hasCursor = true;
-                        break;
                     case Flag.EXCLAMATION:
                         hasExclamation = true;
                         break;

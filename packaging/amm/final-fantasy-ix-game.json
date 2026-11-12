@@ -2,7 +2,7 @@
   "gameId": "final-fantasy-ix",
   "displayName": "Final Fantasy IX",
   "modName": "Echos of Gaia (Beta)",
-  "description": "Echos of Gaia adds screen reader support, field and world navigation, automatic walking, battle and menu speech, and optional audio descriptions to Windows Steam Final Fantasy IX. Beta 0.1.17 improves moogle save menu speech, holds game speech while another window has focus, and adds Riverbank's return exit. Includes the accessible launcher, double-click standalone installer and 608 narration recordings.",
+  "description": "Echos of Gaia adds screen reader support, field and world navigation, automatic walking, battle and menu speech, and optional audio descriptions to Windows Steam Final Fantasy IX. Beta 0.1.18 improves navigation to Monty at the Evil Forest Spring, controller movement after Plant Spider battles, and speech during the camp and Mogster scenes. Includes the accessible launcher, double-click standalone installer and 608 narration recordings.",
   "steamAppId": "377840",
   "exeName": "FF9_Launcher.exe",
   "probeRules": [

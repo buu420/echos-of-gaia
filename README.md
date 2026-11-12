@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.17 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.17)**
+**[Download 0.1.18 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.18)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,11 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing, including a full playthrough.
+
+0.1.18 improves navigation to Monty in Evil Forest's Spring. During the Plant
+Spider chase, movement remains available after battle even if the navigation
+trigger is held, and the reader calls out the escape. Camp and Mogster dialogue
+queue in order, and the reader announces the displayed Active Time Event prompt.
 
 0.1.17 reads the moogle's question with the first highlighted option. FFIX
 holds speech while another window has focus, and a rejected line no longer

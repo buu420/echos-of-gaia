@@ -112,6 +112,24 @@ namespace FF9Access.Tests
             TestAssert.False(Has(broker.Update(next,held),NavigationCommand.StartAutomatic));
             TestAssert.False(Has(broker.Update(next,Pad(NavigationButton.DpadUp,0.8f)),NavigationCommand.PreviousTarget));
         }
+        public static void BattleReturnDoesNotCaptureMovementWithAnInheritedTrigger()
+        {
+            var broker = Broker();
+            Open(broker);
+            broker.Suspend();
+            var next = TestFixtures.Context(generation: 2);
+            var held = Pad(NavigationButton.DpadUp, left: 0.8f);
+            held.MoveX = 1f;
+            var commands = broker.Update(next, held);
+            TestAssert.True(Has(commands, NavigationCommand.ManualMovement));
+            TestAssert.True(broker.FilterButton(NavigationButton.DpadUp, true));
+            TestAssert.Near(1, broker.FilterAxis(NavigationAxis.MoveX, 1), 0);
+            TestAssert.False(Has(commands, NavigationCommand.PreviousTarget));
+
+            broker.Update(next, Pad());
+            TestAssert.True(Has(broker.Update(next, Pad(left: 0.8f)), NavigationCommand.ModifierOpened));
+            TestAssert.True(Has(broker.Update(next, held), NavigationCommand.PreviousTarget));
+        }
         public static void ReconnectRequiresANewModifierPress()
         {
             var broker=Broker();Open(broker);broker.Update(TestFixtures.Context(),new PhysicalInputSnapshot());

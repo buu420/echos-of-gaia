@@ -137,6 +137,9 @@ public class DialogAnimator : MonoBehaviour
         {
             this.phraseLabel.Parser.AdvanceProgressToMax();
             this.dialog.CurrentState = Dialog.State.CompleteAnimation;
+            // A soft phrase refresh restarts on the first page.
+            if (this.dialog.CurrentPage > 1)
+                this.dialog.AnnounceDialogForScreenReader();
         }
         yield break;
     }

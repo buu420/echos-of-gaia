@@ -24,6 +24,7 @@ public class ActiveTimeEvent : MonoBehaviour
                 this.SetSpriteVisibility(false);
                 this.PressSelectSprite.SetActive(false);
                 this.isReady = true;
+                this.announcedPrompt = false;
             }
         }
         else if (base.gameObject.activeSelf)
@@ -148,6 +149,14 @@ public class ActiveTimeEvent : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         this.SetSpriteVisibility(false);
+        if (!this.announcedPrompt && this.PressSelectSprite.activeInHierarchy)
+        {
+            String button = FF9StateSystem.MobilePlatform ? null :
+                Memoria.Accessibility.AudioDescriptions.NativePromptInputNames.Read(Control.Select, false, NGUIText.ButtonIcon, false);
+            String message = String.IsNullOrEmpty(button) ? "Active Time Event available." :
+                "Active Time Event available. Press " + button + " to open it.";
+            this.announcedPrompt = Memoria.ScreenReader.ScreenReaderManager.Instance.TrySpeak(message, false);
+        }
         timeDelta = 0f;
         while (timeDelta < 2f)
         {
@@ -286,6 +295,7 @@ public class ActiveTimeEvent : MonoBehaviour
     private Boolean isReady = true;
 
     private Boolean mStart;
+    private Boolean announcedPrompt;
 
     private ATEType currentType;
 

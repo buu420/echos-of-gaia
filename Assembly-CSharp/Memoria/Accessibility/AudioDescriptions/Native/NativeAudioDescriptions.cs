@@ -12,7 +12,7 @@ namespace Memoria.Accessibility.AudioDescriptions
     {
         private sealed class Film {internal MovieMaterial Source;internal NativeDescriptionFilm Definition;internal long Owner;internal double Position,Seen;internal bool Warned;}
         private sealed class FieldCue {internal string Id,Text;internal Func<bool> Current;internal bool SpeechOnly,SharedSpeechOnly;internal DescriptionAudioBank Bank;internal long Owner,Scene;}
-        private sealed class Dialogue {internal Dialog Window;internal object Parser;internal string Line,Choice;}
+        private sealed class Dialogue {internal Dialog Window;internal object Parser;internal string Line,Choice;internal bool Interrupt;}
         private static readonly DescriptionAudioBank MovieBank=new DescriptionAudioBank(),FieldBank=new DescriptionAudioBank(),SceneBank=new DescriptionAudioBank();
         private static readonly Queue<FieldCue> Pending=new Queue<FieldCue>();
         private static readonly List<Dialogue> DialogueQueue=new List<Dialogue>();
@@ -120,6 +120,10 @@ namespace Memoria.Accessibility.AudioDescriptions
         // windows and timing; only our subsequent speech waits for owned audio.
         public static void SpeakDialogue(Dialog window,string text,bool choice=false)
         {
+            SpeakDialogue(window, text, choice, true);
+        }
+        internal static void SpeakDialogue(Dialog window, string text, bool choice, bool interrupt)
+        {
             try {
                 Initialize();Windows.Add(window);
                 if(ObserveTimedInput()) {
@@ -137,12 +141,13 @@ namespace Memoria.Accessibility.AudioDescriptions
                     DialogueQueue.Add(_dialogue);
                 }
                 if(choice)_dialogue.Choice=text;else _dialogue.Line=text;
+                _dialogue.Interrupt |= interrupt;
                 if(!Enabled() || _film!=null || !HonoInputManager.ApplicationIsActivated()) {
                     if(_fieldVoice!=null){Playback.Stop();_fieldVoice=null;}
                     SpeakQueuedDialogue();return;
                 }
                 DeliverField();
-            }catch(Exception exception){Report(exception.Message);if(HonoInputManager.ApplicationIsActivated())ScreenReaderManager.Instance.Speak(text,true);}
+            }catch(Exception exception){Report(exception.Message);if(HonoInputManager.ApplicationIsActivated())ScreenReaderManager.Instance.Speak(text,interrupt);}
         }
         public static void DialogueHidden(Dialog window)
         {
@@ -179,7 +184,7 @@ namespace Memoria.Accessibility.AudioDescriptions
             // Submit the ordered batch once. Separate interrupting submissions
             // would cut off all but the last line on NVDA.
             bool rejected;
-            if(!ScreenReaderManager.Instance.TrySpeakWithTextStatus(QueuedDialogueText(),true,out rejected) &&
+            if(!ScreenReaderManager.Instance.TrySpeakWithTextStatus(QueuedDialogueText(),DialogueQueue.Exists(dialogue => dialogue.Interrupt),out rejected) &&
                 (!rejected || !SpeakDialogueWithoutInterrupting()))return false;
             DialogueQueue.Clear();_dialogue=null;_fieldSegmentPlayed=false;return true;
         }
@@ -228,9 +233,9 @@ namespace Memoria.Accessibility.AudioDescriptions
                 var combined=new System.Text.StringBuilder();
                 foreach(var pending in Pending)if(Current(pending)){if(combined.Length!=0)combined.Append(" ");combined.Append(pending.Text);}
                 if(DialogueQueue.Count!=0){combined.Append(" ");combined.Append(QueuedDialogueText());}
-                bool containsDialogue=DialogueQueue.Count!=0;
+                bool interrupt=DialogueQueue.Exists(dialogue => dialogue.Interrupt);
                 bool rejected;
-                bool accepted=ScreenReaderManager.Instance.TrySpeakWithTextStatus(combined.ToString(),containsDialogue,out rejected);
+                bool accepted=ScreenReaderManager.Instance.TrySpeakWithTextStatus(combined.ToString(),interrupt,out rejected);
                 if(!accepted && rejected) {
                     while(Pending.Count!=0) {
                         var pending=Pending.Peek();
