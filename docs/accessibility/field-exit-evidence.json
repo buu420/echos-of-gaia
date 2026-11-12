@@ -67,6 +67,21 @@
   "unresolvedPolicy": "Unseen, ambiguous or unsupported entrances remain diagnostic candidates. Destination labels are never derived from scripts.",
   "surfaceReviewed": [
     {
+      "sceneKey": "field:255:FBG_N04_EVFT_MAP075_EF_NRV_0",
+      "scriptId": 7,
+      "camera": 0,
+      "sourceFingerprint": "b855c3978d1e78e4555d8677246248e2c6069215944fd552cc128c8ac9dd615e",
+      "backgroundFingerprint": "df6ab9e730bea50f5f416984ca599534cd502605021c6ec7b5054e6fa5efab90",
+      "walkmeshFingerprint": "fc9396e1e2edd0d3837961e0180764126732d75f28dd3a68ff05b703bf4b6c0f",
+      "visibleCue": "Visible trail at the bottom of Riverbank",
+      "imageFingerprint": "38b095aaf0641f2d8fa35c07bce3002d7022640dd2c2e43169bca13d772bd400",
+      "imageEvidence": "images/255_e7_t2_cam0.png",
+      "review": "The return trigger lies beyond the bottom of the original camera. The rendered foreground trail connects to it on the native floor.",
+      "triggerPolygon": [[-616, -2365], [-425, -2371], [-191, -1783], [-1053, -1800]],
+      "visibleApproach": [-608, 193, -1250],
+      "overlayIds": [26]
+    },
+    {
       "sceneKey": "field:503:FBG_N09_CSHP_MAP144_CA_COP_1",
       "scriptId": 9,
       "camera": 0,

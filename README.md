@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.16 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.16)**
+**[Download 0.1.17 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.17)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,10 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing, including a full playthrough.
+
+0.1.17 reads the moogle's question with the first highlighted option. FFIX
+holds speech while another window has focus, and a rejected line no longer
+blocks later dialogue. Riverbank lists the exit back to the Evil Forest trail.
 
 0.1.16 interrupts the previous item or gear description when the selection
 moves. Battle speech follows the highlighted command in fights such as Baku.

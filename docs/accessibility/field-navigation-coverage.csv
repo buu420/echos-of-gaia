@@ -71,7 +71,7 @@ field,scene,scriptSha256,scriptEntries,decodeErrors,geometryAvailable,peopleCand
 252,FBG_N04_EVFT_MAP074_EF_FR2_0,6a28f99b744e2faefaca401a0b9c9471f8d519ca757262a150ff6fe64048f416,19,0,True,0,0,3,3,0,0,0,0,0,0,,all script entries audited; live states unverified
 253,FBG_N04_EVFT_MAP076_EF_HEL_0,163af1fb3606b8f9ee61b4ad4e1ddb6d8d358010d6d17b7ec05bafc07791ddb7,23,0,True,2,4,2,2,0,0,0,0,0,0,,all script entries audited; live states unverified
 254,FBG_N04_EVFT_MAP077_EF_NSP_0,ce0d98bff1ae8efc1be5ef02a0c987e40445759c6271c3a9fa06274e11e7d48d,12,0,True,0,0,2,2,0,0,0,0,0,0,,all script entries audited; live states unverified
-255,FBG_N04_EVFT_MAP075_EF_NRV_0,fa10becfef66f9c7795d3a3571d13fa1504fbaa839f308a9304092a4255b9c52,17,0,True,0,0,1,1,0,1,0,0,0,0,,all script entries audited; live states unverified
+255,FBG_N04_EVFT_MAP075_EF_NRV_0,fa10becfef66f9c7795d3a3571d13fa1504fbaa839f308a9304092a4255b9c52,17,0,True,0,0,1,1,0,1,0,1,0,0,,all script entries audited; live states unverified
 256,FBG_N04_EVFT_MAP078_EF_FR3_0,f55c6a733e4c8867022b5727d7839ebb9c4b72b4a57887e9eb90e54a72313f3e,13,0,True,0,0,2,2,0,0,0,0,0,0,,all script entries audited; live states unverified
 257,FBG_N04_EVFT_MAP079_EF_DEP_0,51cdde6d078b5d2db4b448a7a6ab36d99ca51455495b98a9a84ff69074846920,24,0,True,5,4,2,2,0,0,0,0,0,0,,all script entries audited; live states unverified
 258,FBG_N04_EVFT_MAP080_EF_FR4_0,4fcf42feb70c7dd00d8aa335c23bc6af0de397e5edcca628a60c6b99f0ff5e05,15,0,True,0,2,1,1,0,0,0,0,0,0,,all script entries audited; live states unverified

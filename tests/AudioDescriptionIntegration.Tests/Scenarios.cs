@@ -176,8 +176,10 @@ namespace AudioDescriptionIntegration.Tests
         public static void F07_LineArrivingWhileUnfocusedIsNotLost()
         {
             Install(); HonoInputManager.Active = false; var d = new Dialog();
-            NativeAudioDescriptions.SpeakDialogue(d, "Baku: Line A"); Tick(3); HonoInputManager.Active = true; Tick(3);
-            Check(Spoken("Line A") >= 1, "line shown while the window lacked focus was discarded (original code spoke it immediately)");
+            NativeAudioDescriptions.SpeakDialogue(d, "Baku: Line A"); Tick(3);
+            Check(FakeSpeech.Outputs.Count == 0, "background dialogue interrupted the screen reader");
+            HonoInputManager.Active = true; Tick(3);
+            Check(Spoken("Line A") == 1, "held dialogue was not delivered once when the game regained focus");
         }
         public static void F08_DisabledDescriptionsKeepOriginalDialogueSpeech()
         {
@@ -217,6 +219,23 @@ namespace AudioDescriptionIntegration.Tests
             Install(); FakeSpeech.Accept = false; var d = new Dialog(); NativeAudioDescriptions.SpeakDialogue(d, "Baku: Line A"); Tick(2);
             FakeSpeech.Accept = true; Thread.Sleep(1200); Tick(3);
             Check(Spoken("Line A") == 1, "rejected line not retried exactly once");
+        }
+
+        public static void F23_RejectedPromptDoesNotBlockMoogleChoices()
+        {
+            Install();
+            var dialog = new Dialog();
+            HonoInputManager.Active = false;
+            FakeSpeech.RejectedText = "Unsupported prompt.";
+            NativeAudioDescriptions.SpeakDialogue(dialog, FakeSpeech.RejectedText);
+            NativeAudioDescriptions.SpeakDialogue(dialog, "Save", true);
+            Tick(3);
+            Check(FakeSpeech.RejectedInterrupts == 0, "a background retry attempted to cancel speech");
+            HonoInputManager.Active = true;
+            Tick(5);
+            Check(FakeSpeech.RejectedInterrupts == 1 && Spoken("Save") == 1, "rejected text kept cancelling or blocked the displayed choice");
+            NativeAudioDescriptions.SpeakDialogue(dialog, "Tent", true);
+            Check(Spoken("Tent") == 1, "moving to the next choice did not speak");
         }
         public static void F14_CueObservedDuringOpenLineIsDeliveredWhenItCloses()
         {

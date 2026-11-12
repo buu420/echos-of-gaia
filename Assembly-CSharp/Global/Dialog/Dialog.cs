@@ -1692,7 +1692,10 @@ public class Dialog : MonoBehaviour
                     announcement = this.caption + ": ";
                 announcement += textToAnnounce;
 
-                Memoria.Accessibility.AudioDescriptions.NativeAudioDescriptions.SpeakDialogue(this, announcement);
+                // The moogle question and its first focused choice are read
+                // together when the choice widgets become ready.
+                if (this.CapType != Dialog.CaptionType.Mognet || this.typeAnimationEffect || !this.HasChoices)
+                    Memoria.Accessibility.AudioDescriptions.NativeAudioDescriptions.SpeakDialogue(this, announcement);
                 Memoria.Accessibility.Navigation.NativeNumericDialogs.Opened(this);
             }
         }
@@ -1772,13 +1775,19 @@ public class Dialog : MonoBehaviour
             return;
         try
         {
+            String[] phrases = this.ChoicePhrases;
             String displayed = Memoria.Accessibility.Navigation.DisplayedChoice.Read(
-                this.ChoicePhrases, this.SelectChoice, this.EndChoiceRow - this.startChoiceRow, this.disableIndexes);
-            if (String.IsNullOrEmpty(displayed))
-                return;
-            String text = StripFormattingTags(displayed);
+                phrases, this.SelectChoice, this.EndChoiceRow - this.startChoiceRow, this.disableIndexes);
+            String choice = StripFormattingTags(displayed);
+            String text = String.IsNullOrEmpty(choice) ? String.Empty : (initial ? "Choose option. " : "") + choice;
+            if (initial && this.CapType == Dialog.CaptionType.Mognet && !this.typeAnimationEffect && phrases.Length > 0)
+            {
+                String question = StripFormattingTags(phrases[0]);
+                if (!String.IsNullOrEmpty(question))
+                    text = String.IsNullOrEmpty(text) ? question : question + " " + text;
+            }
             if (!String.IsNullOrEmpty(text))
-                Memoria.Accessibility.AudioDescriptions.NativeAudioDescriptions.SpeakDialogue(this, (initial ? "Choose option. " : "") + text, true);
+                Memoria.Accessibility.AudioDescriptions.NativeAudioDescriptions.SpeakDialogue(this, text, true);
         }
         catch (Exception e)
         {

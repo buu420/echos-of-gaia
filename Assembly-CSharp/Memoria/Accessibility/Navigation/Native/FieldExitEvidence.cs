@@ -31,7 +31,9 @@ namespace Memoria.Accessibility.Navigation
                             if(!result.TryGetValue(key,out list)){list=new List<FieldExitSurfaceReview>();result[key]=list;}
                             var polygon=item["triggerPolygon"];var points=new NavigationPoint[polygon.Count];for(int p=0;p<points.Length;p++)points[p]=new NavigationPoint(polygon[p][0].AsFloat,0,polygon[p][1].AsFloat);
                             var overlays=item["overlayIds"];var ids=new int[overlays.Count];for(int p=0;p<ids.Length;p++)ids[p]=overlays[p].AsInt;
-                            list.Add(new FieldExitSurfaceReview{Scene=item["sceneKey"],ScriptId=item["scriptId"].AsInt,Camera=item["camera"].AsInt,Script=item["sourceFingerprint"],Background=item["backgroundFingerprint"],Walkmesh=item["walkmeshFingerprint"],Cue=item["visibleCue"],Region=points,OverlayIds=ids});
+                            var anchor=item["visibleApproach"];
+                            NavigationPoint? visibleApproach=anchor.Count==3?new NavigationPoint(anchor[0].AsFloat,anchor[1].AsFloat,anchor[2].AsFloat):(NavigationPoint?)null;
+                            list.Add(new FieldExitSurfaceReview{Scene=item["sceneKey"],ScriptId=item["scriptId"].AsInt,Camera=item["camera"].AsInt,Script=item["sourceFingerprint"],Background=item["backgroundFingerprint"],Walkmesh=item["walkmeshFingerprint"],Cue=item["visibleCue"],Region=points,OverlayIds=ids,VisibleApproach=visibleApproach});
                         }
                     }
                 }

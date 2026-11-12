@@ -14,7 +14,7 @@ namespace Memoria.Accessibility.Navigation
         private static readonly Dictionary<Actor,ActorLabelIdentity> _labelIdentities=new Dictionary<Actor,ActorLabelIdentity>();
         private static readonly Dictionary<byte[],Dictionary<int,List<ScriptInstruction>>> _decoded=new Dictionary<byte[],Dictionary<int,List<ScriptInstruction>>>();
         private static readonly Dictionary<byte[],DoorBinding> _doors=new Dictionary<byte[],DoorBinding>();
-        private sealed class RegionSurface {public string Geometry,Polygon;public NavigationPoint[] Region,Approaches,Boundaries,Presentation;}
+        private sealed class RegionSurface {public string Geometry,Polygon;public NavigationPoint[] Region,Approaches,Boundaries,Presentation,ApproachesFromVisibleTrail;}
         private static readonly Dictionary<Quad,RegionSurface> _surfaces=new Dictionary<Quad,RegionSurface>();
         private static BGSCENE_DEF _tileScene;private static int _tileFrame=-1;
         private static readonly Dictionary<int,DoorTileObservation> _tiles=new Dictionary<int,DoorTileObservation>();
@@ -313,9 +313,22 @@ namespace Memoria.Accessibility.Navigation
                 return false;
             };
             Func<NavigationPoint,bool> nativeFirst=p=>engine.NavigationTouchQuadAt(p.X,p.Z)==quad;
+            var approaches=surface.Approaches;
+            Func<NavigationPoint,bool> approachPresented=presented;
+            if(plain && field.camIdx==field.curCamIdx && surfaceReview?.VisibleApproach is NavigationPoint trail && trail.IsFinite &&
+                EntranceOnScreen(field,Vector(trail)) && RenderedBackgroundAt(field,Vector(trail),surfaceReview.OverlayIds,true)) {
+                // The trail itself is visible. Its walk-out region can start
+                // just past the drawn edge, so use connected native floor.
+                if(surface.ApproachesFromVisibleTrail==null)
+                    surface.ApproachesFromVisibleTrail=Array.FindAll(surface.Approaches,p=>geometry.IsSegmentClear(trail,p));
+                if(surface.ApproachesFromVisibleTrail.Length>0) {
+                    approaches=surface.ApproachesFromVisibleTrail;
+                    approachPresented=p=>true;
+                }
+            }
             NavigationPoint approach;
-            if(FieldDoorEvidence.TryTriggerSurface(binding.Walk || surfaceReview!=null,true,surface.Approaches,presented,nativeFirst,context.Position,out approach)) {
-                var safe=new List<NavigationPoint>();foreach(var point in surface.Approaches)if(nativeFirst(point))safe.Add(point);
+            if(FieldDoorEvidence.TryTriggerSurface(binding.Walk || surfaceReview!=null,true,approaches,approachPresented,nativeFirst,context.Position,out approach)) {
+                var safe=new List<NavigationPoint>();foreach(var point in approaches)if(nativeFirst(point))safe.Add(point);
                 string cue=surfaceReview!=null?surfaceReview.Cue:plain?(EntranceOnScreen(field,Vector(approach))?"Rendered native walk-out surface":"Rendered native passage on the scrolling field panorama"):"Current rendered door tile at native trigger surface";
                 if(_cueLogs.Count<64 && _cueLogs.Add("surface:"+quad.uid+":"+field.camIdx))Log.Message("[FF9Access] Entrance trigger surface: map={0}; uid={1}; sid={2}; camera={3}; candidates={4}; approach={5}; cue={6}",context.LogicalMapKey,quad.uid,quad.sid,field.camIdx,safe.Count,Vector(approach),cue);
                 return new ExitPresentation{Visible=true,ApproachEnabled=true,Approach=approach,ApproachCandidates=safe.ToArray(),Evidence=surfaceReview!=null?VisibilityEvidence.ReviewedBackground:plain?VisibilityEvidence.ObservedRegion:VisibilityEvidence.NativeDoorTile,Cue=cue,SourceFingerprint=hash};

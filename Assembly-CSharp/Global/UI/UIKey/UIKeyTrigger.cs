@@ -935,6 +935,7 @@ public class UIKeyTrigger : MonoBehaviour
 
     private void Start()
     {
+        ScreenReaderManager.Instance.OutputAllowed = HonoInputManager.ApplicationIsActivated;
         UICamera.onNavigate = (UICamera.KeyCodeDelegate)Delegate.Combine(UICamera.onNavigate, (UICamera.KeyCodeDelegate)OnKeyNavigate);
         GameLoopManager.RaiseStartEvent();
         //DebugRectAroundObjectFactory.Run();

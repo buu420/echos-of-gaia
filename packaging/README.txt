@@ -1,4 +1,4 @@
-Echos of Gaia 0.1.16 beta
+Echos of Gaia 0.1.17 beta
 Final Fantasy IX accessibility mod by buu420
 
 Supported: 64-bit Windows 10/11, Windows Steam FFIX app 377840 build 5378074.
@@ -80,10 +80,13 @@ under x64\FF9_Data (or x86\FF9_Data).
 Screen reader speech uses Prism in the launcher and game. If the connection
 fails, the mod reconnects and retries the current announcement once. Speech
 diagnostics record the active Prism backend and native output errors.
+FFIX holds pending dialogue until the game regains focus. The moogle save
+menu reads its question and first option together. Riverbank's Exits list
+includes the return to the Evil Forest trail.
 
 Source, current releases, prerequisite links and reports:
 https://github.com/buu420/echos-of-gaia
-https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.16
+https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.17
 
 Based on BlindGuyNW/Memoria and Albeoris/Memoria. The code retains the MIT
 license; dependency and supplied sound notices remain separate. Final Fantasy

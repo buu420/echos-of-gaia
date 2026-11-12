@@ -681,7 +681,7 @@
     },
     {
       "path": "Assembly-CSharp/Global/Dialog/Dialog.cs",
-      "sha256": "5a3e4c61cad0d5b484a91542bd03243d85b5f7e928dcf26dec25826aeb04536a"
+      "sha256": "5ef9dc78dba0675409cfbca2183ac702eb7ff2887992f2661200fd7fe4127b0b"
     },
     {
       "path": "Assembly-CSharp/Global/Event/Engine/EventEngine.TreadQuad.cs",
@@ -893,7 +893,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldTargets.cs",
-      "sha256": "ff1de013d00569922ebf1dacfa4e471309fc3a4ecf9cc8b5558ca435410f0f13"
+      "sha256": "705fcdf0900ecdb1e1eed9fc332d381bd711fd7820fb14faac72c980974ab224"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryTargets.cs",

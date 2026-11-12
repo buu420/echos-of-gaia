@@ -142,7 +142,7 @@ namespace Memoria.Accessibility.AudioDescriptions
                     SpeakQueuedDialogue();return;
                 }
                 DeliverField();
-            }catch(Exception exception){Report(exception.Message);ScreenReaderManager.Instance.Speak(text,true);}
+            }catch(Exception exception){Report(exception.Message);if(HonoInputManager.ApplicationIsActivated())ScreenReaderManager.Instance.Speak(text,true);}
         }
         public static void DialogueHidden(Dialog window)
         {
@@ -163,7 +163,8 @@ namespace Memoria.Accessibility.AudioDescriptions
         {
             if(!Current(_timedPrompt) || !_timedPrompt.Window.IsActive){_timedPrompt=null;return;}
             if(!HonoInputManager.ApplicationIsActivated() || UIManager.Instance.IsPause)return;
-            if(ScreenReaderManager.Instance.TrySpeak(DialogueText(_timedPrompt),true))_timedPrompt=null;
+            bool rejected;
+            if(ScreenReaderManager.Instance.TrySpeakWithTextStatus(DialogueText(_timedPrompt),true,out rejected) || rejected)_timedPrompt=null;
         }
         private static string QueuedDialogueText()
         {
@@ -174,10 +175,31 @@ namespace Memoria.Accessibility.AudioDescriptions
         private static bool SpeakQueuedDialogue()
         {
             if(DialogueQueue.Count==0)return true;
+            if(!HonoInputManager.ApplicationIsActivated())return false;
             // Submit the ordered batch once. Separate interrupting submissions
             // would cut off all but the last line on NVDA.
-            if(!ScreenReaderManager.Instance.TrySpeak(QueuedDialogueText(),true))return false;
+            bool rejected;
+            if(!ScreenReaderManager.Instance.TrySpeakWithTextStatus(QueuedDialogueText(),true,out rejected) &&
+                (!rejected || !SpeakDialogueWithoutInterrupting()))return false;
             DialogueQueue.Clear();_dialogue=null;_fieldSegmentPlayed=false;return true;
+        }
+
+        private static bool SpeakDialogueWithoutInterrupting()
+        {
+            // Recover the readable lines and choices independently when one
+            // rejected entry makes the full utterance fail.
+            foreach(var dialogue in DialogueQueue)
+                if(!SpeakWithoutInterrupting(ref dialogue.Line) || !SpeakWithoutInterrupting(ref dialogue.Choice))return false;
+            return true;
+        }
+
+        private static bool SpeakWithoutInterrupting(ref string text)
+        {
+            if(string.IsNullOrEmpty(text))return true;
+            bool rejected;
+            if(!ScreenReaderManager.Instance.TrySpeakWithTextStatus(text,false,out rejected) && !rejected)return false;
+            text=null;
+            return true;
         }
         private static void DeliverField()
         {
@@ -207,7 +229,17 @@ namespace Memoria.Accessibility.AudioDescriptions
                 foreach(var pending in Pending)if(Current(pending)){if(combined.Length!=0)combined.Append(" ");combined.Append(pending.Text);}
                 if(DialogueQueue.Count!=0){combined.Append(" ");combined.Append(QueuedDialogueText());}
                 bool containsDialogue=DialogueQueue.Count!=0;
-                if(ScreenReaderManager.Instance.TrySpeak(combined.ToString(),containsDialogue)){
+                bool rejected;
+                bool accepted=ScreenReaderManager.Instance.TrySpeakWithTextStatus(combined.ToString(),containsDialogue,out rejected);
+                if(!accepted && rejected) {
+                    while(Pending.Count!=0) {
+                        var pending=Pending.Peek();
+                        if(Current(pending) && !SpeakWithoutInterrupting(ref pending.Text))return;
+                        Pending.Dequeue();
+                    }
+                    accepted=SpeakDialogueWithoutInterrupting();
+                }
+                if(accepted){
                     Pending.Clear();DialogueQueue.Clear();_dialogue=null;_fieldSegmentPlayed=false;
                 }return;
             }

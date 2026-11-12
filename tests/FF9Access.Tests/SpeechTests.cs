@@ -68,6 +68,26 @@ namespace FF9Access.Tests
                 TestAssert.Equal(1, backend.Outputs); TestAssert.Equal(1, instances); TestAssert.Equal(0, backend.Disposals);
             }
         }
+        public static void BackgroundOutputCannotSpeakOrCancelScreenReader()
+        {
+            var backend = new Backend();
+            bool foreground = false;
+            using (var manager = new ScreenReaderManager(() => backend, () => DateTime.UtcNow)) {
+                manager.OutputAllowed = () => foreground;
+                TestAssert.False(manager.TrySpeak("Background choice", true));
+                TestAssert.Equal(0, backend.Initializations);
+                foreground = true;
+                TestAssert.True(manager.TrySpeak("Save", true));
+                foreground = false;
+                TestAssert.False(manager.TrySpeak("Background choice", true));
+                manager.Silence();
+                TestAssert.Equal(1, backend.Outputs);
+                TestAssert.Equal(0, backend.Stops);
+                foreground = true;
+                TestAssert.True(manager.TrySpeak("Tent", true));
+                TestAssert.Equal("Tent", backend.Text);
+            }
+        }
         public static void RepeatedInitializeOwnsOneBackend()
         {
             var backend = new Backend(); var manager = new ScreenReaderManager(() => backend, () => DateTime.UtcNow);

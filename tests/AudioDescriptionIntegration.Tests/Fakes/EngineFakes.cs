@@ -101,15 +101,29 @@ namespace Memoria.ScreenReader
     public sealed class FakeSpeech
     {
         public static readonly List<KeyValuePair<string, bool>> Outputs = new List<KeyValuePair<string, bool>>();
-        public static bool Accept = true; public static int Silences;
+        public static bool Accept = true;
+        public static string RejectedText;
+        public static int Silences, RejectedInterrupts;
         public static string Last { get { return Outputs.Count == 0 ? null : Outputs[Outputs.Count - 1].Key; } }
     }
     public sealed class PrismSpeechBackend : ISpeechBackend
     {
-        public int LastError { get { return FakeSpeech.Accept ? 0 : 6; } }
+        public int LastError { get; private set; }
         public string Name { get { return "FakePrism"; } }
         public bool Initialize() { return true; }
-        public bool Output(string text, bool interrupt) { if (!FakeSpeech.Accept) return false; FakeSpeech.Outputs.Add(new KeyValuePair<string, bool>(text, interrupt)); return true; }
+        public bool Output(string text, bool interrupt)
+        {
+            if (FakeSpeech.RejectedText != null && text.Contains(FakeSpeech.RejectedText))
+            {
+                if (interrupt) FakeSpeech.RejectedInterrupts++;
+                LastError = 13;
+                return false;
+            }
+            LastError = FakeSpeech.Accept ? 0 : 6;
+            if (!FakeSpeech.Accept) return false;
+            FakeSpeech.Outputs.Add(new KeyValuePair<string, bool>(text, interrupt));
+            return true;
+        }
         public void Stop() { FakeSpeech.Silences++; }
         public bool IsSpeaking() { return false; }
         public void Dispose() { }

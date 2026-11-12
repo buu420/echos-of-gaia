@@ -22,6 +22,12 @@ namespace Memoria.ScreenReader
         public string DiagnosticLogPath { get { return SpeechDiagnostics.LogPath; } }
         public bool Enabled { get { return _enabled; } set { _enabled = value; } }
         public bool IsInitialized { get { return _backend != null; } }
+        public Func<bool> OutputAllowed { private get; set; }
+
+        private bool CanOutput()
+        {
+            return OutputAllowed == null || OutputAllowed();
+        }
         public void Initialize()
         {
             lock (_sync) {
@@ -60,23 +66,40 @@ namespace Memoria.ScreenReader
         }
         public bool TrySpeak(string text,bool interrupt=false)
         {
+            bool rejectedText;
+            return TrySpeakWithTextStatus(text, interrupt, out rejectedText);
+        }
+
+        public bool TrySpeakWithTextStatus(string text, bool interrupt, out bool rejectedText)
+        {
+            rejectedText = false;
             if (!_enabled) return false;
             text = PrepareText(text);
-            if (string.IsNullOrEmpty(text)) return false;
+            if (string.IsNullOrEmpty(text) || text.Trim().Length == 0) {
+                rejectedText = true;
+                return false;
+            }
             lock (_sync) {
-                Initialize(); if (_backend == null || _disposed) return false;
+                if (_disposed || !_enabled || !CanOutput()) return false;
+                Initialize();
+                if (_backend == null || !CanOutput()) return false;
                 string failure;
-                bool textRejected;
-                if (TryOutput(text, interrupt, out failure, out textRejected)) return true;
-                if (!textRejected) {
+                if (TryOutput(text, interrupt, out failure, out rejectedText)) {
+                    if (BackendDiagnostic != null && BackendDiagnostic.StartsWith("Prism output failed: ", StringComparison.Ordinal))
+                        SetDiagnostic("Prism: " + _backend.Name);
+                    return true;
+                }
+                if (!rejectedText) {
+                    if (!CanOutput()) return false;
                     DiscardBackend();
                     string reconnectFailure;
                     if (OpenBackend(out reconnectFailure)) {
-                        if (TryOutput(text, interrupt, out reconnectFailure, out textRejected)) {
+                        if (!CanOutput()) return false;
+                        if (TryOutput(text, interrupt, out reconnectFailure, out rejectedText)) {
                             SetDiagnostic("Prism: " + _backend.Name + " (reconnected)");
                             return true;
                         }
-                        if (!textRejected) DiscardBackend();
+                        if (!rejectedText) DiscardBackend();
                     }
                     failure += "; reconnect: " + reconnectFailure;
                 }
@@ -119,7 +142,7 @@ namespace Memoria.ScreenReader
             _backend = null;
         }
         public void SpeakInterrupt(string text) { Speak(text, true); }
-        public void Silence() { lock (_sync) if (_backend != null) try { _backend.Stop(); } catch (Exception e) { SetDiagnostic("Speech stop failed: " + e.Message); } }
+        public void Silence() { lock (_sync) if (_backend != null && CanOutput()) try { _backend.Stop(); } catch (Exception e) { SetDiagnostic("Speech stop failed: " + e.Message); } }
         public bool IsSpeaking() { lock (_sync) { if (_backend == null) return false; try { return _backend.IsSpeaking(); } catch (Exception e) { SetDiagnostic("Speech status unavailable: " + e.Message); return false; } } }
         public bool IsScreenReaderActive() { Initialize(); return _backend != null; }
         public string GetScreenReaderName() { return _backend == null ? null : _backend.Name; }
