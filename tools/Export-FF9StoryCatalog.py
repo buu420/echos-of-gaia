@@ -21,6 +21,7 @@ fields=json.loads(inventory)
 writes=json.loads(Path(a.writes).read_text(encoding='utf-8'))
 review=json.loads(Path(a.review).read_text(encoding='utf-8'))
 world_markers=json.loads(Path(a.world_markers).read_text(encoding='utf-8'))
+known_markers={marker['id'] for marker in world_markers['markers']}
 def normal(text):return ''.join(c for c in text.lower() if c.isalnum())
 def gameplay(fid):return fields[str(fid)]['event'].split('_')[1]!='ENDING'
 def chapter(milestone):return next((c for c in review['chapters'] if c[0]<milestone<=c[1]),None)
@@ -101,7 +102,7 @@ for milestone,goals in sorted(stage_fields.items()):
  names=sorted({'Conde Petie Mountain Path' if fields[str(fid)]['event'].startswith('EVT_PATA_M_') else areas.get(fields[str(fid)]['event'].split('_')[1],'the next story scene') for fid in goals})
  if goals.issubset({2855,2856}):names=['Blue Narciss']
  vehicle='Invincible' if milestone>=11100 else 'Hilda Garde III' if milestone>10400 else 'Blue Narciss' if milestone>=9400 else ''
- world=['Memoria','Iifa Tree'] if names==['Memoria'] else ['Cleyra'] if names==["Cleyra's Trunk"] else names
+ world=['Cleyra'] if names==["Cleyra's Trunk"] else names
  world=review['worldOverrides'].get(str(milestone),world)
  marker_ids=[]
  for place in world:
@@ -122,6 +123,18 @@ for milestone,goals in sorted(stage_fields.items()):
    if not f or not gameplay(fid) or not any(i['op']=='WMAPJUMP' for e in f['entries'].values() for i in e['functions'].get('2',[])):
     raise ValueError('World departure has no native walking exit: '+str(fid))
   stage['worldDepartureFields']=sorted(set(gates))
+ waypoints=review.get('worldWaypointOverrides',{}).get(str(milestone))
+ if waypoints is not None:
+  if not gates or not waypoints or not set(waypoints).issubset(known_markers) or set(marker_ids).intersection(waypoints):
+   raise ValueError('Invalid reviewed Story world waypoint: '+str(milestone))
+  stage['worldWaypoints']=waypoints
+ hint=review.get('worldSearchHints',{}).get(world[0]) if len(world)==1 else None
+ if hint:stage['worldSearchHint']=hint
+ landing=review.get('boatLandingOverrides',{}).get(str(milestone))
+ if landing is not None:
+  if vehicle != 'Blue Narciss' or landing not in (68,69):
+   raise ValueError('Invalid reviewed Blue Narciss landing: '+str(milestone))
+  stage['boatLanding']=landing
  stages.append(stage)
 listeners=[]
 for b in review['listenerBindings']:

@@ -318,6 +318,8 @@ public class FieldMap : HonoBehavior
         this.CenterCameraOnPlayer();
         this.SceneServiceScroll(this.scene);
         this.UpdateOverlayAll();
+        Memoria.Accessibility.AudioDescriptions.NativePandemoniumLightCue.Tick(this);
+        Memoria.Accessibility.AudioDescriptions.NativeGulugWellRopeCue.Tick(this);
 
         if (PersistenSingleton<EventEngine>.Instance.eBin.getVarManually(EBin.SC_COUNTER_SVR) != currentCounterNumber)
         {

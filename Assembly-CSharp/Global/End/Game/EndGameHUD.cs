@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets.Scripts.Common;
+using Memoria.Accessibility.AudioDescriptions;
 using Memoria.Assets;
+using Memoria.ScreenReader;
 using UnityEngine;
 
 public class EndGameHUD : UIScene
@@ -12,6 +14,8 @@ public class EndGameHUD : UIScene
         this.hasDoubleAllowed = false;
         this.hasSplitAllowed = false;
         this.hasJustChangeToPlayState = true;
+        this.blackjackSpeechActive = false;
+        this.blackjackSpeechRetryAt = 0;
         this.changeWageAmountCounter = EndGameHUD.CHANGE_WAGE_AMOUNT_DURATION;
         this.lastChangeWageButtonState = Control.None;
         this.doubleButton = this.doubleButtonGo.GetComponent<UIButton>();
@@ -127,6 +131,129 @@ public class EndGameHUD : UIScene
     public override Boolean OnKeySelect(GameObject go)
     {
         return false;
+    }
+
+    protected override void AnnounceButtonForScreenReader(GameObject go)
+    {
+        // The settled native focus is spoken together with this frame's game state.
+    }
+
+    private void LateUpdate()
+    {
+        try
+        {
+            var main = EndGameMain.Instance;
+            if (main == null || main.endGame == null || main.endGameScore == null)
+                return;
+
+            BlackjackSpeech speech = main.endGame.Speech;
+            var ui = UIManager.Instance;
+            var camera = main.CanvasCamera;
+            if (this.Loading || ui.State != UIManager.UIState.EndGame || ui.IsPause || !HonoInputManager.ApplicationIsActivated() ||
+                !ScreenReaderManager.Instance.Enabled || camera == null || !camera.isActiveAndEnabled ||
+                SceneDirector.IsScreenObscured || PersistenSingleton<SceneDirector>.Instance.IsFading)
+            {
+                if (this.blackjackSpeechActive)
+                    speech.ResetAnnouncements();
+                this.blackjackSpeechActive = false;
+                return;
+            }
+
+            this.blackjackSpeechActive = true;
+            EndGameDef.FF9EndingGameState state = main.endGame.GetEndingGameState();
+            var display = new BlackjackDisplay
+            {
+                Dealing = state == EndGameDef.FF9EndingGameState.ENDGAME_STATE_DEAL,
+                Bankroll = VisibleText(this.BankRollLabel),
+                Wager = VisibleText(this.WageAmountLabel),
+                DealerTotal = VisibleScore(this.dealerCardTotalLabel, main.endGameScore.dealerCardTotal),
+                SplitTotal = VisibleScore(this.splitCardTotalLabel, main.endGameScore.splitCardTotal),
+                SplitAlternate = VisibleScore(this.splitMinTotalLabel, main.endGameScore.splitMinTotal)
+            };
+            bool split = !String.IsNullOrEmpty(main.endGameScore.splitCardTotal);
+            display.PlayerTotal = VisibleScore(split ? this.playerSplitCardTotalLabel : this.playerCardTotalLabel, main.endGameScore.playerCardTotal);
+            display.PlayerAlternate = VisibleScore(split ? this.playerSplitMinTotalLabel : this.playerMinTotalLabel, main.endGameScore.playerMinTotal);
+
+            GameObject selected = ButtonGroupState.ActiveButton;
+            EndSys.ENDSYS_MODE_ENUM mode = EndSys.Endsys_GetMode();
+            if (state == EndGameDef.FF9EndingGameState.ENDGAME_STATE_WAGER && mode == EndSys.ENDSYS_MODE_ENUM.ENDSYS_MODE_BET &&
+                ButtonGroupState.ActiveGroup == BlackJackWagerGroupButton)
+            {
+                display.Mode = BlackjackMode.Wager;
+                if (selected == this.minusButtonGo)
+                    display.Focus = this.ChoiceLabel(selected, "Decrease wager");
+                else if (selected == this.plusButtonGo)
+                    display.Focus = this.ChoiceLabel(selected, "Increase wager");
+                else if (selected == this.commitButtonGo)
+                    display.Focus = this.ChoiceLabel(selected, "Deal");
+            }
+            else if (state == EndGameDef.FF9EndingGameState.ENDGAME_STATE_PROCESSPLAYER && mode == EndSys.ENDSYS_MODE_ENUM.ENDSYS_MODE_ACTION &&
+                ButtonGroupState.ActiveGroup == BlackJackDealGroupButton)
+            {
+                display.Mode = BlackjackMode.Choose;
+                var choices = new List<string>(4);
+                this.ReadAction(this.standButtonGo, selected, choices, ref display);
+                this.ReadAction(this.hitButtonGo, selected, choices, ref display);
+                this.ReadAction(this.doubleButtonGo, selected, choices, ref display);
+                this.ReadAction(this.splitButtonGo, selected, choices, ref display);
+                display.Choices = String.Join(", ", choices.ToArray());
+            }
+            if (selected == this.backButtonGo)
+                display.Focus = this.ChoiceLabel(selected, "Back");
+
+            speech.Observe(display, Time.realtimeSinceStartup, this.SpeakCurrentBlackjackText);
+        }
+        catch (Exception)
+        {
+            // Optional speech cannot block the game HUD or its input handlers.
+        }
+    }
+
+    private void ReadAction(GameObject go, GameObject selected, List<string> choices, ref BlackjackDisplay display)
+    {
+        string name = this.ChoiceLabel(go, null);
+        if (name == null)
+            return;
+        choices.Add(name);
+        if (go == selected)
+            display.Focus = name;
+    }
+
+    private string ChoiceLabel(GameObject go, string fallback)
+    {
+        if (go == null || !go.activeInHierarchy)
+            return null;
+        var button = go.GetComponent<UIButton>();
+        if (button == null || !button.isEnabled)
+            return null;
+        var label = go.GetComponentInChildren<UILabel>();
+        string text = VisibleText(label);
+        return String.IsNullOrEmpty(text) || text == "+" || text == "-" || text == "−" ? fallback : text;
+    }
+
+    private static string VisibleText(UILabel label)
+    {
+        if (label == null || !label.isActiveAndEnabled || label.CalculateFinalAlpha(Time.frameCount) <= 0)
+            return null;
+        string text = label.rawText == null ? null : label.rawText.Trim();
+        return String.IsNullOrEmpty(text) || text == "-----" ? null : text;
+    }
+
+    private static string VisibleScore(UILabel label, string nativeScore)
+    {
+        string text = VisibleText(label);
+        return text == nativeScore ? text : null;
+    }
+
+    private bool SpeakCurrentBlackjackText(string text)
+    {
+        float now = Time.realtimeSinceStartup;
+        if (now < this.blackjackSpeechRetryAt)
+            return false;
+        bool accepted = ScreenReaderManager.Instance.TrySpeak(text, true);
+        if (!accepted)
+            this.blackjackSpeechRetryAt = now + .15f;
+        return accepted;
     }
 
     private void Update()
@@ -419,4 +546,8 @@ public class EndGameHUD : UIScene
     private Boolean isDecreaseWager;
 
     private Boolean isIncreaseWager;
+
+    private bool blackjackSpeechActive;
+
+    private float blackjackSpeechRetryAt;
 }

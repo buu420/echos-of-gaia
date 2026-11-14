@@ -37,7 +37,7 @@ namespace Memoria.Accessibility.Navigation
             lock(_sync) {
                 if(_job!=null)return false;
                 var origin=new NavigationContext{Generation=context.Generation,LogicalMapKey=context.LogicalMapKey,SaveIdentity=context.SaveIdentity,PlayerIdentity=context.PlayerIdentity,Position=context.Position,Transport=context.Transport,CanControl=context.CanControl,Foreground=context.Foreground};
-                var copy=new NavigationTarget{Id=target.Id,PhysicalId=target.PhysicalId,Generation=target.Generation,Position=target.Position,NativeLocationId=target.NativeLocationId,ApproachCandidates=target.ApproachCandidates==null?null:(NavigationPoint[])target.ApproachCandidates.Clone()};
+                var copy=new NavigationTarget{Id=target.Id,PhysicalId=target.PhysicalId,Generation=target.Generation,Position=target.Position,NativeLocationId=target.NativeLocationId,UseApprovedApproaches=target.UseApprovedApproaches,ApproachCandidates=target.ApproachCandidates==null?null:(NavigationPoint[])target.ApproachCandidates.Clone()};
                 job=new Job{Request=request,Geometry=geometry.ForPlanning(),Result=new WorldPlanResult{Origin=origin,Target=copy,Fingerprint=geometry.Fingerprint}};_job=job;
             }
             try {_schedule(delegate(object unused){Run(job);});}

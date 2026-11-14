@@ -17,5 +17,18 @@ namespace FF9Access.Tests
             var moved=Region();moved[0]=new NavigationPoint(65,0,-257);TestAssert.False(proof.Matches(proof.Scene,6,0,"script","background","walkmesh",moved));
             TestAssert.False(proof.Matches(proof.Scene,6,0,"script","background","walkmesh",null));
         }
+        public static void CroppedSouthGatePassageFollowsTheNativeCameraPan()
+        {
+            // Installed South Gate Rest Area: camera 0 is 560 by 304.
+            var camera=new FieldCameraPanorama{HalfWidth=160,HalfHeight=112,MinX=160,MaxX=400,MinY=112,MaxY=192};
+            var visibleTrail=new NavigationPoint(-8.5f,-178.7f,1200f);
+            var croppedTrigger=new NavigationPoint(-8.5f,-208.3f,1200f);
+            TestAssert.False(FieldScenePresentation.Passage(true,true,camera,croppedTrigger));
+            TestAssert.True(FieldScenePresentation.ReviewedWalkOut(true,false,true,true,camera,visibleTrail));
+            TestAssert.False(FieldScenePresentation.ReviewedWalkOut(true,false,false,true,camera,visibleTrail));
+            TestAssert.False(FieldScenePresentation.ReviewedWalkOut(true,false,true,false,camera,visibleTrail));
+            TestAssert.False(FieldScenePresentation.ReviewedWalkOut(false,true,true,true,camera,visibleTrail));
+            TestAssert.False(FieldScenePresentation.ReviewedWalkOut(true,false,true,true,camera,croppedTrigger));
+        }
     }
 }

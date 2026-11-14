@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.Common;
 using System;
 using System.Collections.Generic;
+using Memoria.Accessibility.AudioDescriptions;
+using Memoria.ScreenReader;
 using UnityEngine;
 
 public class EndingUI : UIScene
@@ -38,6 +40,7 @@ public class EndingUI : UIScene
                 {
                     FF9Snd.ff9snd_sndeffect_play(103, 8388608, 127, 128);
                     this.isStartToBlackjack = true;
+                    this.AnnounceBlackjackText(true);
                 }
             }
             else
@@ -156,6 +159,29 @@ public class EndingUI : UIScene
         this.isReadyToBlackjack = true;
         this.isStartToBlackjack = false;
         this.blackjackKeyCodeCount = 0;
+        this.AnnounceBlackjackText(false);
+    }
+
+    private void AnnounceBlackjackText(bool unlocked)
+    {
+        try
+        {
+            if (!HonoInputManager.ApplicationIsActivated() || UIManager.Instance.State != UIManager.UIState.Ending || this.Loading ||
+                this.endingSlideshow == null || this.endingSlideshow.lastEndingTextContainer == null ||
+                !this.endingSlideshow.lastEndingTextContainer.isActiveAndEnabled || this.endingSlideshow.lastEndingTextContainer.CalculateFinalAlpha(Time.frameCount) <= 0)
+                return;
+            if (!unlocked)
+            {
+                ScreenReaderManager.Instance.TrySpeak("The End.", false);
+                return;
+            }
+            string pause = NativePromptInputNames.Read(Control.Pause, true, null, false);
+            ScreenReaderManager.Instance.TrySpeak("Blackjack ready. Press " + (String.IsNullOrEmpty(pause) ? "Pause" : pause) + ".", true);
+        }
+        catch (Exception)
+        {
+            // A speech failure cannot break the native unlock sequence.
+        }
     }
 
     private void Awake()

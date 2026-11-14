@@ -20,7 +20,9 @@ namespace Memoria.Accessibility.Navigation
                 var goalProbe=new NavigationPoint(approach.X,geometry.Rules.Flying?context.Position.Y:approach.Y,approach.Z);
                 // Marker tables carry X/Z, not terrain height. Locate the destination
                 // surface from above; subsequent native-height legs still validate it.
-                var goal=geometry.Probe(new NavigationPoint(approach.X,Math.Max(context.Position.Y,approach.Y)+400,approach.Z),start.TerrainId,new PrivateWorldCache(geometry.NativeCache));
+                var goal=target.UseApprovedApproaches && !geometry.Rules.Flying
+                    ? geometry.Probe(approach,start.TerrainId,null)
+                    : geometry.Probe(new NavigationPoint(approach.X,Math.Max(context.Position.Y,approach.Y)+400,approach.Z),start.TerrainId,new PrivateWorldCache(geometry.NativeCache));
                 if(goal==null){failure.Failure=RouteFailure.TargetOutsideMesh;continue;}
                 float ground;if(!geometry.Rules.Flying && goal.TryHeight(goalProbe,out ground))goalProbe=new NavigationPoint(goalProbe.X,ground,goalProbe.Z);
                 WorldSurface hit;var points=new List<NavigationPoint>();

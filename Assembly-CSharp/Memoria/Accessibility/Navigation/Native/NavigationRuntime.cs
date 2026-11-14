@@ -177,7 +177,7 @@ namespace Memoria.Accessibility.Navigation
                 }
                 if(context.LogicalMapKey.StartsWith("world:")) {
                     var outcome=NativeWorldMovement.ReadOutcome(context,fresh);result.Reason=outcome.Reason;result.Evidence=outcome.Evidence;
-                    result.Outcome=outcome.Outcome==WorldOutcome.Moving?MovementOutcome.Moving:outcome.Outcome==WorldOutcome.TargetMoved?MovementOutcome.TargetMoved:outcome.Outcome==WorldOutcome.ApproachReached || outcome.Outcome==WorldOutcome.Arrived?MovementOutcome.ApproachReached:outcome.Outcome==WorldOutcome.Interrupted?MovementOutcome.Interrupted:MovementOutcome.Unavailable;
+                    result.Outcome=outcome.Outcome==WorldOutcome.Moving?MovementOutcome.Moving:outcome.Outcome==WorldOutcome.TargetMoved?MovementOutcome.TargetMoved:outcome.Outcome==WorldOutcome.ReadyToInteract?MovementOutcome.ReadyToInteract:outcome.Outcome==WorldOutcome.ApproachReached || outcome.Outcome==WorldOutcome.Arrived?MovementOutcome.ApproachReached:outcome.Outcome==WorldOutcome.Interrupted?MovementOutcome.Interrupted:MovementOutcome.Unavailable;
                 }else {
                     var outcome=NativeFieldMovement.ReadOutcome(context,fresh);result.Reason=outcome.Reason;result.Evidence=outcome.Evidence;
                     result.Outcome=outcome.Outcome==FieldOutcome.Moving?MovementOutcome.Moving:outcome.Outcome==FieldOutcome.ReadyToInteract?MovementOutcome.ReadyToInteract:outcome.Outcome==FieldOutcome.TurnNeeded?MovementOutcome.TurnNeeded:outcome.Outcome==FieldOutcome.ArrivedExit?MovementOutcome.ArrivedExit:outcome.Outcome==FieldOutcome.ApproachReached?MovementOutcome.ApproachReached:outcome.Outcome==FieldOutcome.Interrupted?MovementOutcome.Interrupted:MovementOutcome.Unavailable;

@@ -17,7 +17,9 @@ The main reference is [bover_87's guide, version 2.01](https://gamefaqs.gamespot
 - Fossil Roo uses the actual switch bits and current connected floor section. Reviewed flowers and boarding spots are listed separately and use the corresponding native interaction.
 - Desert Palace follows the required lamps in their native order. After backtracking, the current floor and lamp state can select a reachable recovery action instead of a closed staircase.
 - Memoria and the Crystal World expose three rendered save spheres with verified approaches. Four hidden save points receive a name only after the game shows their prompt.
-- Mount Gulug keeps the lever step until its native completion flag changes. The player still chooses the lever action.
+- Mount Gulug keeps the lever step until its native completion flag changes. The rope reader announces native climb and descent controls when the player is hanging on it.
+- The world destination list uses the current event trigger and connected terrain for walking entrances. The original route replay covers Ice Cavern, Dali, the Mountain Path crossings and both Blue Narciss landings. The Memoria target uses the rendered flight portal.
+- Current visual cues have speech or sound for Desert Palace sand plumes, Pandemonium bridge pins, both Jump Rope scenes, owned Chocograph pictures and the PC Blackjack display. Their live timing and delivery need verification.
 - Card speech uses the displayed face grades, includes placed-card defenses and reads initial hand/board focus. Triple Triad follows its displayed layout and hidden-arrow setting.
 - Auction bids/current price/funds and Daguerreo quantities read changes from completed, visible native text parsers. Original instructions and clocks remain intact. Only the verified English numeric layouts are supported.
 - Exact source UIDs are retained for field touch bubbles. Two additional native inn actor/region bindings and a narrowly verified touch-only confirmation state are recognized.
@@ -29,7 +31,7 @@ All rows retain `fullyAccessibleProven: false` and/or `liveValidated: false`. Sc
 
 695 region entries have a Talk/Push handler and still require the current native icon rather than a verified backdrop/actor binding. This is a static candidate count, not a count of visible missing props. Generic icon-only observations also lack a durable offscreen art-visibility proof.
 
-Chocograph picture descriptions, world cracks/bubbles/tracks/shadows, jump-rope cadence, race progress, shuffle tracking, guard-facing/timed tasks, Blackjack and several puzzle sequences still need dedicated presentation evidence or live validation. Desert Palace and Pandemonium have reviewed required routes; alternate-state recovery and live movement still need verification. The optional checklist lists each limitation.
+World cracks, bubbles, tracks and shadows, race progress, shuffle tracking, guard-facing tasks and several puzzle sequences still need dedicated presentation evidence or live validation. The retained chapter and optional research rows describe the state at the time of their original audit. Check current source evidence against the remaining live cases.
 
 This audit did not launch the game or synthesize gameplay/controller input. Full transitions, audible NVDA/controller delivery and complete main/optional playthroughs remain player tests.
 

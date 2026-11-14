@@ -8,5 +8,10 @@ namespace Memoria.Accessibility.Navigation
         }
         public static bool Passage(bool plain,bool activeBackdrop,FieldCameraPanorama panorama,NavigationPoint projected)
         {return plain && activeBackdrop && FieldPanoramaPresentation.ContainsBackdropEdge(panorama,projected);}
+        public static bool ReviewedWalkOut(bool plain,bool inCurrentView,bool currentCamera,bool activeBackdrop,FieldCameraPanorama panorama,NavigationPoint projected)
+        {
+            return currentCamera && projected.IsFinite && projected.Z>0 &&
+                FieldPanoramaPresentation.PresentsPassage(plain,inCurrentView,activeBackdrop,panorama,projected);
+        }
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 namespace Memoria.Accessibility.Navigation
 {
-    public sealed class StoryStage {public int Milestone;public int[] GoalFields,ApproachFields,DepartureFields,WorldDepartureFields,WorldLocations,TransitFields,ActionUids;public string Goal,Instruction,RequiredVehicle,InformationTitle,InformationReason;public string[] WorldPlaces;public bool InformationOnly,KeepGoalLabel;public StoryTransit[] ReviewedLinks;}
+    public sealed class StoryStage {public int Milestone,BoatLanding=-1;public int[] GoalFields,ApproachFields,DepartureFields,WorldDepartureFields,WorldLocations,WorldWaypoints,TransitFields,ActionUids;public string Goal,Instruction,WorldSearchHint,RequiredVehicle,InformationTitle,InformationReason;public string[] WorldPlaces;public bool InformationOnly,KeepGoalLabel;public StoryTransit[] ReviewedLinks;}
     // Kind is the native trigger of the MAPJUMP (Export-FF9StorySteps.py). Untyped edges are Player.
     public sealed class StoryTransit {public int From,To,ActionUid=-1;public StoryTransitKind Kind;public int? Floor,Ceiling;public string Scope;public byte[][] Guards=new byte[0][];}
     // A reviewed sub-step that shares a scenario-counter floor with later scenes. It applies only while
@@ -146,6 +146,8 @@ namespace Memoria.Accessibility.Navigation
             string goal=String.IsNullOrEmpty(_stage.Goal)?"the next story scene":_stage.Goal;
             var selected=new List<NavigationTarget>();int best=Int32.MaxValue;
             bool world=context.LogicalMapKey.StartsWith("world:");int here;bool currentKnown=_distance.TryGetValue(field,out here);
+            bool landingFromBoat=world && context.Transport.Kind==TransportKind.Boat && WorldBoatLanding.IsLanding(_stage.BoatLanding);
+            bool findSandPits=world && context.Transport.Kind==TransportKind.Foot && _stage.BoatLanding==WorldBoatLanding.PalaceShore;
             bool departure=_stage.DepartureFields!=null && _stage.DepartureFields.Length!=0;
             if((world || departure) && _stage.WorldPlaces!=null && _stage.WorldPlaces.Length==1)goal=_stage.WorldPlaces[0];
             foreach(var target in catalog.Targets) {
@@ -157,7 +159,12 @@ namespace Memoria.Accessibility.Navigation
                     (target.StoryStepMilestone==_stage.Milestone || Contains(target.StoryMilestones,_stage.Milestone)) &&
                     (Contains(_stage.ActionUids,target.PhysicalIdentity.NativeId) || Contains(_stage.ActionUids,target.InteractionUid));
                 if(phaseAction || _stage.ActionUids==null && (step || Contains(target.StoryMilestones,_stage.Milestone))){if(target.PhysicalIdentity.Kind!=TargetKind.FieldActor || target.IsInteractive)score=0;}
-                else if(world && target.Category==NavigationCategory.Towns && WorldPlace(target,goal))score=1;
+                else if(world && target.Category==NavigationCategory.Towns) {
+                    if(landingFromBoat) {
+                        if(target.PhysicalIdentity.Kind==TargetKind.WorldLocation && target.PhysicalIdentity.NativeId==_stage.BoatLanding)score=1;
+                    } else if(WorldPlace(target,goal))score=1;
+                    else if(context.Transport.Kind==TransportKind.Foot && Contains(_stage.WorldWaypoints,WorldLocationId(target)))score=2;
+                }
                 else if(!world && (target.PhysicalIdentity.Kind==TargetKind.FieldExit || target.IsInteractive)) {
                     foreach(int next in target.NextFields??new int[0]) {
                         int? remaining=RouteRemaining(field,target,next);if(remaining.HasValue)score=Math.Min(score,remaining.Value+1);
@@ -166,13 +173,12 @@ namespace Memoria.Accessibility.Navigation
                 if(score==Int32.MaxValue || target.ApproachCandidates!=null && target.ApproachCandidates.Length==0)continue;
                 if(score<best){selected.Clear();best=score;}if(score==best)selected.Add(target);
             }
-            if(selected.Count==0 && world && context.Transport.Kind==TransportKind.Foot) {
-                NavigationTarget vessel=null;int rank=0;
-                foreach(var target in catalog.Targets)if(target.Category==NavigationCategory.Vehicles) {
-                    if(_stage.RequiredVehicle!=null){if(target.Label==_stage.RequiredVehicle)vessel=target;}
-                    else {int candidate=target.Label=="Invincible"?3:target.Label=="Hilda Garde III"?2:target.Label=="Blue Narciss"?1:0;if(candidate>rank){rank=candidate;vessel=target;}}
+            if(selected.Count==0 && world && context.Transport.Kind==TransportKind.Foot &&
+                (!findSandPits || !WorldBoatLanding.IsNearPalaceShore(context.Position)) && !String.IsNullOrEmpty(_stage.RequiredVehicle)) {
+                foreach(var target in catalog.Targets)if(target.Category==NavigationCategory.Vehicles && target.Label==_stage.RequiredVehicle &&
+                    target.Generation==context.Generation && target.Id.MapKey==context.LogicalMapKey && (target.ApproachCandidates==null || target.ApproachCandidates.Length!=0)) {
+                    selected.Add(target);break;
                 }
-                if(vessel!=null)selected.Add(vessel);
             }
             string scene=goal;
             if(!world && !departure && !_stage.KeepGoalLabel && location!=null && _stage.GoalFields!=null && _stage.GoalFields.Length==1){string shown=location(_stage.GoalFields[0]);if(!String.IsNullOrEmpty(shown))scene=shown;}
@@ -180,12 +186,24 @@ namespace Memoria.Accessibility.Navigation
                 string help=currentKnown && here==0?"The next story step is in this area, but no verified target for it is presented yet.":"Travel toward "+goal+". A verified route is not currently presented in this area.";
                 int nextField;string nextArea=null;if(!world && _nextField.TryGetValue(field,out nextField) && location!=null)nextArea=location(nextField);
                 if(!String.IsNullOrEmpty(nextArea))help="Next area on the story route: "+nextArea+". "+help;
+                if(landingFromBoat) {
+                    string shoreHint="Look for a sandy shore near "+goal+" and disembark from the Blue Narciss.";
+                    catalog.Targets.Add(Information(context,_stage.Milestone,shoreHint,shoreHint+" "+help));return;
+                }
+                if(findSandPits) {
+                    const string pitHint="Continue inland from the shore and look for four sand pits. Listen for the sand plume descriptions as they come into view.";
+                    catalog.Targets.Add(Information(context,_stage.Milestone,pitHint,pitHint+" "+help));return;
+                }
+                if(world && !String.IsNullOrEmpty(_stage.WorldSearchHint)) {
+                    catalog.Targets.Add(Information(context,_stage.Milestone,_stage.WorldSearchHint,_stage.WorldSearchHint+" "+help));return;
+                }
                 if(!String.IsNullOrEmpty(_stage.Instruction))help=_stage.Instruction+" "+help;
                 string heading=String.IsNullOrEmpty(_stage.Instruction)?"Continue the story: "+scene+".":_stage.Instruction.Trim()+" "+scene+".";
                 catalog.Targets.Add(Information(context,_stage.Milestone,heading,help));return;
             }
             foreach(var physical in selected) {
-                string action=best==0 && _stage.ActionUids!=null?(String.IsNullOrEmpty(physical.StoryAction)?_stage.Instruction:physical.StoryAction):world && physical.Category==NavigationCategory.Vehicles?"Approach "+physical.Label+" for travel toward "+goal:
+                string action=landingFromBoat?"Sail to "+physical.Label+" to disembark":
+                    best==0 && _stage.ActionUids!=null?(String.IsNullOrEmpty(physical.StoryAction)?_stage.Instruction:physical.StoryAction):world && physical.Category==NavigationCategory.Vehicles?"Approach "+physical.Label+" for travel toward "+goal:
                     best==0?(!String.IsNullOrEmpty(physical.StoryAction)?physical.StoryAction:!String.IsNullOrEmpty(physical.StoryVerb)?physical.StoryVerb+" "+physical.Label:"Continue the story with "+physical.Label+". "+scene):
                     !String.IsNullOrEmpty(_stage.Instruction)?_stage.Instruction.Trim()+" Continue via "+physical.Label:
                     physical.SelectDestinationInMenu?"Continue via "+physical.Label:"Continue toward "+scene+" via "+physical.Label;
@@ -225,6 +243,7 @@ namespace Memoria.Accessibility.Navigation
         private static string Normal(string value){var result=new System.Text.StringBuilder();foreach(char c in (value??"").ToLowerInvariant())if(Char.IsLetterOrDigit(c))result.Append(c);return result.ToString();}
         private static bool SamePlace(string label,string goal){var a=Normal(label);foreach(var part in (goal??"").Split(new[]{" or "},StringSplitOptions.None)){var b=Normal(part);if(a.Length>2 && b.Length>2 && (a==b || b=="villageof"+a || b==a+"village"))return true;}return false;}
         private static bool MatchesPlace(string label,string[] places,string goal){if(places!=null)foreach(string place in places)if(SamePlace(label,place))return true;return SamePlace(label,goal);}
-        private bool WorldPlace(NavigationTarget target,string goal){return _stage.WorldLocations!=null?Contains(_stage.WorldLocations,target.NativeLocationId>=0?target.NativeLocationId:target.PhysicalIdentity.NativeId):MatchesPlace(target.Label,_stage.WorldPlaces,goal);}
+        private static int WorldLocationId(NavigationTarget target){return target.NativeLocationId>=0?target.NativeLocationId:target.PhysicalIdentity.NativeId;}
+        private bool WorldPlace(NavigationTarget target,string goal){return _stage.WorldLocations!=null?Contains(_stage.WorldLocations,WorldLocationId(target)):MatchesPlace(target.Label,_stage.WorldPlaces,goal);}
     }
 }

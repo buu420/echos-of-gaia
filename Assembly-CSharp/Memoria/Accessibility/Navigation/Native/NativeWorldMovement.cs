@@ -30,7 +30,14 @@ namespace Memoria.Accessibility.Navigation
                 var engine=Object.FindObjectOfType<EventEngine>();var actor=engine==null?null:engine.GetObjUID(_target.PhysicalIdentity.NativeId) as Actor;
                 if(actor==null || actor.wmActor==null){ReleaseCurrent(StopReason.TargetLost);_outcome=new WorldMovementOutcome{Outcome=WorldOutcome.Unavailable,Reason=StopReason.TargetLost};return;}
                 var p=actor.wmActor.RealPosition;fresh=new NavigationTarget{Id=_target.Id,PhysicalId=_target.PhysicalId,Generation=context.Generation,Position=new NavigationPoint(p.x,p.y,p.z)};
-            }else if(_target.PhysicalIdentity.Kind==TargetKind.WorldLocation && !WMUIData.LocationAvailable(_target.NativeLocationId)) {ReleaseCurrent(StopReason.TargetLost);_outcome=new WorldMovementOutcome{Outcome=WorldOutcome.Unavailable,Reason=StopReason.TargetLost};return;}
+            }
+            else if (_target.PhysicalIdentity.Kind == TargetKind.WorldLocation && _target.Evidence == VisibilityEvidence.NativeMarker &&
+                _target.NativeLocationId >= 0 && !WMUIData.LocationAvailable(_target.NativeLocationId))
+            {
+                ReleaseCurrent(StopReason.TargetLost);
+                _outcome = new WorldMovementOutcome { Outcome = WorldOutcome.Unavailable, Reason = StopReason.TargetLost };
+                return;
+            }
             _outcome=_owned.Tick(context,fresh);
             if(_outcome.Outcome==WorldOutcome.Moving && !_owned.NativeTown)ValidateNextNativeStep(context,fresh);
         }
@@ -69,7 +76,20 @@ namespace Memoria.Accessibility.Navigation
             public void ClearMovement(long owner){WorldMovementOverlay.Clear(owner);}
             public WorldMovementState Read(NavigationContext context,NavigationTarget target)
             {
-                return new WorldMovementState{CameraDegrees=ff9.w_cameraSysDataCamera.rotation,HeadingDegrees=ff9.w_moveActorPtr.rot[1],ControlType=ff9.w_moveCHRControlPtr.type,ArrivalRadius=context.Transport.IsAirship && target.PhysicalIdentity.Kind==TargetKind.WorldLocation?ff9.S(50)*32:0.5f,PresentedInteractionUid=EIcon.NavigationPresentedUid,NativeAutopilotActive=_autopilotOwner!=0 && ff9.w_moveAutoPilot!=0 && ff9.w_frameAutoid==_location && ff9.w_naviMapno==_map};
+                var physical = target.PhysicalIdentity;
+                bool landing = physical.Kind == TargetKind.WorldLocation && WorldBoatLanding.IsLanding(physical.NativeId) && WorldBoatLanding.IsNearBeach(context.Position, physical.NativeId);
+                bool? readiness = landing ? NativeWorldLandings.ArrivalReady(context, target, NativeWorldGeometry.Read(context, target)) : null;
+                bool memoria = NativeWorldLandmarks.IsMemoria(target);
+                if (memoria)
+                    readiness = NativeWorldLandmarks.MemoriaPrompt(context);
+                float radius = context.Transport.IsAirship && target.NativeLocationId >= 0 ? ff9.S(50) * 32 : OwnedWorldTravel.GroundArrivalRadius;
+                if (landing && readiness == false)
+                    radius = 0.1f;
+                return new WorldMovementState { CameraDegrees = ff9.w_cameraSysDataCamera.rotation, HeadingDegrees = ff9.w_moveActorPtr.rot[1],
+                    ControlType = ff9.w_moveCHRControlPtr.type, ArrivalRadius = radius, ArrivalReady = readiness,
+                    AltitudeControl = memoria && context.Position.Y < NativeWorldLandmarks.MemoriaFlightHeight ? -48 * (int)Configuration.AnalogControl.InvertedFlightY : 0,
+                    PresentedInteractionUid = EIcon.NavigationPresentedUid,
+                    NativeAutopilotActive = _autopilotOwner != 0 && ff9.w_moveAutoPilot != 0 && ff9.w_frameAutoid == _location && ff9.w_naviMapno == _map };
             }
         }
     }

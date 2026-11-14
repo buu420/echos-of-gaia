@@ -2,9 +2,9 @@ using System;
 namespace Memoria.Accessibility.Navigation
 {
     public struct WorldSteeringCommand {public int LX,LY,Throttle;}
-    public enum WorldOutcome {Moving,ApproachReached,Arrived,Interrupted,Unavailable,TargetMoved}
+    public enum WorldOutcome {Moving,ApproachReached,Arrived,Interrupted,Unavailable,TargetMoved,ReadyToInteract}
     public sealed class WorldMovementOutcome {public WorldOutcome Outcome;public StopReason Reason;public string Evidence;}
-    public sealed class WorldMovementState {public float CameraDegrees,HeadingDegrees,ArrivalRadius=0.5f;public int ControlType,PresentedInteractionUid=-1;public bool NativeAutopilotActive;}
+    public sealed class WorldMovementState {public float CameraDegrees,HeadingDegrees,ArrivalRadius=OwnedWorldTravel.GroundArrivalRadius;public int ControlType,PresentedInteractionUid=-1,AltitudeControl;public bool NativeAutopilotActive;public bool? ArrivalReady;}
     public interface IWorldMovementPort
     {
         bool StartTown(int nativeLocationId,long owner);void StopTown(long owner);
@@ -34,11 +34,12 @@ namespace Memoria.Accessibility.Navigation
                 return new WorldSteeringCommand{LX=(int)Math.Round(Math.Sin(local)*128),LY=-(int)Math.Round(Math.Cos(local)*128)};
             }
             float error=Angle(heading-state.HeadingDegrees);
-            return new WorldSteeringCommand{LX=(int)Math.Max(-128,Math.Min(128,error*4)),LY=0,Throttle=Math.Abs(error)>3?0:48};
+            return new WorldSteeringCommand{LX=(int)Math.Max(-128,Math.Min(128,error*4)),LY=state.AltitudeControl,Throttle=Math.Abs(error)>3?0:48};
         }
     }
     public sealed class OwnedWorldTravel
     {
+        public const float GroundArrivalRadius = 0.5f;
         private readonly IWorldMovementPort _port;private long _owner;private RoutePlan _route;private NavigationPoint _originalTarget,_lastPosition;
         private bool _nativeTown;private int _waypoint,_stalled;private StopReason _lastStop;
         public long Owner {get{return _owner;}}public bool NativeTown {get{return _nativeTown;}}
@@ -66,16 +67,18 @@ namespace Memoria.Accessibility.Navigation
             var state=_port.Read(context,target);
             if(target.PhysicalIdentity.Kind==TargetKind.Vehicle && WorldCoordinates.Distance(_originalTarget,target.Position)>Math.Max(0.5f,state.ArrivalRadius/2))return Stop(WorldOutcome.TargetMoved,StopReason.TargetChanged,"Vehicle moved; a fresh approach route is required");
             if(target.PhysicalIdentity.Kind==TargetKind.Vehicle && state.PresentedInteractionUid==target.PhysicalIdentity.NativeId)return Stop(WorldOutcome.ApproachReached,StopReason.Arrived,"Selected vehicle interaction is presented; use the ordinary game action to board");
+            if(state.ArrivalReady==true)return Stop(WorldOutcome.ReadyToInteract,StopReason.Arrived,"The native action can be used at this position");
             float remaining=WorldCoordinates.Distance(context.Position,_route.ApproachPoint);
-            if(remaining<=state.ArrivalRadius) return Stop(_nativeTown?WorldOutcome.Arrived:WorldOutcome.ApproachReached,StopReason.Arrived,"Reachable approach reached; use the ordinary game action to enter, board or land");
+            if(remaining<=state.ArrivalRadius && state.AltitudeControl==0) return Stop(_nativeTown?WorldOutcome.Arrived:WorldOutcome.ApproachReached,StopReason.Arrived,"Reachable approach reached; use the ordinary game action to enter, board or land");
             if(_nativeTown) {
                 if(!state.NativeAutopilotActive)return Stop(WorldOutcome.Interrupted,StopReason.NativeClear,"Native town autopilot stopped before its destination");
                 return new WorldMovementOutcome{Outcome=WorldOutcome.Moving};
             }
-            if(WorldCoordinates.Distance(context.Position,_lastPosition)<0.02f)_stalled++;else{_lastPosition=context.Position;_stalled=0;}
+            if(WorldCoordinates.Distance(context.Position,_lastPosition)<0.02f && Math.Abs(context.Position.Y-_lastPosition.Y)<0.02f)_stalled++;else{_lastPosition=context.Position;_stalled=0;}
             if(_stalled>180)return Stop(WorldOutcome.Interrupted,StopReason.Stalled,"Native movement made no progress");
             while(_waypoint<_route.Waypoints.Length-1 && WorldCoordinates.Distance(context.Position,_route.Waypoints[_waypoint])<=0.5f)_waypoint++;
-            _port.SetMovement(context,WorldSteering.For(context,_route.Waypoints[_waypoint],state),_owner);
+            var command=remaining<=state.ArrivalRadius ? new WorldSteeringCommand{LY=state.AltitudeControl} : WorldSteering.For(context,_route.Waypoints[_waypoint],state);
+            _port.SetMovement(context,command,_owner);
             return new WorldMovementOutcome{Outcome=WorldOutcome.Moving};
         }
         private WorldMovementOutcome Stop(WorldOutcome outcome,StopReason reason,string evidence){Release(_owner,reason);return new WorldMovementOutcome{Outcome=outcome,Reason=reason,Evidence=evidence};}

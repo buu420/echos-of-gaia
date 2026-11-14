@@ -11,9 +11,11 @@ namespace Memoria.Accessibility.Navigation
         private static readonly Dictionary<string, ExitPresentation> _reviewed = Load();
         private static readonly Dictionary<string,List<BoundaryReview>> _boundaries = LoadBoundaries();
         private static readonly Dictionary<string,List<FieldExitSurfaceReview>> _surfaces=LoadSurfaces();
+        private static readonly HashSet<string> _trails=LoadTrails();
         public static bool TryResolve(string sceneKey, int triggerId, out ExitPresentation evidence) { return _reviewed.TryGetValue(sceneKey + ":" + triggerId, out evidence); }
         public static bool HasBoundaryReview(string sceneKey,int scriptId) {return _boundaries.ContainsKey(sceneKey+":"+scriptId);}
         public static bool HasSurfaceReview(string sceneKey,int scriptId) {return _surfaces.ContainsKey(sceneKey+":"+scriptId);}
+        public static bool HasTrailReview(string sceneKey,int scriptId) {return _trails.Contains(sceneKey+":"+scriptId);}
         public static bool TrySurface(string sceneKey,int scriptId,int camera,string scriptHash,string backgroundHash,string walkmeshHash,NavigationPoint[] region,out FieldExitSurfaceReview review)
         {
             review=null;List<FieldExitSurfaceReview> records;if(!_surfaces.TryGetValue(sceneKey+":"+scriptId,out records))return false;
@@ -38,6 +40,13 @@ namespace Memoria.Accessibility.Navigation
                     }
                 }
             }catch(Exception exception){Log.Message("[FF9Access] Reviewed trigger surface evidence unavailable: {0}",exception.Message);}
+            return result;
+        }
+        private static HashSet<string> LoadTrails()
+        {
+            var result=new HashSet<string>();
+            foreach(var entry in _surfaces)
+                if(entry.Value.Exists(review=>review.VisibleApproach.HasValue))result.Add(entry.Key);
             return result;
         }
         public static bool TryBoundary(string sceneKey,int scriptId,int camera,string scriptHash,string backgroundHash,string walkmeshHash,out string cue)

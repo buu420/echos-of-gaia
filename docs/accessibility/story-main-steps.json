@@ -450,12 +450,34 @@
     ],
     "10830": [
       "Shimmering Island"
+    ],
+    "11200": [
+      "Memoria"
     ]
   },
   "worldMarkerOverrides": {
     "5900": [
       21
+    ],
+    "9510": [
+      64, 65, 66, 67
     ]
+  },
+  "boatLandingOverrides": {
+    "9410": 68,
+    "9420": 68,
+    "9430": 68,
+    "9450": 68,
+    "9510": 69
+  },
+  "worldWaypointOverrides": {
+    "6600": [35],
+    "6700": [34],
+    "6800": [35],
+    "6900": [34]
+  },
+  "worldSearchHints": {
+    "Memoria": "Aboard the Invincible, look for the Memoria portal in the sky above the Iifa Tree."
   },
   "instructions": {
     "1000": "Examine the candle on the cargo-room table to begin the meeting.",
@@ -484,7 +506,6 @@
     "10660": "Next, fly to the Wind Shrine and continue the assigned party's dialogue.",
     "10670": "Fly to the Earth Shrine, land and enter with the remaining pair.",
     "10830": "When ready to continue the main story, fly to Shimmering Island and land.",
-    "11610": "Fly to the Iifa Tree entrance to Memoria and continue the main story.",
     "12000": "Continue along the final path and use the game's shown interactions. Battle controls remain yours."
   },
   "listenerBindings": [
@@ -595,18 +616,24 @@
     ],
     "6305": [],
     "6600": [
-      1555
+      1557
     ],
     "6700": [
-      1600
+      1600,
+      1555
     ],
     "6800": [
-      1757
+      1757,
+      1557
     ],
     "6810": [],
     "6820": [],
     "6900": [
-      1700
+      1600,
+      1555
+    ],
+    "9510": [
+      1450
     ],
     "9950": [
       2211,

@@ -13,5 +13,23 @@ namespace FF9Access.Tests
         public static void HiddenUnmarkedVehicleIsExcluded() { var vehicle=Vehicle(12); vehicle.Visible=false; TestAssert.Equal(0,new WorldTargetCatalog().Build(World(),new[]{vehicle},null).Targets.Count); }
         public static void MarkedVehicleRemainsInformative() { var vehicle=Vehicle(12); vehicle.Visible=false;vehicle.Marked=true; TestAssert.Equal(1,new WorldTargetCatalog().Build(World(),new[]{vehicle},null).Targets.Count); }
         public static void CompassMatchesNativeProjection() { TestAssert.Equal("east",WorldCoordinates.Compass(TestFixtures.P(1,0))); TestAssert.Equal("north",WorldCoordinates.Compass(TestFixtures.P(0,1))); }
+
+        public static void LocalDiscoveryKeepsTheLandmarkOnlyWhileItsNativeEventIsAvailable()
+        {
+            var world = World();
+            var entrance = new WorldTargetObservation
+            {
+                Id = new TargetIdentity(TargetKind.WorldLocation, world.LogicalMapKey, 3),
+                Label = "Ice Cavern", Position = TestFixtures.P(20, -20), Available = true,
+                WorldEntranceTags = new[] { 0x9895 }
+            };
+            var catalog = new WorldTargetCatalog();
+            TestAssert.Equal(0, catalog.Build(world, new[] { entrance }, null).Targets.Count);
+            entrance.Observed = true;
+            var observed = catalog.Build(world, new[] { entrance }, null).Find(entrance.Id);
+            TestAssert.Equal(VisibilityEvidence.ObservedWorldLandmark, observed.Evidence);
+            entrance.Available = false;
+            TestAssert.Equal(0, catalog.Build(world, new[] { entrance }, null).Targets.Count);
+        }
     }
 }

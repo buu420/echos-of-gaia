@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Memoria.Accessibility.Navigation
 {
     public enum NavigationCategory { Exits, People, Objects, Towns, Regions, Vehicles, Story, Items }
-    public enum VisibilityEvidence { None, RenderedActor, NativeMarker, NativeInteractionIcon, ReviewedBackground, VisibleWalkmeshEdge, ObservedRegion, NativeDoorTile, ObservedFieldLandmark }
+    public enum VisibilityEvidence { None, RenderedActor, NativeMarker, NativeInteractionIcon, ReviewedBackground, VisibleWalkmeshEdge, ObservedRegion, NativeDoorTile, ObservedFieldLandmark, ObservedWorldLandmark }
     public sealed class ExitPresentation
     {
         public bool Visible, ApproachEnabled; public NavigationPoint Approach; public string Cue, SourceFingerprint, Availability;
@@ -37,6 +37,10 @@ namespace Memoria.Accessibility.Navigation
         public TargetIdentity Id; public NavigationCategory Category; public string Label, Availability;
         public NavigationPoint Position; public VisibilityEvidence Evidence; public long Generation;
         public NavigationPoint[] ApproachCandidates; public bool IsInteractive; public int NativeLocationId = -1;
+        // Null for a map pin with no analyzed walking event. An empty array means
+        // the entrance was found but no event branch accepts the current state.
+        public int[] WorldEntranceTags;
+        public float WorldEntranceRadius;
         public bool UseApprovedApproaches;
         public int InteractionUid = -1;
         public NavigationPoint[] InteractionRegion;

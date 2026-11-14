@@ -23,7 +23,7 @@ namespace FF9Access.Tests
         public static void WorldStoryUsesPresentedTownOrAvailableAirship()
         {
             var context=TestFixtures.Context("world:1");context.StoryProgress=9400;
-            var catalog=new StoryTargetCatalog(new[]{new StoryStage{Milestone=9410,GoalFields=new[]{1450},Goal="Ipsen's Castle"}},null);
+            var catalog=new StoryTargetCatalog(new[]{new StoryStage{Milestone=9410,GoalFields=new[]{1450},Goal="Ipsen's Castle",RequiredVehicle="Hilda Garde III"}},null);
             var town=new NavigationTarget{Id=new TargetIdentity(TargetKind.WorldLocation,context.LogicalMapKey,20),Generation=1,Category=NavigationCategory.Towns,Label="Ipsen's Castle",NativeLocationId=20,Position=TestFixtures.P(20,20),Evidence=VisibilityEvidence.NativeMarker};
             var input=Targets(town);catalog.Append(context,input,-1);TestAssert.True(input.Targets[1].PhysicalIdentity.Equals(town.Id));TestAssert.Equal(20,input.Targets[1].NativeLocationId);
             var ship=new NavigationTarget{Id=new TargetIdentity(TargetKind.Vehicle,context.LogicalMapKey,9),Generation=1,Category=NavigationCategory.Vehicles,Label="Hilda Garde III",Position=TestFixtures.P(5,5),Evidence=VisibilityEvidence.NativeMarker};
@@ -37,6 +37,76 @@ namespace FF9Access.Tests
             var ship=new NavigationTarget{Id=new TargetIdentity(TargetKind.Vehicle,context.LogicalMapKey,9),Generation=1,Category=NavigationCategory.Vehicles,Label="Hilda Garde III"};
             var input=Targets(boat,ship);catalog.Append(context,input,-1);TestAssert.Equal(3,input.Targets.Count);TestAssert.True(input.Targets[2].PhysicalIdentity.Equals(ship.Id));
             input=Targets(boat);catalog.Append(context,input,-1);TestAssert.True(input.Targets[1].PhysicalId==null);
+            ship.ApproachCandidates=new NavigationPoint[0];
+            input=Targets(boat,ship);catalog.Append(context,input,-1);TestAssert.True(input.Targets[2].PhysicalId==null);
+        }
+        public static void OverlandStoryDoesNotSuggestAnUnrelatedVessel()
+        {
+            var context=TestFixtures.Context("world:1");context.StoryProgress=6690;
+            var catalog=new StoryTargetCatalog(new[]{new StoryStage{Milestone=6700,Goal="Iifa Tree",WorldLocations=new[]{36}}},null);
+            var ship=new NavigationTarget{Id=new TargetIdentity(TargetKind.Vehicle,context.LogicalMapKey,9),Generation=1,Category=NavigationCategory.Vehicles,Label="Hilda Garde III"};
+            var input=Targets(ship);catalog.Append(context,input,-1);
+            TestAssert.False(input.Targets[1].PhysicalId.HasValue);
+            TestAssert.True(input.Targets[1].Label.Contains("Iifa Tree"));
+        }
+        public static void BlueNarcissStoryUsesTheShoreThenOnlyPresentedSandPits()
+        {
+            var stages=new[]{new StoryStage{Milestone=9410,Goal="Black Mage Village",WorldLocations=new[]{30},BoatLanding=68},
+                new StoryStage{Milestone=9510,Goal="Desert Palace",WorldLocations=new[]{64,65,66,67},BoatLanding=69,RequiredVehicle="Blue Narciss"},
+                new StoryStage{Milestone=9515,Goal="Desert Palace",WorldLocations=new[]{27}}};
+            var context=TestFixtures.Context("world:1");
+            var catalog=new StoryTargetCatalog(stages,null);
+            var village=Town(30,"Black Mage Village");
+            var villageShore=Town(68,"Black Mage Village Shore");
+            var palaceShore=Town(69,"Desert Palace Shore");
+            var palace=Town(27,"Desert Palace");
+            var north=Town(64,"Sand Pit 1, sand plume seen");
+            var east=Town(67,"Sand Pit 4");
+            var ship=new NavigationTarget{Id=new TargetIdentity(TargetKind.Vehicle,context.LogicalMapKey,6),Generation=1,Category=NavigationCategory.Vehicles,
+                Label="Blue Narciss",ApproachCandidates=new[]{TestFixtures.P(28,20)}};
+
+            context.StoryProgress=9400;
+            context.Transport=new TransportIdentity(TransportKind.Boat,6,8);
+            var input=Targets(village,villageShore,palaceShore);
+            catalog.Append(context,input,-1);
+            TestAssert.Equal(villageShore.Id,input.Targets[3].PhysicalIdentity);
+
+            context.Transport=new TransportIdentity(TransportKind.Foot,12,0);
+            input=Targets(village,villageShore,palaceShore);
+            catalog.Append(context,input,-1);
+            TestAssert.Equal(village.Id,input.Targets[3].PhysicalIdentity);
+
+            context.StoryProgress=9450;
+            input=Targets(ship);
+            catalog.Append(context,input,-1);
+            TestAssert.Equal(ship.Id,input.Targets[1].PhysicalIdentity);
+
+            context.Transport=new TransportIdentity(TransportKind.Boat,6,8);
+            input=Targets(palace,palaceShore,north);
+            catalog.Append(context,input,-1);
+            TestAssert.Equal(palaceShore.Id,input.Targets[3].PhysicalIdentity);
+
+            context.Transport=new TransportIdentity(TransportKind.Foot,12,0);
+            input=Targets(palace,ship,north,east);
+            catalog.Append(context,input,-1);
+            TestAssert.Equal(6,input.Targets.Count);
+            TestAssert.Equal(north.Id,input.Targets[4].PhysicalIdentity);
+            TestAssert.Equal(east.Id,input.Targets[5].PhysicalIdentity);
+
+            context.Position=WorldBoatLanding.LandingPoint(WorldBoatLanding.PalaceShore);
+            input=Targets(ship);
+            catalog.Append(context,input,-1);
+            TestAssert.False(input.Targets[1].PhysicalId.HasValue);
+            TestAssert.True(input.Targets[1].Label.Contains("look for four sand pits"));
+
+            context.StoryProgress=9510;
+            input=Targets(palace,north,east);
+            catalog.Append(context,input,-1);
+            TestAssert.Equal(4,input.Targets.Count);
+            TestAssert.Equal(palace.Id,input.Targets[3].PhysicalIdentity);
+
+            NavigationTarget Town(int id,string name)=>new NavigationTarget{Id=new TargetIdentity(TargetKind.WorldLocation,context.LogicalMapKey,id),
+                Generation=1,Category=NavigationCategory.Towns,Label=name,ApproachCandidates=new[]{TestFixtures.P(id,20)}};
         }
         public static void NativeWorldIdentitySurvivesLocalizedOrOverriddenLabels()
         {

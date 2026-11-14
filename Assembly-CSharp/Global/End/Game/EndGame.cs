@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Memoria.Accessibility.AudioDescriptions;
 using UnityEngine;
 
 public class EndGame
 {
+    internal BlackjackSpeech Speech { get; } = new BlackjackSpeech();
+
     public EndGame()
     {
         this.count = -1;
@@ -1081,6 +1084,7 @@ public class EndGame
 
     public void ResetFrameBasedRenderingObject()
     {
+        this.Speech.BeginRender();
         this.mostBackward = this.endGameMain.CanvasPlane.transform.position.z;
         this.mostForward = this.endGameMain.CanvasCamera.transform.position.z;
         this.currentDepth = this.mostBackward;
@@ -1200,6 +1204,15 @@ public class EndGame
         gameObject2.GetComponent<Renderer>().material.color = color;
         this.RenderWithHighScaleCoordinate(gameObject, sx + num, sy + num2, true);
         this.RenderWithHighScaleCoordinate(gameObject2, sx + num, sy + num2, true);
+        var resultSprite = gameObject.GetComponent<SpriteRenderer>();
+        if (resultSprite != null && resultSprite.enabled && resultSprite.sprite != null && this.IsOnBlackjackTable(gameObject))
+        {
+            BlackjackHand hand = this.ff9endingGameState == EndGameDef.FF9EndingGameState.ENDGAME_STATE_SPLITCHECK &&
+                sy == this.split.pos[1] + 12 ? BlackjackHand.Split : BlackjackHand.Player;
+            BlackjackResult result = resultType == EndGameDef.ENDGAME_RESULT_ENUM.ENDGAME_RESULT_WIN ? BlackjackResult.Win :
+                resultType == EndGameDef.ENDGAME_RESULT_ENUM.ENDGAME_RESULT_LOSE ? BlackjackResult.Loss : BlackjackResult.Draw;
+            this.Speech.DrawResult(hand, result, brightness / 255f);
+        }
         return 0;
     }
 
@@ -1223,11 +1236,12 @@ public class EndGame
         gameObject.transform.localPosition = localPosition;
     }
 
-    private Int32 ff9endingGameCardRenderFaceDown(Int32 sx, Int32 sy)
+    private GameObject ff9endingGameCardRenderFaceDown(Int32 sx, Int32 sy)
     {
-        this.RenderWithHighScaleCoordinate(this.endGameMain.CardFaceDown[this.cardFaceDownCounter], sx, sy, true);
+        GameObject card = this.endGameMain.CardFaceDown[this.cardFaceDownCounter];
+        this.RenderWithHighScaleCoordinate(card, sx, sy, true);
         this.cardFaceDownCounter++;
-        return 0;
+        return card;
     }
 
     private Int32 ff9endingGameShoeRender(Int32 sx, Int32 sy)
@@ -1240,7 +1254,7 @@ public class EndGame
         return 0;
     }
 
-    private Int32 ff9endingGameCardRender(Int32 cardNdx, Int32 suitNdx, Int32 sx, Int32 sy)
+    private GameObject ff9endingGameCardRender(Int32 cardNdx, Int32 suitNdx, Int32 sx, Int32 sy)
     {
         Int32 num = suitNdx + cardNdx * 4;
         GameObject gameObject = this.endGameMain.GameCards[num][this.endGameMain.InHandGameCardCounts[num]];
@@ -1254,7 +1268,7 @@ public class EndGame
             num2 = inHandGameCardCounts[num2];
             list[index] = num2 + 1;
         }
-        return 0;
+        return gameObject;
     }
 
     private Int32 ff9endingGameHandRender(EndGameDef.HAND_DEF hand, Int32 ox, Int32 oy, Int32 cardCount)
@@ -1279,22 +1293,49 @@ public class EndGame
         Int32 num2 = hand.pos[0] + ox + num * 13;
         Int32 num3 = hand.pos[1] + oy + num * 0;
         Int32 num4 = 1;
+        BlackjackHand displayedHand = hand == this.dealer ? BlackjackHand.Dealer : hand == this.split ? BlackjackHand.Split : BlackjackHand.Player;
+        this.Speech.ExpectCards(displayedHand, num + 1);
         for (Int32 i = num; i >= 0; i--)
         {
-            Int32 n = (Int32)hand.cardNdx[i];
             if (num4 != 0 && (hand.flags & 16u) != 0u && num == 1)
             {
-                this.ff9endingGameCardRenderFaceDown(num2, num3);
+                GameObject back = this.ff9endingGameCardRenderFaceDown(num2, num3);
+                if (this.IsDrawnCard(back))
+                    this.Speech.DrawFaceDown(displayedHand, i);
                 num4 = 0;
             }
             else
             {
-                this.ff9endingGameCardRender(EndGameDef.ENDGAME_CARD(n), EndGameDef.ENDGAME_SUIT(n), num2, num3);
+                Int32 n = (Int32)hand.cardNdx[i];
+                Int32 rank = EndGameDef.ENDGAME_CARD(n);
+                Int32 suit = EndGameDef.ENDGAME_SUIT(n);
+                GameObject face = this.ff9endingGameCardRender(rank, suit, num2, num3);
+                if (this.IsDrawnCard(face))
+                    this.Speech.DrawFaceUp(displayedHand, i, rank, suit);
             }
             num2 -= 13;
             //num3 = num3;
         }
         return 0;
+    }
+
+    private bool IsDrawnCard(GameObject card)
+    {
+        if (!this.IsOnBlackjackTable(card))
+            return false;
+        // Face-down cards own the sprite directly. Generated faces have it in the background child.
+        var face = card.GetComponentInChildren<SpriteRenderer>();
+        return face != null && face.enabled && face.sprite != null && face.color.a > 0 && face.gameObject.activeInHierarchy;
+    }
+
+    private bool IsOnBlackjackTable(GameObject subject)
+    {
+        var camera = this.endGameMain.CanvasCamera;
+        if (subject == null || !subject.activeInHierarchy || camera == null || !camera.isActiveAndEnabled)
+            return false;
+        Vector3 point = camera.WorldToViewportPoint(subject.transform.position);
+        return point.z >= camera.nearClipPlane && point.z <= camera.farClipPlane &&
+            point.x >= 0 && point.x <= 1 && point.y >= 0 && point.y <= 1;
     }
 
     private const Int64 DefaultGameBankroll = 1000L;

@@ -123,6 +123,20 @@ break its Story binding. The marker audit also accounts for the world's text
 table offset and multiple entrances. The ship's shrine objectives use its
 departure rooms rather than unreachable cutscene rooms.
 
+On Disc 2, the trips between Madain Sari and the Iifa Tree use the appropriate
+Conde Petie Mountain Path entrance and the exit on the far side. Story chooses
+the destination directly as soon as it is reachable from the current part of the
+world map. On Disc 4, both visits to Memoria use the flight portal above the
+Iifa Tree. If the portal is unavailable in the current view, Story gives a
+search hint for the Invincible.
+
+When sailing the Blue Narciss to Black Mage Village or Desert Palace, Story
+offers a shoreline once it comes into view. After arrival, use the game's
+Confirm control when the screen reader says disembarking is ready. On foot,
+Story leads to the village or lists the visible sand pits. A pit's spoken
+description can mention a visible plume. Inspecting and choosing a pit are
+player actions.
+
 Local Story eligibility follows current native Talk/Push branches and verified
 requested functions in detached variable buffers. Unsupported conditions or
 unverified dependencies stop that proof. The transition graph supplies

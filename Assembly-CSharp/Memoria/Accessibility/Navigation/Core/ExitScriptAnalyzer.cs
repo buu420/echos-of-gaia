@@ -17,6 +17,7 @@ namespace Memoria.Accessibility.Navigation
         private readonly byte[][] _buffers;
         private readonly HashSet<int>[] _unknown={new HashSet<int>(),new HashSet<int>(),new HashSet<int>()};
         public bool UserControl=true;
+        internal int? WorldLocationTitleState { get; set; }
         public ScriptSnapshot(byte[] global,byte[] map,byte[] instance) { _buffers=new[]{Clone(global),Clone(map),Clone(instance)}; }
         private static byte[] Clone(byte[] value) { return value==null ? new byte[0] : (byte[])value.Clone(); }
         public static byte[] InstanceBytes(byte[] buffer,int wordOffset)
@@ -84,9 +85,9 @@ namespace Memoria.Accessibility.Navigation
                 if(op==0x7f){if(stack.Count!=1)return false;value=stack.Pop().Number;return true;}
                 if(op>=0xc0) { int index=bytes[p++]; if(op>=0xe0) index|=bytes[p++]<<8; int source=op&3,type=(op&0x1c)>>2; stack.Push(new Value{Number=snapshot.Read(source,type,index),Variable=true,Source=source,Type=type,Index=index}); continue; }
                 if(op==0x7d || op==0x7e) { int number=bytes[p++]|(bytes[p++]<<8); if(op==0x7e)number|=(bytes[p++]<<16)|(bytes[p++]<<24); else number=(short)number; stack.Push(new Value{Number=number}); continue; }
-                if(op==0x7a) { int code=bytes[p++]; stack.Push(new Value{Number=code==2 ? (snapshot.UserControl?1:0) : (int?)null}); continue; }
+                if(op==0x7a) { int code=bytes[p++]; stack.Push(new Value{Number=code==2 ? (snapshot.UserControl?1:0) : code==210 ? snapshot.WorldLocationTitleState : null}); continue; }
                 // Object properties remain unknown unless a narrow caller
-                // supplies an observed value. System-list values are unknown.
+                // supplies an observed value. Unbound system-list values stay unknown.
                 // Assignments must invalidate an unreadable shadow destination.
                 if(op==0x78){int uid=bytes[p++],property=bytes[p++];stack.Push(new Value{Number=objectProperty==null?null:objectProperty(uid,property)});continue;}
                 if(op==0x79){p++;if(p>bytes.Length)return false;stack.Push(new Value());continue;}

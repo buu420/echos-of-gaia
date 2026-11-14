@@ -1,4 +1,4 @@
-Echos of Gaia 0.1.18 beta
+Echos of Gaia 0.1.19 beta
 Final Fantasy IX accessibility mod by buu420
 
 Supported: 64-bit Windows 10/11, Windows Steam FFIX app 377840 build 5378074.
@@ -41,6 +41,9 @@ In the Evil Forest fight, listen for Garnet and Prison Cage as separate targets.
 Use the other trigger or keyboard if a trigger is mapped to a core game action.
 In Hot and Cold, the configured status stick click reads the minigame's status.
 Use normal game controls to interact, choose dialogue and confirm actions.
+Test both Ice Cavern approaches and the named exits as you travel. For details
+on the new cues and routes, see the guide comparison and PC Blackjack help
+under Payload\accessibility\docs.
 
 For a route problem, press Windows+R and open %LOCALAPPDATA%\FF9Access\field-routes.
 Send the newest JSON from the failed attempt and the session's Memoria.log.
@@ -86,7 +89,7 @@ includes the return to the Evil Forest trail.
 
 Source, current releases, prerequisite links and reports:
 https://github.com/buu420/echos-of-gaia
-https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.18
+https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.19
 
 Based on BlindGuyNW/Memoria and Albeoris/Memoria. The code retains the MIT
 license; dependency and supplied sound notices remain separate. Final Fantasy

@@ -19,8 +19,8 @@ namespace Memoria.Accessibility
             if(context==null || !context.Foreground || (!context.CanInspect && !context.CanControl))return new CatalogResult();
             int id;string label;
             if(context.CanControl && NativeRegionReader.TryRead(out id,out label))Regions.Observe(context.SaveIdentity,context.LogicalMapKey,id,label,context.Position,context.Transport);
-            var catalog=_catalog.Build(context,NativeWorldTargets.Read(context),Regions);
             var geometry=NativeWorldGeometry.Read(context,null);WorldReachabilityIndex index;
+            var catalog=_catalog.Build(context,NativeWorldTargets.Read(context,geometry),Regions);
             if(geometry!=null && geometry.Rules!=null && geometry.Rules.Flying){TraceCatalog(context,catalog,catalog);return catalog;}
             _reachability.TryRead(geometry,context.CanControl && context.Foreground,out index);
             var result=WorldTargetCatalog.Filter(context,catalog,geometry,index);

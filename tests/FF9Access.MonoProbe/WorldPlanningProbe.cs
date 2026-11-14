@@ -56,12 +56,18 @@ internal static class WorldPlanningProbe
         foreach(object point in candidates)Require((bool)geometry.GetType().GetMethod("IsSegmentClear").Invoke(geometry,new object[]{point,point}),"Mono trigger candidate lacks native clearance");
         var records=(System.Collections.IDictionary)Type("FieldExitEvidence").GetField("_surfaces",BindingFlags.NonPublic|BindingFlags.Static).GetValue(null);
         int count=0;foreach(System.Collections.IList list in records.Values)count+=list.Count;
-        Require(count==9,"Mono did not load all nine reviewed trigger surfaces");
+        Require(count==16,"Mono did not load all sixteen reviewed trigger surfaces");
         var riverbank=(System.Collections.IList)records["field:255:FBG_N04_EVFT_MAP075_EF_NRV_0:7"];
         Require(riverbank!=null && riverbank.Count==1,"Mono lost the reviewed Riverbank exit");
         object trail=Get(riverbank[0],"VisibleApproach");
         Require(trail!=null && (float)Get(trail,"X")==-608f && (float)Get(trail,"Y")==193f && (float)Get(trail,"Z")==-1250f,
             "Mono lost the visible trail that leads to the Riverbank return trigger");
+        var restArea=(System.Collections.IList)records["field:801:FBG_N16_STGT_MAP331_SG_RND_1:17"];
+        Require(restArea!=null && restArea.Count==1 && (int)Get(restArea[0],"Camera")==0 && ((int[])Get(restArea[0],"OverlayIds"))[0]==9,
+            "Mono lost the South Gate return passage or assigned it to the wrong camera or overlay");
+        var hasTrail=Type("FieldExitEvidence").GetMethod("HasTrailReview");
+        Require((bool)hasTrail.Invoke(null,new object[]{"field:801:FBG_N16_STGT_MAP331_SG_RND_1",17}) &&
+            !(bool)hasTrail.Invoke(null,new object[]{"field:801:FBG_N16_STGT_MAP331_SG_RND_1",18}),"Mono did not scope trail presentation to the reviewed region");
         object gates=Create("FieldInteractionGates");Set(gates,"HasTalkHandler",true);Set(gates,"ReviewedListener",true);Set(gates,"MapTalkAllowed",true);Set(gates,"Level",7);
         object empty=Enum.Parse(Type("FieldInteractionState"),"Unavailable");
         Require(Type("FieldInteractionRules").GetMethod("Talk").Invoke(null,new object[]{gates,empty}).ToString()=="Unknown","Mono disabled the reviewed player-owned conversation");
@@ -81,7 +87,7 @@ internal static class WorldPlanningProbe
         Func<int,int,int?> height=delegate(int uid,int property){return uid==250 && property==1?(int?)-1301:null;};
         object snapshot=Create("ScriptSnapshot",new byte[16],new byte[16],new byte[16]);
         Require((bool)current.Invoke(null,new object[]{path,snapshot,ops,height}) && !(bool)current.Invoke(null,new object[]{path,snapshot,ops,null}),"Mono current plain path lost the scoped native height guard");
-        Console.WriteLine("PASS Mono field exits/interactions: 3D radius corner, reviewed Riverbank trail, player-owned listener, speaker request priority and native sound mute/volume; no Unity/input access");
+        Console.WriteLine("PASS Mono field exits/interactions: 3D radius corner, reviewed Riverbank trail and South Gate passage, player-owned listener, speaker request priority and native sound mute/volume; no Unity/input access");
     }
     private static void CheckReviewedLoopBindings()
     {

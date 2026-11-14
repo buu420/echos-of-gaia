@@ -10,6 +10,12 @@ namespace Memoria.Accessibility.Navigation
         private readonly Dictionary<int,int> _sparse;
         private sealed class Marker {internal NavigationPoint Position;internal NavigationPoint[] Approaches;}
         private readonly Dictionary<TargetIdentity,Marker> _markers=new Dictionary<TargetIdentity,Marker>();
+        private readonly Dictionary<TargetIdentity, Dictionary<int, EntranceApproach[]>> _entrances = new Dictionary<TargetIdentity, Dictionary<int, EntranceApproach[]>>();
+        internal struct EntranceApproach
+        {
+            public int Surface, Cell;
+            public NavigationPoint Point;
+        }
         internal WorldSurface[] SourceSurfaces{get{return _source.Surfaces;}}
         private WorldReachabilityIndex(WorldGeometrySnapshot geometry)
         {
@@ -65,6 +71,69 @@ namespace Memoria.Accessibility.Navigation
             if(surface==null || !Allowed(geometry,surface))return false;int label=Label(surface.Id);
             if(label>0)return origin.Contains(label);
             foreach(int component in ComponentsAt(geometry,surface,cell))if(origin.Contains(component))return true;return false;
+        }
+
+        internal EntranceApproach[] EntranceApproaches(WorldGeometrySnapshot geometry, NavigationTarget target, int tag)
+        {
+            if (!_entrances.TryGetValue(target.Id, out var cachedTags))
+                _entrances.Add(target.Id, cachedTags = new Dictionary<int, EntranceApproach[]>());
+            if (cachedTags.TryGetValue(tag, out var cached))
+                return cached;
+
+            var marker = target.Position;
+            float radius = target.WorldEntranceRadius;
+            int x = (tag >> 2) & 63, z = (tag >> 8) & 63;
+            int cell = z * 48 + x;
+            var center = new NavigationPoint(x * 32 + 16, 0, -z * 32 - 16);
+            var nearest = new List<EntranceApproach>();
+            foreach (var surface in geometry.MarkerCellSurfaces(center))
+            {
+                if (!Allowed(geometry, surface) || (surface.TerrainId >> 14 & 3) != (tag & 3))
+                    continue;
+                var middle = surface.Center;
+                var closest = ClosestPoint(surface, marker);
+                var inward = WorldCoordinates.Difference(closest, middle);
+                var point = WorldCoordinates.Canonical(new NavigationPoint(closest.X + inward.X / 4,
+                    closest.Y + inward.Y / 4, closest.Z + inward.Z / 4));
+                if (WorldGeometrySnapshot.Cell(point) != cell || !HasArrivalSpace(geometry, surface, point, tag))
+                    point = middle;
+                if (radius > 0 && WorldCoordinates.Distance(point, marker) > radius)
+                    continue;
+                if (WorldGeometrySnapshot.Cell(point) == cell && HasArrivalSpace(geometry, surface, point, tag))
+                    nearest.Add(new EntranceApproach { Surface = surface.Id, Cell = cell, Point = point });
+            }
+
+            // A triangulated entrance often has dozens of equivalent faces.
+            // Keep the closest safe stopping point from each connected land area.
+            nearest.Sort((a, b) => WorldCoordinates.Distance(a.Point, marker).CompareTo(WorldCoordinates.Distance(b.Point, marker)));
+            var selected = new List<EntranceApproach>();
+            var covered = new HashSet<int>();
+            foreach (var approach in nearest)
+            {
+                bool uncovered = false;
+                foreach (int component in ComponentsAt(geometry, geometry.Find(approach.Surface), cell))
+                    uncovered |= covered.Add(component);
+                if (uncovered)
+                    selected.Add(approach);
+            }
+            return cachedTags[tag] = selected.ToArray();
+        }
+
+        private static bool HasArrivalSpace(WorldGeometrySnapshot geometry, WorldSurface surface, NavigationPoint point, int tag)
+        {
+            var hit = geometry.Probe(point, surface.TerrainId, null);
+            if (hit != surface)
+                return false;
+            for (int i = 0; i < 16; i++)
+            {
+                double angle = i * Math.PI / 8;
+                var offset = new NavigationPoint(point.X + (float)Math.Cos(angle) * OwnedWorldTravel.GroundArrivalRadius,
+                    point.Y, point.Z + (float)Math.Sin(angle) * OwnedWorldTravel.GroundArrivalRadius);
+                var neighbor = geometry.Probe(offset, surface.TerrainId, null);
+                if (!Allowed(geometry, neighbor) || WorldEntranceScripts.EventTag(WorldGeometrySnapshot.Cell(offset), neighbor.TerrainId) != tag)
+                    return false;
+            }
+            return true;
         }
         internal NavigationPoint[] MarkerApproaches(WorldGeometrySnapshot geometry,NavigationTarget target)
         {

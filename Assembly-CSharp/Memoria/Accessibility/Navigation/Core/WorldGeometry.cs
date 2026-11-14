@@ -39,6 +39,8 @@ namespace Memoria.Accessibility.Navigation
         {
             private readonly double _x,_y,_z;
             internal VertexKey(NavigationPoint point){point=WorldCoordinates.Canonical(point);_x=Math.Round(point.X*256);_y=Math.Round(point.Y*256);_z=Math.Round(point.Z*256);}
+            private VertexKey(double x,double y,double z){_x=x;_y=y;_z=z;}
+            internal VertexKey Lower(int units){return new VertexKey(_x,_y-units,_z);}
             public bool Equals(VertexKey other){return _x.Equals(other._x) && _y.Equals(other._y) && _z.Equals(other._z);}
             public override bool Equals(object value){return value is VertexKey && Equals((VertexKey)value);}
             public override int GetHashCode(){return (_x.GetHashCode()*397^_y.GetHashCode())*397^_z.GetHashCode();}
@@ -48,6 +50,7 @@ namespace Memoria.Accessibility.Navigation
         {
             private readonly VertexKey _first,_second;
             internal EdgeKey(VertexKey first,VertexKey second){bool ordered=first.CompareTo(second)<=0;_first=ordered?first:second;_second=ordered?second:first;}
+            internal EdgeKey Lower(int units){return new EdgeKey(_first.Lower(units),_second.Lower(units));}
             public bool Equals(EdgeKey other){return _first.Equals(other._first) && _second.Equals(other._second);}
             public override bool Equals(object value){return value is EdgeKey && Equals((EdgeKey)value);}
             public override int GetHashCode(){return _first.GetHashCode()*397^_second.GetHashCode();}
@@ -106,8 +109,56 @@ namespace Memoria.Accessibility.Navigation
                 if((count++&127)==0 && cancelled!=null && cancelled())throw new OperationCanceledException();
                 for(int i=0;i<joined.Count;i++)for(int j=0;j<joined.Count;j++){int a=joined.At(i),b=joined.At(j);if(a!=b && !_neighbors[a].Contains(b))_neighbors[a].Add(b);}
             }
+            ConnectForestEdges(edges,cancelled);
             if(cancelled!=null && cancelled())throw new OperationCanceledException();
             return values.ToArray();
+        }
+
+        // The native forest walk surface is raised by 500 fixed-point units.
+        // Same-mesh X/Z seams at that exact height are crossed by the native
+        // 600-unit ground ray, even though the 3D vertices do not match.
+        private void ConnectForestEdges(Dictionary<EdgeKey, EdgeFaces> edges, Func<bool> cancelled)
+        {
+            int count = 0;
+            foreach (var edge in edges)
+            {
+                if ((count++ & 127) == 0 && cancelled != null && cancelled())
+                    throw new OperationCanceledException();
+                var high = SingleFloor(edge.Value);
+                if (high == null)
+                    continue;
+                int highTopography = WorldTerrainRules.Topography(high.TerrainId);
+                if (highTopography < 36 || highTopography > 38)
+                    continue;
+                if (!edges.TryGetValue(edge.Key.Lower(500), out var below))
+                    continue;
+                var low = SingleFloor(below);
+                if (low == null || low.BlockId != high.BlockId || low.MeshIndex != high.MeshIndex)
+                    continue;
+                int lowTopography = WorldTerrainRules.Topography(low.TerrainId);
+                if (lowTopography >= 36 && lowTopography <= 38)
+                    continue;
+                if (!_neighbors[high.Id].Contains(low.Id))
+                {
+                    _neighbors[high.Id].Add(low.Id);
+                    _neighbors[low.Id].Add(high.Id);
+                }
+            }
+        }
+
+        private WorldSurface SingleFloor(EdgeFaces edge)
+        {
+            WorldSurface floor = null;
+            for (int i = 0; i < edge.Count; i++)
+            {
+                var face = _byId[edge.At(i)];
+                if (face.NormalY <= 0.1f || (face.TerrainId & 0xc000) != 0)
+                    continue;
+                if (floor != null)
+                    return null;
+                floor = face;
+            }
+            return floor;
         }
         private static TransportRules CopyRules(TransportRules rules)
         {
@@ -149,10 +200,14 @@ namespace Memoria.Accessibility.Navigation
         public static int Cell(NavigationPoint point) {point=WorldCoordinates.Canonical(point);return (int)(-point.Z/32)*48+(int)(point.X/32);}
         private static int Block(NavigationPoint point) {point=WorldCoordinates.Canonical(point);return ((int)(-point.Z/64)%20)*24+(int)(point.X/64);}
         public WorldSurface Probe(NavigationPoint position,int previousId,PrivateWorldCache cache)
+        { return ProbeSurface(position,previousId,cache,false); }
+        internal WorldSurface ProbeFromSky(NavigationPoint position,int previousId,PrivateWorldCache cache)
+        { return ProbeSurface(position,previousId,cache,true); }
+        private WorldSurface ProbeSurface(NavigationPoint position,int previousId,PrivateWorldCache cache,bool ignoreTriangleExceptions)
         {
             if(Rules==null || !position.IsFinite)return null;
             int blockId=Block(position),topography=WorldTerrainRules.Topography(previousId);
-            float origin=position.Y+(Rules.Flying?400:2.34375f),height;
+            float origin=position.Y+(Rules.Flying || ignoreTriangleExceptions?400:2.34375f),height;
             bool useCache=(topography!=49 && topography!=52) || Rules.ControlType==1;
             if(useCache && cache!=null)for(int i=0;i<10;i++) {var s=Find(cache.At(i));if(s!=null && s.BlockId==blockId && (s.TerrainId!=0x31ee || Rules.ControlType==1) && s.TryHeight(position,out height) && height<=origin)return s;}
             List<WorldSurface> block;
@@ -162,7 +217,7 @@ namespace Memoria.Accessibility.Navigation
             foreach(var s in block) {
                 if(s.MeshIndex==rejectedMesh)continue;
                 bool excluded=s.TerrainId==4078 || s.TerrainId==4088 || s.TerrainId==2040 || s.NormalY<=0.1f;
-                if(excluded && !Rules.Flying || !s.TryHeight(position,out height) || height>origin)continue;
+                if(excluded && !Rules.Flying && !ignoreTriangleExceptions || !s.TryHeight(position,out height) || height>origin)continue;
                 // Native WMBlock rejects the mesh after its first hit on this special ID.
                 if(s.TerrainId==0x31ee && Rules.ControlType!=1){rejectedMesh=s.MeshIndex;continue;}
                 if(cache!=null)cache.Add(s.Id);return s;

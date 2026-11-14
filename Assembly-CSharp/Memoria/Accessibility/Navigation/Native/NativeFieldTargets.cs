@@ -14,7 +14,7 @@ namespace Memoria.Accessibility.Navigation
         private static readonly Dictionary<Actor,ActorLabelIdentity> _labelIdentities=new Dictionary<Actor,ActorLabelIdentity>();
         private static readonly Dictionary<byte[],Dictionary<int,List<ScriptInstruction>>> _decoded=new Dictionary<byte[],Dictionary<int,List<ScriptInstruction>>>();
         private static readonly Dictionary<byte[],DoorBinding> _doors=new Dictionary<byte[],DoorBinding>();
-        private sealed class RegionSurface {public string Geometry,Polygon;public NavigationPoint[] Region,Approaches,Boundaries,Presentation,ApproachesFromVisibleTrail;}
+        private sealed class RegionSurface {public string Geometry,Polygon;public NavigationPoint[] Region,Approaches,Boundaries,Presentation,ApproachesFromVisibleTrail;public NavigationPoint TrailAnchor;}
         private static readonly Dictionary<Quad,RegionSurface> _surfaces=new Dictionary<Quad,RegionSurface>();
         private static BGSCENE_DEF _tileScene;private static int _tileFrame=-1;
         private static readonly Dictionary<int,DoorTileObservation> _tiles=new Dictionary<int,DoorTileObservation>();
@@ -183,11 +183,12 @@ namespace Memoria.Accessibility.Navigation
                     var storyRegion=ReadStoryRegion(context,engine,field,player,quad,ref currentGeometry,ref geometryRead);
                     if(storyRegion!=null){LabelReviewedRegion(context,field,quad,storyRegion);result.Add(storyRegion);continue;}
                 }
-                // Retain only an exit already observed in this scene. A live
-                // disabled/changed region must not reuse its old approach.
+                // A reviewed trail depends on its current overlay and floor.
+                // Its native panorama already accounts for ordinary scrolling.
                 int exitIdentity=System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(quad)^fingerprint.GetHashCode();
-                if(presentation!=null && presentation.Visible)_seenExits.Add(exitIdentity);
-                bool offscreen=presentation==null && _seenExits.Contains(exitIdentity) && EventCollision.NavigationCanTriggerQuad(player,quad);
+                bool reviewedTrail=reviewed && FieldExitEvidence.HasTrailReview(context.LogicalMapKey,quad.sid);
+                if(presentation!=null && presentation.Visible && !reviewedTrail)_seenExits.Add(exitIdentity);
+                bool offscreen=presentation==null && !reviewedTrail && _seenExits.Contains(exitIdentity) && EventCollision.NavigationCanTriggerQuad(player,quad);
                 if(offscreen) {
                     byte[] instance=ScriptSnapshot.InstanceBytes(quad.buffer,quad.vofs);
                     offscreen=ExitScriptAnalyzer.Evaluate(touch,new ScriptSnapshot(FF9StateSystem.EventState.gEventGlobal,engine.GetMapVar(),instance){UserControl=true},(int)EBin.event_code_binary.MAPJUMP,(int)EBin.event_code_binary.WMAPJUMP,(int)EBin.event_code_binary.MOVQ,(int)EBin.event_code_binary.MJPOS)!=ScriptExitOutcome.NoJumpNow;
@@ -264,7 +265,7 @@ namespace Memoria.Accessibility.Navigation
             var position=actor.fieldMapActorController==null?new NavigationPoint(actor.pos[0],actor.pos[1],actor.pos[2]):Point(actor.fieldMapActorController.curPos);
             return ForestNavigationEvidence.MeneRegion(context.LogicalMapKey,actor.sid,actor.model,Fingerprint(actor.ebData),region.sid,Fingerprint(region.ebData),position);
         }
-        private static List<ScriptInstruction> Decode(EventEngine engine,Obj obj,int tag)
+        internal static List<ScriptInstruction> Decode(EventEngine engine,Obj obj,int tag)
         {
             var result=new List<ScriptInstruction>(); int start=engine.GetIP(obj.sid,tag,obj.ebData); if(start==engine.nil || start<0)return result;
             Dictionary<int,List<ScriptInstruction>> functions;List<ScriptInstruction> cached;
@@ -328,19 +329,21 @@ namespace Memoria.Accessibility.Navigation
                 // backdrop are still required before it becomes a target.
                 if(plain && (onScreen?RenderedBackgroundAt(field,Vector(p)):PlainPassageOnPanorama(field,Vector(p),panorama)))return true;
                 if(!onScreen)return false;
-                if(surfaceReview!=null && RenderedBackgroundAt(field,Vector(p),surfaceReview.OverlayIds))return true;
+                if(surfaceReview!=null && !surfaceReview.VisibleApproach.HasValue && RenderedBackgroundAt(field,Vector(p),surfaceReview.OverlayIds))return true;
                 int overlay;foreach(var animation in animationFrames)if(FieldDoorEvidence.TryBind(field.scene.animList[animation.Key].camNdx,field.camIdx,animation.Value,Point(Project(field,Vector(p))),true,out overlay))return true;
                 return false;
             };
             Func<NavigationPoint,bool> nativeFirst=p=>engine.NavigationTouchQuadAt(p.X,p.Z)==quad;
             var approaches=surface.Approaches;
             Func<NavigationPoint,bool> approachPresented=presented;
-            if(plain && field.camIdx==field.curCamIdx && surfaceReview?.VisibleApproach is NavigationPoint trail && trail.IsFinite &&
-                EntranceOnScreen(field,Vector(trail)) && RenderedBackgroundAt(field,Vector(trail),surfaceReview.OverlayIds,true)) {
+            if(plain && surfaceReview?.VisibleApproach is NavigationPoint trail && trail.IsFinite &&
+                ReviewedTrailPresented(field,trail,surfaceReview.OverlayIds,panorama)) {
                 // The trail itself is visible. Its walk-out region can start
                 // just past the drawn edge, so use connected native floor.
-                if(surface.ApproachesFromVisibleTrail==null)
+                if(surface.ApproachesFromVisibleTrail==null || !trail.Equals(surface.TrailAnchor)) {
+                    surface.TrailAnchor=trail;
                     surface.ApproachesFromVisibleTrail=Array.FindAll(surface.Approaches,p=>geometry.IsSegmentClear(trail,p));
+                }
                 if(surface.ApproachesFromVisibleTrail.Length>0) {
                     approaches=surface.ApproachesFromVisibleTrail;
                     approachPresented=p=>true;
@@ -429,6 +432,14 @@ namespace Memoria.Accessibility.Navigation
             if(panorama==null)return false;var camera=field.GetCurrentBgCamera();if(camera==null)return false;
             var projected=PSX.CalculateGTE_RTPT_POS(point,Matrix4x4.identity,camera.GetMatrixRT(),camera.GetViewDistance(),field.GetProjectionOffset());
             return FieldScenePresentation.Passage(true,RenderedBackgroundAt(field,point,null,true),panorama,Point(projected));
+        }
+        private static bool ReviewedTrailPresented(FieldMap field,NavigationPoint trail,int[] overlays,FieldCameraPanorama panorama)
+        {
+            var camera=field.GetCurrentBgCamera();if(camera==null || overlays==null || overlays.Length==0)return false;
+            var point=Vector(trail);
+            var projected=PSX.CalculateGTE_RTPT_POS(point,Matrix4x4.identity,camera.GetMatrixRT(),camera.GetViewDistance(),field.GetProjectionOffset());
+            return FieldScenePresentation.ReviewedWalkOut(true,EntranceOnScreen(field,point),field.camIdx==field.curCamIdx,
+                RenderedBackgroundAt(field,point,overlays,true),panorama,Point(projected));
         }
         private static bool OnScreen(FieldMap field,Vector3 point)
         {

@@ -65,6 +65,114 @@ namespace FF9Access.Tests
                 }
             }
         }
+        public static void DiscTwoIifaAndMadainSariStagesCrossMountainPathInTheCorrectDirection()
+        {
+            using(var data=Data()) {
+                var rows=data.RootElement.GetProperty("stages").EnumerateArray().ToArray();
+                var journeys=new[]{
+                    (Milestone:6600,Origin:-1,Entry:35,Destination:33,Departure:1557),
+                    (Milestone:6700,Origin:1600,Entry:34,Destination:36,Departure:1555),
+                    (Milestone:6800,Origin:1757,Entry:35,Destination:33,Departure:1557),
+                    (Milestone:6900,Origin:1600,Entry:34,Destination:36,Departure:1555)};
+                foreach(var journey in journeys) {
+                    var row=rows.Single(s=>s.GetProperty("milestone").GetInt32()==journey.Milestone);
+                    TestAssert.Equal(journey.Destination,row.GetProperty("worldLocations")[0].GetInt32());
+                    TestAssert.True(row.TryGetProperty("worldWaypoints",out var waypoints));
+                    TestAssert.Equal(journey.Entry,waypoints.EnumerateArray().Single().GetInt32());
+                    var gates=row.GetProperty("worldDepartureFields").EnumerateArray().Select(f=>f.GetInt32()).ToArray();
+                    TestAssert.Equal(journey.Origin<0?1:2,gates.Length);
+                    TestAssert.True(gates.Contains(journey.Departure));
+                    if(journey.Origin>=0)TestAssert.True(gates.Contains(journey.Origin));
+
+                    var stage=new StoryStage{Milestone=journey.Milestone,Goal=row.GetProperty("goal").GetString(),
+                        GoalFields=row.GetProperty("fields").EnumerateArray().Select(v=>v.GetInt32()).ToArray(),WorldDepartureFields=gates,
+                        WorldLocations=new[]{journey.Destination},WorldWaypoints=new[]{journey.Entry}};
+                    int entryField=journey.Entry==34?1557:1555;
+                    var transit=new[]{new StoryTransit{From=1555,To=1556},new StoryTransit{From=1556,To=1557},
+                        new StoryTransit{From=1557,To=1556},new StoryTransit{From=1556,To=1555}};
+                    var catalog=new StoryTargetCatalog(new[]{stage},transit);
+                    var world=TestFixtures.Context("world:1");world.StoryProgress=journey.Milestone-1;
+                    var entry=WorldTown(world,journey.Entry,"Conde Petie Mountain Path",journey.Entry);
+                    var destination=WorldTown(world,journey.Destination,stage.Goal,journey.Destination);
+                    var choices=new CatalogResult();choices.Targets.Add(entry);
+                    catalog.Append(world,choices,-1);TestAssert.Equal(entry.Id,choices.Targets.Last().PhysicalIdentity);
+                    choices=new CatalogResult();choices.Targets.Add(entry);choices.Targets.Add(destination);
+                    catalog.Append(world,choices,-1);TestAssert.Equal(3,choices.Targets.Count);TestAssert.Equal(destination.Id,choices.Targets.Last().PhysicalIdentity);
+
+                    AssertStoryExit(entryField,9003,1556);
+                    AssertStoryExit(1556,entryField,journey.Departure);
+                    AssertStoryExit(journey.Departure,1556,9003);
+                    if(journey.Origin>=0)AssertStoryExit(journey.Origin,1556,9003);
+
+                    void AssertStoryExit(int field,int back,int forward)
+                    {
+                        var context=TestFixtures.Context("field:"+field);context.StoryProgress=world.StoryProgress;
+                        var backward=FieldExit(context,1,back);
+                        var recommended=FieldExit(context,2,forward);
+                        var input=new CatalogResult();input.Targets.Add(backward);input.Targets.Add(recommended);
+                        catalog.Append(context,input,field);TestAssert.Equal(3,input.Targets.Count);
+                        TestAssert.Equal(recommended.Id,input.Targets.Last().PhysicalIdentity);
+                    }
+                }
+            }
+        }
+        public static void MemoriaStoryUsesThePortalBeforeAndAfterNovaDragon()
+        {
+            using(var data=Data()) {
+                var stages=data.RootElement.GetProperty("stages").EnumerateArray().Where(row=>row.GetProperty("milestone").GetInt32()>=11200)
+                    .Select(row=>new StoryStage{Milestone=row.GetProperty("milestone").GetInt32(),Goal=row.GetProperty("goal").GetString(),
+                        Instruction=row.GetProperty("instruction").GetString(),WorldPlaces=row.GetProperty("worldPlaces").EnumerateArray().Select(v=>v.GetString()).ToArray(),
+                        WorldLocations=row.GetProperty("worldLocations").EnumerateArray().Select(v=>v.GetInt32()).ToArray(),RequiredVehicle=row.GetProperty("vehicle").GetString(),
+                        WorldSearchHint=row.TryGetProperty("worldSearchHint",out var hint)?hint.GetString():null}).ToArray();
+                var catalog=new StoryTargetCatalog(stages,null);
+                var context=TestFixtures.Context("world:1");
+                context.Transport=new TransportIdentity(TransportKind.Invincible,10,9);
+                var ground=WorldTown(context,36,"Iifa Tree",36);
+                var portal=WorldTown(context,53,"Memoria",-1);
+                foreach(int progress in new[]{11100,11200,11615}) {
+                    context.StoryProgress=progress;
+                    var input=new CatalogResult();input.Targets.Add(ground);
+                    catalog.Append(context,input,-1);
+                    TestAssert.Equal(2,input.Targets.Count);
+                    TestAssert.False(input.Targets[1].PhysicalId.HasValue);
+                    TestAssert.True(input.Targets[1].Label.Contains("in the sky above the Iifa Tree"));
+                    input=new CatalogResult();input.Targets.Add(ground);input.Targets.Add(portal);
+                    catalog.Append(context,input,-1);
+                    TestAssert.Equal(3,input.Targets.Count);
+                    TestAssert.Equal(portal.Id,input.Targets[2].PhysicalIdentity);
+                    TestAssert.Equal(-1,input.Targets[2].NativeLocationId);
+                }
+            }
+        }
+        public static void BlueNarcissStagesBindTheCorrectLandingAndKeepSandPitsNeutral()
+        {
+            using(var data=Data()) {
+                var rows=data.RootElement.GetProperty("stages").EnumerateArray().ToDictionary(r=>r.GetProperty("milestone").GetInt32());
+                foreach(int milestone in new[]{9410,9420,9430,9450}) {
+                    TestAssert.Equal(WorldBoatLanding.VillageShore,rows[milestone].GetProperty("boatLanding").GetInt32());
+                    TestAssert.Equal(30,rows[milestone].GetProperty("worldLocations")[0].GetInt32());
+                }
+                TestAssert.Equal(WorldBoatLanding.PalaceShore,rows[9510].GetProperty("boatLanding").GetInt32());
+                TestAssert.True(rows[9510].GetProperty("worldLocations").EnumerateArray().Select(r=>r.GetInt32()).SequenceEqual(new[]{64,65,66,67}));
+                TestAssert.Equal(1450,rows[9510].GetProperty("worldDepartureFields")[0].GetInt32());
+                TestAssert.False(rows[9515].TryGetProperty("boatLanding",out _));
+                TestAssert.Equal(27,rows[9515].GetProperty("worldLocations")[0].GetInt32());
+                foreach(int progress in new[]{9400,9410,9420,9430,9449})TestAssert.Equal(WorldBoatLanding.VillageShore,WorldBoatLanding.Destination(progress));
+                TestAssert.Equal(WorldBoatLanding.PalaceShore,WorldBoatLanding.Destination(9450));
+                TestAssert.Equal(WorldBoatLanding.PalaceShore,WorldBoatLanding.Destination(9509));
+                TestAssert.Equal(-1,WorldBoatLanding.Destination(9510));
+            }
+        }
+        private static NavigationTarget WorldTown(NavigationContext context,int id,string label,int nativeLocation)
+        {
+            return new NavigationTarget{Id=new TargetIdentity(TargetKind.WorldLocation,context.LogicalMapKey,id),NativeLocationId=nativeLocation,
+                Generation=context.Generation,Category=NavigationCategory.Towns,Label=label,ApproachCandidates=new[]{TestFixtures.P(8,8)}};
+        }
+        private static NavigationTarget FieldExit(NavigationContext context,int id,int next)
+        {
+            return new NavigationTarget{Id=new TargetIdentity(TargetKind.FieldExit,context.LogicalMapKey,id),Generation=context.Generation,
+                Category=NavigationCategory.Exits,Label="Exit "+id,NextFields=new[]{next},ApproachCandidates=new[]{TestFixtures.P(7,7)}};
+        }
         public static void ApostrophesDoNotDropNativeWorldBindings()
         {
             using(var data=Data()) {

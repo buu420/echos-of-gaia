@@ -45,5 +45,26 @@ namespace FF9Access.Tests
             TestAssert.Equal(WorldOutcome.Interrupted,owned.Tick(c,Town()).Outcome);TestAssert.Equal(1,port.Stops);
         }
         public static void HumanAxesMatchNativeCameraTransform() {var command=WorldSteering.For(Context(),new NavigationPoint(10,0,0),new WorldMovementState{CameraDegrees=0,ControlType=0});TestAssert.True(command.LX<0);TestAssert.Equal(0,command.Throttle);}
+
+        public static void PortalApproachAscendsAndStopsAtTheNativePromptWithoutConfirming()
+        {
+            var port = new Port();
+            var context = Context(TransportKind.Invincible, 10);
+            var target = Town();
+            target.NativeLocationId = -1;
+            context.Position = target.Position;
+            port.State.ControlType = 1;
+            port.State.AltitudeControl = -48;
+            var travel = new OwnedWorldTravel(port);
+            travel.Start(context, target, Route(context, target), 2);
+            TestAssert.Equal(WorldOutcome.Moving, travel.Tick(context, target).Outcome);
+            TestAssert.Equal(-48, port.Last.LY);
+            TestAssert.Equal(0, port.Last.Throttle);
+            TestAssert.Equal(0, port.Starts);
+            port.State.ArrivalReady = true;
+            TestAssert.Equal(WorldOutcome.ReadyToInteract, travel.Tick(context, target).Outcome);
+            TestAssert.Equal(0, port.Last.LY);
+            TestAssert.Equal(0x1234, port.EventBits);
+        }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using Assets.Scripts.Common;
 using Assets.Sources.Scripts.UI.Common;
 using Memoria;
+using Memoria.Accessibility.AudioDescriptions;
 using Memoria.Scenes;
 
 public class ChocographUI : UIScene
@@ -188,10 +189,12 @@ public class ChocographUI : UIScene
 
     public override Boolean OnItemSelect(GameObject go)
     {
-        if (base.OnItemSelect(go) && ButtonGroupState.ActiveGroup == ChocographUI.ItemGroupButton)
+        if (this.Loading || go == null || go == PersistenSingleton<UIManager>.Instance.gameObject)
+            return true;
+        if (ButtonGroupState.ActiveGroup == ChocographUI.ItemGroupButton && go.GetComponent<ScrollItemKeyNavigation>() is ScrollItemKeyNavigation itemNavigation)
         {
-            this.currentSelectItemIndex = go.GetComponent<ScrollItemKeyNavigation>().ID;
-            if (this.hasMap[this.currentSelectItemIndex])
+            this.currentSelectItemIndex = itemNavigation.ID;
+            if (this.currentSelectItemIndex >= 0 && this.currentSelectItemIndex < this.hasMap.Count && this.hasMap[this.currentSelectItemIndex])
             {
                 this.HintContentPanel.SetActive(true);
                 this.DisplayHint(this.currentSelectItemIndex);
@@ -202,7 +205,32 @@ public class ChocographUI : UIScene
             }
             ButtonGroupState.SetCursorStartSelect(go, ChocographUI.ItemGroupButton);
         }
+        base.OnItemSelect(go);
         return true;
+    }
+
+    protected override Boolean InterruptSelectionSpeech => true;
+
+    protected override String GetButtonText(GameObject go)
+    {
+        if (ButtonGroupState.ActiveGroup != ItemGroupButton || go != ButtonGroupState.ActiveButton ||
+            UIManager.Instance.State != UIManager.UIState.Chocograph || !HonoInputManager.ApplicationIsActivated())
+            return base.GetButtonText(go);
+
+        Int32 row = this.currentSelectItemIndex;
+        if (row < 0 || row >= this.chocographItemList.Count || row >= this.hasMap.Count || !this.hasMap[row])
+            return "Undiscovered Chocograph.";
+
+        ChocographItem item = this.chocographItemList[row];
+        if (item.Self != go || !item.Content.activeInHierarchy)
+            return base.GetButtonText(go);
+        String name = item.ItemName.Parser.ParsedText;
+        if (!this.HintContentPanel.activeInHierarchy || !this.HintMap.isActiveAndEnabled || !this.HintText.isActiveAndEnabled)
+            return name;
+
+        String picture = ChocographPictureDescriptions.Read(row, this.HintMap.spriteName, this.HintMap.alpha > 0);
+        String clue = this.HintText.Parser.ParsedText;
+        return String.Join(" ", new[] { name + ".", clue, picture });
     }
 
     private void OnSecondaryGroupClick(GameObject go)
