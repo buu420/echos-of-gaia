@@ -65,18 +65,47 @@ namespace Memoria.Accessibility.Navigation
     // surface are unchanged, and for at most maxAge frames.
     public sealed class StoryRegionProofCache<T> where T:class
     {
-        private sealed class Entry{public string Scope;public object Surface;public byte[][] Memory;public int Frame;public readonly Dictionary<NavigationPoint,T> Points=new Dictionary<NavigationPoint,T>();}
+        private sealed class Entry
+        {
+            public string Scope;
+            public object Surface;
+            public byte[][] Memory;
+            public int Frame;
+            public T SharedResult;
+            public int SharedFrame;
+            public readonly Dictionary<NavigationPoint,T> Points = new Dictionary<NavigationPoint,T>();
+        }
         private readonly Dictionary<string,Entry> _entries=new Dictionary<string,Entry>();
         private readonly int _maxAge;
         public StoryRegionProofCache(int maxAge){_maxAge=maxAge;}
-        public Func<NavigationPoint,T> Begin(string identity,string scope,object surface,byte[][] memory,int frame,Func<NavigationPoint,T> evaluate)
+        public Func<NavigationPoint,T> Begin(string identity,string scope,object surface,byte[][] memory,int frame,Func<NavigationPoint,T> evaluate,Func<T,bool> shareWithinFrame=null)
         {
             Entry entry;
             if(!_entries.TryGetValue(identity,out entry) || entry.Scope!=scope || !ReferenceEquals(entry.Surface,surface) || !Same(entry.Memory,memory) || frame<entry.Frame || frame-entry.Frame>=_maxAge) {
                 if(_entries.Count>=64)_entries.Clear();
                 entry=new Entry{Scope=scope,Surface=surface,Memory=Copy(memory),Frame=frame};_entries[identity]=entry;
             }
-            return point=>{T value;if(!entry.Points.TryGetValue(point,out value)){value=evaluate(point);if(entry.Points.Count<256)entry.Points[point]=value;}return value;};
+            return point =>
+            {
+                if (shareWithinFrame != null && entry.SharedResult != null && entry.SharedFrame == frame)
+                    return entry.SharedResult;
+
+                T result;
+                if (!entry.Points.TryGetValue(point, out result))
+                {
+                    result = evaluate(point);
+                    // Share only a fresh proof for this frame. A previous point's
+                    // cached proof cannot authorize additional approaches.
+                    if (result != null && shareWithinFrame != null && shareWithinFrame(result))
+                    {
+                        entry.SharedResult = result;
+                        entry.SharedFrame = frame;
+                    }
+                    else if (entry.Points.Count < 256)
+                        entry.Points[point] = result;
+                }
+                return result;
+            };
         }
         private static byte[][] Copy(byte[][] memory)
         {

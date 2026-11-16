@@ -162,9 +162,9 @@ namespace Memoria.Accessibility
         }
 
         /// <summary>
-        /// Update loop - called each frame while the minigame is active.
+        /// Unity updates the cage feedback once per rendered frame.
         /// </summary>
-        public void Update()
+        private void Update()
         {
             if (!_isActive)
                 return;
@@ -381,10 +381,7 @@ namespace Memoria.Accessibility
                 // If we're skipping, don't shutdown - let the event script run its cleanup
                 // and field transition naturally. Shutdown will be called when the map changes.
                 if (_skipRequested)
-                {
-                    Log.Message("[CageMinigameAccessibility] Position threshold reached during skip - waiting for field transition");
                     return;
-                }
 
                 Log.Message("[CageMinigameAccessibility] Minigame ending - position threshold reached");
                 ScreenReaderManager.Instance.Speak("Cage broken! Escaped successfully!", false);

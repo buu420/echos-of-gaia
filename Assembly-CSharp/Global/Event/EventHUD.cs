@@ -386,10 +386,6 @@ public class EventHUD
                     if (globDialogProgression == 13)
                     {
                         EventHUD.OpenSpecialHUD(MinigameHUD.SwingACage);
-
-                        // Update cage minigame accessibility
-                        if (CageMinigameAccessibility.Instance != null)
-                            CageMinigameAccessibility.Instance.Update();
                     }
                     else
                     {

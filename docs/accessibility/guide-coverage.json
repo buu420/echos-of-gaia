@@ -801,7 +801,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldStoryRegionApproaches.cs",
-      "sha256": "46cb334586bbd3673b56c8f8a56418e68378cc0b545420b6561b31e2d23394ff"
+      "sha256": "843bd7149ce7b2e2b4f139ac2aba89e990caf8dddb44e633ca4540f14ef4180e"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NavigationTargets.cs",
@@ -965,7 +965,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationRuntime.cs",
-      "sha256": "798ff128e842a45c1bac9569ba8ce28ecae89970d1207b53f566181f7c2055e6"
+      "sha256": "9e1c2b7e80d202b878dab876c205a92bdac3c604c368aa35c696eed76532593f"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationLifecycleBridge.cs",
@@ -1001,7 +1001,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldExitPaths.cs",
-      "sha256": "84f4c395c140017b71ed92d4d4c19c6bb0f9c3ac4d4a43d48a5cc8406d59be55"
+      "sha256": "8d31506007abef0fcb17c9cbe5b88d8ac148974de84b125a70771c7f4acdd346"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldPhysicalAreas.Generated.cs",
@@ -1021,7 +1021,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldExitRoutes.cs",
-      "sha256": "65564d2534649ac2e5f1e345c21404566decb94cfc3e3022c8270005ca30b719"
+      "sha256": "c31569885b46679b899530c00400e6655f135e57f5ecc15abb920106d0a80143"
     }
   ],
   "nativeFieldIdentity": "8a1aad6c4928624e1b999279f085e45fe0d40227e47972ee13b52abd96931043",

@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.19 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.19)**
+**[Download 0.1.20 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.20)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,11 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing, including a full playthrough.
+
+0.1.20 reduces navigation work during Steiner and Marcus’s escape from
+Alexandria Castle. Held movement stops producing a log write each frame,
+cage feedback runs once per frame, and exits share a script result when
+their outcome is independent of the approach position.
 
 0.1.19 restores both Ice Cavern approaches and improves entrance and exit
 coverage in several areas. Story navigation follows the Conde Petie Mountain

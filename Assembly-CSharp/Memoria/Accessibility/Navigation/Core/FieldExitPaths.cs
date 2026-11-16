@@ -22,6 +22,7 @@ namespace Memoria.Accessibility.Navigation
         public uint Buttons;
         // Where an unproven path stopped ("uid:tag@offset"), for the exit ledger and diagnostics.
         public string Stop;
+        internal bool ReadsApproachPosition;
     }
     // Native request and dialogue semantics for indirect exits.
     public sealed class FieldExitPathOptions
@@ -56,7 +57,7 @@ namespace Memoria.Accessibility.Navigation
         {
             public readonly List<int> Prefix;public readonly List<int> Taken=new List<int>();public readonly List<int> Alternatives=new List<int>();
             public readonly StringBuilder Writes=new StringBuilder();
-            public int? Destination,Entrance;public bool Done,UsedChoice,Overflow,Dialogue,Counter;public uint Buttons,PendingButtons;public string Stop;
+            public int? Destination,Entrance;public bool Done,UsedChoice,Overflow,Dialogue,Counter,ReadsApproachPosition;public uint Buttons,PendingButtons;public string Stop;
             public Run(List<int> prefix){Prefix=prefix;}
             public int Decide(int count,bool choice)
             {
@@ -86,7 +87,9 @@ namespace Memoria.Accessibility.Navigation
                 if(function==null){evidence.Kind=FieldExitPathKind.Unknown;return evidence;}
                 var state=new State{Position=objectProperty,Party=partyCheck,UserControl=function.Snapshot!=null && function.Snapshot.UserControl,Disable=disableControl,Enable=enableControl,PositionChanges=positionChanges,Options=options};
                 int budget=Budget;
-                if(!Function(function,requested,mapJump,worldJump,requestOpcodes,state,run,new HashSet<int>(),ref budget) || run.Overflow){evidence.Kind=FieldExitPathKind.Unknown;evidence.Stop=run.Stop??(run.Overflow?"decisions":"budget");return evidence;}
+                bool completed = Function(function, requested, mapJump, worldJump, requestOpcodes, state, run, new HashSet<int>(), ref budget);
+                evidence.ReadsApproachPosition |= run.ReadsApproachPosition;
+                if(!completed || run.Overflow){evidence.Kind=FieldExitPathKind.Unknown;evidence.Stop=run.Stop??(run.Overflow?"decisions":"budget");return evidence;}
                 runs.Add(run);
                 // Every decision this run met beyond its prefix spawns its untaken alternatives.
                 for(int k=run.Prefix.Count;k<run.Taken.Count;k++)for(int alt=1;alt<run.Alternatives[k];alt++) {
@@ -198,10 +201,15 @@ namespace Memoria.Accessibility.Navigation
                 if(op==0x7d || op==0x7e){int number=bytes[p++]|(bytes[p++]<<8);if(op==0x7e)number|=(bytes[p++]<<16)|(bytes[p++]<<24);else number=(short)number;stack.Push(new Value{Number=number});continue;}
                 if(op==0x7a){
                     int code=bytes[p++];int? number=code==2?(snapshot.UserControl?1:0):(int?)null;
-                    if(state.HasExitPosition && (code==10 || code==11))number=(int)(code==10?state.Options.ExitPosition.Value.X:state.Options.ExitPosition.Value.Z);
+                    if (code == 10 || code == 11)
+                    {
+                        run.ReadsApproachPosition = true;
+                        if (state.HasExitPosition) number = (int)(code == 10 ? state.Options.ExitPosition.Value.X : state.Options.ExitPosition.Value.Z);
+                    }
                     stack.Push(new Value{Number=number,Taint=code==9?TaintChoice:code==8?TaintInput:0});continue;
                 }
                 if(op==0x78) {
+                    run.ReadsApproachPosition = true;
                     int uid=bytes[p++],property=bytes[p++];if(uid==255 && state.SelfUid>=0)uid=state.SelfUid;int? number=state.Position==null?null:state.Position(uid,property);
                     bool facing=property==3 && (uid==250 || state.Options!=null && uid==state.Options.PlayerUid);
                     if(number==null && facing && state.Position!=null && state.HasExitPosition)number=state.Options.EntryFacing;

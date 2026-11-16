@@ -65,7 +65,10 @@ namespace Memoria.Accessibility.Navigation
                 var commands=NativeNavigationInput.TakeCommands();var update=_coordinator.Tick(context,commands,catalog,movement,Configuration.Accessibility.ControllerNaming);
                 if(_pending==movement && update.Session.Mode!=RouteMode.Moving)_pending=null;
                 foreach(var command in commands) {
-                    Trace("Command "+command+"; map="+context.LogicalMapKey+"; generation="+context.Generation+"; mode="+update.Session.Mode);
+                    // Held movement is a signal on every frame. Route releases
+                    // already log the takeover, so no disk write belongs here.
+                    if (command != NavigationCommand.ManualMovement)
+                        Trace("Command "+command+"; map="+context.LogicalMapKey+"; generation="+context.Generation+"; mode="+update.Session.Mode);
                     if(command==NavigationCommand.StartAutomatic || command==NavigationCommand.ToggleAutomatic || command==NavigationCommand.StartGuidance || command==NavigationCommand.ToggleGuidance || command==NavigationCommand.Status)TraceSelection(update,catalog);
                     if(command==NavigationCommand.DecreaseInterval || command==NavigationCommand.IncreaseInterval) {
                         Configuration.Accessibility.NavigationIntervalMilliseconds+=command==NavigationCommand.IncreaseInterval?500:-500;

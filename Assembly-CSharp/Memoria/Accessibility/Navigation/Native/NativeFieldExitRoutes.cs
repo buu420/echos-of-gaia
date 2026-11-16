@@ -85,7 +85,8 @@ namespace Memoria.Accessibility.Navigation
         private static Func<NavigationPoint,FieldExitPathEvidence> ExitProof(NavigationContext context,EventEngine engine,Quad quad,string hash,int trigger=EventEngine.tagPush)
         {
             return _exitRouteProofs.Begin(quad.uid+":exit:"+trigger,context.Generation+":"+context.LogicalMapKey+":"+context.SaveIdentity+":"+context.PlayerIdentity+":"+hash,quad,
-                StoryProofMemory(context,engine),Time.frameCount,point=>ReadExitPaths(context,engine,quad,point,trigger));
+                StoryProofMemory(context,engine),Time.frameCount,point=>ReadExitPaths(context,engine,quad,point,trigger),
+                proof => !proof.ReadsApproachPosition);
         }
         private static readonly int[] _dialogueOpcodes={(int)EBin.event_code_binary.MES,(int)EBin.event_code_binary.MESN,(int)EBin.event_code_binary.MESA,(int)EBin.event_code_binary.MESAN,(int)EBin.event_code_binary.MESB};
         // EventEngine.Request: an entry runs a requested function only when the requested level is below its

@@ -142,5 +142,68 @@ namespace FF9Access.Tests
             var evidence=Read(code,null,new Dictionary<int,Code>{{14,called}});
             TestAssert.Equal(FieldExitPathKind.ChoiceSingle,evidence.Kind);TestAssert.True(evidence.Destinations.Contains(9003));
         }
+
+        public static void ExitProofWithNoPositionReadsIsSharedOnlyWithinTheFrame()
+        {
+            var code = new Code();
+            code.Add(Expr, E(MapByte(3), C(1), Op(32)));
+            code.Add(Ifn, null, 0);
+            var guard = code.Last;
+            code.Add(MapJump, null, 1211);
+            code.Target(guard, code.Add(Ret));
+            var map = new byte[64];
+            var memory = new[] { map };
+            var cache = new StoryRegionProofCache<FieldExitPathEvidence>(30);
+            var surface = new object();
+            int reads = 0;
+            Func<int, Func<NavigationPoint, FieldExitPathEvidence>> begin = frame => cache.Begin("exit", "visit", surface, memory, frame,
+                point => { reads++; return Read(code, map: map); }, proof => !proof.ReadsApproachPosition);
+            var a = TestFixtures.P(1, 0);
+            var b = TestFixtures.P(2, 0);
+            var c = TestFixtures.P(3, 0);
+
+            var proof = begin(10)(a);
+            TestAssert.Equal(FieldExitPathKind.NoJump, proof.Kind);
+            TestAssert.True(ReferenceEquals(proof, begin(10)(b)));
+            TestAssert.Equal(1, reads);
+            TestAssert.Equal(FieldExitPathKind.NoJump, begin(11)(c).Kind);
+            TestAssert.Equal(2, reads);
+
+            map[3] = 1;
+            TestAssert.True(begin(11)(a).Destinations.Contains(1211));
+            TestAssert.Equal(3, reads);
+        }
+
+        public static void PositionReadInARequestedAlternativeKeepsProofPerApproach()
+        {
+            var called = new Code();
+            called.Add(Expr, E(new byte[] { 0x78, 250, 0 }, C(5), Op(24)));
+            called.Add(Ifn, null, 0);
+            var positionGuard = called.Last;
+            called.Add(MapJump, null, 1211);
+            called.Target(positionGuard, called.Add(Ret));
+            var code = new Code();
+            code.Add(Expr, E(Choice()));
+            code.Add(Ifn, null, 0);
+            var choiceGuard = code.Last;
+            code.Add(MapJump, null, 1212);
+            code.Target(choiceGuard, code.Add(Req, null, 0, 14, 22));
+            code.Add(Ret);
+            var cache = new StoryRegionProofCache<FieldExitPathEvidence>(30);
+            var proof = cache.Begin("exit", "visit", new object(), null, 1,
+                point => FieldExitPaths.Read(
+                    () => new ScriptStoryFunction { Identity = 2, Code = code.Items, Snapshot = new ScriptSnapshot(null, null, null) },
+                    (uid, tag, caller, snapshot) => new ScriptStoryFunction { Identity = 3, Code = called.Items, Snapshot = snapshot.WithInstance(null) },
+                    MapJump, WorldJump, Requests, (uid, index) => (int)point.X, null, -1, -1, null),
+                value => !value.ReadsApproachPosition);
+
+            var near = proof(TestFixtures.P(1, 0));
+            TestAssert.True(near.ReadsApproachPosition);
+            TestAssert.True(near.Destinations.Contains(1211));
+            var far = proof(TestFixtures.P(9, 0));
+            TestAssert.True(far.ReadsApproachPosition);
+            TestAssert.False(far.Destinations.Contains(1211));
+            TestAssert.True(far.Destinations.Contains(1212));
+        }
     }
 }
