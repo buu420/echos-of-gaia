@@ -2,6 +2,7 @@
   <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType></PropertyGroup>
   <ItemGroup><Compile Include="*.cs" /><Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Core/*.cs" /></ItemGroup>
   <ItemGroup><Compile Include="../../Assembly-CSharp/Memoria/Accessibility/AudioDescriptions/Core/*.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../Assembly-CSharp/Memoria/Accessibility/TitleLanguageSpeech.cs" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="Fixtures/field611-object-b.json" LogicalName="Field611.ObjectB.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="Fixtures/field611-object-a.json" LogicalName="Field611.ObjectA.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="Fixtures/field150-door-script.json" LogicalName="Field150.DoorScript.json" /></ItemGroup>

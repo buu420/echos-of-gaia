@@ -24,6 +24,7 @@ namespace FF9Access.Tests
                 if (args.Length == 2 && args[0] == "--verify-hot-cold") { NativeReaderVerification.VerifyHotCold(args[1]); return 0; }
                 if (args.Length == 2 && args[0] == "--verify-forest-routes") { NativeReaderVerification.VerifyForestRoutes(args[1]); return 0; }
                 if (args.Length == 2 && args[0] == "--verify-story") { NativeReaderVerification.VerifyStory(args[1]); return 0; }
+                if (args.Length == 2 && args[0] == "--verify-title-language") { NativeReaderVerification.VerifyTitleLanguage(args[1]); return 0; }
                 if (args.Length == 2 && args[0] == "--verify-descriptions") { NativeReaderVerification.VerifyDescriptions(args[1]); return 0; }
                 if (args.Length == 2 && args[0] == "--verify-field-descriptions") { FieldDescriptionNativeVerification.Verify(args[1]); return 0; }
                 if (args.Length == 2 && args[0] == "--verify-hot-cold-text") { NativeReaderVerification.VerifyHotColdText(args[1]); return 0; }

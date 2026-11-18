@@ -20,7 +20,9 @@ namespace Memoria.Accessibility.Navigation
         {
             return context!=null && context.CanControl && context.LogicalMapKey==Map && context.PlayerIdentity==17 && playerSid==17 &&
                 context.StoryProgress>=OpeningStoryCheckpoints.Floor && context.StoryProgress<OpeningStoryCheckpoints.Ceiling &&
-                phase==OpeningStoryCheckpoints.CandlePhase && playerHash==OpeningStoryCheckpoints.CargoZidane && directorHash==OpeningStoryCheckpoints.CargoDirector &&
+                phase==OpeningStoryCheckpoints.CandlePhase &&
+                (playerHash==OpeningStoryCheckpoints.CargoZidane || playerHash==OpeningStoryCheckpoints.CargoZidaneJapanese) &&
+                directorHash==OpeningStoryCheckpoints.CargoDirector &&
                 background==Background && walkmesh==Walkmesh;
         }
         public static bool MatchesRegion(int sid,string hash,NavigationPoint[] polygon)

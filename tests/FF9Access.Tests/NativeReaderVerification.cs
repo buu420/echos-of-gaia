@@ -251,6 +251,53 @@ namespace FF9Access.Tests
                 Console.WriteLine("PASS emitted Story: warmed embedded metadata, exact-hash current path/listener bridge, native instance offsets, physical world identity and both native request-priority guards; no native requests, input writes or blocking reads in "+library);
             }
         }
+        public static void VerifyTitleLanguage(string library)
+        {
+            var required = new HashSet<string>
+            {
+                "TitleUI.GetButtonText|TitleLanguageSpeech.MenuButtonLabel",
+                "TitleUI.GetButtonText|TitleLanguageSpeech.OptionLabel",
+                "TitleUI.GetButtonText|TitleUI.GetMenuLanguageFromGameObject",
+                "TitleUI.get_InterruptSelectionSpeech|ButtonGroupState.get_ActiveGroup",
+                "TitleUI.OnMenuLanguageButtonClick|ButtonGroupState.SetCursorMemorize",
+                "TitleUI.OnMenuLanguageButtonClick|ButtonGroupState.set_ActiveGroup",
+                "TitleUI.OnKeyConfirm|TitleUI.GetMenuLanguageFromGameObject",
+                "TitleUI.SetLanguage|SettingsState.SetMenuLanguage",
+                "TitleUI.SetMenuLanguageCallback|ButtonGroupState.set_ActiveGroup",
+                "ButtonGroupState.ActiveButtonChanged|UICamera.Notify",
+                "UIKeyTrigger.OnItemSelect|UIScene.OnItemSelect",
+                "TitleUI.OnItemSelect|UIScene.OnItemSelect",
+                "UIScene.OnItemSelect|UIScene.AnnounceButtonForScreenReader",
+                "UIScene.AnnounceButtonForScreenReader|UIScene.GetButtonText",
+                "UIScene.AnnounceButtonForScreenReader|UIScene.get_InterruptSelectionSpeech",
+                "UIScene.AnnounceButtonForScreenReader|ScreenReaderManager.Speak"
+            };
+            using (var stream = File.OpenRead(library))
+            using (var pe = new PEReader(stream))
+            {
+                var metadata = pe.GetMetadataReader();
+                foreach (var typeHandle in metadata.TypeDefinitions)
+                {
+                    var type = metadata.GetTypeDefinition(typeHandle);
+                    string owner = metadata.GetString(type.Name);
+                    if (owner != "TitleUI" && owner != "UIScene" && owner != "UIKeyTrigger" && owner != "ButtonGroupState")
+                        continue;
+                    foreach (var methodHandle in type.GetMethods())
+                    {
+                        var method = metadata.GetMethodDefinition(methodHandle);
+                        if (method.RelativeVirtualAddress == 0)
+                            continue;
+                        string caller = owner + "." + metadata.GetString(method.Name);
+                        foreach (string call in Calls(metadata, pe.GetMethodBody(method.RelativeVirtualAddress).GetILBytes()))
+                            required.Remove(caller + "|" + call);
+                    }
+                }
+            }
+            if (required.Count > 0)
+                throw new Exception("Incomplete title language speech: " + String.Join(", ", required));
+            Console.WriteLine("PASS title language picker speech through native title focus and language selection");
+        }
+
         public static void VerifyForestRoutes(string library)
         {
             using(var stream=File.OpenRead(library))using(var pe=new PEReader(stream)) {

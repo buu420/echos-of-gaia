@@ -3,6 +3,9 @@ namespace FF9Access.Tests
 {
     internal static class OpeningCandleTests
     {
+        // Installed JP EVT_ALEX1_TS_CARGO_0, entry 17.
+        internal const string JapanesePlayerHash = "75c0cdb26123e744a3ec83fab704b024405b6fffe7d253224753320f316bbf07";
+
         private static NavigationContext Context(){return new NavigationContext{LogicalMapKey=OpeningCandleEvidence.Map,Generation=9,PlayerIdentity=17,CanControl=true,StoryProgress=1000};}
         private static bool Available(NavigationContext context,int? phase=1,int sid=17,string hash=null,string director=null,string background=null,string walkmesh=null)
         {return OpeningCandleEvidence.Available(context,phase,sid,hash??OpeningStoryCheckpoints.CargoZidane,director??OpeningStoryCheckpoints.CargoDirector,background??OpeningCandleEvidence.Background,walkmesh??OpeningCandleEvidence.Walkmesh);}
@@ -19,6 +22,13 @@ namespace FF9Access.Tests
             var context=Context();TestAssert.False(Available(context,1,18));
             TestAssert.False(Available(context,hash:"changed"));TestAssert.False(Available(context,director:"changed"));
             TestAssert.False(Available(context,background:"changed"));TestAssert.False(Available(context,walkmesh:"changed"));
+        }
+        public static void JapaneseCandleUsesTheSameSceneAndPhaseEvidence()
+        {
+            var context = Context();
+            TestAssert.True(Available(context, hash: JapanesePlayerHash));
+            TestAssert.False(Available(context, phase: 2, hash: JapanesePlayerHash));
+            TestAssert.False(Available(context, hash: JapanesePlayerHash, director: "changed"));
         }
         public static void RegionsMustMatchTheActualCandlePolygonsAndNeverHiddenItemSpots()
         {

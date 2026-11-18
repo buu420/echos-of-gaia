@@ -123,6 +123,16 @@ namespace FF9Access.Tests
             var story=Story(Installed(true),50,1000,OpeningStoryCheckpoints.CandlePhase,LiveScripts(50),input);
             TestAssert.True(story.PhysicalIdentity.Equals(hotspot.Id));TestAssert.Equal(OpeningStoryCheckpoints.CandleAction,story.Label);
             TestAssert.Equal(4,story.InteractionUid);
+
+            var cargo = LiveScripts(50);
+            Func<int, string> japanese = sid => sid == 17 ? OpeningCandleTests.JapanesePlayerHash : cargo(sid);
+            var japaneseInput = new CatalogResult();
+            japaneseInput.Targets.Add(hotspot);
+            var japaneseStory = Story(Installed(true), 50, 1000, OpeningStoryCheckpoints.CandlePhase, japanese, japaneseInput);
+            TestAssert.Equal(story.Label, japaneseStory.Label);
+            TestAssert.Equal(story.PhysicalIdentity, japaneseStory.PhysicalIdentity);
+            TestAssert.Equal(story.InteractionUid, japaneseStory.InteractionUid);
+            TestAssert.True(Story(Installed(true), 50, 1000, 2, japanese).Availability.Contains("Continue the current scene"));
         }
         public static void UnverifiedOpeningScriptsKeepCurrentSceneWithoutWrappingUnverifiedTargets()
         {

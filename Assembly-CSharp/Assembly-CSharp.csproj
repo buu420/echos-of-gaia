@@ -348,6 +348,7 @@
     <Compile Include="Memoria\Accessibility\AudioCueManager.cs" />
     <Compile Include="Memoria\Accessibility\CageMinigameAccessibility.cs" />
     <Compile Include="Memoria\Accessibility\CharacterAnnouncementHelper.cs" />
+    <Compile Include="Memoria\Accessibility\TitleLanguageSpeech.cs" />
     <Compile Include="Memoria\Accessibility\EventVariableMonitor.cs" />
     <Compile Include="Memoria\Accessibility\WorldMapAccessibilityManager.cs" />
     <Compile Include="Memoria\Application\ControllerWatcher.cs" />

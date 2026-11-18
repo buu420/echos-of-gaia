@@ -1,6 +1,7 @@
 using Assets.Scripts.Common;
 using Assets.SiliconSocial;
 using Memoria;
+using Memoria.Accessibility;
 using Memoria.Assets;
 using Memoria.Prime;
 using Memoria.Scenes;
@@ -646,9 +647,24 @@ public class TitleUI : UIScene
         else if (go == this.SquareEnixButton)
             return "Square Enix";
 
+        // The language button shows short names, and the picker uses flag sprites.
+        if (go == this.MenuLanguageButton)
+            return TitleLanguageSpeech.MenuButtonLabel(this.MenuLanguageButton.GetChild(0).GetComponent<UILabel>().rawText, Localization.CurrentSymbol);
+        if (ButtonGroupState.ActiveGroup == LanguageGroupButton)
+        {
+            if (go == this.BackButton)
+                return "Back";
+            String optionLabel = TitleLanguageSpeech.OptionLabel(this.GetMenuLanguageFromGameObject(go), Localization.CurrentSymbol);
+            if (!String.IsNullOrEmpty(optionLabel))
+                return optionLabel;
+        }
+
         // Fall back to base implementation for buttons with UILabel components
         return base.GetButtonText(go);
     }
+
+    // Native focus fires when the picker opens and again after SetMenuLanguageCallback restores the group.
+    protected override Boolean InterruptSelectionSpeech => ButtonGroupState.ActiveGroup == LanguageGroupButton;
 
     public override Boolean OnKeyRightBumper(GameObject go)
     {

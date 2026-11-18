@@ -25,6 +25,8 @@ namespace Memoria.Accessibility.Navigation
         public const int CargoField=50,MeetingField=52,Floor=1000,Ceiling=1150,PhaseByte=24,CandlePhase=1,CandleMilestone=1000;
         public const string CargoDirector="45500d5d487fbc8c5b934a1649af0398cb2c1403d4f73c8bcea46ece42f194e4";
         public const string CargoZidane="254774de354b33e584684b6a3deeea3bd01c212a47ee828d443160f9b75fd001";
+        // JP entry 17 differs only in the Confirm operand at 0x075a. The director and regions are identical.
+        internal const string CargoZidaneJapanese = "75c0cdb26123e744a3ec83fab704b024405b6fffe7d253224753320f316bbf07";
         public const string MeetingBaku="73e55b0c8bd53902b50150147d1c6e2afc3bc6af011fbd8372b535bf6a6dbbc7";
         // Native hint (field 50 text 36): "Light the candle in the middle of the room! Press the [CROSS] button when the ? appears."
         public const string CandleAction="Light the candle in the middle of the room";
@@ -40,8 +42,8 @@ namespace Memoria.Accessibility.Navigation
         public static IList<OpeningCandleRegion> CandleRegions{get{return new ReadOnlyCollection<OpeningCandleRegion>(_regions);}}
         public static NavigationPoint[] CandleArea{get{return (NavigationPoint[])_area.Clone();}}
         public static StoryCheckpoint[] All{get{return Concat(new[]{
-            new StoryCheckpoint{Floor=Floor,Ceiling=Ceiling,ScopeFields=new[]{CargoField},MapByte=PhaseByte,MapValue=CandlePhase,RequiredScripts=Scripts(3,CargoDirector,17,CargoZidane),
-                Stage=new StoryStage{Milestone=CandleMilestone,GoalFields=new[]{CargoField},Goal="Prima Vista",Instruction=CandleInstruction}},
+            CandleCheckpoint(CargoZidane),
+            CandleCheckpoint(CargoZidaneJapanese),
             // Every other phase of the cargo room and the meeting is shown cutscene, battle or dialogue.
             new StoryCheckpoint{Floor=Floor,Ceiling=Ceiling,ScopeFields=new[]{CargoField},RequiredScripts=Scripts(3,CargoDirector,17,CargoZidane),
                 Stage=new StoryStage{Milestone=CandleMilestone,GoalFields=new[]{CargoField},Goal="Prima Vista",Instruction="",InformationOnly=true}},
@@ -75,6 +77,25 @@ namespace Memoria.Accessibility.Navigation
         // The exact opening checkpoints come first; the castle checkpoints follow (OpeningCastleStory).
         private static StoryCheckpoint[] Concat(StoryCheckpoint[] first,StoryCheckpoint[] second)
         {var result=new StoryCheckpoint[first.Length+second.Length];first.CopyTo(result,0);second.CopyTo(result,first.Length);return result;}
+        private static StoryCheckpoint CandleCheckpoint(string playerHash)
+        {
+            return new StoryCheckpoint
+            {
+                Floor = Floor,
+                Ceiling = Ceiling,
+                ScopeFields = new[] { CargoField },
+                MapByte = PhaseByte,
+                MapValue = CandlePhase,
+                RequiredScripts = Scripts(3, CargoDirector, 17, playerHash),
+                Stage = new StoryStage
+                {
+                    Milestone = CandleMilestone,
+                    GoalFields = new[] { CargoField },
+                    Goal = "Prima Vista",
+                    Instruction = CandleInstruction
+                }
+            };
+        }
         // True only for the reviewed regions, in field 50, at the counter floor, during the native candle phase.
         public static bool IsCandleRegion(int field,int sid,string hash,int progress,int? phase)
         {
