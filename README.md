@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.21 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.21)**
+**[Download 0.1.22 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.22)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,12 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing, including a full playthrough.
+
+0.1.22 lists usable world entrances before their first visit, without waiting
+for the camera to discover them. Marked locations whose pins sit on cliffs
+retain a reachable ground approach when entrance data is unavailable.
+Closed native entrances and disconnected land remain excluded. Catalog
+changes now include entrance details in Memoria.log for tester reports.
 
 0.1.21 gives the opening candle one named Story target with Japanese game text.
 The title screen reads the current language, every language choice, and Back.

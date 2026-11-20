@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using Memoria.Accessibility.Navigation;
 namespace FF9Access.Tests
@@ -166,11 +167,17 @@ namespace FF9Access.Tests
             var context = Context();
             context.Transport = new TransportIdentity(TransportKind.Foot, context.PlayerIdentity, 0);
             context.StoryProgress = 2411;
+            var observations = new[] { lower, upper }.Select(target => new WorldTargetObservation
+            {
+                Id = target.Id, NativeLocationId = target.NativeLocationId, Label = target.Label,
+                Position = target.Position, WorldEntranceTags = target.WorldEntranceTags, Available = true
+            }).ToArray();
             foreach (var reachable in new[] { lower, upper })
             {
                 bool lowerSide = reachable == lower;
                 context.Position = lowerSide ? new NavigationPoint(1198, 3, -790) : new NavigationPoint(1158, 28, -836);
-                var result = Filter(context, geometry, lower, upper);
+                var unvisited = new WorldTargetCatalog().Build(context, observations, null);
+                var result = WorldTargetCatalog.Filter(context, unvisited, geometry, WorldReachabilityIndex.Build(geometry));
                 TestAssert.Equal(1, result.Targets.Count);
                 var town = result.Targets[0];
                 TestAssert.Equal(reachable.Id, town.Id);
@@ -213,6 +220,29 @@ namespace FF9Access.Tests
             TestAssert.Equal(1, Filter(Context(36), geometry, town).Targets.Count);
             town.WorldEntranceTags = Array.Empty<int>();
             TestAssert.Equal(0, Filter(Context(), geometry, town).Targets.Count);
+        }
+
+        public static void MarkedCliffPinKeepsReachableGroundWhenEntranceDataIsUnavailable()
+        {
+            var town = Target(3, 0);
+            town.Position = new NavigationPoint(306501f / 256, 0, -204700f / 256);
+            var context = Context();
+            context.Position = new NavigationPoint(1198, 3, -790);
+            var geometry = IceCavernGeometry(0x4000);
+            var result = Filter(context, geometry, town);
+            TestAssert.Equal(1, result.Targets.Count);
+            var target = result.Targets[0];
+            TestAssert.True(target.ApproachCandidates.Length > 0);
+            TestAssert.True(new WorldRoutePlanner().Plan(context, target, geometry).Success);
+            foreach (var point in target.ApproachCandidates)
+                TestAssert.Equal(WorldGeometrySnapshot.Cell(town.Position), WorldGeometrySnapshot.Cell(point));
+
+            // Known closed events still take precedence over a marked pin.
+            town.WorldEntranceTags = Array.Empty<int>();
+            TestAssert.Equal(0, Filter(context, geometry, town).Targets.Count);
+            town.WorldEntranceTags = null;
+            town.Id = new TargetIdentity(TargetKind.Vehicle, town.Id.MapKey, town.Id.NativeId);
+            TestAssert.Equal(0, Filter(context, geometry, town).Targets.Count);
         }
 
 

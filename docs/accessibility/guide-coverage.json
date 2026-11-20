@@ -885,7 +885,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/WorldTargetCatalog.cs",
-      "sha256": "2894d4f51d26b8d168aa6ba3756fda88837c9de9d157e2bc562c37850334d114"
+      "sha256": "5ca1a6d9aad4656a8f3f93ff752e9749ad934b712f1d2e71af48948a0dafe7fd"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeWorldEntrances.cs",
@@ -897,7 +897,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeWorldLandmarks.cs",
-      "sha256": "b003a92a06dfd80b4e8ab66539979e6a54cf8552e94a31acec46f094e8c7c1fd"
+      "sha256": "55add619ae6eb70493c0a11ed5ae472b028f1c1fbba57b9efb460bb1bc2d9e3c"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeNavigationContext.cs",

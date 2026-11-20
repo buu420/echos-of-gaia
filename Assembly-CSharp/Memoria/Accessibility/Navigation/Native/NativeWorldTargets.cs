@@ -7,23 +7,11 @@ namespace Memoria.Accessibility.Navigation
 {
     public static class NativeWorldTargets
     {
-        private static readonly HashSet<int> _seenEntrances = new HashSet<int>();
-        private static string _mapKey, _save;
-        private static long _generation = -1;
-
         public static IList<WorldTargetObservation> Read(NavigationContext context, WorldGeometrySnapshot geometry)
         {
             var result = new List<WorldTargetObservation>();
             if (context == null || !context.LogicalMapKey.StartsWith("world:"))
                 return result;
-
-            if (context.Generation != _generation || context.SaveIdentity != _save || context.LogicalMapKey != _mapKey)
-            {
-                _generation = context.Generation;
-                _save = context.SaveIdentity;
-                _mapKey = context.LogicalMapKey;
-                _seenEntrances.Clear();
-            }
 
             var engine = UnityEngine.Object.FindObjectOfType<EventEngine>();
             int map = WMUIData.ActiveMapNo;
@@ -45,15 +33,6 @@ namespace Memoria.Accessibility.Navigation
                     if (!marked && (entrances == null || entrances.Length == 0))
                         continue;
                     var point = new NavigationPoint(ff9.S(position.tx), 0, ff9.S(position.ty));
-                    bool visible = false;
-                    if (!marked && !_seenEntrances.Contains(id))
-                    {
-                        visible = NativeWorldLandmarks.VisibleEntrance(entrances, point, context, geometry);
-                        if (!visible)
-                            continue;
-                        _seenEntrances.Add(id);
-                    }
-
                     string label = WorldLabel(text, id);
                     if (string.IsNullOrEmpty(label))
                         continue;
@@ -61,7 +40,7 @@ namespace Memoria.Accessibility.Navigation
                     {
                         Id = new TargetIdentity(TargetKind.WorldLocation, context.LogicalMapKey, id),
                         Label = DescribeEntrance(label, id), Position = point, Available = true,
-                        Marked = marked, Observed = _seenEntrances.Contains(id), Visible = visible, NativeLocationId = id, WorldEntranceTags = entrances
+                        Marked = marked, NativeLocationId = id, WorldEntranceTags = entrances
                     });
                 }
             }

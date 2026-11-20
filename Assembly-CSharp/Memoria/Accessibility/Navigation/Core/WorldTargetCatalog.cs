@@ -60,9 +60,14 @@ namespace Memoria.Accessibility.Navigation
                             start.TerrainId, new PrivateWorldCache(geometry.NativeCache));
                         if (index.CanReach(geometry, goal, WorldGeometrySnapshot.Cell(point), components))
                             approaches.Add(point);
-                        else if (goal == null && target.Id.Kind == TargetKind.WorldLocation)
+                        else if (target.Id.Kind == TargetKind.WorldLocation &&
+                            (goal == null || (WorldTerrainRules.Topography(goal.TerrainId) == 59 &&
+                                !WorldTerrainRules.CanTraverse(geometry.Rules, goal, goal))))
                         {
-                            // A marker can sit on a building outside the ground probe.
+                            // A marked location can sit on a building or cliff. When
+                            // entrance data is unavailable, keep its reachable ground
+                            // approach in the same cell. Known closed events use the
+                            // entrance branch above and never take this fallback.
                             foreach (var candidate in index.MarkerApproaches(geometry, target))
                             {
                                 var approach = geometry.Probe(candidate, start.TerrainId, new PrivateWorldCache(geometry.NativeCache));
@@ -104,8 +109,13 @@ namespace Memoria.Accessibility.Navigation
             foreach (var item in observations)
             {
                 bool vehicle = item.Id.Kind == TargetKind.Vehicle;
+                // A current native entrance is usable before the first visit sets its map-pin bit.
+                // The connected terrain filter still decides which side the player can reach.
+                bool openEntrance = item.Id.Kind == TargetKind.WorldLocation &&
+                    item.WorldEntranceTags != null && item.WorldEntranceTags.Length != 0 &&
+                    (context.Transport.Kind == TransportKind.Foot || context.Transport.Kind == TransportKind.Chocobo);
                 if (item.Id.MapKey != context.LogicalMapKey || !item.Position.IsFinite || string.IsNullOrEmpty(item.Label) ||
-                    !item.Available || (!item.Visible && !item.Marked && !item.Observed) || (vehicle && item.Id.NativeId == context.PlayerIdentity) ||
+                    !item.Available || (!item.Visible && !item.Marked && !item.Observed && !openEntrance) || (vehicle && item.Id.NativeId == context.PlayerIdentity) ||
                     result.Contains(item.Id))
                     continue;
 
@@ -113,7 +123,8 @@ namespace Memoria.Accessibility.Navigation
                 {
                     Id = item.Id, Label = item.Label, Availability = item.Availability, Position = item.Position,
                     Category = vehicle ? NavigationCategory.Vehicles : NavigationCategory.Towns,
-                    Evidence = vehicle && item.Visible ? VisibilityEvidence.RenderedActor : item.Marked ? VisibilityEvidence.NativeMarker : VisibilityEvidence.ObservedWorldLandmark,
+                    Evidence = vehicle && item.Visible ? VisibilityEvidence.RenderedActor : item.Marked ? VisibilityEvidence.NativeMarker :
+                        item.Visible || item.Observed ? VisibilityEvidence.ObservedWorldLandmark : VisibilityEvidence.NativeDoorTile,
                     Generation = context.Generation, NativeLocationId = item.NativeLocationId,
                     WorldEntranceTags = item.WorldEntranceTags,
                     WorldEntranceRadius = item.WorldEntranceRadius,

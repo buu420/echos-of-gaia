@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="*.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeWorldTargets.cs" Link="Runtime/NativeWorldTargets.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/World/WorldPlace.cs" Link="Runtime/WorldPlace.cs" />
+    <ProjectReference Include="../FF9Access.Tests/FF9Access.Tests.csproj" />
+  </ItemGroup>
+</Project>

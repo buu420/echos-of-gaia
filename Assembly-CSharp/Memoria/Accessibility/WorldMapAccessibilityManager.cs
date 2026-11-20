@@ -34,7 +34,20 @@ namespace Memoria.Accessibility
             if(_traceCount==result.Targets.Count && _traceHash==hash && _traceUnavailable==result.UnavailableReason)return;
             _traceCount=result.Targets.Count;_traceHash=hash;_traceUnavailable=result.UnavailableReason;
             var names=new System.Text.StringBuilder();foreach(var target in result.Targets){if(names.Length!=0)names.Append(", ");names.Append(target.Label);}
-            NavigationRuntime.Trace("World destination reachability; transport="+context.Transport.Kind+"; offered="+result.Targets.Count+"; available="+source.Targets.Count+"; reason="+result.UnavailableReason+"; destinations="+names);
+            var entrances=new System.Text.StringBuilder();
+            foreach(var target in source.Targets) {
+                if(target.Id.Kind!=TargetKind.WorldLocation)continue;
+                if(entrances.Length!=0)entrances.Append(", ");
+                entrances.Append(target.NativeLocationId).Append(':');
+                if(target.WorldEntranceTags==null)entrances.Append("unavailable");
+                else if(target.WorldEntranceTags.Length==0)entrances.Append("closed");
+                else foreach(int tag in target.WorldEntranceTags)entrances.Append(tag.ToString("x4")).Append('/');
+            }
+            string message="World destination reachability; map="+context.LogicalMapKey+"; transport="+context.Transport.Kind+"; position="+context.Position.X+","+context.Position.Y+","+context.Position.Z+"; offered="+result.Targets.Count+"; available="+source.Targets.Count+"; reason="+result.UnavailableReason+"; destinations="+names+"; native entrances="+entrances;
+            NavigationRuntime.Trace(message);
+            // Tester reports commonly contain Memoria.log alone. Mirror only
+            // catalog changes, after the existing deduplication gate above.
+            Memoria.Prime.Log.Message("[FF9Access] {0}",message);
         }
         public void Update()
         {

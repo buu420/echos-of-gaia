@@ -27,38 +27,6 @@ namespace Memoria.Accessibility.Navigation
         private static WMWorld _observedWorld;
         private static int _frame = -1;
 
-        internal static bool VisibleEntrance(int[] tags, NavigationPoint marker, NavigationContext context, WorldGeometrySnapshot geometry)
-        {
-            if (geometry == null || !geometry.Complete || geometry.Rules == null || WorldCoordinates.Distance(context.Position, marker) > 80f)
-                return false;
-            // Discovery bits mark the world-map UI after a visit. Until then,
-            // an already visible place may still present the native walk-in prompt.
-            foreach (int tag in tags)
-            {
-                int x = (tag >> 2) & 63, z = (tag >> 8) & 63;
-                if (Math.Abs(x - (int)(marker.X / 32)) > 1 || Math.Abs(z - (int)(-marker.Z / 32)) > 1)
-                    continue;
-                var point = new NavigationPoint(x * 32 + 16, 0, -z * 32 - 16);
-                var entranceBlock = BlockAt(point);
-                if (entranceBlock == null || !entranceBlock.IsReady || !entranceBlock.gameObject.activeInHierarchy)
-                    continue;
-
-                // Require projected geometry from the matching entrance cell.
-                // This also prevents sighting faraway terrain through the map screen.
-                foreach (var face in geometry.MarkerCellSurfaces(point))
-                {
-                    var center = face.Center;
-                    if (face.NormalY <= 0.1f || !WorldTerrainRules.CanTraverse(geometry.Rules, face, face) ||
-                        WorldEntranceScripts.EventTag(WorldGeometrySnapshot.Cell(center), face.TerrainId) != tag)
-                        continue;
-                    var local = new Vector3(center.X - entranceBlock.InitialX * 64, center.Y, center.Z + entranceBlock.InitialY * 64);
-                    if (OnScreen(entranceBlock.Transform.TransformPoint(local)))
-                        return true;
-                }
-            }
-            return false;
-        }
-
         internal static void Append(List<WorldTargetObservation> result, NavigationContext context, EventEngine engine, string[] text)
         {
             var world = ff9.world;
@@ -209,11 +177,5 @@ namespace Memoria.Accessibility.Navigation
                 view.x >= 0 && view.x <= 1 && view.y >= 0 && view.y <= 1;
         }
 
-        private static WMBlock BlockAt(NavigationPoint point)
-        {
-            var world = ff9.world;
-            return world == null || world.InitialBlocks == null ? null :
-                world.InitialBlocks[(int)(point.X / 64), (int)(-point.Z / 64)];
-        }
     }
 }

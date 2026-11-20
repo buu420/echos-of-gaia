@@ -14,7 +14,7 @@ namespace FF9Access.Tests
         public static void MarkedVehicleRemainsInformative() { var vehicle=Vehicle(12); vehicle.Visible=false;vehicle.Marked=true; TestAssert.Equal(1,new WorldTargetCatalog().Build(World(),new[]{vehicle},null).Targets.Count); }
         public static void CompassMatchesNativeProjection() { TestAssert.Equal("east",WorldCoordinates.Compass(TestFixtures.P(1,0))); TestAssert.Equal("north",WorldCoordinates.Compass(TestFixtures.P(0,1))); }
 
-        public static void LocalDiscoveryKeepsTheLandmarkOnlyWhileItsNativeEventIsAvailable()
+        public static void OpenEntranceIsListedBeforeItsFirstVisit()
         {
             var world = World();
             var entrance = new WorldTargetObservation
@@ -24,12 +24,33 @@ namespace FF9Access.Tests
                 WorldEntranceTags = new[] { 0x9895 }
             };
             var catalog = new WorldTargetCatalog();
-            TestAssert.Equal(0, catalog.Build(world, new[] { entrance }, null).Targets.Count);
+            var unvisited = catalog.Build(world, new[] { entrance }, null).Find(entrance.Id);
+            TestAssert.True(unvisited != null);
+            TestAssert.Equal(VisibilityEvidence.NativeDoorTile, unvisited.Evidence);
             entrance.Observed = true;
             var observed = catalog.Build(world, new[] { entrance }, null).Find(entrance.Id);
             TestAssert.Equal(VisibilityEvidence.ObservedWorldLandmark, observed.Evidence);
             entrance.Available = false;
             TestAssert.Equal(0, catalog.Build(world, new[] { entrance }, null).Targets.Count);
+            entrance.Available = true;
+            entrance.Observed = false;
+            entrance.WorldEntranceTags = new int[0];
+            TestAssert.Equal(0, catalog.Build(world, new[] { entrance }, null).Targets.Count);
+        }
+        public static void OpenGroundEntranceDoesNotAdmitHiddenVehiclesOrFlyingLocations()
+        {
+            var context = World();
+            context.Transport = new TransportIdentity(TransportKind.HildaGarde, 12, 9);
+            var entrance = new WorldTargetObservation
+            {
+                Id = new TargetIdentity(TargetKind.WorldLocation, context.LogicalMapKey, 3),
+                Label = "Ice Cavern", Position = TestFixtures.P(20, -20), Available = true,
+                WorldEntranceTags = new[] { 0x9895 }
+            };
+            TestAssert.Equal(0, new WorldTargetCatalog().Build(context, new[] { entrance }, null).Targets.Count);
+            entrance.Id = new TargetIdentity(TargetKind.Vehicle, context.LogicalMapKey, 3);
+            context.Transport = new TransportIdentity(TransportKind.Foot, 12, 0);
+            TestAssert.Equal(0, new WorldTargetCatalog().Build(context, new[] { entrance }, null).Targets.Count);
         }
     }
 }
