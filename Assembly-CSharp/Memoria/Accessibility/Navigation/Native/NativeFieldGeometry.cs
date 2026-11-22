@@ -119,6 +119,7 @@ namespace Memoria.Accessibility.Navigation
                 _geometry.BlockedAttributes == result.BlockedAttributes && MatchesTriangles(bgi, runtimeTriangles, _geometry.Triangles))
             {
                 result.Triangles = _geometry.Triangles;
+                result.HasReviewedCleyraTrunk = _geometry.HasReviewedCleyraTrunk;
                 result.Fingerprint = _geometry.Fingerprint;
                 return result;
             }
@@ -156,6 +157,7 @@ namespace Memoria.Accessibility.Navigation
                 triangles[index]=FieldNativeGeometryContract.CreateTriangle(index,runtime.floorIdx,map,data);if(triangles[index]==null)return null;
             }
             result.Triangles = triangles;
+            CleyraTrunkRoutes.ReviewGeometry(context.LogicalMapKey, result);
             // Projection camera is presentation state, not movement geometry.
             result.Fingerprint = FieldNativeGeometryContract.Fingerprint(context.LogicalMapKey, result);
             _geometryMap = context.LogicalMapKey;

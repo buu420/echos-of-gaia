@@ -21,7 +21,11 @@ namespace Memoria.Accessibility.Navigation
             var route=PlanFrom(context,target,geometry,start,context.Position,candidates,failure,cancelled);
             if(route.Failure==RouteFailure.UnsafeSegment) {
                 var alternative=PlanAcrossPortals(context,target,geometry,start,candidates,cancelled);
-                if(alternative!=null)return alternative;
+                if(alternative!=null)route=alternative;
+            }
+            if (route.Success) {
+                route.FieldIntermediateArrivalRadius = CleyraTrunkRoutes.IntermediateRadius(target, geometry, route);
+                return route;
             }
             if (route.Failure != RouteFailure.UnsafeSegment || !target.IsInteractive || target.PhysicalIdentity.Kind != TargetKind.FieldActor ||
                 !FieldActorApproaches.IsCabinVivi(context,target.PhysicalIdentity.NativeId)) return route;

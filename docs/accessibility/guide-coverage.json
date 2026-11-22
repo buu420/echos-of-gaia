@@ -745,7 +745,7 @@
     },
     {
       "path": "Assembly-CSharp/Global/Field/Map/Actor/FieldMapActorController.cs",
-      "sha256": "58beda46772032cb0153e408f6f8a22239db7066c139a686fb6fe11637b9f69c"
+      "sha256": "d7e69774ddd12db5c564af4a8bc2f0567969b891be0f30256633c656a424d247"
     },
     {
       "path": "tests/FF9Access.Tests/Fixtures/opening-street-scripts.json",
@@ -813,7 +813,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldTargetApproaches.cs",
-      "sha256": "a13c34cea5ff195f2dc952ef3998c78c652d129a320ad003ae7e189ce3dd0efa"
+      "sha256": "15a46fb4c77e621b6daaf4e0b00881bb386b35a701f9b328f5f77d86e2fa2f27"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/OpeningRooftopEvidence.cs",
@@ -869,11 +869,11 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/RoutePlan.cs",
-      "sha256": "6621184b4aeab3441afd639a4a25e94650864c968a6d9773e92e05302866a30c"
+      "sha256": "72a333d4c0d23c83b01ed626f7259dfba9ff00116552a920ea1ca6747a6139bd"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldRoutePlanner.cs",
-      "sha256": "376b8daa43c9b238413c33ac734ac0ee260d8ef907c78870c6a410a8107d6a08"
+      "sha256": "1e31b28d6d9b8f672737bde89d729ef84ce29aaca900ca190dcd93e5b72dec65"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/WorldRoutePlanner.cs",
@@ -921,7 +921,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldGeometry.cs",
-      "sha256": "e938382e1779d69253fde0b0fe4621314fc2487b6a505172f0b400a5aefc6977"
+      "sha256": "acf6286585a3266224caf14d2fd5da68f5cef1f9096cedfb10b786bd1e6071ea"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeNavigationInput.cs",

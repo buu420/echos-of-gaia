@@ -26,7 +26,8 @@ namespace Memoria.Accessibility.Navigation
             var player = engine == null ? null : engine.GetControlChar() as Actor;
             if (player == null || player.uid != context.PlayerIdentity || player.fieldMapActorController == null || !player.fieldMapActorController.isPlayer) return MovementStartResult.Unavailable;
             ReleaseCurrent(StopReason.Explicit);
-            var owned = new OwnedFieldFollower(new NativeFollower(player.fieldMapActorController, context.Generation));
+            float turnRadius = route == null ? 0 : route.FieldIntermediateArrivalRadius;
+            var owned = new OwnedFieldFollower(new NativeFollower(player.fieldMapActorController, context.Generation, turnRadius));
             var result = owned.Start(context, target, route, ownershipId);
             if (result == MovementStartResult.Started) { _owned = owned; _target = target; _route=route;_generation = context.Generation; _interruption = null; }
             return result;
@@ -100,7 +101,13 @@ namespace Memoria.Accessibility.Navigation
         {
             private readonly FieldMapActorController _controller;
             private readonly long _generation;
-            public NativeFollower(FieldMapActorController controller, long generation) { _controller = controller; _generation = generation; }
+            private readonly float _turnRadius;
+            public NativeFollower(FieldMapActorController controller, long generation, float turnRadius)
+            {
+                _controller = controller;
+                _generation = generation;
+                _turnRadius = turnRadius;
+            }
             public long Generation { get { return _generation; } }
             public int PlayerIdentity { get { return _controller == null ? -1 : _controller.originalActor.uid; } }
             public long Owner { get { return _controller == null ? 0 : _controller.AccessibilityPathOwner; } }
@@ -118,6 +125,7 @@ namespace Memoria.Accessibility.Navigation
                 Vector3 previous = _controller.curPos;
                 for (int i = reversed.Length - 1; i >= 0; i--) { Vector3 next = _controller.movePaths[i]; _controller.totalPathLengthSq += (previous - next).sqrMagnitude; previous = next; }
                 _controller.stillCount = 0; _controller.stillPos = _controller.curPos;
+                _controller.AccessibilityIntermediateArrivalRadius = _turnRadius;
                 _controller.AccessibilityPathOwner = owner;
                 return true;
             }
@@ -126,6 +134,7 @@ namespace Memoria.Accessibility.Navigation
                 if (_controller == null || _controller.AccessibilityPathOwner != owner) return;
                 _controller.movePaths.Clear(); _controller.ClearMoveTarget();
                 _controller.totalPathCount = 0; _controller.totalPathLengthSq = 0;
+                _controller.AccessibilityIntermediateArrivalRadius = 0;
                 _controller.AccessibilityPathOwner = 0;
             }
             private static NavigationPoint Point(Vector3 value) { return new NavigationPoint(value.x, value.y, value.z); }

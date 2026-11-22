@@ -19,9 +19,9 @@ internal static class Program
         NativeFieldGeometry.Interruptions=0;NativeFieldGeometry.State=null;NativeFieldGeometry.FailCapture=false;
         Memoria.Prime.Log.FailWrite=false;
     }
-    private static void Start()
+    private static void Start(float turnRadius=0)
     {
-        var route=new RoutePlan{Success=true,Generation=1,TargetId=target.Id,Transport=context.Transport,GeometryFingerprint="mesh",Waypoints=new[]{new NavigationPoint(25,0,1500),new NavigationPoint(50,0,6500)}};
+        var route=new RoutePlan{Success=true,Generation=1,TargetId=target.Id,Transport=context.Transport,GeometryFingerprint="mesh",FieldIntermediateArrivalRadius=turnRadius,Waypoints=new[]{new NavigationPoint(25,0,1500),new NavigationPoint(50,0,6500)}};
         Require(NativeFieldMovement.TryStart(context,target,route,++nextOwner)==MovementStartResult.Started,"owned movement did not start");
         controller.hasTarget=true;controller.moveTarget=controller.movePaths[controller.movePaths.Count-1];controller.movePaths.RemoveAt(controller.movePaths.Count-1);
         controller.curPos=new Vector3(20,0,1490);controller.lastPos=controller.curPos;controller.stillCount=31;
@@ -82,9 +82,22 @@ internal static class Program
         Require(state.PreviousCollisionUid==8 && state.CollisionUid==9,"stale contact was confused with current native collision");
         Require(state.CollisionProbeAvailable && state.CollisionRadius==80 && state.PreviousCollisionRadius==56 && state.CollisionDistance==-2,"native radius/distance evidence was lost");
     }
+    private static void ReviewedTurnRadiusFollowsOnlyTheOwningPath()
+    {
+        Start(40);
+        Require(controller.AccessibilityIntermediateArrivalRadius == 40,"reviewed turn radius was not installed");
+        NativeFieldMovement.Release(nextOwner - 1,StopReason.Explicit);
+        Require(controller.AccessibilityIntermediateArrivalRadius == 40,"an unrelated release changed the owned path");
+        NativeFieldMovement.OnNativeClear(controller);
+        Require(controller.AccessibilityIntermediateArrivalRadius == 0,"reviewed turn radius survived cancellation");
+        Start();
+        Require(controller.AccessibilityIntermediateArrivalRadius == 0,"the next path inherited the reviewed turns");
+        NativeFieldMovement.Release(nextOwner,StopReason.Explicit);
+    }
+
     private static int Main()
     {
-        var tests=new Action[]{ClearCapturesOwnedPathBeforeItIsDestroyed,UnownedNativePathDoesNotCaptureOrChange,CaptureFailureCannotPreventCancellation,RepeatedClearDoesNotCaptureEveryFrame,NativeCausesRemainDistinctAndStillFramesReportStalled,ProbeAndLogFailuresCannotPreventTheNativeStop,PreviousCollisionIsNeverAssumedToBeCurrent};
+        var tests=new Action[]{ClearCapturesOwnedPathBeforeItIsDestroyed,UnownedNativePathDoesNotCaptureOrChange,CaptureFailureCannotPreventCancellation,RepeatedClearDoesNotCaptureEveryFrame,NativeCausesRemainDistinctAndStillFramesReportStalled,ProbeAndLogFailuresCannotPreventTheNativeStop,PreviousCollisionIsNeverAssumedToBeCurrent,ReviewedTurnRadiusFollowsOnlyTheOwningPath};
         int failures=0;
         foreach(var test in tests)try{Reset();test();Console.WriteLine("PASS "+test.Method.Name);}catch(Exception e){failures++;Console.WriteLine("FAIL "+test.Method.Name+": "+e.Message);}
         Console.WriteLine("FieldMovementIntegration: "+(tests.Length-failures)+" passed, "+failures+" failed");return failures==0?0:1;

@@ -33,6 +33,7 @@ namespace Memoria.Accessibility.Navigation
     public sealed class FieldGeometrySnapshot
     {
         public long Generation;public FieldTriangle[] Triangles=new FieldTriangle[0];public float Radius;public int ActiveTriangle=-1;public byte AttributeMask;public byte BlockedAttributes=0x80;public string Fingerprint;
+        internal bool HasReviewedCleyraTrunk;
         public FieldTriangle Find(int id)
         {
             if(id<0)return null;

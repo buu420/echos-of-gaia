@@ -12,6 +12,7 @@ using Object = System.Object;
 public partial class FieldMapActorController : HonoBehavior
 {
     internal Int64 AccessibilityPathOwner;
+    internal Single AccessibilityIntermediateArrivalRadius;
     private Memoria.Accessibility.Navigation.FieldInputBasis _navigationMovementBasis;
     public Memoria.Accessibility.Navigation.FieldInputBasis NavigationMovementBasis {get{return _navigationMovementBasis;}}
     public Boolean IsActive()
@@ -657,7 +658,6 @@ public partial class FieldMapActorController : HonoBehavior
         if (this.isPlayer)
             FieldMapActorController.ccSMoveKey = movingUp || movingDown || movingLeft || movingRight || this.hasTarget;
         Single pathRadius = Memoria.Accessibility.Navigation.FieldAnalogMovement.ArrivalRadius(this.radius, this.AccessibilityPathOwner);
-        Single sqrNearPos = pathRadius * pathRadius * 0.95f * 0.95f;
         if (this.movePaths.Count > 0 && !this.hasTarget)
         {
             if (PersistenSingleton<EventEngine>.Instance.GetUserControl())
@@ -680,8 +680,11 @@ public partial class FieldMapActorController : HonoBehavior
             Vector3 targetDir = this.moveTarget - this.curPos;
             targetDir.y = 0f;
             Single sqrMagnitude = targetDir.sqrMagnitude;
-            if (this.movePaths.Count == 0)
-                sqrNearPos = pathRadius * pathRadius;
+            // The final approach retains the normal owned arrival tolerance.
+            // Reviewed turns may continue once collision has brought the player close.
+            if (this.movePaths.Count > 0 && this.AccessibilityPathOwner != 0 && this.AccessibilityIntermediateArrivalRadius > pathRadius)
+                pathRadius = Math.Min(this.radius, this.AccessibilityIntermediateArrivalRadius);
+            Single sqrNearPos = this.movePaths.Count == 0 ? pathRadius * pathRadius : pathRadius * pathRadius * 0.95f * 0.95f;
             if (sqrMagnitude <= sqrNearPos)
             {
                 this.ClearMoveTarget();

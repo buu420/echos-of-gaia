@@ -45,6 +45,7 @@ public class FieldMapActorController
     public float speed=30;
     public WalkMesh walkMesh;
     public long AccessibilityPathOwner;
+    public float AccessibilityIntermediateArrivalRadius;
     public UnityEngine.Vector3 moveTarget,curPos,stillPos,lastPos;
     public List<UnityEngine.Vector3> movePaths=new List<UnityEngine.Vector3>();
     public int totalPathCount,stillCount;
