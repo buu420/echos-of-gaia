@@ -1,4 +1,4 @@
-Echos of Gaia 0.1.23 beta
+Echos of Gaia 0.1.24 beta
 Final Fantasy IX accessibility mod by buu420
 
 Supported: 64-bit Windows 10/11, Windows Steam FFIX app 377840 build 5378074.
@@ -23,7 +23,14 @@ picker. To go from Japanese to English, open Language, Japanese, select
 English (United States), then choose Back. With Japanese game text selected,
 Story offers the named Light the candle target in the opening room.
 
-This update repairs field route corners, Ice Cavern climb guidance, Treno
+This update reduces severe navigation stalls in fields with many exit
+approach points, including the reproduced Alexandria Castle save. It retains
+the full destination-specific exit approaches and readable names. Scene object
+lookups are shared within each frame while native control gates stay current.
+The clean build sustained about 49 FPS in the tested castle scene locally.
+Broader gameplay and physical-controller checks still need tester feedback.
+
+Earlier updates repaired field route corners, Ice Cavern climb guidance, Treno
 entrances, Dali shopkeeper approaches and the observatory model examine spot.
 Controller shop speech interrupts the previous item. Foreign default party
 names use the current language for speech without changing the saved name.
@@ -106,7 +113,7 @@ includes the return to the Evil Forest trail.
 
 Source, current releases, prerequisite links and reports:
 https://github.com/buu420/echos-of-gaia
-https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.23
+https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.24
 
 Based on BlindGuyNW/Memoria and Albeoris/Memoria. The code retains the MIT
 license; dependency and supplied sound notices remain separate. Final Fantasy

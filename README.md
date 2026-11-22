@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.23 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.23)**
+**[Download 0.1.24 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.24)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,14 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing, including a full playthrough.
+
+0.1.24 reduces large navigation stalls when a field has many exit approach
+points. Exit processing uses typed comparisons and indexed lookups while
+retaining destination names and every approved approach. Native scene references
+are shared within each frame, with control and dialogue gates read live.
+The reproduced castle save sustained about 49 FPS locally after the repair;
+broader gameplay and controller checks remain open. See the
+[performance repair](docs/accessibility/performance-repair-2026-11-22.md).
 
 0.1.23 improves Ice Cavern climb guidance, field route corners and Treno
 entrance coverage. Dali shopkeepers can be approached across their counters,
