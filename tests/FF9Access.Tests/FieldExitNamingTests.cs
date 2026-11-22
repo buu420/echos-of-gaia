@@ -78,6 +78,30 @@ namespace FF9Access.Tests
             var other=TestFixtures.P(5,10);var alias=Exit(5,"Upper exit",good,other);
             TestAssert.Equal("Exit to Alexandria, Alley, Area 1",Only(Build(new FieldTargetCatalog(),Routes(alias,Route(105,new[]{good},"Alexandria, Alley, Area 1",1800,new[]{other},"Alexandria, Alley, Area 1")),alias)).Label);
         }
+        public static void IndexedExitPointsKeepFirstDuplicateRankAndMatchSignedZero()
+        {
+            var zero=new NavigationPoint(0f,5,0f);var negativeZero=new NavigationPoint(-0f,5,-0f);
+            var next=TestFixtures.P(5,10);var hidden=TestFixtures.P(90,90);
+            var exit=Exit(4,"Upper exit",zero,next,negativeZero);
+            var route=Route(105,new[]{next,negativeZero,next,hidden},"Alexandria, Alley, Area 1");
+            var target=Only(Build(new FieldTargetCatalog(),Routes(exit,route),exit));
+            TestAssert.Equal(2,target.ApproachCandidates.Length);
+            TestAssert.Equal(zero,target.ApproachCandidates[0]);TestAssert.Equal(next,target.ApproachCandidates[1]);
+            TestAssert.Equal(2,target.DestinationApproaches[105].Length);
+            TestAssert.Equal(next,target.DestinationApproaches[105][0]);TestAssert.Equal(zero,target.DestinationApproaches[105][1]);
+        }
+        public static void IndexedMenuKeepsOnlyPresentedAndOfferedPoints()
+        {
+            var zero=new NavigationPoint(0f,5,0f);var negativeZero=new NavigationPoint(-0f,5,-0f);
+            var next=TestFixtures.P(5,10);var hidden=TestFixtures.P(90,90);
+            var exit=Exit(4,"Upper exit",zero,next,negativeZero);
+            var route=new FieldExitRoute{Menu=new[]{next,negativeZero,next,hidden},Function="Castle lift"};
+            route.MenuApproaches[105]=new List<NavigationPoint>{negativeZero,hidden};route.Names[105]="Alexandria, Alley, Area 1";
+            var target=Only(Build(new FieldTargetCatalog(),Routes(exit,route),exit));
+            TestAssert.True(target.SelectDestinationInMenu);TestAssert.Equal(2,target.ApproachCandidates.Length);
+            TestAssert.Equal(zero,target.ApproachCandidates[0]);TestAssert.Equal(next,target.ApproachCandidates[1]);
+            TestAssert.Equal(1,target.DestinationApproaches[105].Length);TestAssert.Equal(zero,target.DestinationApproaches[105][0]);
+        }
         public static void DuplicateDoorwaysToOneRoomAreDistinguishedByPositionThenDoorway()
         {
             var a=TestFixtures.P(-50,0);var b=TestFixtures.P(50,0);var c=TestFixtures.P(60,0);

@@ -26,7 +26,7 @@ if (!(Test-Path -LiteralPath (Join-Path $net35 'build/.NETFramework/v3.5/mscorli
     Expand-Archive -LiteralPath $archive -DestinationPath $net35 -Force
 }
 $frameworkRoot = Join-Path $net35 'build/'
-$architectures = if ($Architecture -eq 'Both') { @('x86','x64') } else { @($Architecture) }
+$architectures = @(if ($Architecture -eq 'Both') { @('x86','x64') } else { @($Architecture) })
 $referenceManifest = @()
 foreach ($arch in $architectures) {
     $refs = Join-Path $StageRoot "References/$arch"

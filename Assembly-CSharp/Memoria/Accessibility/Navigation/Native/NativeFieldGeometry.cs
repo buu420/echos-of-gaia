@@ -95,6 +95,7 @@ namespace Memoria.Accessibility.Navigation
                 _geometry = null;
                 return null;
             }
+
         }
         private static FieldGeometrySnapshot ReadAvailable(NavigationContext context)
         {
@@ -217,7 +218,7 @@ namespace Memoria.Accessibility.Navigation
 
         private static FieldMapActorController Controller(NavigationContext context,out EventEngine engine,out Actor actor)
         {
-            engine=UnityEngine.Object.FindObjectOfType<EventEngine>();actor=engine==null?null:engine.GetControlChar() as Actor;
+            engine=NativeSceneReferences.Read<EventEngine>();actor=engine==null?null:engine.GetControlChar() as Actor;
             var controller=actor==null?null:actor.fieldMapActorController;
             if(context==null||controller==null||!controller.isPlayer||actor.uid!=context.PlayerIdentity)return null;
             var field=controller.fieldMap;return field==null||field.bgi==null||field.walkMesh==null?null:controller;

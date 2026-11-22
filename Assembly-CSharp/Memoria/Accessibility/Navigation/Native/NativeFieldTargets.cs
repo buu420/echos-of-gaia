@@ -40,8 +40,8 @@ namespace Memoria.Accessibility.Navigation
             // not observations of that field and must not prepare its surfaces.
             if(context.GateReason==GateReason.Battle || context.GateReason==GateReason.MapTransition)return result;
             if (_generation != context.Generation) { _hashes.Clear();_labelIdentities.Clear();_decoded.Clear();_doors.Clear();_surfaces.Clear();_cueLogs.Clear();_seenExits.Clear();_walkmeshHash=null;_rosterLogs=0;_speakerTexts.Clear(); _generation = context.Generation; }
-            var engine = UnityEngine.Object.FindObjectOfType<EventEngine>();
-            var field = UnityEngine.Object.FindObjectOfType<FieldMap>();
+            var engine = NativeSceneReferences.Read<EventEngine>();
+            var field = NativeSceneReferences.Read<FieldMap>();
             if (engine == null || field == null) return result;
             NativeStoryTargets.PrepareEngine(engine);_storyProofMemory=null;
             var player=engine.GetControlChar() as Actor;
@@ -368,6 +368,7 @@ namespace Memoria.Accessibility.Navigation
             if(FieldDoorEvidence.TryTriggerSurface(binding.Walk || surfaceReview!=null || boundaryCue!=null,true,surface.Boundaries,p=>presented(p) || boundaryCue!=null && EntranceOnScreen(field,Vector(p)) && RenderedBackgroundAt(field,Vector(p)),nativeFirst,context.Position,out approach))
                 return new ExitPresentation{Visible=true,ApproachEnabled=false,Approach=approach,ApproachCandidates=new NavigationPoint[0],Evidence=VisibilityEvidence.ReviewedBackground,Cue=boundaryCue,SourceFingerprint=hash};
             return null;
+
         }
         private static IList<DoorTileObservation> ReadFrames(FieldMap field,int animation)
         {
@@ -403,6 +404,7 @@ namespace Memoria.Accessibility.Navigation
                 var tile=ReadTile(field,i,opaqueOnly);int overlay;
                 if(FieldDoorEvidence.TryBind(tile.Camera,field.camIdx,new[]{tile},Point(projected),true,out overlay))return true;
             }return false;
+
         }
         private static Vector3 Project(FieldMap field,Vector3 point)
         {

@@ -14,7 +14,7 @@ namespace Memoria.Accessibility.Navigation
         public static Speaker Capture(PosObj subject)
         {
             var actor=subject as Actor;if(actor==null || actor.ebData==null)return null;
-            var engine=UnityEngine.Object.FindObjectOfType<EventEngine>();
+            var engine=NativeSceneReferences.Read<EventEngine>();
             if(engine==null || engine.gMode!=1 || actor.uid==engine.GetControlUID() || engine.GetObjUID(actor.uid)!=actor)return null;
             return new Speaker{Actor=actor,Map=Map(),Save=NavigationSaveIdentity.Current,Generation=NavigationLifecycleBridge.Generation,Signature=NativeFieldTargets.LabelSignature(actor)};
         }
@@ -30,7 +30,7 @@ namespace Memoria.Accessibility.Navigation
                 if(_lastUnassigned!=key){_lastUnassigned=key;Log.Message("[FF9Access] Displayed name has no native actor attribution: {0}",name);}return;
             }
             var actor=speaker.Actor;
-            var engine=UnityEngine.Object.FindObjectOfType<EventEngine>();
+            var engine=NativeSceneReferences.Read<EventEngine>();
             if(engine==null || engine.gMode!=1 || actor.uid==engine.GetControlUID() || engine.GetObjUID(actor.uid)!=actor ||
                 speaker.Generation!=NavigationLifecycleBridge.Generation || speaker.Map!=Map() || speaker.Save!=NavigationSaveIdentity.Current || speaker.Signature!=NativeFieldTargets.LabelSignature(actor))return;
             var id=new TargetIdentity(TargetKind.FieldActor,speaker.Map,actor.uid);string previous;

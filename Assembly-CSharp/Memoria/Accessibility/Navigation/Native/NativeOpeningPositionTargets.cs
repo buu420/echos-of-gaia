@@ -20,7 +20,7 @@ namespace Memoria.Accessibility.Navigation
             if(context==null || catalog==null || !context.Foreground || !context.CanControl)return false;
             var goal=NativeStoryTargets.CurrentPositionGoal(context);
             if(goal==null){_key=null;_sceneIdentity=0;_candidates=Empty;_presentedScope=null;_presentedPoints=Empty;return false;}
-            var field=UnityEngine.Object.FindObjectOfType<FieldMap>();var engine=UnityEngine.Object.FindObjectOfType<EventEngine>();
+            var field=NativeSceneReferences.Read<FieldMap>();var engine=NativeSceneReferences.Read<EventEngine>();
             var geometry=field==null || engine==null?null:NativeFieldTargets.ReadGeometryForStory(context);
             var points=new List<NavigationPoint>();
             string key=context.Generation+":"+context.LogicalMapKey+":"+context.SaveIdentity+":"+context.PlayerIdentity+":"+goal.Phase+":"+goal.Axis+":"+goal.Minimum+":"+goal.Maximum+":"+goal.SupportFloor+":"+(geometry==null?"":geometry.Fingerprint)+":"+(field==null?-1:field.camIdx);

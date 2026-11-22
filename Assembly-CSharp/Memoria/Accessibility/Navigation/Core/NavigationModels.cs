@@ -1,10 +1,16 @@
 using System;
 namespace Memoria.Accessibility.Navigation
 {
-    public struct NavigationPoint
+    public struct NavigationPoint : IEquatable<NavigationPoint>
     {
         public readonly float X, Y, Z;
         public NavigationPoint(float x, float y, float z) { X = x; Y = y; Z = z; }
+        // Generic point searches must not box coordinates for every comparison.
+        // Match the shipped Mono runtime: signed zeros match; NaN does not.
+        public bool Equals(NavigationPoint other) { return X == other.X && Y == other.Y && Z == other.Z; }
+        public override bool Equals(object other) { return other is NavigationPoint && Equals((NavigationPoint)other); }
+        private static int CoordinateHash(float value) { return value == 0f ? 0 : value.GetHashCode(); }
+        public override int GetHashCode() { return unchecked((CoordinateHash(X) * 397 ^ CoordinateHash(Y)) * 397 ^ CoordinateHash(Z)); }
         public bool IsFinite { get { return !(float.IsNaN(X) || float.IsNaN(Y) || float.IsNaN(Z) || float.IsInfinity(X) || float.IsInfinity(Y) || float.IsInfinity(Z)); } }
         public static float Distance(NavigationPoint a, NavigationPoint b) { float x = a.X-b.X, y = a.Y-b.Y, z = a.Z-b.Z; return (float)Math.Sqrt(x*x+y*y+z*z); }
     }

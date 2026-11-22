@@ -8,14 +8,14 @@ namespace Memoria.Accessibility.Navigation
         {
             var context = new NavigationContext { Generation = NavigationLifecycleBridge.Generation, SaveIdentity = NavigationSaveIdentity.Current, GateReason = GateReason.UnknownActor, BattleTransition = NavigationLifecycleBridge.ReturnTransition };
             context.Foreground = HonoInputManager.ApplicationIsActivated();
-            var state = Object.FindObjectOfType<FF9StateSystem>();
-            var engine = Object.FindObjectOfType<EventEngine>();
-            var ui = Object.FindObjectOfType<UIManager>();
+            var state=NativeSceneReferences.Read<FF9StateSystem>();
+            var engine=NativeSceneReferences.Read<EventEngine>();
+            var ui=NativeSceneReferences.Read<UIManager>();
             if (state == null || engine == null || ui == null) return context;
             context.MenuOpen = UIManager.IsUIStateMenu(ui.State) || ui.IsPause;
             bool world = state.mode == 3;
             bool hud = ui.State == (world ? UIManager.UIState.WorldHUD : UIManager.UIState.FieldHUD);
-            var dialogs = Object.FindObjectOfType<DialogManager>();
+            var dialogs=NativeSceneReferences.Read<DialogManager>();
             bool nativeControl = (state.mode == 1 || world) && ui.IsPlayerControlEnable && engine.GetUserControl() && EventInput.IsMovementControl;
             // Visible includes persistent instructions shown while ordinary walking is
             // enabled. Keep choices modal and respect every native movement gate.
@@ -70,6 +70,7 @@ namespace Memoria.Accessibility.Navigation
                 if (Configuration.Accessibility.AnnounceRegionChanges) context.CurrentRegion = context.CurrentLocation;
             }
             return context;
+
         }
     }
 }

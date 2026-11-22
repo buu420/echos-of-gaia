@@ -34,7 +34,7 @@ namespace Memoria.Accessibility.Navigation
                 }
                 bool resumed=_sceneSuspended;
                 string serialized = Configuration.Accessibility.NavigationBindings;
-                var input = UnityEngine.Object.FindObjectOfType<HonoInputManager>();
+                var input = NativeSceneReferences.Read<HonoInputManager>();
                 if (input == null) return;
                 if (_bindings == null || serialized != _serialized) {
                     var parsed = NavigationBindings.ParseOrKeep(serialized, _bindings);
@@ -87,8 +87,8 @@ namespace Memoria.Accessibility.Navigation
         }
         public static PhysicalInputSnapshot ReadPhysical()
         {
-            var input = UnityEngine.Object.FindObjectOfType<HonoInputManager>();
-            var manager = UnityEngine.Object.FindObjectOfType<UnityXInput.XInputManager>();
+            var input = NativeSceneReferences.Read<HonoInputManager>();
+            var manager = NativeSceneReferences.Read<UnityXInput.XInputManager>();
             GamePadState pad = XInputDotNetPure.GamePad.GetState(manager == null ? PlayerIndex.One : manager.PlayerIndex);
             var snapshot = new PhysicalInputSnapshot { ControllerConnected = pad.IsConnected, MoveX = pad.ThumbSticks.Left.X, MoveY = pad.ThumbSticks.Left.Y, LookX = pad.ThumbSticks.Right.X, LookY = pad.ThumbSticks.Right.Y, LeftTrigger = pad.Triggers.Left, RightTrigger = pad.Triggers.Right };
             Add(ref snapshot.Buttons, pad.Buttons.A, NavigationButton.Confirm); Add(ref snapshot.Buttons, pad.Buttons.B, NavigationButton.Cancel);

@@ -67,7 +67,7 @@ namespace Memoria.Accessibility.Navigation
         private const int MenuPart=9999;
         // Fields are the real native destinations a part proves now (Story routing); Variant is its stable
         // split identity (first field + 1, or the menu/fallback variant) and never a destination.
-        private sealed class Part{public string Name,Label,Availability;public int Variant;public bool IsMenu;public List<int> Fields=new List<int>();public List<NavigationPoint> Points=new List<NavigationPoint>();public Dictionary<int,NavigationPoint[]> Destinations=new Dictionary<int,NavigationPoint[]>();}
+        private sealed class Part{public string Name,Label,Availability;public int Variant;public bool IsMenu;public List<int> Fields=new List<int>();public List<NavigationPoint> Points=new List<NavigationPoint>();public HashSet<NavigationPoint> PointSet=new HashSet<NavigationPoint>();public Dictionary<int,NavigationPoint[]> Destinations=new Dictionary<int,NavigationPoint[]>();}
         // Names presented exits from their own current proof and splits a region whose approaches lead
         // to different named places into one target per place. A split target keeps the region as its
         // physical identity (native trigger, exit observation, Story wrapping) and only that place's
@@ -103,16 +103,21 @@ namespace Memoria.Accessibility.Navigation
         {
             var parts=new List<Part>();if(route==null)return parts;
             if(exit.ApproachCandidates==null || exit.ApproachCandidates.Length==0)return Fallback(route,parts);
-            var menu=new List<NavigationPoint>();foreach(var point in route.Menu??new NavigationPoint[0])if(Array.IndexOf(exit.ApproachCandidates,point)>=0 && !menu.Contains(point))menu.Add(point);
+            // A doorway can have hundreds of approved points. Index the current
+            // presentation once, preserving the first occurrence's native rank.
+            var approachOrder=new Dictionary<NavigationPoint,int>();
+            for(int i=0;i<exit.ApproachCandidates.Length;i++)if(!approachOrder.ContainsKey(exit.ApproachCandidates[i]))approachOrder.Add(exit.ApproachCandidates[i],i);
+            var menu=new List<NavigationPoint>();var menuSet=new HashSet<NavigationPoint>();
+            foreach(var point in route.Menu??new NavigationPoint[0])if(approachOrder.ContainsKey(point) && menuSet.Add(point))menu.Add(point);
             var fields=new List<int>(route.Approaches.Keys);fields.Sort();
             foreach(int field in fields) {
                 string name;if(!route.Names.TryGetValue(field,out name) || String.IsNullOrEmpty(name))continue;
-                var points=new List<NavigationPoint>();
-                foreach(var point in route.Approaches[field]??new NavigationPoint[0])if(Array.IndexOf(exit.ApproachCandidates,point)>=0 && !points.Contains(point))points.Add(point);
+                var points=new List<NavigationPoint>();var pointSet=new HashSet<NavigationPoint>();
+                foreach(var point in route.Approaches[field]??new NavigationPoint[0])if(approachOrder.ContainsKey(point) && pointSet.Add(point))points.Add(point);
                 if(points.Count==0)continue;
                 Part part=null;foreach(var existing in parts)if(existing.Name==name)part=existing;
                 if(part==null){part=new Part{Name=name,Variant=field+1};parts.Add(part);}
-                part.Fields.Add(field);part.Destinations[field]=points.ToArray();foreach(var point in points)if(!part.Points.Contains(point))part.Points.Add(point);
+                part.Fields.Add(field);part.Destinations[field]=points.ToArray();foreach(var point in points)if(part.PointSet.Add(point))part.Points.Add(point);
                 uint buttons;string button=route.Buttons.TryGetValue(field,out buttons)?Button(buttons):null;
                 if(button!=null && part.Label==null)part.Label="Exit to "+name+", press "+button+(route.Prompted.Contains(field)?", then it asks":"");
                 else if(route.Prompted.Contains(field) && part.Label==null)part.Label="Exit to "+name+", asks first";
@@ -122,7 +127,8 @@ namespace Memoria.Accessibility.Navigation
                 var offered=new List<int>(route.MenuApproaches.Keys);offered.Sort();
                 foreach(int field in offered) {
                     string name;if(!route.Names.TryGetValue(field,out name) || String.IsNullOrEmpty(name))continue;
-                    var points=new List<NavigationPoint>();foreach(var point in menu)if(route.MenuApproaches[field].Contains(point))points.Add(point);
+                    var offeredPoints=new HashSet<NavigationPoint>(route.MenuApproaches[field]);
+                    var points=new List<NavigationPoint>();foreach(var point in menu)if(offeredPoints.Contains(point))points.Add(point);
                     if(points.Count!=0){part.Fields.Add(field);part.Destinations[field]=points.ToArray();}
                 }
                 string press=Button(route.MenuButtons);if(press!=null)part.Availability="press "+press+" there; "+part.Availability;
@@ -130,7 +136,7 @@ namespace Memoria.Accessibility.Navigation
             }
             if(parts.Count==0)Fallback(route,parts);
             // Keep the candidate order (nearest/approved first) within each place.
-            foreach(var part in parts)part.Points.Sort((a,b)=>Array.IndexOf(exit.ApproachCandidates,a).CompareTo(Array.IndexOf(exit.ApproachCandidates,b)));
+            foreach(var part in parts)part.Points.Sort((a,b)=>approachOrder[a].CompareTo(approachOrder[b]));
             return parts;
         }
         // Nothing proven now (or no approach is enabled): a reviewed function, or the one place any native
