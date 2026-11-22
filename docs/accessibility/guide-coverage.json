@@ -849,7 +849,15 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NavigationModels.cs",
-      "sha256": "95cf0e054bc273a61fb1c8d37ee3147a5de34e0a24ca8e4038187c6ad0a649af"
+      "sha256": "72e0c43652c1b0a717a4f1facfedc913e631ad9c0b58a7c17cbc936275b821e3"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FrameReference.cs",
+      "sha256": "20d68b87132d8a97afabc9ce37dd99318adc76c7b68f35378556b10edaf1fa59"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldExitNames.cs",
+      "sha256": "2bf21e9c7e8d6b7e0addd3bf17dd598c898f3944040d27810a2051c5bc4e3122"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/RouteGuidanceProgress.cs",
@@ -901,7 +909,23 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeNavigationContext.cs",
-      "sha256": "798b9e4e7cba3a4804517acafaa585877ab3de9d1cd2034ff0727f363357a3dc"
+      "sha256": "a63fc25fefd92dff44bfe1e89ee25c031995c9a5a9745d96a0ce72b9fee16194"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeSceneReferences.cs",
+      "sha256": "2b65ee2843cb6d567e45c91347fa57debade90b053c7ef9ba31aa0d2721d2a15"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeDisplayedIdentity.cs",
+      "sha256": "cddcf9e58a47ef45941ed376d31f91d5f60429191eecfdbf1db05b36802f46fa"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldGeometry.cs",
+      "sha256": "e938382e1779d69253fde0b0fe4621314fc2487b6a505172f0b400a5aefc6977"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeNavigationInput.cs",
+      "sha256": "7328a1d71bf28b390e60d4bdcb14da5e445012cdaa408d946119a4c6eac26376"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldAreaNames.cs",
@@ -917,7 +941,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeOpeningPositionTargets.cs",
-      "sha256": "3a23c33799713b3be9b57443de3eab9db73e3451ad0ba09a03dff060c036786b"
+      "sha256": "695b775e727a1ec38776a556afcefc301c854f67926014a7bd0a773c9f3ba675"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/StoryTargetCatalog.cs",
@@ -953,7 +977,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldTargets.cs",
-      "sha256": "71e0de668e0c5db0b7fb6ebd5bf8258f12ca0391cbaf3690a98f893a081bc563"
+      "sha256": "5d67607b1f6a20af5eaac5a4c1f69bc697992c901d180439fbe7462c1d93b165"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryTargets.cs",

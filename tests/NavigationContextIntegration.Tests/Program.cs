@@ -14,6 +14,7 @@ internal static class Program
             ChoiceKeepsNavigationBlocked,NativeMovementPermissionsStillGateNavigation,
             TutorialPauseLoadingAndFocusKeepNavigationBlocked,HeldTutorialKeyNeedsReleaseBeforeNavigation,
             WorldHintUsesTheSameNativeControlRule,BattleAndUnknownActorStayBlocked,
+            SharedReferencesKeepSameFrameControlChangesLive,DestroyedReferenceIsReplacedWithinTheSameFrame,NewFrameAndGenerationRefreshReferences,
             QuietPresentationTests.ScreenReaderKeepsTitleStableAcrossMapCameraAndMovie,
             QuietPresentationTests.DisabledSpeechPreservesDebugTitleWithoutDuplicateWrites,
             QuietPresentationTests.EnablingSpeechRestoresStableTitleOnce,
@@ -59,6 +60,7 @@ internal static class Program
     }
     private static void Reset()
     {
+        UnityEngine.Time.frameCount++;
         state=new FF9StateSystem{mode=1};engine=new EventEngine{Controlled=new Actor(),UserControl=true};
         ui=new UIManager{State=UIManager.UIState.FieldHUD,IsPlayerControlEnable=true};dialogs=new DialogManager();
         UnityEngine.Object.Set(state);UnityEngine.Object.Set(engine);UnityEngine.Object.Set(ui);UnityEngine.Object.Set(dialogs);
@@ -67,6 +69,31 @@ internal static class Program
         Memoria.Configuration.Accessibility.AnnounceRegionChanges=true;
         Assets.Sources.Scripts.UI.Common.FF9TextTool.Names.Clear();
         FF9StateSystem.Common.FF9.fldMapNo=50;
+    }
+    private static void SharedReferencesKeepSameFrameControlChangesLive()
+    {
+        UnityEngine.Object.Lookups.Clear();
+        Require(NativeNavigationContext.Read().CanControl,"initial native control unavailable");
+        engine.UserControl=false;
+        Require(NativeNavigationContext.Read().GateReason==GateReason.NoControl,"same-frame native control change was cached");
+        foreach(var type in new[]{typeof(FF9StateSystem),typeof(EventEngine),typeof(UIManager),typeof(DialogManager)})
+            Require(UnityEngine.Object.Lookups[type]==1,"native identity lookup repeated within the frame: "+type.Name);
+    }
+    private static void DestroyedReferenceIsReplacedWithinTheSameFrame()
+    {
+        Require(NativeNavigationContext.Read().CanControl,"initial native control unavailable");
+        var replacement=new EventEngine{Controlled=engine.Controlled,UserControl=false};UnityEngine.Object.Set(replacement);
+        Require(engine.Destroyed,"fixture did not destroy the former native engine");
+        Require(NativeNavigationContext.Read().GateReason==GateReason.NoControl,"destroyed native identity was reused");
+    }
+    private static void NewFrameAndGenerationRefreshReferences()
+    {
+        NativeNavigationContext.Read();
+        var replacement=new EventEngine{Controlled=engine.Controlled,UserControl=false};UnityEngine.Object.Set(replacement,false);
+        UnityEngine.Time.frameCount++;
+        Require(NativeNavigationContext.Read().GateReason==GateReason.NoControl,"new frame retained former native identity");
+        UnityEngine.Object.Set(engine,false);NavigationLifecycleBridge.Generation++;
+        Require(NativeNavigationContext.Read().CanControl,"new lifecycle generation retained former native identity");
     }
     private static void FieldContextRetainsTheActualMovementInputKind()
     {

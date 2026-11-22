@@ -11,9 +11,23 @@ namespace UnityEngine
     public class Object
     {
         private static readonly Dictionary<Type, object> Objects = new Dictionary<Type, object>();
-        public static T FindObjectOfType<T>() where T : class { object value; return Objects.TryGetValue(typeof(T), out value) ? (T)value : null; }
-        public static void Set<T>(T value) { Objects[typeof(T)] = value; }
+        public static readonly Dictionary<Type,int> Lookups=new Dictionary<Type,int>();
+        public bool Destroyed;
+        public static T FindObjectOfType<T>() where T : class { int count;Lookups.TryGetValue(typeof(T),out count);Lookups[typeof(T)]=count+1;object value; return Objects.TryGetValue(typeof(T), out value) ? (T)value : null; }
+        public static void Set<T>(T value,bool destroyPrevious=true) {
+            object previous;
+            if(destroyPrevious && Objects.TryGetValue(typeof(T),out previous) && !ReferenceEquals(previous,value) && previous is Object old)old.Destroyed=true;
+            Objects[typeof(T)] = value;
+        }
+        public static bool operator ==(Object a,Object b) {
+            bool missingA=ReferenceEquals(a,null) || a.Destroyed,missingB=ReferenceEquals(b,null) || b.Destroyed;
+            return missingA || missingB ? missingA && missingB : ReferenceEquals(a,b);
+        }
+        public static bool operator !=(Object a,Object b){return !(a==b);}
+        public override bool Equals(object value){return ReferenceEquals(this,value);}
+        public override int GetHashCode(){return System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this);}
     }
+    public static class Time {public static int frameCount;}
     public sealed class GameObject { }
     public struct Vector3 { public float x,y,z; public Vector3(float x,float y,float z) { this.x=x;this.y=y;this.z=z; } }
 }
@@ -64,7 +78,7 @@ namespace Assets.Sources.Scripts.UI.Common
 namespace Memoria.Assets { public static class Localization { public static string CurrentDisplaySymbol="US"; } }
 public static class EventEngineUtils { public static readonly Dictionary<int,string> eventIDToFBGID=new Dictionary<int,string>(); }
 public static class HonoInputManager { public static bool Active; public static bool ApplicationIsActivated() { return Active; } }
-public sealed class FF9StateSystem
+public sealed class FF9StateSystem:UnityEngine.Object
 {
     public int mode;
     public static readonly CommonState Common = new CommonState();
@@ -83,7 +97,7 @@ public sealed class FF9StateSystem
     public sealed class BattleState { public bool isRandomEncounter; }
     public sealed class EventStateData { public byte[] gEventGlobal={232,3}; }
 }
-public sealed class EventEngine
+public sealed class EventEngine:UnityEngine.Object
 {
     public Func<float,float,Quad> PositionTouch;
     public Quad NavigationTouchQuadAt(float x,float z){return PositionTouch==null?null:PositionTouch(x,z);}
@@ -109,11 +123,11 @@ public sealed class Actor:PosObj
     public WMActor wmActor;
 }
 public sealed class FieldMapActorController { public Memoria.Accessibility.Navigation.FieldInputBasis NavigationMovementBasis;public int activeTri=-1;public bool isPlayer=true; public UnityEngine.Vector3 curPos=new UnityEngine.Vector3(25,0,-664); }
-public sealed class FieldMap {public string BgiHash;public int camIdx;public object scene;}
+public sealed class FieldMap:UnityEngine.Object {public string BgiHash;public int camIdx;public object scene;}
 public sealed class WMActor { public Actor originalActor; public UnityEngine.Vector3 RealPosition; }
 public static class WMUIData { public static int ActiveMapNo; }
 public static class ff9 { public static WMActor w_moveActorPtr; }
-public sealed class UIManager
+public sealed class UIManager:UnityEngine.Object
 {
     public enum UIState { FieldHUD,WorldHUD,Tutorial,Menu }
     public UIState State;
@@ -121,7 +135,7 @@ public sealed class UIManager
     public static bool IsUIStateMenu(UIState state) { return state==UIState.Menu || state==UIState.Tutorial; }
 }
 public sealed class Dialog { public bool HasChoices; public bool FlagButtonInh; }
-public sealed class DialogManager
+public sealed class DialogManager:UnityEngine.Object
 {
     public readonly List<Dialog> ActiveDialogList=new List<Dialog>();
     public bool Visible { get { return ActiveDialogList.Count>0; } }
