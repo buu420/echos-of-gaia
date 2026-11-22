@@ -2,7 +2,7 @@
   "gameId": "final-fantasy-ix",
   "displayName": "Final Fantasy IX",
   "modName": "Echos of Gaia (Beta)",
-  "description": "Echos of Gaia adds screen reader support, field and world navigation, automatic walking, battle and menu speech, and optional audio descriptions to Windows Steam Final Fantasy IX. Beta 0.1.22 lists usable world entrances before their first visit and retains reachable ground approaches for marked cliff pins when entrance data is unavailable. Includes the accessible launcher, double-click standalone installer and 608 narration recordings.",
+  "description": "Echos of Gaia adds screen reader support, field and world navigation, automatic walking, battle and menu speech, and optional audio descriptions to Windows Steam Final Fantasy IX. Beta 0.1.23 repairs field route corners, Ice Cavern climb guidance, Treno entrances, shopkeeper and model airship approaches, controller shop speech and localized spoken party names. Includes the accessible launcher, double-click standalone installer and 608 narration recordings. Live tester confirmation remains necessary.",
   "steamAppId": "377840",
   "exeName": "FF9_Launcher.exe",
   "probeRules": [
