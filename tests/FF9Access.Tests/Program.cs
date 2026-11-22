@@ -28,6 +28,8 @@ namespace FF9Access.Tests
                 if (args.Length == 2 && args[0] == "--verify-descriptions") { NativeReaderVerification.VerifyDescriptions(args[1]); return 0; }
                 if (args.Length == 2 && args[0] == "--verify-field-descriptions") { FieldDescriptionNativeVerification.Verify(args[1]); return 0; }
                 if (args.Length == 2 && args[0] == "--verify-hot-cold-text") { NativeReaderVerification.VerifyHotColdText(args[1]); return 0; }
+                if (args.Length == 2 && args[0] == "--verify-shop-speech") { NativeReaderVerification.VerifyShopSpeech(args[1]); return 0; }
+                if (args.Length == 2 && args[0] == "--verify-name-speech") { NativeReaderVerification.VerifyNameSpeech(args[1]); return 0; }
                 foreach (Type type in Assembly.GetExecutingAssembly().GetTypes().OrderBy(t => t.Name))
                 {
                     if (!type.Name.EndsWith("Tests") || (suite != "All" && type.Name != suite + "Tests")) continue;

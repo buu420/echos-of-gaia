@@ -407,6 +407,8 @@ namespace FF9Access.Tests
                     "NativeFieldTargets.ReadTile|FieldPanoramaPresentation.IsOpaque",
                     "NativeFieldTargets.PlainPassageOnPanorama|FieldScenePresentation.Passage",
                     "FieldScenePresentation.Passage|FieldPanoramaPresentation.ContainsBackdropEdge",
+                    "FieldScenePresentation.Door|FieldScenePresentation.Passage",
+                    "FieldScenePresentation.Door|FieldDoorEvidence.TryBind",
                     "NativeFieldTargets.PlainPassageOnPanorama|PSX.CalculateGTE_RTPT_POS",
                     "NativeFieldTargets.Surface|FieldRegionApproaches.Interaction",
                     "NativeFieldTargets.VisibleBoundary|FieldExitEvidence.TrySurface",

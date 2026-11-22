@@ -26,7 +26,7 @@ public static class EIcon { public static int NavigationPresentedUid=-1; }
 public static class PSX { public static Vector3 CalculateGTE_RTPT(Vector3 vertex,Matrix4x4 localRTS,Matrix4x4 globalRT,float viewDist,Vector2 offset){return vertex;} }
 public sealed class BGCAM_DEF { public Matrix4x4 GetMatrixRT(){return Matrix4x4.identity;} public float GetViewDistance(){return 1;} }
 public sealed class FieldMap { public Camera Main=new Camera();public BGCAM_DEF Background=new BGCAM_DEF(); public Camera GetMainCamera(){return Main;} public BGCAM_DEF GetCurrentBgCamera(){return Background;} public Vector2 GetProjectionOffset(){return new Vector2();} }
-public sealed class FieldMapActorController { public Vector3 curPos;public WalkMesh walkMesh=new WalkMesh(); }
+public sealed class FieldMapActorController { public Vector3 curPos;public float radius=80;public WalkMesh walkMesh=new WalkMesh(); }
 // WalkMesh.Collision(controller, mode, out distance): the push (mode 2) contact selection used by CollisionRequest.
 public sealed class WalkMesh { public PosObj Pushed;public float Distance=-1; public PosObj Collision(FieldMapActorController controller,int mode,out float distance){distance=Distance;return mode==2?Pushed:null;} }
 public class Obj
@@ -34,7 +34,7 @@ public class Obj
     public byte uid,sid,cid,level=7,flags=1,vofs;public int ip;public byte[] ebData=new byte[]{0,0};public byte[] buffer=new byte[64];
 }
 public class PosObj:Obj { public float[] pos=new float[3];public GameObject go=new GameObject();public bool isEnableRenderer=true; }
-public sealed class Actor:PosObj { public ushort model;public FieldMapActorController fieldMapActorController=new FieldMapActorController();public string Signature="same-actor"; }
+public sealed class Actor:PosObj { public ushort model;public float[] rotAngle=new float[3];public FieldMapActorController fieldMapActorController=new FieldMapActorController();public string Signature="same-actor"; }
 public sealed class QuadPos { public Vector3 Vector3Val; }
 public sealed class Quad:Obj { public int n;public QuadPos[] q; }
 public sealed class ObjList { public Obj obj;public ObjList next; }
@@ -68,6 +68,7 @@ public sealed class EventEngine
 // instructions without arguments; only the guard walk reads them.
 public static class EventEngineUtils
 {
+    public static int ConvertFloatAngleToFixedPoint(float angle){return (int)Math.Round((float)(angle/360.0*4096.0));}
     public class BinaryScript { public class Entry { public class Function { public class Code
     {
         public UInt16 opcode;public List<Argument> arguments=new List<Argument>();

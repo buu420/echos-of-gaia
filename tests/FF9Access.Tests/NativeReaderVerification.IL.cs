@@ -25,6 +25,9 @@ namespace FF9Access.Tests
                 // The legacy game build's compiler emits ReferenceEquals as
                 // reference branches/ceq, without an Object.ReferenceEquals call.
                 if(opcode==OpCodes.Ceq || opcode==OpCodes.Bne_Un || opcode==OpCodes.Bne_Un_S)yield return "IL.ReferenceComparison";
+                // Boolean constants pushed as call arguments, e.g. the interrupt flag of a Speak call.
+                if(opcode==OpCodes.Ldc_I4_0)yield return "IL.ldc.i4.0";
+                if(opcode==OpCodes.Ldc_I4_1)yield return "IL.ldc.i4.1";
                 if(opcode.OperandType==OperandType.InlineField && (opcode==OpCodes.Ldfld || opcode==OpCodes.Ldflda || opcode==OpCodes.Ldsfld || opcode==OpCodes.Stfld || opcode==OpCodes.Stsfld)) {
                     string access=opcode==OpCodes.Stfld || opcode==OpCodes.Stsfld?"FieldWrite.":"FieldRead.";
                     EntityHandle fieldHandle=MetadataTokens.EntityHandle(BitConverter.ToInt32(il,offset));

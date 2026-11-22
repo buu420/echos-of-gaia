@@ -64,7 +64,13 @@ namespace Memoria.Accessibility.Navigation
                         Directory.CreateDirectory(directory);
                         string path = Path.Combine(directory, name);
                         File.WriteAllText(path, payload);
-                        if (movement == null) Memoria.Prime.Log.Message("[FF9Access] Field route snapshot ({0}): {1}", route.Success ? "success" : "failure", path);
+                        if (movement == null) {
+                            Memoria.Prime.Log.Message("[FF9Access] Field route snapshot ({0}): {1}", route.Success ? "success" : "failure", path);
+                            if (!route.Success) Memoria.Prime.Log.Message("[FF9Access] Field route failure: map={0}; target={1}; identity={2}; reason={3}; origin=({4},{5},{6}); triangle={7}; radius={8}; candidates={9}",
+                                origin.LogicalMapKey, selected.Label, selected.Id, route.Failure,
+                                origin.Position.X, origin.Position.Y, origin.Position.Z, geometry.ActiveTriangle, geometry.Radius,
+                                selected.ApproachCandidates == null ? -1 : selected.ApproachCandidates.Length);
+                        }
                         else Memoria.Prime.Log.Message("[FF9Access] Field interruption snapshot ({0}): {1}", movement.Cause, path);
                     }
                     catch (Exception exception) { Memoria.Prime.Log.Message("[FF9Access] Field route snapshot unavailable: {0}", exception.Message); }

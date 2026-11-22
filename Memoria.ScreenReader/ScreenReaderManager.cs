@@ -23,6 +23,8 @@ namespace Memoria.ScreenReader
         public bool Enabled { get { return _enabled; } set { _enabled = value; } }
         public bool IsInitialized { get { return _backend != null; } }
         public Func<bool> OutputAllowed { private get; set; }
+        // Speech-only rewrite applied to every announcement (for example a saved name spoken in the current language).
+        public Func<string, string> TextFilter { get; set; }
 
         private bool CanOutput()
         {
@@ -74,7 +76,7 @@ namespace Memoria.ScreenReader
         {
             rejectedText = false;
             if (!_enabled) return false;
-            text = PrepareText(text);
+            text = ApplyTextFilter(PrepareText(text));
             if (string.IsNullOrEmpty(text) || text.Trim().Length == 0) {
                 rejectedText = true;
                 return false;
@@ -107,6 +109,15 @@ namespace Memoria.ScreenReader
                 if (_backend == null) _nextAttempt = _clock().AddSeconds(1);
                 return false;
             }
+        }
+        private string ApplyTextFilter(string text)
+        {
+            Func<string, string> filter = TextFilter;
+            if (filter == null || string.IsNullOrEmpty(text)) return text;
+            try {
+                string filtered = filter(text);
+                return string.IsNullOrEmpty(filtered) || filtered.Trim().Length == 0 ? text : filtered;
+            } catch (Exception exception) { SetDiagnostic("Speech text filter failed: " + exception.Message); return text; }
         }
         private static string PrepareText(string text)
         {

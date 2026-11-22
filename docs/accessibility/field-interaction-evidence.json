@@ -1,8 +1,8 @@
 {
  "schema": 3,
- "description": "Region-mediated Confirm interactions bound to the one non-player actor whose own requested function opens its window (MES/MESN on gCur) or a service MENU. native: EventEngineUtils.QuadTalkableData names the region (direction-only entries name the controlled party member); script: a direct single request with no talkable own handler within maxActorDistance. Hash-gated on installed US scripts; runtime rechecks rendering, instance, request level, native talk permission and guard. Facing is readiness, not presence.",
  "p0data7Sha256": "1404f0244bf069acb0cab059684c9603589ba9ae070222447b644f9150ca9690",
  "generator": "research/2026-11-04-story-chain-completion/claude-objects/make_bindings.py",
+ "description": "Region-mediated Confirm interactions bound to the one non-player actor whose own requested function opens its window (MES/MESN on gCur) or a service MENU. native: EventEngineUtils.QuadTalkableData names the region (direction-only entries name the controlled party member); script: a direct single request with no talkable own handler within maxActorDistance. Hash-gated on installed US scripts; runtime rechecks rendering, instance, request level, native talk permission and guard. Facing is readiness, not presence. player-examines: a reviewed prop whose region requests the controlled player's own function (REQ 250) that first turns toward the prop (TURNA) and speaks; the prop has no handler of its own and the player's level gates the request.",
  "maxActorDistance": 700,
  "bindings": [
   {
@@ -26,6 +26,36 @@
    "turnsToPlayer": true,
    "speakerOwnInteraction": false,
    "initDistance": 431.7
+  },
+  {
+   "field": 457,
+   "mapKey": "field:457:FBG_N07_AIRP_MAP111_AP_WTI_0",
+   "region": 11,
+   "regionUid": 11,
+   "regionSha256": "5cb07de3fe0d7f1e1f295be008236fc9afc0963887a0a429da916a4d718ce6fa",
+   "actor": 10,
+   "actorUid": 10,
+   "actorSha256": "97a7d5b011b1919f643ff64c3c71051dac3e546e86c71efdd14a575784d91a6c",
+   "model": 23,
+   "geo": "GEO_ACC_F0_TSM",
+   "requestedTag": 19,
+   "requestedLevel": 6,
+   "requestDepth": 0,
+   "evidence": "player-examines",
+   "nativeQuadTalkableUid": null,
+   "speaks": false,
+   "menu": false,
+   "turnsToPlayer": false,
+   "speakerOwnInteraction": false,
+   "initDistance": 297.6,
+   "requestedObject": "player",
+   "examinedUid": 10,
+   "turnOwners": [
+    14,
+    16,
+    17
+   ],
+   "note": "Dali observatory shack, the hanging model airship (GEO_ACC_F0_TSM at X -747 Y 470 Z 505; created with its region only while G1[2419]==0). Entry 11 tag 3 requests REQ 6 250 19 behind the same heading guard as its tag 2 bubble (OBJ(250).3 in 21..97); entries 14 (Zidane) and 16 (Dagger) function 19 begin with TURNA 10 and speak about the model. Tester report 2026-11-21: the path to the model airship stopped out of interaction reach; research/2026-11-21-tester-reports/457-native.txt."
   },
   {
    "field": 553,
@@ -804,13 +834,13 @@
     5,
     8
    ],
-   "nativeQuadTalkableUid": null,
-   "excluded": [
-    "handler reaches several speaking actors [5, 8]"
-   ],
    "actors": [
     5,
     8
+   ],
+   "nativeQuadTalkableUid": null,
+   "excluded": [
+    "handler reaches several speaking actors [5, 8]"
    ]
   },
   {

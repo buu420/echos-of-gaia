@@ -82,6 +82,7 @@ internal static partial class Program
         GateAndDetourCases();
         PalaceResourceCases();
         SpeakerCases();
+        IceLedgeCases();
         Console.WriteLine("StoryStepIntegration: "+passes+" passed, "+failures+" failed");
         return failures==0?0:1;
     }

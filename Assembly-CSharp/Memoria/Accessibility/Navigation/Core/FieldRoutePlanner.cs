@@ -19,6 +19,10 @@ namespace Memoria.Accessibility.Navigation
             var candidates=FieldTargetApproaches.Prepare(context,target,geometry);
             if(candidates.Length==0){failure.Failure=RouteFailure.TargetOutsideMesh;return failure;}
             var route=PlanFrom(context,target,geometry,start,context.Position,candidates,failure,cancelled);
+            if(route.Failure==RouteFailure.UnsafeSegment) {
+                var alternative=PlanAcrossPortals(context,target,geometry,start,candidates,cancelled);
+                if(alternative!=null)return alternative;
+            }
             if (route.Failure != RouteFailure.UnsafeSegment || !target.IsInteractive || target.PhysicalIdentity.Kind != TargetKind.FieldActor ||
                 !FieldActorApproaches.IsCabinVivi(context,target.PhysicalIdentity.NativeId)) return route;
 
@@ -40,20 +44,117 @@ namespace Memoria.Accessibility.Navigation
             return last;
         }
 
+        private sealed class PassageNode
+        {
+            internal int From,To,Parent=-1;internal NavigationPoint Point;
+            internal float Cost=float.MaxValue;internal bool Queued,Closed;internal NavigationPoint[] Leg;
+        }
+        private static RoutePlan PlanAcrossPortals(NavigationContext context,NavigationTarget target,FieldGeometrySnapshot geometry,
+            FieldTriangle start,NavigationPoint[] candidates,Func<bool> cancelled)
+        {
+            // A triangle-only shortest path can choose an impossible turn even
+            // though another crossing is clear. Refine only a failed route, on
+            // the detached worker geometry, with verified crossings and legs.
+            if(geometry.Triangles.Length>2048)return null;
+            var nodes=new List<PassageNode>{new PassageNode{From=start.Id,To=start.Id,Point=context.Position,Cost=0,Queued=true}};
+            var outgoing=new Dictionary<int,List<int>>();
+            foreach(var tri in geometry.Triangles) {
+                if(cancelled!=null && cancelled())return null;
+                if(!geometry.Permitted(tri))continue;
+                var list=new List<int>();outgoing.Add(tri.Id,list);
+                for(int edge=0;edge<3;edge++) {
+                    NavigationPoint middle;if(!geometry.TryPortalPoint(tri,edge,out middle))continue;
+                    var crossings=new List<NavigationPoint>{middle};var a=tri.Vertices[edge];var b=tri.Vertices[(edge+1)%3];
+                    for(int step=1;step<4;step++) {
+                        float t=step*.25f;var p=new NavigationPoint(a.X+(b.X-a.X)*t,a.Y+(b.Y-a.Y)*t,a.Z+(b.Z-a.Z)*t);
+                        bool duplicate=false;foreach(var old in crossings)if(NavigationPoint.Distance(p,old)<.1f){duplicate=true;break;}
+                        if(!duplicate && geometry.IsSegmentClear(p,p))crossings.Add(p);
+                    }
+                    foreach(var point in crossings) {
+                        list.Add(nodes.Count);nodes.Add(new PassageNode{From=tri.Id,To=tri.Neighbors[edge],Point=point});
+                    }
+                }
+            }
+            var segments=new Dictionary<SegmentKey,NavigationPoint[]>();var supports=new Dictionary<SegmentKey,FieldTriangle>();
+            var turns=new Dictionary<SegmentKey,NavigationPoint[]>();var samples=new Dictionary<int,NavigationPoint[]>();
+            var goals=new Dictionary<int,List<NavigationPoint>>();
+            bool preferInside=false;var region=ArrivalRegion(target);
+            float arrival=FieldAnalogMovement.ArrivalRadius(geometry.Radius,1);
+            foreach(var point in candidates)if(FieldRegionApproaches.CanStopInside(region,point,arrival)){preferInside=true;break;}
+            foreach(var point in candidates) {
+                if(preferInside && !FieldRegionApproaches.CanStopInside(region,point,arrival))continue;
+                var support=Support(geometry,point,supports);if(support==null)continue;
+                List<NavigationPoint> list;if(!goals.TryGetValue(support.Id,out list))goals.Add(support.Id,list=new List<NavigationPoint>());
+                list.Add(point);
+            }
+            var pending=new List<int>{0};float best=float.MaxValue;int bestNode=-1;NavigationPoint[] finalLeg=null;
+            while(pending.Count!=0) {
+                if(cancelled!=null && cancelled())return null;
+                int current=pending[0];foreach(int id in pending)if(nodes[id].Cost<nodes[current].Cost)current=id;
+                pending.Remove(current);var at=nodes[current];at.Queued=false;if(at.Closed)continue;at.Closed=true;
+                if(at.Cost>=best)break;
+                List<NavigationPoint> destinations;
+                if(goals.TryGetValue(at.To,out destinations))foreach(var point in destinations) {
+                    var leg=PassageLeg(geometry,at.To,at.Point,point,segments,supports,turns,samples,cancelled);if(leg==null)continue;
+                    float cost=at.Cost+LegLength(at.Point,leg);
+                    if(cost<best){best=cost;bestNode=current;finalLeg=leg;}
+                }
+                List<int> next;if(!outgoing.TryGetValue(at.To,out next))continue;
+                foreach(int id in next) {
+                    if(cancelled!=null && cancelled())return null;
+                    var to=nodes[id];if(to.Closed)continue;
+                    if(at.Cost+FieldGeometrySnapshot.Horizontal(at.Point,to.Point)>=Math.Min(to.Cost,best))continue;
+                    var leg=PassageLeg(geometry,at.To,at.Point,to.Point,segments,supports,turns,samples,cancelled);if(leg==null)continue;
+                    float cost=at.Cost+LegLength(at.Point,leg);if(cost>=to.Cost)continue;
+                    to.Cost=cost;to.Parent=current;to.Leg=leg;if(!to.Queued){to.Queued=true;pending.Add(id);}
+                }
+            }
+            if(bestNode<0)return null;
+            var chain=new List<int>();for(int id=bestNode;id>=0;id=nodes[id].Parent)chain.Add(id);chain.Reverse();
+            var points=new List<NavigationPoint>();var corridor=new List<int>{start.Id};bool reviewed=false;
+            foreach(int id in chain) {
+                var node=nodes[id];if(node.Leg!=null)points.AddRange(node.Leg);
+                if(corridor[corridor.Count-1]!=node.To)corridor.Add(node.To);
+                reviewed|=geometry.UsesReviewedBoundaryClearance(geometry.Find(node.From)) || geometry.UsesReviewedBoundaryClearance(geometry.Find(node.To));
+            }
+            points.AddRange(finalLeg);var steering=reviewed?new List<NavigationPoint>():null;
+            var smooth=Smooth(geometry,context.Position,points,segments,supports,steering);if(smooth==null)return null;
+            return new RoutePlan{Success=true,Failure=RouteFailure.None,TargetId=target.Id,PhysicalId=target.PhysicalId,
+                Generation=context.Generation,Transport=context.Transport,Origin=context.Position,GeometryFingerprint=geometry.Fingerprint,
+                ApproachPoint=finalLeg[finalLeg.Length-1],Waypoints=smooth.ToArray(),FieldSteeringWaypoints=steering==null?null:steering.ToArray(),
+                Corridor=corridor.ToArray(),Length=LegLength(context.Position,smooth.ToArray()),
+                ViewingPoint=target.UseViewingPoint && !target.IsInteractive && target.PhysicalIdentity.Kind==TargetKind.FieldActor};
+        }
+        private static NavigationPoint[] PassageLeg(FieldGeometrySnapshot geometry,int triangle,NavigationPoint from,NavigationPoint to,
+            Dictionary<SegmentKey,NavigationPoint[]> segments,Dictionary<SegmentKey,FieldTriangle> supports,
+            Dictionary<SegmentKey,NavigationPoint[]> turns,Dictionary<int,NavigationPoint[]> samples,Func<bool> cancelled)
+        {
+            NavigationPoint[] leg;if(Segment(geometry,from,to,segments,supports,out leg))return leg;
+            var key=new SegmentKey(from,to);if(turns.TryGetValue(key,out leg))return leg;
+            NavigationPoint[] candidates;if(!samples.TryGetValue(triangle,out candidates))samples.Add(triangle,candidates=ClearTurnSamples(geometry,geometry.Find(triangle),cancelled));
+            leg=TurnPath(geometry,from,to,candidates,segments,supports,cancelled);if(turns.Count<4096)turns.Add(key,leg);return leg;
+        }
+        private static float LegLength(NavigationPoint from,NavigationPoint[] points)
+        {
+            float length=0;foreach(var point in points){length+=FieldGeometrySnapshot.Horizontal(from,point);from=point;}return length;
+        }
+
         private static RoutePlan PlanFrom(NavigationContext context,NavigationTarget target,FieldGeometrySnapshot geometry,
             FieldTriangle start,NavigationPoint origin,NavigationPoint[] candidates,RoutePlan failure,Func<bool> cancelled)
         {
             RoutePlan best=null;
             bool viewing=target.UseViewingPoint && !target.IsInteractive && target.PhysicalIdentity.Kind==TargetKind.FieldActor;
-            // Exit samples often share the same support triangle and stair turns.
+            // Entrance and Confirm-region samples often share support triangles and turns.
             // Reuse checks only within this plan, where the geometry and origin are fixed.
             var corridors=new Dictionary<int,int[]>();
             var portals=new Dictionary<int,NavigationPoint?>();
             var segments=new Dictionary<SegmentKey,NavigationPoint[]>();
             var supports = new Dictionary<SegmentKey,FieldTriangle>();
+            var turnSamples = new Dictionary<int,NavigationPoint[]>();
+            var turnPaths = new Dictionary<SegmentKey,NavigationPoint[]>();
             bool? departureClear = null;
             bool bestInsideExit=false;
-            var exitRegion=target.PhysicalIdentity.Kind==TargetKind.FieldExit?target.InteractionRegion:null;
+            var exitRegion=ArrivalRegion(target);
             float arrival=FieldAnalogMovement.ArrivalRadius(geometry.Radius,1);
             foreach(var approach in candidates) {
                 if (cancelled != null && cancelled()) return failure;
@@ -78,6 +179,16 @@ namespace Memoria.Accessibility.Navigation
                     if(steering!=null)steering.Clear();
                     smooth=Smooth(geometry,origin,points,segments,supports,steering);
                 }
+                if(smooth==null) {
+                    // A triangle center is not necessarily clear of its walls.
+                    // Walk the verified portals and, where a corner needs a turn,
+                    // choose a clear point on that native floor instead.
+                    var passage=PassagePoints(geometry,corridor,origin,approach,portals,turnSamples,turnPaths,segments,supports,cancelled);
+                    if(passage!=null) {
+                        if(steering!=null)steering.Clear();
+                        smooth=Smooth(geometry,origin,passage,segments,supports,steering);
+                    }
+                }
                 if(smooth==null){failure.Failure=RouteFailure.UnsafeSegment;continue;}
                 var route=new RoutePlan{Success=true,Failure=RouteFailure.None,TargetId=target.Id,PhysicalId=target.PhysicalId,Generation=context.Generation,Transport=context.Transport,Origin=origin,ApproachPoint=approach,Waypoints=smooth.ToArray(),FieldSteeringWaypoints=steering==null?null:steering.ToArray(),Corridor=corridor,GeometryFingerprint=geometry.Fingerprint,ViewingPoint=viewing};
                 var from=origin;foreach(var point in route.Waypoints){route.Length+=FieldGeometrySnapshot.Horizontal(from,point);from=point;}
@@ -86,6 +197,84 @@ namespace Memoria.Accessibility.Navigation
                     best=route;bestInsideExit=insideExit;
                 }
             }return best??failure;
+        }
+        private static NavigationPoint[] ArrivalRegion(NavigationTarget target)
+        {
+            return target.PhysicalIdentity.Kind==TargetKind.FieldExit || target.IsInteractive && target.InteractionUid>=0?target.InteractionRegion:null;
+        }
+        private static List<NavigationPoint> PassagePoints(FieldGeometrySnapshot geometry,int[] corridor,NavigationPoint origin,NavigationPoint end,
+            Dictionary<int,NavigationPoint?> portals,Dictionary<int,NavigationPoint[]> turnSamples,
+            Dictionary<SegmentKey,NavigationPoint[]> turnPaths,Dictionary<SegmentKey,NavigationPoint[]> segments,Dictionary<SegmentKey,FieldTriangle> supports,Func<bool> cancelled)
+        {
+            var result=new List<NavigationPoint>();var from=origin;
+            for(int i=0;i<corridor.Length;i++) {
+                if(cancelled!=null && cancelled())return null;
+                var tri=geometry.Find(corridor[i]);var to=end;
+                if(i+1<corridor.Length) {
+                    int edge=Array.IndexOf(tri.Neighbors,corridor[i+1]);
+                    if(edge<0 || !Portal(geometry,tri,edge,portals,out to))return null;
+                }
+                NavigationPoint[] direct;
+                if(Segment(geometry,from,to,segments,supports,out direct))result.AddRange(direct);
+                else {
+                    NavigationPoint[] candidates;
+                    if(!turnSamples.TryGetValue(tri.Id,out candidates))
+                        turnSamples.Add(tri.Id,candidates=ClearTurnSamples(geometry,tri,cancelled));
+                    var key=new SegmentKey(from,to);NavigationPoint[] turn;
+                    if(!turnPaths.TryGetValue(key,out turn)) {
+                        turn=TurnPath(geometry,from,to,candidates,segments,supports,cancelled);
+                        turnPaths.Add(key,turn);
+                    }
+                    if(turn==null)return null;
+                    result.AddRange(turn);
+                }
+                from=to;
+            }
+            return result;
+        }
+        private static NavigationPoint[] TurnPath(FieldGeometrySnapshot geometry,NavigationPoint from,NavigationPoint to,NavigationPoint[] samples,
+            Dictionary<SegmentKey,NavigationPoint[]> segments,Dictionary<SegmentKey,FieldTriangle> supports,Func<bool> cancelled)
+        {
+            var points=new NavigationPoint[samples.Length+2];Array.Copy(samples,points,samples.Length);
+            int end=samples.Length,start=end+1;points[end]=to;points[start]=from;
+            var parent=new int[points.Length];for(int i=0;i<parent.Length;i++)parent[i]=-1;
+            var queue=new Queue<int>();queue.Enqueue(start);parent[start]=start;
+            while(queue.Count!=0) {
+                if(cancelled!=null && cancelled())return null;
+                int current=queue.Dequeue();
+                // Prefer finishing the turn before adding another intermediate point.
+                for(int visit=end;visit>=0;visit--) {
+                    if(cancelled!=null && cancelled())return null;
+                    if(parent[visit]>=0)continue;NavigationPoint[] leg;
+                    if(!Segment(geometry,points[current],points[visit],segments,supports,out leg))continue;
+                    parent[visit]=current;
+                    if(visit==end) {
+                        var indices=new List<int>{end};while(indices[indices.Count-1]!=start)indices.Add(parent[indices[indices.Count-1]]);
+                        indices.Reverse();var route=new List<NavigationPoint>();
+                        for(int i=1;i<indices.Count;i++) {
+                            Segment(geometry,points[indices[i-1]],points[indices[i]],segments,supports,out leg);route.AddRange(leg);
+                        }
+                        return route.ToArray();
+                    }
+                    queue.Enqueue(visit);
+                }
+            }
+            return null;
+        }
+        private static NavigationPoint[] ClearTurnSamples(FieldGeometrySnapshot geometry,FieldTriangle triangle,Func<bool> cancelled)
+        {
+            var result=new List<NavigationPoint>();var vertices=triangle.Vertices;
+            // Small floor triangles can have a clear strip away from their
+            // centroid. This bounded grid is used only for a failed route turn.
+            const int divisions=32;
+            for(int a=0;a<=divisions;a++)for(int b=0;b<=divisions-a;b++) {
+                if(cancelled!=null && cancelled())return new NavigationPoint[0];
+                float u=(float)a/divisions,v=(float)b/divisions,w=1-u-v;
+                var point=new NavigationPoint(vertices[0].X*u+vertices[1].X*v+vertices[2].X*w,
+                    vertices[0].Y*u+vertices[1].Y*v+vertices[2].Y*w,vertices[0].Z*u+vertices[1].Z*v+vertices[2].Z*w);
+                if(triangle.Contains(point) && geometry.IsSegmentClear(point,point))result.Add(point);
+            }
+            return result.ToArray();
         }
         private static int[] Search(FieldGeometrySnapshot geometry,FieldTriangle start,FieldTriangle end,Dictionary<int,NavigationPoint?> portals,Func<bool> cancelled)
         {

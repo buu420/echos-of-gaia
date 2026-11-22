@@ -12,9 +12,14 @@ namespace Memoria.Accessibility.Navigation
                 context.StoryProgress >= 2055 && context.StoryProgress < 2060 && context.PlayerIdentity == 15;
         }
 
+        // Both native rings: the body clearance ring and, inside the strict talk/push
+        // range, a farther ring. WalkMesh.Collision selects by XZ distance and the
+        // 400 unit height interval only, so a counter, ledge or walkmesh gap between
+        // the player and the actor does not stop the ordinary Confirm. OnSurfaces
+        // keeps the nearest ring that has floor connected with the player.
         public static NavigationPoint[] Create(NavigationPoint player, NavigationPoint center, float collisionRadius, float talkRadius)
         {
-            return Create(player, center, collisionRadius, talkRadius, false);
+            return Create(player, center, collisionRadius, talkRadius, true);
         }
 
         public static NavigationPoint[] Create(NavigationPoint player, NavigationPoint center, float collisionRadius, float talkRadius, bool includeOuterTalkRange)
@@ -42,8 +47,9 @@ namespace Memoria.Accessibility.Navigation
         }
         public static NavigationPoint[] OnSurfaces(NavigationPoint[] candidates,NavigationPoint actor,FieldGeometrySnapshot geometry)
         {
-            var result=new List<NavigationPoint>();
+            var result=new List<NavigationPoint>();var rings=new List<float>();var connected=new List<bool>();
             if(candidates==null || geometry==null)return result.ToArray();
+            var reachable=Connected(geometry);
             foreach(var candidate in candidates)foreach(var triangle in geometry.Triangles) {
                 if(!candidate.IsFinite || !geometry.Permitted(triangle) || !triangle.Contains(candidate))continue;
                 float height=triangle.Height(candidate);
@@ -51,9 +57,36 @@ namespace Memoria.Accessibility.Navigation
                 if(Math.Abs(height-actor.Y)>=400)continue;
                 var point=new NavigationPoint(candidate.X,height,candidate.Z);bool duplicate=false;
                 foreach(var old in result)if(NavigationPoint.Distance(old,point)<0.01f){duplicate=true;break;}
-                if(!duplicate)result.Add(point);
+                if(duplicate)continue;
+                result.Add(point);rings.Add(FieldGeometrySnapshot.Horizontal(candidate,actor));connected.Add(reachable==null || reachable.Contains(triangle.Id));
             }
-            return result.ToArray();
+            // A person behind a counter or on a ledge stands on native floor that shares
+            // no edge with the player's floor. The native talk range still crosses that
+            // gap, so keep the nearest ring with connected floor. When no ring has any,
+            // return every supported point and let the planner report the disconnection.
+            float nearest=float.MaxValue;
+            for(int i=0;i<result.Count;i++)if(connected[i] && rings[i]<nearest)nearest=rings[i];
+            if(nearest==float.MaxValue)return result.ToArray();
+            var chosen=new List<NavigationPoint>();
+            for(int i=0;i<result.Count;i++)if(connected[i] && rings[i]<=nearest+0.5f)chosen.Add(result[i]);
+            return chosen.ToArray();
+        }
+        // Permitted triangles connected with the player's current support through
+        // shared edges. Null when that support is unknown, so every ring counts.
+        private static HashSet<int> Connected(FieldGeometrySnapshot geometry)
+        {
+            var start=geometry.Find(geometry.ActiveTriangle);
+            if(!geometry.Permitted(start))return null;
+            var reachable=new HashSet<int>{start.Id};var pending=new Queue<FieldTriangle>();pending.Enqueue(start);
+            while(pending.Count>0) {
+                var triangle=pending.Dequeue();
+                foreach(int id in triangle.Neighbors) {
+                    var next=geometry.Find(id);
+                    if(!geometry.Permitted(next) || !reachable.Add(next.Id))continue;
+                    pending.Enqueue(next);
+                }
+            }
+            return reachable;
         }
     }
 }

@@ -35,7 +35,11 @@ namespace Memoria.Accessibility.Navigation
                 Quad region;FieldInteractionBinding binding;
                 if(TryBind(context,engine,player,actor,out region,out binding)) {
                     var polygon=Polygon(region);
-                    observation.InteractionUid=region.uid;observation.InteractionRegion=polygon;observation.HasInteraction=true;observation.UseViewingPoint=false;
+                    // An examined prop's Confirm spot is planned inside its region inset by the follower's
+                    // arrival radius, so the stop stays inside the native quad. Reviewed counters keep their polygon.
+                    var planned=FieldInteractionBindings.RequestedObjectIsPlayer(binding)?
+                        FieldInteractionBindings.StoppingRegion(polygon,FieldAnalogMovement.ArrivalRadius(player.fieldMapActorController==null?4:player.fieldMapActorController.radius,1)+.5f):polygon;
+                    observation.InteractionUid=region.uid;observation.InteractionRegion=planned;observation.HasInteraction=true;observation.UseViewingPoint=false;
                     observation.ShowsIcon|=observation.Visible && EIcon.NavigationPresentedUid==region.uid && PlayerOnScreen(field,context);
                     // The requested function runs on this actor (its windows open on it): its role heading
                     // may describe the person when the person's own Talk heading gives none.
@@ -78,11 +82,38 @@ namespace Memoria.Accessibility.Navigation
                 if(!IsBoundPair(context,engine,player,actor,region) || player.fieldMapActorController==null)return null;
                 var position=player.fieldMapActorController.curPos;
                 bool permitted=region.level>1 && NativeFieldTalkability.IsTalkable(region) && FieldInteractionBindings.QuadTalkPermitted(FF9StateSystem.Common.FF9.fldMapNo,region.sid);
-                var result=FieldInteractionBindings.Readiness(engine.TreadQuad(player,4)==region,engine.NavigationContainsQuad(region,position.x,position.z),permitted,
-                    EventCollision.NavigationCanTalkQuad(player,region),EIcon.NavigationPresentedUid==region.uid);
+                bool facing=EventCollision.NavigationCanTalkQuad(player,region);
+                bool selected=engine.TreadQuad(player,4)==region;
+                bool contains=engine.NavigationContainsQuad(region,position.x,position.z);
+                bool presented=EIcon.NavigationPresentedUid==region.uid;
+                // The region's own bubble guard may test the player's heading (OBJ(250).3). When another
+                // heading would show the bubble, only the turn is missing; the shown bubble still confirms.
+                // Evaluate alternate headings only at this selected interaction with no current bubble.
+                // Distant targets and a currently shown prompt need no hypothetical heading replays.
+                if(permitted && selected && contains && !presented) {
+                    var gate=FacingGate(engine,region,player);
+                    if(gate!=null && !gate.OfferedNow && gate.OfferedByTurning)facing=false;
+                }
+                var result=FieldInteractionBindings.Readiness(selected,contains,permitted,facing,presented);
                 result.Evidence="Reviewed native talking region of this speaker, selected quad, request level and native facing arc; Confirm remains player controlled";
                 return result;
             }catch(Exception){return null;}
+        }
+        // Read-only replay of the region's push handler (the bubble) with the player's current heading,
+        // exactly as EBin.getvobj case 3 reads it. Null without a handler; nothing is requested or pressed.
+        private static FieldFacingGate FacingGate(EventEngine engine,Quad region,Actor player)
+        {
+            var code=Decode(engine,region,EventEngine.tagPush);if(code.Count==0)return null;
+            int heading=EventEngineUtils.ConvertFloatAngleToFixedPoint(player.rotAngle[1])>>4&255;
+            return FieldInteractionGuard.FacingGate(code,FrameSnapshot(engine).WithInstance(ScriptSnapshot.InstanceBytes(region.buffer,region.vofs)),_opcodes,player.uid,heading);
+        }
+        private static ScriptSnapshot FrameSnapshot(EventEngine engine)
+        {
+            if(_snapshotFrame!=Time.frameCount){_guards.Clear();_snapshotFrame=Time.frameCount;_frameSnapshot=null;}
+            // The evaluator stops before every assignment. Read-only global/map
+            // copies can therefore be shared within one observed game frame.
+            if(_frameSnapshot==null)_frameSnapshot=new ScriptSnapshot(FF9StateSystem.EventState.gEventGlobal,engine.GetMapVar(),null){UserControl=true};
+            return _frameSnapshot;
         }
         // Readiness of a contact prop such as a chest (for NativeInteractionProbe): the actor has a push
         // handler and its Talk channel is closed. CollisionRequest selects it with walkMesh.Collision mode 2
@@ -111,8 +142,12 @@ namespace Memoria.Accessibility.Navigation
             if(context==null || engine==null || player==null || actor==null || actor.ebData==null || engine.gMode!=1 || !FieldInteractionBindings.HasField(map) || !context.LogicalMapKey.StartsWith("field:"+map+":"))return false;
             binding=FieldInteractionBindings.FindActor(map,actor.sid,Hash(actor.ebData),actor.model,actor.uid);
             if(binding==null)return false;
+            // REQ 250 runs on whoever is controlled now; a party member without that function makes the
+            // native Confirm do nothing, so the prop then stays scenery (exactly what the game offers).
+            if(FieldInteractionBindings.RequestedObjectIsPlayer(binding) && (player.ebData==null || engine.GetIP(player.sid,binding.RequestedTag,player.ebData)==engine.nil))return false;
             int observedIdentity;
-            var live=new FieldInteractionPresence{ActorRendered=Rendered(actor),ActorLevel=actor.level,
+            // An examined prop's handler requests the controlled player (REQ 250): the player's level gates it.
+            var live=new FieldInteractionPresence{ActorRendered=Rendered(actor),ActorLevel=FieldInteractionBindings.RequestedObjectIsPlayer(binding)?player.level:actor.level,
                 ActorObserved=_observedActors.TryGetValue(actor,out observedIdentity) && actor.go!=null && observedIdentity==actor.go.GetInstanceID(),
                 ActorPosition=actor.fieldMapActorController==null?new NavigationPoint(actor.pos[0],actor.pos[1],actor.pos[2]):Point(actor.fieldMapActorController.curPos)};
             Quad found=null;
@@ -165,15 +200,12 @@ namespace Memoria.Accessibility.Navigation
         }
         private static FieldInteractionState Guard(EventEngine engine,Obj obj,int tag)
         {
-            if(_snapshotFrame!=Time.frameCount){_guards.Clear();_snapshotFrame=Time.frameCount;_frameSnapshot=null;}
+            var frame=FrameSnapshot(engine);
             Dictionary<int,FieldInteractionState> states;FieldInteractionState cached;
             if(!_guards.TryGetValue(obj,out states)){states=new Dictionary<int,FieldInteractionState>();_guards[obj]=states;}
             if(states.TryGetValue(tag,out cached))return cached;
             var code=Decode(engine,obj,tag);if(code.Count==0)return FieldInteractionState.Unknown;
-            // The evaluator stops before every assignment. Read-only global/map
-            // copies can therefore be shared within one observed game frame.
-            if(_frameSnapshot==null)_frameSnapshot=new ScriptSnapshot(FF9StateSystem.EventState.gEventGlobal,engine.GetMapVar(),null){UserControl=true};
-            var snapshot=_frameSnapshot.WithInstance(ScriptSnapshot.InstanceBytes(obj.buffer,obj.vofs));
+            var snapshot=frame.WithInstance(ScriptSnapshot.InstanceBytes(obj.buffer,obj.vofs));
             cached=FieldInteractionGuard.Evaluate(code,snapshot,_opcodes);states[tag]=cached;return cached;
         }
         private static void Reset(NavigationContext context)

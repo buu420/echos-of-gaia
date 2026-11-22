@@ -31,10 +31,11 @@ namespace FF9Access.Tests
             var actorId = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, 16);
             var target = new NavigationTarget { Id = actorId, Generation = 1, IsInteractive = true, Position = P(440, -773, -11) };
             var planner = new FieldRoutePlanner();
-            target.ApproachCandidates = FieldActorApproaches.Create(context.Position, target.Position, 176, talkRadius);
+            target.ApproachCandidates = FieldActorApproaches.Create(context.Position, target.Position, 176, talkRadius, includeOuterTalkRange: false);
             TestAssert.Equal(RouteFailure.TargetOutsideMesh, planner.Plan(context, target, geometry).Failure);
             // Vivi's collision ring lies past the ledge while the wider talk range reaches the floor.
-            target.ApproachCandidates = FieldActorApproaches.Create(context.Position, target.Position, 176, talkRadius, includeOuterTalkRange: true);
+            // Every actor approach now samples that native talk ring (nearest connected ring wins).
+            target.ApproachCandidates = FieldActorApproaches.Create(context.Position, target.Position, 176, talkRadius);
             var route = planner.Plan(context, target, geometry);
             TestAssert.True(route.Success);
             float distance = FieldGeometrySnapshot.Horizontal(route.ApproachPoint, target.Position);

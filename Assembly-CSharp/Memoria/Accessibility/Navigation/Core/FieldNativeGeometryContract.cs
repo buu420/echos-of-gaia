@@ -28,19 +28,29 @@ namespace Memoria.Accessibility.Navigation
             }
             return new FieldTriangle{Id=id,Floor=floor,Vertices=support,RadiusVertices=radius,Neighbors=native.RuntimeNeighbors,
                 Enabled=(native.NativeFlags&1)!=0,RuntimeEnabled=(native.RuntimeFlags&1)!=0,Attributes=(byte)(native.NativeFlags>>8),Native=native,
-                ReviewedBoundaryEdges=WestTowerBoundary(id,floor,map,native)};
+                ReviewedBoundaryEdges=ReviewedBoundary(id,floor,map,native),
+                ReviewedBoundaryClearance=map==915?104:68,ReviewedBoundaryMaximumRadius=map==915?120:80};
         }
 
         // On this original spiral, the native controller walks between opposing
         // walls by applying collision forces. A full static radius cannot fit.
         // Match the six original wall edges before allowing that narrow passage
         // in the planner. The native controller still uses its full body radius.
-        private static int WestTowerBoundary(int id,int floor,int map,FieldNativeTriangleData native)
+        private static int ReviewedBoundary(int id,int floor,int map,FieldNativeTriangleData native)
         {
-            if(map!=164 || floor!=0 || !native.FloorDelta.Equals(new NavigationPoint()))return 0;
+            if(!native.FloorDelta.Equals(new NavigationPoint()))return 0;
             int edge;
             NavigationPoint a,b;
-            switch(id) {
+            // The original Treno stair corner also relies on native wall forces.
+            // Original ServiceChar replays traverse these two exact walls with
+            // Steiner's unchanged 120-unit body. Other walls keep full clearance.
+            if(map==915 && floor==2 && id==111) {
+                edge=0;a=new NavigationPoint(-11583,0,-4822);b=new NavigationPoint(-11648,0,-4903);
+            } else if(map==915 && floor==2 && id==142) {
+                edge=2;a=new NavigationPoint(-11255,0,-4815);b=new NavigationPoint(-11583,0,-4822);
+            } else {
+                if(map!=164 || floor!=0)return 0;
+                switch(id) {
                 case 41:edge=1;a=new NavigationPoint(874,10901,4771);b=new NavigationPoint(992,10831,4655);break;
                 case 42:edge=2;a=new NavigationPoint(966,10822,4508);b=new NavigationPoint(859,10891,4524);break;
                 case 54:edge=1;a=new NavigationPoint(992,10831,4655);b=new NavigationPoint(1246,10695,4585);break;
@@ -48,6 +58,7 @@ namespace Memoria.Accessibility.Navigation
                 case 56:edge=2;a=new NavigationPoint(1270,10616,4417);b=new NavigationPoint(1178,10685,4460);break;
                 case 57:edge=1;a=new NavigationPoint(1246,10695,4585);b=new NavigationPoint(1366,10627,4583);break;
                 default:return 0;
+                }
             }
             int next=(edge+1)%3;
             return native.NativeNeighbors[edge]==-1 && native.RuntimeNeighbors[edge]==-1 &&
@@ -69,7 +80,7 @@ namespace Memoria.Accessibility.Navigation
             using(var writer=new BinaryWriter(stream)) {
                 writer.Write(map??"");writer.Write(geometry.Radius);writer.Write(geometry.AttributeMask);writer.Write(geometry.BlockedAttributes);writer.Write(geometry.Triangles.Length);
                 foreach(var tri in geometry.Triangles) {
-                    writer.Write(tri.Id);writer.Write(tri.Floor);writer.Write(tri.Enabled);writer.Write(tri.RuntimeEnabled);writer.Write(tri.Attributes);writer.Write(tri.TraversalCost);writer.Write(tri.ReviewedBoundaryEdges);
+                    writer.Write(tri.Id);writer.Write(tri.Floor);writer.Write(tri.Enabled);writer.Write(tri.RuntimeEnabled);writer.Write(tri.Attributes);writer.Write(tri.TraversalCost);writer.Write(tri.ReviewedBoundaryEdges);writer.Write(tri.ReviewedBoundaryClearance);writer.Write(tri.ReviewedBoundaryMaximumRadius);
                     Write(writer,tri.Vertices);Write(writer,tri.RadiusVertices);Write(writer,tri.Neighbors);
                     var native=tri.Native;writer.Write(native!=null);if(native==null)continue;
                     Write(writer,native.OriginalVertices);Write(writer,native.CrossingVertices);Write(writer,native.FloorDelta);Write(writer,native.Normal);

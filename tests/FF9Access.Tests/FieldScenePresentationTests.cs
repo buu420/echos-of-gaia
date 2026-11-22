@@ -23,6 +23,34 @@ namespace FF9Access.Tests
         {
             TestAssert.True(FieldScenePresentation.Actor(true,true,true,null,new NavigationPoint(0,0,1000)));
         }
+        private static FieldCameraPanorama Slums()
+        {
+            // Original field912 BGS 83e2a950e8bbdb104bf9ab4b066df11177321b21ee9c0594d723540db7e32fae.
+            return new FieldCameraPanorama{HalfWidth=160,HalfHeight=112,MinX=160,MaxX=480,MinY=112,MaxY=304};
+        }
+        private static DoorTileObservation PubDoor()
+        {return new DoorTileObservation{Overlay=0,Camera=0,Flags=34,HierarchyActive=true,HasRenderer=true,MinX=-144,MinY=-112,MaxX=-112,MaxY=-48};}
+        public static void ActiveAnimatedDoorRemainsAvailableAcrossItsCurrentScrollingArea()
+        {
+            int overlay;var p=new NavigationPoint(-113,-100,1000);var frames=new[]{PubDoor()};
+            TestAssert.False(FieldDoorEvidence.TryBind(0,0,frames,p,false,out overlay));
+            TestAssert.True(FieldScenePresentation.Door(0,0,frames,false,true,Slums(),p,p,out overlay));
+            TestAssert.Equal(0,overlay);
+            TestAssert.True(FieldScenePresentation.Door(0,0,frames,true,false,null,p,p,out overlay));
+        }
+        public static void OffscreenDoorRequiresCurrentArtworkCameraAndBackdrop()
+        {
+            int overlay;var p=new NavigationPoint(-113,-100,1000);var frame=PubDoor();var frames=new[]{frame};
+            TestAssert.False(FieldScenePresentation.Door(1,0,frames,false,true,Slums(),p,p,out overlay));
+            TestAssert.False(FieldScenePresentation.Door(0,0,frames,false,false,Slums(),p,p,out overlay));
+            TestAssert.False(FieldScenePresentation.Door(0,0,frames,false,true,null,p,p,out overlay));
+            TestAssert.False(FieldScenePresentation.Door(0,0,frames,false,true,Slums(),new NavigationPoint(-400,-100,1000),p,out overlay));
+            TestAssert.False(FieldScenePresentation.Door(0,0,frames,false,true,Slums(),p,new NavigationPoint(200,100,1000),out overlay));
+            frame.Flags=32;TestAssert.False(FieldScenePresentation.Door(0,0,frames,false,true,Slums(),p,p,out overlay));
+            frame.Flags=34;frame.HasRenderer=false;TestAssert.False(FieldScenePresentation.Door(0,0,frames,false,true,Slums(),p,p,out overlay));
+            frame.HasRenderer=true;var competing=PubDoor();competing.Overlay=1;
+            TestAssert.False(FieldScenePresentation.Door(0,0,new[]{frame,competing},false,true,Slums(),p,p,out overlay));
+        }
         public static void NativeAlleySteepleTriggerIsJustBeyondTheRenderedCropEdge()
         {
             // Installed field105, sid11, native floor/region intersection at body radius80.

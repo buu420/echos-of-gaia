@@ -580,9 +580,9 @@
     ]
   },
   "reviewedStoryActions": {
-    "steps": 178,
+    "steps": 182,
     "loopActions": 16,
-    "phases": 424
+    "phases": 429
   },
   "retainedInputs": [
     {
@@ -617,7 +617,7 @@
     },
     {
       "path": "docs/accessibility/story-action-chains.json",
-      "sha256": "e5b129b6c5f354314f9bc09ec0a95e7f68195ebb1a6d0381cb747c06544e5cc9"
+      "sha256": "f9bd67fd17928f8f448234d6b0888b9480bfb80967440c4d20399f747681e703"
     },
     {
       "path": "docs/accessibility/story-palace-actions.json",
@@ -661,7 +661,7 @@
     },
     {
       "path": "docs/accessibility/field-interaction-evidence.json",
-      "sha256": "83697ad419cb2ed73d76e95d67bd0db188141f8277f25d9f3cb28d268b3909ff"
+      "sha256": "518f115ada05c1035fdc42022521acd2ce394f9185325cf9d651db45e4c7667b"
     },
     {
       "path": "docs/accessibility/opening-ticket-booth.json",
@@ -797,7 +797,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldScenePresentation.cs",
-      "sha256": "9be1ad98cd05f698d015ad77b27bcb07527e1dc31ded3e771b7b78cb85668af8"
+      "sha256": "d432de1845fca7ec9a5ead263298cb7456c29ac6bae74890a9d537c33c6de235"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldStoryRegionApproaches.cs",
@@ -865,7 +865,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldRoutePlanner.cs",
-      "sha256": "303c052728f6f0d05dbd2e997ccad216d2695666f98af5ca4a5088f8f341a3cc"
+      "sha256": "376b8daa43c9b238413c33ac734ac0ee260d8ef907c78870c6a410a8107d6a08"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/WorldRoutePlanner.cs",
@@ -953,7 +953,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldTargets.cs",
-      "sha256": "ff97493e4f8c7f3f65936e59a55aaef7ba156d35cf21df0ebaa9ddd57548e9f3"
+      "sha256": "71e0de668e0c5db0b7fb6ebd5bf8258f12ca0391cbaf3690a98f893a081bc563"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryTargets.cs",
@@ -1035,7 +1035,7 @@
     "optionalTopics": 23,
     "optionalBindings": 87,
     "reviewedAppearanceModels": 326,
-    "reviewedInteractionBindings": 29,
+    "reviewedInteractionBindings": 30,
     "actorModelPairs": {
       "reviewed": 4771,
       "nonplayer-reviewed": 3687,

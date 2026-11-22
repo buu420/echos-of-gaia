@@ -56,7 +56,7 @@ namespace Memoria.Accessibility.Navigation
     // unavailable only when every executed step is control flow or a pure read and it returns.
     public static class FieldInteractionGuard
     {
-        public static FieldInteractionState Evaluate(IList<ScriptInstruction> code,ScriptSnapshot snapshot,FieldInteractionOpcodes opcodes,bool requireIcon=false)
+        public static FieldInteractionState Evaluate(IList<ScriptInstruction> code,ScriptSnapshot snapshot,FieldInteractionOpcodes opcodes,bool requireIcon=false,Func<int,int,int?> objectProperty=null)
         {
             if(code==null || code.Count==0 || snapshot==null || opcodes==null)return FieldInteractionState.Unknown;
             var offsets=new Dictionary<int,ScriptInstruction>();foreach(var item in code)offsets[item.Offset]=item;
@@ -69,7 +69,7 @@ namespace Memoria.Accessibility.Navigation
                 if(op==5) {
                     var expression=item.ArgumentExpression(0);if(expression==null)return FieldInteractionState.Unknown;
                     if(Assigns(expression))return FieldInteractionState.Unknown;
-                    if(!ExitScriptAnalyzer.TryExpression(expression,snapshot,out value))return FieldInteractionState.Unknown;
+                    if(!ExitScriptAnalyzer.TryExpression(expression,snapshot,out value,objectProperty))return FieldInteractionState.Unknown;
                     ip=item.NextOffset;continue;
                 }
                 if(op>=1 && op<=3) {
@@ -84,6 +84,17 @@ namespace Memoria.Accessibility.Navigation
             }
             return FieldInteractionState.Unknown;
         }
+        public static FieldFacingGate FacingGate(IList<ScriptInstruction> code,ScriptSnapshot snapshot,FieldInteractionOpcodes opcodes,int playerUid,int heading)
+        {
+            var result=new FieldFacingGate();
+            if(code==null || code.Count==0 || snapshot==null || opcodes==null)return result;
+            Func<int,bool> offered=facing=>Evaluate(code,snapshot,opcodes,true,(uid,property)=>(uid==250 || uid==playerUid) && property==3?(int?)facing:null)==FieldInteractionState.Available;
+            int current=heading&255;
+            result.OfferedNow=offered(current);
+            if(result.OfferedNow)return result;
+            for(int facing=0;facing<256;facing++)if(facing!=current && offered(facing)){result.OfferedByTurning=true;break;}
+            return result;
+        }
         internal static bool Assigns(byte[] expression)
         {
             for(int p=0;p<expression.Length;) {
@@ -97,7 +108,15 @@ namespace Memoria.Accessibility.Navigation
     // Native: EventEngineUtils.QuadTalkableData names the region's actor. NativeDirection: that entry is the
     // controlled party member (a direction-only rule), and the handler's single requested speaker is used.
     // Script: no native row; one direct request to a non-interactive speaker within MaxActorDistance.
-    public enum FieldInteractionEvidence { Script, Native, NativeDirection }
+    // PlayerExamines: the region's Confirm handler requests the controlled player's own function (REQ 250),
+    // which first turns the player toward one prop (TURNA prop) and speaks about it; the prop has no handler
+    // of its own and stays within MaxActorDistance. The requested level gates the player, not the prop.
+    public enum FieldInteractionEvidence { Script, Native, NativeDirection, PlayerExamines }
+    // Some Confirm regions offer their bubble only while the controlled player faces the object: the push
+    // handler tests OBJ(250).3 (EBin.getvobj case 3, EventCollision.GetDir: 256 units per turn) before FICON.
+    // OfferedNow: the bubble path is reached with the current heading. OfferedByTurning: another heading
+    // reaches it, so turning is the only missing step. Neither is claimed from an unreadable guard.
+    public sealed class FieldFacingGate { public bool OfferedNow, OfferedByTurning; }
     public sealed class FieldInteractionBinding
     {
         public readonly int Field,ActorSid,Model,ActorUid,RegionSid,RequestedLevel,RequestedTag;public readonly string ActorHash,RegionHash;
@@ -129,13 +148,15 @@ namespace Memoria.Accessibility.Navigation
             return null;
         }
         public static bool CanRequest(FieldInteractionBinding binding,int actorLevel){return binding!=null && binding.RequestedLevel<actorLevel;}
+        // The handler's request targets uid 250, the controlled player, whose level therefore gates it.
+        public static bool RequestedObjectIsPlayer(FieldInteractionBinding binding){return binding!=null && binding.Evidence==FieldInteractionEvidence.PlayerExamines;}
         public static bool HasField(int field){foreach(var b in _bindings)if(b.Field==field)return true;return false;}
         // The native table proves the pair wherever the person stands behind the counter; only the
-        // script-derived rows keep the reviewed counter-scale distance.
+        // script-derived rows (and an examined prop) keep the reviewed counter-scale distance.
         public static bool WithinReach(FieldInteractionBinding binding,NavigationPoint actor,NavigationPoint[] polygon)
         {
             if(binding==null)return false;
-            if(binding.Evidence==FieldInteractionEvidence.Script)return WithinReach(actor,polygon);
+            if(binding.Evidence==FieldInteractionEvidence.Script || binding.Evidence==FieldInteractionEvidence.PlayerExamines)return WithinReach(actor,polygon);
             if(!actor.IsFinite || polygon==null || polygon.Length<3)return false;
             foreach(var point in polygon)if(!point.IsFinite)return false;
             return true;
@@ -154,6 +175,45 @@ namespace Memoria.Accessibility.Navigation
         // presented bubble must confirm that the game offers the interaction now.
         public static InteractionReadiness Readiness(bool selected,bool contains,bool permitted,bool facing,bool presented)
         {return new InteractionReadiness{SelectedCollision=selected,InRange=selected && contains,Talkable=permitted && (!facing || presented),FacingWithinArc=permitted && facing && presented};}
+        // The native follower stops anywhere within its arrival radius of the approach point, possibly
+        // past a region edge. Plan inside the region inset by that radius so the stop still lies inside
+        // the native polygon (EventEngine.IsInQuad). Concave, thin or degenerate regions keep their
+        // native polygon. The native quad itself is never changed; readiness reads the live quad.
+        public static NavigationPoint[] StoppingRegion(NavigationPoint[] polygon,float margin)
+        {
+            if(polygon==null || polygon.Length<3 || polygon.Length>16 || float.IsNaN(margin) || float.IsInfinity(margin) || margin<=0)return polygon;
+            int n=polygon.Length;float winding=0;
+            for(int i=0;i<n;i++) {
+                if(!polygon[i].IsFinite)return polygon;
+                float cross=FieldTriangle.Cross(polygon[i],polygon[(i+1)%n],polygon[(i+2)%n]);
+                if(Math.Abs(cross)<.001f || winding*cross<0)return polygon;
+                if(winding==0)winding=cross;
+            }
+            var result=new NavigationPoint[n];
+            for(int i=0;i<n;i++) {
+                var previous=polygon[(i+n-1)%n];var vertex=polygon[i];var next=polygon[(i+1)%n];
+                double ax,az,bx,bz;
+                if(!Inward(previous,vertex,winding,margin,out ax,out az) || !Inward(vertex,next,winding,margin,out bx,out bz))return polygon;
+                // The inset vertex is where the two inward-shifted edge lines meet.
+                double dx1=vertex.X-previous.X,dz1=vertex.Z-previous.Z,dx2=next.X-vertex.X,dz2=next.Z-vertex.Z;
+                double px=previous.X+ax,pz=previous.Z+az,qx=vertex.X+bx,qz=vertex.Z+bz;
+                double denominator=dx1*dz2-dz1*dx2;if(Math.Abs(denominator)<1e-6)return polygon;
+                double t=((qx-px)*dz2-(qz-pz)*dx2)/denominator;
+                result[i]=new NavigationPoint((float)(px+dx1*t),vertex.Y,(float)(pz+dz1*t));
+            }
+            for(int i=0;i<n;i++) {
+                float cross=FieldTriangle.Cross(result[i],result[(i+1)%n],result[(i+2)%n]);
+                if(cross*winding<=0 || !result[i].IsFinite || !FieldRegionApproaches.CanStopInside(polygon,result[i],margin*.99f))return polygon;
+            }
+            return result;
+        }
+        // Offset of edge a->b toward the polygon interior: FieldTriangle.Cross(a,b,c)>0 puts c on the
+        // (-dz,dx) side, and the interior lies on the side of the polygon's winding sign.
+        private static bool Inward(NavigationPoint a,NavigationPoint b,float winding,float margin,out double x,out double z)
+        {
+            double dx=b.X-a.X,dz=b.Z-a.Z,length=Math.Sqrt(dx*dx+dz*dz);x=z=0;if(length<1e-6)return false;
+            double sign=winding>0?1:-1;x=-dz/length*margin*sign;z=dx/length*margin*sign;return true;
+        }
         // XZ distance from the actor to the native region polygon (0 inside), as in the reviewed table.
         public static bool WithinReach(NavigationPoint actor,NavigationPoint[] polygon)
         {

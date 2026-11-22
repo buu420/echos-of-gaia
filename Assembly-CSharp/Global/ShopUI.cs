@@ -689,7 +689,7 @@ public class ShopUI : UIScene
             }
 
             if (!String.IsNullOrEmpty(announcement))
-                ScreenReaderManager.Instance.Speak(announcement, false);
+                ScreenReaderManager.Instance.Speak(announcement, true);
         }
         catch (Exception e)
         {
@@ -1527,7 +1527,7 @@ public class ShopUI : UIScene
             }
 
             if (!String.IsNullOrEmpty(announcement))
-                ScreenReaderManager.Instance.Speak(announcement, false);
+                ScreenReaderManager.Instance.Speak(announcement, true);
         }
         catch (Exception e)
         {

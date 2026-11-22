@@ -161,5 +161,29 @@ namespace FF9Access.Tests
                 TestAssert.Equal(1, backend.Outputs); TestAssert.True(backend.LastInterrupt);
             }
         }
+        public static void TextFilterRewritesEveryAnnouncementBeforeOutput()
+        {
+            var backend = new Backend();
+            using (var manager = new ScreenReaderManager(() => backend, () => DateTime.UtcNow)) {
+                manager.TextFilter = text => text.Replace("ジタン", "Zidane");
+                TestAssert.True(manager.TrySpeak("ジタン: Hey!", true));
+                TestAssert.Equal("Zidane: Hey!", backend.Text); TestAssert.Equal("Zidane: Hey!", manager.LastAnnouncement); TestAssert.True(backend.LastInterrupt);
+                manager.TextFilter = null;
+                TestAssert.True(manager.TrySpeak("ジタン, Attack"));
+                TestAssert.Equal("ジタン, Attack", backend.Text); TestAssert.False(backend.LastInterrupt);
+            }
+        }
+        public static void FailingOrEmptyingTextFilterKeepsTheOriginalText()
+        {
+            var backend = new Backend();
+            using (var manager = new ScreenReaderManager(() => backend, () => DateTime.UtcNow)) {
+                manager.TextFilter = text => { throw new InvalidOperationException("table unavailable"); };
+                TestAssert.True(manager.TrySpeak("Potion"));
+                TestAssert.Equal("Potion", backend.Text);
+                manager.TextFilter = text => "";
+                TestAssert.True(manager.TrySpeak("Ether"));
+                TestAssert.Equal("Ether", backend.Text); TestAssert.Equal(2, backend.Outputs);
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace Memoria.Accessibility.Navigation
         public int Id,Floor;public NavigationPoint[] Vertices;public int[] Neighbors={-1,-1,-1};public bool Enabled=true,RuntimeEnabled=true;public byte Attributes;public float TraversalCost=1;
         public NavigationPoint[] RadiusVertices;public FieldNativeTriangleData Native;
         public int ReviewedBoundaryEdges;
+        public float ReviewedBoundaryClearance,ReviewedBoundaryMaximumRadius;
         public NavigationPoint Center { get { return new NavigationPoint((Vertices[0].X+Vertices[1].X+Vertices[2].X)/3,(Vertices[0].Y+Vertices[1].Y+Vertices[2].Y)/3,(Vertices[0].Z+Vertices[1].Z+Vertices[2].Z)/3); } }
         public bool Contains(NavigationPoint point)
         {
@@ -165,10 +166,10 @@ namespace Memoria.Accessibility.Navigation
             }
             if(best<0)return false;point=Lerp(a,b,best);return ClearLocalCapsule(support,point,point);
         }
-        private const float WestTowerClearance=68;
         internal bool UsesReviewedBoundaryClearance(FieldTriangle triangle)
         {
-            return triangle.ReviewedBoundaryEdges!=0 && Radius>WestTowerClearance && Radius<=80;
+            return triangle.ReviewedBoundaryEdges!=0 && triangle.ReviewedBoundaryClearance>0 &&
+                Radius>triangle.ReviewedBoundaryClearance && Radius<=triangle.ReviewedBoundaryMaximumRadius;
         }
         private bool ScanLocalCapsule(FieldTriangle support,NavigationPoint from,NavigationPoint to,List<CapsuleSpan> blocked)
         {
@@ -186,7 +187,7 @@ namespace Memoria.Accessibility.Navigation
                     bool open=RadiusPermitted(next);
                     float clearance=radius;
                     if(!open && UsesReviewedBoundaryClearance(tri) && (tri.ReviewedBoundaryEdges&(1<<edge))!=0)
-                        clearance=WestTowerClearance-.01f;
+                        clearance=tri.ReviewedBoundaryClearance-.01f;
                     float low,high;if(!NearEdgeInterval(first,last,a,b,clearance,out low,out high))continue;
                     if(!open) {
                         blocked.Add(new CapsuleSpan{Low=span.Low+(span.High-span.Low)*low,High=span.Low+(span.High-span.Low)*high,A=a,B=b});continue;

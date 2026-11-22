@@ -107,7 +107,7 @@ namespace FF9Access.Tests
                 foreach(var item in json.RootElement.GetProperty("bindings").EnumerateArray()) {
                     var compiled=FieldInteractionBindings.All.Single(b=>b.Field==item.GetProperty("field").GetInt32() && b.RegionSid==item.GetProperty("region").GetInt32());
                     TestAssert.Equal(item.GetProperty("requestedTag").GetInt32(),compiled.RequestedTag);
-                    TestAssert.Equal(item.GetProperty("evidence").GetString(),compiled.Evidence==FieldInteractionEvidence.Native?"native":compiled.Evidence==FieldInteractionEvidence.NativeDirection?"native-direction":"script");
+                    TestAssert.Equal(item.GetProperty("evidence").GetString(),compiled.Evidence==FieldInteractionEvidence.Native?"native":compiled.Evidence==FieldInteractionEvidence.NativeDirection?"native-direction":compiled.Evidence==FieldInteractionEvidence.PlayerExamines?"player-examines":"script");
                 }
             }
         }

@@ -84,17 +84,13 @@ namespace Memoria.Accessibility.Navigation
                         continue;
                     }
                     float collision=player==null?0:Math.Max(player.fieldMapActorController==null?0:player.fieldMapActorController.radius,4*player.collRad)+4*actor.collRad;
-                    float talkRadius=player==null?0:4*(player.talkRad+actor.talkRad)+actor.speed+60;
-                    // In the wrecked crew cabin Vivi sits beyond the walkmesh, but his native talk radius reaches the floor.
-                    bool cabinVivi = FieldActorApproaches.IsCabinVivi(context, actor.uid) &&
-                        player != null && player.uid == context.PlayerIdentity && actor.sid == 16 && actor.model == 8 && actor.ebData != null &&
-                        Fingerprint(actor.ebData) == "ba8f8ea7e0cd60c97c4f87a1e3fad673645418a7772455c8eb3e8a6fa4d2543f";
-                    // Monty's perch is outside the walkable trail. His native
-                    // talk radius reaches the ground beyond the tree trunk.
-                    bool springMonty = context.LogicalMapKey == ForestNavigationEvidence.Spring && actor.uid == 4 &&
-                        actor.sid == 4 && actor.model == 220 && actor.ebData != null &&
-                        Fingerprint(actor.ebData) == ForestNavigationEvidence.MontyScript;
-                    var observation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, obj.uid), NativePresentationIdentity=obj.go==null?0:obj.go.GetInstanceID(),Position = Point(position), Visible = inArea,OutOfView=rendered && mesh && !inArea,ShowsIcon=icon, IsPerson = engine.GetIP(obj.sid, EventEngine.tagTalk, obj.ebData) != engine.nil, HasInteraction = NativeFieldTalkability.IsTalkable(obj) || engine.GetIP(obj.sid, EventEngine.tagPush, obj.ebData) != engine.nil,ApproachCandidates=FieldActorApproaches.Create(context.Position,Point(position),collision,talkRadius,cabinVivi || springMonty) };
+                    // WalkMesh.Collision: Confirm selects a talking actor by talkRad (mode 4) and a touch-only
+                    // prop by collRad (mode 2); both add the actor's speed and 60, in XZ within 400 of height.
+                    // A counter, ledge or walkmesh gap between the player and the actor is no obstacle to it,
+                    // so every actor samples that native ring too (crew cabin Vivi, spring Monty, shop counters).
+                    bool talkChannel=engine.GetIP(obj.sid,EventEngine.tagTalk,obj.ebData)!=engine.nil;
+                    float interaction=player==null?0:4*((talkChannel?player.talkRad:player.collRad)+(talkChannel?actor.talkRad:actor.collRad))+actor.speed+60;
+                    var observation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, obj.uid), NativePresentationIdentity=obj.go==null?0:obj.go.GetInstanceID(),Position = Point(position), Visible = inArea,OutOfView=rendered && mesh && !inArea,ShowsIcon=icon, IsPerson = talkChannel, HasInteraction = NativeFieldTalkability.IsTalkable(obj) || engine.GetIP(obj.sid, EventEngine.tagPush, obj.ebData) != engine.nil,ApproachCandidates=FieldActorApproaches.Create(context.Position,Point(position),collision,interaction) };
                     observation.LabelIdentity=LabelSignature(actor);observation.VisibleLabel=FieldVisibleLabels.Read(actor.model,VisibleBody(actor));
                     string modelName;if(FF9BattleDB.GEO.TryGetValue(actor.model,out modelName)) {
                         if(modelName.StartsWith("GEO_ACC_"))observation.IsPerson=false;
@@ -321,16 +317,22 @@ namespace Memoria.Accessibility.Navigation
             }
             var animationFrames=new Dictionary<int,IList<DoorTileObservation>>();
             if(field.scene!=null)foreach(int animation in binding.Animations)if(animation>=0 && animation<field.scene.animList.Count)animationFrames[animation]=ReadFrames(field,animation);
-            var panorama=plain?ReadPassagePanorama(context,field,quad,hash,surface.Region):null;
+            var panorama=plain || animationFrames.Count>0?ReadPassagePanorama(context,field,quad,hash,surface.Region):null;
             Func<NavigationPoint,bool> presented=p=> {
                 bool onScreen=EntranceOnScreen(field,Vector(p));
                 // A plain walk-off belongs to the whole current camera panorama.
                 // Native trigger priority, floor clearance and the active opaque
                 // backdrop are still required before it becomes a target.
                 if(plain && (onScreen?RenderedBackgroundAt(field,Vector(p)):PlainPassageOnPanorama(field,Vector(p),panorama)))return true;
-                if(!onScreen)return false;
-                if(surfaceReview!=null && !surfaceReview.VisibleApproach.HasValue && RenderedBackgroundAt(field,Vector(p),surfaceReview.OverlayIds))return true;
-                int overlay;foreach(var animation in animationFrames)if(FieldDoorEvidence.TryBind(field.scene.animList[animation.Key].camNdx,field.camIdx,animation.Value,Point(Project(field,Vector(p))),true,out overlay))return true;
+                if(onScreen && surfaceReview!=null && !surfaceReview.VisibleApproach.HasValue && RenderedBackgroundAt(field,Vector(p),surfaceReview.OverlayIds))return true;
+                if(animationFrames.Count==0)return false;
+                var camera=field.GetCurrentBgCamera();if(camera==null)return false;
+                var point=Vector(p);var tilePoint=Point(Project(field,point));
+                var panoramaPoint=onScreen?tilePoint:Point(PSX.CalculateGTE_RTPT_POS(point,Matrix4x4.identity,camera.GetMatrixRT(),camera.GetViewDistance(),field.GetProjectionOffset()));
+                // An animated entrance belongs to the same scrolling area too,
+                // but still needs its current drawn frame and an opaque backdrop.
+                bool backdrop=onScreen || RenderedBackgroundAt(field,point,null,true);
+                int overlay;foreach(var animation in animationFrames)if(FieldScenePresentation.Door(field.scene.animList[animation.Key].camNdx,field.camIdx,animation.Value,onScreen,backdrop,panorama,panoramaPoint,tilePoint,out overlay))return true;
                 return false;
             };
             Func<NavigationPoint,bool> nativeFirst=p=>engine.NavigationTouchQuadAt(p.X,p.Z)==quad;
