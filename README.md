@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.24 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.24)**
+**[Download 0.1.25 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.25)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,12 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing, including a full playthrough.
+
+0.1.25 repairs navigation to the treasure chest and the Story exit to Cleyra,
+Bridge in Cleyra's Trunk, Area 7. The route to the chest ends within reach
+of the game's Confirm prompt. Movement replays covered both game builds
+at walking and running speeds. Live gameplay, controller input and audible
+speech checks remain open.
 
 0.1.24 reduces large navigation stalls when a field has many exit approach
 points. Exit processing uses typed comparisons and indexed lookups while
