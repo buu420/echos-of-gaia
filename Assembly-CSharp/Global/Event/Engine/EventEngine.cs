@@ -120,6 +120,7 @@ public partial class EventEngine : PersistenSingleton<EventEngine>
             this.CheckSleep();
             returnCode = this.ProcessEvents();
             EIcon.ProcessFIcon();
+            Memoria.Accessibility.AudioDescriptions.NativeTelescopeCue.Tick(this);
             EIcon.ProcessAIcon();
         }
         return returnCode;

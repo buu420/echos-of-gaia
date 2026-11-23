@@ -115,13 +115,17 @@ namespace Memoria.Accessibility.Navigation
             if(edge.Scope!="room" && edge.Guards!=null && edge.Guards.Length!=0 && (_transitEvaluator==null || _transitEvaluator(edge)!=true))return false;
             return edge.Kind!=StoryTransitKind.Scripted || intoGoal;
         }
+        private static int RouteArrival(NavigationTarget target,int destination)
+        {return target.ExitContinuation?.Arrival(destination)??destination;}
+
         private int? RouteRemaining(int field,NavigationTarget target,int destination)
         {
-            if(!UsesReviewedLink(_stage,field,target,destination))return null;
+            int arrival=RouteArrival(target,destination);
+            if(!UsesReviewedLink(_stage,field,target,arrival))return null;
             NavigationPoint[] approved;
             if(target.DestinationApproaches!=null && (!target.DestinationApproaches.TryGetValue(destination,out approved) || approved==null || approved.Length==0))return null;
             int here,remaining;bool currentKnown=_distance.TryGetValue(field,out here);
-            if(_distance.TryGetValue(destination,out remaining) && (!currentKnown || remaining<here))return remaining;
+            if(_distance.TryGetValue(arrival,out remaining) && (!currentKnown || remaining<here))return remaining;
             if(destination>=9000 && (!currentKnown || here>0) &&
                 (_stage.WorldDepartureFields==null || Contains(_stage.WorldDepartureFields,field)))return WorldTransferDistance-1;
             return null;
@@ -211,7 +215,7 @@ namespace Memoria.Accessibility.Navigation
                     physical.SelectDestinationInMenu?"Continue via "+physical.Label:"Continue toward "+scene+" via "+physical.Label;
                 if(!world && best>0 && location!=null && !physical.SelectDestinationInMenu) {
                     string nextArea=null;int nearest=Int32.MaxValue;
-                    foreach(int next in physical.NextFields??new int[0]){int? remaining=RouteRemaining(field,physical,next);if(remaining.HasValue && remaining.Value<nearest){nearest=remaining.Value;nextArea=location(next);}}
+                    foreach(int next in physical.NextFields??new int[0]){int? remaining=RouteRemaining(field,physical,next);if(remaining.HasValue && remaining.Value<nearest){nearest=remaining.Value;nextArea=location(RouteArrival(physical,next));}}
                     if(!String.IsNullOrEmpty(nextArea))action="Go to "+nextArea+" via "+physical.Label+". "+(String.IsNullOrEmpty(_stage.Instruction)?"Continue toward "+scene+".":_stage.Instruction.Trim());
                 }
                 var wrapped=Wrap(context,_stage.Milestone,physical,action);
@@ -234,7 +238,7 @@ namespace Memoria.Accessibility.Navigation
             int variant=physical.Id.Variant!=0?physical.Id.Variant:physical.PhysicalId.HasValue?physical.Id.NativeId:0;
             return new NavigationTarget{Id=new TargetIdentity(TargetKind.Story,context.LogicalMapKey,milestone*4096+(int)id.Kind*512+id.NativeId,variant),PhysicalId=id,Category=NavigationCategory.Story,
                 Label=label,Availability=physical.Availability,Position=physical.Position,Evidence=physical.Evidence,Generation=context.Generation,
-                IsInteractive=physical.IsInteractive,NativeLocationId=physical.NativeLocationId,InteractionUid=physical.InteractionUid,UseViewingPoint=physical.UseViewingPoint,UseApprovedApproaches=physical.UseApprovedApproaches,SelectDestinationInMenu=physical.SelectDestinationInMenu,RequireInwardApproach=physical.RequireInwardApproach,
+                IsInteractive=physical.IsInteractive,NativeLocationId=physical.NativeLocationId,InteractionUid=physical.InteractionUid,UseViewingPoint=physical.UseViewingPoint,UseApprovedApproaches=physical.UseApprovedApproaches,SelectDestinationInMenu=physical.SelectDestinationInMenu,RequireInwardApproach=physical.RequireInwardApproach,ExitContinuation=physical.ExitContinuation,
                 ApproachCandidates=Copy(physical.ApproachCandidates),InteractionRegion=Copy(physical.InteractionRegion),StoryMilestones=Copy(physical.StoryMilestones),NextFields=Copy(physical.NextFields),DestinationApproaches=FieldExitDestinations.Copy(physical.DestinationApproaches),StoryAction=physical.StoryAction,StoryStepMilestone=physical.StoryStepMilestone,StoryVerb=physical.StoryVerb};
         }
         private static NavigationTarget Information(NavigationContext context,int milestone,string label,string help)

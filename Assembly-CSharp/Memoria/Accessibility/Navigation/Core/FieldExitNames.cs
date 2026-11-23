@@ -9,6 +9,7 @@ namespace Memoria.Accessibility.Navigation
     {
         public int Presentation;
         public bool ConfirmPrompt;
+        internal FieldExitContinuation Continuation;
         public bool RequireInwardApproach;
         public readonly Dictionary<int,NavigationPoint[]> Approaches=new Dictionary<int,NavigationPoint[]>();
         public readonly Dictionary<int,string> Names=new Dictionary<int,string>();
@@ -28,9 +29,33 @@ namespace Memoria.Accessibility.Navigation
         // Native names of every place any branch of the exit can reach (FieldExitFunctions.Possible).
         public readonly List<string> PossibleNames=new List<string>();
     }
+    // A native doorway may enter a scene that returns control in a different field.
+    // The first map jump remains the key for live proof and movement.
+    internal sealed class FieldExitContinuation
+    {
+        public readonly int FirstField;
+        private readonly int _arrival;
+
+        internal FieldExitContinuation(int firstField,int arrival)
+        {FirstField=firstField;_arrival=arrival;}
+
+        internal int Arrival(int destination)
+        {return destination==FirstField?_arrival:destination;}
+    }
     public static partial class FieldExitFunctions
     {
         private static string Key(int field,int sid,string hash){return field+":"+sid+":"+hash;}
+        private static readonly FieldExitContinuation _businessStation=new FieldExitContinuation(561,551);
+        internal static FieldExitContinuation SceneContinuation(int field,int sid,int uid,int tag,string hash,Func<int,string> eventHash)
+        {
+            // 552:22:2 @382 enters Vivi's Shopping at entrance 1.
+            // That version of 561 returns to the same station entrance as 552:22:2 @636.
+            if(field==552 && sid==22 && uid==22 && tag==2 &&
+                hash=="e8a19cfa44dd00b56a87265ac78199ce45f5e81304e76ffbca649dc20999c3f0" &&
+                eventHash?.Invoke(561)=="403e6c1d51c881d53087f66c11c430dfdf8a295df3c9921225e7831241b67b88")
+                return _businessStation;
+            return null;
+        }
         public static string Function(int field,int sid,string hash,bool confirm=false)
         {string label;return hash!=null && (confirm?_confirmFunctions:_functions).TryGetValue(Key(field,sid,hash),out label)?label:null;}
         public static int[] Possible(int field,int sid,string hash,bool confirm=false)
@@ -99,6 +124,7 @@ namespace Memoria.Accessibility.Navigation
                     // helper even when the old direct-jump hints were empty.
                     // Naming-only fallbacks contribute no Story edge.
                     target.NextFields=part.Fields.ToArray();
+                    target.ExitContinuation=!part.IsMenu && route.Continuation!=null && part.Fields.Contains(route.Continuation.FirstField)?route.Continuation:null;
                     target.DestinationApproaches=FieldExitDestinations.Copy(part.Destinations);
                     result.Add(target);sides[target]=side;named.Add(target);
                 }

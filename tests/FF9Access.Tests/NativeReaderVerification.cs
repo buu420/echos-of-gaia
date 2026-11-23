@@ -117,6 +117,10 @@ namespace FF9Access.Tests
                     ,"RouteInstruction.Resolve|ManualRouteGuidance.Read"
                     ,"NavigationRuntime.CanGuideFieldStep|FieldGeometrySnapshot.IsSegmentClear"
                     ,"NavigationRuntime.CanGuideWorldStep|GuidanceRouteValidation.WorldLeg"
+                    ,"EventEngine.ServiceEvents|NativeTelescopeCue.Tick"
+                    ,"ETb.GetInputs|NativeTelescopeCue.FilterPan"
+                    ,"NativeTelescopeCue.Tick|FieldMap.EBG_sceneGetVRP"
+                    ,"NativeTelescopeCue.Tick|EIcon.get_NavigationPresentedUid"
                 };
                 var readers=new HashSet<string>{"NativeStoryPrerequisites","StoryPrerequisiteCatalog","StoryPrerequisiteData","NativeFieldTouchReadiness","FieldTouchConfirmation","NativeNumericDialogs","NumericInputReader","NativeOpeningTicketBooth","OpeningTicketBoothEvidence","FieldInputOrientation","ManualRouteGuidance","RouteGuidanceProgress","RouteInstruction","NativeOpeningPositionTargets","OpeningPositionApproaches"};
                 foreach(var handle in metadata.TypeDefinitions) {
@@ -127,6 +131,7 @@ namespace FF9Access.Tests
                         foreach(string call in Calls(metadata,pe.GetMethodBody(method.RelativeVirtualAddress).GetILBytes())) {
                             required.Remove(name+"."+methodName+"|"+call);
                             required.Remove(owner+"|"+call);
+                            if(owner=="NativeTelescopeCue" && call=="FieldHUD.IsDisplayTelescopeHUD")throw new Exception("Telescope guidance depends on the mobile-only overlay");
                             if(!readers.Contains(owner))continue;
                             if(call=="EventEngine.Request" || call.StartsWith("EventInput.") || call.StartsWith("ETb.") || call.StartsWith("Input.") || call.StartsWith("UIManager.set_") || call.StartsWith("FieldWrite.Obj.") || call.StartsWith("FieldWrite.Actor.") || call.StartsWith("FieldWrite.PosObj.") || call.StartsWith("FieldWrite.EventEngine.") || call=="GC.Collect" || call.StartsWith("Thread.") || call.StartsWith("ThreadPool.") || call.StartsWith("File."))
                                 throw new Exception("Guide adapter changes native control/state or performs blocking work: "+owner+"."+methodName+" -> "+call);

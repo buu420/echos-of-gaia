@@ -115,8 +115,6 @@ public partial class EventEngine
         EventHUD.CheckUIMiniGameForMobile();
         if (_ff9.fldMapNo == 2204 || _ff9.fldMapNo == 2200)
             Memoria.Accessibility.AudioDescriptions.NativeCidEscapeCue.Tick(this);
-        else if (_ff9.fldMapNo == 606)
-            Memoria.Accessibility.AudioDescriptions.NativeTelescopeCue.Tick(this);
         if (result == 6)
             result = 0;
         else

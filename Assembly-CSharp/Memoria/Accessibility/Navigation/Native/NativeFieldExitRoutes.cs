@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Memoria.Assets;
 using UnityEngine;
 namespace Memoria.Accessibility.Navigation
 {
@@ -12,6 +13,22 @@ namespace Memoria.Accessibility.Navigation
         // player position), so a requested director or wait owner changing state invalidates the proof.
         private static readonly StoryRegionProofCache<FieldExitPathEvidence> _exitRouteProofs=new StoryRegionProofCache<FieldExitPathEvidence>(30);
         private const int ExitRoutePoints=32;
+        private static string _stationSceneLanguage,_stationSceneHash;
+
+        // Match the effective destination event, including the game's configured script merges.
+        private static string StationSceneHash(int map)
+        {
+            string language=Localization.CurrentSymbol;
+            if(_stationSceneLanguage!=language) {
+                string eventName;
+                byte[] data=FF9DBAll.EventDB.TryGetValue(map,out eventName)
+                    ?AssetManager.LoadBytesMerged(EventEngineUtils.ebFilePath+EventEngineUtils.ebSubFolderField+language+"/"+eventName+EventEngineUtils.ebFileExt,true)
+                    :null;
+                _stationSceneHash=data==null?null:Fingerprint(data);
+                _stationSceneLanguage=language;
+            }
+            return _stationSceneHash;
+        }
         // Integration hook (NativeFieldTargets.Read, after Annotate(context,engine,quad,exitObservation)):
         // proves where each current exit approach leads now and publishes its native location names for
         // FieldTargetCatalog. Every exit observation gets a route (possibly empty) so that a stale proof
@@ -28,8 +45,10 @@ namespace Memoria.Accessibility.Navigation
                 bool confirm=trigger==EventEngine.tagTalk;
                 route.RequireInwardApproach=!confirm && FieldExitDestinations.RequiresInwardApproach(field,quad.sid,quad.uid,hash);
                 route.Function=FieldExitFunctions.Function(field,quad.sid,hash,confirm);
+                route.Continuation=FieldExitFunctions.SceneContinuation(field,quad.sid,quad.uid,trigger,hash,StationSceneHash);
                 foreach(int possible in FieldExitFunctions.Possible(field,quad.sid,hash,confirm)) {
-                    string name=FieldExitNames.Destination(possible,NativeFieldAreaNames.Destination);
+                    int arrival=route.Continuation?.Arrival(possible)??possible;
+                    string name=FieldExitNames.Destination(arrival,NativeFieldAreaNames.Destination);
                     if(name==null){route.PossibleNames.Clear();break;}
                     if(!route.PossibleNames.Contains(name))route.PossibleNames.Add(name);
                 }
@@ -78,8 +97,10 @@ namespace Memoria.Accessibility.Navigation
                 foreach(var group in groups) {
                     if(group.Value.Count==0)continue;
                     route.Approaches[group.Key]=group.Value.ToArray();
-                    int? entrance;string name=screens.TryGetValue(group.Key,out entrance) && entrance.HasValue?NativeFieldAreaNames.Screen(group.Key,entrance.Value):null;
-                    route.Names[group.Key]=name??FieldExitNames.Destination(group.Key,NativeFieldAreaNames.Destination);
+                    int arrival=route.Continuation?.Arrival(group.Key)??group.Key;
+                    int? entrance;string name=arrival==group.Key && screens.TryGetValue(group.Key,out entrance) && entrance.HasValue
+                        ?NativeFieldAreaNames.Screen(group.Key,entrance.Value):null;
+                    route.Names[group.Key]=name??FieldExitNames.Destination(arrival,NativeFieldAreaNames.Destination);
                 }
             }catch(Exception exception){route.Approaches.Clear();route.Names.Clear();route.Prompted.Clear();route.Menu=new NavigationPoint[0];route.MenuApproaches.Clear();route.Buttons.Clear();route.MenuButtons=0;if(_cueLogs.Add("exit-route:"+exception.GetType().Name))Memoria.Prime.Log.Message("[FF9Access] Exit destination proof unavailable: {0}",exception.Message);}
         }

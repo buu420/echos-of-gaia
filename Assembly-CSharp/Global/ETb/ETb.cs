@@ -57,9 +57,8 @@ public static class ETb
 
     public static UInt32 GetInputs(Boolean swapJapaneseLayout = false)
     {
-        if (swapJapaneseLayout)
-            return ETb.ProcessJapaneseLayout(FPSManager.DelayedInputs & 0x3FFFFFFu);
-        return FPSManager.DelayedInputs & 0x3FFFFFFu;
+        UInt32 inputs = Memoria.Accessibility.AudioDescriptions.NativeTelescopeCue.FilterPan(FPSManager.DelayedInputs & 0x3FFFFFFu);
+        return swapJapaneseLayout ? ETb.ProcessJapaneseLayout(inputs) : inputs;
     }
 
     public static UInt32 KeyOn(Boolean swapJapaneseLayout = false)

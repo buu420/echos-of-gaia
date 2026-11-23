@@ -48,6 +48,7 @@ namespace Memoria.Accessibility.Navigation
         public bool RequireInwardApproach;
         public bool SelectDestinationInMenu;
         public TargetIdentity? PhysicalId;
+        internal FieldExitContinuation ExitContinuation;
         public TargetIdentity PhysicalIdentity {get{return PhysicalId??Id;}}
         public int[] StoryMilestones,NextFields;
         public Dictionary<int,NavigationPoint[]> DestinationApproaches;

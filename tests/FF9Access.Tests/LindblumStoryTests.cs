@@ -39,6 +39,114 @@ namespace FF9Access.Tests
             ExpectRouteAt(catalog, 3110, 567, 22, 565, (21, 566));
         }
 
+
+        public static void StationDoorwayNamesTheSamePlaceBeforeAndAfterVivisShopping()
+        {
+            foreach (int nativeDestination in new[] { 561, 551 })
+            {
+                var targets = ReadStationDoorway(552, 22, 22, StationDoorwayHash, false, nativeDestination, ShoppingEventHash);
+                var exit = targets.Targets.Single(target => target.Category == NavigationCategory.Exits);
+                TestAssert.Equal("Exit to Lindblum, B.D. Station", exit.Label);
+                TestAssert.Equal(nativeDestination, exit.NextFields.Single());
+            }
+        }
+
+        public static void StationDoorwayStoryUsesTheProvenFirstHopDuringVivisShopping()
+        {
+            foreach (int nativeDestination in new[] { 561, 551 })
+            {
+                var targets = ReadStationDoorway(552, 22, 22, StationDoorwayHash, false, nativeDestination, ShoppingEventHash);
+                var story = targets.Targets.Single(target => target.Category == NavigationCategory.Story);
+                TestAssert.True(story.PhysicalId.HasValue);
+                TestAssert.Equal(22, story.PhysicalIdentity.NativeId);
+                TestAssert.Equal(nativeDestination, story.NextFields.Single());
+                TestAssert.True(story.Label.Contains("Lindblum, B.D. Station"));
+                TestAssert.False(story.Label.Contains("Item Shop"));
+                TestAssert.True(story.ApproachCandidates.SequenceEqual(story.DestinationApproaches[nativeDestination]));
+            }
+        }
+
+        public static void TheGenuineItemShopRemainsASeparateDoorway()
+        {
+            const string shopDoorway = "63b24c7216a5e50bf553813994243e602f55a05a267877e95e47ecf2d59e0103";
+            var targets = ReadStationDoorway(559, 26, 26, shopDoorway, false, 561, ShoppingEventHash);
+            var exit = targets.Targets.Single(target => target.Category == NavigationCategory.Exits);
+            TestAssert.Equal("Exit to Lindblum, Item Shop", exit.Label);
+            TestAssert.Equal(561, exit.NextFields.Single());
+            TestAssert.False(targets.Targets.Single(target => target.Category == NavigationCategory.Story).PhysicalId.HasValue);
+        }
+
+        public static void StationContinuationRequiresTheVerifiedDoorwayAndArrivalScene()
+        {
+            var mismatches = new[]
+            {
+                (552, 22, 22, StationDoorwayHash + "0", false, ShoppingEventHash),
+                (552, 21, 22, StationDoorwayHash, false, ShoppingEventHash),
+                (552, 22, 21, StationDoorwayHash, false, ShoppingEventHash),
+                (552, 22, 22, StationDoorwayHash, true, ShoppingEventHash),
+                (552, 22, 22, StationDoorwayHash, false, ShoppingEventHash + "0"),
+                (552, 22, 22, StationDoorwayHash, false, null)
+            };
+            foreach (var (field, sid, uid, hash, confirm, script) in mismatches)
+            {
+                var targets = ReadStationDoorway(field, sid, uid, hash, confirm, 561, script);
+                var exit = targets.Targets.Single(target => target.Category == NavigationCategory.Exits);
+                TestAssert.Equal("Exit to Lindblum, Item Shop", exit.Label);
+                TestAssert.False(targets.Targets.Single(target => target.Category == NavigationCategory.Story).PhysicalId.HasValue);
+            }
+        }
+
+        public static void StationNamingAloneDoesNotOfferAnUnprovenStoryWalk()
+        {
+            var targets = ReadStationDoorway(552, 22, 22, StationDoorwayHash, false, 561, ShoppingEventHash, proved: false);
+            var exit = targets.Targets.Single(target => target.Category == NavigationCategory.Exits);
+            TestAssert.Equal("Exit to Lindblum, B.D. Station", exit.Label);
+            TestAssert.Equal(0, exit.NextFields.Length);
+            TestAssert.False(targets.Targets.Single(target => target.Category == NavigationCategory.Story).PhysicalId.HasValue);
+        }
+
+        private const string StationDoorwayHash = "e8a19cfa44dd00b56a87265ac78199ce45f5e81304e76ffbca649dc20999c3f0";
+        private const string ShoppingEventHash = "403e6c1d51c881d53087f66c11c430dfdf8a295df3c9921225e7831241b67b88";
+
+        private static CatalogResult ReadStationDoorway(int field, int sid, int uid, string hash, bool confirm,
+            int nativeDestination, string arrivalScript, bool proved = true)
+        {
+            string Location(int map) => map == 551 ? "Lindblum, B.D. Station"
+                : map == 561 ? "Lindblum, Item Shop" : null;
+
+            var context = TestFixtures.Context("field:" + field);
+            context.StoryProgress = 3110;
+            var point = TestFixtures.P(555.5f, 1173);
+            var exit = new NavigationTarget
+            {
+                Id = new TargetIdentity(TargetKind.FieldExit, context.LogicalMapKey, uid),
+                Category = NavigationCategory.Exits, Generation = context.Generation, ApproachCandidates = new[] { point }
+            };
+            var route = new FieldExitRoute
+            {
+                ConfirmPrompt = confirm,
+                Continuation = FieldExitFunctions.SceneContinuation(field, sid, uid, confirm ? 3 : 2, hash,
+                    map => map == 561 ? arrivalScript : null)
+            };
+            string Name(int map) => FieldExitNames.Destination(route.Continuation?.Arrival(map) ?? map, Location);
+            foreach (int possible in FieldExitFunctions.Possible(field, sid, hash, confirm))
+            {
+                string name = Name(possible);
+                if (name != null && !route.PossibleNames.Contains(name)) route.PossibleNames.Add(name);
+            }
+            if (proved)
+            {
+                route.Names[nativeDestination] = Name(nativeDestination);
+                route.Approaches[nativeDestination] = new[] { point };
+            }
+            var targets = new CatalogResult();
+            foreach (var named in FieldExitNames.Apply(new[] { exit }, _ => route, _ => "Exit"))
+                targets.Targets.Add(named);
+            var story = ReadCatalog(3110, 3115, "lindblum-first-reviewed-find-tantalus");
+            story.Append(context, targets, field, Location);
+            return targets;
+        }
+
         public static void PostHuntStoryFollowsTheCastleLiftAndDragonsGateTrolley()
         {
             var catalog = ReadCatalog(3700, 3710, "lindblum-first-reviewed-post-hunt-departure");
