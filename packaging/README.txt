@@ -1,4 +1,4 @@
-Echos of Gaia 0.1.25 beta
+Echos of Gaia 0.1.26 beta
 Final Fantasy IX accessibility mod by buu420
 
 Supported: 64-bit Windows 10/11, Windows Steam FFIX app 377840 build 5378074.
@@ -23,7 +23,13 @@ picker. To go from Japanese to English, open Language, Japanese, select
 English (United States), then choose Back. With Japanese game text selected,
 Story offers the named Light the candle target in the opening room.
 
-This update repairs the routes to the visible chest and the Story exit to
+In Lindblum, Inn, Area 2, select Moogle in People to approach the save
+moogle. Face it and press Confirm to interact. From Main Street, select
+Exit to Lindblum, Inn, Area 1 to walk back into the inn. Both game builds
+passed movement replays. Speech, the save menu and the room transition
+still need live gameplay checks.
+
+Version 0.1.25 repaired routes to the visible chest and the Story exit to
 Cleyra, Bridge in Cleyra's Trunk, Area 7. Open the chest with Confirm when
 the game presents the prompt. Both game builds passed movement replays.
 
@@ -117,7 +123,7 @@ includes the return to the Evil Forest trail.
 
 Source, current releases, prerequisite links and reports:
 https://github.com/buu420/echos-of-gaia
-https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.25
+https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.26
 
 Based on BlindGuyNW/Memoria and Albeoris/Memoria. The code retains the MIT
 license; dependency and supplied sound notices remain separate. Final Fantasy
