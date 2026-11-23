@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.26 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.26)**
+**[Download 0.1.27 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.27)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,13 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing, including a full playthrough.
+
+0.1.27 repairs the Main Street return to the inn on three Lindblum visits
+and adds town-wide navigation fixes. Story guidance now covers the trip
+to Tantalus, the post-Hunt departure, the fountain conversation after the
+attack, and Blue Narciss boarding. Copied-save tests reached Moodon's
+Save menu. Physical controller use and audible screen-reader output still
+need testing.
 
 0.1.26 lists the upstairs Lindblum save moogle as Moogle under People and
 repairs the route to it. Main Street navigation can take the inn doorway at
@@ -219,7 +226,7 @@ Use the manager to update or uninstall a manager installation.
 
 For a standalone installation:
 
-1. Download and extract EchosOfGaia-v0.1.13-beta-windows.zip into a separate
+1. Download the current beta Windows ZIP and extract it into a separate
    folder outside the game directory.
 2. Open **Install-EchosOfGaia.exe** from the extracted folder. Check the detected
    game folder, or use **Browse** or the editable field to choose the folder
