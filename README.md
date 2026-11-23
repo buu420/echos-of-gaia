@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.27 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.27)**
+**[Download 0.1.28 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.28)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,12 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing, including a full playthrough.
+
+0.1.28 identifies the Main Street air cab entrance as Lindblum, B.D. Station
+before Vivi's scene. The castle telescope gives D-pad pan directions and
+announces when you can press Confirm at a landmark. Scripted tests reached
+the station through Vivi's scene and completed all six telescope landmarks.
+Physical controller use and audible screen-reader output still need testing.
 
 0.1.27 repairs the Main Street return to the inn on three Lindblum visits
 and adds town-wide navigation fixes. Story guidance now covers the trip

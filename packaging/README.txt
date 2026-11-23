@@ -1,4 +1,4 @@
-Echos of Gaia 0.1.27 beta
+Echos of Gaia 0.1.28 beta
 Final Fantasy IX accessibility mod by buu420
 
 Supported: 64-bit Windows 10/11, Windows Steam FFIX app 377840 build 5378074.
@@ -23,7 +23,17 @@ picker. To go from Japanese to English, open Language, Japanese, select
 English (United States), then choose Back. With Japanese game text selected,
 Story offers the named Light the candle target in the opening room.
 
-This update repairs the Main Street return to the inn across three
+On Lindblum's Main Street, select Exit to Lindblum, B.D. Station to reach
+the air cab. On your first visit, the doorway can take you through Vivi's
+scene before you arrive at the station.
+
+At the castle telescope, follow the spoken D-pad directions and press
+Confirm when the mod announces a landmark. The view pauses at the marker
+while you hold the same direction. Release the D-pad and press again or
+change direction to continue panning. Scripted tests confirmed all six
+landmarks. Physical controller and audible screen-reader checks are open.
+
+Version 0.1.27 repaired the Main Street return to the inn across three
 Lindblum visits. From Main Street, select Exit to Lindblum, Inn, Area 1.
 Upstairs, select Moogle under People and press Confirm at the prompt.
 
@@ -127,7 +137,7 @@ includes the return to the Evil Forest trail.
 
 Source, current releases, prerequisite links and reports:
 https://github.com/buu420/echos-of-gaia
-https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.27
+https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.28
 
 Based on BlindGuyNW/Memoria and Albeoris/Memoria. The code retains the MIT
 license; dependency and supplied sound notices remain separate. Final Fantasy

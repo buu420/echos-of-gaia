@@ -2,7 +2,7 @@
   "gameId": "final-fantasy-ix",
   "displayName": "Final Fantasy IX",
   "modName": "Echos of Gaia (Beta)",
-  "description": "Echos of Gaia adds screen reader support, field and world navigation, automatic walking, battle and menu speech, and optional audio descriptions to Windows Steam Final Fantasy IX. Beta 0.1.27 repairs Lindblum inn and castle routes, adds Story guidance across the city, and improves Castle Lift and trolley navigation. Includes the accessible launcher, double-click standalone installer and 608 narration recordings. Broader gameplay testing continues.",
+  "description": "Echos of Gaia adds screen reader support, field and world navigation, automatic walking, battle and menu speech, and optional audio descriptions to Windows Steam Final Fantasy IX. Beta 0.1.28 identifies Lindblum's air cab entrance before Vivi's scene and adds D-pad directions and Confirm cues for the castle telescope. Includes the accessible launcher, double-click standalone installer and 608 narration recordings. Broader gameplay testing continues.",
   "steamAppId": "377840",
   "exeName": "FF9_Launcher.exe",
   "probeRules": [
