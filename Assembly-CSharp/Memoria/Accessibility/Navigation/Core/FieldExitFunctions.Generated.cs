@@ -1493,6 +1493,9 @@ namespace Memoria.Accessibility.Navigation
             {"2955:16:ba7d620e538cd813b7601a644111d65b1d1f396fc42495909a9a994d13b06b9c",new[]{2954}},
         };
         private static readonly Dictionary<string,string> _confirmFunctions=new Dictionary<string,string>{
+            {"603:3:3ff8f9611202c27ffd44d1a945a2b8c77e2e1dcf12cf712b97e7d0f4f4a48d84","Castle lift"},
+            {"2151:3:ec04b6815a1a4c10976d6e1b191fa3e31d63aed4c6f1de7fc2bb9c2db817a9c0","Castle lift"},
+            {"2153:3:d834b6abf3f3cf312be036d219957b479cf25b226dc0554c06119e708aee86c4","Castle lift"},
             {"2173:8:e08da3455151f370252f49f6a27740fbfc5394d4991593c156fd5cd749fdb0f5","Harbor boarding"},
             {"2950:19:be5e19ef03b606497d3b6c6f8ed6f4b4b5c5bf70b7dd9cf6acc92bb3812c4a9d","Chocobo excavation choice"},
         };

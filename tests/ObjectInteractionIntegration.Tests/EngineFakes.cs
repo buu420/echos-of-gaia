@@ -31,7 +31,11 @@ public sealed class FieldMapActorController { public Vector3 curPos;public float
 public sealed class WalkMesh { public PosObj Pushed;public float Distance=-1; public PosObj Collision(FieldMapActorController controller,int mode,out float distance){distance=Distance;return mode==2?Pushed:null;} }
 public class Obj
 {
-    public byte uid,sid,cid,level=7,flags=1,vofs;public int ip;public byte[] ebData=new byte[]{0,0};public byte[] buffer=new byte[64];
+    public byte uid,sid,cid,level=7,flags=1,vofs,sofs,sx,wait,state=EventEngine.stateRunning;
+    public int ip;
+    public bool isAdditionCommand;
+    public byte[] ebData=new byte[]{0,0},currentByte;
+    public byte[] buffer=new byte[64];
 }
 public class PosObj:Obj { public float[] pos=new float[3];public GameObject go=new GameObject();public bool isEnableRenderer=true; }
 public sealed class Actor:PosObj { public ushort model;public float[] rotAngle=new float[3];public FieldMapActorController fieldMapActorController=new FieldMapActorController();public string Signature="same-actor"; }
@@ -47,7 +51,7 @@ public static class EventCollision
 }
 public sealed class EventEngine
 {
-    public const byte flagShow=1,flagTalkInh=8;public const int tagPush=2,tagTalk=3;
+    public const byte flagShow=1,flagTalkInh=8,stateRunning=1;public const int tagPush=2,tagTalk=3;
     public int nil=-1,gMode=1;public byte[] MapVars=new byte[1024];
     public readonly List<Obj> Active=new List<Obj>();public Obj Control;public Quad Selected;
     public int GetIP(int sid,int tag,byte[] data)

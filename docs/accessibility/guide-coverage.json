@@ -580,9 +580,9 @@
     ]
   },
   "reviewedStoryActions": {
-    "steps": 182,
+    "steps": 183,
     "loopActions": 16,
-    "phases": 429
+    "phases": 433
   },
   "retainedInputs": [
     {
@@ -617,7 +617,7 @@
     },
     {
       "path": "docs/accessibility/story-action-chains.json",
-      "sha256": "f9bd67fd17928f8f448234d6b0888b9480bfb80967440c4d20399f747681e703"
+      "sha256": "11bc779ff0b9539a3374e929dac794e06d3e0e7bfda34d40018f433f1c6cd599"
     },
     {
       "path": "docs/accessibility/story-palace-actions.json",
@@ -633,7 +633,7 @@
     },
     {
       "path": "docs/accessibility/field-exit-functions.json",
-      "sha256": "d5856a5e6626c6a4e48c69526ba757a6b9b140b063996a8d83fd13b3a928dc3e"
+      "sha256": "b573c54bdad0452fdb3d2b7bf803bab634782030390464f0dc486e0c511182bb"
     },
     {
       "path": "tools/Export-FF9StorySteps.py",
@@ -685,7 +685,7 @@
     },
     {
       "path": "Assembly-CSharp/Global/Event/Engine/EventEngine.TreadQuad.cs",
-      "sha256": "6af2cae22bde902f1afc6afe8cd3e0f9575e4aceb0794d1a2419cb3e2fb1cca6"
+      "sha256": "41774effd52dd74d1d3200e9b768578a6825cf42b51c6ffab98350d89e84b4a2"
     },
     {
       "path": "Assembly-CSharp/Global/Hono/HonoInputManager.cs",
@@ -805,11 +805,11 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NavigationTargets.cs",
-      "sha256": "f0ae617c5cb2847115f6cd2f5283f76be136869b5fa37f993e0e1fde6177fd3c"
+      "sha256": "d82a186b22aa29e8b6be506fc3d88d6f8e507c3ca79a3d19439d5675e13e8cbe"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldTargetCatalog.cs",
-      "sha256": "fd6d8fc3b9f058c5743effafaf7fa260d33da2e70774c233ca32bc2d499e060d"
+      "sha256": "0fa47ebd22ebe28ac681614fe79adfd78b43ffda7ad0f268179da01f75eff353"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldTargetApproaches.cs",
@@ -829,7 +829,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldExitDestinations.cs",
-      "sha256": "4941ad70dd6270288e8a2215c884be9717ad6e88abf9fd76b8c99044d5acaf48"
+      "sha256": "e9695d8d4eb092505ac814efa9cdddd8733ba7a61deb00ae3c7a1b2bca7f0687"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/ScriptStoryAnalyzer.cs",
@@ -857,7 +857,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldExitNames.cs",
-      "sha256": "2bf21e9c7e8d6b7e0addd3bf17dd598c898f3944040d27810a2051c5bc4e3122"
+      "sha256": "d43bce421d7cdc09e18267c35d578ac409d8c4af32c83ca37236063f24e2c50e"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/RouteGuidanceProgress.cs",
@@ -873,7 +873,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldRoutePlanner.cs",
-      "sha256": "a99f0090558ad81f6728df8d5d917d0432ddbaf404cdf9860263397193ed2827"
+      "sha256": "b411d8a1760bc16ef1e1ef0a85ecf79f4004b77fdcb0804c0ae5c343d3a34d7b"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/WorldRoutePlanner.cs",
@@ -933,7 +933,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldStoryRegions.cs",
-      "sha256": "e50ae5b5b07465f0dfb63223236f51b51f55feb342576571c1827d2053fdd402"
+      "sha256": "0f9b674ad5ef21dcf44c527bf24ad5a91332ab03f51bff694ddbd8fcb2856fa1"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldExitDestinations.cs",
@@ -945,7 +945,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/StoryTargetCatalog.cs",
-      "sha256": "d41ffab787c8647a66ef4200f602b5dca70a9b386dc074be354158db0026e91a"
+      "sha256": "73852f96bceed977a44faaffaa030027ecf7bc1b3d2c7e8cf988f0c1b82e029b"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NavigationCoordinator.cs",
@@ -957,7 +957,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldTouchConfirmation.cs",
-      "sha256": "932c8b1922475d9af38bd71b4bd75ad55a842f55094ba1f7d4467f371761179a"
+      "sha256": "635a5f907582b7c52dd04fbed25b07a9027877ffce7cc8775c3f99f485c54887"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NumericInputReader.cs",
@@ -977,7 +977,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldTargets.cs",
-      "sha256": "5d67607b1f6a20af5eaac5a4c1f69bc697992c901d180439fbe7462c1d93b165"
+      "sha256": "0cb056a9b6ccaaefe11c4c832bf4c67f9df66ce2ceedaa82d8e0c1f899690ffb"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryTargets.cs",
@@ -1025,7 +1025,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldExitPaths.cs",
-      "sha256": "8d31506007abef0fcb17c9cbe5b88d8ac148974de84b125a70771c7f4acdd346"
+      "sha256": "ea15c4113f27a269bdbcec6066e3d195ce1b748ceb3f0f14078fab016722332d"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldPhysicalAreas.Generated.cs",
@@ -1033,7 +1033,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStorySteps.cs",
-      "sha256": "f6a6dd5fffad3487a80ed9d61f43c15ac09062b3d6707e87a066ba90a545b389"
+      "sha256": "0d67978dc299e89c46543de2d71ac4dfb9b2d8a16e9d54b0559e8885190eae42"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldSpeakers.cs",
@@ -1045,7 +1045,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldExitRoutes.cs",
-      "sha256": "16bba33cbbe74030b893a12872db92315a3e2260258448a2169d778ccae3bb0d"
+      "sha256": "3713e4dbb3570de6989491f781556db661f9a4dc54a83dbce54f49ca159641de"
     }
   ],
   "nativeFieldIdentity": "8a1aad6c4928624e1b999279f085e45fe0d40227e47972ee13b52abd96931043",

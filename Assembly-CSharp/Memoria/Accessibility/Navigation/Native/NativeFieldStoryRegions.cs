@@ -102,6 +102,7 @@ namespace Memoria.Accessibility.Navigation
                 foreach(var obj in ActiveObjects(engine)) {
                     writer.Write(System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(obj));
                     writer.Write((int)obj.uid);writer.Write((int)obj.sid);writer.Write(obj.ip);writer.Write((int)obj.level);writer.Write((int)obj.flags);writer.Write((int)obj.state);
+                    writer.Write((obj as Actor)?.fieldMapActorController?.activeFloor??-1);
                     writer.Write(obj.ebData==null?0:System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(obj.ebData));
                     memory.Add(ScriptSnapshot.InstanceBytes(obj.buffer,obj.vofs));
                 }

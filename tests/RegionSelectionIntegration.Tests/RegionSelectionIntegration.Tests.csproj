@@ -5,6 +5,7 @@
   <ItemGroup>
     <Compile Include="*.cs" />
     <Compile Include="../../Assembly-CSharp/Global/Event/Engine/EventEngine.TreadQuad.cs" Link="Runtime/EventEngine.TreadQuad.cs" />
+    <Compile Include="../../Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeLindblumInnDoorstep.cs" Link="Runtime/NativeLindblumInnDoorstep.cs" />
     <Compile Include="../../Assembly-CSharp/Global/Math3D.cs" Link="Runtime/Math3D.cs" />
     <Compile Include="../../Assembly-CSharp/Global/Quad/QuadCircle.cs" Link="Runtime/QuadCircle.cs" />
     <Compile Include="../../Assembly-CSharp/Global/Quad/QuadPos.cs" Link="Runtime/QuadPos.cs" />

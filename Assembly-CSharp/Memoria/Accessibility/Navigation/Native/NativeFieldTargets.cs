@@ -14,7 +14,7 @@ namespace Memoria.Accessibility.Navigation
         private static readonly Dictionary<Actor,ActorLabelIdentity> _labelIdentities=new Dictionary<Actor,ActorLabelIdentity>();
         private static readonly Dictionary<byte[],Dictionary<int,List<ScriptInstruction>>> _decoded=new Dictionary<byte[],Dictionary<int,List<ScriptInstruction>>>();
         private static readonly Dictionary<byte[],DoorBinding> _doors=new Dictionary<byte[],DoorBinding>();
-        private sealed class RegionSurface {public string Geometry,Polygon;public NavigationPoint[] Region,Approaches,Boundaries,Presentation,ApproachesFromVisibleTrail;public NavigationPoint TrailAnchor;}
+        private sealed class RegionSurface {public string Geometry,Polygon;public NavigationPoint[] Region,RouteRegion,Approaches,Boundaries,Presentation,ApproachesFromVisibleTrail;public NavigationPoint TrailAnchor;}
         private static readonly Dictionary<Quad,RegionSurface> _surfaces=new Dictionary<Quad,RegionSurface>();
         private static BGSCENE_DEF _tileScene;private static int _tileFrame=-1;
         private static readonly Dictionary<int,DoorTileObservation> _tiles=new Dictionary<int,DoorTileObservation>();
@@ -23,6 +23,7 @@ namespace Memoria.Accessibility.Navigation
         private static int _rosterLogs;
         private static readonly HashSet<int> _seenExits=new HashSet<int>();
         private static string _walkmeshHash;
+        private static FieldMap _walkmeshHashField;
         private sealed class DoorBinding {public bool Walk,Plain;public int[] Animations;}
         private static readonly FieldDoorOpcodes _opcodes=new FieldDoorOpcodes {
             MapJump=(int)EBin.event_code_binary.MAPJUMP,WorldJump=(int)EBin.event_code_binary.WMAPJUMP,JumpPosition=(int)EBin.event_code_binary.MJPOS,
@@ -191,20 +192,20 @@ namespace Memoria.Accessibility.Navigation
                 }
                 if(offscreen) {
                     var safe=new List<NavigationPoint>();
-                    if(currentGeometry!=null && (binding.Walk || reviewed))foreach(var point in Surface(currentGeometry,quad).Approaches)if(engine.NavigationTouchQuadAt(point.X,point.Z)==quad)safe.Add(point);
+                    if(currentGeometry!=null && (binding.Walk || reviewed))foreach(var point in Surface(currentGeometry,quad,field).Approaches)if(engine.NavigationTouchQuadAt(point.X,point.Z)==quad)safe.Add(point);
                     presentation=new ExitPresentation{Visible=false,ApproachEnabled=safe.Count>0,ApproachCandidates=safe.ToArray(),Availability=safe.Count>0?"availability requires normal game interaction":"safe approach unavailable"};
                 }
                 var exitObservation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldExit, context.LogicalMapKey,quad.uid),NativePresentationIdentity=exitIdentity,OutOfView=offscreen, Position = presentation == null ? Point(center) : presentation.Approach, Exit = presentation, ContainsJump = true };
                 exitObservation.LabelIdentity=ExitLabelSignature(quad);
                 if(presentation!=null && presentation.ApproachEnabled && currentGeometry!=null)
-                    exitObservation.InteractionRegion=Surface(currentGeometry,quad).Region;
+                    exitObservation.InteractionRegion=Surface(currentGeometry,quad,field).RouteRegion;
                 Annotate(context,engine,quad,exitObservation);
                 if(presentation!=null && presentation.Visible) {
                     var camera=field.GetMainCamera();
                     exitObservation.VisibleLabel=camera==null?"Exit":FieldExitLabel.Read(Point(camera.WorldToViewportPoint(Project(field,Vector(presentation.Approach)))));
                     NativeObservedFieldExits.Presented(context,quad,exitObservation.LabelIdentity);
                 }
-                AnnotateExitRoute(context,engine,quad,exitObservation);
+                AnnotateExitRoute(context,engine,quad,exitObservation,currentGeometry);
                 result.Add(exitObservation);
             }
             RemoveLadderDuplicate(context,engine,result);
@@ -289,20 +290,26 @@ namespace Memoria.Accessibility.Navigation
             return end;
         }
         private static bool ContainsJump(IList<ScriptInstruction> code) { foreach(var item in code)if(item.Opcode==(int)EBin.event_code_binary.MAPJUMP || item.Opcode==(int)EBin.event_code_binary.WMAPJUMP)return true; return false; }
-        private static RegionSurface Surface(FieldGeometrySnapshot geometry,Quad quad)
+        private static RegionSurface Surface(FieldGeometrySnapshot geometry,Quad quad,FieldMap field=null)
         {
             var region=new NavigationPoint[quad.n];string key="";
             for(int i=0;i<quad.n;i++){region[i]=Point(quad.q[i].Vector3Val);key+=region[i].X+","+region[i].Z+";";}
+            bool doorstep=field!=null && NativeLindblumInnDoorstep.Available(FF9StateSystem.Common.FF9.fldMapNo,field,quad);
+            var routeRegion=doorstep?NativeLindblumInnDoorstep.ApproachRegion:region;
+            if(doorstep)key+="doorstep";
             RegionSurface surface;
             if(!_surfaces.TryGetValue(quad,out surface) || surface.Geometry!=geometry.Fingerprint || surface.Polygon!=key) {
-                surface=new RegionSurface{Geometry=geometry.Fingerprint,Polygon=key,Region=region,Approaches=FieldRegionApproaches.Interaction(region,geometry),Boundaries=FieldRegionApproaches.BoundarySamples(region,geometry)};_surfaces[quad]=surface;
+                var approaches=FieldRegionApproaches.Interaction(routeRegion,geometry);
+                if(doorstep)approaches=Array.FindAll(approaches,p=>Math.Abs(p.Y-NativeLindblumInnDoorstep.StreetHeight)<1f);
+                surface=new RegionSurface{Geometry=geometry.Fingerprint,Polygon=key,Region=region,RouteRegion=routeRegion,Approaches=approaches,Boundaries=FieldRegionApproaches.BoundarySamples(region,geometry)};
+                _surfaces[quad]=surface;
             }
             return surface;
         }
         private static ExitPresentation VisibleBoundary(NavigationContext context,FieldGeometrySnapshot geometry,FieldMap field,EventEngine engine,Actor player,Quad quad,DoorBinding binding,bool reviewed,string hash)
         {
             if((!binding.Walk && !reviewed) || geometry==null || field.walkMesh==null || field.bgi==null)return null;
-            var surface=Surface(geometry,quad);FieldExitSurfaceReview surfaceReview=null;string boundaryCue=null;
+            var surface=Surface(geometry,quad,field);FieldExitSurfaceReview surfaceReview=null;string boundaryCue=null;
             bool plain=binding.Plain;
             if(!plain && binding.Walk && binding.Animations.Length==0 && player!=null && !Single.IsNaN(player.pos[1]) && !Single.IsInfinity(player.pos[1])) {
                 int height=-EventEngineUtils.CastFloatToIntWithChecking(player.pos[1]);
@@ -455,7 +462,8 @@ namespace Memoria.Accessibility.Navigation
         internal static string CurrentBgiHash(FieldMap field)
         {
             if(field==null)return null;
-            if(_walkmeshHash==null) {
+            if(_walkmeshHash==null || !ReferenceEquals(_walkmeshHashField,field)) {
+                _walkmeshHashField=field;
                 try {var bytes=AssetManager.LoadBytes(FieldMap.GetMapResourcePath(field.mapName)+field.mapName+".bgi");_walkmeshHash=bytes==null?"":Fingerprint(bytes);}
                 catch(Exception exception){_walkmeshHash="";Log.Message("[FF9Access] Entrance asset evidence unavailable: {0}",exception.Message);}
             }

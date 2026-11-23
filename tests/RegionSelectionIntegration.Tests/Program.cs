@@ -16,6 +16,7 @@ namespace RegionSelectionIntegration.Tests
                 Case("Activation order decides the native first region for each tag",ActivationOrderDecides),
                 Case("Containment is not native Confirm selection",ContainmentIsNotSelection),
                 Case("Hotfix circles replace or extend the region exactly as TreadQuad",HotfixMatchesTreadQuad),
+                Case("Lindblum Inn uses the same street-side Push contact for planning and walking",LindblumInnUsesStreetSideContact),
                 Case("Non-region objects never select",OnlyRegionsSelect),
                 Case("Read-only selectors equal TreadQuad on a sweep of points and orders",SweepEqualsTreadQuad),
                 Case("Failed Confirm gate with Push gate selects only the Push walk-in",ConfirmGateFalsePushGateTrue),
@@ -85,6 +86,64 @@ namespace RegionSelectionIntegration.Tests
             engine.gMode=2;
             Equal(null,engine.NavigationTalkQuadAt(305,300),"hotfix applies only on fields");
             Equal(engine.TreadQuad(At(305,300),4),engine.NavigationTalkQuadAt(305,300),"TreadQuad outside fields");
+        }
+        private static void LindblumInnUsesStreetSideContact()
+        {
+            var variants = new[] {
+                (Field: 552, Sid: 21, Script: "e53488fc28a67e690652ac29743782e2f3c60833414417a78efd8e9be46b71ca", Mesh: "13bb4136104810147f70227efe5fc701fc83865b457e5bee784f4223f8468561"),
+                (Field: 1302, Sid: 12, Script: "cc9171c8d4949cb580c3daad8b8cc7e8aad2d370cc6ad0866ee6580942af4c44", Mesh: "16d3af152c597ae934491884c31c567a64aa20dcdbef7a18cc8448b1b68a261d"),
+                (Field: 2102, Sid: 9, Script: "b5bc9cb45d89eeed1d2c50168644510372700fc934335b89effe3bfa2d8e7b47", Mesh: "73fa9bf84f78ea5697b1563d5ae899f0f9bdd3dbad086e8443cf18e9e247d9d6")
+            };
+            foreach (var variant in variants)
+            {
+                var door = Region(variant.Sid, 0, 0, 0, 0, Push, Talk);
+                door.q = new[] {
+                    new QuadPos { X = -3547, Z = 3281 }, new QuadPos { X = -3606, Z = 3106 },
+                    new QuadPos { X = -2999, Z = 2958 }, new QuadPos { X = -2973, Z = 3163 }
+                };
+                var engine = Engine(door);
+                engine.fieldmap = new FieldMap { BgiHash = variant.Mesh };
+                engine.fieldmap.bgi.attributeMask = 255;
+                FF9StateSystem.Common.FF9.fldMapNo = (short)variant.Field;
+                NativeFieldTargets.Hashes[door.ebData] = variant.Script;
+
+                var player = At(-2954, 3073);
+                player.uid = 24;
+                player.go.transform.position = new Vector3(-2954, 383, 3073);
+                Equal(door, engine.NavigationTouchQuadAt(-2954, 3073), "stock street-side contact during route drawing");
+                Equal(door, engine.TreadQuad(player, 2), "same native contact while walking");
+                engine.UserControl = false;
+                Equal(null, engine.TreadQuad(player, 2), "scripted movement does not use the doorstep contact");
+                engine.UserControl = true;
+                Equal(null, engine.NavigationTalkQuadAt(-2954, 3073), "ordinary Talk region remains the original area");
+                Equal(null, engine.NavigationTouchQuadAt(-2920, 3073), "street beyond the contact distance");
+                Equal(null, engine.NavigationTouchQuadAt(-2940, 3190), "outside the street-facing edge");
+
+                player.go.transform.position = new Vector3(-2954, 0, 3073);
+                Equal(null, engine.TreadQuad(player, 2), "a different elevation cannot use the contact");
+                player.go.transform.position = new Vector3(-2954, 383, 3073);
+                player.uid = 25;
+                Equal(null, engine.TreadQuad(player, 2), "another actor cannot use the contact");
+
+                var earlier = Region(99, -2960, 3060, -2940, 3090, Push);
+                engine.SetActive(earlier, door);
+                Equal(earlier, engine.NavigationTouchQuadAt(-2954, 3073), "earlier native Push retains priority");
+                engine.SetActive(door, earlier);
+                Equal(earlier, engine.NavigationTouchQuadAt(-2954, 3073), "later stock Push also takes priority over doorstep contact");
+                engine.SetActive(door);
+                engine.fieldmap.bgi.attributeMask = 127;
+                Equal(null, engine.NavigationTouchQuadAt(-2954, 3073), "unrestricted approach uses the native polygon");
+                Equal(door, engine.NavigationTouchQuadAt(-3040, 3073), "original native contact remains");
+                engine.fieldmap.bgi.attributeMask = 255;
+                engine.fieldmap.BgiHash = "modified mesh";
+                Equal(null, engine.NavigationTouchQuadAt(-2954, 3073), "unknown mesh");
+                engine.fieldmap.BgiHash = variant.Mesh;
+                NativeFieldTargets.Hashes[door.ebData] = "modified script";
+                Equal(null, engine.NavigationTouchQuadAt(-2954, 3073), "unknown script");
+                NativeFieldTargets.Hashes[door.ebData] = variant.Script;
+                door.q[2].X++;
+                Equal(null, engine.NavigationTouchQuadAt(-2954, 3073), "moved door");
+            }
         }
         private static void OnlyRegionsSelect()
         {

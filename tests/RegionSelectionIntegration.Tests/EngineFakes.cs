@@ -12,12 +12,27 @@ public static class EMinigame{public static Int32 CreateNPCID(Int32 fldNo,Int32 
 public static class EventEngineUtils{public static Dictionary<Int32,QuadCircle> QuadCircleData=new Dictionary<Int32,QuadCircle>();}
 public class Obj{public Byte cid,sid,uid;public Byte[] ebData=new Byte[]{0,0};}
 public class PosObj:Obj{public GameObject go=new GameObject();}
+public class BGI_DEF{public byte attributeMask;}
+public class FieldMap{public BGI_DEF bgi=new BGI_DEF();public string BgiHash;}
+namespace Memoria.Accessibility.Navigation
+{
+    public static class NativeFieldTargets
+    {
+        public static readonly Dictionary<byte[],string> Hashes=new Dictionary<byte[],string>();
+        internal static string Fingerprint(byte[] bytes){return Hashes.TryGetValue(bytes,out var hash)?hash:null;}
+        internal static string CurrentBgiHash(FieldMap field){return field.BgiHash;}
+    }
+}
 public class Quad:Obj{public Int32 n;public QuadPos[] q;}
 public sealed class ObjList{public Obj obj;public ObjList next;}
 public sealed class EventContext{public ObjList activeObj;}
 public partial class EventEngine
 {
     public Int32 nil=-1;public Int32 gMode=1;
+    public FieldMap fieldmap;
+    public bool UserControl = true;
+    public bool GetUserControl(){return UserControl;}
+    public byte GetControlUID(){return 24;}
     private EventContext _context=new EventContext();
     public void SetActive(params Obj[] objects){ObjList list=null;for(int i=objects.Length-1;i>=0;i--)list=new ObjList{obj=objects[i],next=list};_context.activeObj=list;}
     // Same tag table walk as the native EventEngine.GetIP.

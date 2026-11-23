@@ -12,10 +12,28 @@ namespace Memoria.Accessibility.Navigation
             // The Treno tower trigger is supported on the incoming side of its
             // first edge (installed 905 BGI triangles 8 and 40).
             if(field==905 && sid==10 && hash=="f76d392a68ed0d29ceb0e47f6a2e332b36c81cc6c31662a05716818ea4a75fe8")return true;
-            // Lindblum Main Street's inn trigger uses the same inward check.
-            if(field==552 && sid==21 && hash=="e53488fc28a67e690652ac29743782e2f3c60833414417a78efd8e9be46b71ca")return true;
+            if(RequiresInwardApproach(field,sid,uid,hash))return true;
             return sid==2 && (field==2916 && hash=="68a447aa8fe33dcc3fb1ec101dcba492c7ec85da77c51b59e75ee2cd48b17485" ||
                 field==2918 && hash=="48607f555f8dde5c5544e743ff1fbd8c2df86e1630ca9a7e6a45d54070d8ded3");
+        }
+
+
+        // The original Lindblum door scripts expect a normal approach toward the first QUAD edge.
+        internal static bool RequiresInwardApproach(int field,int sid,int uid,string hash)
+        {
+            if(sid!=uid)return false;
+            switch(field) {
+            case 552: return sid==21 && hash=="e53488fc28a67e690652ac29743782e2f3c60833414417a78efd8e9be46b71ca";
+            case 555: return sid==20 && hash=="a3daba2e9f09ccf1cb8d3661e09046915f5aa5938d307fea212971d573f0fc63";
+            case 556: return sid==19 && hash=="abadf9abb6d5dbd5bf18fde3b3633f2c46add0ebfdc380c0e7b556ac0ad0bd50";
+            case 570: return sid==24 && hash=="d5a671438d494f979fc3b35a22bb09246fc30657f430b30ea4cbdc95f3699d97";
+            case 1302: return sid==12 && hash=="cc9171c8d4949cb580c3daad8b8cc7e8aad2d370cc6ad0866ee6580942af4c44";
+            case 1305: return sid==14 && hash=="4b1bf936225fb3dd9b21af833e9643538bba38383d00fa307474664d69b3bf60";
+            case 2102: return sid==9 && hash=="b5bc9cb45d89eeed1d2c50168644510372700fc934335b89effe3bfa2d8e7b47";
+            case 2105: return sid==16 && hash=="bb5c9c5b8e705e94c7d882223c95382a2e5547af1487a16626734865d7d9198f";
+            case 2170: return sid==7 && hash=="24c2f539b0f08c00d957cefd8fcd65509016f4dadd82c387c45a251bc49239ac";
+            default: return false;
+            }
         }
 
         // Native MJPOS projects the player onto the first edge of the region,

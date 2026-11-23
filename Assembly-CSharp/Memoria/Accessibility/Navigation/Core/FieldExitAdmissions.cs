@@ -9,7 +9,7 @@ namespace Memoria.Accessibility.Navigation
     {
         public static FieldExitAdmission Admit(string function,FieldExitPathEvidence evidence,bool reviewedConfirm=false)
         {
-            if(evidence==null || evidence.StoryCounter || evidence.Destinations.Count==0)return FieldExitAdmission.None;
+            if(evidence==null || evidence.StoryCounter || evidence.Destinations.Count==0 && !(function!=null && evidence.InFieldTransfer))return FieldExitAdmission.None;
             if(evidence.Kind==FieldExitPathKind.Unknown || evidence.Kind==FieldExitPathKind.NoJump)return FieldExitAdmission.None;
             if(function!=null)return FieldExitAdmission.Service;
             if(evidence.Kind==FieldExitPathKind.ChoiceSingle)return FieldExitAdmission.Walk;

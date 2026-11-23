@@ -9,6 +9,7 @@ namespace Memoria.Accessibility.Navigation
     {
         public int Presentation;
         public bool ConfirmPrompt;
+        public bool RequireInwardApproach;
         public readonly Dictionary<int,NavigationPoint[]> Approaches=new Dictionary<int,NavigationPoint[]>();
         public readonly Dictionary<int,string> Names=new Dictionary<int,string>();
         // Destinations reached only after a shown prompt the player may decline.
@@ -80,11 +81,17 @@ namespace Memoria.Accessibility.Navigation
             var result=new List<NavigationTarget>();var sides=new Dictionary<NavigationTarget,string>();var named=new HashSet<NavigationTarget>();
             foreach(var exit in exits) {
                 string side=sideOf==null?null:sideOf(exit);if(String.IsNullOrEmpty(side))side="Exit";
-                var parts=Parts(exit,routeOf==null?null:routeOf(exit));
+                var route=routeOf==null?null:routeOf(exit);
+                var parts=Parts(exit,route);
+                if(route!=null && route.RequireInwardApproach && !parts.Exists(part=>part.Points.Count>0)) {
+                    exit.ApproachCandidates=new NavigationPoint[0];
+                    if(String.IsNullOrEmpty(exit.Availability))exit.Availability="current doorway route unavailable";
+                }
                 if(parts.Count==0){result.Add(exit);sides[exit]=side;continue;}
                 foreach(var part in parts) {
                     var target=parts.Count==1 && !part.IsMenu?exit:Split(exit,part);
                     target.SelectDestinationInMenu=part.IsMenu;
+                    target.RequireInwardApproach=route.RequireInwardApproach && !part.IsMenu && part.Points.Count>0;
                     target.Label=part.Label??"Exit to "+part.Name+(!String.IsNullOrEmpty(currentLocation) && part.Name==currentLocation?", this same area":"");
                     if(part.Availability!=null)target.Availability=String.IsNullOrEmpty(target.Availability)?part.Availability:target.Availability+"; "+part.Availability;
                     if(part.Points.Count!=0){target.ApproachCandidates=part.Points.ToArray();target.Position=part.Points[0];}

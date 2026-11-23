@@ -15,7 +15,7 @@ namespace Memoria.Accessibility.Navigation
     // Detached copies of the live native gate inputs (EventCollision / WalkMesh.Collision / EventEngine.Request).
     public sealed class FieldInteractionGates
     {
-        public bool HasTalkHandler, TalkBytesActive, ReviewedListener, MapTalkAllowed, HasPushHandler, MapPushAllowed;
+        public bool HasTalkHandler, TalkBytesActive, ReviewedListener, MapTalkAllowed, HasPushHandler, MapPushAllowed, QueuedPushOffer;
         public int Level, Flags, PlayerFlags;
     }
     public static class FieldInteractionRules
@@ -36,7 +36,8 @@ namespace Memoria.Accessibility.Navigation
         public static FieldInteractionState Push(FieldInteractionGates gates,FieldInteractionState guard)
         {
             if(gates==null || !gates.HasPushHandler)return FieldInteractionState.None;
-            if(gates.Level<=1 || !gates.MapPushAllowed || ((gates.PlayerFlags&FieldInteractionFlags.CollisionInhibitOther)!=0 && (gates.Flags&FieldInteractionFlags.CollisionInhibitControl)!=0))return FieldInteractionState.Unavailable;
+            bool canRun=gates.Level>1 || gates.Level==1 && gates.QueuedPushOffer;
+            if(!canRun || !gates.MapPushAllowed || ((gates.PlayerFlags&FieldInteractionFlags.CollisionInhibitOther)!=0 && (gates.Flags&FieldInteractionFlags.CollisionInhibitControl)!=0))return FieldInteractionState.Unavailable;
             return guard==FieldInteractionState.None?FieldInteractionState.Unknown:guard;
         }
         // Readiness of a contact (push) prop such as a chest: CollisionRequest requests its push handler while

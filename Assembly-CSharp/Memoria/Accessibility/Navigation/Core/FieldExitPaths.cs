@@ -15,7 +15,7 @@ namespace Memoria.Accessibility.Navigation
         // The entrance after the jump's own detached script writes. Null means
         // its reachable branches did not agree on one entrance.
         public readonly Dictionary<int,int?> ArrivalEntrances=new Dictionary<int,int?>();
-        public bool CanDecline,UsesChoice;
+        public bool CanDecline,UsesChoice,InFieldTransfer;
         // A path that runs now shows dialogue (MES windows) or writes the scenario counter (global UInt16 0).
         public bool Dialogue,StoryCounter;
         // Buttons (EventInput mask) that a branch decided only by input waits for, e.g. Confirm at a ledge.
@@ -42,6 +42,13 @@ namespace Memoria.Accessibility.Navigation
         public NavigationPoint? ExitPosition;
         public int? EntryFacing;
         public Func<int,int,int> Angle2;
+        public Func<int,int> Sine,Cosine;
+        // B_BGIFLOOR reads the approach floor for the player, or the native floor of another actor.
+        public Func<int,int?> ObjectFloor;
+        // An audited, effect-free boarding animation can move the actor without changing the route.
+        public Func<ScriptStoryFunction,bool> VisualOnlyRequest;
+        // A reviewed lift can set a new entrance and resume control in the same field.
+        public bool TrackInFieldTransfer;
     }
     // Detached replay of an exit's touch path, as ScriptStoryAnalyzer, except that a branch decided only
     // by player input (B_KEYON button reads, the message signal) or by a shown choice (GetChoose) is
@@ -57,7 +64,7 @@ namespace Memoria.Accessibility.Navigation
         {
             public readonly List<int> Prefix;public readonly List<int> Taken=new List<int>();public readonly List<int> Alternatives=new List<int>();
             public readonly StringBuilder Writes=new StringBuilder();
-            public int? Destination,Entrance;public bool Done,UsedChoice,Overflow,Dialogue,Counter,ReadsApproachPosition;public uint Buttons,PendingButtons;public string Stop;
+            public int? Destination,Entrance;public bool Done,UsedChoice,Overflow,Dialogue,Counter,ReadsApproachPosition,InFieldTransfer;public uint Buttons,PendingButtons;public string Stop;
             public Run(List<int> prefix){Prefix=prefix;}
             public int Decide(int count,bool choice)
             {
@@ -85,11 +92,16 @@ namespace Memoria.Accessibility.Navigation
                 if(runs.Count>=MaxRuns){evidence.Kind=FieldExitPathKind.Unknown;return evidence;}
                 var run=new Run(pending.Dequeue());var function=start==null?null:start();
                 if(function==null){evidence.Kind=FieldExitPathKind.Unknown;return evidence;}
+                int? initialEntrance=options!=null && options.TrackInFieldTransfer?function.Snapshot?.Read(0,6,2):null;
                 var state=new State{Position=objectProperty,Party=partyCheck,UserControl=function.Snapshot!=null && function.Snapshot.UserControl,Disable=disableControl,Enable=enableControl,PositionChanges=positionChanges,Options=options};
                 int budget=Budget;
                 bool completed = Function(function, requested, mapJump, worldJump, requestOpcodes, state, run, new HashSet<int>(), ref budget);
                 evidence.ReadsApproachPosition |= run.ReadsApproachPosition;
                 if(!completed || run.Overflow){evidence.Kind=FieldExitPathKind.Unknown;evidence.Stop=run.Stop??(run.Overflow?"decisions":"budget");return evidence;}
+                if(initialEntrance.HasValue && run.UsedChoice && !run.Destination.HasValue && state.UserControl) {
+                    int? after=function.Snapshot.Read(0,6,2);
+                    run.InFieldTransfer=after.HasValue && after!=initialEntrance;
+                }
                 runs.Add(run);
                 // Every decision this run met beyond its prefix spawns its untaken alternatives.
                 for(int k=run.Prefix.Count;k<run.Taken.Count;k++)for(int alt=1;alt<run.Alternatives[k];alt++) {
@@ -100,6 +112,7 @@ namespace Memoria.Accessibility.Navigation
             foreach(var run in runs) {
                 if(run.UsedChoice)evidence.UsesChoice=true;
                 if(run.Dialogue)evidence.Dialogue=true;if(run.Counter)evidence.StoryCounter=true;evidence.Buttons|=run.Buttons;
+                if(run.InFieldTransfer){evidence.InFieldTransfer=true;continue;}
                 if(!run.Destination.HasValue){declines++;continue;}
                 int destination=run.Destination.Value;evidence.Destinations.Add(destination);
                 if(FieldAreaNames.SpiralArea(destination,0)!=0) {
@@ -110,7 +123,8 @@ namespace Memoria.Accessibility.Navigation
                 string writes=run.Writes.ToString();if(signature==null)signature=writes;else if(signature!=writes)sameWrites=false;
             }
             evidence.CanDecline=declines!=0;
-            if(evidence.Destinations.Count==0)evidence.Kind=FieldExitPathKind.NoJump;
+            if(evidence.InFieldTransfer)evidence.Kind=FieldExitPathKind.ChoiceMenu;
+            else if(evidence.Destinations.Count==0)evidence.Kind=FieldExitPathKind.NoJump;
             else if(evidence.Destinations.Count>1 || evidence.UsesChoice && !sameWrites)evidence.Kind=FieldExitPathKind.ChoiceMenu;
             else if(runs.Count==1 || declines==0)evidence.Kind=FieldExitPathKind.Determined;
             else evidence.Kind=FieldExitPathKind.ChoiceSingle;
@@ -165,7 +179,9 @@ namespace Memoria.Accessibility.Navigation
                             // A busy entry does not run an asynchronous REQ; a waiting request cannot be proven now.
                             if(runs==false){if(item.Opcode!=state.Options.AsyncRequest)return Fail(run,function,ip);ip=item.NextOffset;continue;}
                         }
-                        if(!Function(requested(uid.Value,tag.Value,function.Identity,function.Snapshot),requested,mapJump,worldJump,requestOpcodes,state,run,visiting,ref budget))return Fail(run,function,ip);
+                        var called=requested(uid.Value,tag.Value,function.Identity,function.Snapshot);
+                        if(called!=null && run.Dialogue && run.UsedChoice && state.Options?.VisualOnlyRequest?.Invoke(called)==true)state.Position=null;
+                        else if(!Function(called,requested,mapJump,worldJump,requestOpcodes,state,run,visiting,ref budget))return Fail(run,function,ip);
                         if(run.Done)return true;
                     }else if(state.Options!=null && Contains(state.Options.DialogueOpcodes,item.Opcode)){run.Dialogue=true;ip=item.NextOffset;continue;}
                     else if(item.Opcode==state.Disable)state.UserControl=false;
@@ -216,6 +232,20 @@ namespace Memoria.Accessibility.Navigation
                     stack.Push(new Value{Number=number,Taint=number==null && facing?TaintInput:0});continue;
                 }
                 if(op==0x79){p++;if(p>bytes.Length)return false;stack.Push(new Value());continue;}
+                if(op==0x5f) {
+                    int uid=bytes[p++];int? resolved=uid==255?state.SelfUid:uid==250?state.Options?.PlayerUid:uid<250?(int?)uid:null;
+                    stack.Push(new Value{Number=resolved>=0?resolved:null});continue;
+                }
+                if(op==113) {
+                    var actor=stack.Pop();run.ReadsApproachPosition=true;
+                    int? floor=state.Position!=null && actor.Number.HasValue?state.Options?.ObjectFloor?.Invoke(actor.Number.Value):null;
+                    stack.Push(new Value{Number=floor});continue;
+                }
+                if(op==80 || op==81 || op==98 || op==99) {
+                    var angle=stack.Pop();var trig=op==80 || op==98?state.Options?.Sine:state.Options?.Cosine;
+                    int? trigValue=angle.Number.HasValue && trig!=null?(int?)trig(op>=98?angle.Number.Value<<4:angle.Number.Value):null;
+                    stack.Push(new Value{Number=trigValue,Taint=trig!=null?angle.Taint:0});continue;
+                }
                 if(op==102){
                     Value z=stack.Pop(),x=stack.Pop();
                     int? angle=z.Number.HasValue && x.Number.HasValue && state.Options!=null && state.Options.Angle2!=null?
@@ -229,7 +259,11 @@ namespace Memoria.Accessibility.Navigation
                 if(op>=4 && op<=7){var a=stack.Pop();if(!a.Variable)return false;int? next=a.Number.HasValue?(int?)(a.Number.Value+(op==4 || op==6?1:-1)):null;if(!Store(snapshot,run,a,next))return false;stack.Push(new Value{Number=op<6?a.Number:next,Taint=a.Taint});continue;}
                 if(op==12 || op==13 || op==14 || op==15 || op==16 || op>=70 && op<=73){var a=stack.Pop();if(!a.Number.HasValue){stack.Push(new Value{Taint=a.Taint});continue;}int x=a.Number.Value;stack.Push(new Value{Number=op==12?x:op==13?-x:op==16?~x:op==70?(sbyte)x:op==71?(byte)x:op==72?(short)x:op==73?(ushort)x:x==0?1:0,Taint=a.Taint});continue;}
                 var right=stack.Pop();var left=stack.Pop();int taint=left.Taint|right.Taint;
-                if(op==44){if(!left.Variable)return false;if(!Store(snapshot,run,left,right.Number))return false;stack.Push(new Value{Number=right.Number,Taint=right.Taint});continue;}
+                if(op==44 || op==50) {
+                    int? assigned=op==44?right.Number:left.Number+right.Number;
+                    if(!left.Variable || !Store(snapshot,run,left,assigned))return false;
+                    stack.Push(new Value{Number=assigned,Taint=op==44?right.Taint:taint});continue;
+                }
                 if(!left.Number.HasValue || !right.Number.HasValue){if(op<17 || op>40)return false;stack.Push(new Value{Taint=taint});continue;}
                 int aValue=left.Number.Value,bValue=right.Number.Value,result;
                 switch(op) {

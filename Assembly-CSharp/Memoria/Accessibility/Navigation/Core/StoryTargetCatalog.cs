@@ -98,7 +98,9 @@ namespace Memoria.Accessibility.Navigation
         }
         private bool UsesReviewedLink(StoryStage stage,int field,NavigationTarget target,int destination)
         {
-            if(stage.ReviewedLinks==null)return true;
+            // Reviewed links connect the town's rooms. A listed departure still needs the
+            // current portal and its approved approaches, supplied by the native exit reader.
+            if(stage.ReviewedLinks==null || destination>=9000 && Contains(stage.WorldDepartureFields,field))return true;
             foreach(var edge in stage.ReviewedLinks)if(edge.From==field && edge.To==destination &&
                 (edge.ActionUid<0 || edge.ActionUid==target.PhysicalIdentity.NativeId || edge.ActionUid==target.InteractionUid) && Usable(edge,_stageProgress,true,null))return true;
             return false;
@@ -232,7 +234,7 @@ namespace Memoria.Accessibility.Navigation
             int variant=physical.Id.Variant!=0?physical.Id.Variant:physical.PhysicalId.HasValue?physical.Id.NativeId:0;
             return new NavigationTarget{Id=new TargetIdentity(TargetKind.Story,context.LogicalMapKey,milestone*4096+(int)id.Kind*512+id.NativeId,variant),PhysicalId=id,Category=NavigationCategory.Story,
                 Label=label,Availability=physical.Availability,Position=physical.Position,Evidence=physical.Evidence,Generation=context.Generation,
-                IsInteractive=physical.IsInteractive,NativeLocationId=physical.NativeLocationId,InteractionUid=physical.InteractionUid,UseViewingPoint=physical.UseViewingPoint,UseApprovedApproaches=physical.UseApprovedApproaches,SelectDestinationInMenu=physical.SelectDestinationInMenu,
+                IsInteractive=physical.IsInteractive,NativeLocationId=physical.NativeLocationId,InteractionUid=physical.InteractionUid,UseViewingPoint=physical.UseViewingPoint,UseApprovedApproaches=physical.UseApprovedApproaches,SelectDestinationInMenu=physical.SelectDestinationInMenu,RequireInwardApproach=physical.RequireInwardApproach,
                 ApproachCandidates=Copy(physical.ApproachCandidates),InteractionRegion=Copy(physical.InteractionRegion),StoryMilestones=Copy(physical.StoryMilestones),NextFields=Copy(physical.NextFields),DestinationApproaches=FieldExitDestinations.Copy(physical.DestinationApproaches),StoryAction=physical.StoryAction,StoryStepMilestone=physical.StoryStepMilestone,StoryVerb=physical.StoryVerb};
         }
         private static NavigationTarget Information(NavigationContext context,int milestone,string label,string help)

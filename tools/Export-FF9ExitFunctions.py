@@ -130,7 +130,10 @@ CONFIRM_ROUTES = {
     (2917,2):{2918}, (2918,5):{2917}, (2926,7):{2925},
     (2950,19):{2950,2951,2952}, (2952,22):'world', (2954,21):{2955}, (2955,16):{2954},
 }
-CONFIRM_MENU_NAMES = {(2173,8):'Harbor boarding', (2950,19):'Chocobo excavation choice'}
+CONFIRM_MENU_NAMES = {
+    (603,3):'Castle lift', (2151,3):'Castle lift', (2153,3):'Castle lift',
+    (2173,8):'Harbor boarding', (2950,19):'Chocobo excavation choice',
+}
 rows = []
 confirm_rows = []
 for fk in sorted(fields, key=int):

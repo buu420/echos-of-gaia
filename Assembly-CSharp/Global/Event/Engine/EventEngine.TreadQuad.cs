@@ -1,48 +1,51 @@
 ﻿using System;
+using Memoria.Accessibility.Navigation;
 using UnityEngine;
 
 public partial class EventEngine
 {
     public Obj TreadQuad(PosObj po, Int32 mode)
     {
-        Obj obj1 = null;
-        Single x = po.go.transform.position.x;
-        Single z = po.go.transform.position.z;
-        Int32 tagID = (mode & 4) == 0 ? 2 : 3;
-        for (ObjList objList = this._context.activeObj; objList != null; objList = objList.next)
-        {
-            Obj obj2 = objList.obj;
-            if (obj2.cid == 3 && this.GetIP(obj2.sid, tagID, obj2.ebData) != this.nil && this.IsInQuadHotFix((Quad)obj2, x, z))
-            {
-                obj1 = obj2;
-                break;
-            }
-        }
-        return obj1;
+        Int32 tag = (mode & 4) == 0 ? 2 : 3;
+        return this.SelectQuad(po.go.transform.position, tag, po);
     }
 
     // Same read-only region selection as TreadQuad, at a prospective approach.
     // Push (mode 2) selects the first region with a tag 2 handler.
     public Obj NavigationTouchQuadAt(Single x, Single z)
     {
-        return this.NavigationQuadAt(x, z, 2);
+        return this.SelectQuad(new Vector3(x, 0, z), 2, null);
     }
 
     // Talk/Confirm (mode 4) selects the first region with a tag 3 handler.
     public Obj NavigationTalkQuadAt(Single x, Single z)
     {
-        return this.NavigationQuadAt(x, z, 3);
+        return this.SelectQuad(new Vector3(x, 0, z), 3, null);
     }
 
-    private Obj NavigationQuadAt(Single x, Single z, Int32 tagID)
+    private Obj SelectQuad(Vector3 position, Int32 tag, PosObj actor)
     {
+        Quad doorstep = null;
         for (ObjList list = this._context.activeObj; list != null; list = list.next)
         {
             Obj obj = list.obj;
-            if (obj != null && obj.cid == 3 && this.GetIP(obj.sid, tagID, obj.ebData) != this.nil && this.IsInQuadHotFix((Quad)obj, x, z))
-                return obj;
+            if (obj == null || obj.cid != 3 || this.GetIP(obj.sid, tag, obj.ebData) == this.nil)
+                continue;
+            Quad quad = (Quad)obj;
+            if (this.IsInQuadHotFix(quad, position.x, position.z))
+                return quad;
+            if (doorstep == null && this.IsInnDoorstep(quad, position, tag, actor))
+                doorstep = quad;
         }
-        return null;
+        // Any stock region has priority over the small doorstep allowance.
+        return doorstep;
+    }
+
+    private Boolean IsInnDoorstep(Quad quad, Vector3 position, Int32 tag, PosObj actor)
+    {
+        return tag == 2 && this.gMode == 1 && NativeLindblumInnDoorstep.Contains(position.x, position.z) &&
+            (actor == null || this.GetUserControl() && actor.uid == this.GetControlUID() && Math.Abs(position.y - NativeLindblumInnDoorstep.StreetHeight) < 1f) &&
+            NativeLindblumInnDoorstep.Available(FF9StateSystem.Common.FF9.fldMapNo, this.fieldmap, quad);
     }
 
     public Boolean NavigationContainsQuad(Quad quad, Single x, Single z)

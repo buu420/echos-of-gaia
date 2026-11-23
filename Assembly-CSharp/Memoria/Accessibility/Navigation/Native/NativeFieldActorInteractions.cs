@@ -129,13 +129,40 @@ namespace Memoria.Accessibility.Navigation
                 if(engine.GetIP(npc.sid,EventEngine.tagTalk,npc.ebData)!=engine.nil && (npc.flags&EventEngine.flagTalkInh)==0 &&
                     (NativeFieldTalkability.IsTalkable(npc) || NativeFieldTargets.IsReviewedListener(context,engine,npc)))return null;
                 float distance;bool selected=ReferenceEquals(player.fieldMapActorController.walkMesh.Collision(player.fieldMapActorController,2,out distance),npc);
-                bool permitted=npc.level>1 && EventCollision.NavigationCanPushNpc(npc) &&
-                    !((player.flags&FieldInteractionFlags.CollisionInhibitOther)!=0 && (npc.flags&FieldInteractionFlags.CollisionInhibitControl)!=0);
-                var result=FieldInteractionRules.PushReadiness(selected,distance<0,permitted,EIcon.NavigationPresentedUid==npc.uid);
+                bool presented=EIcon.NavigationPresentedUid==npc.uid;
+                bool permitted=EventCollision.NavigationCanPushNpc(npc) &&
+                    !((player.flags&FieldInteractionFlags.CollisionInhibitOther)!=0 && (npc.flags&FieldInteractionFlags.CollisionInhibitControl)!=0) &&
+                    (npc.level>1 || npc.level==1 && selected && distance<0 && presented &&
+                        engine.GetIP(npc.sid,EventEngine.tagTalk,npc.ebData)==engine.nil &&
+                        HasQueuedChestOffer(context,engine,npc,Rendered(npc)));
+                var result=FieldInteractionRules.PushReadiness(selected,distance<0,permitted,presented);
                 result.Evidence="Native push contact selection, request level and the bubble this actor presents; Confirm remains player controlled";
                 return result;
             }catch(Exception){return null;}
         }
+        private static bool HasQueuedChestOffer(NavigationContext context, EventEngine engine, Actor actor, bool rendered)
+        {
+            int shownUid = EIcon.NavigationPresentedUid;
+            if (!rendered || !context.CanControl || shownUid != actor.uid || actor.level != 1 ||
+                FieldVisibleLabels.Read(actor.model) != "Chest") return false;
+            int offset = 4 * actor.sofs;
+            if (actor.buffer == null || offset > actor.buffer.Length - 8) return false;
+            int entry = engine.GetIP(actor.sid, EventEngine.tagPush, actor.ebData);
+            var state = new FieldTouchConfirmation {
+                CanControl = context.CanControl, Uid = actor.uid, ShownUid = shownUid,
+                Level = actor.level, Ip = actor.ip, Depth = actor.sx, Wait = actor.wait,
+                OriginalBytes = !actor.isAdditionCommand && ReferenceEquals(actor.currentByte, actor.ebData),
+                Running = actor.state == EventEngine.stateRunning,
+                SavedIp = BitConverter.ToInt32(actor.buffer, offset),
+                SavedStatus = BitConverter.ToInt32(actor.buffer, offset + 4)
+            };
+            if (!state.IsQueuedPush(entry)) return false;
+            Reset(context);
+            var snapshot = FrameSnapshot(engine).WithInstance(ScriptSnapshot.InstanceBytes(actor.buffer, actor.vofs));
+            var guard = FieldInteractionGuard.Evaluate(Decode(engine, actor, EventEngine.tagPush), snapshot, _opcodes, true);
+            return state.CanConfirmQueuedPush(entry, rendered, guard);
+        }
+
         private static bool TryBind(NavigationContext context,EventEngine engine,Actor player,Actor actor,out Quad region,out FieldInteractionBinding binding)
         {
             region=null;binding=null;int map=FF9StateSystem.Common.FF9.fldMapNo;
@@ -179,10 +206,14 @@ namespace Memoria.Accessibility.Navigation
                 gates.ReviewedListener=!gates.TalkBytesActive && NativeFieldTargets.IsReviewedListener(context,engine,actor);
                 gates.MapTalkAllowed=NativeInteractionProbe.NativeTalkGuard(engine,actor);
             }
-            if(gates.HasPushHandler)gates.MapPushAllowed=EventCollision.NavigationCanPushNpc(actor);
+            if(gates.HasPushHandler) {
+                gates.MapPushAllowed=EventCollision.NavigationCanPushNpc(actor);
+                gates.QueuedPushOffer=gates.MapPushAllowed && !gates.HasTalkHandler && observation.ShowsIcon &&
+                    HasQueuedChestOffer(context,engine,actor,observation.Visible);
+            }
             var talk=FieldInteractionRules.Talk(gates,FieldInteractionState.Unknown);
             if(talk==FieldInteractionState.Unknown && !gates.ReviewedListener)talk=FieldInteractionRules.Talk(gates,Guard(engine,actor,EventEngine.tagTalk));
-            var push=FieldInteractionRules.Push(gates,FieldInteractionState.Unknown);
+            var push=FieldInteractionRules.Push(gates,gates.QueuedPushOffer?FieldInteractionState.Available:FieldInteractionState.Unknown);
             if(push==FieldInteractionState.Unknown)push=FieldInteractionRules.Push(gates,Guard(engine,actor,EventEngine.tagPush));
             bool? interactive=FieldInteractionRules.Interactive(talk,push);
             if(!interactive.HasValue)return;

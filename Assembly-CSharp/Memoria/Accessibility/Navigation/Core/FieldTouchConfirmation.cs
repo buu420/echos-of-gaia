@@ -12,7 +12,20 @@ namespace Memoria.Accessibility.Navigation
         public bool Ready {get {
             if(Field!=2108 || Uid!=6 || Sid!=6 || Hash!=SourceHash || !CanControl || ShownUid!=6 || !SelectedTouch || !Contains || !NativeFacingAllowed || !OriginalBytes || !Running || Wait!=0 ||
                 CallbackSid!=4 || CallbackModel!=5478 || CallbackHash!=CallbackSourceHash || !CallbackRunning || !CallbackOriginalBytes || CallbackLevel<=4 || !CallbackHasTag)return false;
-            return Level==7 && Ip==-1 && Depth==0 || Level==1 && Ip==30 && Depth==2 && SavedIp==-1 && (SavedStatus & 0xffffff)==0xff0700;
+            return Level==7 && Ip==-1 && Depth==0 || IsQueuedPush(30);
         }}
+
+        internal bool IsQueuedPush(int entry)
+        {
+            // The collision pass schedules Push after event code runs. An idle
+            // level-7 object then has one async frame on its event stack.
+            return entry>=0 && OriginalBytes && Running && Level==1 && Ip==entry &&
+                Depth==2 && Wait==0 && SavedIp==-1 && (SavedStatus & 0xffffff)==0xff0700;
+        }
+
+        internal bool CanConfirmQueuedPush(int entry, bool rendered, FieldInteractionState guard)
+        {
+            return CanControl && rendered && ShownUid==Uid && IsQueuedPush(entry) && guard==FieldInteractionState.Available;
+        }
     }
 }

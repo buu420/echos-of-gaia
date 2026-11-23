@@ -45,6 +45,7 @@ namespace Memoria.Accessibility.Navigation
         public int InteractionUid = -1;
         public NavigationPoint[] InteractionRegion;
         public bool UseViewingPoint;
+        public bool RequireInwardApproach;
         public bool SelectDestinationInMenu;
         public TargetIdentity? PhysicalId;
         public TargetIdentity PhysicalIdentity {get{return PhysicalId??Id;}}

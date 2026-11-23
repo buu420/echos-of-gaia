@@ -5853,6 +5853,37 @@
       }
     },
     {
+      "id": "lindblum-siege-reviewed-fountain-contact",
+      "field": 1307,
+      "sid": 4,
+      "uid": 4,
+      "hash": "1c4daf0407e52763a559b58b50269505de248aadfe5165ee317d72337fc59fa5",
+      "kind": "talk",
+      "source": "reviewed-prefix",
+      "priority": 0,
+      "floor": 5670,
+      "ceiling": 5680,
+      "milestone": 5680,
+      "action": "Talk to the man by the fountain about leaving Lindblum",
+      "label": null,
+      "guards": [],
+      "completion": [],
+      "effects": [
+        {
+          "sid": 4,
+          "uid": 4,
+          "tag": 3,
+          "offset": 114,
+          "hash": "1c4daf0407e52763a559b58b50269505de248aadfe5165ee317d72337fc59fa5",
+          "proof": "reached"
+        }
+      ],
+      "evidence": {
+        "nativeChoice": 169,
+        "counterWrite": 277
+      }
+    },
+    {
       "id": "lindblum-first-reviewed-first-lift",
       "field": 611,
       "sid": 8,
@@ -41402,6 +41433,462 @@
       ]
     },
     {
+      "id": "lindblum-first-reviewed-find-tantalus",
+      "floor": 3110,
+      "ceiling": 3115,
+      "milestone": 3115,
+      "field": 565,
+      "uids": [],
+      "action": "Go to the Tantalus hideout in the Theater District.",
+      "goal": "Lindblum",
+      "rooms": [
+        {
+          "field": 550,
+          "directorHash": "8cbd45718e65405104ddedfade059cec845b036fd53f1be5414e9f27e75c3b74"
+        },
+        {
+          "field": 551,
+          "directorHash": "51dc18d8b31a880044d1a732c7cf24aee5a84f938aa70888461f69bcc2866137"
+        },
+        {
+          "field": 552,
+          "directorHash": "ea12b843a139e2ef4c5d9a6652673b31ba3a0b4ee82fa4d06f059473e4c2eb6e"
+        },
+        {
+          "field": 553,
+          "directorHash": "0504e4e9d7e096575c0aaa8b60f2dbec790713cad2fc2887a245e87caab9aba6"
+        },
+        {
+          "field": 554,
+          "directorHash": "83fbf3800d358e9384e98b37b3bb913b73399938db2e133f41733b6af3be63e2"
+        },
+        {
+          "field": 555,
+          "directorHash": "733368f9ac4ada9111195c78741246b5cb6724669cdde6264cab6148083bf825"
+        },
+        {
+          "field": 556,
+          "directorHash": "fb09b8e2405087eae4962dd47c353bc3921ce78ddcc98bbb4989fdc9469b1169"
+        },
+        {
+          "field": 557,
+          "directorHash": "eeaae835b387f0c16136e1b6be1d6275e5ba09c16af942a260873b0107958d27"
+        },
+        {
+          "field": 558,
+          "directorHash": "2b688635843d921ecb9ed544814451e0d8061ee39b34dfd8d2cc2fca8896196d"
+        },
+        {
+          "field": 559,
+          "directorHash": "b85b8e6276146e53a5fb6d5bfd7f360f10bb84d2cb91560658969f7a80ca6cdd"
+        },
+        {
+          "field": 560,
+          "directorHash": "041d8e8d4d558b9a74be9c909e205ba6d3a82e8801cabad30e8bfdb57733806a"
+        },
+        {
+          "field": 561,
+          "directorHash": "bc3a6d597c4f687a0df6fe5df43f15dc16b6c64cab3293236f148022cc8ce943"
+        },
+        {
+          "field": 562,
+          "directorHash": "c9c1552636c9cf8eb37bfe643c84b23e3d8661d0b2db9b602ebfa719ca272faa"
+        },
+        {
+          "field": 563,
+          "directorHash": "b8f1783beb59ea1aa834eea97dcbbc84c0e6e6499350e14ba41323032e4336b5"
+        },
+        {
+          "field": 564,
+          "directorHash": "64b19925144b296ae503e526b1ab4e5c3743b35ae6602d30364e0e9253b2e3e3"
+        },
+        {
+          "field": 565,
+          "directorHash": "9cec1e7276da764444566027087c9552dec06cd1cf4675e576925a458ba46080"
+        },
+        {
+          "field": 566,
+          "directorHash": "9a03a25764e076866f4528e9e9cf2c0fe65a989ab9357263c9a2f531863bf611"
+        },
+        {
+          "field": 567,
+          "directorHash": "8a904c21bd09012b7151d55e3d61978add5082acaa322f1123545594ce169333"
+        },
+        {
+          "field": 568,
+          "directorHash": "36eba4e87dc6d2ef428d86908411b2a0b3eefd9f52532de49d47602307a66681"
+        },
+        {
+          "field": 569,
+          "directorHash": "b1076441da4b58224060109e9fd72b62b8e2872de9668339f92983c559b52cd3"
+        },
+        {
+          "field": 570,
+          "directorHash": "f270474687b21ff5fee4beaebf2cba8e67603d57d7c0681457ebbe700a7a9be3"
+        },
+        {
+          "field": 571,
+          "directorHash": "5f82f8016419be315226a1eb8726b8621a2648b54871a6a2e27c287f333768b2"
+        },
+        {
+          "field": 572,
+          "directorHash": "e5607c1695947862a6bc73670dd66a75c13bb49b329d6ac0d186b29b23e85081"
+        },
+        {
+          "field": 573,
+          "directorHash": "76e0c084f5a0245fe568f57ae6dd84c3dd29a888a81cc7c65dd3c9d108003c87"
+        },
+        {
+          "field": 609,
+          "directorHash": "fb5d217486bb596f447f72b299513373e1a04c5035f62f1ae263aba6baf1f464"
+        },
+        {
+          "field": 610,
+          "directorHash": "f81ecb3517d239aee0a09bbd24e7e8e4f0bee403e8a4e2bef01bba9658b2160a"
+        },
+        {
+          "field": 611,
+          "directorHash": "6d15e226c1a5fae414bd67137dd743587dd2e0595afc785557bea4bb541ab8bc"
+        },
+        {
+          "field": 612,
+          "directorHash": "f871dad45c1112f79740ac9dc88d100f0026316491ad4d284e3d8326c033392b"
+        },
+        {
+          "field": 613,
+          "directorHash": "f2644908f81baea9c825066ac0f11af2dc685a9a2ec02bd9b5a120887214a224"
+        },
+        {
+          "field": 614,
+          "directorHash": "1bf771cccfed4edcbf618d5325ee348f59fda5955931156a00e5234499798dbc"
+        }
+      ],
+      "guards": [],
+      "links": [
+        {
+          "from": 550,
+          "to": 552,
+          "sid": 18,
+          "uid": 18,
+          "tag": 2,
+          "offset": 257,
+          "hash": "1cee953cd7dfdce27997da4425a1ced41fa518c5e5073ea877e084c957dd7ffa",
+          "guards": []
+        },
+        {
+          "from": 550,
+          "to": 552,
+          "sid": 18,
+          "uid": 18,
+          "tag": 2,
+          "offset": 445,
+          "hash": "1cee953cd7dfdce27997da4425a1ced41fa518c5e5073ea877e084c957dd7ffa",
+          "guards": []
+        },
+        {
+          "from": 552,
+          "to": 551,
+          "sid": 22,
+          "uid": 22,
+          "tag": 2,
+          "offset": 636,
+          "hash": "e8a19cfa44dd00b56a87265ac78199ce45f5e81304e76ffbca649dc20999c3f0",
+          "guards": []
+        },
+        {
+          "from": 553,
+          "to": 552,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 229,
+          "hash": "ac526127eb9e236ff4711dec7b5795aac9e220f2e51902e4bbb5f459353a5110",
+          "guards": []
+        },
+        {
+          "from": 554,
+          "to": 553,
+          "sid": 3,
+          "uid": 3,
+          "tag": 2,
+          "offset": 191,
+          "hash": "961fe3be82b16ea1f4244082eed6c827bcc244423b8d8841e8adba4c26cd4cc5",
+          "guards": []
+        },
+        {
+          "from": 555,
+          "to": 552,
+          "sid": 22,
+          "uid": 22,
+          "tag": 2,
+          "offset": 251,
+          "hash": "aee51ef449d4122d923e57dcfbcd2f75622aac0348999b0b59b2e1d96e81e6b8",
+          "guards": []
+        },
+        {
+          "from": 556,
+          "to": 555,
+          "sid": 18,
+          "uid": 18,
+          "tag": 2,
+          "offset": 251,
+          "hash": "d36267a475fa6ccc6ddc02a93577f5e9bb67ebd77e3df5eb09f5581af3a1ecbc",
+          "guards": []
+        },
+        {
+          "from": 557,
+          "to": 556,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 191,
+          "hash": "6f7b130d8407743dc2350c58ea31acb03960d7ce9fc9023e428e2b9ba9497f4f",
+          "guards": []
+        },
+        {
+          "from": 558,
+          "to": 555,
+          "sid": 5,
+          "uid": 5,
+          "tag": 2,
+          "offset": 230,
+          "hash": "420b2c53efe739854ee8838b302578ccef20986988dfe31974ed0278c9f4b25d",
+          "guards": []
+        },
+        {
+          "from": 559,
+          "to": 555,
+          "sid": 28,
+          "uid": 28,
+          "tag": 2,
+          "offset": 282,
+          "hash": "417c6914663ccf5ab5a57b01bd00e28151a10cf0e88c61da3aa4eecdebf307e9",
+          "guards": []
+        },
+        {
+          "from": 560,
+          "to": 559,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 229,
+          "hash": "983d64c97b136ad6d4972e5c854d028be37301e74e127653a3dc8e315cc8a321",
+          "guards": []
+        },
+        {
+          "from": 561,
+          "to": 559,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 191,
+          "hash": "56b97dba61f1638f68318894e817de9b33bb2d2af1747208198b577f290bb558",
+          "guards": []
+        },
+        {
+          "from": 562,
+          "to": 559,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 191,
+          "hash": "ff0ca8a86f80e25c4bb571555bc1ee76ec4c7eb8754ee1ff857a39acdcaf4209",
+          "guards": []
+        },
+        {
+          "from": 563,
+          "to": 566,
+          "sid": 14,
+          "uid": 14,
+          "tag": 2,
+          "offset": 245,
+          "hash": "bbef8752fc2a0e4717712631666800ce6be3baeebda7c5b11f1c5873314889f1",
+          "guards": []
+        },
+        {
+          "from": 564,
+          "to": 566,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 235,
+          "hash": "1e98f6d9d488f88731fb4872135bb0cf9596ad8dbfbd3f1d213d582ee385407b",
+          "guards": []
+        },
+        {
+          "from": 566,
+          "to": 567,
+          "sid": 23,
+          "uid": 23,
+          "tag": 2,
+          "offset": 245,
+          "hash": "41dde586b667ff28e55edd95525d82baefb8030cf7fc03a4f3cf135bea38b4e3",
+          "guards": []
+        },
+        {
+          "from": 567,
+          "to": 565,
+          "sid": 22,
+          "uid": 22,
+          "tag": 2,
+          "offset": 366,
+          "hash": "35517ac0e5f4f3096cce54586e3f32639ddaa9791856ff2640ed6598f612ea45",
+          "guards": []
+        },
+        {
+          "from": 568,
+          "to": 567,
+          "sid": 23,
+          "uid": 23,
+          "tag": 2,
+          "offset": 243,
+          "hash": "129399f81e911485e28a44db3b8d3268d4dcf1b45ab87ccd46f9f22f36efd4fe",
+          "guards": []
+        },
+        {
+          "from": 569,
+          "to": 572,
+          "sid": 22,
+          "uid": 22,
+          "tag": 2,
+          "offset": 245,
+          "hash": "4f3ca2628b3b9cccf05153ce5b9c8ea158f6d11a3aa9850eeb3b59474fc19aa2",
+          "guards": []
+        },
+        {
+          "from": 570,
+          "to": 569,
+          "sid": 23,
+          "uid": 23,
+          "tag": 2,
+          "offset": 251,
+          "hash": "fb756e68b4ec7c065ccce1250d535449995f2ccd91ca0081231ed268aa1dff5d",
+          "guards": []
+        },
+        {
+          "from": 571,
+          "to": 570,
+          "sid": 15,
+          "uid": 15,
+          "tag": 2,
+          "offset": 273,
+          "hash": "674d730edab0b2375adb787ecec283812cec3d5ce7ba5f81dada70c7a41b31b3",
+          "guards": []
+        },
+        {
+          "from": 573,
+          "to": 570,
+          "sid": 5,
+          "uid": 5,
+          "tag": 2,
+          "offset": 229,
+          "hash": "0d93f8551ce7aef2cf6e781b8cecbbb47d2e206d57dcc341c74bacc290e0e460",
+          "guards": []
+        },
+        {
+          "from": 609,
+          "to": 612,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 191,
+          "hash": "4f3ec862c924a1d30544a492baaf0bfe10b4c0424a58d9895f6445684c57a0c9",
+          "guards": []
+        },
+        {
+          "from": 611,
+          "to": 612,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 191,
+          "hash": "fc2143ba35a1a28a192a0f995b0a485b2878396884266dc2d6190976da358dba",
+          "guards": []
+        },
+        {
+          "from": 612,
+          "to": 613,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 191,
+          "hash": "e7b593fa69d35f75c5bc7a79f376de23eaa5aaed3538f0f65a90c8c28f0a9b7c",
+          "guards": []
+        },
+        {
+          "from": 613,
+          "to": 614,
+          "sid": 13,
+          "uid": 13,
+          "tag": 2,
+          "offset": 254,
+          "hash": "fb0c4eb15898a9483a7a777f70819dc1de85a5ecea8c8ed2f78487fa46b3ea4e",
+          "guards": []
+        },
+        {
+          "from": 614,
+          "to": 610,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 203,
+          "hash": "689251f03f300a8b91e4cc0cc3921eb941668e81be8cc2ad9192fb2577f6fa93",
+          "guards": []
+        },
+        {
+          "from": 551,
+          "to": 563,
+          "sid": 13,
+          "uid": 13,
+          "tag": 2,
+          "offset": 258,
+          "hash": "50c5bed157c540d17efb9e586338e04cddb5b093ae65deea60c2522c1da8a0db",
+          "guards": [],
+          "via": {
+            "sid": 12,
+            "uid": 12,
+            "tag": 28,
+            "offset": 755,
+            "hash": "fefc8d89ab6ee0c6d841a813b9ecd646ea577bca9b95519a39003edf4a7a8f0d"
+          }
+        },
+        {
+          "from": 572,
+          "to": 563,
+          "sid": 15,
+          "uid": 15,
+          "tag": 2,
+          "offset": 224,
+          "hash": "cdc74b73ca1e7f8a4d455e475dd233d71f6d5f226cc0ce7f0e4cec4120bbc98f",
+          "guards": [],
+          "via": {
+            "sid": 14,
+            "uid": 14,
+            "tag": 30,
+            "offset": 894,
+            "hash": "1a803a4938a26f9a96bf04a2c7ea3d1501c70800db10648ee73fe1f0a99fea8b"
+          }
+        },
+        {
+          "from": 610,
+          "to": 563,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 207,
+          "hash": "c11b413abde379d67f9ca2114890b186706a4b485a0ddbce2d91bfdab53072a2",
+          "guards": [],
+          "via": {
+            "sid": 6,
+            "uid": 6,
+            "tag": 29,
+            "offset": 1388,
+            "hash": "15bfca5c05f4e8dfb351c4222b80c92cc5a2a23f4489576c99477252d1883660"
+          }
+        }
+      ]
+    },
+    {
       "id": "lindblum-first-reviewed-after-hideout",
       "floor": 3115,
       "ceiling": 3118,
@@ -53578,6 +54065,627 @@
       ]
     },
     {
+      "id": "lindblum-first-reviewed-post-hunt-departure",
+      "floor": 3700,
+      "ceiling": 3710,
+      "milestone": 3710,
+      "field": 618,
+      "uids": [],
+      "action": "Leave Lindblum for Gizamaluke's Grotto.",
+      "goal": "Gizamaluke's Grotto",
+      "rooms": [
+        {
+          "field": 550,
+          "directorHash": "8cbd45718e65405104ddedfade059cec845b036fd53f1be5414e9f27e75c3b74"
+        },
+        {
+          "field": 551,
+          "directorHash": "51dc18d8b31a880044d1a732c7cf24aee5a84f938aa70888461f69bcc2866137"
+        },
+        {
+          "field": 552,
+          "directorHash": "ea12b843a139e2ef4c5d9a6652673b31ba3a0b4ee82fa4d06f059473e4c2eb6e"
+        },
+        {
+          "field": 553,
+          "directorHash": "0504e4e9d7e096575c0aaa8b60f2dbec790713cad2fc2887a245e87caab9aba6"
+        },
+        {
+          "field": 554,
+          "directorHash": "83fbf3800d358e9384e98b37b3bb913b73399938db2e133f41733b6af3be63e2"
+        },
+        {
+          "field": 555,
+          "directorHash": "733368f9ac4ada9111195c78741246b5cb6724669cdde6264cab6148083bf825"
+        },
+        {
+          "field": 556,
+          "directorHash": "fb09b8e2405087eae4962dd47c353bc3921ce78ddcc98bbb4989fdc9469b1169"
+        },
+        {
+          "field": 557,
+          "directorHash": "eeaae835b387f0c16136e1b6be1d6275e5ba09c16af942a260873b0107958d27"
+        },
+        {
+          "field": 558,
+          "directorHash": "2b688635843d921ecb9ed544814451e0d8061ee39b34dfd8d2cc2fca8896196d"
+        },
+        {
+          "field": 559,
+          "directorHash": "b85b8e6276146e53a5fb6d5bfd7f360f10bb84d2cb91560658969f7a80ca6cdd"
+        },
+        {
+          "field": 560,
+          "directorHash": "041d8e8d4d558b9a74be9c909e205ba6d3a82e8801cabad30e8bfdb57733806a"
+        },
+        {
+          "field": 561,
+          "directorHash": "bc3a6d597c4f687a0df6fe5df43f15dc16b6c64cab3293236f148022cc8ce943"
+        },
+        {
+          "field": 562,
+          "directorHash": "c9c1552636c9cf8eb37bfe643c84b23e3d8661d0b2db9b602ebfa719ca272faa"
+        },
+        {
+          "field": 563,
+          "directorHash": "b8f1783beb59ea1aa834eea97dcbbc84c0e6e6499350e14ba41323032e4336b5"
+        },
+        {
+          "field": 564,
+          "directorHash": "64b19925144b296ae503e526b1ab4e5c3743b35ae6602d30364e0e9253b2e3e3"
+        },
+        {
+          "field": 565,
+          "directorHash": "9cec1e7276da764444566027087c9552dec06cd1cf4675e576925a458ba46080"
+        },
+        {
+          "field": 566,
+          "directorHash": "9a03a25764e076866f4528e9e9cf2c0fe65a989ab9357263c9a2f531863bf611"
+        },
+        {
+          "field": 567,
+          "directorHash": "8a904c21bd09012b7151d55e3d61978add5082acaa322f1123545594ce169333"
+        },
+        {
+          "field": 568,
+          "directorHash": "36eba4e87dc6d2ef428d86908411b2a0b3eefd9f52532de49d47602307a66681"
+        },
+        {
+          "field": 569,
+          "directorHash": "b1076441da4b58224060109e9fd72b62b8e2872de9668339f92983c559b52cd3"
+        },
+        {
+          "field": 570,
+          "directorHash": "f270474687b21ff5fee4beaebf2cba8e67603d57d7c0681457ebbe700a7a9be3"
+        },
+        {
+          "field": 571,
+          "directorHash": "5f82f8016419be315226a1eb8726b8621a2648b54871a6a2e27c287f333768b2"
+        },
+        {
+          "field": 572,
+          "directorHash": "e5607c1695947862a6bc73670dd66a75c13bb49b329d6ac0d186b29b23e85081"
+        },
+        {
+          "field": 573,
+          "directorHash": "76e0c084f5a0245fe568f57ae6dd84c3dd29a888a81cc7c65dd3c9d108003c87"
+        },
+        {
+          "field": 600,
+          "directorHash": "27c710c3a24e64b48e37fe253627863c5cc95b3582f0f39dec45c109d494e8d0"
+        },
+        {
+          "field": 601,
+          "directorHash": "cb189d5c65f231fefc8f2a6809fedb44b9f07be1f3da2c0f86d66a5616b312a1"
+        },
+        {
+          "field": 602,
+          "directorHash": "34a9ec99bc08aa5d5ec32aacb5b9501b6e1105337517643f1fc20e9866f0f18f"
+        },
+        {
+          "field": 603,
+          "directorHash": "ea8adc0e6e9aa0ca36282ed676c034ea6a3fbde22f8ff75f057112da91b2ce97"
+        },
+        {
+          "field": 604,
+          "directorHash": "d0bdfe19525b42f83732f23d8ba0ef2b1443be45467211ebe805996a3ad5b694"
+        },
+        {
+          "field": 605,
+          "directorHash": "2ba5256d917b91416411ff748bfd924a698bc4c5e74c555e381d2b0bffddf50e"
+        },
+        {
+          "field": 609,
+          "directorHash": "fb5d217486bb596f447f72b299513373e1a04c5035f62f1ae263aba6baf1f464"
+        },
+        {
+          "field": 610,
+          "directorHash": "f81ecb3517d239aee0a09bbd24e7e8e4f0bee403e8a4e2bef01bba9658b2160a"
+        },
+        {
+          "field": 611,
+          "directorHash": "6d15e226c1a5fae414bd67137dd743587dd2e0595afc785557bea4bb541ab8bc"
+        },
+        {
+          "field": 612,
+          "directorHash": "f871dad45c1112f79740ac9dc88d100f0026316491ad4d284e3d8326c033392b"
+        },
+        {
+          "field": 613,
+          "directorHash": "f2644908f81baea9c825066ac0f11af2dc685a9a2ec02bd9b5a120887214a224"
+        },
+        {
+          "field": 614,
+          "directorHash": "1bf771cccfed4edcbf618d5325ee348f59fda5955931156a00e5234499798dbc"
+        },
+        {
+          "field": 615,
+          "directorHash": "49feb1ef54f27d735c3c9c8462b90edd726b30407ea6a029c4cc80403955a004"
+        },
+        {
+          "field": 616,
+          "directorHash": "34da7acf677f1c97444eceea4b3af18ce02fd01c38b4f7cd4e7d70ba89c94a48"
+        },
+        {
+          "field": 617,
+          "directorHash": "5b5c2997579a9def5e817edbe9abf451c87d6deb768b6d2085458856a17ff4e8"
+        },
+        {
+          "field": 618,
+          "directorHash": "9fc5527debe7d6f574aa5923aab00447474dfa2e04d354b514b734dc3a6b21c9"
+        },
+        {
+          "field": 619,
+          "directorHash": "4467c39d1685d547e28bbab823bda544650c27938d4cfd4849a451c44bacefd2"
+        }
+      ],
+      "guards": [],
+      "worldDepartureFields": [
+        550,
+        602
+      ],
+      "links": [
+        {
+          "from": 551,
+          "to": 552,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 246,
+          "hash": "84dc62d1a7f348524bfa6fade1b746359a11cfb904a068a8131208a31b72d9c9",
+          "guards": []
+        },
+        {
+          "from": 552,
+          "to": 550,
+          "sid": 23,
+          "uid": 23,
+          "tag": 2,
+          "offset": 285,
+          "hash": "a1e3bda14dd5b831cad2e718a6afa878a610e44a2d2f9959a4261956f52ed34b",
+          "guards": []
+        },
+        {
+          "from": 553,
+          "to": 552,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 229,
+          "hash": "ac526127eb9e236ff4711dec7b5795aac9e220f2e51902e4bbb5f459353a5110",
+          "guards": []
+        },
+        {
+          "from": 554,
+          "to": 553,
+          "sid": 3,
+          "uid": 3,
+          "tag": 2,
+          "offset": 191,
+          "hash": "961fe3be82b16ea1f4244082eed6c827bcc244423b8d8841e8adba4c26cd4cc5",
+          "guards": []
+        },
+        {
+          "from": 555,
+          "to": 552,
+          "sid": 22,
+          "uid": 22,
+          "tag": 2,
+          "offset": 251,
+          "hash": "aee51ef449d4122d923e57dcfbcd2f75622aac0348999b0b59b2e1d96e81e6b8",
+          "guards": []
+        },
+        {
+          "from": 556,
+          "to": 555,
+          "sid": 18,
+          "uid": 18,
+          "tag": 2,
+          "offset": 251,
+          "hash": "d36267a475fa6ccc6ddc02a93577f5e9bb67ebd77e3df5eb09f5581af3a1ecbc",
+          "guards": []
+        },
+        {
+          "from": 557,
+          "to": 556,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 191,
+          "hash": "6f7b130d8407743dc2350c58ea31acb03960d7ce9fc9023e428e2b9ba9497f4f",
+          "guards": []
+        },
+        {
+          "from": 558,
+          "to": 555,
+          "sid": 5,
+          "uid": 5,
+          "tag": 2,
+          "offset": 230,
+          "hash": "420b2c53efe739854ee8838b302578ccef20986988dfe31974ed0278c9f4b25d",
+          "guards": []
+        },
+        {
+          "from": 559,
+          "to": 555,
+          "sid": 28,
+          "uid": 28,
+          "tag": 2,
+          "offset": 282,
+          "hash": "417c6914663ccf5ab5a57b01bd00e28151a10cf0e88c61da3aa4eecdebf307e9",
+          "guards": []
+        },
+        {
+          "from": 560,
+          "to": 559,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 229,
+          "hash": "983d64c97b136ad6d4972e5c854d028be37301e74e127653a3dc8e315cc8a321",
+          "guards": []
+        },
+        {
+          "from": 561,
+          "to": 559,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 191,
+          "hash": "56b97dba61f1638f68318894e817de9b33bb2d2af1747208198b577f290bb558",
+          "guards": []
+        },
+        {
+          "from": 562,
+          "to": 559,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 191,
+          "hash": "ff0ca8a86f80e25c4bb571555bc1ee76ec4c7eb8754ee1ff857a39acdcaf4209",
+          "guards": []
+        },
+        {
+          "from": 564,
+          "to": 566,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 235,
+          "hash": "1e98f6d9d488f88731fb4872135bb0cf9596ad8dbfbd3f1d213d582ee385407b",
+          "guards": []
+        },
+        {
+          "from": 565,
+          "to": 567,
+          "sid": 13,
+          "uid": 13,
+          "tag": 2,
+          "offset": 235,
+          "hash": "0508717f5135195b78a1dfe1fae3ef4faa66c441ea4d1075b69c0d1abbd327e8",
+          "guards": []
+        },
+        {
+          "from": 566,
+          "to": 563,
+          "sid": 22,
+          "uid": 22,
+          "tag": 2,
+          "offset": 245,
+          "hash": "9c911df2d406dae483c2cd36c7c67aebd8999923044664cae255f207f09886a0",
+          "guards": []
+        },
+        {
+          "from": 567,
+          "to": 566,
+          "sid": 21,
+          "uid": 21,
+          "tag": 2,
+          "offset": 245,
+          "hash": "043d673bfa18c118280ed39213ff8b47ba742e511637659024d403e1ca2d93a4",
+          "guards": []
+        },
+        {
+          "from": 568,
+          "to": 567,
+          "sid": 23,
+          "uid": 23,
+          "tag": 2,
+          "offset": 243,
+          "hash": "129399f81e911485e28a44db3b8d3268d4dcf1b45ab87ccd46f9f22f36efd4fe",
+          "guards": []
+        },
+        {
+          "from": 569,
+          "to": 572,
+          "sid": 22,
+          "uid": 22,
+          "tag": 2,
+          "offset": 245,
+          "hash": "4f3ca2628b3b9cccf05153ce5b9c8ea158f6d11a3aa9850eeb3b59474fc19aa2",
+          "guards": []
+        },
+        {
+          "from": 570,
+          "to": 569,
+          "sid": 23,
+          "uid": 23,
+          "tag": 2,
+          "offset": 251,
+          "hash": "fb756e68b4ec7c065ccce1250d535449995f2ccd91ca0081231ed268aa1dff5d",
+          "guards": []
+        },
+        {
+          "from": 571,
+          "to": 570,
+          "sid": 15,
+          "uid": 15,
+          "tag": 2,
+          "offset": 273,
+          "hash": "674d730edab0b2375adb787ecec283812cec3d5ce7ba5f81dada70c7a41b31b3",
+          "guards": []
+        },
+        {
+          "from": 573,
+          "to": 570,
+          "sid": 5,
+          "uid": 5,
+          "tag": 2,
+          "offset": 229,
+          "hash": "0d93f8551ce7aef2cf6e781b8cecbbb47d2e206d57dcc341c74bacc290e0e460",
+          "guards": []
+        },
+        {
+          "from": 600,
+          "to": 619,
+          "sid": 14,
+          "uid": 14,
+          "tag": 2,
+          "offset": 191,
+          "hash": "999461144b4f801d79ffdfbfa0c97384634d2b3fa5c790e3859f50db3747582f",
+          "guards": []
+        },
+        {
+          "from": 603,
+          "to": 602,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 380,
+          "hash": "4343f3b4b8e856efbf93e893194f8289c8be00cf31603c9fd0c7588135fd852a",
+          "guards": []
+        },
+        {
+          "from": 604,
+          "to": 605,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 229,
+          "hash": "61f3c0aa924888e02d22e5fc26a5730c6683fbf0e92ddd41831969e2b0c847f1",
+          "guards": []
+        },
+        {
+          "from": 605,
+          "to": 602,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 571,
+          "hash": "52a67582f4fd3e6495c7f4319fef2359f31bddd99d081545a039db5060d4a78b",
+          "guards": []
+        },
+        {
+          "from": 605,
+          "to": 603,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 352,
+          "hash": "52a67582f4fd3e6495c7f4319fef2359f31bddd99d081545a039db5060d4a78b",
+          "guards": []
+        },
+        {
+          "from": 609,
+          "to": 612,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 191,
+          "hash": "4f3ec862c924a1d30544a492baaf0bfe10b4c0424a58d9895f6445684c57a0c9",
+          "guards": []
+        },
+        {
+          "from": 610,
+          "to": 614,
+          "sid": 5,
+          "uid": 5,
+          "tag": 2,
+          "offset": 280,
+          "hash": "676d31371e76ad939b398ec6855ee68feb662dc1fd3b909d54f381a74d382207",
+          "guards": []
+        },
+        {
+          "from": 611,
+          "to": 612,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 191,
+          "hash": "fc2143ba35a1a28a192a0f995b0a485b2878396884266dc2d6190976da358dba",
+          "guards": []
+        },
+        {
+          "from": 612,
+          "to": 613,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 191,
+          "hash": "e7b593fa69d35f75c5bc7a79f376de23eaa5aaed3538f0f65a90c8c28f0a9b7c",
+          "guards": []
+        },
+        {
+          "from": 613,
+          "to": 601,
+          "sid": 15,
+          "uid": 15,
+          "tag": 2,
+          "offset": 230,
+          "hash": "f68fabbb7a70e616349a167110b5867c6cab5bfe59d7eca24d18054a8848f0eb",
+          "guards": []
+        },
+        {
+          "from": 614,
+          "to": 613,
+          "sid": 12,
+          "uid": 12,
+          "tag": 2,
+          "offset": 191,
+          "hash": "97af218d03ff5fb92d48b971e1ae41922a58aa469ee5a6bffa12352c218dd302",
+          "guards": []
+        },
+        {
+          "from": 615,
+          "to": 616,
+          "sid": 4,
+          "uid": 4,
+          "tag": 2,
+          "offset": 241,
+          "hash": "a8b4ec70fb686aabd50317297ccc550fa2b5012f519bc0ee9ded235fd9d4b51a",
+          "guards": []
+        },
+        {
+          "from": 616,
+          "to": 617,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 230,
+          "hash": "52ab415cc99d68de0a49c4c0382cc94cec99f2a484fec7ba09e75f76b85e5734",
+          "guards": []
+        },
+        {
+          "from": 617,
+          "to": 601,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 211,
+          "hash": "bea00fe9369f1eab3cb14d2bbc1948dd9a8c676a41d4d57ccebe49f134af264b",
+          "guards": []
+        },
+        {
+          "from": 618,
+          "to": 619,
+          "sid": 14,
+          "uid": 14,
+          "tag": 2,
+          "offset": 191,
+          "hash": "9d409815fe76f810024d730ea9bdeff0619c757034fb605882fdb982c49b67e2",
+          "guards": []
+        },
+        {
+          "from": 619,
+          "to": 617,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 191,
+          "hash": "cfdef70b25204b24fcb970a8758bd62778862718a2abb7140f8bc780e7c047f8",
+          "guards": []
+        },
+        {
+          "from": 563,
+          "to": 551,
+          "sid": 15,
+          "uid": 15,
+          "tag": 2,
+          "offset": 232,
+          "hash": "497a95e5f68f9f4acc50bda459f8a74b41a8c1c3495f6fc2288b895d8c48326f",
+          "guards": [],
+          "via": {
+            "sid": 13,
+            "uid": 13,
+            "tag": 31,
+            "offset": 770,
+            "hash": "6def7114fd2f1f44070aff3b11333eacdfda73db87559e42b697a88f220a9cfe"
+          }
+        },
+        {
+          "from": 572,
+          "to": 551,
+          "sid": 15,
+          "uid": 15,
+          "tag": 2,
+          "offset": 224,
+          "hash": "cdc74b73ca1e7f8a4d455e475dd233d71f6d5f226cc0ce7f0e4cec4120bbc98f",
+          "guards": [],
+          "via": {
+            "sid": 14,
+            "uid": 14,
+            "tag": 30,
+            "offset": 708,
+            "hash": "1a803a4938a26f9a96bf04a2c7ea3d1501c70800db10648ee73fe1f0a99fea8b"
+          }
+        },
+        {
+          "from": 601,
+          "to": 603,
+          "sid": 5,
+          "uid": 5,
+          "tag": 2,
+          "offset": 108,
+          "hash": "7931d3b9723d9c8e3ddde96d667bf96db20c2ea51be3c3b1ea1317f50ed5096c",
+          "guards": [],
+          "via": {
+            "sid": 4,
+            "uid": 4,
+            "tag": 22,
+            "offset": 601,
+            "hash": "f8c37bbcd323eeb49eb2b38a0cc51c92668ac06b322b25eed1ba10ebc3ecb8b5"
+          }
+        },
+        {
+          "from": 601,
+          "to": 603,
+          "sid": 5,
+          "uid": 5,
+          "tag": 2,
+          "offset": 116,
+          "hash": "7931d3b9723d9c8e3ddde96d667bf96db20c2ea51be3c3b1ea1317f50ed5096c",
+          "guards": [],
+          "via": {
+            "sid": 4,
+            "uid": 4,
+            "tag": 23,
+            "offset": 1182,
+            "hash": "f8c37bbcd323eeb49eb2b38a0cc51c92668ac06b322b25eed1ba10ebc3ecb8b5"
+          }
+        }
+      ]
+    },
+    {
       "id": "lindblum-potions-reviewed-tantalus",
       "floor": 9320,
       "ceiling": 9330,
@@ -64770,6 +65878,1037 @@
         2170
       ],
       "information": "Use the Active Time Event control when the prompt appears. The game presents Team and then Recovery."
+    },
+    {
+      "id": "lindblum-return-reviewed-blue-narciss-harbor-scene",
+      "floor": 9370,
+      "ceiling": 9371,
+      "milestone": 9400,
+      "field": 2105,
+      "uids": [],
+      "action": "Confirm boarding the Blue Narciss.",
+      "goal": "Blue Narciss",
+      "rooms": [
+        {
+          "field": 2105,
+          "directorHash": "5f01a1e7c3e3e48cfc4a8377f7c701a134f53129f5e718cdb90d3aa4ca51e77c"
+        },
+        {
+          "field": 2173,
+          "directorHash": "fa0875daea66b8ecfbc701bbbca0db718d5d6cb66710411ebc6280f2047d536b"
+        }
+      ],
+      "guards": [
+        "e4200e7d0100207f"
+      ],
+      "links": [
+        {
+          "from": 2173,
+          "to": 2105,
+          "sid": 8,
+          "uid": 8,
+          "tag": 3,
+          "offset": 480,
+          "hash": "e08da3455151f370252f49f6a27740fbfc5394d4991593c156fd5cd749fdb0f5",
+          "guards": []
+        }
+      ],
+      "scope": [
+        2173
+      ]
+    },
+    {
+      "id": "lindblum-return-reviewed-blue-narciss-board",
+      "floor": 9370,
+      "ceiling": 9371,
+      "milestone": 9400,
+      "field": 2855,
+      "uids": [],
+      "action": "Head to Serpent\u2019s Gate to board the Blue Narciss.",
+      "goal": "Blue Narciss",
+      "rooms": [
+        {
+          "field": 2100,
+          "directorHash": "10d2ac410229a74b252c86c9f3dda57830c27d7cb3a50f942cd282cfa73e30f1"
+        },
+        {
+          "field": 2101,
+          "directorHash": "aa08d36695860aefc5685f4f0c0a75e80b70e48c9bc8e1d270bcdb2e2ea77d83"
+        },
+        {
+          "field": 2102,
+          "directorHash": "eda5b1d076adadf335f2e83e1ac7e58a141ed37ad0c7b55e3ce102e62b21452d"
+        },
+        {
+          "field": 2103,
+          "directorHash": "152202a78df1c761e1f548fd07d90fdd1de9e5eaf9641650dda30bf2f7ca5e2d"
+        },
+        {
+          "field": 2104,
+          "directorHash": "e1d044823de80a7bb2c2344c26598bccd77753a75f6a83a8edadd0bcaf89b4a4"
+        },
+        {
+          "field": 2105,
+          "directorHash": "5f01a1e7c3e3e48cfc4a8377f7c701a134f53129f5e718cdb90d3aa4ca51e77c"
+        },
+        {
+          "field": 2106,
+          "directorHash": "aad530393648366bfd3c4f15b41cf12ab2663c92a4d98fc9ba713ee04a065959"
+        },
+        {
+          "field": 2107,
+          "directorHash": "4d49dbd316cd701b126892d20661d76f93f791a38cb058dcb456a740bc2eb52e"
+        },
+        {
+          "field": 2108,
+          "directorHash": "558ec08cab22c681fc4acd8ed085dd55a86619bdaca18480116ab75388c5d984"
+        },
+        {
+          "field": 2109,
+          "directorHash": "555a1ac4d24144ab5d6802470f66431964ac16f950cb0c75f298733723da2260"
+        },
+        {
+          "field": 2110,
+          "directorHash": "80b10d425b69901feaf24e4cddc4f7693d64e7611cf5983e1c038fa5d92846d5"
+        },
+        {
+          "field": 2111,
+          "directorHash": "836583415b0584492a00fe6ce4e7cc2f559b53ba2a4f4bf879bf859c8aef7d42"
+        },
+        {
+          "field": 2112,
+          "directorHash": "ccac91201a5489c5820d325b279de4ac8cdb6c9ce9d21f44648af18ade90d0bd"
+        },
+        {
+          "field": 2113,
+          "directorHash": "7df952c56025220f75da8d55dd968869b4d6f547aa8bbb7f9143d59403039543"
+        },
+        {
+          "field": 2114,
+          "directorHash": "1019d88ba25ec3530885559139bd1c94f4469af71c896bf4c85ce34e7127db56"
+        },
+        {
+          "field": 2150,
+          "directorHash": "b1b1261939930299ebd41b74b5d9081cce6c64dc78c63e6660576679fd1b2a90"
+        },
+        {
+          "field": 2151,
+          "directorHash": "89a247c68d82ed3c04ebd287092294b8f30f51c45fb97cc53600adb9d451ee48"
+        },
+        {
+          "field": 2152,
+          "directorHash": "0dc8e791cd17145f5ae796eca0113440c87978bbbf96836224267e3b7c5d2774"
+        },
+        {
+          "field": 2153,
+          "directorHash": "9f706bc6621d12950f9460a087941ccedbd18107f961d1e916b111a902dc68bd"
+        },
+        {
+          "field": 2155,
+          "directorHash": "0491e63cd5c838bf5526be2f47ee59243f393496e4e67e7a96bde368ab3ce3fc"
+        },
+        {
+          "field": 2157,
+          "directorHash": "0917c1fe0a285ebbad5ba1f1b7e6cf4b92c5e7d0150c2ea1f3501f93d98e2c8f"
+        },
+        {
+          "field": 2158,
+          "directorHash": "d4a683ee6be887d43b875bfe4d20aa6ed99406a59440d93bff46118cfca63194"
+        },
+        {
+          "field": 2159,
+          "directorHash": "497ce6e32476efde99b4df41bbc6c9509b84e16de5ba67b9fb5c02cdcfeb92c1"
+        },
+        {
+          "field": 2160,
+          "directorHash": "2b1cdb67f25c909a867cefad30eff7d18d91ddafb5851a457503122036eb7256"
+        },
+        {
+          "field": 2161,
+          "directorHash": "18d5ff8057805c6dca2b257427e5bbfad25466dc7f52918668ef6098315b602f"
+        },
+        {
+          "field": 2162,
+          "directorHash": "0022798fe282b6f3a3fdc7d18cc03ae219bfd8cc38015e718b3a25d05cb17c00"
+        },
+        {
+          "field": 2163,
+          "directorHash": "e45577e78d560777ea571362f28bc8c69d1a0294c97b6f88050f6d51bf3d75c3"
+        },
+        {
+          "field": 2164,
+          "directorHash": "abeacc323d0f026cd432b0d6e1899c8c844414c3d1c1c34d59a3e86c013f405f"
+        },
+        {
+          "field": 2165,
+          "directorHash": "2a21cecd3874d108176f69315bc76f974e13de490aa470fd90198ba0cdd35912"
+        },
+        {
+          "field": 2166,
+          "directorHash": "d5cc60d6619e1d5e18fd43c51ed339dc6f8df3f67e18f871b2a9fcc6a6f6a58c"
+        },
+        {
+          "field": 2167,
+          "directorHash": "5fb455e94a9b257fdb03b9e33f8cc465009a75ba523401edd8e8129b63a9f09b"
+        },
+        {
+          "field": 2168,
+          "directorHash": "88418bcf34f9c2bfc9359fff8d1daed0ed2cbfde731937041bfb3917406e770a"
+        },
+        {
+          "field": 2169,
+          "directorHash": "dfb80996ff2aea0c13914a1bed4185cd64061869fbff519267571073dbb3c9c6"
+        },
+        {
+          "field": 2170,
+          "directorHash": "fe2b349b5a3deafac4ee8f371a9a60591bfa90778253dba7913f59daf2612c24"
+        },
+        {
+          "field": 2172,
+          "directorHash": "04eb4fff845bfc94944f508ed3f31c444565af1f3dfcff93bc0dcbb98864cfb7"
+        },
+        {
+          "field": 2173,
+          "directorHash": "fa0875daea66b8ecfbc701bbbca0db718d5d6cb66710411ebc6280f2047d536b"
+        },
+        {
+          "field": 2855,
+          "directorHash": "bda095027a990fc87f18a4c4acf1a0123ae03365d43cb75cd4ed235bbf77a4f9"
+        }
+      ],
+      "guards": [],
+      "links": [
+        {
+          "from": 2100,
+          "to": 2102,
+          "sid": 5,
+          "uid": 5,
+          "tag": 2,
+          "offset": 240,
+          "hash": "5c94c6519b8857e3c3530e4b66a803d95129a2544583a895f2297cfbe821e287",
+          "guards": []
+        },
+        {
+          "from": 2101,
+          "to": 2102,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 240,
+          "hash": "b7ad1ff4da2d8a0768f87a11eceaa9272c3aadbf435ac50289a0230ed587bbd3",
+          "guards": []
+        },
+        {
+          "from": 2102,
+          "to": 2105,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 263,
+          "hash": "7d87ab82dfaa6bd023ec54a9b72e6b68ce29b66961546f2520f9a5e1fb852f87",
+          "guards": []
+        },
+        {
+          "from": 2102,
+          "to": 2101,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 287,
+          "hash": "bea2b7a88beb48f50f8b12de1babb79eda8a64d6910d1061275a6cb815697274",
+          "guards": []
+        },
+        {
+          "from": 2102,
+          "to": 2103,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 414,
+          "hash": "b5bc9cb45d89eeed1d2c50168644510372700fc934335b89effe3bfa2d8e7b47",
+          "guards": []
+        },
+        {
+          "from": 2103,
+          "to": 2102,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 196,
+          "hash": "334a3ffa0474ee74e3ef77f515f36152ca5c71f404e99ab970b3c9bd593ad712",
+          "guards": []
+        },
+        {
+          "from": 2103,
+          "to": 2104,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 191,
+          "hash": "c7376836582ffe173382b9b9bfa648420d6b05aa558e2ddb9271427485ce466a",
+          "guards": []
+        },
+        {
+          "from": 2104,
+          "to": 2103,
+          "sid": 2,
+          "uid": 2,
+          "tag": 2,
+          "offset": 191,
+          "hash": "55fe5feb426c253953873f24283d3b517527742db4ae6c04b45cb63ebe2b2ab9",
+          "guards": []
+        },
+        {
+          "from": 2105,
+          "to": 2107,
+          "sid": 15,
+          "uid": 15,
+          "tag": 2,
+          "offset": 274,
+          "hash": "54c5d0de52e0997ff4dc40b09d9dd1389e701813e31b6d40dff3a30190915847",
+          "guards": []
+        },
+        {
+          "from": 2105,
+          "to": 2106,
+          "sid": 16,
+          "uid": 16,
+          "tag": 2,
+          "offset": 406,
+          "hash": "bb5c9c5b8e705e94c7d882223c95382a2e5547af1487a16626734865d7d9198f",
+          "guards": []
+        },
+        {
+          "from": 2105,
+          "to": 2102,
+          "sid": 17,
+          "uid": 17,
+          "tag": 2,
+          "offset": 271,
+          "hash": "5e0bc4c26c0550a85f634dcb5a4e5668614faabc882ccdbc646290d4656412d6",
+          "guards": []
+        },
+        {
+          "from": 2106,
+          "to": 2105,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 191,
+          "hash": "03b0164851614003615a0bdfb63c3d8e56073a01745743323ade87468b253e44",
+          "guards": []
+        },
+        {
+          "from": 2107,
+          "to": 2108,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 279,
+          "hash": "f645e0d726d2343e876a4bb678722a9e4a15f8ece9206e6c20ea0d787abaf55b",
+          "guards": []
+        },
+        {
+          "from": 2107,
+          "to": 2109,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 279,
+          "hash": "4c500450cac1c2ac4509636345b54dffc044d7b23994005987e65a3eec8a902a",
+          "guards": []
+        },
+        {
+          "from": 2107,
+          "to": 2105,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 266,
+          "hash": "933fdf287b4c42af558e837eea2bdd99443befd9ad746e2f40e5ac05cebc691f",
+          "guards": []
+        },
+        {
+          "from": 2108,
+          "to": 2107,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 240,
+          "hash": "c09c07b246b36cdf74be101c5958398352651b6b9de598dc6ecf8dccb45567bc",
+          "guards": []
+        },
+        {
+          "from": 2109,
+          "to": 2107,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 191,
+          "hash": "76122404b178ceefb9921962a24606a15d329f6052f79938ada501aff019e73d",
+          "guards": []
+        },
+        {
+          "from": 2110,
+          "to": 2113,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 240,
+          "hash": "98b2924b8e7ad015657acf92d54eac73cb447101f1e48ee6463df91c5f46d1d2",
+          "guards": []
+        },
+        {
+          "from": 2111,
+          "to": 2113,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 191,
+          "hash": "e419f93ff4d5a7702e832c298ff47c26f501aae83852447570e3d33681e0a3e1",
+          "guards": []
+        },
+        {
+          "from": 2112,
+          "to": 2114,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 263,
+          "hash": "969ff50b30fb866a977e109381204d73afdb3620ab7eaad4b8fe7a0dd7856334",
+          "guards": []
+        },
+        {
+          "from": 2113,
+          "to": 2110,
+          "sid": 14,
+          "uid": 14,
+          "tag": 2,
+          "offset": 287,
+          "hash": "2badd4f65105e4c022fe7a362ec79a19c95d733f7fbcdebf4183687eca2db234",
+          "guards": []
+        },
+        {
+          "from": 2113,
+          "to": 2114,
+          "sid": 15,
+          "uid": 15,
+          "tag": 2,
+          "offset": 271,
+          "hash": "910c56e289d1085cb180aa617da67786ee2185e9f84a0e5db0c8176d44d905d9",
+          "guards": []
+        },
+        {
+          "from": 2113,
+          "to": 2111,
+          "sid": 16,
+          "uid": 16,
+          "tag": 2,
+          "offset": 287,
+          "hash": "4816665a25370d5b6f1ee5c6b4624d79eee1d806cc31a3a49d681de7a6410f86",
+          "guards": []
+        },
+        {
+          "from": 2114,
+          "to": 2113,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 271,
+          "hash": "2e153c3fc4c4d91b0180e5c52ad65922b85cf35c0dba5436d7b794fe20b41873",
+          "guards": []
+        },
+        {
+          "from": 2114,
+          "to": 2112,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 271,
+          "hash": "6af1e1a929f503eee76cccc4893c3a1e531a4dcac5bda9c0cf673e4a9fbcdfbf",
+          "guards": []
+        },
+        {
+          "from": 2151,
+          "to": 2163,
+          "sid": 4,
+          "uid": 4,
+          "tag": 2,
+          "offset": 477,
+          "hash": "ec2b636756de60f70331012f35c543ca2a1638c715ff8584ff68d5078bc04301",
+          "guards": []
+        },
+        {
+          "from": 2151,
+          "to": 2168,
+          "sid": 4,
+          "uid": 4,
+          "tag": 2,
+          "offset": 261,
+          "hash": "ec2b636756de60f70331012f35c543ca2a1638c715ff8584ff68d5078bc04301",
+          "guards": []
+        },
+        {
+          "from": 2151,
+          "to": 2163,
+          "sid": 4,
+          "uid": 4,
+          "tag": 2,
+          "offset": 920,
+          "hash": "ec2b636756de60f70331012f35c543ca2a1638c715ff8584ff68d5078bc04301",
+          "guards": []
+        },
+        {
+          "from": 2151,
+          "to": 2168,
+          "sid": 4,
+          "uid": 4,
+          "tag": 2,
+          "offset": 704,
+          "hash": "ec2b636756de60f70331012f35c543ca2a1638c715ff8584ff68d5078bc04301",
+          "guards": []
+        },
+        {
+          "from": 2160,
+          "to": 2165,
+          "sid": 4,
+          "uid": 4,
+          "tag": 2,
+          "offset": 301,
+          "hash": "eaad578068fc18894e5ccced061f57229a2c7c7e7bae9f2d36cf1ed7a9b6a978",
+          "guards": []
+        },
+        {
+          "from": 2160,
+          "to": 2164,
+          "sid": 4,
+          "uid": 4,
+          "tag": 2,
+          "offset": 517,
+          "hash": "eaad578068fc18894e5ccced061f57229a2c7c7e7bae9f2d36cf1ed7a9b6a978",
+          "guards": []
+        },
+        {
+          "from": 2161,
+          "to": 2162,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 319,
+          "hash": "7164bf0a23fde779b5eb1266487bb335c49920c6e9860d29e4a713770ee784fb",
+          "guards": []
+        },
+        {
+          "from": 2162,
+          "to": 2163,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 191,
+          "hash": "8019a5d20ce57aacfd9864971748de5c5aba94fd786f5b54369e6461b5676cb2",
+          "guards": []
+        },
+        {
+          "from": 2162,
+          "to": 2161,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 191,
+          "hash": "d5d990995ceab2620b2070695122a8198fb133865b65a32a5c3120814df92635",
+          "guards": []
+        },
+        {
+          "from": 2163,
+          "to": 2165,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 283,
+          "hash": "369a6b14f6e859f3d716072d8b14af106f8fcbefad5df0639b080115dfbc69cc",
+          "guards": []
+        },
+        {
+          "from": 2163,
+          "to": 2164,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 471,
+          "hash": "369a6b14f6e859f3d716072d8b14af106f8fcbefad5df0639b080115dfbc69cc",
+          "guards": []
+        },
+        {
+          "from": 2163,
+          "to": 2162,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 240,
+          "hash": "6375423b5ec3cda213d18ba2644dd3a0df79449d74917d579e70df8b679edc33",
+          "guards": []
+        },
+        {
+          "from": 2163,
+          "to": 2151,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 272,
+          "hash": "9aeb4cec0723b00d6d777b31adf6750b456093380b907dcabd727ddb2bd32300",
+          "guards": []
+        },
+        {
+          "from": 2164,
+          "to": 2160,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 252,
+          "hash": "7de81449a301fc54b7a300169d1aecd9abe2197f0f146537031842d38f8d05fb",
+          "guards": []
+        },
+        {
+          "from": 2164,
+          "to": 2163,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 240,
+          "hash": "2f9216abab4e011519aa1e32c5fa6b24f1a2db5547269a17a26f82a65ba0199e",
+          "guards": []
+        },
+        {
+          "from": 2165,
+          "to": 2160,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 252,
+          "hash": "7de81449a301fc54b7a300169d1aecd9abe2197f0f146537031842d38f8d05fb",
+          "guards": []
+        },
+        {
+          "from": 2165,
+          "to": 2163,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 240,
+          "hash": "2f9216abab4e011519aa1e32c5fa6b24f1a2db5547269a17a26f82a65ba0199e",
+          "guards": []
+        },
+        {
+          "from": 2168,
+          "to": 2170,
+          "sid": 4,
+          "uid": 4,
+          "tag": 2,
+          "offset": 191,
+          "hash": "c164ccf783de647b482e99cd9f016ffa771907e0a6aa0953ba79567f77de120e",
+          "guards": []
+        },
+        {
+          "from": 2168,
+          "to": 2151,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 234,
+          "hash": "69866cfde5793cf0400be50cc035df0af344d939bcb5c66a97399fc293c03bed",
+          "guards": []
+        },
+        {
+          "from": 2169,
+          "to": 2170,
+          "sid": 12,
+          "uid": 12,
+          "tag": 2,
+          "offset": 219,
+          "hash": "cb07ef9be96829062a36f781b6b4ed9b5dd8d490abdda13bfcdd83b2112ac735",
+          "guards": []
+        },
+        {
+          "from": 2170,
+          "to": 2150,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 373,
+          "hash": "24c2f539b0f08c00d957cefd8fcd65509016f4dadd82c387c45a251bc49239ac",
+          "guards": []
+        },
+        {
+          "from": 2170,
+          "to": 2168,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 191,
+          "hash": "439511d28b93ad47ef5a5235cb248dc23852e9aff62bf026a9800ee9592ce977",
+          "guards": []
+        },
+        {
+          "from": 2101,
+          "to": 2110,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 258,
+          "hash": "50f193990d1b8bc15fcc2a6dbe030e1867f95a9f5502ba9a555851fbb0f024dd",
+          "guards": [],
+          "via": {
+            "sid": 7,
+            "uid": 7,
+            "tag": 28,
+            "offset": 1811,
+            "hash": "e78d99a8381cd9295b5a8aeb594ff7f2bb7ab6fcd629c6f043abcf399b70b821"
+          }
+        },
+        {
+          "from": 2101,
+          "to": 2160,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 258,
+          "hash": "50f193990d1b8bc15fcc2a6dbe030e1867f95a9f5502ba9a555851fbb0f024dd",
+          "guards": [],
+          "via": {
+            "sid": 7,
+            "uid": 7,
+            "tag": 28,
+            "offset": 2041,
+            "hash": "e78d99a8381cd9295b5a8aeb594ff7f2bb7ab6fcd629c6f043abcf399b70b821"
+          }
+        },
+        {
+          "from": 2110,
+          "to": 2101,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 232,
+          "hash": "d8e025e4ebf9ba0664191a5287178fc9a5e2d937a96c6f976e857c241dc89614",
+          "guards": [],
+          "via": {
+            "sid": 7,
+            "uid": 7,
+            "tag": 25,
+            "offset": 1778,
+            "hash": "c82aa1074b888f7535ee37e9431d75186ec54e81ca6c473378e1c8c9bb21bf0f"
+          }
+        },
+        {
+          "from": 2110,
+          "to": 2160,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 232,
+          "hash": "d8e025e4ebf9ba0664191a5287178fc9a5e2d937a96c6f976e857c241dc89614",
+          "guards": [],
+          "via": {
+            "sid": 7,
+            "uid": 7,
+            "tag": 25,
+            "offset": 2008,
+            "hash": "c82aa1074b888f7535ee37e9431d75186ec54e81ca6c473378e1c8c9bb21bf0f"
+          }
+        },
+        {
+          "from": 2160,
+          "to": 2101,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 207,
+          "hash": "69c5ece8d5aa37608ee609093bdf70bb349e60702bcadf5d3365cb334cce7f15",
+          "guards": [],
+          "via": {
+            "sid": 5,
+            "uid": 5,
+            "tag": 28,
+            "offset": 2282,
+            "hash": "7bcf057b1d37570f4c105dc7276081f8e8e5d41f9e5d6f1ee06eb7f8cf5c0da4"
+          }
+        },
+        {
+          "from": 2160,
+          "to": 2110,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 207,
+          "hash": "69c5ece8d5aa37608ee609093bdf70bb349e60702bcadf5d3365cb334cce7f15",
+          "guards": [],
+          "via": {
+            "sid": 5,
+            "uid": 5,
+            "tag": 28,
+            "offset": 2496,
+            "hash": "7bcf057b1d37570f4c105dc7276081f8e8e5d41f9e5d6f1ee06eb7f8cf5c0da4"
+          }
+        },
+        {
+          "from": 2168,
+          "to": 2167,
+          "sid": 5,
+          "uid": 5,
+          "tag": 2,
+          "offset": 223,
+          "hash": "7320fb301681dc1ab994aab7911dc36170cd169bb5b6470894cf54444a151805",
+          "guards": []
+        },
+        {
+          "from": 2167,
+          "to": 2172,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 318,
+          "hash": "0c47497627b3fb064f40ba05a8c69f0e306f0b88a0591aff67a54bdad057000d",
+          "guards": []
+        },
+        {
+          "from": 2167,
+          "to": 2168,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 240,
+          "hash": "d0a3a627ec2804b7d969006600869a8fa068c29bdd444af46f72c46fefd182e3",
+          "guards": []
+        },
+        {
+          "from": 2172,
+          "to": 2167,
+          "sid": 3,
+          "uid": 3,
+          "tag": 2,
+          "offset": 252,
+          "hash": "465db581f8f0542eca7576b703cf47c3017957698e7eaa657a91836b8645c609",
+          "guards": []
+        },
+        {
+          "from": 2166,
+          "to": 2167,
+          "sid": 2,
+          "uid": 2,
+          "tag": 2,
+          "offset": 252,
+          "hash": "465db581f8f0542eca7576b703cf47c3017957698e7eaa657a91836b8645c609",
+          "guards": []
+        },
+        {
+          "from": 2167,
+          "to": 2166,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 506,
+          "hash": "0c47497627b3fb064f40ba05a8c69f0e306f0b88a0591aff67a54bdad057000d",
+          "guards": []
+        },
+        {
+          "from": 2170,
+          "to": 2169,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 203,
+          "hash": "a3fa8d1959dc5d1f12abaa090f69d2726dbce3f57cc0e36a87f0f598e50ce816",
+          "guards": []
+        },
+        {
+          "from": 2162,
+          "to": 2159,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 191,
+          "hash": "f5b6247b12b7121a61f91e44af807bd0b3736555fa88162dab4824a0f56372ab",
+          "guards": []
+        },
+        {
+          "from": 2159,
+          "to": 2162,
+          "sid": 3,
+          "uid": 3,
+          "tag": 2,
+          "offset": 240,
+          "hash": "193f88b8a877a39b81b048bd3b379a96de1b302e9afa3f2bbdd7bf8abe2ad1f1",
+          "guards": []
+        },
+        {
+          "from": 2159,
+          "to": 2158,
+          "sid": 4,
+          "uid": 4,
+          "tag": 2,
+          "offset": 240,
+          "hash": "cdf6fece7bfa38c0cfc501fbabfb38fcaf5afd42527c34b875c9a210d1beed6e",
+          "guards": []
+        },
+        {
+          "from": 2158,
+          "to": 2157,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 235,
+          "hash": "3709b74e2a3433287bb4a75591e6e0343f12b788f0ddb40f264bfe89cb9bd280",
+          "guards": []
+        },
+        {
+          "from": 2158,
+          "to": 2159,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 240,
+          "hash": "9853589a324bf5f2d6773e5305f217ad0b789a84f1ce2f288b98bc695ac72780",
+          "guards": []
+        },
+        {
+          "from": 2157,
+          "to": 2158,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 235,
+          "hash": "bc3d0a9fbdefb3439537e025208e19ea8ff42d1063f11076ac6e32c2cc5ab195",
+          "guards": []
+        },
+        {
+          "from": 2152,
+          "to": 2155,
+          "sid": 12,
+          "uid": 12,
+          "tag": 2,
+          "offset": 556,
+          "hash": "904ccbdbf15503c220abf565844c73ee6001d669d0699af4035a551bd8ee1c65",
+          "guards": []
+        },
+        {
+          "from": 2153,
+          "to": 2155,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 382,
+          "hash": "91a9b668f6b63359be95e7e315a27dc9b09188d226acc76ed5328655527afa2d",
+          "guards": []
+        },
+        {
+          "from": 2155,
+          "to": 2173,
+          "sid": 2,
+          "uid": 2,
+          "tag": 2,
+          "offset": 251,
+          "hash": "9857ec285ec47b83cda625f50ded59951c3a26618f6bf1e909c8019fcdbd3b43",
+          "guards": []
+        },
+        {
+          "from": 2173,
+          "to": 2855,
+          "sid": 8,
+          "uid": 8,
+          "tag": 3,
+          "offset": 710,
+          "hash": "e08da3455151f370252f49f6a27740fbfc5394d4991593c156fd5cd749fdb0f5",
+          "guards": []
+        },
+        {
+          "from": 2151,
+          "to": 2153,
+          "sid": 3,
+          "uid": 3,
+          "tag": 3,
+          "offset": 83,
+          "hash": "ec04b6815a1a4c10976d6e1b191fa3e31d63aed4c6f1de7fc2bb9c2db817a9c0",
+          "guards": [],
+          "via": {
+            "sid": 2,
+            "uid": 2,
+            "tag": 16,
+            "offset": 601,
+            "hash": "899363bff9f3bce973e245b10d3d7740e278dbfb01cbfb1017fdcd5519c5cc5e"
+          }
+        },
+        {
+          "from": 2151,
+          "to": 2153,
+          "sid": 3,
+          "uid": 3,
+          "tag": 3,
+          "offset": 91,
+          "hash": "ec04b6815a1a4c10976d6e1b191fa3e31d63aed4c6f1de7fc2bb9c2db817a9c0",
+          "guards": [],
+          "via": {
+            "sid": 2,
+            "uid": 2,
+            "tag": 17,
+            "offset": 1182,
+            "hash": "899363bff9f3bce973e245b10d3d7740e278dbfb01cbfb1017fdcd5519c5cc5e"
+          }
+        },
+        {
+          "from": 2151,
+          "to": 2153,
+          "sid": 3,
+          "uid": 3,
+          "tag": 3,
+          "offset": 99,
+          "hash": "ec04b6815a1a4c10976d6e1b191fa3e31d63aed4c6f1de7fc2bb9c2db817a9c0",
+          "guards": [],
+          "via": {
+            "sid": 2,
+            "uid": 2,
+            "tag": 17,
+            "offset": 1182,
+            "hash": "899363bff9f3bce973e245b10d3d7740e278dbfb01cbfb1017fdcd5519c5cc5e"
+          }
+        }
+      ],
+      "scope": [
+        2100,
+        2101,
+        2102,
+        2103,
+        2104,
+        2105,
+        2106,
+        2107,
+        2108,
+        2109,
+        2110,
+        2111,
+        2112,
+        2113,
+        2114,
+        2151,
+        2152,
+        2153,
+        2155,
+        2157,
+        2158,
+        2159,
+        2160,
+        2161,
+        2162,
+        2163,
+        2164,
+        2165,
+        2166,
+        2167,
+        2168,
+        2169,
+        2170,
+        2172,
+        2173
+      ]
     },
     {
       "id": "lindblum-return-reviewed-hilda-meeting",

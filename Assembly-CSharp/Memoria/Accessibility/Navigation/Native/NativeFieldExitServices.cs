@@ -23,7 +23,7 @@ namespace Memoria.Accessibility.Navigation
                 if(!geometryRead){geometry=NativeFieldGeometry.Read(context);geometryRead=true;}
                 if(geometry==null)return null;
                 string function=FieldExitFunctions.Function(map,quad.sid,hash,confirm);
-                var prove=ExitProof(context,engine,quad,hash,trigger);var admitted=new List<NavigationPoint>();int proofs=0;
+                var prove=ExitProof(context,engine,quad,hash,geometry,trigger);var admitted=new List<NavigationPoint>();int proofs=0;
                 var surface=Surface(geometry,quad);
                 // An invariant World Map departure may open a party/menu/sound
                 // sequence that the detached exit reader cannot replay. Offer
@@ -54,7 +54,7 @@ namespace Memoria.Accessibility.Navigation
                 var camera=field.GetMainCamera();
                 observation.VisibleLabel=camera==null?"Exit":FieldExitLabel.Read(Point(camera.WorldToViewportPoint(Project(field,Vector(presentation.Approach)))));
                 NativeObservedFieldExits.Presented(context,quad,observation.LabelIdentity);
-                AnnotateExitRoute(context,engine,quad,observation,trigger);
+                AnnotateExitRoute(context,engine,quad,observation,geometry,trigger);
                 if(_cueLogs.Count<64 && _cueLogs.Add("indirect-exit:"+context.LogicalMapKey+":"+quad.uid))
                     Memoria.Prime.Log.Message("[FF9Access] Indirect exit presented: map={0}; uid={1}; sid={2}; function={3}; approaches={4}",context.LogicalMapKey,quad.uid,quad.sid,function??"walk",admitted.Count);
                 return observation;

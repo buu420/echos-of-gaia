@@ -14,9 +14,17 @@ namespace Memoria.Accessibility.Navigation
             var failure=new RoutePlan {TargetId=target.Id,PhysicalId=target.PhysicalId,Generation=context.Generation,Transport=context.Transport,Failure=RouteFailure.GeometryUnavailable,GeometryFingerprint=geometry==null?null:geometry.Fingerprint};
             if(geometry==null || geometry.Triangles.Length==0)return failure;
             if(geometry.Generation!=context.Generation || target.Generation!=context.Generation){failure.Failure=RouteFailure.StaleContext;return failure;}
+            FieldGeometrySnapshot reviewed;
+            bool lindblumPassage = LindblumCastlePassage.TryReview(context,target,geometry,out reviewed);
+            geometry=reviewed;
             var start=geometry.Find(geometry.ActiveTriangle);if(!geometry.Permitted(start) || !start.Contains(context.Position))start=geometry.At(context.Position);
             if(start==null){failure.Failure=RouteFailure.StartOutsideMesh;return failure;}
             var candidates=FieldTargetApproaches.Prepare(context,target,geometry,preferClearance:true);
+            Dictionary<NavigationPoint,NavigationPoint> stagedEntries=null;
+            if(target.RequireInwardApproach) {
+                stagedEntries=FieldExitInwardApproaches.Create(target.InteractionRegion,candidates,geometry,cancelled);
+                candidates=stagedEntries.Keys.ToArray();
+            }
             if(candidates.Length==0){failure.Failure=RouteFailure.TargetOutsideMesh;return failure;}
             var route=PlanFrom(context,target,geometry,start,context.Position,candidates,failure,cancelled);
             if(route.Failure==RouteFailure.UnsafeSegment) {
@@ -24,7 +32,18 @@ namespace Memoria.Accessibility.Navigation
                 if(alternative!=null)route=alternative;
             }
             if (route.Success) {
-                route.FieldIntermediateArrivalRadius = CleyraTrunkRoutes.IntermediateRadius(target, geometry, route);
+                if(stagedEntries!=null) {
+                    var stage=route.ApproachPoint;
+                    NavigationPoint entry;
+                    if(!stagedEntries.TryGetValue(stage,out entry)){failure.Failure=RouteFailure.UnsafeSegment;return failure;}
+                    route.Waypoints=route.Waypoints.Concat(new[]{entry}).ToArray();
+                    if(route.FieldSteeringWaypoints!=null)
+                        route.FieldSteeringWaypoints=route.FieldSteeringWaypoints.Concat(new[]{entry}).ToArray();
+                    route.Length+=FieldGeometrySnapshot.Horizontal(stage,entry);
+                    route.ApproachPoint=entry;
+                }
+                route.FieldIntermediateArrivalRadius = lindblumPassage && route.FieldSteeringWaypoints!=null
+                    ? LindblumCastlePassage.IntermediateArrivalRadius : CleyraTrunkRoutes.IntermediateRadius(target, geometry, route);
                 return route;
             }
             if (route.Failure != RouteFailure.UnsafeSegment || !target.IsInteractive || target.PhysicalIdentity.Kind != TargetKind.FieldActor ||
@@ -204,7 +223,7 @@ namespace Memoria.Accessibility.Navigation
         }
         private static NavigationPoint[] ArrivalRegion(NavigationTarget target)
         {
-            return target.PhysicalIdentity.Kind==TargetKind.FieldExit || target.IsInteractive && target.InteractionUid>=0?target.InteractionRegion:null;
+            return !target.RequireInwardApproach && (target.PhysicalIdentity.Kind==TargetKind.FieldExit || target.IsInteractive && target.InteractionUid>=0)?target.InteractionRegion:null;
         }
         private static List<NavigationPoint> PassagePoints(FieldGeometrySnapshot geometry,int[] corridor,NavigationPoint origin,NavigationPoint end,
             Dictionary<int,NavigationPoint?> portals,Dictionary<int,NavigationPoint[]> turnSamples,

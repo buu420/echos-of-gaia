@@ -91,12 +91,14 @@ namespace Memoria.Accessibility.Navigation
                 int floor=row["floor"].AsInt,ceiling=row["ceiling"].AsInt,field=row["field"].AsInt;
                 if(floor>=ceiling || !directors.ContainsKey(field))throw new InvalidOperationException("Invalid reviewed Story phase");
                 var local=row["local"];var scope=Integers(row["scope"]);
+                var worldDepartures=Integers(row["worldDepartureFields"]);
                 var items=row["items"];var requiredItems=new StoryPhaseItem[items.Count];
                 for(int j=0;j<items.Count;j++)requiredItems[j]=new StoryPhaseItem{NativeId=items[j]["id"].AsInt,Owned=items[j]["owned"].AsBool};
                 string information=row["information"];
                 phases.Add(new StoryPhase{Floor=floor,Ceiling=ceiling,Directors=directors,ScopeFields=scope.Length==0?null:scope,Guards=Expressions(row["guards"]),
                     Items=requiredItems.Length==0?null:requiredItems,Local=local.Count==0?null:new StoryPhaseLocal{Field=local["field"].AsInt,Walkmesh=local["walkmesh"],ActiveTriangles=Integers(local["triangles"]),MapGuards=Expressions(local["guards"])},Stage=new StoryStage{
-                    Milestone=row["milestone"].AsInt,GoalFields=new[]{field},ActionUids=Integers(row["uids"]),Instruction=row["action"],Goal=row["goal"],
+                    Milestone=row["milestone"].AsInt,GoalFields=worldDepartures.Length==0?new[]{field}:null,
+                    WorldDepartureFields=worldDepartures.Length==0?null:worldDepartures,ActionUids=Integers(row["uids"]),Instruction=row["action"],Goal=row["goal"],
                     InformationOnly=!String.IsNullOrEmpty(information),InformationTitle=row["action"],InformationReason=information,ReviewedLinks=row["nativeTransit"].AsBool?null:reviewed}});
             }
         }

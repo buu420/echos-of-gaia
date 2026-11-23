@@ -34,6 +34,23 @@ namespace FF9Access.Tests
             var target=Only(Build(new FieldTargetCatalog(),Routes(exit,Route(220,new[]{a},"Evil Forest, Trail, Area 1")),exit));
             TestAssert.Equal("Exit to Evil Forest, Trail, Area 1",target.Label);TestAssert.Equal(exit.Id,target.Id);
         }
+        public static void OnlyAProvenDoorCarriesItsInwardApproachThroughNamingAndStory()
+        {
+            var point=TestFixtures.P(10,0);
+            var exit=Exit(7,"Right exit",point);
+            var route=Route(558,new[]{point},"Lindblum, Residence");
+            route.RequireInwardApproach=true;
+            var target=Only(Build(new FieldTargetCatalog(),Routes(exit,route),exit));
+            TestAssert.True(target.RequireInwardApproach);
+            TestAssert.True(StoryTargetCatalog.Wrap(TestFixtures.Context(),3110,target,target.Label).RequireInwardApproach);
+
+            route.Approaches.Clear();
+            route.PossibleNames.Add("Lindblum, Residence");
+            var unavailable=Only(Build(new FieldTargetCatalog(),Routes(exit,route),exit));
+            TestAssert.False(unavailable.RequireInwardApproach);
+            TestAssert.Equal(0,unavailable.ApproachCandidates.Length);
+        }
+
         public static void UnknownOrUnavailableDestinationIsNeverInvented()
         {
             var exit=Exit(7,"Upper-left exit",TestFixtures.P(10,0));
