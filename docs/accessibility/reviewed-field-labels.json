@@ -225,7 +225,7 @@
     },
     {
       "model": 220,
-      "label": "Small winged creature",
+      "label": "Moogle",
       "kind": "person",
       "visibleFeatures": "Small body, wings, ears and pompom on stalk",
       "sourceAsset": "assets/resources/models/4/220/220.fbx",

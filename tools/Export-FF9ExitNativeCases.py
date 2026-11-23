@@ -15,7 +15,7 @@ p.add_argument('--output', default=str(ROOT / 'tests/fixtures/exit-native-cases.
 p.add_argument('--case', action='append')
 a = p.parse_args()
 a.case = a.case or ['551:13:5', '601:5:1', '251:12:1', '756:5:6',
-                    '905:10:16','2750:1:-1:3','2751:2:-1:3','2901:7:11:3']
+                    '905:10:16','2750:1:-1:3','2751:2:-1:3','2901:7:11:3','552:21:24']
 src = (ROOT / 'Assembly-CSharp/Global/EBin.cs').read_text(encoding='utf-8')
 i = src.index('public enum event_code_binary')
 body = src[src.index('{', i) + 1:src.index('}', i)]

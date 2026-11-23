@@ -105,6 +105,35 @@ namespace FF9Access.Tests
             TestAssert.False(geometry.UsesReviewedBoundaryClearance(geometry.Find(87)));
         }
 
+        public static void LindblumInnSaveMoogleIsReachableFromBothReportedPositions()
+        {
+            var geometry=Load(554,80,"field554-inn-geometry.json");
+            var context=TestFixtures.Context("field:554:FBG_N11_LDBM_MAP161_LB_IN2_0");
+            context.PlayerIdentity=12;
+            context.StoryProgress=3110;
+            var moogle=new NavigationPoint(-204,0,1075);
+            var origins=new[]{new NavigationPoint(-703,0,-1001),new NavigationPoint(810,0,1616)};
+            foreach(var origin in origins) {
+                context.Position=origin;
+                geometry.ActiveTriangle=geometry.At(origin).Id;
+                var target=new NavigationTarget {
+                    Id=new TargetIdentity(TargetKind.FieldActor,context.LogicalMapKey,7),Generation=context.Generation,
+                    IsInteractive=true,Position=moogle,
+                    ApproachCandidates=FieldActorApproaches.Create(origin,moogle,152,338)
+                };
+                var route=new FieldRoutePlanner().Plan(context,target,geometry);
+                if (!route.Success) throw new Exception("Lindblum Inn Area 2 moogle route: "+route.Failure);
+                float distance=FieldGeometrySnapshot.Horizontal(route.ApproachPoint,moogle);
+                TestAssert.True(distance>=152 && distance+FieldAnalogMovement.ArrivalRadius(geometry.Radius,1)<338);
+                TestAssert.True(Math.Abs(route.ApproachPoint.Y-moogle.Y)<400);
+                var last=origin;
+                foreach(var waypoint in route.FieldSteeringWaypoints??route.Waypoints) {
+                    TestAssert.True(geometry.IsSegmentClear(last,waypoint));
+                    last=waypoint;
+                }
+            }
+        }
+
         public static void IcePathCanTurnAroundTheNativeInnerCorner()
         {
             AssertRoute(305,80,new NavigationPoint(518,-358.6f,-667),4,300022021,276560217,231865857,255655440);

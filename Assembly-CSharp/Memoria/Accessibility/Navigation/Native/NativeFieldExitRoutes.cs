@@ -85,7 +85,7 @@ namespace Memoria.Accessibility.Navigation
         private static Func<NavigationPoint,FieldExitPathEvidence> ExitProof(NavigationContext context,EventEngine engine,Quad quad,string hash,int trigger=EventEngine.tagPush)
         {
             return _exitRouteProofs.Begin(quad.uid+":exit:"+trigger,context.Generation+":"+context.LogicalMapKey+":"+context.SaveIdentity+":"+context.PlayerIdentity+":"+hash,quad,
-                StoryProofMemory(context,engine),Time.frameCount,point=>ReadExitPaths(context,engine,quad,point,trigger),
+                StoryProofMemory(context,engine),Time.frameCount,point=>ReadExitPaths(context,engine,quad,point,trigger,hash),
                 proof => !proof.ReadsApproachPosition);
         }
         private static readonly int[] _dialogueOpcodes={(int)EBin.event_code_binary.MES,(int)EBin.event_code_binary.MESN,(int)EBin.event_code_binary.MESA,(int)EBin.event_code_binary.MESAN,(int)EBin.event_code_binary.MESB};
@@ -101,7 +101,7 @@ namespace Memoria.Accessibility.Navigation
         // The region's own touch path and any entry it requests, with the controlled player standing at
         // the prospective approach. Button waits and shown choices are replayed per alternative; the live
         // party answers B_PARTYCHK. Unknown branches, native mutations or moved positions stop the proof.
-        private static FieldExitPathEvidence ReadExitPaths(NavigationContext context,EventEngine engine,Quad quad,NavigationPoint point,int trigger)
+        private static FieldExitPathEvidence ReadExitPaths(NavigationContext context,EventEngine engine,Quad quad,NavigationPoint point,int trigger,string hash)
         {
             Func<int,int,int,ScriptSnapshot,ScriptStoryFunction> requested=(uid,tag,callerIdentity,caller)=> {
                 var called=uid==255?engine.GetObjUID(callerIdentity/256):uid==250?engine.GetControlChar():engine.GetObjUID(uid);
@@ -118,7 +118,7 @@ namespace Memoria.Accessibility.Navigation
                 if(FF9StateSystem.Common.FF9.fldMapNo==552 && a.X==1231 && a.Z==1556 && b.X==1291 && b.Z==1376)
                     jump=new NavigationPoint(1226,point.Y,1430);
                 int? px=FieldExitDestinations.PlayerProperty(context.PlayerIdentity,point,250,0),pz=FieldExitDestinations.PlayerProperty(context.PlayerIdentity,point,250,2);
-                if(ReviewedEntryFacing(FF9StateSystem.Common.FF9.fldMapNo,quad) && px.HasValue && pz.HasValue && (jump.Value.X!=px.Value || jump.Value.Z!=pz.Value))
+                if(FieldExitDestinations.ReviewedEntryFacing(FF9StateSystem.Common.FF9.fldMapNo,quad.sid,quad.uid,hash) && px.HasValue && pz.HasValue && (jump.Value.X!=px.Value || jump.Value.Z!=pz.Value))
                     heading=angle((int)jump.Value.X-px.Value,(int)jump.Value.Z-pz.Value)&255;
             }
             return FieldExitPaths.Read(start,requested,_opcodes.MapJump,_opcodes.WorldJump,_opcodes.Requests,(uid,index)=>FieldExitDestinations.PlayerProperty(context.PlayerIdentity,point,uid,index),
@@ -126,16 +126,6 @@ namespace Memoria.Accessibility.Navigation
                 new FieldExitPathOptions{DialogueOpcodes=_dialogueOpcodes,AsyncRequest=(int)EBin.event_code_binary.REQ,PlayerUid=context.PlayerIdentity,
                     CalculateExitPosition=_opcodes.JumpPosition,ExitPosition=jump,EntryFacing=heading,Angle2=angle,
                     Requestable=(uid,level,caller)=>Requestable(engine,quad,uid,level,caller)});
-        }
-        private static bool ReviewedEntryFacing(int field,Quad quad)
-        {
-            if(quad.sid!=quad.uid || quad.ebData==null)return false;
-            string hash=Fingerprint(quad.ebData);
-            // The Treno tower trigger is supported on the incoming side of its
-            // first edge (installed 905 BGI triangles 8 and 40).
-            if(field==905 && quad.sid==10 && hash=="f76d392a68ed0d29ceb0e47f6a2e332b36c81cc6c31662a05716818ea4a75fe8")return true;
-            return quad.sid==2 && (field==2916 && hash=="68a447aa8fe33dcc3fb1ec101dcba492c7ec85da77c51b59e75ee2cd48b17485" ||
-                field==2918 && hash=="48607f555f8dde5c5544e743ff1fbd8c2df86e1630ca9a7e6a45d54070d8ded3");
         }
     }
 }

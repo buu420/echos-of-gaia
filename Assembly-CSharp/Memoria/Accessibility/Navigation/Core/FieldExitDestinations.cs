@@ -6,6 +6,18 @@ namespace Memoria.Accessibility.Navigation
     // proves it. A shared region may have different upstairs/downstairs exits.
     public static class FieldExitDestinations
     {
+        internal static bool ReviewedEntryFacing(int field,int sid,int uid,string hash)
+        {
+            if(sid!=uid)return false;
+            // The Treno tower trigger is supported on the incoming side of its
+            // first edge (installed 905 BGI triangles 8 and 40).
+            if(field==905 && sid==10 && hash=="f76d392a68ed0d29ceb0e47f6a2e332b36c81cc6c31662a05716818ea4a75fe8")return true;
+            // Lindblum Main Street's inn trigger uses the same inward check.
+            if(field==552 && sid==21 && hash=="e53488fc28a67e690652ac29743782e2f3c60833414417a78efd8e9be46b71ca")return true;
+            return sid==2 && (field==2916 && hash=="68a447aa8fe33dcc3fb1ec101dcba492c7ec85da77c51b59e75ee2cd48b17485" ||
+                field==2918 && hash=="48607f555f8dde5c5544e743ff1fbd8c2df86e1630ca9a7e6a45d54070d8ded3");
+        }
+
         // Native MJPOS projects the player onto the first edge of the region,
         // with an 8-bit fixed point fraction and separately truncated products.
         public static NavigationPoint JumpPoint(NavigationPoint point,int ax,int az,int bx,int bz)

@@ -10,7 +10,7 @@ namespace FF9Access.Tests
     // the Evil Forest walk-in into the Prima Vista scene. Memory starts cleared; the player is in the region.
     internal static class FieldExitNativeCaseTests
     {
-        private sealed class Case{public int Field,Sid,Player,Tag;public Dictionary<string,List<ScriptInstruction>> Functions=new Dictionary<string,List<ScriptInstruction>>();}
+        private sealed class Case{public int Field,Sid,Player,Tag;public string ScriptHash;public Dictionary<string,List<ScriptInstruction>> Functions=new Dictionary<string,List<ScriptInstruction>>();}
         private static Dictionary<string,int> _opcodes;private static Dictionary<int,Case> _cases;
         private static Case Load(int field)
         {
@@ -22,7 +22,7 @@ namespace FF9Access.Tests
                     _opcodes=new Dictionary<string,int>();foreach(var op in document.RootElement.GetProperty("opcodes").EnumerateObject())_opcodes[op.Name]=op.Value.GetInt32();
                     _cases=new Dictionary<int,Case>();
                     foreach(var item in document.RootElement.GetProperty("cases").EnumerateArray()) {
-                        var c=new Case{Field=item.GetProperty("field").GetInt32(),Sid=item.GetProperty("sid").GetInt32(),Player=item.GetProperty("player").GetInt32(),Tag=item.GetProperty("tag").GetInt32()};
+                        var c=new Case{Field=item.GetProperty("field").GetInt32(),Sid=item.GetProperty("sid").GetInt32(),Player=item.GetProperty("player").GetInt32(),Tag=item.GetProperty("tag").GetInt32(),ScriptHash=item.GetProperty("hash").GetString()};
                         foreach(var function in item.GetProperty("functions").EnumerateObject()) {
                             var code=new List<ScriptInstruction>();
                             foreach(var x in function.Value.EnumerateArray()) {
@@ -98,6 +98,24 @@ namespace FF9Access.Tests
                 Check(away.Kind==FieldExitPathKind.NoJump,Describe(away));
             }
         }
+        public static void LindblumInnExitProvesTheNativeInwardHeading()
+        {
+            var fixture=Load(552);
+            var point=new NavigationPoint(-3001.44f,383,3115.39f);
+            var projected=FieldExitDestinations.JumpPoint(point,-3547,3281,-3606,3106);
+            var global=new byte[2048];const int counter=3110;
+            global[0]=counter&255;global[1]=counter>>8;
+            int? facing=FieldExitDestinations.ReviewedEntryFacing(fixture.Field,fixture.Sid,fixture.Sid,fixture.ScriptHash)?(int?)49:null;
+            var incoming=Read(552,global:global,position:point,projected:projected,facing:facing);
+            Check(incoming.Kind==FieldExitPathKind.Determined && incoming.Destinations.SetEquals(new[]{553}),Describe(incoming));
+            var away=Read(552,global:global,position:point,projected:projected,facing:177);
+            Check(away.Kind==FieldExitPathKind.NoJump,Describe(away));
+            var busy=Read(552,(uid,level,caller)=>uid!=250,global,point,projected,facing);
+            Check(busy.Kind==FieldExitPathKind.Unknown,Describe(busy));
+            TestAssert.False(FieldExitDestinations.ReviewedEntryFacing(552,21,22,fixture.ScriptHash));
+            TestAssert.False(FieldExitDestinations.ReviewedEntryFacing(552,21,21,fixture.ScriptHash+"0"));
+        }
+
         public static void TheInvincibleDepartureChoicesCanDeclineWithoutJumping()
         {
             foreach(int field in new[]{2750,2751}) {

@@ -657,7 +657,7 @@
     },
     {
       "path": "docs/accessibility/reviewed-field-labels.json",
-      "sha256": "3361804998215dfb2a68c3f596c586d121896bd65f90a9cb614dcb6957cc7a8f"
+      "sha256": "a84a813415389f25df211f83ff8d996376c263be62940c02dda9fbf0b8950abf"
     },
     {
       "path": "docs/accessibility/field-interaction-evidence.json",
@@ -813,7 +813,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldTargetApproaches.cs",
-      "sha256": "15a46fb4c77e621b6daaf4e0b00881bb386b35a701f9b328f5f77d86e2fa2f27"
+      "sha256": "51f32617c1592f2846720eb8bc91d994fc2e63a264fd0843c7ece498aa8c64bf"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/OpeningRooftopEvidence.cs",
@@ -829,7 +829,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldExitDestinations.cs",
-      "sha256": "9c29d4d3e6e962e20b2e4907ed69d62ef1f5a866052505fc416532fb6bb2d39f"
+      "sha256": "4941ad70dd6270288e8a2215c884be9717ad6e88abf9fd76b8c99044d5acaf48"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/ScriptStoryAnalyzer.cs",
@@ -873,7 +873,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldRoutePlanner.cs",
-      "sha256": "1e31b28d6d9b8f672737bde89d729ef84ce29aaca900ca190dcd93e5b72dec65"
+      "sha256": "a99f0090558ad81f6728df8d5d917d0432ddbaf404cdf9860263397193ed2827"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/WorldRoutePlanner.cs",
@@ -953,7 +953,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldVisibleLabels.cs",
-      "sha256": "7e0d36d9f8284d955923c895e083fe9f723938a0be146d00ef05215f8d8fb875"
+      "sha256": "ddf16994cbe918ac61297f5f36fc4e401df2f6f82f8324efcf05aacba3ec27a4"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldTouchConfirmation.cs",
@@ -1045,7 +1045,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldExitRoutes.cs",
-      "sha256": "c31569885b46679b899530c00400e6655f135e57f5ecc15abb920106d0a80143"
+      "sha256": "16bba33cbbe74030b893a12872db92315a3e2260258448a2169d778ccae3bb0d"
     }
   ],
   "nativeFieldIdentity": "8a1aad6c4928624e1b999279f085e45fe0d40227e47972ee13b52abd96931043",

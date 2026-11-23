@@ -16,7 +16,7 @@ namespace Memoria.Accessibility.Navigation
             if(geometry.Generation!=context.Generation || target.Generation!=context.Generation){failure.Failure=RouteFailure.StaleContext;return failure;}
             var start=geometry.Find(geometry.ActiveTriangle);if(!geometry.Permitted(start) || !start.Contains(context.Position))start=geometry.At(context.Position);
             if(start==null){failure.Failure=RouteFailure.StartOutsideMesh;return failure;}
-            var candidates=FieldTargetApproaches.Prepare(context,target,geometry);
+            var candidates=FieldTargetApproaches.Prepare(context,target,geometry,preferClearance:true);
             if(candidates.Length==0){failure.Failure=RouteFailure.TargetOutsideMesh;return failure;}
             var route=PlanFrom(context,target,geometry,start,context.Position,candidates,failure,cancelled);
             if(route.Failure==RouteFailure.UnsafeSegment) {

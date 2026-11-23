@@ -47,6 +47,7 @@ namespace FF9Access.Tests
             TestAssert.Equal("Cook with a frying pan",FieldVisibleLabels.Read(5474));
             TestAssert.Equal("Bird",FieldVisibleLabels.Read(63));
             TestAssert.Equal("Chocobo",FieldVisibleLabels.Read(259));
+            TestAssert.Equal("Moogle",FieldVisibleLabels.Read(220));
             TestAssert.Equal("Chest",FieldVisibleLabels.Read(701));
             TestAssert.Equal("Chest",FieldVisibleLabels.Read(702));
             TestAssert.Equal("Ladder",FieldVisibleLabels.Read(22));

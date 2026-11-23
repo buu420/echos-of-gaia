@@ -143,7 +143,7 @@ namespace Memoria.Accessibility.Navigation
                 case 217:return "Soldier in a tall cone helmet";
                 case 218:return "Soldier in a tall cone helmet";
                 case 219:return "Bearded man with a book";
-                case 220:return "Small winged creature";
+                case 220:return "Moogle";
                 case 222:return "Ticket";
                 case 223:return "Goblet";
                 case 224:return "Rope";

@@ -47,6 +47,11 @@ namespace Memoria.Accessibility.Navigation
         }
         public static NavigationPoint[] OnSurfaces(NavigationPoint[] candidates,NavigationPoint actor,FieldGeometrySnapshot geometry)
         {
+            return OnSurfaces(candidates,actor,geometry,false);
+        }
+
+        internal static NavigationPoint[] OnSurfaces(NavigationPoint[] candidates,NavigationPoint actor,FieldGeometrySnapshot geometry,bool preferClearance)
+        {
             var result=new List<NavigationPoint>();var rings=new List<float>();var connected=new List<bool>();
             if(candidates==null || geometry==null)return result.ToArray();
             var reachable=Connected(geometry);
@@ -67,6 +72,18 @@ namespace Memoria.Accessibility.Navigation
             float nearest=float.MaxValue;
             for(int i=0;i<result.Count;i++)if(connected[i] && rings[i]<nearest)nearest=rings[i];
             if(nearest==float.MaxValue)return result.ToArray();
+            if(preferClearance) {
+                // A connected inner ring can sit entirely against a wall. Use the
+                // nearest ring with room to stop at the player's full body radius.
+                float nearestClear=float.MaxValue;
+                for(int i=0;i<result.Count;i++) {
+                    if(connected[i] && rings[i]<nearestClear && geometry.IsSegmentClear(result[i],result[i])) {
+                        nearestClear=rings[i];
+                        if(nearestClear<=nearest+0.5f)break;
+                    }
+                }
+                if(nearestClear<float.MaxValue)nearest=nearestClear;
+            }
             var chosen=new List<NavigationPoint>();
             for(int i=0;i<result.Count;i++)if(connected[i] && rings[i]<=nearest+0.5f)chosen.Add(result[i]);
             return chosen.ToArray();
