@@ -67796,6 +67796,151 @@
       "information": "Continue the current scene as the crew returns to the stage."
     },
     {
+      "id": "alexandria-rescue-queen-room",
+      "floor": 5050,
+      "ceiling": 5070,
+      "milestone": 5070,
+      "field": 1206,
+      "uids": [],
+      "action": "Reach the queen's room to find Garnet",
+      "goal": "the queen's room",
+      "rooms": [
+        {
+          "field": 1206,
+          "directorHash": "9ac0674bd6670cc96bd2b8ff9a5d61590c581d8d6349eb3636e4ad9effea260f"
+        },
+        {
+          "field": 1212,
+          "directorHash": "c115fdb3507245d43e96f9a2fb138dc7c5657b33dc005ce478b38570aae54f78"
+        },
+        {
+          "field": 1213,
+          "directorHash": "dfad938d7edb7eaf811064d0ad7c7e02380dc64f3e0f38367db00766e6699c60"
+        },
+        {
+          "field": 1214,
+          "directorHash": "b50eed4e5260a8407eaf920b1881fef8d4e96d7944d6b8f56beb5ab2f91cee81"
+        },
+        {
+          "field": 1215,
+          "directorHash": "7d39b5641decdb40cc8c7a9c0065c9f245fe45e8ff27d8747e944b89305fd59f"
+        },
+        {
+          "field": 1219,
+          "directorHash": "4d141a584517e97d3f040a8ada3cb6fb3ec5ebcca32542daf27e81c277cc070e"
+        },
+        {
+          "field": 1220,
+          "directorHash": "977aa864396be009f0a8b3f393143feda3c1916942cf768014c732a5c3ed1eca"
+        },
+        {
+          "field": 1221,
+          "directorHash": "0357cafa3375c03cf0f56b370d95395c251cdace0c30cc90228e640c74194ca0"
+        },
+        {
+          "field": 1222,
+          "directorHash": "a7475970471884400d07bc57676d6e9378f8ec43ed6739886562398fe5352f83"
+        },
+        {
+          "field": 1224,
+          "directorHash": "8945da164046d1767dd99652effe4350f5f3e579df005a703d19e9d868cf100e"
+        }
+      ],
+      "guards": [],
+      "links": [
+        {
+          "from": 1212,
+          "to": 1222,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 235,
+          "hash": "5f0f30ed6a186c0e7c6e08d4ba8e126bb10202fd74b81b1ad9d219b160338d54",
+          "guards": []
+        },
+        {
+          "from": 1222,
+          "to": 1220,
+          "sid": 3,
+          "uid": 3,
+          "tag": 2,
+          "offset": 235,
+          "hash": "c71e41b9cd4cb52cd43fbbe5dd8703b63ef66901612ab67826454d98948fe86a",
+          "guards": []
+        },
+        {
+          "from": 1221,
+          "to": 1220,
+          "sid": 3,
+          "uid": 3,
+          "tag": 2,
+          "offset": 235,
+          "hash": "536a1160c427b1464fa730fe06e3c06e77ba36da8c8011ced46ac2e8a3bd0ecb",
+          "guards": []
+        },
+        {
+          "from": 1220,
+          "to": 1219,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 246,
+          "hash": "777cc632e3cd08515d09b8fb743e3fad50458fa96e95f98843d1e1385ba573ab",
+          "guards": []
+        },
+        {
+          "from": 1219,
+          "to": 1215,
+          "sid": 4,
+          "uid": 4,
+          "tag": 2,
+          "offset": 229,
+          "hash": "a5fa52dc05a85a41772381b9489685fbfafc31cf7afdabdeac73a09c6a36116f",
+          "guards": []
+        },
+        {
+          "from": 1215,
+          "to": 1214,
+          "sid": 5,
+          "uid": 5,
+          "tag": 2,
+          "offset": 203,
+          "hash": "1145ff44bf4b4a3128023d05e045507683fdad15a27b25255374a7d7e3064202",
+          "guards": []
+        },
+        {
+          "from": 1213,
+          "to": 1214,
+          "sid": 11,
+          "uid": 11,
+          "tag": 2,
+          "offset": 342,
+          "hash": "41ddf8a923f8204d5e33e3b611d4bb29557b7b3bb8b1772c98536f3b8dd42244",
+          "guards": []
+        },
+        {
+          "from": 1214,
+          "to": 1224,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 542,
+          "hash": "723c3a9351a0bc66bffde01800361b02f561f037ba1c68d23c6f49c3e2cec1ab",
+          "guards": []
+        },
+        {
+          "from": 1224,
+          "to": 1206,
+          "sid": 7,
+          "uid": 7,
+          "tag": 2,
+          "offset": 350,
+          "hash": "2a80aeaddc48caacc590e60effdf6ea868428f553ce072b6ae96304b89f531bd",
+          "guards": []
+        }
+      ]
+    },
+    {
       "id": "alexandria-return-reviewed-purple-candelabrum",
       "floor": 5070,
       "ceiling": 5075,
@@ -67816,23 +67961,103 @@
       "links": []
     },
     {
-      "id": "alexandria-return-reviewed-open-passage",
+      "id": "alexandria-rescue-altar",
       "floor": 5075,
       "ceiling": 5080,
       "milestone": 5080,
-      "field": 1206,
+      "field": 1205,
       "uids": [],
-      "action": "Secret passage opening",
-      "goal": "Alexandria Castle",
+      "action": "Go down to the ceremonial chamber",
+      "goal": "the ceremonial chamber",
       "rooms": [
+        {
+          "field": 1201,
+          "directorHash": "ce13116caaf8f3879b369450e289526e7247e09d9ea27b1975138d0e8f5e0130"
+        },
+        {
+          "field": 1202,
+          "directorHash": "fc461b5cda54b04fb5d93c00b0a9ce75b49eb3e9eef0a29d830406a2ebba6593"
+        },
+        {
+          "field": 1203,
+          "directorHash": "db719fa893dd8f02193be49c484e85ae221f2c92106ed17f267570e89c2cedd4"
+        },
+        {
+          "field": 1204,
+          "directorHash": "73e228ebce3ae3bf326155d21c9e7e1984cc70962d15aa6c10c9ee6979b2aa7d"
+        },
+        {
+          "field": 1205,
+          "directorHash": "e0280ce1c94aba31eb6d1676e1f730ebc2be6dd0595ed79d624f789354a19406"
+        },
         {
           "field": 1206,
           "directorHash": "9ac0674bd6670cc96bd2b8ff9a5d61590c581d8d6349eb3636e4ad9effea260f"
         }
       ],
       "guards": [],
-      "links": [],
-      "information": "Continue the scene as the secret passage opens."
+      "links": [
+        {
+          "from": 1206,
+          "to": 1202,
+          "sid": 13,
+          "uid": 13,
+          "tag": 2,
+          "offset": 191,
+          "hash": "2911a4e9c357e3d4778807e4bdea6b9c2798757c16831f0e76cebe9822887e8b",
+          "guards": []
+        },
+        {
+          "from": 1202,
+          "to": 1203,
+          "sid": 20,
+          "uid": 20,
+          "tag": 2,
+          "offset": 247,
+          "hash": "dbfeb4938c574e091804a67e9556c7aae17490890029b4d638f85df5b88c4562",
+          "guards": []
+        },
+        {
+          "from": 1203,
+          "to": 1204,
+          "sid": 12,
+          "uid": 12,
+          "tag": 2,
+          "offset": 251,
+          "hash": "ad3d7dcb7c85992db3c2b78e5b616354a2199db03dc2204754e54251de9b775f",
+          "guards": []
+        },
+        {
+          "from": 1204,
+          "to": 1205,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 409,
+          "hash": "af678b3663d71a8553907051607df32f25dff192aff2b444301f1c342d44f140",
+          "guards": []
+        },
+        {
+          "from": 1204,
+          "to": 1205,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 268,
+          "hash": "63191fd64b0a338c40102a6ba8c3a5e2f025d2c9eec8e50a211f4ef9c65b234b",
+          "guards": []
+        },
+        {
+          "from": 1201,
+          "to": 1204,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 235,
+          "hash": "10d87a6dfa91a1a3b379e554090ffa41b0ae0a7c0f0114a13e09e6171cfb6248",
+          "guards": []
+        }
+      ]
     },
     {
       "id": "alexandria-return-reviewed-return-upstairs",

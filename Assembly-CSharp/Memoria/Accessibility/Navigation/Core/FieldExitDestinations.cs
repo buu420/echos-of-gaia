@@ -18,7 +18,7 @@ namespace Memoria.Accessibility.Navigation
         }
 
 
-        // The original Lindblum door scripts expect a normal approach toward the first QUAD edge.
+        // These original door scripts test the player's heading toward the first QUAD edge.
         internal static bool RequiresInwardApproach(int field,int sid,int uid,string hash)
         {
             if(sid!=uid)return false;
@@ -27,6 +27,10 @@ namespace Memoria.Accessibility.Navigation
             case 555: return sid==20 && hash=="a3daba2e9f09ccf1cb8d3661e09046915f5aa5938d307fea212971d573f0fc63";
             case 556: return sid==19 && hash=="abadf9abb6d5dbd5bf18fde3b3633f2c46add0ebfdc380c0e7b556ac0ad0bd50";
             case 570: return sid==24 && hash=="d5a671438d494f979fc3b35a22bb09246fc30657f430b30ea4cbdc95f3699d97";
+            case 1204: return sid==8 && hash=="af678b3663d71a8553907051607df32f25dff192aff2b444301f1c342d44f140";
+            case 1213: return sid==11 && hash=="41ddf8a923f8204d5e33e3b611d4bb29557b7b3bb8b1772c98536f3b8dd42244";
+            case 1214: return sid==6 && hash=="723c3a9351a0bc66bffde01800361b02f561f037ba1c68d23c6f49c3e2cec1ab";
+            case 1224: return sid==7 && hash=="2a80aeaddc48caacc590e60effdf6ea868428f553ce072b6ae96304b89f531bd";
             case 1302: return sid==12 && hash=="cc9171c8d4949cb580c3daad8b8cc7e8aad2d370cc6ad0866ee6580942af4c44";
             case 1305: return sid==14 && hash=="4b1bf936225fb3dd9b21af833e9643538bba38383d00fa307474664d69b3bf60";
             case 2102: return sid==9 && hash=="b5bc9cb45d89eeed1d2c50168644510372700fc934335b89effe3bfa2d8e7b47";

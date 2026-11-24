@@ -78,6 +78,7 @@ internal static partial class Program
         IifaCases();
         LaterChainCases();
         AlexandriaPrisonLadder();
+        AlexandriaTimedRescue();
         PrimaVistaCabinDescent();
         GateAndDetourCases();
         PalaceResourceCases();

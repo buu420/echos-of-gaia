@@ -44,6 +44,12 @@ namespace FF9Access.Tests
                 var metadata=pe.GetMetadataReader();var required=new HashSet<string>{
                     "NativeStoryTargets.Initialize|NativeStoryPrerequisites.Initialize",
                     "NativeStoryTargets.Append|NativeStoryPrerequisites.TryAppend",
+                    "NativeStoryTargets.Append|NativeAlexandriaRescueBridge.TryAppend",
+                    "NativeAlexandriaRescueBridge.TryAppend|NativeFieldTargets.StorySurfacePresented",
+                    "NativeAlexandriaRescueBridge.TryAppend|EventEngine.NavigationTalkQuadAt",
+                    "NativeAlexandriaRescueBridge.Prompt|AlexandriaRescueBridge.DismountCue",
+                    "BubbleUI.AnnounceInteractionBubble|NativeAlexandriaRescueBridge.Prompt",
+                    "BubbleUI.AnnounceInteractionBubble|EIcon.get_NavigationScriptIconUid",
                     "NativeStoryPrerequisites.TryAppend|StoryPrerequisiteCatalog.HasScope",
                     "NativeStoryPrerequisites.TryAppend|StoryPrerequisiteCatalog.TryAppend",
                     "NativeStoryPrerequisites.TryAppend|NativeFieldTargets.CurrentBgiHash",
@@ -122,7 +128,7 @@ namespace FF9Access.Tests
                     ,"NativeTelescopeCue.Tick|FieldMap.EBG_sceneGetVRP"
                     ,"NativeTelescopeCue.Tick|EIcon.get_NavigationPresentedUid"
                 };
-                var readers=new HashSet<string>{"NativeStoryPrerequisites","StoryPrerequisiteCatalog","StoryPrerequisiteData","NativeFieldTouchReadiness","FieldTouchConfirmation","NativeNumericDialogs","NumericInputReader","NativeOpeningTicketBooth","OpeningTicketBoothEvidence","FieldInputOrientation","ManualRouteGuidance","RouteGuidanceProgress","RouteInstruction","NativeOpeningPositionTargets","OpeningPositionApproaches"};
+                var readers=new HashSet<string>{"NativeStoryPrerequisites","StoryPrerequisiteCatalog","StoryPrerequisiteData","NativeFieldTouchReadiness","FieldTouchConfirmation","NativeNumericDialogs","NumericInputReader","NativeOpeningTicketBooth","OpeningTicketBoothEvidence","FieldInputOrientation","ManualRouteGuidance","RouteGuidanceProgress","RouteInstruction","NativeOpeningPositionTargets","OpeningPositionApproaches","NativeAlexandriaRescueBridge","AlexandriaRescueBridge"};
                 foreach(var handle in metadata.TypeDefinitions) {
                     var type=metadata.GetTypeDefinition(handle);string name=metadata.GetString(type.Name),owner=name;
                     var parent=type.GetDeclaringType();while(!parent.IsNil){var enclosing=metadata.GetTypeDefinition(parent);owner=metadata.GetString(enclosing.Name);parent=enclosing.GetDeclaringType();}

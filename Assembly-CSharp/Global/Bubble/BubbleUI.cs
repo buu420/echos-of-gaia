@@ -577,9 +577,12 @@ public class BubbleUI : Singleton<BubbleUI>
 
             // Determine what the interaction is based on flag combination
             string announcement = "";
+            string bridgePrompt = hasExclamation
+                ? Memoria.Accessibility.Navigation.NativeAlexandriaRescueBridge.Prompt(EIcon.NavigationScriptIconUid)
+                : null;
             if (hasExclamation)
             {
-                announcement = "Interact";
+                announcement = bridgePrompt ?? "Interact";
             }
             else if (hasQuestion)
             {
@@ -599,7 +602,7 @@ public class BubbleUI : Singleton<BubbleUI>
             }
 
             // Announce via screen reader
-            Memoria.ScreenReader.ScreenReaderManager.Instance.Speak(announcement, interrupt: false);
+            Memoria.ScreenReader.ScreenReaderManager.Instance.Speak(announcement, interrupt: bridgePrompt != null);
 
             // Also log for debugging
             Log.Message("[BubbleUI] Interaction available: " + announcement);

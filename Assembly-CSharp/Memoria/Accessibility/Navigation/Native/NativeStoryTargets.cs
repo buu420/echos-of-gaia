@@ -240,6 +240,7 @@ namespace Memoria.Accessibility.Navigation
         public static void Append(NavigationContext context,CatalogResult catalog)
         {
             if(TryAppendRequiredAte(context,catalog))return;
+            if(NativeAlexandriaRescueBridge.TryAppend(context,catalog))return;
             if(NativeStoryPrerequisites.TryAppend(context,catalog))return;
             Initialize();RefreshTransit();if(_catalog!=null)_catalog.Append(context,catalog,FieldNumber(context),AreaName,MapByte,EntryHash);
             else if(context!=null && context.StoryProgress>=0)catalog.Targets.Add(new NavigationTarget{Id=new TargetIdentity(TargetKind.Story,context.LogicalMapKey,-1),Category=NavigationCategory.Story,Generation=context.Generation,Position=context.Position,Label="Story guidance unavailable.",Availability="The Story catalog could not be read.",ApproachCandidates=new NavigationPoint[0]});

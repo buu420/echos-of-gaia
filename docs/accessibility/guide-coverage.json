@@ -582,7 +582,7 @@
   "reviewedStoryActions": {
     "steps": 183,
     "loopActions": 16,
-    "phases": 433
+    "phases": 434
   },
   "retainedInputs": [
     {
@@ -617,7 +617,7 @@
     },
     {
       "path": "docs/accessibility/story-action-chains.json",
-      "sha256": "11bc779ff0b9539a3374e929dac794e06d3e0e7bfda34d40018f433f1c6cd599"
+      "sha256": "3cb38bf4d1210b855ad640a59a3bd992eaea114e64c2efa9c7f7a12ad4654e5a"
     },
     {
       "path": "docs/accessibility/story-palace-actions.json",
@@ -674,6 +674,14 @@
     {
       "path": "Assembly-CSharp/Global/Button/ButtonInputHandler.cs",
       "sha256": "82037ddcb6df4c38261fa91a7ca12399d9535276765d7a7f5e0e329fc2e9416c"
+    },
+    {
+      "path": "Assembly-CSharp/Global/Bubble/BubbleUI.cs",
+      "sha256": "46e09437075723f9b4cc362cf82914db68c256f45bf7987f7c6f9cfe9440e2ea"
+    },
+    {
+      "path": "Assembly-CSharp/Global/EIcon.cs",
+      "sha256": "8a4cc6d217cb2207aa2a1d35ad7b02c139aa83850471fd85156b4389275cbd76"
     },
     {
       "path": "Assembly-CSharp/Global/Event/EventCollision.cs",
@@ -784,6 +792,14 @@
       "sha256": "beef189ed2757ca896581a53ceffa46b70aeda8fb29cb89c327131ae081da10c"
     },
     {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/AlexandriaRescueBridge.cs",
+      "sha256": "aaf9beabd3ea488efb0f843791c717f6d6c7cd94486f2b69ffcd6aa7415ec68d"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeAlexandriaRescueBridge.cs",
+      "sha256": "1acbbee36bb9914b7af6f317f2e1a5024b4034ddd2c3ada50d02e27e8db19068"
+    },
+    {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/OpeningTicketBoothEvidence.cs",
       "sha256": "e8eb0d696c800735718627d032fa82dd888c5b39023243d9f8d79217acdd0991"
     },
@@ -845,7 +861,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldExitDestinations.cs",
-      "sha256": "e9695d8d4eb092505ac814efa9cdddd8733ba7a61deb00ae3c7a1b2bca7f0687"
+      "sha256": "1e9380f1957e82012e3ee8e2646e8a0aba5a20c7a9713414ef073b443c645f6e"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/ScriptStoryAnalyzer.cs",
@@ -997,7 +1013,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryTargets.cs",
-      "sha256": "9944eee72334f467599be7d3304f71e1f7cce93a3b91bc5e347160ede9a8df26"
+      "sha256": "07ecc4c1965ce1d797cc541da246aa91816425a8e89b473d59276b36830553a8"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeInteractionProbe.cs",
@@ -2047,9 +2063,9 @@
         5300
       ],
       "staticStatus": "guide-order-and-native-scenes-compared",
-      "runtimeCorrection": null,
+      "runtimeCorrection": "alexandria-rescue-route",
       "remainingGaps": [
-        "Timed escape and cage input need specific native phase proof. The purple candelabra and moving platform are required local actions, while Tantarian is an optional encounter."
+        "Story connects the timed rescue grounds to the queen’s room and the ceremonial chamber through the native doors. The rotating bridge uses the current boarding bank and the native jump prompt. Full scene transitions, puzzle inputs, controller and speech still need live validation."
       ],
       "fullyAccessibleProven": false,
       "liveValidated": false

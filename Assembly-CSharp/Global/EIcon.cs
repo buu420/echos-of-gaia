@@ -93,6 +93,9 @@ internal class EIcon
     }
 
     private static int navigationPolledUid=-1;
+    internal static int NavigationScriptIconUid =>
+        processFIcon && !dialogBubble && sFIconLastPolled && lastPollType == PollType.EVENT_SCRIPT ? navigationPolledUid : -1;
+
     public static int NavigationPresentedUid
     {
         get {
