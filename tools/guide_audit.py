@@ -33,6 +33,7 @@ SOURCE_FILES = [
     'docs/accessibility/reviewed-background-objects.json',
     'docs/accessibility/field-loop-prompts.json',
     'docs/accessibility/field-exit-functions.json',
+    'docs/accessibility/field-exit-evidence.json',
     'tools/Export-FF9StorySteps.py',
     'tools/story_native_graph.py',
     'tools/story_action_validation.py',
@@ -108,7 +109,7 @@ SOURCE_FILES = [
 ]]
 PREREQUISITE_CHAPTERS = {
     1: ('opening-cross-zone', 'Opening travel uses actual native street exits toward the square. The rendered ticket sign binds its native front hotspot; room104 is the dialogue/completion scene. Unknown routes identify the next area without creating a walking target.'),
-    14: ('alexandria-rescue-route', 'Story connects the timed rescue grounds to the queen’s room and the ceremonial chamber through the native doors. The rotating bridge uses the current boarding bank and the native jump prompt.'),
+    14: ('alexandria-rescue-route', 'Story follows the native doors from the grounds to the queen’s room and through the tunnels to the ceremonial chamber. A visible walking step brings the upstairs hallway into view. The rotating bridge uses the current boarding bank and the native jump prompt.'),
     15: ('pinnacle-fragments', 'Current fragment bits precede the final conversation. Only an already presented, interactive fragment can supply a walking target. Unshown fragments have no inferred position.'),
     17: ('fossil-route', 'Current switch bits and the verified floor component choose the route step. Reviewed flowers and boarding spots are separate targets tied to their native prompts; a route with no current approach remains informational.'),
     33: ('palace-lamps', 'The required candle route has explicit native actions and named room transitions. In the Shadow Chamber, the current floor distinguishes a recoverable lamp change after backtracking from an unsupported position. The Cid cue reads the native timing state; audible delivery and playability have not been tested.'),

@@ -636,6 +636,10 @@
       "sha256": "b573c54bdad0452fdb3d2b7bf803bab634782030390464f0dc486e0c511182bb"
     },
     {
+      "path": "docs/accessibility/field-exit-evidence.json",
+      "sha256": "e7cebb28ac1fb28b47b53bc80795f9e962f194fb5b44203a5a588a4ed67de08a"
+    },
+    {
       "path": "tools/Export-FF9StorySteps.py",
       "sha256": "fd438abfc1f6de7f98606d7657f83f2eacb445482fdbf9cd124397ea73ac53ce"
     },
@@ -889,7 +893,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldExitNames.cs",
-      "sha256": "1d751399a7af536d64500c443ee07c949fa5dd2dc5c3fb028191c01d56d12734"
+      "sha256": "1c14aec45842c2aecde14dab59e93fff08a35f435e65a8ba22e5f340a715fa43"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/RouteGuidanceProgress.cs",
@@ -969,7 +973,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldExitDestinations.cs",
-      "sha256": "e7cc289592f4ebd181dcf78b267d5929d9593c386b83b601c54ad69e5b0f0e72"
+      "sha256": "e8d61dc52ce602e0a44447f384631c533e528f18336de5bf90d5c267863f6c0c"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeOpeningPositionTargets.cs",
@@ -1013,7 +1017,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryTargets.cs",
-      "sha256": "07ecc4c1965ce1d797cc541da246aa91816425a8e89b473d59276b36830553a8"
+      "sha256": "cb7a61e2b452569ee187e745b7b418cba696862c069bb33f27d2f25ab758d105"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeInteractionProbe.cs",
@@ -1077,7 +1081,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldExitRoutes.cs",
-      "sha256": "985577e027115bedacad32f0830fe7d6670e2ca579f6b50a262693dbb02df12d"
+      "sha256": "cbf2a46097608dcd392267b2dd047bc5abd6cee97960de9e9edb76523fbce57d"
     }
   ],
   "nativeFieldIdentity": "8a1aad6c4928624e1b999279f085e45fe0d40227e47972ee13b52abd96931043",
@@ -2065,7 +2069,7 @@
       "staticStatus": "guide-order-and-native-scenes-compared",
       "runtimeCorrection": "alexandria-rescue-route",
       "remainingGaps": [
-        "Story connects the timed rescue grounds to the queen’s room and the ceremonial chamber through the native doors. The rotating bridge uses the current boarding bank and the native jump prompt. Full scene transitions, puzzle inputs, controller and speech still need live validation."
+        "Story follows the native doors from the grounds to the queen’s room and through the tunnels to the ceremonial chamber. A visible walking step brings the upstairs hallway into view. The rotating bridge uses the current boarding bank and the native jump prompt. Full scene transitions, puzzle inputs, controller and speech still need live validation."
       ],
       "fullyAccessibleProven": false,
       "liveValidated": false

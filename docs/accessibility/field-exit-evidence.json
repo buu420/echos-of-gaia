@@ -67,6 +67,20 @@
   "unresolvedPolicy": "Unseen, ambiguous or unsupported entrances remain diagnostic candidates. Destination labels are never derived from scripts.",
   "surfaceReviewed": [
     {
+      "sceneKey": "field:1214:FBG_N02_ALXC_MAP041A_AC_H2F_1",
+      "scriptId": 6,
+      "camera": 1,
+      "sourceFingerprint": "723c3a9351a0bc66bffde01800361b02f561f037ba1c68d23c6f49c3e2cec1ab",
+      "backgroundFingerprint": "80d6adde26d911a418a1ad97a55c835457010e0a55acbe8ab24ddef015087e76",
+      "walkmeshFingerprint": "11ae4a6bdf04d29d4dcce2c52e7d0e708f75b2d4f60424205a26495bdaef15f0",
+      "visibleCue": "Upper hallway beyond the stairs",
+      "imageFingerprint": "f83f3fb1b4de6fca09c508022ca75d21b1779cf80448343ae76ab3fa52bc1b22",
+      "imageEvidence": "game-capture-field-1214-camera-1.png",
+      "review": "Camera 1 shows the staircase and upper landing. The upper branch of this shared region begins on the landing before the animated door tile. The native approach and floor checks decide which destination is reachable.",
+      "triggerPolygon": [[-227, 3000], [200, 3000], [212, 935], [-264, 924]],
+      "overlayIds": [7]
+    },
+    {
       "sceneKey": "field:255:FBG_N04_EVFT_MAP075_EF_NRV_0",
       "scriptId": 7,
       "camera": 0,

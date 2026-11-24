@@ -44,6 +44,7 @@ namespace Memoria.Accessibility.Navigation
                 // when its current path cannot be proven (FieldExitFunctions.Generated.cs).
                 bool confirm=trigger==EventEngine.tagTalk;
                 route.RequireInwardApproach=!confirm && FieldExitDestinations.RequiresInwardApproach(field,quad.sid,quad.uid,hash);
+                if(field==1214 && route.RequireInwardApproach)route.InwardApproachDestination=1224;
                 route.Function=FieldExitFunctions.Function(field,quad.sid,hash,confirm);
                 route.Continuation=FieldExitFunctions.SceneContinuation(field,quad.sid,quad.uid,trigger,hash,StationSceneHash);
                 foreach(int possible in FieldExitFunctions.Possible(field,quad.sid,hash,confirm)) {
@@ -60,9 +61,13 @@ namespace Memoria.Accessibility.Navigation
                     foreach(var group in observation.DestinationApproaches)if(group.Value!=null)groups[group.Key]=new List<NavigationPoint>(group.Value);
                 }else {
                     var prove=ExitProof(context,engine,quad,hash,geometry,trigger);
-                    int count=0;
+                    int count=0,upperCount=0;
                     foreach(var point in points) {
-                        if(!point.IsFinite || count++>=ExitRoutePoints)continue;
+                        if(!point.IsFinite)continue;
+                        // The shared hall region can sample either floor first.
+                        if(route.InwardApproachDestination.HasValue && point.Y>100) {
+                            if(upperCount++>=ExitRoutePoints)continue;
+                        }else if(count++>=ExitRoutePoints)continue;
                         var evidence=prove(point);
                         // A choice that changes state but always leads to one place (a card or item choice
                         // before leaving) asks first; only a reviewed service menu (air cab, trolley, lift) or

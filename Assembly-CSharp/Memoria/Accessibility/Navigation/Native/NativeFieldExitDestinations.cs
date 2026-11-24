@@ -45,7 +45,13 @@ namespace Memoria.Accessibility.Navigation
         private static void AnnotateExitSurfaces(NavigationContext context,EventEngine engine,Obj obj,FieldTargetObservation observation)
         {
             var exit=observation.Exit;
-            if(observation.Id.Kind!=TargetKind.FieldExit || exit==null || !exit.ApproachEnabled || exit.ApproachCandidates==null || !NativeStoryTargets.Matches(context,obj.sid,Fingerprint(obj.ebData)))return;
+            if(observation.Id.Kind!=TargetKind.FieldExit || exit==null || !exit.ApproachEnabled || exit.ApproachCandidates==null)return;
+            string hash=Fingerprint(obj.ebData);
+            if(!NativeStoryTargets.Matches(context,obj.sid,hash))return;
+            // The hall's lower branch can pass this legacy proof on its own.
+            // Keep the upper floor points for the complete facing-aware replay.
+            int field=FF9StateSystem.Common.FF9.fldMapNo;
+            if(field==1214 && FieldExitDestinations.RequiresInwardApproach(field,obj.sid,obj.uid,hash))return;
             var code=Decode(engine,obj,EventEngine.tagPush);bool positionRead=false,requests=false;
             foreach(var instruction in code) {
                 if(instruction.Expression!=null && Array.IndexOf(instruction.Expression,(byte)0x78)>=0)positionRead=true;
@@ -59,7 +65,7 @@ namespace Memoria.Accessibility.Navigation
             string scope=context.Generation+":"+context.LogicalMapKey+":"+context.SaveIdentity+":"+context.PlayerIdentity;
             // A requested entry owns separate variables/lifetime. Do not cache
             // it using only the parent entry's memory as its invalidation key.
-            var groups=requests?FieldExitDestinations.Read(exit.ApproachCandidates,evaluate):_exitDestinationCache.Read(scope,obj.uid,Fingerprint(obj.ebData),FF9StateSystem.EventState.gEventGlobal,engine.GetMapVar(),ScriptSnapshot.InstanceBytes(obj.buffer,obj.vofs),exit.ApproachCandidates,evaluate);
+            var groups=requests?FieldExitDestinations.Read(exit.ApproachCandidates,evaluate):_exitDestinationCache.Read(scope,obj.uid,hash,FF9StateSystem.EventState.gEventGlobal,engine.GetMapVar(),ScriptSnapshot.InstanceBytes(obj.buffer,obj.vofs),exit.ApproachCandidates,evaluate);
             var destinations=new List<int>(groups.Keys);destinations.Sort();observation.NextFields=destinations.ToArray();
             var approved=FieldExitDestinations.Select(groups,destinations);
             if(approved.Length==0)return; // The full exit replay handles positioning, facing, requests and choices.

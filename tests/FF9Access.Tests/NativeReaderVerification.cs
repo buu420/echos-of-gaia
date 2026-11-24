@@ -45,6 +45,8 @@ namespace FF9Access.Tests
                     "NativeStoryTargets.Initialize|NativeStoryPrerequisites.Initialize",
                     "NativeStoryTargets.Append|NativeStoryPrerequisites.TryAppend",
                     "NativeStoryTargets.Append|NativeAlexandriaRescueBridge.TryAppend",
+                    "NativeStoryTargets.CurrentPositionGoal|NativeStoryTargets.AlexandriaHallStairs",
+                    "NativeStoryTargets.AlexandriaHallStairs|NativeFieldTargets.CurrentBgiHash",
                     "NativeAlexandriaRescueBridge.TryAppend|NativeFieldTargets.StorySurfacePresented",
                     "NativeAlexandriaRescueBridge.TryAppend|EventEngine.NavigationTalkQuadAt",
                     "NativeAlexandriaRescueBridge.Prompt|AlexandriaRescueBridge.DismountCue",

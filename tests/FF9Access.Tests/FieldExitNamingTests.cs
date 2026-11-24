@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Memoria.Accessibility.Navigation;
 namespace FF9Access.Tests
 {
@@ -49,6 +50,20 @@ namespace FF9Access.Tests
             var unavailable=Only(Build(new FieldTargetCatalog(),Routes(exit,route),exit));
             TestAssert.False(unavailable.RequireInwardApproach);
             TestAssert.Equal(0,unavailable.ApproachCandidates.Length);
+        }
+
+        public static void SharedDoorStagesOnlyTheBranchThatReadsFacing()
+        {
+            var upper = new NavigationPoint(0, 1499, 950);
+            var lower = new NavigationPoint(0, 1, 1600);
+            var exit = Exit(6, "Hall", upper, lower);
+            var route = Route(1215, new[] { lower }, "Lower hall", 1224, new[] { upper }, "Upper hall");
+            route.RequireInwardApproach = true;
+            route.InwardApproachDestination = 1224;
+            var targets = Build(new FieldTargetCatalog(), Routes(exit, route), exit).Targets;
+            TestAssert.Equal(2, targets.Count);
+            TestAssert.False(targets.Single(target => target.Label == "Exit to Lower hall").RequireInwardApproach);
+            TestAssert.True(targets.Single(target => target.Label == "Exit to Upper hall").RequireInwardApproach);
         }
 
         public static void UnknownOrUnavailableDestinationIsNeverInvented()

@@ -213,6 +213,10 @@ namespace Memoria.Accessibility.Navigation
             int field=FieldNumber(context);
             if(field==OpeningCastleStory.HallField)return OpeningCastleStory.CurrentGoal(context,MapByte(OpeningCastleStory.PhaseByte),EntryHash);
             if(field==OpeningRooftopEvidence.Field)return OpeningRooftopEvidence.Current(context,MapByte(OpeningStoryCheckpoints.PhaseByte),EntryHash);
+            if(field==1214) {
+                var stairs=AlexandriaHallStairs(context);
+                if(stairs!=null)return stairs;
+            }
             if(field!=OpeningStoryCheckpoints.AlleyField)return GenericPositionGoal(context,field);
             bool shown;
             try {
@@ -224,6 +228,26 @@ namespace Memoria.Accessibility.Navigation
             }catch(Exception){return null;}
             return OpeningStoryCheckpoints.AlleyBoyGoal(context,MapByte(OpeningStoryCheckpoints.PhaseByte),EntryHash,shown);
         }
+
+        private static OpeningPositionGoal AlexandriaHallStairs(NavigationContext context)
+        {
+            if (!context.CanControl || context.StoryProgress < 5050 || context.StoryProgress >= 5070 ||
+                context.LogicalMapKey != "field:1214:FBG_N02_ALXC_MAP041A_AC_H2F_1")
+                return null;
+            var field = NativeSceneReferences.Read<FieldMap>();
+            if (field == null || field.camIdx != 0 || field.curCamIdx != 0 ||
+                EntryHash(0) != "b50eed4e5260a8407eaf920b1881fef8d4e96d7944d6b8f56beb5ab2f91cee81" ||
+                EntryHash(5) != "9a449d906aba2657740edd4d45d320be5c24c08dabf9f5ffec38551b7564fcbc" ||
+                NativeFieldTargets.CurrentBgiHash(field) != "11ae4a6bdf04d29d4dcce2c52e7d0e708f75b2d4f60424205a26495bdaef15f0")
+                return null;
+
+            // The hall's native camera changes at X > 500, revealing the stairs and upper door.
+            return new OpeningPositionGoal {
+                Field = 1214, Map = context.LogicalMapKey, Phase = 1214, Milestone = 5070,
+                Action = "Cross the hall toward the stairs", Axis = OpeningGoalAxis.X, Minimum = 501
+            };
+        }
+
         // The controlled player's own current native position wait in any other field. Several
         // simultaneous different waits are ambiguous and give no goal.
         private static OpeningPositionGoal GenericPositionGoal(NavigationContext context,int field)

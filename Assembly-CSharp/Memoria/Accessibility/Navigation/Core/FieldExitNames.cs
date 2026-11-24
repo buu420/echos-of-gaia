@@ -11,6 +11,7 @@ namespace Memoria.Accessibility.Navigation
         public bool ConfirmPrompt;
         internal FieldExitContinuation Continuation;
         public bool RequireInwardApproach;
+        public int? InwardApproachDestination;
         public readonly Dictionary<int,NavigationPoint[]> Approaches=new Dictionary<int,NavigationPoint[]>();
         public readonly Dictionary<int,string> Names=new Dictionary<int,string>();
         // Destinations reached only after a shown prompt the player may decline.
@@ -116,7 +117,8 @@ namespace Memoria.Accessibility.Navigation
                 foreach(var part in parts) {
                     var target=parts.Count==1 && !part.IsMenu?exit:Split(exit,part);
                     target.SelectDestinationInMenu=part.IsMenu;
-                    target.RequireInwardApproach=route.RequireInwardApproach && !part.IsMenu && part.Points.Count>0;
+                    target.RequireInwardApproach=route.RequireInwardApproach && !part.IsMenu && part.Points.Count>0 &&
+                        (!route.InwardApproachDestination.HasValue || part.Fields.Contains(route.InwardApproachDestination.Value));
                     target.Label=part.Label??"Exit to "+part.Name+(!String.IsNullOrEmpty(currentLocation) && part.Name==currentLocation?", this same area":"");
                     if(part.Availability!=null)target.Availability=String.IsNullOrEmpty(target.Availability)?part.Availability:target.Availability+"; "+part.Availability;
                     if(part.Points.Count!=0){target.ApproachCandidates=part.Points.ToArray();target.Position=part.Points[0];}
