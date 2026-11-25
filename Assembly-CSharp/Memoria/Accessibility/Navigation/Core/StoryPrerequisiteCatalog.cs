@@ -18,6 +18,7 @@ namespace Memoria.Accessibility.Navigation
         public int Field,PlayerSid,ActiveTriangle=-1;public string PlayerHash,DirectorHash,BgiHash;
         public Func<int,int?> GlobalByte,MapByte;
         public Func<TargetIdentity,StoryPrerequisiteObject> Object;
+        public Func<int,NavigationTarget> PinnacleRoute;
     }
     // Consumes current native state and existing physical targets; never creates a hidden approach.
     public sealed class StoryPrerequisiteCatalog
@@ -36,8 +37,8 @@ namespace Memoria.Accessibility.Navigation
             int flags=0;string action=null,label=null;int[] sids=null;
             if(rule.Kind==StoryPrerequisiteKind.Pinnacle) {
                 int? value=Read(evidence.GlobalByte,266);if(!value.HasValue || (value.Value & ~31)!=0)return Unavailable(context,catalog,rule);
-                flags=value.Value;if(flags==31)return false;
-                action="fragment";label="Collect a story fragment";
+                flags=value.Value;if(flags==31 && evidence.PinnacleRoute==null)return false;
+                action="fragment";label=flags==31?"Return to Ramuh":"Collect a story fragment";
             }else if(rule.Kind==StoryPrerequisiteKind.Gulug) {
                 int? complete=Read(evidence.GlobalByte,407);if(!complete.HasValue)return Unavailable(context,catalog,rule);
                 if((complete.Value & 128)!=0)return false;
@@ -63,18 +64,33 @@ namespace Memoria.Accessibility.Navigation
                 var obj=evidence.Object==null?null:evidence.Object(target.PhysicalIdentity);
                 if(obj==null || !rule.Entries.TryGetValue(obj.Sid,out expected) || expected!=obj.Hash)continue;
                 if(rule.Kind==StoryPrerequisiteKind.Pinnacle) {
-                    int mask;if(obj.Model!=102 || !rule.Fragments.TryGetValue(obj.Sid,out mask) || (flags & mask)!=0)continue;
+                    if(obj.Model!=102 || !IsPinnacleSpeaker(rule,flags,obj.Sid))continue;
                 }else if(!Contains(sids,obj.Sid))continue;
                 chosen.Add(target);
             }
             if(chosen.Count==0) {
+                if(rule.Kind==StoryPrerequisiteKind.Pinnacle) {
+                    var next=evidence.PinnacleRoute?.Invoke(flags);
+                    if(next!=null) {
+                        catalog.Targets.Add(StoryTargetCatalog.Wrap(context,rule.Milestone,next,next.Label));
+                        return true;
+                    }
+                    if(flags==31)return false;
+                }
                 string help=rule.Kind==StoryPrerequisiteKind.Pinnacle?"Explore the area for the remaining fragments. No verified walking target is currently presented.":"No verified walking target is currently presented. Use the ordinary game interaction; this step may require manual movement.";
                 catalog.Targets.Add(Information(context,rule,label,help));return true;
             }
             foreach(var physical in chosen)catalog.Targets.Add(StoryTargetCatalog.Wrap(context,rule.Milestone,physical,
-                action=="pick-flower" || action=="feed-gargant"?label:label+" with "+physical.Label));
+                flags==31 && rule.Kind==StoryPrerequisiteKind.Pinnacle || action=="pick-flower" || action=="feed-gargant"?label:label+" with "+physical.Label));
             return true;
         }
+        internal static bool IsPinnacleSpeaker(StoryPrerequisiteField rule, int flags, int sid)
+        {
+            if (rule == null || rule.Kind != StoryPrerequisiteKind.Pinnacle || flags < 0 || flags > 31) return false;
+            if (flags == 31) return rule.Field == 1254 && sid == 8;
+            return rule.Fragments.TryGetValue(sid, out int mask) && (flags & mask) == 0;
+        }
+
         private static int? Read(Func<int,int?> read,int index){int? value=read==null?null:read(index);return value.HasValue && value.Value>=0 && value.Value<=255?value:null;}
         private static bool Contains(int[] values,int value){if(values!=null)foreach(int item in values)if(item==value)return true;return false;}
         private static bool Unavailable(NavigationContext c,CatalogResult catalog,StoryPrerequisiteField rule)

@@ -23,6 +23,8 @@ namespace Memoria.Accessibility.Navigation
                 evidence.ActiveTriangle=player.fieldMapActorController.activeTri;
                 var rule=Catalog.Field(field);
                 if((rule.Kind==StoryPrerequisiteKind.FossilJunction || rule.Kind==StoryPrerequisiteKind.FossilBoarding) && engine.fieldmap!=null)evidence.BgiHash=NativeFieldTargets.CurrentBgiHash(engine.fieldmap);
+                if(rule.Kind==StoryPrerequisiteKind.Pinnacle)
+                    evidence.PinnacleRoute=flags=>NativePinnacleRocks.NextStoryStep(context,targets,player,field,flags);
                 evidence.GlobalByte=index=>Byte(FF9StateSystem.EventState.gEventGlobal,index);
                 evidence.MapByte=index=>Byte(engine.GetMapVar(),index);
                 evidence.Object=id=> {
@@ -36,6 +38,14 @@ namespace Memoria.Accessibility.Navigation
                 return Catalog.TryAppend(context,targets,new StoryPrerequisiteEvidence{Field=field});
             }
         }
+        internal static bool IsCurrentPinnacleSpeaker(NavigationContext context, int field, Actor actor)
+        {
+            if (actor.model != 102 || !Catalog.HasScope(field, context.StoryProgress)) return false;
+            var rule = Catalog.Field(field);
+            return StoryPrerequisiteCatalog.IsPinnacleSpeaker(rule, Byte(FF9StateSystem.EventState.gEventGlobal, 266) ?? -1, actor.sid) &&
+                rule.Entries.TryGetValue(actor.sid, out string hash) && Hash(actor) == hash;
+        }
+
         private static int? Byte(byte[] values,int index){return values!=null && index>=0 && index<values.Length?(int?)values[index]:null;}
         private static string Hash(Obj obj){return obj==null || obj.ebData==null?null:NativeFieldTargets.Fingerprint(obj.ebData);}
     }

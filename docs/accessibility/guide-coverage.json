@@ -789,7 +789,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/StoryPrerequisiteCatalog.cs",
-      "sha256": "d7f259f4e0ea1f7dece6d464b1eefa39facb9413210f4dd917a773ad9783ac96"
+      "sha256": "acb135788fb508deb38c1f3a612de270990a36aac6823eb45a38e4fa25231680"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/StoryPrerequisiteData.cs",
@@ -909,7 +909,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldRoutePlanner.cs",
-      "sha256": "b411d8a1760bc16ef1e1ef0a85ecf79f4004b77fdcb0804c0ae5c343d3a34d7b"
+      "sha256": "917c3747bd8065adaa20c94acf6c88fcde7638a6d4de5ddd1504a29e9f1fa6e2"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/WorldRoutePlanner.cs",
@@ -957,7 +957,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldGeometry.cs",
-      "sha256": "acf6286585a3266224caf14d2fd5da68f5cef1f9096cedfb10b786bd1e6071ea"
+      "sha256": "b73584febdc2ee16389435516d1815b64890764661526705a3a8d40bdbbdccce"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeNavigationInput.cs",
@@ -1001,7 +1001,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryPrerequisites.cs",
-      "sha256": "21af5bf8bf46619a98978787794ea2711aafc50f33fac1599217f2f0156ce26e"
+      "sha256": "4ac7743bbaac3be85b03817e33de76c8b3655fb2d7a240ec5deb71802abb50f6"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldTouchReadiness.cs",
@@ -1020,12 +1020,24 @@
       "sha256": "cb7a61e2b452569ee187e745b7b418cba696862c069bb33f27d2f25ab758d105"
     },
     {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/PinnacleRocksWalkways.cs",
+      "sha256": "ceceadd5744337582338a9873ded16d4a14abf92cfbfa7e3e5900f60c059679c"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativePinnacleRocks.cs",
+      "sha256": "df0bbf7d3a97b2839a6e665877c87c0bb307701387a67bbb56aafdf9e9487914"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldGeometry.cs",
+      "sha256": "b73584febdc2ee16389435516d1815b64890764661526705a3a8d40bdbbdccce"
+    },
+    {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeInteractionProbe.cs",
-      "sha256": "febebfc05bb0502397cb2bd1054fcf714a06ea97e4fc11ab4015e5223b5b1638"
+      "sha256": "6b0fef12e09114fe8328cebdbeb397ea1bd7badf3763c763b295c2a8ed2e9391"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationRuntime.cs",
-      "sha256": "9e1c2b7e80d202b878dab876c205a92bdac3c604c368aa35c696eed76532593f"
+      "sha256": "6ebdc937044290047748d894b72dcff770d1839b3dc4781778a0300f009add1e"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationLifecycleBridge.cs",
@@ -2101,9 +2113,9 @@
         5598
       ],
       "staticStatus": "guide-order-and-native-scenes-compared",
-      "runtimeCorrection": "pinnacle-fragments",
+      "runtimeCorrection": "pinnacle-rocks-routes",
       "remainingGaps": [
-        "Current fragment bits precede the final conversation. Only an already presented, interactive fragment can supply a walking target. Unshown fragments have no inferred position. Full scene transitions, puzzle inputs, controller and speech still need live validation."
+        "The current fragment flags choose between rendered trails, native exits, and the apparitions once their interactions are presented. The field map keeps the upper walkway and the lower shelf separate. The ledge chest uses the original jump prompt. Full scene transitions, puzzle inputs, controller and speech still need live validation."
       ],
       "fullyAccessibleProven": false,
       "liveValidated": false

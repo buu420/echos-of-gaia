@@ -28,6 +28,29 @@ namespace FF9Access.Tests
         }
         public static void PinnaclePrerequisitesDoNotSelectFinalRamuhBeforeFragments()
         {var f=new Fixture(1254);f.Add(8);f.Add(9);var selected=f.Read();TestAssert.Equal(9,selected.PhysicalIdentity.NativeId);TestAssert.True(selected.Label.Contains("fragment"));}
+        public static void PinnacleCanFollowAPresentedExitBeforeAFragmentAppears()
+        {
+            var f = new Fixture(1252);
+            f.Add(7, interactive: false);
+            var passage = f.Add(15, kind: TargetKind.FieldExit);
+            passage.Label = "Exit to Pinnacle Rocks, Hole";
+            f.Evidence.PinnacleRoute = flags => flags == 0 ? passage : null;
+            var selected = f.Read();
+            TestAssert.Equal(passage.Id, selected.PhysicalIdentity);
+            TestAssert.Equal(passage.Label, selected.Label);
+        }
+
+        public static void PinnacleFinalRamuhReplacesTheFragmentList()
+        {
+            var f = new Fixture(1254);
+            f.Globals[266] = 31;
+            f.Evidence.PinnacleRoute = flags => null;
+            f.Add(9);
+            var ramuh = f.Add(8);
+            var selected = f.Read();
+            TestAssert.Equal(ramuh.Id, selected.PhysicalIdentity);
+            TestAssert.Equal("Return to Ramuh", selected.Label);
+        }
         public static void InstantiatedFragmentUidIsNotAssumedToEqualItsScriptSid()
         {var f=new Fixture(1251);f.Add(8,130);TestAssert.Equal(130,f.Read().PhysicalIdentity.NativeId);}
         public static void HiddenOrPreviouslyCollectedFragmentsNeverGainATarget()

@@ -158,6 +158,8 @@ namespace Memoria.Accessibility.Navigation
             }
             result.Triangles = triangles;
             CleyraTrunkRoutes.ReviewGeometry(context.LogicalMapKey, result);
+            if (map == 1252 || map == 1254)
+                PinnacleRocksWalkways.Review(map, NativeFieldTargets.CurrentBgiHash(field), result);
             // Projection camera is presentation state, not movement geometry.
             result.Fingerprint = FieldNativeGeometryContract.Fingerprint(context.LogicalMapKey, result);
             _geometryMap = context.LogicalMapKey;

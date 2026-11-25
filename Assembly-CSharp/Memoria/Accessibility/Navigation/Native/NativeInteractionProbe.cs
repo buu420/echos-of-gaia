@@ -30,6 +30,8 @@ namespace Memoria.Accessibility.Navigation
             }
             var npc = engine.GetObjUID(target.PhysicalIdentity.NativeId) as Actor;
             if(npc==null)return result;
+            var apparition=NativePinnacleRocks.ReadApparitionOffer(context,engine,player,npc);
+            if(apparition!=null)return apparition;
             if(target.InteractionUid>=0) {
                 var region=engine.GetObjUID(target.InteractionUid) as Quad;
                 bool forest=NativeFieldTargets.IsForestInteraction(context,npc,region);

@@ -58,6 +58,7 @@ namespace Memoria.Accessibility.Navigation
                 CatalogResult catalog=world?WorldMapAccessibilityManager.Instance.ReadTargets(context):AccessibleNavigationManager.Instance.ReadTargets(context);
                 if(_diagnosticGeneration!=context.Generation){_diagnostics.Clear();_diagnosticGeneration=context.Generation;}
                 foreach(string diagnostic in catalog.Diagnostics)if(_diagnostics.Count<64 && _diagnostics.Add(diagnostic))Trace("Target diagnostic; map="+context.LogicalMapKey+"; "+diagnostic);
+                NativePinnacleRocks.ReviewTargets(context,catalog);
                 NativeFieldExitCues.Tick(context,catalog);
                 if(!NativeOpeningPositionTargets.TryAppend(context,catalog))NativeStoryTargets.Append(context,catalog);
                 var movement=ReadMovement(context,catalog);

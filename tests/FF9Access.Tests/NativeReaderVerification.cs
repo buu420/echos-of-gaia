@@ -55,6 +55,13 @@ namespace FF9Access.Tests
                     "NativeStoryPrerequisites.TryAppend|StoryPrerequisiteCatalog.HasScope",
                     "NativeStoryPrerequisites.TryAppend|StoryPrerequisiteCatalog.TryAppend",
                     "NativeStoryPrerequisites.TryAppend|NativeFieldTargets.CurrentBgiHash",
+                    "NativeStoryPrerequisites|NativePinnacleRocks.NextStoryStep",
+                    "NavigationRuntime.Tick|NativePinnacleRocks.ReviewTargets",
+                    "NativeFieldGeometry.ReadAvailable|PinnacleRocksWalkways.Review",
+                    "FieldRoutePlanner.Plan|PinnacleRocksWalkways.IntermediateArrivalRadius",
+                    "NativePinnacleRocks.ReadJump|NativeFieldTargets.PinnacleJumpApproaches",
+                    "NativePinnacleRocks.ReviewVestPrompt|NativeFieldActorInteractions.ReadPushReadiness",
+                    "NativeInteractionProbe.Read|NativePinnacleRocks.ReadApparitionOffer",
                     "NativeFieldTargets.Read|NativeFieldTargets.VisibleBody",
                     "NativeFieldTargets.Read|FieldScenePresentation.Actor",
                     "NativeFieldTargets.Read|NativeFieldTargets.ReadStoryRegion",
@@ -130,7 +137,7 @@ namespace FF9Access.Tests
                     ,"NativeTelescopeCue.Tick|FieldMap.EBG_sceneGetVRP"
                     ,"NativeTelescopeCue.Tick|EIcon.get_NavigationPresentedUid"
                 };
-                var readers=new HashSet<string>{"NativeStoryPrerequisites","StoryPrerequisiteCatalog","StoryPrerequisiteData","NativeFieldTouchReadiness","FieldTouchConfirmation","NativeNumericDialogs","NumericInputReader","NativeOpeningTicketBooth","OpeningTicketBoothEvidence","FieldInputOrientation","ManualRouteGuidance","RouteGuidanceProgress","RouteInstruction","NativeOpeningPositionTargets","OpeningPositionApproaches","NativeAlexandriaRescueBridge","AlexandriaRescueBridge"};
+                var readers=new HashSet<string>{"NativeStoryPrerequisites","StoryPrerequisiteCatalog","StoryPrerequisiteData","NativeFieldTouchReadiness","FieldTouchConfirmation","NativeNumericDialogs","NumericInputReader","NativeOpeningTicketBooth","OpeningTicketBoothEvidence","FieldInputOrientation","ManualRouteGuidance","RouteGuidanceProgress","RouteInstruction","NativeOpeningPositionTargets","OpeningPositionApproaches","NativeAlexandriaRescueBridge","AlexandriaRescueBridge","NativePinnacleRocks","PinnacleRocksWalkways"};
                 foreach(var handle in metadata.TypeDefinitions) {
                     var type=metadata.GetTypeDefinition(handle);string name=metadata.GetString(type.Name),owner=name;
                     var parent=type.GetDeclaringType();while(!parent.IsNil){var enclosing=metadata.GetTypeDefinition(parent);owner=metadata.GetString(enclosing.Name);parent=enclosing.GetDeclaringType();}

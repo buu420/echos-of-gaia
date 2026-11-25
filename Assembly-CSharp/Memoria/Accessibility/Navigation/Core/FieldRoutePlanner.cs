@@ -43,7 +43,9 @@ namespace Memoria.Accessibility.Navigation
                     route.ApproachPoint=entry;
                 }
                 route.FieldIntermediateArrivalRadius = lindblumPassage && route.FieldSteeringWaypoints!=null
-                    ? LindblumCastlePassage.IntermediateArrivalRadius : CleyraTrunkRoutes.IntermediateRadius(target, geometry, route);
+                    ? LindblumCastlePassage.IntermediateArrivalRadius
+                    : Math.Max(CleyraTrunkRoutes.IntermediateRadius(target, geometry, route),
+                        PinnacleRocksWalkways.IntermediateArrivalRadius(context.LogicalMapKey, geometry, route));
                 return route;
             }
             if (route.Failure != RouteFailure.UnsafeSegment || !target.IsInteractive || target.PhysicalIdentity.Kind != TargetKind.FieldActor ||
