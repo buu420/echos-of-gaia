@@ -1,6 +1,14 @@
 using System;
 namespace Memoria.Accessibility.Navigation
 {
+    internal static class NativePinnacleRocks
+    {
+        // The context fixture has no rendered Pinnacle walkmesh. It exercises
+        // the prerequisite reader with the visible targets in its own catalog.
+        internal static NavigationTarget NextStoryStep(NavigationContext context, CatalogResult catalog,
+            Actor player, int map, int flags) => null;
+    }
+
     public static partial class NativeStoryTargets
     {
         public static OpeningPositionGoal PositionGoal;
