@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.28 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.28)**
+**[Download 0.1.29 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.29)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,13 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing, including a full playthrough.
+
+0.1.29 repairs the timed Story route to Garnet in Alexandria Castle.
+Story guides you through the castle and down to the chapel. At the rotating
+bridge, wait for “Jump to the stairs,” then press Confirm. Tests with copied
+saves reached the chapel encounter with the countdown running. A separate
+post-fight checkpoint verified the climb to Garnet and the game clearing
+the timer. Physical controller and audible screen-reader checks are open.
 
 0.1.28 identifies the Main Street air cab entrance as Lindblum, B.D. Station
 before Vivi's scene. The castle telescope gives D-pad pan directions and
