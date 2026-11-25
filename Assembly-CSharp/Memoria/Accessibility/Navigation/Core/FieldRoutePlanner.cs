@@ -22,7 +22,7 @@ namespace Memoria.Accessibility.Navigation
             var candidates=FieldTargetApproaches.Prepare(context,target,geometry,preferClearance:true);
             Dictionary<NavigationPoint,NavigationPoint> stagedEntries=null;
             if(target.RequireInwardApproach) {
-                stagedEntries=FieldExitInwardApproaches.Create(target.InteractionRegion,candidates,geometry,cancelled);
+                stagedEntries=FieldExitInwardApproaches.Create(target.InteractionRegion,candidates,geometry,cancelled,target);
                 candidates=stagedEntries.Keys.ToArray();
             }
             RoutePlan route = failure;
@@ -74,8 +74,9 @@ namespace Memoria.Accessibility.Navigation
                 }
                 route.FieldIntermediateArrivalRadius = lindblumPassage && route.FieldSteeringWaypoints!=null
                     ? LindblumCastlePassage.IntermediateArrivalRadius
-                    : Math.Max(CleyraTrunkRoutes.IntermediateRadius(target, geometry, route),
-                        PinnacleRocksWalkways.IntermediateArrivalRadius(context.LogicalMapKey, geometry, route));
+                    : Math.Max(BurmeciaStatuePassage.IntermediateArrivalRadius(context.LogicalMapKey, geometry, route),
+                        Math.Max(CleyraTrunkRoutes.IntermediateRadius(target, geometry, route),
+                            PinnacleRocksWalkways.IntermediateArrivalRadius(context.LogicalMapKey, geometry, route)));
                 return route;
             }
             if (route.Failure != RouteFailure.UnsafeSegment || !target.IsInteractive || target.PhysicalIdentity.Kind != TargetKind.FieldActor ||

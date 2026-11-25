@@ -865,7 +865,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldExitDestinations.cs",
-      "sha256": "1e9380f1957e82012e3ee8e2646e8a0aba5a20c7a9713414ef073b443c645f6e"
+      "sha256": "1c8ff0389b516114aeb48d4cb008e54aa2a6ccdea99b9b2d8456351015dcce1e"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/ScriptStoryAnalyzer.cs",
@@ -917,7 +917,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldRoutePlanner.cs",
-      "sha256": "902d5c5de0e6357bade76603e97c0c824bdb478787d2b293266e2d77bda3ea4b"
+      "sha256": "fe8e73af92b7030d438e637570f35d670b9003644b8fe9b68267df6cbe5e0008"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/WorldRoutePlanner.cs",
@@ -965,7 +965,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldGeometry.cs",
-      "sha256": "b73584febdc2ee16389435516d1815b64890764661526705a3a8d40bdbbdccce"
+      "sha256": "3c4e6e982e1ff485c1332aad7dbc235968bcae58024dad6ee9332eba72079007"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeNavigationInput.cs",
@@ -1053,7 +1053,23 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldGeometry.cs",
-      "sha256": "b73584febdc2ee16389435516d1815b64890764661526705a3a8d40bdbbdccce"
+      "sha256": "3c4e6e982e1ff485c1332aad7dbc235968bcae58024dad6ee9332eba72079007"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/BurmeciaStatuePassage.cs",
+      "sha256": "d0616c290d146ee5980b76d19e4186229feddcb47741bd6e37666946bcdedbc4"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldGeometry.cs",
+      "sha256": "e9cb08c17ea5bee505622e9b29db02d06ae66b2182021133bc8ce8c612e0e114"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldExitInwardApproaches.cs",
+      "sha256": "d5bf93ff2f605e9b24c3d2b3cb59d04d189c22b6d227236ac7b5c732d141a7f7"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeBurmeciaUptown.cs",
+      "sha256": "63be22f45ede5d00265bf90b1940229a1271dede652eff5c8115198fa75df1c5"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeInteractionProbe.cs",
@@ -1061,7 +1077,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationRuntime.cs",
-      "sha256": "2824d47a4eae61a761112e0dac9c2f6c7652c8c05703279d7dd9f9b35d3932cc"
+      "sha256": "1a458747dcc9ef4edb9b227497c80e6af1847a09eefa3266f90d0e2d688050de"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationLifecycleBridge.cs",

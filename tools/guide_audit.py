@@ -102,6 +102,7 @@ SOURCE_FILES = [
     'Native/NativeFieldTargets.cs', 'Native/NativeStoryTargets.cs', 'Native/NativeFieldActorInteractions.cs',
     'Native/NativeGroundPickupReadiness.cs', 'Native/NativeFieldChestJumps.cs', 'Native/NativeDaliCrateChest.cs',
     'Core/PinnacleRocksWalkways.cs', 'Native/NativePinnacleRocks.cs', 'Native/NativeFieldGeometry.cs',
+    'Core/BurmeciaStatuePassage.cs', 'Core/FieldGeometry.cs', 'Core/FieldExitInwardApproaches.cs', 'Native/NativeBurmeciaUptown.cs',
     'Native/NativeInteractionProbe.cs', 'Native/NavigationRuntime.cs',
     'Native/NavigationLifecycleBridge.cs',
     'Native/NativeOpeningTicketBooth.cs', 'Native/NativeTicketBoothPresentation.cs',

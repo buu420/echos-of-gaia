@@ -62,7 +62,8 @@ namespace Memoria.Accessibility.Navigation
                 NativeFieldTargets.ReviewChestJumps(context, catalog);
                 NativeFieldTargets.ReviewDaliCrateChest(context, catalog);
                 NativeFieldExitCues.Tick(context,catalog);
-                if(!NativeOpeningPositionTargets.TryAppend(context,catalog))NativeStoryTargets.Append(context,catalog);
+                if (!NativeBurmeciaUptown.Review(context, catalog) && !NativeOpeningPositionTargets.TryAppend(context, catalog))
+                    NativeStoryTargets.Append(context, catalog);
                 var movement=ReadMovement(context,catalog);
                 if(movement!=null && movement.Outcome==MovementOutcome.Interrupted)Trace("Movement interrupted; reason="+movement.Reason+"; evidence="+movement.Evidence);
                 var commands=NativeNavigationInput.TakeCommands();var update=_coordinator.Tick(context,commands,catalog,movement,Configuration.Accessibility.ControllerNaming);

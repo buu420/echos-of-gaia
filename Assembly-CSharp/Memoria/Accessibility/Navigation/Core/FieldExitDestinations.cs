@@ -27,6 +27,7 @@ namespace Memoria.Accessibility.Navigation
             case 555: return sid==20 && hash=="a3daba2e9f09ccf1cb8d3661e09046915f5aa5938d307fea212971d573f0fc63";
             case 556: return sid==19 && hash=="abadf9abb6d5dbd5bf18fde3b3633f2c46add0ebfdc380c0e7b556ac0ad0bd50";
             case 570: return sid==24 && hash=="d5a671438d494f979fc3b35a22bb09246fc30657f430b30ea4cbdc95f3699d97";
+            case 762: return sid == 7 && hash == "f8d939eb763ca9ec070dede4aa9db644f1c8b52a0ef4bce73b652e7f9a5a5717";
             case 1204: return sid==8 && hash=="af678b3663d71a8553907051607df32f25dff192aff2b444301f1c342d44f140";
             case 1213: return sid==11 && hash=="41ddf8a923f8204d5e33e3b611d4bb29557b7b3bb8b1772c98536f3b8dd42244";
             case 1214: return sid==6 && hash=="723c3a9351a0bc66bffde01800361b02f561f037ba1c68d23c6f49c3e2cec1ab";

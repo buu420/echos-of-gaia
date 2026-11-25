@@ -12,10 +12,29 @@ namespace Memoria.Accessibility.Navigation
         private static readonly float[] StageDistances = { 180, 240, 320, 400, 520, 640 };
 
         public static Dictionary<NavigationPoint, NavigationPoint> Create(NavigationPoint[] region,
-            NavigationPoint[] candidates, FieldGeometrySnapshot geometry, Func<bool> cancelled)
+            NavigationPoint[] candidates, FieldGeometrySnapshot geometry, Func<bool> cancelled, NavigationTarget target = null)
         {
             var approaches = new Dictionary<NavigationPoint, NavigationPoint>();
             if (region == null || region.Length < 3) return approaches;
+            if (cancelled != null && cancelled()) return approaches;
+            if (target != null && target.PhysicalIdentity.Kind == TargetKind.FieldExit && target.PhysicalIdentity.NativeId == 7 &&
+                target.PhysicalIdentity.MapKey == "field:762:FBG_N13_BRMC_MAP274_BU_HAL_1" &&
+                geometry.Fingerprint == "8D406CAF00DF6F755B4D499493656F5DD26CD031325353EFCDF545EBE3A78662")
+            {
+                // Behind this doorway the straight staging line meets the room wall.
+                // Approach diagonally from the west, then enter inside the native facing arc.
+                var west = new NavigationPoint(-450, 781, 1655);
+                var doorway = new NavigationPoint(-192.34381f, 781, 1833.0791f);
+                if (!FieldRegionApproaches.CanStopInside(region, west, 0))
+                    foreach (var point in candidates)
+                        if (NavigationPoint.Distance(point, doorway) < 0.5f &&
+                            FieldRegionApproaches.CanStopInside(region, point, FieldAnalogMovement.ArrivalRadius(geometry.Radius, 1)) &&
+                            TryStage(west, point, geometry, out var stage))
+                        {
+                            approaches.Add(stage, point);
+                            return approaches;
+                        }
+            }
             float arrivalRadius = FieldAnalogMovement.ArrivalRadius(geometry.Radius, 1);
             var first = region[0];
             var second = region[1];

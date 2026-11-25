@@ -8,6 +8,7 @@ namespace Memoria.Accessibility.Navigation
         public NavigationPoint[] RadiusVertices;public FieldNativeTriangleData Native;
         public int ReviewedBoundaryEdges;
         public float ReviewedBoundaryClearance,ReviewedBoundaryMaximumRadius;
+        internal bool ReviewedSteepProjection;
         public NavigationPoint Center { get { return new NavigationPoint((Vertices[0].X+Vertices[1].X+Vertices[2].X)/3,(Vertices[0].Y+Vertices[1].Y+Vertices[2].Y)/3,(Vertices[0].Z+Vertices[1].Z+Vertices[2].Z)/3); } }
         public bool Contains(NavigationPoint point)
         {
@@ -114,9 +115,10 @@ namespace Memoria.Accessibility.Navigation
                 int clone=tri.Native.EdgeClones[edge];if(clone<0||clone>2)return false;
                 int otherEdge=(clone+2)%3;
                 if(!SameEdge(a,b,next.Vertices[otherEdge],next.Vertices[(otherEdge+1)%3]))return false;
-                // The planner works in XZ. Unsupported YZ/XY projection and moving
-                // floor crossings that disagree with controller support fail closed.
-                if(tri.Native.Projection!=0 || next.Native.Projection!=0)return false;
+                // An individually reviewed steep face also has usable XZ support.
+                // Moving floor crossings must still agree with native support.
+                if ((tri.Native.Projection != 0 && !tri.ReviewedSteepProjection) ||
+                    (next.Native.Projection != 0 && !next.ReviewedSteepProjection)) return false;
                 var c=tri.Native.CrossingVertices[edge];var d=tri.Native.CrossingVertices[(edge+1)%3];
                 if(!SameEdge(c,d,next.Native.CrossingVertices[otherEdge],next.Native.CrossingVertices[(otherEdge+1)%3]))return false;
                 // Native traversal flips the crossing point's Y before committing.
