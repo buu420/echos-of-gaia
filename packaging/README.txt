@@ -1,4 +1,4 @@
-Echos of Gaia 0.1.29 beta
+Echos of Gaia 0.1.30 beta
 Final Fantasy IX accessibility mod by buu420
 
 Supported: 64-bit Windows 10/11, Windows Steam FFIX app 377840 build 5378074.
@@ -22,6 +22,12 @@ The title screen reads the current language and the choices in the language
 picker. To go from Japanese to English, open Language, Japanese, select
 English (United States), then choose Back. With Japanese game text selected,
 Story offers the named Light the candle target in the opening room.
+
+In Pinnacle Rocks, use Story to find Ramuh's fragments and return to him.
+Select a chest under Objects. For a ledge or crate jump, follow the cue and
+press Confirm at the game's prompt, then select the chest again if needed.
+In Dali's storage room, follow the direction announced for your control
+setting. Ground pickups appear under Items when their game prompt appears.
 
 During the timed Alexandria Castle rescue, use Story to follow the route
 through the Queen's Room and down to the chapel. If soldiers interrupt
@@ -144,7 +150,7 @@ includes the return to the Evil Forest trail.
 
 Source, current releases, prerequisite links and reports:
 https://github.com/buu420/echos-of-gaia
-https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.29
+https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.30
 
 Based on BlindGuyNW/Memoria and Albeoris/Memoria. The code retains the MIT
 license; dependency and supplied sound notices remain separate. Final Fantasy

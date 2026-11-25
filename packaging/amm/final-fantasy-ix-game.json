@@ -2,7 +2,7 @@
   "gameId": "final-fantasy-ix",
   "displayName": "Final Fantasy IX",
   "modName": "Echos of Gaia (Beta)",
-  "description": "Echos of Gaia adds screen reader support, field and world navigation, automatic walking, battle and menu speech, and optional audio descriptions to Windows Steam Final Fantasy IX. Beta 0.1.29 repairs the timed Story route to Garnet in Alexandria Castle and announces the rotating bridge's boarding and landing prompts. Includes the accessible launcher, double-click standalone installer and 608 narration recordings. Broader gameplay testing continues.",
+  "description": "Echos of Gaia adds screen reader support, field and world navigation, automatic walking, battle and menu speech, and optional audio descriptions to Windows Steam Final Fantasy IX. Beta 0.1.30 adds routes for Ramuh's fragments, improves chest and ground pickup navigation, and fills Story gaps in Qu's Marsh and Crystal World. Includes the accessible launcher, double-click standalone installer and 608 narration recordings. Broader gameplay testing continues.",
   "steamAppId": "377840",
   "exeName": "FF9_Launcher.exe",
   "probeRules": [

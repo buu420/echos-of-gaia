@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.29 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.29)**
+**[Download 0.1.30 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.30)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,12 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing, including a full playthrough.
+
+0.1.30 adds Story routes for Ramuh's fragments and return conversation in
+Pinnacle Rocks, five exits through Qu's Marsh, and the walk-in scene in
+Crystal World. Chest navigation handles more tight approaches and follows
+the original jumps in Ice Cavern, Dali and Pinnacle Rocks. Ground pickups
+appear in Items when the game offers their interaction prompt.
 
 0.1.29 repairs the timed Story route to Garnet in Alexandria Castle.
 Story guides you through the castle and down to the chapel. At the rotating
