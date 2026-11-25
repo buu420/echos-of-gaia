@@ -5373,6 +5373,66 @@
       }
     },
     {
+      "id": "memoria-reviewed-crystal-path-approach",
+      "field": 2926,
+      "sid": 6,
+      "uid": 6,
+      "hash": "b3b2e54e6deaa4e1dfc61754d7bc05be0407e1fe794a1816035167aaf064d4b3",
+      "kind": "region-walk",
+      "source": "reviewed-prefix",
+      "priority": 0,
+      "floor": 11765,
+      "ceiling": 11770,
+      "milestone": 11770,
+      "action": "Follow the crystal path ahead",
+      "label": "Crystal path ahead",
+      "playerSid": 8,
+      "playerUid": 8,
+      "guards": [
+        {
+          "sid": 8,
+          "uid": 8,
+          "hash": "c6578108f66bd87234d500407e2548ae321d24ea001497ae8392219c36b69e7c",
+          "expr": "7a027f"
+        }
+      ],
+      "completion": [],
+      "effects": [
+        {
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 38,
+          "hash": "b3b2e54e6deaa4e1dfc61754d7bc05be0407e1fe794a1816035167aaf064d4b3",
+          "proof": "reached"
+        }
+      ],
+      "evidence": {
+        "nativeInitialization": {
+          "sid": 0,
+          "tag": 0,
+          "scenarioGuard": 278,
+          "createRegion": 289,
+          "hash": "bce4b859ebaf8f33447aa980f0120e229a383c6b94cd2803cab5310da68f7d7b"
+        },
+        "nativeControlEntry": {
+          "sid": 8,
+          "tag": 0,
+          "offset": 307
+        },
+        "nativeTouchGate": 30,
+        "firstNativeWait": 73,
+        "nativePostSceneWriters": {
+          "sid": 0,
+          "tag": 13,
+          "offsets": [
+            932,
+            946
+          ]
+        }
+      }
+    },
+    {
       "id": "memoria-reviewed-space-forward",
       "field": 2921,
       "sid": 4,
@@ -38078,6 +38138,26 @@
       ]
     },
     {
+      "id": "memoria-reviewed-crystal-path-approach",
+      "floor": 11765,
+      "ceiling": 11770,
+      "milestone": 11770,
+      "field": 2926,
+      "uids": [
+        6
+      ],
+      "action": "Follow the crystal path ahead",
+      "goal": "Crystal World",
+      "rooms": [
+        {
+          "field": 2926,
+          "directorHash": "bce4b859ebaf8f33447aa980f0120e229a383c6b94cd2803cab5310da68f7d7b"
+        }
+      ],
+      "guards": [],
+      "links": []
+    },
+    {
       "id": "memoria-reviewed-final-gate",
       "floor": 11770,
       "ceiling": 12000,
@@ -70715,6 +70795,102 @@
         2001,
         2007,
         2008
+      ]
+    },
+    {
+      "id": "qu-marsh-reviewed-boardwalk-route",
+      "floor": 5690,
+      "ceiling": 5900,
+      "milestone": 5900,
+      "field": 655,
+      "uids": [],
+      "action": "",
+      "goal": "Qu’s Marsh",
+      "rooms": [
+        {
+          "field": 650,
+          "directorHash": "1eb37d5986d65a35ba9ce4e9e923e126e3d848f62cf183bfe704fc46810acaf2"
+        },
+        {
+          "field": 651,
+          "directorHash": "658b3d54eecf21906abdc9c4812002e025fc9c11f4a035491a6931db9bc59e0b"
+        },
+        {
+          "field": 652,
+          "directorHash": "c59af16b0f1501c0d930cabac1a9b0b660239750c6820c66fc09fb505696d6af"
+        },
+        {
+          "field": 653,
+          "directorHash": "ca54d1b52822af88b590b03ff4fa9c77c661285299646e45292fda78294600a1"
+        },
+        {
+          "field": 654,
+          "directorHash": "8267ebe0046478489c626e58d6fdfe9820dfdee428746dd64bc4bcaad9bd5d92"
+        },
+        {
+          "field": 655,
+          "directorHash": "01c2070e9bdf75e44545031266a5d0e8e53b5188e41bdd7774125e55bdda00b0"
+        }
+      ],
+      "guards": [],
+      "links": [
+        {
+          "from": 650,
+          "to": 652,
+          "sid": 6,
+          "uid": 6,
+          "tag": 2,
+          "offset": 398,
+          "hash": "c58a9cc4400c7b6eca28c1fef1a339799a655fc4d7243dffe768c7a761502f69",
+          "guards": []
+        },
+        {
+          "from": 651,
+          "to": 655,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 264,
+          "hash": "65e6571c3cc4eab6af988d67b19fcdf8c09466018d166313bd1167c21ee2f70f",
+          "guards": []
+        },
+        {
+          "from": 652,
+          "to": 655,
+          "sid": 10,
+          "uid": 10,
+          "tag": 2,
+          "offset": 318,
+          "hash": "9408689f7f5a35b71813c1f3c178f4999a6be752abab43f331615cc58b587dfb",
+          "guards": []
+        },
+        {
+          "from": 653,
+          "to": 655,
+          "sid": 9,
+          "uid": 9,
+          "tag": 2,
+          "offset": 266,
+          "hash": "e167ff6bebb5e60656ec21cc2b1e6298a69ed21ef2ee2ec2effd5d02deed79b5",
+          "guards": []
+        },
+        {
+          "from": 654,
+          "to": 655,
+          "sid": 8,
+          "uid": 8,
+          "tag": 2,
+          "offset": 264,
+          "hash": "74ab7c8f72e693f38b34e5daf523c099385b28f4ebe509e1c75ec18fb3cd2350",
+          "guards": []
+        }
+      ],
+      "scope": [
+        650,
+        651,
+        652,
+        653,
+        654
       ]
     },
     {

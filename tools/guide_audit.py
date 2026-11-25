@@ -83,7 +83,7 @@ SOURCE_FILES = [
     'Core/OpeningRooftopEvidence.cs', 'Core/OpeningPositionApproaches.cs',
     'Core/OpeningCastleStory.cs', 'Core/FieldExitDestinations.cs', 'Core/ScriptStoryAnalyzer.cs',
     'Core/FieldInputOrientation.cs', 'Core/ManualRouteGuidance.cs',
-    'Core/GuidanceRouteValidation.cs', 'Core/NavigationModels.cs',
+    'Core/GuidanceRouteValidation.cs', 'Core/NavigationModels.cs', 'Core/FieldActorApproaches.cs', 'Core/FieldChestPassages.cs',
     'Core/FrameReference.cs', 'Core/FieldExitNames.cs',
     'Core/RouteGuidanceProgress.cs', 'Core/RouteInstruction.cs',
     'Core/RoutePlan.cs', 'Core/FieldRoutePlanner.cs', 'Core/WorldRoutePlanner.cs',
@@ -99,7 +99,8 @@ SOURCE_FILES = [
     'Core/FieldVisibleLabels.cs', 'Core/FieldTouchConfirmation.cs',
     'Core/NumericInputReader.cs', 'Native/NativeStoryPrerequisites.cs',
     'Native/NativeFieldTouchReadiness.cs', 'Native/NativeNumericDialogs.cs',
-    'Native/NativeFieldTargets.cs', 'Native/NativeStoryTargets.cs',
+    'Native/NativeFieldTargets.cs', 'Native/NativeStoryTargets.cs', 'Native/NativeFieldActorInteractions.cs',
+    'Native/NativeGroundPickupReadiness.cs', 'Native/NativeFieldChestJumps.cs', 'Native/NativeDaliCrateChest.cs',
     'Core/PinnacleRocksWalkways.cs', 'Native/NativePinnacleRocks.cs', 'Native/NativeFieldGeometry.cs',
     'Native/NativeInteractionProbe.cs', 'Native/NavigationRuntime.cs',
     'Native/NavigationLifecycleBridge.cs',
@@ -110,11 +111,14 @@ SOURCE_FILES = [
 ]]
 PREREQUISITE_CHAPTERS = {
     1: ('opening-cross-zone', 'Opening travel uses actual native street exits toward the square. The rendered ticket sign binds its native front hotspot; room104 is the dialogue/completion scene. Unknown routes identify the next area without creating a walking target.'),
+    3: ('ice-cavern-ledge-chest', 'The visible ledge chest uses the reachable native jump prompt until the landing enables chest contact.'),
+    4: ('dali-crate-chest', 'The storage-room chest follows the two native crate jumps, with the correct facing cue for each ascent. A ground item in the windmill uses its displayed exclamation prompt.'),
     14: ('alexandria-rescue-route', 'Story follows the native doors from the grounds to the queen’s room and through the tunnels to the ceremonial chamber. A visible walking step brings the upstairs hallway into view. The rotating bridge uses the current boarding bank and the native jump prompt.'),
     15: ('pinnacle-rocks-routes', 'The current fragment flags choose between rendered trails, native exits, and the apparitions once their interactions are presented. The field map keeps the upper walkway and the lower shelf separate. The ledge chest uses the original jump prompt.'),
-    17: ('fossil-route', 'Current switch bits and the verified floor component choose the route step. Reviewed flowers and boarding spots are separate targets tied to their native prompts; a route with no current approach remains informational.'),
+    17: ('marsh-and-fossil-route', 'The route through Qu’s Marsh uses the current forward exit until the reed approach. In Fossil Roo, current switch bits and the verified floor component choose the route step. Flowers and boarding spots use their own native prompts.'),
     33: ('palace-lamps', 'The required candle route has explicit native actions and named room transitions. In the Shadow Chamber, the current floor distinguishes a recoverable lamp change after backtracking from an unsupported position. The Cid cue reads the native timing state; audible delivery and playability have not been tested.'),
     34: ('gulug-lever', 'The presented lever remains the objective until the native completion flag changes. Pull direction and Confirm stay under player control.'),
+    42: ('crystal-world-approach', 'At the end of Crystal World, Story follows the visible trail into the original walk-in scene trigger. The gate interaction remains a separate step after that scene.'),
 }
 SHA = re.compile(r'^[a-f0-9]{64}$')
 
@@ -287,9 +291,10 @@ def markdown(report):
         '## Corrections from this audit', '',
         '- Opening Story uses captured street transitions and names the next local area. The square is the physical approach to the ticket objective; the booth dialogue runs in a separate room. Its reviewed visible sign/hotspot is listed before bubble discovery. Informational steps explain the next area without starting a route to a remote objective.',
         '- Pinnacle Rocks now keeps fragment collection ahead of the final conversation. Only currently presented, interactive fragments can supply walking targets.',
-        '- Fossil Roo uses the actual switch bits and current connected floor section. Reviewed flowers and boarding spots are listed separately and use the corresponding native interaction.',
+        '- Qu’s Marsh uses the active forward exits toward the reed approach. Fossil Roo uses the actual switch bits and current connected floor section. Flowers and boarding spots use their own native prompts.',
+        '- Chest routes can search the full native contact range when the usual approaches fail. The Ice Cavern ledge and Dali storage chest use their original jumps. Reviewed narrow approaches in the Theater Ship, Cleyra and Iifa Tree use the native controller collision. Ground rewards appear in Items when their original interaction prompt is active.',
         '- Desert Palace follows the required lamps in their native order. After backtracking, the current floor and lamp state can select a reachable recovery action instead of a closed staircase.',
-        '- Memoria and the Crystal World expose three rendered save spheres with verified approaches. Four hidden save points receive a name only after the game shows their prompt.',
+        '- Memoria and the Crystal World expose three rendered save spheres with verified approaches. Four hidden save points receive a name only after the game shows their prompt. Story now follows the native walk-in trigger before the last gate in Crystal World.',
         '- Mount Gulug keeps the lever step until its native completion flag changes. The rope reader announces native climb and descent controls when the player is hanging on it.',
         '- The world destination list uses the current event trigger and connected terrain for walking entrances. The original route replay covers Ice Cavern, Dali, the Mountain Path crossings and both Blue Narciss landings. The Memoria target uses the rendered flight portal.',
         '- Current visual cues have speech or sound for Desert Palace sand plumes, Pandemonium bridge pins, both Jump Rope scenes, owned Chocograph pictures and the PC Blackjack display. Their live timing and delivery need verification.',
@@ -301,7 +306,7 @@ def markdown(report):
         'All rows retain `fullyAccessibleProven: false` and/or `liveValidated: false`. Script presence, guide order and passing fixtures do not establish that every NPC, prop, exit, puzzle or optional activity works in all live states. There are 345 constant actor models; many still use generic labels before an attributed native name appears.', '',
         f"{t['iconOnlyActionableRegions']} region entries have a Talk/Push handler and still require the current native icon rather than a verified backdrop/actor binding. This is a static candidate count, not a count of visible missing props. Generic icon-only observations also lack a durable offscreen art-visibility proof.", '',
         'World cracks, bubbles, tracks and shadows, race progress, shuffle tracking, guard-facing tasks and several puzzle sequences still need dedicated presentation evidence or live validation. The retained chapter and optional research rows describe the state at the time of their original audit. Check current source evidence against the remaining live cases.', '',
-        'This audit did not launch the game or synthesize gameplay/controller input. Full transitions, audible NVDA/controller delivery and complete main/optional playthroughs remain player tests.', '',
+        'The census and checkpoint comparison are static. Live checks from isolated saves cover individual interactions. Complete transitions across all game states, physical controller input, audible NVDA delivery and complete main and optional playthroughs still need verification.', '',
         '## Reproduce the checks', '',
         'Run `python tools/guide_audit.py --check` and `python tools/compile_story_prerequisites.py --check`. These validate the committed census accounting, all guide topics/checkpoints and current source fingerprints. They do not re-extract the installed game. A fresh extraction/research input refresh is required when the event-bundle identity changes.', '',
         '## Main-story chapters', '', '| Chapter | Comparison result |', '| --- | --- |']

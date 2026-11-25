@@ -24,6 +24,12 @@ namespace Memoria.Accessibility.Navigation
                 if(NpcConsumesConfirm(engine,player,selected as Actor,distance))return result;
                 InteractionReadiness touch;if(NativeFieldTouchReadiness.TryRead(context,target,engine,player,presentedQuad,out touch))return touch;
                 touch=NativeFieldTargets.ReadBackgroundTouchReadiness(context,engine,player,presentedQuad);if(touch!=null)return touch;
+                touch = NativeFieldTargets.ReadIceChestJumpReadiness(context, engine, player, presentedQuad);
+                if (touch != null) return touch;
+                touch = NativeFieldTargets.ReadDaliCrateChestReadiness(context, target, engine, player, presentedQuad);
+                if (touch != null) return touch;
+                var pickup = NativeFieldTargets.ReadGroundPickupReadiness(context, engine, player, presentedQuad);
+                if (pickup != null) return pickup;
                 result=FieldInteractionBindings.Readiness(engine.TreadQuad(player,4)==presentedQuad,engine.NavigationContainsQuad(presentedQuad,controller.curPos.x,controller.curPos.z),
                     NativeFieldTalkability.IsTalkable(presentedQuad) && EventCollision.NavigationCanApproachTalkQuad(player,presentedQuad),EventCollision.NavigationCanTalkQuad(player,presentedQuad),EIcon.NavigationPresentedUid==presentedQuad.uid);
                 result.Evidence="Selected native interaction region and presented bubble; Confirm remains player controlled";return result;

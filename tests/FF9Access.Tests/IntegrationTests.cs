@@ -51,6 +51,27 @@ namespace FF9Access.Tests
                 }
             }
         }
+        public static void GuidanceRecognizesAnAlreadyPresentedConfirmAction()
+        {
+            var context = TestFixtures.Context();
+            var catalog = new CatalogResult();
+            catalog.Targets.Add(new NavigationTarget {
+                Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, 20),
+                Category = NavigationCategory.Objects, Label = "Chest",
+                Evidence = VisibilityEvidence.NativeInteractionIcon, IsInteractive = true, Generation = context.Generation
+            });
+            var coordinator = new NavigationCoordinator();
+            coordinator.Tick(context, new[] { NavigationCommand.NextCategory, NavigationCommand.NextCategory }, catalog, null);
+            var request = coordinator.Tick(context, new[] { NavigationCommand.StartGuidance }, catalog, null);
+            TestAssert.Equal(RouteOperation.PlanGuidance, request.RouteOperation);
+
+            var ready = coordinator.Tick(context, new NavigationCommand[0], catalog,
+                new MovementObservation { Outcome = MovementOutcome.ReadyToInteract });
+            TestAssert.Equal(RouteMode.Arrived, ready.Session.Mode);
+            TestAssert.True(ready.Messages.Contains("Ready to interact with Chest. Press Confirm."));
+            TestAssert.Equal(RouteOperation.None, ready.RouteOperation);
+        }
+
         public static void TargetAndMovementCommandsTakePriorityOverAnOldArrival()
         {
             foreach(var command in new[]{NavigationCommand.NextTarget,NavigationCommand.Stop,NavigationCommand.ManualMovement,NavigationCommand.Confirm,NavigationCommand.ToggleAutomatic,NavigationCommand.ToggleGuidance}) {

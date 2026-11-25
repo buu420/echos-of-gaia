@@ -2,6 +2,18 @@ using System;
 using System.Collections.Generic;
 namespace Memoria.Accessibility.Navigation
 {
+    public struct FieldActorInteractionRange
+    {
+        public readonly float BodyClearance;
+        public readonly float ContactLimit;
+
+        public FieldActorInteractionRange(float bodyClearance, float contactLimit)
+        {
+            BodyClearance = bodyClearance;
+            ContactLimit = contactLimit;
+        }
+    }
+
     public static class FieldActorApproaches
     {
         internal const string WreckedCrewCabin = "field:207:FBG_N03_BSHP_MAP070_BT_GTR_0";
@@ -50,7 +62,8 @@ namespace Memoria.Accessibility.Navigation
             return OnSurfaces(candidates,actor,geometry,false);
         }
 
-        internal static NavigationPoint[] OnSurfaces(NavigationPoint[] candidates,NavigationPoint actor,FieldGeometrySnapshot geometry,bool preferClearance)
+        internal static NavigationPoint[] OnSurfaces(NavigationPoint[] candidates, NavigationPoint actor,
+            FieldGeometrySnapshot geometry, bool preferClearance, bool allClearRings = false)
         {
             var result=new List<NavigationPoint>();var rings=new List<float>();var connected=new List<bool>();
             if(candidates==null || geometry==null)return result.ToArray();
@@ -69,6 +82,13 @@ namespace Memoria.Accessibility.Navigation
             // no edge with the player's floor. The native talk range still crosses that
             // gap, so keep the nearest ring with connected floor. When no ring has any,
             // return every supported point and let the planner report the disconnection.
+            if (allClearRings)
+            {
+                var clear = new List<NavigationPoint>();
+                for (int i = 0; i < result.Count; i++)
+                    if (connected[i] && geometry.IsSegmentClear(result[i], result[i])) clear.Add(result[i]);
+                return clear.ToArray();
+            }
             float nearest=float.MaxValue;
             for(int i=0;i<result.Count;i++)if(connected[i] && rings[i]<nearest)nearest=rings[i];
             if(nearest==float.MaxValue)return result.ToArray();
@@ -88,9 +108,37 @@ namespace Memoria.Accessibility.Navigation
             for(int i=0;i<result.Count;i++)if(connected[i] && rings[i]<=nearest+0.5f)chosen.Add(result[i]);
             return chosen.ToArray();
         }
+        internal static NavigationPoint[] Recover(NavigationPoint origin, NavigationTarget target, FieldGeometrySnapshot geometry)
+        {
+            var range = target.ActorInteractionRange;
+            const float margin = 4;
+            float near = range.BodyClearance + margin;
+            float far = range.ContactLimit - margin;
+            if (range.BodyClearance <= 0 || !(far >= near && far < float.PositiveInfinity)) return new NavigationPoint[0];
+
+            // The normal two rings may miss the walkable patch between a wall and
+            // the native contact limit. Search the actual interval only after the
+            // usual approach fails, and keep the original wall and floor checks.
+            const int rings = 5, directions = 72;
+            var actor = target.Position;
+            var points = new NavigationPoint[rings * (directions + 1)];
+            double heading = Math.Atan2(origin.Z - actor.Z, origin.X - actor.X);
+            for (int direction = 0; direction <= directions; direction++)
+            {
+                double angle = direction == 0 ? heading : (direction - 1) * 2 * Math.PI / directions;
+                float x = (float)Math.Cos(angle), z = (float)Math.Sin(angle);
+                for (int ring = 0; ring < rings; ring++)
+                {
+                    float radius = near + (far - near) * ring / (rings - 1);
+                    points[direction * rings + ring] = new NavigationPoint(actor.X + x * radius, actor.Y, actor.Z + z * radius);
+                }
+            }
+            return OnSurfaces(points, actor, geometry, preferClearance: true, allClearRings: true);
+        }
+
         // Permitted triangles connected with the player's current support through
         // shared edges. Null when that support is unknown, so every ring counts.
-        private static HashSet<int> Connected(FieldGeometrySnapshot geometry)
+        internal static HashSet<int> Connected(FieldGeometrySnapshot geometry)
         {
             var start=geometry.Find(geometry.ActiveTriangle);
             if(!geometry.Permitted(start))return null;

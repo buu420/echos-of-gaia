@@ -40,6 +40,9 @@ namespace Memoria.Accessibility.Navigation
             if(planned==null || current==null)return true;
             if(!planned.PhysicalIdentity.Equals(current.PhysicalIdentity) || planned.InteractionUid!=current.InteractionUid || planned.UseViewingPoint!=current.UseViewingPoint)return true;
             if(planned.UseApprovedApproaches!=current.UseApprovedApproaches)return true;
+            if (!planned.UseApprovedApproaches &&
+                (planned.ActorInteractionRange.BodyClearance != current.ActorInteractionRange.BodyClearance ||
+                 planned.ActorInteractionRange.ContactLimit != current.ActorInteractionRange.ContactLimit)) return true;
             if(planned.UseApprovedApproaches && !SameApproved(planned.ApproachCandidates,current.ApproachCandidates))return true;
             var a=planned.InteractionRegion;var b=current.InteractionRegion;
             if(a==null || b==null)return a!=b;

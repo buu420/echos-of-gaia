@@ -580,9 +580,9 @@
     ]
   },
   "reviewedStoryActions": {
-    "steps": 183,
+    "steps": 184,
     "loopActions": 16,
-    "phases": 434
+    "phases": 436
   },
   "retainedInputs": [
     {
@@ -617,7 +617,7 @@
     },
     {
       "path": "docs/accessibility/story-action-chains.json",
-      "sha256": "3cb38bf4d1210b855ad640a59a3bd992eaea114e64c2efa9c7f7a12ad4654e5a"
+      "sha256": "cc00bac171a3fbfa8688512e2a93576bc1d7a581401db142721655cdb390810b"
     },
     {
       "path": "docs/accessibility/story-palace-actions.json",
@@ -841,11 +841,11 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NavigationTargets.cs",
-      "sha256": "b31b46e76de3ad6015cadb4807e77c2d1a4f30e2cde53b752acc9313f057898d"
+      "sha256": "30d77706c47a7e90ce01f9ab243c6c04bdd8fa6754c8ca49f97a8df14ba01536"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldTargetCatalog.cs",
-      "sha256": "9abedbe8ae1db696b15bc13f2cd63e967ce465970f8bafce886eb88962902188"
+      "sha256": "a24664d849d341b9a0ac288b978c7426a3dabce1c1d2ba5a83a144c71ff449cb"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldTargetApproaches.cs",
@@ -881,11 +881,19 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/GuidanceRouteValidation.cs",
-      "sha256": "ebc22e0afa9e1e8ca99c15875070467b2c9f7f99314ccb0c6e8111c170d1f353"
+      "sha256": "4f3dd847f914d60a51904c04fa30460f0b0b46727309f9b319fdb05b3ad353d1"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NavigationModels.cs",
       "sha256": "72e0c43652c1b0a717a4f1facfedc913e631ad9c0b58a7c17cbc936275b821e3"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldActorApproaches.cs",
+      "sha256": "c189f7589cdd670d79a19edba2c1e34d8088f8b658f13d1bdc7d7e01cbf15422"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldChestPassages.cs",
+      "sha256": "6968b208cccb255a5885f1e75cc776d7593f8626aacdc02a167a98a3d28563dd"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FrameReference.cs",
@@ -909,7 +917,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldRoutePlanner.cs",
-      "sha256": "917c3747bd8065adaa20c94acf6c88fcde7638a6d4de5ddd1504a29e9f1fa6e2"
+      "sha256": "902d5c5de0e6357bade76603e97c0c824bdb478787d2b293266e2d77bda3ea4b"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/WorldRoutePlanner.cs",
@@ -969,7 +977,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldStoryRegions.cs",
-      "sha256": "0f9b674ad5ef21dcf44c527bf24ad5a91332ab03f51bff694ddbd8fcb2856fa1"
+      "sha256": "2080251b675221d381cca675c3b4157f42755e0750682020fa0f4d6098ba7978"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldExitDestinations.cs",
@@ -981,11 +989,11 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/StoryTargetCatalog.cs",
-      "sha256": "cea6b8d120c4bf624400de6427336b72d1ffaa6c029c730aa0cb1de5b2fb3c7c"
+      "sha256": "42624646ff8f725bfb0d801583e74adef720b1d0af46db0182e38193929cdd60"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/NavigationCoordinator.cs",
-      "sha256": "e4d0983890a47f0bf56aa812bbc157bd6bbbe95ab719734670613cfe3c31d8a3"
+      "sha256": "ad5e0a30e75820c4b287f41e03bc077a571cba26289f7d23624ea6fe1f470ee6"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldVisibleLabels.cs",
@@ -1013,11 +1021,27 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldTargets.cs",
-      "sha256": "0cb056a9b6ccaaefe11c4c832bf4c67f9df66ce2ceedaa82d8e0c1f899690ffb"
+      "sha256": "2dcaab00cf89953ba03fdaa7b10b61345119be7d5c0cea409e009b06d116e196"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryTargets.cs",
       "sha256": "cb7a61e2b452569ee187e745b7b418cba696862c069bb33f27d2f25ab758d105"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldActorInteractions.cs",
+      "sha256": "2b2eee0994b246ecab8a88ed1a645fc6221b2818a386f9050753d658a3403200"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeGroundPickupReadiness.cs",
+      "sha256": "d40914eceb9ea4941a2c5f643c10e6b0acfa6680ecad3a365bb78776d52da034"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldChestJumps.cs",
+      "sha256": "4460e50e2f10a5b21bfaed9e9f44afa36226afbabb15d4097de43f55ef71e24d"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeDaliCrateChest.cs",
+      "sha256": "8c90c0a086fedefff32e74a2a0a312a2ccce12ff2f06d3ac5ef308e47403ddc2"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/PinnacleRocksWalkways.cs",
@@ -1025,7 +1049,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativePinnacleRocks.cs",
-      "sha256": "df0bbf7d3a97b2839a6e665877c87c0bb307701387a67bbb56aafdf9e9487914"
+      "sha256": "051a3cba16652ae630f4feb3fd5048c4c4d8be1fbfa71170e6230a1aa575a90f"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldGeometry.cs",
@@ -1033,11 +1057,11 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeInteractionProbe.cs",
-      "sha256": "6b0fef12e09114fe8328cebdbeb397ea1bd7badf3763c763b295c2a8ed2e9391"
+      "sha256": "df135ab11ff1b976b89ef816c63cd84ee47c2d3cb67129254313c2df9382abd7"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationRuntime.cs",
-      "sha256": "6ebdc937044290047748d894b72dcff770d1839b3dc4781778a0300f009add1e"
+      "sha256": "2824d47a4eae61a761112e0dac9c2f6c7652c8c05703279d7dd9f9b35d3932cc"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationLifecycleBridge.cs",
@@ -1116,7 +1140,7 @@
       "conditional": 10,
       "nonplayer-conditional": 9
     },
-    "iconOnlyActionableRegions": 695
+    "iconOnlyActionableRegions": 694
   },
   "remainingEntityGaps": [
     "Most of the 345 constant actor models still lack individually reviewed appearance descriptions. Displayed native names may be learned; generic labels remain elsewhere.",
@@ -1336,9 +1360,9 @@
         2540
       ],
       "staticStatus": "guide-order-and-native-scenes-compared",
-      "runtimeCorrection": null,
+      "runtimeCorrection": "ice-cavern-ledge-chest",
       "remainingGaps": [
-        "Ice-wall treasure detours must remain optional. Verify current ice interactions, mist hazards and changing party/player identity separately from the seven scene floors."
+        "The visible ledge chest uses the reachable native jump prompt until the landing enables chest contact. Full scene transitions, puzzle inputs, controller and speech still need live validation."
       ],
       "fullyAccessibleProven": false,
       "liveValidated": false
@@ -1403,9 +1427,9 @@
         2900
       ],
       "staticStatus": "guide-order-and-native-scenes-compared",
-      "runtimeCorrection": null,
+      "runtimeCorrection": "dali-crate-chest",
       "remainingGaps": [
-        "Windmill/lift subactions and inn reunion require native state eligibility. The optional machine-room door, treasures and resting option are not mandatory story objectives."
+        "The storage-room chest follows the two native crate jumps, with the correct facing cue for each ascent. A ground item in the windmill uses its displayed exclamation prompt. Full scene transitions, puzzle inputs, controller and speech still need live validation."
       ],
       "fullyAccessibleProven": false,
       "liveValidated": false
@@ -2081,7 +2105,7 @@
       "staticStatus": "guide-order-and-native-scenes-compared",
       "runtimeCorrection": "alexandria-rescue-route",
       "remainingGaps": [
-        "Story follows the native doors from the grounds to the queen’s room and through the tunnels to the ceremonial chamber. A visible walking step brings the upstairs hallway into view. The rotating bridge uses the current boarding bank and the native jump prompt. Full scene transitions, puzzle inputs, controller and speech still need live validation."
+        "Story follows the native doors from the grounds to the queen\u2019s room and through the tunnels to the ceremonial chamber. A visible walking step brings the upstairs hallway into view. The rotating bridge uses the current boarding bank and the native jump prompt. Full scene transitions, puzzle inputs, controller and speech still need live validation."
       ],
       "fullyAccessibleProven": false,
       "liveValidated": false
@@ -2243,9 +2267,9 @@
         5990
       ],
       "staticStatus": "guide-order-and-native-scenes-compared",
-      "runtimeCorrection": "fossil-route",
+      "runtimeCorrection": "marsh-and-fossil-route",
       "remainingGaps": [
-        "Current switch bits and the verified floor component choose the route step. Reviewed flowers and boarding spots are separate targets tied to their native prompts; a route with no current approach remains informational. Full scene transitions, puzzle inputs, controller and speech still need live validation."
+        "The route through Qu\u2019s Marsh uses the current forward exit until the reed approach. In Fossil Roo, current switch bits and the verified floor component choose the route step. Flowers and boarding spots use their own native prompts. Full scene transitions, puzzle inputs, controller and speech still need live validation."
       ],
       "fullyAccessibleProven": false,
       "liveValidated": false
@@ -3804,9 +3828,9 @@
         11770
       ],
       "staticStatus": "guide-order-and-native-scenes-compared",
-      "runtimeCorrection": null,
+      "runtimeCorrection": "crystal-world-approach",
       "remainingGaps": [
-        "The main route is largely linear; optional phantom card players, hidden treasures and Hades must remain optional/currently revealed. Nero checkpoints are separate optional persistent state, not all main-story milestones."
+        "At the end of Crystal World, Story follows the visible trail into the original walk-in scene trigger. The gate interaction remains a separate step after that scene. Full scene transitions, puzzle inputs, controller and speech still need live validation."
       ],
       "fullyAccessibleProven": false,
       "liveValidated": false
@@ -8060,10 +8084,11 @@
         "reviewed": 7
       },
       "regionPolicies": {
-        "current-native-icon-only": 7,
+        "current-native-icon-only": 6,
+        "reviewed-actor-region-binding": 1,
         "direct-touch-exit-presentation-gates": 1
       },
-      "iconOnlyActionableRegions": 2,
+      "iconOnlyActionableRegions": 1,
       "staticAudit": "decoded-all-entries",
       "semanticLabelStatus": "partial",
       "presentationStatus": "native-gates-live-unverified",

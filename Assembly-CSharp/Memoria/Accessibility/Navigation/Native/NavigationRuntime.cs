@@ -59,6 +59,8 @@ namespace Memoria.Accessibility.Navigation
                 if(_diagnosticGeneration!=context.Generation){_diagnostics.Clear();_diagnosticGeneration=context.Generation;}
                 foreach(string diagnostic in catalog.Diagnostics)if(_diagnostics.Count<64 && _diagnostics.Add(diagnostic))Trace("Target diagnostic; map="+context.LogicalMapKey+"; "+diagnostic);
                 NativePinnacleRocks.ReviewTargets(context,catalog);
+                NativeFieldTargets.ReviewChestJumps(context, catalog);
+                NativeFieldTargets.ReviewDaliCrateChest(context, catalog);
                 NativeFieldExitCues.Tick(context,catalog);
                 if(!NativeOpeningPositionTargets.TryAppend(context,catalog))NativeStoryTargets.Append(context,catalog);
                 var movement=ReadMovement(context,catalog);
@@ -157,9 +159,17 @@ namespace Memoria.Accessibility.Navigation
                 var fresh=catalog.Find(_routeTarget.Id);
                 if(fresh==null)return result;
                 if(context.LogicalMapKey.StartsWith("field:")) {
+                    var ready = ReadReadyFieldInteraction(context, fresh);
+                    if (ready != null) return ready;
                     var geometry=NativeFieldGeometry.Read(context);
                     if(_route.Success && _guideProgress!=null && geometry!=null) {
-                        result.ManualStep=_guideProgress.Read(context,_route,p=>CanGuideFieldStep(context,geometry,p));result.RoutePoint=result.ManualStep.Aim;
+                        var guideGeometry = geometry;
+                        FieldGeometrySnapshot reviewed;
+                        float arrival;
+                        if (_route.FieldIntermediateArrivalRadius > 0 && _route.GeometryFingerprint == geometry.Fingerprint &&
+                            FieldChestPassages.TryReview(context, fresh, geometry, out reviewed, out arrival) && arrival == _route.FieldIntermediateArrivalRadius)
+                            guideGeometry = reviewed;
+                        result.ManualStep=_guideProgress.Read(context,_route,p=>CanGuideFieldStep(context,guideGeometry,p));result.RoutePoint=result.ManualStep.Aim;
                     }
                     bool segmentClear=!_route.Success || result.ManualStep!=null && !result.ManualStep.NeedReplan;
                     result.Outcome=GuidanceRouteValidation.Check(_route,_routeTarget,fresh,geometry==null?null:geometry.Fingerprint,geometry==null?1:geometry.Radius,false,segmentClear);
@@ -196,6 +206,15 @@ namespace Memoria.Accessibility.Navigation
             }
             return result;
         }
+        private static MovementObservation ReadReadyFieldInteraction(NavigationContext context, NavigationTarget target)
+        {
+            if (target.Evidence != VisibilityEvidence.NativeInteractionIcon) return null;
+            var readiness = NativeInteractionProbe.Read(context, target);
+            if (!readiness.SelectedCollision || !readiness.InRange || !readiness.Talkable || !readiness.FacingWithinArc)
+                return null;
+            return new MovementObservation { Outcome = MovementOutcome.ReadyToInteract, Evidence = readiness.Evidence };
+        }
+
         private static bool CanGuideFieldStep(NavigationContext context,FieldGeometrySnapshot geometry,NavigationPoint point){return geometry!=null && geometry.IsSegmentClear(context.Position,point);}
         private static bool CanGuideWorldStep(NavigationContext context,WorldGeometrySnapshot geometry,NavigationPoint point,NavigationTarget target,NavigationPoint approach){return GuidanceRouteValidation.WorldLeg(geometry,context,point,target,approach);}
         private static void CancelWorldPlan(){_worldPlanner.Cancel();_worldRequest=0;}
@@ -242,6 +261,16 @@ namespace Memoria.Accessibility.Navigation
                     route=new RoutePlan{Generation=context.Generation,TargetId=target.Id,Transport=context.Transport,Failure=RouteFailure.TerrainUnavailable,GeometryFingerprint=NativeWorldGeometry.CurrentFingerprint()};
                 }
             }else {
+                var ready = ReadReadyFieldInteraction(context, target);
+                if (ready != null)
+                {
+                    _fieldPlanner.Cancel();
+                    _planning = RouteOperation.None;
+                    ReleaseOwned(StopReason.Arrived);
+                    _pending = ready;
+                    Trace("Selected field interaction presented; target=" + target.Id);
+                    return;
+                }
                 field = NativeFieldGeometry.Read(context);
                 if (field == null)
                 {

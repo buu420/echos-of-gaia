@@ -20,6 +20,7 @@ namespace Memoria.Accessibility.Navigation
         public NavigationPoint[] ApproachCandidates;
         // Current native selection/presentation already filtered these points.
         public bool UseApprovedApproaches;
+        public FieldActorInteractionRange ActorInteractionRange;
         public int InteractionUid = -1;
         public NavigationPoint[] InteractionRegion;
         public bool UseViewingPoint;
@@ -42,6 +43,7 @@ namespace Memoria.Accessibility.Navigation
         public int[] WorldEntranceTags;
         public float WorldEntranceRadius;
         public bool UseApprovedApproaches;
+        public FieldActorInteractionRange ActorInteractionRange;
         public int InteractionUid = -1;
         public NavigationPoint[] InteractionRegion;
         public bool UseViewingPoint;

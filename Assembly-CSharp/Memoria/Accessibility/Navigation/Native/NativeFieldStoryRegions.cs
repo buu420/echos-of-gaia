@@ -54,10 +54,13 @@ namespace Memoria.Accessibility.Navigation
                 var surface=Surface(geometry,quad);
                 bool cabinDescent = path == StoryRegionTrigger.Confirm && context.LogicalMapKey == FieldActorApproaches.WreckedCrewCabin &&
                     quad.uid == 10 && quad.sid == 10;
-                float arrivalMargin = FieldAnalogMovement.ArrivalRadius(geometry.Radius, 1);
+                bool needsInterior = path == StoryRegionTrigger.Walk || cabinDescent;
+                // The owned follower can stop before the exact point. A walk-in
+                // is only reached when the stopping circle is inside its region.
+                float arrivalMargin = FieldAnalogMovement.ArrivalRadius(geometry.Radius, 1) + 0.5f;
                 var safe=FieldStoryRegionApproaches.Read(true,true,surface.Approaches,
                     p=>FieldStoryRegionApproaches.Selects(path,engine.NavigationTalkQuadAt(p.X,p.Z),engine.NavigationTouchQuadAt(p.X,p.Z),quad),
-                    p=>(!cabinDescent || FieldRegionApproaches.CanStopInside(surface.Region,p,arrivalMargin)) && StorySurfacePresented(field,p),
+                    p=>(!needsInterior || FieldRegionApproaches.CanStopInside(surface.Region,p,arrivalMargin)) && StorySurfacePresented(field,p),
                     context.Position);
                 // Only points whose own detached trigger path proves the offered current step remain.
                 var prove=_storyProofs.Begin(quad.uid+":"+path,context.Generation+":"+context.LogicalMapKey+":"+context.SaveIdentity+":"+context.PlayerIdentity+":"+context.StoryProgress+":"+Fingerprint(quad.ebData),surface,

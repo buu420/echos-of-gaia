@@ -25,12 +25,42 @@ namespace Memoria.Accessibility.Navigation
                 stagedEntries=FieldExitInwardApproaches.Create(target.InteractionRegion,candidates,geometry,cancelled);
                 candidates=stagedEntries.Keys.ToArray();
             }
-            if(candidates.Length==0){failure.Failure=RouteFailure.TargetOutsideMesh;return failure;}
-            var route=PlanFrom(context,target,geometry,start,context.Position,candidates,failure,cancelled);
-            if(route.Failure==RouteFailure.UnsafeSegment) {
-                var alternative=PlanAcrossPortals(context,target,geometry,start,candidates,cancelled);
-                if(alternative!=null)route=alternative;
+            RoutePlan route = failure;
+            if (candidates.Length == 0) failure.Failure = RouteFailure.TargetOutsideMesh;
+            else route = PlanApproaches(context, target, geometry, start, candidates, failure, cancelled);
+            if (!route.Success && target.IsInteractive && !target.UseApprovedApproaches && target.InteractionUid < 0 &&
+                target.PhysicalIdentity.Kind == TargetKind.FieldActor && (cancelled == null || !cancelled()))
+            {
+                var recovered = FieldActorApproaches.Recover(context.Position, target, geometry);
+                if (recovered.Length != 0)
+                {
+                    var alternate = PlanApproaches(context, target, geometry, start, recovered, new RoutePlan(), cancelled);
+                    if (alternate.Success) route = alternate;
+                }
             }
+            if (!route.Success && (cancelled == null || !cancelled()))
+            {
+                FieldGeometrySnapshot chestGeometry;
+                float chestArrival;
+                if (FieldChestPassages.TryReview(context, target, geometry, out chestGeometry, out chestArrival))
+                {
+                    var chestStart = chestGeometry.Find(start.Id);
+                    var fixedApproaches = FieldChestPassages.FixedApproaches(target, chestGeometry);
+                    var chestCandidates = fixedApproaches ?? FieldTargetApproaches.Prepare(context, target, chestGeometry, preferClearance: true);
+                    var chestRoute = PlanApproaches(context, target, chestGeometry, chestStart, chestCandidates, new RoutePlan(), cancelled);
+                    if (!chestRoute.Success && fixedApproaches == null && (cancelled == null || !cancelled()))
+                    {
+                        chestCandidates = FieldActorApproaches.Recover(context.Position, target, chestGeometry);
+                        chestRoute = PlanApproaches(context, target, chestGeometry, chestStart, chestCandidates, new RoutePlan(), cancelled);
+                    }
+                    if (chestRoute.Success)
+                    {
+                        chestRoute.FieldIntermediateArrivalRadius = chestArrival;
+                        return chestRoute;
+                    }
+                }
+            }
+
             if (route.Success) {
                 if(stagedEntries!=null) {
                     var stage=route.ApproachPoint;
@@ -67,6 +97,15 @@ namespace Memoria.Accessibility.Navigation
             last.Waypoints=first.Waypoints.Concat(last.Waypoints).ToArray();
             last.Corridor=first.Corridor.Concat(last.Corridor.Skip(1)).ToArray();
             return last;
+        }
+
+        private static RoutePlan PlanApproaches(NavigationContext context, NavigationTarget target, FieldGeometrySnapshot geometry,
+            FieldTriangle start, NavigationPoint[] candidates, RoutePlan failure, Func<bool> cancelled)
+        {
+            var route = PlanFrom(context, target, geometry, start, context.Position, candidates, failure, cancelled);
+            return route.Failure == RouteFailure.UnsafeSegment
+                ? PlanAcrossPortals(context, target, geometry, start, candidates, cancelled) ?? route
+                : route;
         }
 
         private sealed class PassageNode

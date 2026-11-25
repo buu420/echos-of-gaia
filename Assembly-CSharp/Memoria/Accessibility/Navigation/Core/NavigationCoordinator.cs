@@ -47,7 +47,9 @@ namespace Memoria.Accessibility.Navigation
                 update.RouteOperation=RouteOperation.PlanGuidance;
                 update.RefreshGuidance=true;
             }
-            if(movement!=null && old==RouteMode.Moving && Session.Mode==RouteMode.Moving && OnlyInformationalCommands(commands) && !movement.IsPlanning) {
+            bool arrivedDuringGuidance = old == RouteMode.Guiding && Session.Mode == RouteMode.Guiding &&
+                movement?.Outcome == MovementOutcome.ReadyToInteract;
+            if(movement!=null && (old==RouteMode.Moving && Session.Mode==RouteMode.Moving || arrivedDuringGuidance) && OnlyInformationalCommands(commands) && !movement.IsPlanning) {
                 NavigationSignal signal=NavigationSignal.None;
                 switch(movement.Outcome) {
                     case MovementOutcome.ReadyToInteract:signal=NavigationSignal.Arrived;update.Messages.Add("Ready to interact with "+Label(update.Selected)+". Press Confirm.");break;

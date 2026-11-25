@@ -54,6 +54,8 @@ namespace Memoria.Accessibility.Navigation
             var openingBooth=ReadOpeningTicketBooth(context,engine,field,player,ref currentGeometry,ref geometryRead);
             if(openingBooth!=null)result.Add(openingBooth);
             ReadLoopTargets(context,engine,field,player,result,ref currentGeometry,ref geometryRead);
+            // The bubble is drawn over the player even when a camera edge clips the actor origins.
+            int presentedUid = context.CanControl ? EIcon.NavigationPresentedUid : -1;
             foreach (Obj obj in ActiveObjects(engine)) {
                 if (obj.uid == context.PlayerIdentity) continue;
                 var actor = obj as Actor;
@@ -68,7 +70,7 @@ namespace Memoria.Accessibility.Navigation
                     var bg=field.GetCurrentBgCamera();
                     var projected=bg==null?new NavigationPoint():Point(PSX.CalculateGTE_RTPT_POS(position,Matrix4x4.identity,bg.GetMatrixRT(),bg.GetViewDistance(),field.GetProjectionOffset()));
                     bool inArea=FieldScenePresentation.Actor(rendered,mesh,onScreen,ReadAreaPanorama(field),projected);
-                    bool icon=EIcon.NavigationPresentedUid==obj.uid && OnScreen(field,Vector(context.Position));
+                    bool icon = presentedUid == obj.uid;
                     if (actor.model == 524 && ForestNavigationEvidence.IsEscape(context))
                     {
                         if (onScreen)
@@ -93,20 +95,33 @@ namespace Memoria.Accessibility.Navigation
                     float interaction=player==null?0:4*((talkChannel?player.talkRad:player.collRad)+(talkChannel?actor.talkRad:actor.collRad))+actor.speed+60;
                     var observation=new FieldTargetObservation { Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, obj.uid), NativePresentationIdentity=obj.go==null?0:obj.go.GetInstanceID(),Position = Point(position), Visible = inArea,OutOfView=rendered && mesh && !inArea,ShowsIcon=icon, IsPerson = talkChannel, HasInteraction = NativeFieldTalkability.IsTalkable(obj) || engine.GetIP(obj.sid, EventEngine.tagPush, obj.ebData) != engine.nil,ApproachCandidates=FieldActorApproaches.Create(context.Position,Point(position),collision,interaction) };
                     observation.LabelIdentity=LabelSignature(actor);observation.VisibleLabel=FieldVisibleLabels.Read(actor.model,VisibleBody(actor));
+                    bool chest = observation.VisibleLabel == "Chest";
                     string modelName;if(FF9BattleDB.GEO.TryGetValue(actor.model,out modelName)) {
                         if(modelName.StartsWith("GEO_ACC_"))observation.IsPerson=false;
                         else if(modelName.StartsWith("GEO_NPC_") || modelName.StartsWith("GEO_MAIN_") || modelName.StartsWith("GEO_SUB_"))observation.IsPerson=true;
                     }
+                    if (chest) observation.IsPerson = false;
+                    if (icon && !mesh)
+                    {
+                        // A body-less prompt does not reveal the speaker or the object model.
+                        observation.IsPerson = false;
+                        observation.VisibleLabel = FieldBackgroundObjects.PresentedPrompt;
+                        observation.LabelIdentity = null;
+                    }
                     // The person's own native Talk heading ("Alexandrian Soldier"), or a name the game showed.
                     if(observation.IsPerson)observation.VisibleLabel=FieldSpeakerRoles.Prefer(SpeakerLabel(context,engine,actor),observation.VisibleLabel);
-                    if(actor.ebData!=null)Annotate(context,engine,actor,observation);
+                    if (actor.ebData != null) Annotate(context, engine, actor, observation);
+                    // A drawn chest remains an object as its interaction prompt appears.
+                    if (chest) observation.IsItem = false;
+                    if (mesh && (chest || observation.IsItem))
+                        observation.ActorInteractionRange = new FieldActorInteractionRange(collision, interaction);
                     if(context.LogicalMapKey==ForestNavigationEvidence.Map && obj.ebData!=null) {
                         var region=engine.GetObjUID(19) as Quad;
                         if(IsForestInteraction(context,actor,region)) {
                             observation.InteractionUid=region.uid;observation.InteractionRegion=new NavigationPoint[region.n];
                             for(int i=0;i<region.n;i++)observation.InteractionRegion[i]=Point(region.q[i].Vector3Val);
                             observation.HasInteraction=true;
-                            observation.ShowsIcon|=observation.Visible && EIcon.NavigationPresentedUid==region.uid && OnScreen(field,Vector(context.Position));
+                            observation.ShowsIcon |= observation.Visible && presentedUid == region.uid;
                         }
                         if(actor.sid==11 && actor.model==241)observation.UseViewingPoint=ForestNavigationEvidence.NoninteractiveObject(context.LogicalMapKey,actor.sid,actor.model,Fingerprint(actor.ebData),observation.HasInteraction);
                         if((onScreen || observation.ShowsIcon) && (actor.sid==9 || actor.sid==11) && _cueLogs.Add("forest-binding:"+actor.uid+":"+observation.InteractionUid+":"+observation.UseViewingPoint))
@@ -125,7 +140,7 @@ namespace Memoria.Accessibility.Navigation
                 if(NativeFieldActorInteractions.IsBoundRegion(context,engine,quad))continue;
                 var touch = Decode(engine,quad,EventEngine.tagPush); var talk = Decode(engine,quad,EventEngine.tagTalk);
                 Vector3 center = Vector3.zero; for(int i=0;i<quad.n && i<quad.q.Length;i++) center+=quad.q[i].Vector3Val; center/=quad.n;
-                bool quadIcon=EIcon.NavigationPresentedUid==quad.uid && OnScreen(field,Vector(context.Position));
+                bool quadIcon = presentedUid == quad.uid;
                 bool directExit=ContainsJump(touch);
                 if(FindBackgroundTouchCue(context,quad)!=null) {
                     var touchCue=ReadBackgroundObject(context,engine,field,player,quad,ref currentGeometry,ref geometryRead);
@@ -231,7 +246,13 @@ namespace Memoria.Accessibility.Navigation
             var region=new NavigationPoint[quad.n];for(int i=0;i<region.Length;i++)region[i]=Point(quad.q[i].Vector3Val);
             var observation=new FieldTargetObservation{Id=new TargetIdentity(TargetKind.FieldActor,context.LogicalMapKey,quad.uid),NativePresentationIdentity=System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(quad),Position=Point(center),ShowsIcon=true,HasInteraction=true,InteractionUid=quad.uid,InteractionRegion=region,ApproachCandidates=new[]{engine.NavigationContainsQuad(quad,context.Position.X,context.Position.Z)?context.Position:Point(center)}};
             observation.LabelIdentity=ExitLabelSignature(quad);
-            Annotate(context,engine,quad,observation);return observation;
+            Annotate(context,engine,quad,observation);
+            if (IsGroundPickupRegion(context, engine, quad))
+            {
+                observation.IsItem = IsPresentedGroundPickup(context, engine, quad);
+                if (observation.IsItem) observation.VisibleLabel = "Item";
+            }
+            return observation;
         }
         private static bool VisibleBody(Actor actor)
         {

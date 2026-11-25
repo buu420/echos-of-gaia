@@ -11,7 +11,6 @@ namespace Memoria.Accessibility.Navigation
         private const string WaterChest = "1ebbf46275b399e251d6ecb7923e8f3708c385ef8d40ae80d98fe11b07b4e822";
         private const string BridgeChest = "e5c5c1545e268e985ba7cdcc6a6a338697ba9bdb5c139a627838e967c38c9697";
         private const string BridgeWaterChest = "1645180872ad2a9f7a7ca55b5825cdbc7a0beeb6c971efdbdc77d716ab12c712";
-        private const string VestChest = "596f2d6380338711ff52cc5dba3f1edf8b4678de4af96327c5a75abec81c5da9";
         private const string MontyScript = "0fed61fd6730d9fc0ead649d0edd92119dfa807f513d2650373085c9a81996ff";
         private const string JumpScript = "3402b3004c70c4df8a1bef35b508391514ac57ea09ac5851573fdd91fb0de48d";
 
@@ -39,11 +38,7 @@ namespace Memoria.Accessibility.Navigation
             if (engine == null || engine.gMode != 1 || player == null || !Matches(map, field)) return;
 
             ReviewApparition(context, catalog, engine, player);
-            if (map == MontysPath)
-            {
-                ReviewMonty(context, catalog, engine, player, field);
-                ReviewVestPrompt(context, catalog, engine, player);
-            }
+            if (map == MontysPath) ReviewMonty(context, catalog, engine, player, field);
             if (map == BridgePath) ReviewBridgeFloor(catalog, engine, player);
             if ((map != WaterPath && map != BridgePath) || !ArmletChestClosed()) return;
             var step = map == WaterPath ? Exit(catalog, 10, BridgePath) : ReadJump(context, engine, player, field);
@@ -153,36 +148,6 @@ namespace Memoria.Accessibility.Navigation
                 }
                 return;
             }
-        }
-
-        private static void ReviewVestPrompt(NavigationContext context, CatalogResult catalog, EventEngine engine, Actor player)
-        {
-            const int uid = 20;
-            if (EIcon.NavigationPresentedUid != uid) return;
-            var chest = engine.GetObjUID(uid) as Actor;
-            if (chest == null || chest.model != 75 || !Matches(chest, uid, VestChest)) return;
-
-            // The bottom of this screen can clip both actor origins while the
-            // chest lid and its native interaction bubble are still visible.
-            var offer = NativeFieldActorInteractions.ReadPushReadiness(context, engine, player, chest);
-            if (offer == null || !offer.Talkable || !offer.InRange) return;
-            var identity = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, uid);
-            foreach (var target in catalog.Targets)
-            {
-                if (!target.Id.Equals(identity)) continue;
-                target.IsInteractive = true;
-                target.Availability = null;
-                target.UseViewingPoint = false;
-                target.UseApprovedApproaches = true;
-                target.ApproachCandidates = new[] { context.Position };
-                return;
-            }
-            catalog.Targets.Add(new NavigationTarget {
-                Id = identity, Label = "Chest", Category = NavigationCategory.Objects, Generation = context.Generation,
-                Position = new NavigationPoint(chest.pos[0], chest.pos[1], chest.pos[2]),
-                Evidence = VisibilityEvidence.NativeInteractionIcon, IsInteractive = true,
-                UseApprovedApproaches = true, ApproachCandidates = new[] { context.Position }
-            });
         }
 
         private static void ReviewBridgeFloor(CatalogResult catalog, EventEngine engine, Actor player)

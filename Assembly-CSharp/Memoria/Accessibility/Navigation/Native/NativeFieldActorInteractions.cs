@@ -209,7 +209,7 @@ namespace Memoria.Accessibility.Navigation
             if(gates.HasPushHandler) {
                 gates.MapPushAllowed=EventCollision.NavigationCanPushNpc(actor);
                 gates.QueuedPushOffer=gates.MapPushAllowed && !gates.HasTalkHandler && observation.ShowsIcon &&
-                    HasQueuedChestOffer(context,engine,actor,observation.Visible);
+                    HasQueuedChestOffer(context,engine,actor,Rendered(actor));
             }
             var talk=FieldInteractionRules.Talk(gates,FieldInteractionState.Unknown);
             if(talk==FieldInteractionState.Unknown && !gates.ReviewedListener)talk=FieldInteractionRules.Talk(gates,Guard(engine,actor,EventEngine.tagTalk));

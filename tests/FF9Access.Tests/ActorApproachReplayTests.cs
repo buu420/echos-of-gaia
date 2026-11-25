@@ -248,6 +248,28 @@ namespace FF9Access.Tests
             var route=new FieldRoutePlanner().Plan(context,target,geometry);
             TestAssert.True(route.Success);TestAssert.True(route.ApproachPoint.X>=0);
         }
+        public static void ReachesTheClearSupportNearTheNativeContactLimit()
+        {
+            var geometry = TwoFloors();
+            var context = TestFixtures.Context();
+            context.Position = new NavigationPoint(100, 0, 100);
+            var actor = new NavigationPoint(-300, 0, 500);
+            var target = new NavigationTarget {
+                Id = new TargetIdentity(TargetKind.FieldActor, context.LogicalMapKey, 5),
+                Generation = context.Generation, IsInteractive = true, Position = actor,
+                ApproachCandidates = FieldActorApproaches.Create(context.Position, actor, 100, 370)
+            };
+            var planner = new FieldRoutePlanner();
+            TestAssert.False(planner.Plan(context, target, geometry).Success);
+
+            target.ActorInteractionRange = new FieldActorInteractionRange(100, 370);
+            var plan = planner.Plan(context, target, geometry);
+            TestAssert.True(plan.Success);
+            TestAssert.True(plan.ApproachPoint.X >= 40);
+            TestAssert.True(FieldGeometrySnapshot.Horizontal(plan.ApproachPoint, actor) < 370);
+            TestAssert.True(geometry.IsSegmentClear(plan.ApproachPoint, plan.ApproachPoint));
+        }
+
         public static void UnconnectedRingsKeepTheHonestPlannerFailure()
         {
             var geometry=TwoFloors();var player=new NavigationPoint(100,0,100);var actor=new NavigationPoint(-300,0,500);
