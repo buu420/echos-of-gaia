@@ -26,10 +26,11 @@ namespace Memoria.Accessibility.Navigation
                 support[i]=new NavigationPoint(original.X,original.Y+delta.Y,original.Z);
                 radius[i]=map==2952?new NavigationPoint(original.X+delta.X,original.Y+delta.Y,original.Z+delta.Z):original;
             }
+            bool treno = map == 903 || map == 906 || map == 908 || map == 915;
             return new FieldTriangle{Id=id,Floor=floor,Vertices=support,RadiusVertices=radius,Neighbors=native.RuntimeNeighbors,
                 Enabled=(native.NativeFlags&1)!=0,RuntimeEnabled=(native.RuntimeFlags&1)!=0,Attributes=(byte)(native.NativeFlags>>8),Native=native,
                 ReviewedBoundaryEdges=ReviewedBoundary(id,floor,map,native),
-                ReviewedBoundaryClearance=map==915?104:68,ReviewedBoundaryMaximumRadius=map==915?120:80};
+                ReviewedBoundaryClearance=map==906?97:treno?104:68,ReviewedBoundaryMaximumRadius=treno?120:80};
         }
 
         // On this original spiral, the native controller walks between opposing
@@ -41,10 +42,40 @@ namespace Memoria.Accessibility.Navigation
             if(!native.FloorDelta.Equals(new NavigationPoint()))return 0;
             int edge;
             NavigationPoint a,b;
-            // The original Treno stair corner also relies on native wall forces.
-            // Original ServiceChar replays traverse these two exact walls with
-            // Steiner's unchanged 120-unit body. Other walls keep full clearance.
-            if(map==915 && floor==2 && id==111) {
+            // The narrow Treno paths use the native controller's wall forces.
+            // These exact walls use reviewed planning clearance; movement still
+            // uses Steiner's original 120-unit body and live floor collision.
+            if (map == 903 && floor == 2 && id == 231) {
+                edge = 0; a = new NavigationPoint(4238, 0, -2707); b = new NavigationPoint(4789, 508, -2396);
+            } else if (map == 903 && floor == 2 && id == 232) {
+                edge = 1; a = new NavigationPoint(4874, 508, -2575); b = new NavigationPoint(4342, 0, -2926);
+            } else if (map == 906 && floor == 0) {
+                switch (id) {
+                case 21:
+                    edge = 2; a = new NavigationPoint(1547, 2996, 11042); b = new NavigationPoint(2454, 2996, 11028); break;
+                case 22:
+                    edge = 0; a = new NavigationPoint(2444, 2996, 10827); b = new NavigationPoint(1504, 2996, 10848); break;
+                case 64:
+                    edge = 2; a = new NavigationPoint(1504, 2996, 10848); b = new NavigationPoint(1341, 2996, 10655); break;
+                case 65:
+                    edge = 1; a = new NavigationPoint(1372, 2996, 11064); b = new NavigationPoint(1547, 2996, 11042); break;
+                default: return 0;
+                }
+            } else if (map == 908 && floor == 2) {
+                switch (id) {
+                case 99:
+                    edge = 0; a = new NavigationPoint(1202, 7861, -21530); b = new NavigationPoint(1230, 7793, -21634); break;
+                case 102:
+                    edge = 2; a = new NavigationPoint(1186, 7925, -21406); b = new NavigationPoint(1202, 7861, -21530); break;
+                case 112:
+                    edge = 0; a = new NavigationPoint(1217, 7988, -21301); b = new NavigationPoint(1186, 7925, -21406); break;
+                case 126:
+                    edge = 1; a = new NavigationPoint(1015, 7988, -21146); b = new NavigationPoint(1149, 8054, -21005); break;
+                case 129:
+                    edge = 1; a = new NavigationPoint(1149, 8054, -21005); b = new NavigationPoint(1341, 8117, -20904); break;
+                default: return 0;
+                }
+            } else if(map==915 && floor==2 && id==111) {
                 edge=0;a=new NavigationPoint(-11583,0,-4822);b=new NavigationPoint(-11648,0,-4903);
             } else if(map==915 && floor==2 && id==142) {
                 edge=2;a=new NavigationPoint(-11255,0,-4815);b=new NavigationPoint(-11583,0,-4822);

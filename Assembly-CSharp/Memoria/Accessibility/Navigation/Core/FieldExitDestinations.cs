@@ -28,6 +28,12 @@ namespace Memoria.Accessibility.Navigation
             case 556: return sid==19 && hash=="abadf9abb6d5dbd5bf18fde3b3633f2c46add0ebfdc380c0e7b556ac0ad0bd50";
             case 570: return sid==24 && hash=="d5a671438d494f979fc3b35a22bb09246fc30657f430b30ea4cbdc95f3699d97";
             case 762: return sid == 7 && hash == "f8d939eb763ca9ec070dede4aa9db644f1c8b52a0ef4bce73b652e7f9a5a5717";
+            case 900: return sid == 9 && hash == "b23d77b2bb3ee3bf543fadac27b19226b84228b517ce58e69abb2b8b12cfaa61";
+            case 902: return sid == 5 && hash == "d48e7df47b7fc0e48dc12f75f903c2225bd670723810ff00b007f49fbd5f2abf";
+            case 904: return sid == 11 && hash == "6fb1d3bdfeddd768d9b6670dca22ba677f5f23d7fa6923f5ce19498b48deea46";
+            case 906: return sid == 5 && hash == "8587120b87e0898c55de292d8e5e28ac88ad799d07672f18d78772e5c121c8f1";
+            case 907: return sid == 12 && hash == "d1159e3dbc666825c84945fca92103fd00141956ffb644ec84cccb8a26f793a0";
+            case 915: return sid == 11 && hash == "24605e38074a74cb9b5e76a7dadbc474a2fdcfc206728fd370cda8eba0a64f27";
             case 1204: return sid==8 && hash=="af678b3663d71a8553907051607df32f25dff192aff2b444301f1c342d44f140";
             case 1213: return sid==11 && hash=="41ddf8a923f8204d5e33e3b611d4bb29557b7b3bb8b1772c98536f3b8dd42244";
             case 1214: return sid==6 && hash=="723c3a9351a0bc66bffde01800361b02f561f037ba1c68d23c6f49c3e2cec1ab";

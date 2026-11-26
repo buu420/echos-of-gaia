@@ -28,6 +28,8 @@ namespace Memoria.Accessibility.Navigation
                 if (touch != null) return touch;
                 touch = NativeFieldTargets.ReadDaliCrateChestReadiness(context, target, engine, player, presentedQuad);
                 if (touch != null) return touch;
+                touch = NativeFieldTargets.ReadBurmeciaVaultChestReadiness(context, target, engine, player, presentedQuad);
+                if (touch != null) return touch;
                 var pickup = NativeFieldTargets.ReadGroundPickupReadiness(context, engine, player, presentedQuad);
                 if (pickup != null) return pickup;
                 result=FieldInteractionBindings.Readiness(engine.TreadQuad(player,4)==presentedQuad,engine.NavigationContainsQuad(presentedQuad,controller.curPos.x,controller.curPos.z),

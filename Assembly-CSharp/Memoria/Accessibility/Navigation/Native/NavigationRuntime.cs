@@ -170,6 +170,8 @@ namespace Memoria.Accessibility.Navigation
                         if (_route.FieldIntermediateArrivalRadius > 0 && _route.GeometryFingerprint == geometry.Fingerprint &&
                             FieldChestPassages.TryReview(context, fresh, geometry, out reviewed, out arrival) && arrival == _route.FieldIntermediateArrivalRadius)
                             guideGeometry = reviewed;
+                        if (SummitCableCarAisle.TryGuideGeometry(context, fresh, geometry, _route, out reviewed))
+                            guideGeometry = reviewed;
                         result.ManualStep=_guideProgress.Read(context,_route,p=>CanGuideFieldStep(context,guideGeometry,p));result.RoutePoint=result.ManualStep.Aim;
                     }
                     bool segmentClear=!_route.Success || result.ManualStep!=null && !result.ManualStep.NeedReplan;

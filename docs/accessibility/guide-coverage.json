@@ -580,7 +580,7 @@
     ]
   },
   "reviewedStoryActions": {
-    "steps": 184,
+    "steps": 185,
     "loopActions": 16,
     "phases": 436
   },
@@ -617,7 +617,7 @@
     },
     {
       "path": "docs/accessibility/story-action-chains.json",
-      "sha256": "cc00bac171a3fbfa8688512e2a93576bc1d7a581401db142721655cdb390810b"
+      "sha256": "076659702ca645649a5c0c8323c6e180fc73897d26de2c50d7b9e4ee232eb68f"
     },
     {
       "path": "docs/accessibility/story-palace-actions.json",
@@ -865,7 +865,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldExitDestinations.cs",
-      "sha256": "1c8ff0389b516114aeb48d4cb008e54aa2a6ccdea99b9b2d8456351015dcce1e"
+      "sha256": "9d17729907f3e56da95475d6c8a655347c2afab07db4992d54d401aecad7fc39"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/ScriptStoryAnalyzer.cs",
@@ -917,11 +917,31 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldRoutePlanner.cs",
-      "sha256": "fe8e73af92b7030d438e637570f35d670b9003644b8fe9b68267df6cbe5e0008"
+      "sha256": "c302942bfad8b17c7f12f9c4898136c124f22418ca3d2a94e7cfa4a3e2208418"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/WorldRoutePlanner.cs",
       "sha256": "bad75c8d8205b9ed31e207d29377ec8c0e9a3e51952df9095a122ca9bcf33278"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldNativeGeometryContract.cs",
+      "sha256": "26ee066dcda3cd2e4834bb13d0c18bfb8ef0407782e5a20ee4820c18d47ea90d"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/FieldExitDestinations.cs",
+      "sha256": "9d17729907f3e56da95475d6c8a655347c2afab07db4992d54d401aecad7fc39"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/SummitCableCarAisle.cs",
+      "sha256": "f79681db26fd06def5676d7ed953334bffc4e30d3390e970d7a4c802dd17c39f"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeSummitStation.cs",
+      "sha256": "32af6b243544ccab894c758a16bd0bd7d6f27eb475964fc1649f08bc6607e6c3"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeBurmeciaVault.cs",
+      "sha256": "b6e6987e4f0e1e22741a6e1ea46e117f115eae71b5979d973d1a4e262ddc370f"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/WorldBoatLanding.cs",
@@ -1021,7 +1041,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldTargets.cs",
-      "sha256": "2dcaab00cf89953ba03fdaa7b10b61345119be7d5c0cea409e009b06d116e196"
+      "sha256": "2369cad01e6a7a1ba22e60492985ff28ec4d6555c73ecc63c1d5474157ce5587"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryTargets.cs",
@@ -1073,11 +1093,11 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeInteractionProbe.cs",
-      "sha256": "df135ab11ff1b976b89ef816c63cd84ee47c2d3cb67129254313c2df9382abd7"
+      "sha256": "c4c9b3b57eb56d68458327f577640d2eae60ff2306dd3647e8295d26c79af98e"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationRuntime.cs",
-      "sha256": "1a458747dcc9ef4edb9b227497c80e6af1847a09eefa3266f90d0e2d688050de"
+      "sha256": "ae2b150921c17b4c008cca3f12bc0d7811e31d6692f1fffb14e5b23c5ce753ae"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationLifecycleBridge.cs",
@@ -1133,7 +1153,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldExitRoutes.cs",
-      "sha256": "cbf2a46097608dcd392267b2dd047bc5abd6cee97960de9e9edb76523fbce57d"
+      "sha256": "28a756eb5f6674bca280f4fbd2de78bcc85a5ce6ef909c87b1adcc19c1dd810a"
     }
   ],
   "nativeFieldIdentity": "8a1aad6c4928624e1b999279f085e45fe0d40227e47972ee13b52abd96931043",

@@ -19,6 +19,24 @@ internal static partial class Program
         Check(NativeStorySteps.SelectPhase(4230,805,bridgeScripts,local=>null)?.InformationOnly==true,
             "unreadable bridge floor does not suggest walking through the gap");
         Check(!Selects(landing,805,1,807),"Story does not reuse the return exit as the forward bridge hop");
+        var cable = NativeStorySteps.SelectPhase(4230, 815,
+            sid => sid == 0 ? "9c3f9939204a0222380f01753c254c71d219e23f2ad168d18c2f5f67d4880eb1" : null);
+        Check(cable?.InformationOnly == false && cable.ActionUids.SequenceEqual(new[] { 13 }),
+            "the Berkmea cable car phase offers Marcus as its Story action");
+
+        Check(Route(4430, 903, "8d7f894502665d00d4522ccd027c265d5d362361fba081881aeb4b61f9e8939f", 9, 904),
+            "Story uses the Card Stadium exit toward the Auction House reunion");
+        Check(Route(4430, 908, "564573a4b269c57ff93549167639e8cd98ff191789cb22edac251e6fde6b6a94", 13, 912),
+            "Story uses the Gate exit to the Slums toward the Auction House");
+        Check(Route(4430, 906, "275d4f8d854ac7a340b0ae970c14902df0690cfde878fbcae2626f6fc82f1a4a", 5, 909) &&
+            FieldExitDestinations.RequiresInwardApproach(906, 5, 5, "8587120b87e0898c55de292d8e5e28ac88ad799d07672f18d78772e5c121c8f1"),
+            "the Auction House front door requires a staged approach through its native facing guard");
+        Check(Route(4430, 902, "2c900cc02a8fd9a9b2043c218059728d4a86a198387ff8cd0a06f07dc6a099fb", 5, 901),
+            "the back room of the Synthesis Shop rejoins the Auction House route through its hall");
+        Check(Route(4435, 910, "6e74188f252dac3d14e5f5723a544571cbe16868d4317944b0b3047f670a6026", 4, 904),
+            "the Weapon Shop has a Story route back to Marcus in the Pub");
+        Check(Route(4450, 911, "645afdca8728e5b2594ae83efc017a091f2075d04bfa408be45dacc76beed873", 5, 907),
+            "the Queen's House rejoins the route to Doctor Tot's tower");
 
         Check(Route(4470,905,"fa518bb4a073db9fbbc521fd72403954c598b2aa1beab0a8346f0946752c5c45",10,913),
             "Story can return through Treno's tower entrance and stairwell to the hatch");

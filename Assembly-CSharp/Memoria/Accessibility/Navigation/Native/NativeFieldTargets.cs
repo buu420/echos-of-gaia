@@ -128,6 +128,16 @@ namespace Memoria.Accessibility.Navigation
                             Log.Message("[FF9Access] Forest target binding: uid={0}; model={1}; interactionUid={2}; viewingPoint={3}; actorScript={4}; regionScript={5}",actor.uid,actor.model,observation.InteractionUid,observation.UseViewingPoint,Fingerprint(actor.ebData),region==null || region.ebData==null?"unavailable":Fingerprint(region.ebData));
                     }
                     NativeFieldActorInteractions.Annotate(context,engine,player,actor,field,observation);
+                    NativeSummitStation.AnnotateActor(context, player, actor, observation, collision, interaction);
+                    if (mesh && observation.VisibleLabel == "Moogle" &&
+                        context.LogicalMapKey == "field:904:FBG_N20_TRNO_MAP402_TR_EKH_0" &&
+                        actor.uid == 16 && actor.sid == 16 && actor.model == 220 && actor.ebData != null &&
+                        Fingerprint(actor.ebData) == "11a0b70c97445e45abf20e30167a54205a2e657ef4a252301e0a85f3ea807875")
+                    {
+                        observation.VisibleLabel = "Save moogle";
+                        if (observation.HasInteraction)
+                            observation.ActorInteractionRange = new FieldActorInteractionRange(collision, interaction);
+                    }
                     result.Add(observation);
                     continue;
                 }
@@ -156,7 +166,8 @@ namespace Memoria.Accessibility.Navigation
                     var indirect=ReadIndirectExit(context,engine,field,player,quad,ref currentGeometry,ref geometryRead);
                     if(indirect==null)indirect=ReadIndirectExit(context,engine,field,player,quad,ref currentGeometry,ref geometryRead,EventEngine.tagTalk);
                     if(indirect!=null){result.Add(indirect);continue;}
-                    var background=ReadBackgroundObject(context,engine,field,player,quad,ref currentGeometry,ref geometryRead);
+                    var background=ReadBurmeciaVaultChest(context,engine,field,player,quad,ref currentGeometry,ref geometryRead) ??
+                        ReadBackgroundObject(context,engine,field,player,quad,ref currentGeometry,ref geometryRead);
                     if(background!=null){result.Add(background);continue;}
                     if(quadIcon)result.Add(PresentedPrompt(ObservedQuad(context,engine,quad,center)));
                     continue;

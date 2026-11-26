@@ -40,6 +40,9 @@ namespace Memoria.Accessibility.Navigation
             }
             if (!route.Success && (cancelled == null || !cancelled()))
             {
+                var cableCar = SummitCableCarAisle.Plan(context, target, geometry);
+                if (cableCar != null) return cableCar;
+
                 FieldGeometrySnapshot chestGeometry;
                 float chestArrival;
                 if (FieldChestPassages.TryReview(context, target, geometry, out chestGeometry, out chestArrival))
@@ -77,6 +80,20 @@ namespace Memoria.Accessibility.Navigation
                     : Math.Max(BurmeciaStatuePassage.IntermediateArrivalRadius(context.LogicalMapKey, geometry, route),
                         Math.Max(CleyraTrunkRoutes.IntermediateRadius(target, geometry, route),
                             PinnacleRocksWalkways.IntermediateArrivalRadius(context.LogicalMapKey, geometry, route)));
+                // Wall forces offset the intermediate bends in these Treno passages.
+                // The final threshold and the live controller's body radius stay exact.
+                if (geometry.Radius == 120 && target.PhysicalIdentity.Kind == TargetKind.FieldExit)
+                {
+                    int uid = target.PhysicalIdentity.NativeId;
+                    if (context.LogicalMapKey == "field:908:FBG_N20_TRNO_MAP400_TR_GAT_0" && uid == 13 &&
+                        geometry.Find(102) is FieldTriangle slumsWall && geometry.UsesReviewedBoundaryClearance(slumsWall) &&
+                        route.Corridor.Contains(125))
+                        route.FieldIntermediateArrivalRadius = 12;
+                    if (context.LogicalMapKey == "field:906:FBG_N20_TRNO_MAP404_TR_FKH_0" && (uid == 5 || uid == 6) &&
+                        geometry.Find(21) is FieldTriangle auctionWall && geometry.UsesReviewedBoundaryClearance(auctionWall) &&
+                        route.Corridor.Contains(21))
+                        route.FieldIntermediateArrivalRadius = 20;
+                }
                 return route;
             }
             if (route.Failure != RouteFailure.UnsafeSegment || !target.IsInteractive || target.PhysicalIdentity.Kind != TargetKind.FieldActor ||

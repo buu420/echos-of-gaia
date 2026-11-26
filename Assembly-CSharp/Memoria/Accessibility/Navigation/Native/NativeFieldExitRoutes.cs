@@ -105,11 +105,27 @@ namespace Memoria.Accessibility.Navigation
                     int arrival=route.Continuation?.Arrival(group.Key)??group.Key;
                     int? entrance;string name=arrival==group.Key && screens.TryGetValue(group.Key,out entrance) && entrance.HasValue
                         ?NativeFieldAreaNames.Screen(group.Key,entrance.Value):null;
-                    route.Names[group.Key]=name??FieldExitNames.Destination(arrival,NativeFieldAreaNames.Destination);
+                    route.Names[group.Key] = TrenoShopDestination(field, quad, hash, arrival) ??
+                        name ?? FieldExitNames.Destination(arrival, NativeFieldAreaNames.Destination);
                 }
             }catch(Exception exception){route.Approaches.Clear();route.Names.Clear();route.Prompted.Clear();route.Menu=new NavigationPoint[0];route.MenuApproaches.Clear();route.Buttons.Clear();route.MenuButtons=0;if(_cueLogs.Add("exit-route:"+exception.GetType().Name))Memoria.Prime.Log.Message("[FF9Access] Exit destination proof unavailable: {0}",exception.Message);}
         }
         // Per-approach proofs of one region, cached on the full roster dependency memory.
+        private static string TrenoShopDestination(int field, Quad quad, string hash, int destination)
+        {
+            if (quad.uid != quad.sid) return null;
+            if (field == 904 && quad.sid == 11 && destination == 910 &&
+                hash == "6fb1d3bdfeddd768d9b6670dca22ba677f5f23d7fa6923f5ce19498b48deea46")
+                return "Treno, Weapon Shop";
+            if (field == 915 && quad.sid == 11 && destination == 901 &&
+                hash == "24605e38074a74cb9b5e76a7dadbc474a2fdcfc206728fd370cda8eba0a64f27")
+                return "Treno, Synthesis Shop entrance hall";
+            if (field == 901 && quad.sid == 8 && destination == 902 &&
+                hash == "0b8295b36bb22f842c43401b3194b0cb566d4e80906144931027abc0dac3ce25")
+                return "Treno, Synthesis Shop";
+            return null;
+        }
+
         private static Func<NavigationPoint,FieldExitPathEvidence> ExitProof(NavigationContext context,EventEngine engine,Quad quad,string hash,FieldGeometrySnapshot geometry,int trigger=EventEngine.tagPush)
         {
             return _exitRouteProofs.Begin(quad.uid+":exit:"+trigger,context.Generation+":"+context.LogicalMapKey+":"+context.SaveIdentity+":"+context.PlayerIdentity+":"+hash+":"+geometry?.Fingerprint,quad,

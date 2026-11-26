@@ -87,6 +87,8 @@ SOURCE_FILES = [
     'Core/FrameReference.cs', 'Core/FieldExitNames.cs',
     'Core/RouteGuidanceProgress.cs', 'Core/RouteInstruction.cs',
     'Core/RoutePlan.cs', 'Core/FieldRoutePlanner.cs', 'Core/WorldRoutePlanner.cs',
+    'Core/FieldNativeGeometryContract.cs', 'Core/FieldExitDestinations.cs',
+    'Core/SummitCableCarAisle.cs', 'Native/NativeSummitStation.cs', 'Native/NativeBurmeciaVault.cs',
     'Core/WorldBoatLanding.cs', 'Core/WorldEntranceScripts.cs', 'Core/WorldGeometry.cs', 'Core/WorldTargetCatalog.cs',
     'Native/NativeWorldEntrances.cs', 'Native/NativeWorldLandings.cs', 'Native/NativeWorldLandmarks.cs',
     'Native/NativeNavigationContext.cs',
