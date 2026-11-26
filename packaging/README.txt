@@ -1,4 +1,4 @@
-Echos of Gaia 0.1.30 beta
+Echos of Gaia 0.1.31 beta
 Final Fantasy IX accessibility mod by buu420
 
 Supported: 64-bit Windows 10/11, Windows Steam FFIX app 377840 build 5378074.
@@ -22,6 +22,13 @@ The title screen reads the current language and the choices in the language
 picker. To go from Japanese to English, open Language, Japanese, select
 English (United States), then choose Back. With Japanese game text selected,
 Story offers the named Light the candle target in the opening room.
+
+In Burmecia's Uptown Area 3, Story and the route to a chest or the Square
+take you back to the courtyard if you're on the right balcony. Use Story
+outside to reach the left balcony door. If the statue is still upright,
+follow Story to the ground-floor hall first. On the left balcony, select
+a chest under Objects and press Confirm at its prompt, or use Story to
+continue through Burmecia Square to the palace entrance.
 
 In Pinnacle Rocks, use Story to find Ramuh's fragments and return to him.
 Select a chest under Objects. For a ledge or crate jump, follow the cue and
@@ -150,7 +157,7 @@ includes the return to the Evil Forest trail.
 
 Source, current releases, prerequisite links and reports:
 https://github.com/buu420/echos-of-gaia
-https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.30
+https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.31
 
 Based on BlindGuyNW/Memoria and Albeoris/Memoria. The code retains the MIT
 license; dependency and supplied sound notices remain separate. Final Fantasy
