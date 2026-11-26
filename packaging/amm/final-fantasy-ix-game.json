@@ -2,7 +2,7 @@
   "gameId": "final-fantasy-ix",
   "displayName": "Final Fantasy IX",
   "modName": "Echos of Gaia (Beta)",
-  "description": "Echos of Gaia adds screen reader support, field and world navigation, automatic walking, battle and menu speech, and optional audio descriptions to Windows Steam Final Fantasy IX. Beta 0.1.31 fixes the Burmecia Uptown route to the Square, the left balcony chests, and the Story route to the palace entrance. Includes the accessible launcher, double-click standalone installer and 608 narration recordings. Broader gameplay testing continues.",
+  "description": "Echos of Gaia adds screen reader support, field and world navigation, automatic walking, battle and menu speech, and optional audio descriptions to Windows Steam Final Fantasy IX. Beta 0.1.32 adds the statue chest in Burmecia's Vault, the route to Marcus on the Berkmea cable car, and Story routes through first-visit Treno to the Auction House and the Pub. Includes the accessible launcher, double-click standalone installer and 608 narration recordings. Broader gameplay testing continues.",
   "steamAppId": "377840",
   "exeName": "FF9_Launcher.exe",
   "probeRules": [

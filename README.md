@@ -5,7 +5,7 @@ version of **Final Fantasy IX**, maintained by **buu420**. It continues
 [BlindGuyNW's accessible Memoria fork](https://github.com/BlindGuyNW/Memoria)
 and the [Memoria engine](https://github.com/Albeoris/Memoria).
 
-**[Download 0.1.31 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.31)**
+**[Download 0.1.32 beta](https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.32)**
 or install **Final Fantasy IX — Echos of Gaia (Beta)** from the **Buu420**
 source in Amethyst's Accessibility Mod Manager. The source catalog is
 [buu-s-mods](https://github.com/buu420/buu-s-mods).
@@ -13,6 +13,11 @@ source in Amethyst's Accessibility Mod Manager. The source catalog is
 This beta includes the current navigation, screen reader and
 narration work. Field narration and navigation still need broader gameplay
 testing, including a full playthrough.
+
+0.1.32 adds the statue chest to Objects in Burmecia's Vault and makes Marcus
+a Story target on the Berkmea cable car. On the first Treno visit, Story
+leads to the Auction House reunion and then to the Pub. The Weapon Shop
+and Synthesis Shop doors and the save moogle are easier to identify.
 
 0.1.31 fixes navigation from Burmecia's Uptown to the Square and the palace
 entrance. From the right balcony, the route goes back to the courtyard and
