@@ -1,4 +1,4 @@
-Echos of Gaia 0.1.32 beta
+Echos of Gaia 0.1.33 beta
 Final Fantasy IX accessibility mod by buu420
 
 Supported: 64-bit Windows 10/11, Windows Steam FFIX app 377840 build 5378074.
@@ -22,6 +22,17 @@ The title screen reads the current language and the choices in the language
 picker. To go from Japanese to English, open Language, Japanese, select
 English (United States), then choose Back. With Japanese game text selected,
 Story offers the named Light the candle target in the opening room.
+
+At Treno's dock, follow Story to the ladder. Press Confirm, then hold Down.
+When Dagger lands, follow Story onto the dock and to the burly man. The game
+introduces him as Baku in conversation.
+
+In Doctor Tot's tower, select Story or Hatch to Gargan Roo under Objects.
+Press Confirm at the ladder, then hold Up. From the balcony, select the
+hatch again and press Confirm when the game offers the prompt.
+
+In Gargan Roo, follow Story to Doctor Tot, then use the call lever and the
+panel marked Feed. Press Confirm at each prompt to continue to the ride.
 
 In Burmecia's Vault, select Chest held by the statue under Objects and
 press Confirm when the game offers the prompt. On the Berkmea cable car,
@@ -164,7 +175,7 @@ includes the return to the Evil Forest trail.
 
 Source, current releases, prerequisite links and reports:
 https://github.com/buu420/echos-of-gaia
-https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.32
+https://github.com/buu420/echos-of-gaia/releases/tag/v0.1.33
 
 Based on BlindGuyNW/Memoria and Albeoris/Memoria. The code retains the MIT
 license; dependency and supplied sound notices remain separate. Final Fantasy
