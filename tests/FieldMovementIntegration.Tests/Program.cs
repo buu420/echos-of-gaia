@@ -15,13 +15,15 @@ internal static class Program
         UnityEngine.Object.Engine=new EventEngine{Player=actor};
         context=new NavigationContext{Generation=1,PlayerIdentity=7,CanControl=true,Foreground=true,LogicalMapKey="field:100",Transport=new TransportIdentity(TransportKind.Foot,7,0)};
         NativeNavigationContext.Context=context;
+        NativeInteractionProbe.Readiness = null;
+        Time.realtimeSinceStartup = 0;
         target=new NavigationTarget{Id=new TargetIdentity(TargetKind.FieldExit,"field:100",15),Generation=1};
         NativeFieldGeometry.Interruptions=0;NativeFieldGeometry.State=null;NativeFieldGeometry.FailCapture=false;
         Memoria.Prime.Log.FailWrite=false;
     }
     private static void Start(float turnRadius=0)
     {
-        var route=new RoutePlan{Success=true,Generation=1,TargetId=target.Id,Transport=context.Transport,GeometryFingerprint="mesh",FieldIntermediateArrivalRadius=turnRadius,Waypoints=new[]{new NavigationPoint(25,0,1500),new NavigationPoint(50,0,6500)}};
+        var route=new RoutePlan{Success=true,Generation=1,TargetId=target.Id,Transport=context.Transport,GeometryFingerprint="mesh",FieldIntermediateArrivalRadius=turnRadius,ApproachPoint=new NavigationPoint(50,0,6500),Waypoints=new[]{new NavigationPoint(25,0,1500),new NavigationPoint(50,0,6500)}};
         Require(NativeFieldMovement.TryStart(context,target,route,++nextOwner)==MovementStartResult.Started,"owned movement did not start");
         controller.hasTarget=true;controller.moveTarget=controller.movePaths[controller.movePaths.Count-1];controller.movePaths.RemoveAt(controller.movePaths.Count-1);
         controller.curPos=new Vector3(20,0,1490);controller.lastPos=controller.curPos;controller.stillCount=31;
@@ -95,9 +97,41 @@ internal static class Program
         NativeFieldMovement.Release(nextOwner,StopReason.Explicit);
     }
 
+    private static void SettleAtReviewedPrompt()
+    {
+        Start();
+        controller.ClearMoveTarget();
+        controller.movePaths.Clear();
+        controller.curPos = new Vector3(50, 0, 6500);
+        NativeInteractionProbe.Readiness = new InteractionReadiness { AwaitingPrompt = true };
+        Require(NativeFieldMovement.ReadOutcome(context, target).Outcome == FieldOutcome.Moving, "approach finished before the queued prompt");
+        Require(controller.AccessibilityPathOwner == nextOwner && controller.movePaths.Count == 0 && !controller.hasTarget,
+            "waiting for the prompt should keep ownership without moving");
+    }
+
+    private static void QueuedReviewedPromptCanBecomeReady()
+    {
+        SettleAtReviewedPrompt();
+        Time.realtimeSinceStartup = 0.15f;
+        NativeInteractionProbe.Readiness = new InteractionReadiness
+        {
+            SelectedCollision = true, InRange = true, Talkable = true, FacingWithinArc = true
+        };
+        Require(NativeFieldMovement.ReadOutcome(context, target).Outcome == FieldOutcome.ReadyToInteract, "visible prompt did not complete the approach");
+        Require(controller.AccessibilityPathOwner == 0, "the ready prompt should release ownership");
+    }
+
+    private static void QueuedReviewedPromptHasABoundedWait()
+    {
+        SettleAtReviewedPrompt();
+        Time.realtimeSinceStartup = 0.6f;
+        Require(NativeFieldMovement.ReadOutcome(context, target).Outcome == FieldOutcome.ApproachReached, "a queued prompt held ownership past the deadline");
+        Require(controller.AccessibilityPathOwner == 0, "the deadline should release ownership");
+    }
+
     private static int Main()
     {
-        var tests=new Action[]{ClearCapturesOwnedPathBeforeItIsDestroyed,UnownedNativePathDoesNotCaptureOrChange,CaptureFailureCannotPreventCancellation,RepeatedClearDoesNotCaptureEveryFrame,NativeCausesRemainDistinctAndStillFramesReportStalled,ProbeAndLogFailuresCannotPreventTheNativeStop,PreviousCollisionIsNeverAssumedToBeCurrent,ReviewedTurnRadiusFollowsOnlyTheOwningPath};
+        var tests=new Action[]{ClearCapturesOwnedPathBeforeItIsDestroyed,UnownedNativePathDoesNotCaptureOrChange,CaptureFailureCannotPreventCancellation,RepeatedClearDoesNotCaptureEveryFrame,NativeCausesRemainDistinctAndStillFramesReportStalled,ProbeAndLogFailuresCannotPreventTheNativeStop,PreviousCollisionIsNeverAssumedToBeCurrent,ReviewedTurnRadiusFollowsOnlyTheOwningPath,QueuedReviewedPromptCanBecomeReady,QueuedReviewedPromptHasABoundedWait};
         int failures=0;
         foreach(var test in tests)try{Reset();test();Console.WriteLine("PASS "+test.Method.Name);}catch(Exception e){failures++;Console.WriteLine("FAIL "+test.Method.Name+": "+e.Message);}
         Console.WriteLine("FieldMovementIntegration: "+(tests.Length-failures)+" passed, "+failures+" failed");return failures==0?0:1;

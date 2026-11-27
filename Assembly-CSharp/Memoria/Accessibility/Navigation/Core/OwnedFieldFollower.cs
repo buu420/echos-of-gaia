@@ -3,7 +3,13 @@ namespace Memoria.Accessibility.Navigation
 {
     public enum MovementStartResult { Started,InvalidContext,StaleRoute,Busy,Unavailable }
     public enum FieldOutcome { Moving,ReadyToInteract,ArrivedExit,TurnNeeded,ApproachReached,Interrupted,Unavailable }
-    public sealed class InteractionReadiness {public bool InRange,SelectedCollision,Talkable,FacingWithinArc;public int FacingError;public string Evidence;}
+    public sealed class InteractionReadiness
+    {
+        public bool InRange,SelectedCollision,Talkable,FacingWithinArc;
+        public int FacingError;
+        public string Evidence;
+        internal bool AwaitingPrompt;
+    }
     public sealed class FieldMovementOutcome {public FieldOutcome Outcome;public StopReason Reason;public string Evidence;}
     public interface IFieldFollower
     {

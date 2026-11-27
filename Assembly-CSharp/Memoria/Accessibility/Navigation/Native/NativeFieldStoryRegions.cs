@@ -35,7 +35,9 @@ namespace Memoria.Accessibility.Navigation
             if(player==null || !NativeStoryTargets.Matches(context,quad.sid,Fingerprint(quad.ebData)))return null;
             bool confirmStep=NativeStoryTargets.HasCurrentStep(context,engine,quad.sid,Fingerprint(quad.ebData),StoryStepKind.RegionConfirm,quad.uid);
             bool walkStep=NativeStoryTargets.HasCurrentStep(context,engine,quad.sid,Fingerprint(quad.ebData),StoryStepKind.RegionWalk,quad.uid);
-            bool talkGate=NativeFieldTalkability.IsTalkable(quad) && EventCollision.NavigationCanApproachTalkQuad(player,quad);
+            var reviewedPrompt = confirmStep ? FindReviewedStoryPrompt(context, engine, field, player, quad) : null;
+            bool talkGate = NativeFieldTalkability.IsTalkable(quad) &&
+                (EventCollision.NavigationCanApproachTalkQuad(player, quad) || reviewedPrompt != null && IsQueuedStockQuadPush(engine, quad));
             var paths=FieldStoryRegionApproaches.Triggers(confirmStep,talkGate,EventCollision.NavigationCanTriggerQuad(player,quad));
             foreach(var path in paths) {
                 int tag=FieldStoryRegionApproaches.Tag(path);
@@ -51,17 +53,24 @@ namespace Memoria.Accessibility.Navigation
                 int? facing=confirmStep && path==StoryRegionTrigger.Confirm?NativeStoryTargets.ReviewedApproachFacing(context,engine,quad.sid,Fingerprint(quad.ebData),quad.uid):null;
                 if(!geometryRead){geometry=NativeFieldGeometry.Read(context);geometryRead=true;}
                 if(geometry==null)return null;
-                var surface=Surface(geometry,quad);
+                var mesh = geometry;
+                var surface=Surface(mesh,quad);
                 bool cabinDescent = path == StoryRegionTrigger.Confirm && context.LogicalMapKey == FieldActorApproaches.WreckedCrewCabin &&
                     quad.uid == 10 && quad.sid == 10;
-                bool needsInterior = path == StoryRegionTrigger.Walk || cabinDescent;
+                bool requirePrompt = path == StoryRegionTrigger.Confirm && reviewedPrompt != null;
+                bool needsInterior = path == StoryRegionTrigger.Walk || cabinDescent || requirePrompt;
                 // The owned follower can stop before the exact point. A walk-in
                 // is only reached when the stopping circle is inside its region.
                 float arrivalMargin = FieldAnalogMovement.ArrivalRadius(geometry.Radius, 1) + 0.5f;
                 var safe=FieldStoryRegionApproaches.Read(true,true,surface.Approaches,
-                    p=>FieldStoryRegionApproaches.Selects(path,engine.NavigationTalkQuadAt(p.X,p.Z),engine.NavigationTouchQuadAt(p.X,p.Z),quad),
-                    p=>(!needsInterior || FieldRegionApproaches.CanStopInside(surface.Region,p,arrivalMargin)) && StorySurfacePresented(field,p),
-                    context.Position);
+                    p => {
+                        var talk = engine.NavigationTalkQuadAt(p.X, p.Z);
+                        var push = engine.NavigationTouchQuadAt(p.X, p.Z);
+                        return FieldStoryRegionApproaches.Selects(path, talk, push, quad) && (!requirePrompt || push == quad);
+                    },
+                    p => (!needsInterior || FieldRegionApproaches.CanStopInside(surface.Region,p,arrivalMargin)) &&
+                        (!requirePrompt || Array.IndexOf(reviewedPrompt.Support, mesh.At(p)?.Id ?? -1) >= 0) && StorySurfacePresented(field,p),
+                    requirePrompt ? surface.Region[0] : context.Position);
                 // Only points whose own detached trigger path proves the offered current step remain.
                 var prove=_storyProofs.Begin(quad.uid+":"+path,context.Generation+":"+context.LogicalMapKey+":"+context.SaveIdentity+":"+context.PlayerIdentity+":"+context.StoryProgress+":"+Fingerprint(quad.ebData),surface,
                     StoryProofMemory(context,engine),Time.frameCount,point=> {

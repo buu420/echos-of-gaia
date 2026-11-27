@@ -8,6 +8,7 @@ namespace Memoria.Accessibility.Navigation
         private static long _generation;
         private static FieldMovementOutcome _interruption;
         private static RoutePlan _route;
+        private static float _promptDeadline;
         public static event System.Action ExitReached;
         public static NavigationPoint? CurrentWaypoint()
         {
@@ -29,7 +30,15 @@ namespace Memoria.Accessibility.Navigation
             float turnRadius = route == null ? 0 : route.FieldIntermediateArrivalRadius;
             var owned = new OwnedFieldFollower(new NativeFollower(player.fieldMapActorController, context.Generation, turnRadius));
             var result = owned.Start(context, target, route, ownershipId);
-            if (result == MovementStartResult.Started) { _owned = owned; _target = target; _route=route;_generation = context.Generation; _interruption = null; }
+            if (result == MovementStartResult.Started)
+            {
+                _owned = owned;
+                _target = target;
+                _route = route;
+                _generation = context.Generation;
+                _interruption = null;
+                _promptDeadline = 0;
+            }
             return result;
         }
         public static void Release(long ownershipId, StopReason reason) { if (_owned != null) _owned.Release(ownershipId, reason); }
@@ -38,7 +47,16 @@ namespace Memoria.Accessibility.Navigation
         {
             if (_interruption != null) { var result = _interruption; _interruption = null; return result; }
             if (_owned == null) return new FieldMovementOutcome { Outcome = FieldOutcome.Unavailable };
-            var outcome = _owned.Read(context, target, NativeInteractionProbe.Read(context, target));
+            var readiness = NativeInteractionProbe.Read(context, target);
+            var outcome = _owned.Read(context, target, readiness);
+            if (outcome.Outcome == FieldOutcome.ApproachReached && readiness?.AwaitingPrompt == true && _owned.Owner != 0)
+            {
+                // The native listener can queue its bubble on the frame the
+                // follower settles. Give the visible prompt time to appear.
+                float now = Time.realtimeSinceStartup;
+                if (_promptDeadline == 0) _promptDeadline = now + 0.5f;
+                if (now < _promptDeadline) return new FieldMovementOutcome { Outcome = FieldOutcome.Moving };
+            }
             if (outcome.Outcome != FieldOutcome.Moving) ReleaseCurrent(outcome.Reason == StopReason.None ? StopReason.Arrived : outcome.Reason);
             return outcome;
         }

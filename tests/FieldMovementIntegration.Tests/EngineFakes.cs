@@ -9,6 +9,10 @@ namespace UnityEngine
         public static EventEngine Engine;
         public static T FindObjectOfType<T>() where T:class { return Engine as T; }
     }
+    public static class Time
+    {
+        public static float realtimeSinceStartup;
+    }
     public struct Vector3
     {
         public float x,y,z;
@@ -67,7 +71,8 @@ namespace Memoria.Accessibility.Navigation
     }
     public static class NativeInteractionProbe
     {
-        public static InteractionReadiness Read(NavigationContext context,NavigationTarget target){return null;}
+        public static InteractionReadiness Readiness;
+        public static InteractionReadiness Read(NavigationContext context, NavigationTarget target) { return Readiness; }
     }
     public static class NativeFieldGeometry
     {

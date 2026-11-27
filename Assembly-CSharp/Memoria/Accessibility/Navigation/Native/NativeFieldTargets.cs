@@ -151,6 +151,8 @@ namespace Memoria.Accessibility.Navigation
                 var touch = Decode(engine,quad,EventEngine.tagPush); var talk = Decode(engine,quad,EventEngine.tagTalk);
                 Vector3 center = Vector3.zero; for(int i=0;i<quad.n && i<quad.q.Length;i++) center+=quad.q[i].Vector3Val; center/=quad.n;
                 bool quadIcon = presentedUid == quad.uid;
+                var trenoLadder = ReadTrenoLadder(context, engine, field, player, quad, ref currentGeometry, ref geometryRead);
+                if (trenoLadder != null) { result.Add(trenoLadder); continue; }
                 bool directExit=ContainsJump(touch);
                 if(FindBackgroundTouchCue(context,quad)!=null) {
                     var touchCue=ReadBackgroundObject(context,engine,field,player,quad,ref currentGeometry,ref geometryRead);

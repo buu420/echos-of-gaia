@@ -617,7 +617,7 @@
     },
     {
       "path": "docs/accessibility/story-action-chains.json",
-      "sha256": "076659702ca645649a5c0c8323c6e180fc73897d26de2c50d7b9e4ee232eb68f"
+      "sha256": "7af99e3f5b32bc81fee5c69e4244505b9c324023134e67fc6a0a36f460c94f25"
     },
     {
       "path": "docs/accessibility/story-palace-actions.json",
@@ -997,7 +997,7 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldStoryRegions.cs",
-      "sha256": "2080251b675221d381cca675c3b4157f42755e0750682020fa0f4d6098ba7978"
+      "sha256": "bb195687ed30bada3a1f848fcf6a36df63ac7e51e3c22cd3d8875dac8080fd25"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldExitDestinations.cs",
@@ -1041,7 +1041,15 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldTargets.cs",
-      "sha256": "2369cad01e6a7a1ba22e60492985ff28ec4d6555c73ecc63c1d5474157ce5587"
+      "sha256": "d4361851c7afa8156ee76a5d148e28a1ed7295d37bba1d8a490ac66662d07e18"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeTrenoLadders.cs",
+      "sha256": "5d3ee9eb8b524cb4c93fdc84abb4ce03170880d91e6a83e23826d359168a2624"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeReviewedStoryPrompts.cs",
+      "sha256": "eb141762add36c96257f0ea5d27e810aca51dfca8a59756c88ba84530b2e6116"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeStoryTargets.cs",
@@ -1093,11 +1101,19 @@
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeInteractionProbe.cs",
-      "sha256": "c4c9b3b57eb56d68458327f577640d2eae60ff2306dd3647e8295d26c79af98e"
+      "sha256": "69b27c77553d7026e887e06b97c3e61a28e0e2fc1bfe4ddc360ce8091e0c1247"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationRuntime.cs",
-      "sha256": "ae2b150921c17b4c008cca3f12bc0d7811e31d6692f1fffb14e5b23c5ce753ae"
+      "sha256": "1cfab0a790141edbcbea8d587ee9c40236b9b1c53c8240a2c5cd1860444f7bdd"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NativeFieldMovement.cs",
+      "sha256": "95eb55e48d4d90fee459a8524dc52cd840bb020b90e36bf95117f0eaa15ec74d"
+    },
+    {
+      "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Core/OwnedFieldFollower.cs",
+      "sha256": "600c1bea568b952d41633bf630ee98534e222130ef848978fc1b4c0cdc4a9444"
     },
     {
       "path": "Assembly-CSharp/Memoria/Accessibility/Navigation/Native/NavigationLifecycleBridge.cs",

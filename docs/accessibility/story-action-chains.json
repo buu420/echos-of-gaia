@@ -6584,7 +6584,7 @@
       "floor": 4442,
       "ceiling": 4445,
       "milestone": 4445,
-      "action": "Walk up to Marcus at the dock",
+      "action": "Walk onto the dock",
       "label": "Dock meeting approach",
       "guards": [],
       "completion": [],
@@ -54859,7 +54859,7 @@
       "uids": [
         6
       ],
-      "action": "Walk up to Marcus at the dock",
+      "action": "Walk onto the dock",
       "goal": "Treno",
       "rooms": [
         {
